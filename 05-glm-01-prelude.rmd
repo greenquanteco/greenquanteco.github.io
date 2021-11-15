@@ -73,7 +73,7 @@ where *n* is the number of observations; *Y*~1~, *Y*~2~, …, *Y~n~* is a vector
 
 Linear regression models are fit by finding a slope and coefficient (or coefficients) that minimize the sums of squared errors, or sum of squared deviations from the expected value, or simply, residuals. Sum of squared residuals is calculated as:
 
-$$ SS_{res}=\sum_{i=1}^n (Y_{i}-\beta_{0}+\beta_{1}X_{i})^{2}$$
+$$ {SS}_{res}=\sum_{i=1}^n (Y_{i}-\beta_{0}+\beta_{1}X_{i})^{2}$$
 
 This expression shows why some authors prefer the observation-wise notation for linear regression. For ordinary linear regression, the optimal values of $\beta_{0}$ and $\beta_{1}$ can be calculated as:
 
