@@ -72,9 +72,7 @@ $$ \begin{bmatrix} Y_{1} \\ Y_{2} \\ \vdots \\ Y_{n} \end{bmatrix} = \begin{bmat
 where *n* is the number of observations; *Y*~1~, *Y*~2~, …, *Y~n~* is a vector of observed values of the dependent variable (aka: response variable); *p* is the number of linear predictors; *X~i,j~* is the *i*-th value of predictor *j*; $\beta_{0}$, $\beta_{1}$, …, $\beta_{p}$ is the vector of regression coefficients; and $\varepsilon_{1}$, $\varepsilon_{2}$, .., $\varepsilon_{n}$ is a vector of *i*.*i*.*d*. normal residuals. This matrix notation illustrates how linear regression can be easily extended to models with multiple predictor variables: multiple linear regression (see below).
 
 Linear regression models are fit by finding a slope and coefficient (or coefficients) that minimize the sums of squared errors, or sum of squared deviations from the expected value, or simply, residuals. Sum of squared residuals is calculated as:
-<!--
-$$ {SS}_{res}=\sum_{i=1}^n (Y_{i}-\beta_{0}+\beta_{1}X_{i})^{2}$$
--->
+
 This expression shows why some authors prefer the observation-wise notation for linear regression. For ordinary linear regression, the optimal values of $\beta_{0}$ and $\beta_{1}$ can be calculated as:
 
 $$ \hat{\beta}_{1}=\frac{\sum_{i=1}^{n}(X_{i}-\bar{X})(Y_{i}-\bar{Y})}{\sum_{i=1}^{n}(X_{i}-\bar{X})^{2}} $$
