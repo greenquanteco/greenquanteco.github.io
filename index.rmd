@@ -1,0 +1,107 @@
+---
+title: "Home page for Applied Biological Data Analysis"
+subtitle: "BIOL 4490/6490"
+author: "Nick Green"
+output:
+  html_document: 
+    toc: yes
+    toc_float: true
+    number_sections: yes
+    fig_height: 6
+    keep_md: yes
+font_size: 16pt
+bibliography: stat_refs.bib
+csl: ecology.csl
+---
+# Basic information
+
+This website accompanies I course I developed in Fall 2021: **Applied Biological Data Analysis**. The course is currently a "special topics" (i.e., seminar), but will hopefully someday evolve into a regular course. The target audience is biology graduate students and advanced undergraduates who need to analyze data for their research projects. If you find the material here helpful, please let me know! Likewise, if you have comments for improvement, I'd love to hear from you.
+
+## License and permissions
+
+This work and its content is released under the [Creative Commons Attribution-ShareAlike 4.0](https://creativecommons.org/licenses/by-sa/4.0/) license. This means that you are allowed to share the material and adapt it for your purposes, under the following conditions: 
+
+1. Give appropriate credit to the author ([N. Green](https://facultyweb.kennesaw.edu/ngreen62/index.php)). This includes citing the original sources of any third-party datasets used in some of the tutorials. I've done my best to provide appropriate citations alongside these datasets.
+2. If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.
+
+## Course description
+
+This course is a survey of data analysis skills and statistical methods that are essential for modern biology. The course takes a holistic approach to the data analysis workflow in biology using the open-source environment R, including data management, exploratory data analysis, data modeling, and reproducible science practices. Statistical topics covered include generalized linear models, mixed effects models, non-linear models, and ordination. Students are required to apply techniques learned in class to real or simulated biological datasets as a course project.
+
+## Course objectives
+
+1. Explain the role of statistics in the biological sciences and the ways in which analytical results are communicated.
+2. Manipulate, summarize, display, and analyze data using the open-source environment and language R.
+3. Use probability distributions to model and think about biological phenomena. Students should come away from the course able to translate biological hypotheses and ideas into statistical statements and vice versa.
+4. Conduct exploratory data analyses in support of scientific investigations, particularly to detect and diagnose common problems with biological datasets.
+5. Employ modern statistical methods to answer biological questions. 
+6. Communicate data and analytical results to audiences who may or may not have statistical backgrounds.
+
+## Course requirements
+
+- Access to a computer or laptop capable of running [R](https://cran.r-project.org/bin/windows/base/) version $\ge$ 4.0. 
+- Having a recent version of [RStudio](https://www.rstudio.com/products/rstudio/) is helpful but not esssential.
+- A 64-bit system is highly recommended for speed and stability.
+- A separate program in which to write and edit code.
+  - Most people prefer to use an "integrated development environment" (IDE) or dedicated code editor for coding.
+  - IDEs and code editors are often subject to irrationally strong personal and organizational preferences, so just pick the one that works for you. Or, use the one your supervisor tells you to use.
+  - My usual workflow includes two windows: the base R GUI, and [Notepad++](https://notepad-plus-plus.org/downloads/).
+- It would helpful to have a dataset of your own to work with. Each course module uses numerous examples with simulated or published datasets. But, at the end of the day, you're probably here because you need to apply these methods to your own work.
+
+# Recommended reading
+
+The primary textbook for the course is @bolker2008ecological. This is a general statistics textbook for biologists. The applications and examples are focused on ecology, but the statistical exposition is relevant to any area of biology.
+
+Some other general statistics and R books you may find helpful include @dalgaard2002 and @zuur2009. A more advanced statistics book that also introduces machine learning is @james2013, which is also available for [free online](http://faculty.marshall.usc.edu/gareth-james/ISL/). Parts of the course also lean heavily on @zuur2007analysing, @mccune2002analysis, @legendre2012numerical, and @kery2010. 
+
+# Course modules
+
+This section is a work in progress as I figure out how to use Github pages. All documents below were rendered using RMarkdown.
+
+|Module|Page (html)|PDF version|
+|----|:---:|:---:|
+|Statistics in biology|(coming soon)|(coming soon)|
+|Introduction to R|(coming soon)|(coming soon)|
+|R workflow 1: Data import/export|(coming soon)|(coming soon)|
+|R workflow 2: Selecting data with `[]`|(coming soon)|(coming soon)|
+|R workflow 3: Managing characters and dates|(coming soon)|(coming soon)|
+|R workflow 4: Data frame management|(coming soon)|(coming soon)|
+|Data exploration 1: Descriptive and summary statistics|(coming soon)|(coming soon)|
+|Data exploration 2: Visualizing data distributions|(coming soon)|(coming soon)|
+|Statistical distributions|(coming soon)|(coming soon)|
+|Data exploration 3: Fitting and testing distributions|(coming soon)|(coming soon)|
+|Data exploration 4: Data transformations|(coming soon)|(coming soon)|
+|Data exploration 5: Multivariate data exploration (preview)|(coming soon)|(coming soon)|
+|Data exploration 6: Common statistical problems|(coming soon)|(coming soon)|
+|GLM 1: Prelude with linear models|[Click here!](https://greenquanteco.github.io/05-glm-01-prelude.html) |(coming soon)|
+|GLM 2: GLM basics|[Click here!](https://greenquanteco.github.io/05-glm-02-glm_basics.html) |(coming soon)|
+|GLM 3: Log-linear models|[Click here!](https://greenquanteco.github.io/05-glm-03-loglinear_models.html) |(coming soon)|
+|GLM 4: Poisson models for counts|[Click here!](https://greenquanteco.github.io/05-glm-04-poisson_glm.html) |(coming soon)|
+|GLM 5: Quasi-Poisson and negative binomial models for counts|[Click here!](https://greenquanteco.github.io/05-glm-05-quasi_nb_glm.html) |(coming soon)|
+|GLM 6: Logistic regression for binary outcomes|[Click here!](https://greenquanteco.github.io/05-glm-06-logistic_glm.html) |(coming soon)|
+|GLM 7: Binomial regression for proportional data|[Click here!](https://greenquanteco.github.io/05-glm-07-binomial_glm.html) |(coming soon)|
+|GLM 8: Gamma models for overdispersed data|[Click here!](https://greenquanteco.github.io/05-glm-08-gamma_glm.html) |(coming soon)|
+
+|GLM 9: Beyond GLM|[Click here!](https://greenquanteco.github.io/05-glm-09-beyond_glm.html) |(coming soon)|
+|Nonlinear models background|(coming soon)|(coming soon)|
+|Nonlinear models: Michaelis-Menten curves|(coming soon)|(coming soon)| 
+|Nonlinear models: Biological growth curves|(coming soon)|(coming soon)|
+|Nonlinear models: Dose response curves|(coming soon)|(coming soon)|
+|Alternatives to NLS|(coming soon)|(coming soon)|
+|Mixed models 1: Linear mixed models (LMM)|(coming soon)|(coming soon)|
+|Mixed models 2: Generalized linear mixed models (GLMM)|(coming soon)|(coming soon)|
+|Mixed models 3: Nonlinear mixed models (NLME)|(coming soon)|(coming soon)|
+|Mixed models 4: (Generalized) additive mixed models (GAM/GAMM)|(coming soon)|(coming soon)|
+|Multivariate 1: Distance measures|[Click here!](https://greenquanteco.github.io/08-multi-01-distance.html) |(coming soon)|
+|Multivariate 2: Clustering|[Click here!](https://greenquanteco.github.io/08-multi-02-cluster.html) |(coming soon)|
+|Multivariate 3: Analyzing dissimilarity|[Click here!](https://greenquanteco.github.io/08-multi-03-analyzing_sim.html) |(coming soon)|
+|Multivariate 4: Ordination intro and PCA|https://greenquanteco.github.io/08-multi-04-ordination1.html) |(coming soon)|
+|Multivariate 5: NMDS and other methods|https://greenquanteco.github.io/08-multi-05-ordination2.html) |(coming soon)|
+
+# About the author
+
+I'm a [quantitative ecologist at Kennesaw State University](https://facultyweb.kennesaw.edu/ngreen62/index.php) who studies human impacts on animal populations. Since earning by PhD at Baylor University in 2012, I've had the good fortune to have worked in a variety of government and industry roles. Those experiences have shaped my perspective on biology and education. In my courses and advising I do my best to impress upon students the the variety of biological experiences and perspectives that different domains bring to the table...and the value that they all bring. Most of my [current research](https://facultyweb.kennesaw.edu/ngreen62/research.php) focuses on understanding human impacts on animal communities and how animal populations adapt to rapidly changing environments.
+
+Why am I making this R guide? I have been using R since about 2008, when I was a graduate student trying to make a multi-panel plot for a manuscript. I had seen R mentioned in publications and thought that using R would be more effective than kludging something together with Excel and Powerpoint. Needless to say, jumping straight to making plots with the `lattice` package was not the easiest way to learn a new programming language. The final result was a little clunky [@kirchner2011] but I was really proud of it...and had fallen in love with R. Eventually I took some courses and did a lot of self-teaching, and am finally (14 years later) gotten better. I have used R in my work pretty much continuously since 2008 for everything from Bayesian data analysis [e.g., @green2020] to simulation modeling [e.g., @green2019]. This guide is meant to be a primer for self-starting with R. A lot of the explanations that are included are there to hopefully save someone some of the trouble I had getting started.
+
+# References

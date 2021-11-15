@@ -1,0 +1,161 @@
+---
+title: "Multivariate statistics part 1: Multivariate data and distance metrics"
+author: "Nick Green, Kennesaw State University"
+output:
+  html_document: 
+    toc: yes
+    toc_float: true
+    number_sections: yes
+    fig_height: 6
+    keep_md: yes
+font_size: 16pt
+bibliography: stat_refs.bib
+csl: ecology.csl
+---
+
+# Multivariate data
+## Univariate vs. multivariate data
+Things are not always one or two dimensional. Oftentimes in biology we need to consider many variables at once. This is the realm of **multivariate statistics**. The “multi” in “multivariate” refers to the fact that there are multiple variables or attributes of each sample that we want to understand simultaneously. The terminology can be confusing sometimes because other statistical methods have the word “multiple” in their names. For example, “multiple linear regression” is not considered a multivariate method because there is only one measurement from each sample (the response variable) that is being modeled. 
+
+The figure below shows some differences between a univariate analysis and a multivariate one. In the univariate analysis, one and only one variable is the response variable and is assumed to be predicted by (aka: depend on) the others. Frequently, the observations are divided *a priori* into groups by a factor encoded by one of the predictor variables. This means that the goal of a univariate analysis is to explain patterns in one variable relative to other variables. In a univariate analysis, the emphasis is on discovering relationships between variables, and the observations are a means to that end.
+
+In a multivariate analysis, none of the variables are singled out and all are of interest for explaining differences or similarities between the observations. The observations may come from *a priori* groups defined in a separate matrix (see below), or the researcher may want to discover how the observations naturally separate into clusters based on the variables (i.e., *a posteriori* groups). Or, the researcher may want to know which variables, if any, drive most of the variation between observations. The key is that in a multivariate analysis the emphasis is often on discovering patterns between observations, and the variables are a means to that end. 
+
+![Illustration of univariate (top) and multivariate (bottom) data.](C:/Users/ngreen62/OneDrive - Kennesaw State University/biol 6490/_stat/fig/08_01.jpg)
+
+## Components of multivariate data
+
+When planning and executing a multivariate analysis it is very important to keep in mind which components of the dataset are which. These components are usually stored in matrices with a well-defined structure. The key concept is that of the **sample unit** or **observation**. These are individual observations about which many measurements or attributes are recorded. Sample units correspond to rows of the data matrix. Each sample unit has several **attributes** or **variables** associated with it. Variables correspond to columns of the data matrix. The figure below shows the layout of a typical multivariate dataset. The example has 12 observations and 6 variables . In some fields, samples are also called records and variables are called features.
+
+![A typical data matrix for a multivariate analysis.](C:/Users/ngreen62/OneDrive - Kennesaw State University/biol 6490/_stat/fig/08_02.jpg){fig.align = 'center'}
+
+Complex datasets often contain data of different types, or sets of variables that capture information about different aspects of the system. For example, you might have variables that contain species abundances, optical densities, concentrations, femur lengths, treatment groups, and so on. When planning a multivariate analysis you need to consider whether and which variables should be grouped together. In an exploratory analysis, perhaps all of the variables are of interest and no subgroups are needed. In many situations, some of the variables will be the “response” variables. These contain the patterns that you are interested in explaining. Other variables might be considered “explanatory variables”. These are variables that may or may not help explain some of the patterns in the first set of variables. Other variables might contain information about the response variables. For all variables except the first set of “response” variables, the key is whether the values are associated with rows of the main data matrix shown above (i.e., with observations), or whether the values are associated with columns of the main data matrix (i.e., with other variables).
+
+The figure below shows the relationship between three interrelated matrices typical in community ecology. Similar matrices can be defined for other fields…just replace “Environmental variables” with another label that helps describe variation among the sample units.
+
+- The data matrix **A** contains data on the abundance of 6 species at each of 12 sites.
+- The explanatory matrix **E** contains 4 environmental variables (e.g., temperature, latitude, etc.) for each of the sites. These data describe relationships between observations in **A**.
+- The trait matrix **S** contains data about traits (e.g., maximum size, longevity, etc.) of the species in the main matrix. These data describe relationships between variables in **A**.
+
+![Relationships between data matrices in a multivariate community ecology analysis.](C:/Users/ngreen62/OneDrive - Kennesaw State University/biol 6490/_stat/fig/08_03.jpg)
+
+A biological system of interest might have relationships among all three of these matrices:
+
+- **Patterns within A**: Explaining groupings or trends among the sites in terms of the species present or absent at each site (or, the abundances of species at each site).
+- **Patterns within E**: Discovering groupings among the sites in terms of their environmental variables.
+- **Relationships between A and E**: Relating patterns in environmental variables to patterns in species abundances across sites.
+- **Relating patterns between A and E in terms of S**: Relating species traits to environmental conditions.
+- **Patterns within S**: Identifying clusters of similar species.
+
+@mccune2002analysis give a thorough treatment of the relationships between **S**, **E**, **A**, and other matrices derived from them. For this course, we will focus on analyzing **A** and sometimes **E**. There is a related set of terminology used to describe multivariate analyses in terms of what is being compared. Analyses that seek relationships among samples are said to be in **Q mode**; analyses that seek relationships among variables are in **R mode** [@legendre2012numerical]. These terms appear to be particular to ecology, but offer a helpful way to distinguish between different multivariate analysis pathways.
+
+# Biological similarity and dissimilarity
+One of the central questions in a multivariate analysis is, “How similar to each other are my samples?” This is a more complicated question than it appears. It’s worth considering for a moment what “similar” even means. Consider the set of organisms below. How would you group them by “similarity”?
+
+![](C:/Users/ngreen62/OneDrive - Kennesaw State University/biol 6490/_stat/fig/08_04.jpg)
+
+Here is one way:
+
+![](C:/Users/ngreen62/OneDrive - Kennesaw State University/biol 6490/_stat/fig/08_05.jpg)
+
+You might have come up with a slightly different set of groupings. This one is just as valid:
+
+![](C:/Users/ngreen62/OneDrive - Kennesaw State University/biol 6490/_stat/fig/08_06.jpg)
+
+These examples illustrate how we might classify the organisms based on qualitative characteristics. But do our choices weight each characteristic equally? After all, fungi and plants are far more different from each other than ants and fish, but the second scheme lumps all non-animals together. Which characteristics of the organisms are really driving our classification decisions?
+
+One way around this problem is to assign numeric scores to characters: 1 if an organism has the trait, and 0 if it doesn’t. The table below illustrates this for a few organisms and characteristics. Note that bacteria have `NA` for hetertrophy, becuase many bacteria are also autotrophs.
+
+|     Organism    |     Multicellular    |     Heterotrophic    |     Flowering    |     Vertebrate    |     Gills    |     Amnion    |     Endothermic    |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+|     Bacteria    |     0    |     NA    |     0    |     0    |     0    |     0    |     0    |
+|     Maple    |     1    |     0    |     1    |     0    |     0    |     0    |     0    |
+|     Pine    |     1    |     0    |     0    |     0    |     0    |     0    |     0    |
+|     Octopus    |     1    |     1    |     0    |     0    |     1    |     0    |     0    |
+|     Shark    |     1    |     1    |     0    |     1    |     1    |     0    |     0    |
+|     Mushroom    |     1    |     1    |     0    |     0    |     0    |     0    |     0    |
+|     Frog    |     1    |     1    |     0    |     1    |     0    |     0    |     0    |
+|     Elephant    |     1    |     1    |     0    |     1    |     0    |     1    |     1    |
+|     Penguin    |     1    |     1    |     0    |     1    |     0    |     1    |     1    |
+|     …    |          |          |          |          |          |          |          |
+
+The [full table](https://greenquanteco.github.io/tax_example_2021-10-27.csv) for our organisms has more columns and rows (we'll get to that later). To quantify distances between taxa, we might try adding up the differences between each pair. We should also square each individual difference, so 1-0 counts the same as 0-1. Then, we add up the squared differences and take the square root to get back to the original scale. For example, the distance between maple and pine in the table above would be:
+
+$$ D(maple,pine)=\sqrt{(1-1)^{2}+(0-0)^{2}+(1-0)^{2}+(0-0)^{2}+(0-0)^{2}+(0-0)^{2}+(0-0)^{2}}=1$$
+
+The difference between octopus and penguin would be:
+
+$$ D(octopus,penguin)=\sqrt{(1-1)^{2}+(1-1)^{2}+(0-0)^{2}+(0-1)^{2}+(1-0)^{2}+(0-1)^{2}+(0-1)^{2}}=1$$
+
+And the difference between mushrooms and elephants is:
+
+$$ D(mushroom,elephant)=\sqrt{(1-1)^{2}+(1-1)^{2}+(0-0)^{2}+(0-1)^{2}+(1-0)^{2}+(0-1)^{2}+(0-1)^{2}}\approx1.73$$
+
+So, for this set of characteristics, octopuses  and penguins are twice as different from each other as are maple trees and pine trees, while mushrooms and elephants are not quite as different from each other as octopuses and penguins. Interestingly, mushrooms and elephants are more different from each other than are maples and pines, even though maples and pines are in the same kingdom while mushrooms and plants are not. Does that make sense biologically?
+ 
+These comparisons were chosen to make a couple of points about quantifying differences. First, the choice of characteristics (or measurements, or metrics, etc.) has a large influence over the calculation. Look over the list again and ask yourself if those characteristics are applicable to all of the organisms. Four of the eight traits are specific to just the animals!
+
+Second, the choice of how to combine the differences makes a big difference. The calculations above are presented in a cumbersome way (to show how they work), but are commonly written in a more compact format:
+
+$$D(x_{i},x_{h})=\sqrt{\sum_{j=1}^{p}(x_{i,j}-x_{h,j})^{2}} $$
+
+In this expression the difference between observation *i* and observation *h* ($x[i]$ and $x[h]$) is the square root of the sum of squared differences between $x_{i}$ and $x_{h}$ in terms of each variable *j*, up to the number of variables *p*. When *p* = 2, this formula is better known as the Pythagorean theorem:
+
+$$D(x_{i},x_{h})=\sqrt{\sum_{j=1}^{2}(x_{i,j}-x_{h,j})^{2}}=\sqrt{(x_{i,1}-x_{h,1})^{2}+(x_{i,2}-x_{h,2})^{2}} $$
+
+The calculation above is known as the **Euclidean distance metric**, and is simply the Pythagorean theorem generalized to *p* dimensions rather than the usual 2. Here and for the rest of this document, “dimension” means the same as “variable”. When thinking about multivariate statistics, it can be useful to think of your data as defining a **hyperspace**, with one dimension for each variable in your data. Thus a dataset with 2 variables defines a space with 2 dimensions (i.e., a plane); a dataset with 3 dimensions defines a space with 3 dimensions (i.e., a volume), and so on. When discussing multivariate differences between sample units, we usually refer to the differences as distances through these hyperspaces. Each distance metric calculates that distance a slightly different way.
+
+Back to our organism classification example, the figure below shows Euclidean distances for 30 organisms across 12 traits. The distances are distances between each of the 435 unique pairs of taxa in a 12-dimensional hyperspace. Darker colors indicate greater distance—i.e., greater dissimilarity or smaller similarity. 
+
+![](C:/Users/ngreen62/OneDrive - Kennesaw State University/biol 6490/_stat/fig/08_07.jpg)
+
+If you examine the chart above you will find that some if the distances are silly: for example, octopuses are presented as more different from owls than they are from bacteria. This suggests that the Euclidean distance metric was maybe not the right one.
+
+## Bray-Curtis and other distance metrics
+
+Another distance metric is called the **Manhattan** or **city block** distance. It gets its name from the way that distances are added up by assuming that samples can only be connected by paths that move along one axis (i.e., dimension) at a time. This is analogous to how people in cities can walk along the sidewalks of the city street grid, but cannot cut through blocks. The figure below illustrates this.
+
+![](C:/Users/ngreen62/OneDrive - Kennesaw State University/biol 6490/_stat/fig/08_08.jpg)
+
+The Manhattan distance is longer than the Euclidean distance, but it can sometimes be a better representation of the differences between sample units in terms of many variables. The Manhattan distance is calculated as:
+
+$$D(x_{i},x_{h})=\sum_{j=1}^{p}|x_{i,j}-x_{h,j}|$$
+
+The Manhattan distance is not often used by itself, but a relativized version of it is extremely common in biology: the **Bray-Curtis distance**, also known as the **Sørenson  distance**. This distance measure is called the Sørenson index when used with binary data (such as 1/0 for presence/absence). The name Bray-Curtis is used when the same formula is applied to continuous data (often proportions or percentages). The Bray-Curtis distance is calculated as:
+
+$$D_{BC}(x_{i},x_{h})=\frac{\sum_{j=1}^{p}|x_{i,j}-x_{h,j}|}{\sum_{i=1}^{p}x_{i,j}+\sum_{i=1}^{p}x_{h,j}}=1-\frac{2\sum_{j=1}^{p}MIN(x_{i,j},x_{h,j})}{\sum_{i=1}^{p}x_{i,j}+\sum_{i=1}^{p}x_{h,j}}$$
+
+In the second expression, *MIN*() is a function that returns the smaller of two values. Notice that the Bray-Curtis distance is essentially the Manhattan distance divided by the shared total values in both samples. This ratio can be thought of as the shared values divided by the total of values. The division makes this value “relativized” (i.e., relative to something else, in the same way that percentages are relative to 100). The figure below shows the approximate relationship between the Euclidean distance, Manhattan distance.
+
+![](C:/Users/ngreen62/OneDrive - Kennesaw State University/biol 6490/_stat/fig/08_09.jpg)
+
+If we recalculate the distance matrix between the taxa in our example, the distances now look like this:
+
+![](C:/Users/ngreen62/OneDrive - Kennesaw State University/biol 6490/_stat/fig/08_10.jpg)
+
+The new distances are an improvement but there is still a lot of room to get better. For example, salamanders are more similar to pines than they are to maples. I’ll leave the interpretation of that finding up to you (hint: there isn't one...this is a silly example).
+
+There are lots of other distance metrics, but a full exploration is beyond the scope of this course. The table below, adapted from @mccune2002analysis, gives some characteristics of some common measures. The range of input data *x* and distance measures *d* is provided. For most biological situations where data are nonnormal and relationships are nonlinear, the Bray-Curtis distance is likely to be the most appropriate. When many variables contain lots of 0s, a modified version can be used that adds a “dummy species” present in every sample to stabilize the distances [@clarke2006]. The Euclidean metric has strong requirements of multivariate normality and collinearity among variables; the Bray-Curtis metric does not. The other metrics aren't as commonly used as the Euclidean and Bray-Curtis, but are included here for reference.
+
+|Metric|Domain of *x*|Range of *d*|Comments|
+|----|:---:|:---:|----|
+|Bray-Curtis (Sørenson)|$x \le 0$|$0 \le d \le 1$|Preferred in many biological situations|
+|Relative Sørenson (Kulczynski)|$x \le 0$|$0 \le d \le 1$|Relativized by sample totals|
+|Jaccard|$x \le 0$|$0 \le d \le 1$|Related to Manhattan distance|
+|Euclidean (Pythagorean)|$x \in \mathbb{R}$|$0 \le d$|Often requires multivariate normality|
+|Relative Euclidean (chord distance)|$x \in \mathbb{R}$|$0 \le d \le \sqrt{2}$ or $0 \le d \le 2$|Euclidean distance on a hypersphere|
+|Chi-square|$x \ge 0$|$0 \le d$|Euclidean but weighted by sample and variable totals|
+|Squared Euclidean|$x \in \mathbb{R}$|$0 \le d$|Square of Euclidean distance|
+|Mahalanobis|$x \in \mathbb{R}$|$0 \le d$|Distance between groups weighted by intragroup variance|
+
+Remember that distances express differences between samples with respect to several variables. This can be visualized as a distance through a hyperspace with as many dimensions as you have variables. As we'll see in the next section, we can use distances to explore similiarites and differences between samples.
+
+[**Go back to main page**](https://greenquanteco.github.io/index.html)
+
+# References
+
+<div id="refs"></div>
+
+# Legal notice
+
+This site is for educational purposes only. This work and its content is released under the [Creative Commons Attribution-ShareAlike 4.0](https://creativecommons.org/licenses/by-sa/4.0/) license. Inclusion of third-party data falls under guidelines of fair use as defined in [section 107 of the US Copyright Act of 1976](https://www.law.cornell.edu/uscode/text/17/107). 

@@ -1,0 +1,171 @@
+---
+title: "GLM part 2: Generalized linear models"
+author: "Nick Green, Kennesaw State University"
+output:
+  html_document: 
+    toc: yes
+    toc_float: true
+    number_sections: yes
+    keep_md: yes
+font_size: 16pt
+bibliography: stat_refs.bib
+csl: ecology.csl
+---
+
+# Overview
+
+In the [previous section](https://greenquanteco.github.io/05-glm-01-prelude.html) we explored linear regression and other cases of the the linear model. Linear models are appropriate when there is a linear relationship between a response variable and its predictors, when the predictor variables model the response variable on its original scale, and when the residuals of the model follow a normal distribution. However, the latter two conditions do not always apply in biology. 
+
+The **generalized linear model (GLM)** is a framework that generalizes the linear model by incorporating relaxing two of the conditions in which linear models are used. In a GLM:
+
+- The response variable can be modeled on a different scale than its original scale. The original scale of the data is related to the scale of the linear prediction by a link function.
+- The values of the response variable can come from many different distributions, not just the normal distribution.
+
+The GLM was introduced by @nelder1972 and has since become a vital tool in many fields of study. Methods for fitting GLMs have been improved and expanded since the original publication, such that GLMs can be fit under many inference paradigms including least-squares, Bayesian, and machine learning frameworks.
+
+The basic form of the GLM is shown below:
+
+![](C:/Users/ngreen62/OneDrive - Kennesaw State University/biol 6490/_stat/fig/05_03.jpg)
+
+This form is a little abstract, but it shows the three basic parts of a GLM:
+
+- Linear predictor **X**$\beta$, which relates the expected value of **Y** to a linear function of the predictors **X** with parameters $\beta$.
+- Link function *g*, which relates the original values of **Y** to the values of the linear predictor.
+- Probability distribution $Var(Y|X)$, which describes variability about the expected value.
+
+Below are some more concrete examples of GLMs that show the relationships between the parts. Notice how each of these examples describes a system in terms of its true, unobserved “state” and relates that state to the space of observed observations. The former part is sometimes also called the “deterministic” part of the model, while the latter is called the “stochastic” part. This framework is referred to as the “state-space” representation of a model. Thinking about your study system in state-space terms is the key to understanding GLM. This framework is useful because it allows us to think about and treat separately the deterministic part (state) and the stochastic part (space) of a statistical model.
+
+***Being able to think about and deconstruct a dataset in the language of GLMs is one the main points of this course. The GLM is a very useful tool to have in your toolkit as a biologist.***
+
+![](C:/Users/ngreen62/OneDrive - Kennesaw State University/biol 6490/_stat/fig/05_04.jpg)
+
+## Linear regression as a GLM
+
+$$Y~Normal\left(\mu,\sigma^2\right)$$
+$$\mu=\eta$$
+$$\eta=\beta_0+\beta_1X$$
+
+These equations show that linear regression can be thought of as a special case of GLM. The linear predictor $\eta$ (“eta”) is a linear function of the predictor variable (or variables). The expected value of *Y*, $\mu$, is equal to $\eta$. The variability in the response, $\sigma^2$, is constant and does not depend on the $\mu$ (this is not the case for every GLM). Linear regression is a special case of GLM: the case with an identity link function ($\mu=\eta$) and a normal distribution for response variables.
+
+## GLMs for count data
+
+$$Y~Poisson\left(\lambda\right)$$
+$$\lambda=e^\eta$$
+$$\eta=\beta_0+\beta_1X$$
+
+The model above is a GLM used to model count data. Counts are often modeled as following a Poisson distribution. The Poisson distribution has one parameter, $\lambda$ (“lambda”), which is both the expected count and the variance of counts. This means that the residual variation does depend somewhat on the expected value (unlike linear regression). Because counts must be non-negative, the **log link function** is used. In other words, $\log{\lambda} = \eta$. GLMs with well-known link functions are usually written without the intermediate $\eta$ variable:
+
+$$Y~Poisson\left(\lambda\right)$$
+$$\log{\left(\lambda\right)}=\beta_0+\beta_1X$$
+
+## Logistic regression: GLM for binary data
+
+$$Y_i~Bernoulli\left(p_i\right)$$
+$$p_i=\frac{e^{\eta_i}}{1+e^{\eta_i}}$$
+$$\eta_i=\beta_0+\beta_1X_i$$
+
+The **logistic regression** model is really a GLM with a logit link function and a binomial error distribution. The *Y* value for each observation *i* is either 0 or 1, with P(1) = *p~i~*. The link function is the logit function, which means that the linear part of the model predicts the logit of *p~i~*. The model can also be written as:
+
+$$Y_i~Bernoulli\left(p_i\right)$$
+$$logit\left(p_i\right)=\beta_0+\beta_1X_i$$
+
+# GLM families
+
+The **family** of a GLM refers to the distribution that observations follow. GLMs use distributions from the **exponential family** of distributions. The exponential family is a class of distributions whose PDF or PMF can be written in a particular form that includes the exponential function $e^x$ or $exp(x)$. The exponential family includes many well-known distributions such as the normal, exponential^[The *exponential distribution* is included in the *exponential family* of distriutions, which includes many other distributions. Unfortunately the word “family” in a GLM context refers to individual distributions. So, fitting a GLM with an exponential family means using the exponential distribution for residuals.], gamma, beta, Poisson, and many others. Two other common distributions, the binomial and negative binomial, can be included in the exponential family under certain conditions. 
+Which family to use in your GLM analysis depends on what kind of data you are trying to model. As we saw in Module 4, certain kinds of data tend to follow certain distributions. For example, counts often follow a Poisson distribution. The figure from Module 4 that shows the typical use cases of common distributions is shown again below:
+
+![](C:/Users/ngreen62/OneDrive - Kennesaw State University/biol 6490/_stat/fig/05_05.jpg)
+
+In addition to *a priori* ideas about the nature of a response variable, we also need to consider how the data are distributed in reality. The most common reason that data do not conform to their expected distribution is probably **overdispersion**. This means that the data have a greater variance than expected. How to deal with overdispersion depends on the expected response distribution.
+
+For normally distributed data, overdispersion is usually not a problem. Note that the term for residual variation $\sigma^2 is independent of the expected value $\mu$. This means that a dataset with a large variance isn’t necessarily overdispersed. However, large skewness (another kind of apparent overdispersion) in the response variable may indicate that a log-normal or gamma distribution is more appropriate than a normal distribution.
+
+For Poisson-distributed data (counts), overdispersion can be an issue. This is because part of the definition of the Poisson distribution is that the mean and variance are the same parameter (i.e., $\lambda=\mu=\sigma^2$). In real datasets, the variance is often larger than the mean…sometimes much larger! If this is the case, then it might make sense to fit a GLM with a quasi-Poisson or a negative binomial family instead of a Poisson family. Both of these options include an extra parameter to account for overdispersion.
+
+Another form of overdispersion in count data that makes them not conform to the Poisson distribution is **zero-inflation**. This is a situation where a response variable has many more 0 values than would be expected based on the Poisson distribution. Mild to moderate zero inflation can be modeled by the negative binomial. Severe zero-inflation might require using zero-inflated models, an extension of GLM^[One of these days I might add a section on zero-inflated models.].
+
+# GLM link functions
+
+Unlike the family component, choosing a link function for your GLM is relatively straightforward. Most families have **canonical** link functions that should be used unless you have a very good reason not to. What makes these link functions “canonical” is that they are derived from the PDF or PMF of the response distributions in such a way as to relate an expected value or central tendency of the distribution to a linear function of the predictor variables. In addition to relating different parts of a GLM, link functions are kind of like transformations^[Emphasis on the "kind of". There are some important ways that link functions are ***not*** like transformations, as we shall see later.]. This means that using a link function can help put your data on a scale that is more amenable to analysis. However, there is a key difference between using a link function and using a transformation: with a link function, variance is estimated on the response scale, while with a transformation, variance is estimated on the transformed scale. This can have huge consequences depending on the data and the link/transformation function.
+
+The table below shows the link functions and inverse link functions of some common distributions. The link functions are presented as the relationship between the linear predictor Xβ, the expected value on the link scale η, and the expected value on the response scale μ.
+
+|Distribution|Link name|Link function|Inverse link|
+|----|----|----|----|
+|Normal|Identity|$X\beta=\mu$|$\mu=X\beta$|
+|Poisson|Log|$X\beta=\log{\left(\mu\right)}$|$\mu=e^{X\beta}$|
+|Binomial|Logit|$X\beta=\log{\left(\frac{\mu}{1-\mu}\right)}$|$\mu=\frac{e^{X\beta}}{1+e^{X\beta}}=\frac{1}{1+e^{-X\beta}}$|
+|Exponential and gamma|Inverse^[Some sources say negative inverse, but R and most textbooks say to use (positive) inverse.]|$X\beta=\mu^{-1}=\frac{1}{\mu}$|$\mu=\left(X\beta\right)^{-1}=\frac{1}{X\beta}$|
+
+It is important to remember that GLMs are linear on the link scale, not necessarily on the scale in which the data are recorded. When raw response variables are plotted against predictor variables, the plot may not be linear. The plot below shows how a relationship can appear linear on the link (i.e., transformed) scale (left), but nonlinear on the original scale (right).
+
+![](05-glm-02-glm_basics_files/figure-html/unnamed-chunk-1-1.png)<!-- -->
+
+# Deviance and other GLM diagnostics
+
+One aspect of GLMs that confuses some people is how to measure how well the model fits the data. That is, how to calculate an *R*^2^ value. In linear regression (and other linear models such as ANOVA), the coefficient of determination *R*^2^ expresses the proportion of variation in the response variable that is attributable to variation in the predictor variable(s). *R*^2^ is a widely-known and useful metric of model fit. However, *R*^2^ is not defined for GLMs. This is because of the way *R*^2^ is defined:
+
+$$R^2=1-\frac{{SS}_{res}}{{SS}_{tot}}=1-\frac{\sum_{i=1}^{n}\left(y_i-\mu_i\right)^2}{\sum_{i=1}^{n}\left(y_i-\bar{y}\right)^2} $$
+
+This can be visualized in the figure below. Notice how the minimum possible sum of squared deviations is 0, and *R*^2^ is the proportion of how much variation (in terms of sums of squares) is reduced by the model. In other words, the performance of the model falls somewhere between the worst possible value and the best possible value. A key property of this calculation is that both the worst possible value, $SS_{null}$, and the best possible value, 0, are easily defined.
+
+![](C:/Users/ngreen62/OneDrive - Kennesaw State University/biol 6490/_stat/fig/05_06.jpg)
+
+This definition assumes a normal distribution of residuals, because the variance of a normal distribution *X* is
+
+$$Var\left(x\right)=\frac{\sum\left(x_i-\bar{x}\right)^2}{n-1}$$
+
+However, the variance for other distributions is something else. This means that the denominator in *R*^2^ (total sum of squared deviations) is often not an appropriate measure of variation. Instead of using *R*^2^, we have to use a more generalized way to measure model fit.
+
+**Deviance** is a quantity that generalizes the concept of sum of squared residuals ($SS_{res}$) to models that were fit using maximum likelihood estimation (MLE) instead of classical least squares estimation. For linear regression and other models fit using least squares estimation (which is basically just a solving some linear algebra problems), calculating $SS_{res}$ is straightforward. This is because of the overlap between the definitions of $SS_{res}$ and the variance of the normal distribution. However, models fit by MLE work by searching for combinations of values of model terms (the “parameter space”) for combinations that maximize a “likelihood function” . Because residuals are not used in the parameter estimation process, evaluating model fit based on $SS_{res}$ doesn’t make sense. 
+
+Just like least squares methods partition total sums of squared errors into “total” and “residual” sums of squared errors ($SS_{tot}$ and $SS_{res}$ in the figure above), other methods partition total deviance into “residual deviance” ($D_{res}$) and the deviance explained by the model. However, calculating total deviance is not as straightforward as calculating $SS_{tot}$ because there is no natural minimum against which to compare. Recall that in linear models, the minimum sum of squared residuals was 0. In GLM terms, this creates a natural upper bound to the likelihood function. However, for most GLMs the theoretical upper bound cannot be calculated *a priori* the way it can with linear regression. 
+
+Deviance is defined by comparing the likelihood of the data under the fitted model to the likelihood of the data under the **saturated model**^[I highly recommend [this video](https://www.youtube.com/watch?v=9T0wlKdew6I) for an introduction to deviance, which also has a nice theme song]. A saturated model is one that incorporates all of the information in the dataset by having as many parameters as it does observations^[Obviously, this is an overfit model, but that’s ok because we are using it as a hypothetical “baseline”.]. This model is guaranteed to have the closest possible fit to the data. This means that the saturated model will have the greatest possible likelihood function. Any other model will have a smaller likelihood function. The difference between the likelihood of the saturated model and the likelihood of another model tells us something about how much explanatory power that the fitted model has, relative to a hypothetical model with perfect explanatory power.
+
+Residual deviance ($D_{res}$) is calculated as twice the difference between the likelihood of the saturated model ($L_{sat}$) and the likelihood of the fitted model ($L_{fitted}$). For convenience, we usually work with the log of the likelihood (LL).
+
+$$D_{resid}=2\left({LL}_{sat}-{LL}_{fitted}\right)$$
+
+Null deviance ($D_{null}$) is similar, but compares the saturated model to the null model. The null model is a model with no predictor variables, which predicts the same value (usually the mean) for all observations.
+
+$$D_{null}=2\left({LL}_{sat}-{LL}_{null}\right)$$
+
+The relationship between these deviances can be seen in the figure below. The null deviance is the difference in log-likelihood between the model that contains none of the information in the data (the null model) and the model that contains all of it (the saturated model). This makes the null deviance the baseline for the best that a model could possibly be. A well-fitting model should have very little residual deviance, because it performs similarly to the saturated model while having fewer parameters. Even though the log-likelihood scale includes 0, this is only to show that log-likelihood values are almost always negative.
+
+![](C:/Users/ngreen62/OneDrive - Kennesaw State University/biol 6490/_stat/fig/05_07.jpg)
+
+Compare this figure to the one above that illustrates *R*^2^. Unlike the log-likelihood, there is a natural minimum of 0 for sums of squares in the best  possible model. This is analogous to the log-likelihood of the saturated model. Without considering the saturated model, we can’t calculate null deviance, and thus can’t calculate how much of that deviance is explained by the fitted model.
+ 
+Why does the formula for deviance includes a factor of 2? That factor is there to make it so that the deviance follows a chi-squared distribution with a number of degrees of freedom equal to the difference in the number of parameters between the models. We’ll explore what that means later when we work through some GLM examples.
+
+# To pseudo-*R*^2^ or not to pseudo-*R*^2^?
+
+One final note about goodness of fit in GLMs: no single measure of goodness of fit is universally agreed upon or appropriate for all situations. The pseudo-*R*^2^ presented in subsequent sections is widely used, but some authors disagree about what it represents or measures. Other methods for evaluating GLM goodness of fit include:
+- **Cross-validation**: measures the ability of the model to accurately predict data that were not used fit the model. This is widely used in by machine learning methods, and can be useful when predictive ability is the desired endpoint.
+- **Receiver operating characteristic (ROC) and area under curve (AUC)**: measures the predictive accuracy of models used for classification, especially logistic regression. For logistic regression, AUC can be more informative than pseudo-*R*^2^.
+
+# Common GLMs
+
+This site has worked examples of several GLMs commonly encountered by biologists. Go back to the [main page](https://greenquanteco.github.io/index.html) and click through to the GLM flavor that you're interested in. The options are:
+
+|Model|Typical use case|Link|
+|----|----|----|
+|Log-linear GLM|Models for continuous values with non-normal errors|[Click here!](https://greenquanteco.github.io/05-glm-03-loglinear_models.html)|
+|Poisson GLM|Models for count data|[Click here!](https://greenquanteco.github.io/05-glm-04-count_models.html)|
+|Quasi-Poisson and negative binomial GLM|Models for overdispersed count data|[Click here!](https://greenquanteco.github.io/05-glm-05-quasi_nb_glm.html)|
+|Logistic regression|Models for binary outcomes|[Click here!](https://greenquanteco.github.io/05-glm-06-logistic_glm.html)|
+|Binomial GLM|Models for proportional data|[Click here!](https://greenquanteco.github.io/05-glm-07-binomial_glm.html)|
+|Gamma GLM|Models for heteroscedastic and right-skewed data|[Click here!](https://greenquanteco.github.io/05-glm-08-gamma_glm.html)|
+
+---
+
+[**Go back to main page**](https://greenquanteco.github.io/index.html)
+
+# References
+
+<div id="refs"></div>
+
+# Legal notice
+
+This site is for educational purposes only. This work and its content is released under the [Creative Commons Attribution-ShareAlike 4.0](https://creativecommons.org/licenses/by-sa/4.0/) license. Inclusion of third-party data falls under guidelines of fair use as defined in [section 107 of the US Copyright Act of 1976](https://www.law.cornell.edu/uscode/text/17/107). 

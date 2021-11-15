@@ -1,0 +1,139 @@
+---
+title: "GLM part 7: Binomial GLM for proportional data"
+author: "Nick Green, Kennesaw State University"
+output:
+  html_document: 
+    toc: yes
+    toc_float: true
+    number_sections: yes
+    keep_md: yes
+font_size: 16pt
+bibliography: stat_refs.bib
+csl: ecology.csl
+---
+
+# Overview
+
+This is one of several sections exploring some common GLM applications. For most of these applications we will work through two examples. First, an analysis of simulated data, and second, an analysis of a real dataset. Simulating a dataset suitable for an analysis is an excellent way to learn about the analysis method, because it helps you see the relationship between the data-generating process and the analysis.
+
+This module explores GLMs for **proportions**. Proportions are values in the interval [0,1] that describe the ratio of the number of times an event occurs to the number of times it does not. In most situations, a proportion can be thought of as the **probability** that some event will occur. Proportions implicitly describe binary events. Analyzing proportions is a lot like [analyzing binary outcomes](https://greenquanteco.github.io/05-glm-06-logistic_glm.html); i.e., logistic regression. The difference is that in logistic regression the interest is in predicting the state of individual observations, while in binomial regression the interest is in predicting the **proportion** of observations in a certain state. Any dataset suitable for logistic regression can be converted to a dataset suitable for binomial regression. How you should analyze your data depends on your question:
+
+- If the question is about outcomes at the individual observation level, then use logistic regression.
+- If the question is about rates or probabilities of an event occurring, then use binomial regression.
+
+One good clue is to consider the level at which predictor variables are measured. If many observations share the same value of a predictor variable (or the same values of many predictor variables), then binomial regression might be the right approach because the sample unit is really the group. For example, if you want to model nestling survival in birds, all of the chicks within a nest would have the same values of any predictor variable that applied to the nest. Thus, binomial regression would be appropriate. If, however, there were chick-level predictors, then logistic regression would be appropriate. Think about what level of organization your predictor and response variables occur at, and what question you are really asking.
+ 
+# Example with simulated data
+
+The example below shows how to simulate and fit a binomial GLM on proportions. First, let's simulate the data.
+
+
+```r
+set.seed(123)
+n <- 50
+x <- runif(n, 0, 10)
+z <- 3 + -0.75*x + rnorm(n, 0, 1)
+# inverse logit
+y <- round(plogis(z), 1)
+
+# weights = sample sizes
+# use same size for each observation for simplicity
+wts <- rep(10, n)
+
+# plot of a proportion (y) vs. a predictor (x)
+plot(x, y)
+```
+
+![](05-glm-07-binomial_glm_files/figure-html/unnamed-chunk-1-1.png)<!-- -->
+
+We use GLM to fit the binomial model. The command below will specify a binomial GLM with the default logit link. In [another context](https://greenquanteco.github.io/05-glm-06-logistic_glm.html) this is how we fit a logistic regression. Adding the argument `weights`, which defines the sample sizes represented by each probability (*Y* value) converts the model to a binomial regression. For example, an observation with *Y* = 0.3 and `weights` = 10 represents a trial or group of observations with 3 successes in 10 trials. There are other ways of specifying these weights (see `?family`) but this is the simplest. Note that if you try to do this analysis without supplying weights, R will return a warning (because it expects 1s and 0s for logistic regression) and will not calculate the deviance correctly (because it doesn't know how many trials each probability represents).
+
+
+```r
+mod1 <- glm(y~x, family=binomial, weights=wts)
+summary(mod1)
+```
+
+```
+## 
+## Call:
+## glm(formula = y ~ x, family = binomial, weights = wts)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.8868  -0.7281  -0.2132   0.7710   2.0987  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(>|z|)    
+## (Intercept)  2.52369    0.26503   9.522   <2e-16 ***
+## x           -0.63974    0.05588 -11.449   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 288.207  on 49  degrees of freedom
+## Residual deviance:  57.294  on 48  degrees of freedom
+## AIC: 150.55
+## 
+## Number of Fisher Scoring iterations: 4
+```
+
+The parameter estimates are close to the true values and the pseudo-*R*^2^ is pretty good:
+
+
+```r
+1-mod1$deviance/mod1$null.deviance
+```
+
+```
+## [1] 0.8012043
+```
+
+Let’s generate predicted values and plot them in the usual way:
+
+
+
+```r
+# values for prediction
+n <- 50
+px <- seq(min(x), max(x), length=n)
+
+# calculate predictions on link scale
+pred1 <- predict(mod1, 
+                 newdata=data.frame(x=px),
+                 type="link", se.fit=TRUE)
+mn1 <- pred1$fit
+lo1 <- qnorm(0.025, mn1, pred1$se.fit)
+up1 <- qnorm(0.975, mn1, pred1$se.fit)
+
+# backtransform with inverse link function
+mn1 <- mod1$family$linkinv(mn1)
+lo1 <- mod1$family$linkinv(lo1)
+up1 <- mod1$family$linkinv(up1)
+
+# make the plot:
+plot(x, y, xlab="X", ylab="Y", type="n",
+     ylim=c(0, 1))
+points(px, lo1, type="l", lty=2, lwd=2)
+points(px, up1, type="l", lty=2, lwd=2)
+points(px, mn1, type="l", lwd=2)
+points(x,y)
+```
+
+![](05-glm-07-binomial_glm_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+
+Remember that logistic regression and binomial regression are like two sides fo the same coin. Both address a binary outcome, but in different ways. Which of the two you should use depends on the nature of your question, the way in which data were collected, and the kind of prediction you are trying to make. 
+
+---
+
+
+[**Go back to main page**](https://greenquanteco.github.io/index.html)
+
+# References
+
+<div id="refs"></div>
+
+# Legal notice
+
+This site is for educational purposes only. This work and its content is released under the [Creative Commons Attribution-ShareAlike 4.0](https://creativecommons.org/licenses/by-sa/4.0/) license. Inclusion of third-party data falls under guidelines of fair use as defined in [section 107 of the US Copyright Act of 1976](https://www.law.cornell.edu/uscode/text/17/107). 
