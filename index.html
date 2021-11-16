@@ -15,7 +15,7 @@
 <title>Home page for Applied Biological Data Analysis</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
-// be compatible with the behavior of   Pandoc < 2.8).
+// be compatible with the behavior of Pandoc < 2.8).
 document.addEventListener('DOMContentLoaded', function(e) {
   var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
   var i, h, a;
@@ -43,7 +43,7 @@ d.trigger("activate.bs.scrollspy")},b.prototype.clear=function(){a(this.selector
 <script>/**
 * @preserve HTML5 Shiv 3.7.2 | @afarkas @jdalton @jon_neal @rem | MIT/GPL2 Licensed
 */
-// Only run this code in IE 8 
+// Only run this code in IE 8
 if (!!window.navigator.userAgent.match("MSIE 8")) {
 !function(a,b){function c(a,b){var c=a.createElement("p"),d=a.getElementsByTagName("head")[0]||a.documentElement;return c.innerHTML="x<style>"+b+"</style>",d.insertBefore(c.lastChild,d.firstChild)}function d(){var a=t.elements;return"string"==typeof a?a.split(" "):a}function e(a,b){var c=t.elements;"string"!=typeof c&&(c=c.join(" ")),"string"!=typeof a&&(a=a.join(" ")),t.elements=c+" "+a,j(b)}function f(a){var b=s[a[q]];return b||(b={},r++,a[q]=r,s[r]=b),b}function g(a,c,d){if(c||(c=b),l)return c.createElement(a);d||(d=f(c));var e;return e=d.cache[a]?d.cache[a].cloneNode():p.test(a)?(d.cache[a]=d.createElem(a)).cloneNode():d.createElem(a),!e.canHaveChildren||o.test(a)||e.tagUrn?e:d.frag.appendChild(e)}function h(a,c){if(a||(a=b),l)return a.createDocumentFragment();c=c||f(a);for(var e=c.frag.cloneNode(),g=0,h=d(),i=h.length;i>g;g++)e.createElement(h[g]);return e}function i(a,b){b.cache||(b.cache={},b.createElem=a.createElement,b.createFrag=a.createDocumentFragment,b.frag=b.createFrag()),a.createElement=function(c){return t.shivMethods?g(c,a,b):b.createElem(c)},a.createDocumentFragment=Function("h,f","return function(){var n=f.cloneNode(),c=n.createElement;h.shivMethods&&("+d().join().replace(/[\w\-:]+/g,function(a){return b.createElem(a),b.frag.createElement(a),'c("'+a+'")'})+");return n}")(t,b.frag)}function j(a){a||(a=b);var d=f(a);return!t.shivCSS||k||d.hasCSS||(d.hasCSS=!!c(a,"article,aside,dialog,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}mark{background:#FF0;color:#000}template{display:none}")),l||i(a,d),a}var k,l,m="3.7.2",n=a.html5||{},o=/^<|^(?:button|map|select|textarea|object|iframe|option|optgroup)$/i,p=/^(?:a|b|code|div|fieldset|h1|h2|h3|h4|h5|h6|i|label|li|ol|p|q|span|strong|style|table|tbody|td|th|tr|ul)$/i,q="_html5shiv",r=0,s={};!function(){try{var a=b.createElement("a");a.innerHTML="<xyz></xyz>",k="hidden"in a,l=1==a.childNodes.length||function(){b.createElement("a");var a=b.createDocumentFragment();return"undefined"==typeof a.cloneNode||"undefined"==typeof a.createDocumentFragment||"undefined"==typeof a.createElement}()}catch(c){k=!0,l=!0}}();var t={elements:n.elements||"abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output picture progress section summary template time video",version:m,shivCSS:n.shivCSS!==!1,supportsUnknownElements:l,shivMethods:n.shivMethods!==!1,type:"default",shivDocument:j,createElement:g,createDocumentFragment:h,addElements:e};a.html5=t,j(b)}(this,document);
 };
@@ -1703,7 +1703,7 @@ div.tocify {
 <td align="center"><a href="https://greenquanteco.github.io/05-glm-08-gamma_glm.html">Click here!</a></td>
 <td align="center">(coming soon)</td>
 </tr>
-<tr class="even"> 
+<tr class="even">
 <td>GLM 9: Beyond GLM</td>
 <td align="center"><a href="https://greenquanteco.github.io/05-glm-09-beyond_glm.html">Click here!</a></td>
 <td align="center">(coming soon)</td>
@@ -1784,7 +1784,7 @@ div.tocify {
 <div id="about-the-author" class="section level1" number="4">
 <h1><span class="header-section-number">4</span> About the author</h1>
 <p>I’m a <a href="https://facultyweb.kennesaw.edu/ngreen62/index.php">quantitative ecologist at Kennesaw State University</a> who studies human impacts on animal populations. Since earning by PhD at Baylor University in 2012, I’ve had the good fortune to have worked in a variety of government and industry roles. Those experiences have shaped my perspective on biology and education. In my courses and advising I do my best to impress upon students the the variety of biological experiences and perspectives that different domains bring to the table…and the value that they all bring. Most of my <a href="https://facultyweb.kennesaw.edu/ngreen62/research.php">current research</a> focuses on understanding human impacts on animal communities and how animal populations adapt to rapidly changing environments.</p>
-<p>Why am I making this R guide? I have been using R since about 2008, when I was a graduate student trying to make a multi-panel plot for a manuscript. I had seen R mentioned in publications and thought that using R would be more effective than kludging something together with Excel and Powerpoint. Needless to say, jumping straight to making plots with the <code>lattice</code> package was not the easiest way to learn a new programming language. The final result was a little clunky <span class="citation">(Kirchner et al. 2011)</span> but I was really proud of it…and had fallen in love with R. Eventually I took some courses and did a lot of self-teaching, and am finally (14 years later) gotten better. I have used R in my work pretty much continuously since 2008 for everything from Bayesian data analysis <span class="citation">(e.g., Green et al. 2020)</span> to simulation modeling <span class="citation">(e.g., Green et al. 2019)</span>. This guide is meant to be a primer for self-starting with R. A lot of the explanations that are included are there to hopefully save someone some of the trouble I had getting started.</p>
+<p>Why am I making this R guide? I have been using R since about 2008, when I was a graduate student trying to make a multi-panel plot for a manuscript. I had seen R mentioned in publications and thought that using R would be more effective than kludging something together with Excel and Powerpoint. Needless to say, jumping straight to making plots with the <code>lattice</code> package was not the easiest way to learn a new programming language. The final result was a little clunky <span class="citation">(Kirchner et al. 2011)</span> but I was really proud of it. Eventually I took some courses and did a lot of self-teaching, and am finally (14 years later) mostly decent at R. I have used R in my work pretty much continuously since 2008 for everything from Bayesian data analysis <span class="citation">(e.g., Green et al. 2020)</span> to simulation modeling <span class="citation">(e.g., Green et al. 2019)</span>. This guide is meant to be a primer for self-starting with R. A lot of the explanations that are included are there to hopefully save someone some of the trouble I had getting started.</p>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1 class="unnumbered">References</h1>
