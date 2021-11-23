@@ -11,6 +11,7 @@
 
 <meta name="author" content="Nick Green, Kennesaw State University" />
 
+<meta name="date" content="2021-11-23" />
 
 <title>Multivariate statistics part 2: Clustering</title>
 
@@ -1539,6 +1540,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Multivariate statistics part 2: Clustering</h1>
 <h4 class="author">Nick Green, Kennesaw State University</h4>
+<h4 class="date">November 23, 2021</h4>
 
 </div>
 
@@ -1670,20 +1672,27 @@ dat &lt;- read.csv(in.name, header=TRUE)
 rownames(dat) &lt;- dat$organism
 dat$organism &lt;- NULL
 head(dat)</code></pre>
-<pre><code>##          multicellular heterotrophic flowering vertebrate gills amnion
-## bacteria             0           0.5         0          0     0      0
-## maple                1           0.0         1          0     0      0
-## pine                 1           0.0         0          0     0      0
-## octopus              1           1.0         0          0     1      0
-## shark                1           1.0         0          1     1      0
-## mushroom             1           1.0         0          0     0      0
-##          endothermic tetrapod dna opisthokont protostome deuterostome
-## bacteria           0        0   1           0          0            0
-## maple              0        0   1           0          0            0
-## pine               0        0   1           0          0            0
-## octopus            0        0   1           1          1            0
-## shark              0        0   1           1          0            1
-## mushroom           0        0   1           1          0            0</code></pre>
+<pre><code>##          multicellular heterotrophic flowering vertebrate gills
+## bacteria             0           0.5         0          0     0
+## maple                1           0.0         1          0     0
+## pine                 1           0.0         0          0     0
+## octopus              1           1.0         0          0     1
+## shark                1           1.0         0          1     1
+## mushroom             1           1.0         0          0     0
+##          amnion endothermic tetrapod dna opisthokont protostome
+## bacteria      0           0        0   1           0          0
+## maple         0           0        0   1           0          0
+## pine          0           0        0   1           0          0
+## octopus       0           0        0   1           1          1
+## shark         0           0        0   1           1          0
+## mushroom      0           0        0   1           1          0
+##          deuterostome
+## bacteria            0
+## maple               0
+## pine                0
+## octopus             0
+## shark               1
+## mushroom            0</code></pre>
 <pre class="r"><code>kvec &lt;- 2:8
 nk &lt;- length(kvec)
 k.list &lt;- vector(&quot;list&quot;, nk)
@@ -1773,7 +1782,7 @@ plot(h2)</code></pre>
 <h1><span class="header-section-number">4</span> References</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
 <div id="ref-hill1979" class="csl-entry">
-Hill, M. O. 1979. A FORTRAN program for arranging multivariate data in an ordered two-way table by classification of the individuals and attributes. TWINSPAN.
+Hill, M. O. 1979. A <span>FORTRAN</span> program for arranging multivariate data in an ordered two-way table by classification of the individuals and attributes. <span>TWINSPAN</span>.
 </div>
 <div id="ref-legendre2012numerical" class="csl-entry">
 Legendre, P., and L. Legendre. 2012. Numerical ecology. Elsevier, Amsterdam.

@@ -11,6 +11,7 @@
 
 <meta name="author" content="Nick Green, Kennesaw State University" />
 
+<meta name="date" content="2021-11-23" />
 
 <title>Multivariate statistics part 3: Analyzing dissimilarity</title>
 
@@ -1539,6 +1540,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Multivariate statistics part 3: Analyzing dissimilarity</h1>
 <h4 class="author">Nick Green, Kennesaw State University</h4>
+<h4 class="date">November 23, 2021</h4>
 
 </div>
 
@@ -1719,10 +1721,14 @@ summary(mod1, test=&quot;Pillai&quot;)</code></pre>
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <pre class="r"><code># coefficients for each response and level of predictor
 coef(mod1)</code></pre>
-<pre><code>##                        Sepal.Length Sepal.Width Petal.Length Petal.Width
-## (Intercept)                   5.006       3.428        1.462       0.246
-## iris$Speciesversicolor        0.930      -0.658        2.798       1.080
-## iris$Speciesvirginica         1.582      -0.454        4.090       1.780</code></pre>
+<pre><code>##                        Sepal.Length Sepal.Width Petal.Length
+## (Intercept)                   5.006       3.428        1.462
+## iris$Speciesversicolor        0.930      -0.658        2.798
+## iris$Speciesvirginica         1.582      -0.454        4.090
+##                        Petal.Width
+## (Intercept)                  0.246
+## iris$Speciesversicolor       1.080
+## iris$Speciesvirginica        1.780</code></pre>
 <p><strong>Permutational analysis of variance (PERMANOVA)</strong> is a nonparametric version of MANOVA <span class="citation">(Anderson 2001)</span>. It is nonparametric because it uses permutation of group membership to determine statistical significance instead of calculating an <em>F</em> statistic based on probability theory. The most common R function for PERMANOVA is <code>adonis()</code> from the <code>vegan</code> package.</p>
 <pre class="r"><code>mod2 &lt;- adonis(iris[,1:4]~iris$Species, method=&quot;euclidean&quot;)
 
@@ -1856,7 +1862,7 @@ legend(&quot;top&quot;, legend=unique(iris$Species),
 <h1><span class="header-section-number">4</span> References</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
 <div id="ref-anderson2001" class="csl-entry">
-Anderson, M. J. 2001. <a href="https://doi.org/10.1111/j.1442-9993.2001.01070.pp.x">A new method for non-parametric multivariate analysis of variance</a>. Austral ecology 26:32–46.
+Anderson, M. J. 2001. <a href="https://doi.org/10.1111/j.1442-9993.2001.01070.pp.x">A new method for non-parametric multivariate analysis of variance</a>. Austral Ecology 26:32–46.
 </div>
 <div id="ref-clarke1993" class="csl-entry">
 Clarke, K. R. 1993. <a href="https://doi.org/10.1111/j.1442-9993.1993.tb00438.x">Non-parametric multivariate analyses of changes in community structure</a>. Australian journal of ecology 18:117–143.
