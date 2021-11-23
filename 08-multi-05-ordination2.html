@@ -1550,9 +1550,11 @@ div.tocify {
 <div id="nmds-simple-explanation" class="section level2" number="1.1">
 <h2><span class="header-section-number">1.1</span> NMDS simple explanation</h2>
 <p>Let’s start with a simple example. Download the dataset <a href="https://greenquanteco.github.io/state_caps.csv">state_caps.csv</a>, put it in your R home directory, and load it into R. This dataset contains the latitudes and longitudes of the state capitals of the US. For simplicity, we will use only the lower 48 states.</p>
-<pre class="r"><code>library(vegan)
-
-in.name &lt;- &quot;state_caps.csv&quot;
+<pre class="r"><code>library(vegan)</code></pre>
+<pre><code>## Loading required package: permute</code></pre>
+<pre><code>## Loading required package: lattice</code></pre>
+<pre><code>## This is vegan 2.5-7</code></pre>
+<pre class="r"><code>in.name &lt;- &quot;state_caps.csv&quot;
 dat &lt;- read.csv(in.name, header=TRUE)
 dat &lt;- dat[which(!dat$state %in% c(&quot;Alaska&quot;, &quot;Hawaii&quot;)),]
 

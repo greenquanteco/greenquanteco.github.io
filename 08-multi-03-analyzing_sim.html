@@ -1558,8 +1558,11 @@ x1 &lt;- iris[,grep(&quot;Sepal&quot;, names(iris))]
 x2 &lt;- iris[,grep(&quot;Petal&quot;, names(iris))]
 
 # calculate distance metrics
-library(vegan)
-d1 &lt;- vegdist(x1, method=&quot;euclidean&quot;)
+library(vegan)</code></pre>
+<pre><code>## Loading required package: permute</code></pre>
+<pre><code>## Loading required package: lattice</code></pre>
+<pre><code>## This is vegan 2.5-7</code></pre>
+<pre class="r"><code>d1 &lt;- vegdist(x1, method=&quot;euclidean&quot;)
 d2 &lt;- vegdist(x2, method=&quot;euclidean&quot;)
 d3 &lt;- vegdist(x1) # vegdist() default metric = Bray-Curtis
 d4 &lt;- vegdist(x2)
