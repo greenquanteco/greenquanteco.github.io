@@ -1719,14 +1719,10 @@ summary(mod1, test=&quot;Pillai&quot;)</code></pre>
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <pre class="r"><code># coefficients for each response and level of predictor
 coef(mod1)</code></pre>
-<pre><code>##                        Sepal.Length Sepal.Width Petal.Length
-## (Intercept)                   5.006       3.428        1.462
-## iris$Speciesversicolor        0.930      -0.658        2.798
-## iris$Speciesvirginica         1.582      -0.454        4.090
-##                        Petal.Width
-## (Intercept)                  0.246
-## iris$Speciesversicolor       1.080
-## iris$Speciesvirginica        1.780</code></pre>
+<pre><code>##                        Sepal.Length Sepal.Width Petal.Length Petal.Width
+## (Intercept)                   5.006       3.428        1.462       0.246
+## iris$Speciesversicolor        0.930      -0.658        2.798       1.080
+## iris$Speciesvirginica         1.582      -0.454        4.090       1.780</code></pre>
 <p><strong>Permutational analysis of variance (PERMANOVA)</strong> is a nonparametric version of MANOVA <span class="citation">(Anderson 2001)</span>. It is nonparametric because it uses permutation of group membership to determine statistical significance instead of calculating an <em>F</em> statistic based on probability theory. The most common R function for PERMANOVA is <code>adonis()</code> from the <code>vegan</code> package.</p>
 <pre class="r"><code>mod2 &lt;- adonis(iris[,1:4]~iris$Species, method=&quot;euclidean&quot;)
 
@@ -1852,6 +1848,7 @@ legend(&quot;top&quot;, legend=unique(iris$Species),
 </ul></li>
 </ul>
 <p>The significance of the MRPP is calculated by permutation, just as in the Mantel test or ANOSIM. As with any statistical test, the <em>P</em>-value is sensitive to not only the effect size, but also the sample size. Large sample sizes can make tiny differences appear statistically significant, so it is up to you as a biologist to interpret the output of the test.</p>
+<hr />
 <p><a href="https://greenquanteco.github.io/index.html"><strong>Go back to main page</strong></a></p>
 </div>
 </div>
