@@ -1553,7 +1553,7 @@ div.tocify {
 <div id="logistic-regression" class="section level1" number="2">
 <h1><span class="header-section-number">2</span> Logistic regression</h1>
 <p>Logistic regression is a technique for modeling the probability of a binary outcome: survival vs. death, reproductive vs. not reproductive, present vs. absent, etc. The response variable <em>Y</em> takes value 1 when the event occurs, and value 0 when the event does not occur. For each observation <em>i</em>, success occurs as the outcome of a Bernoulli trial with probability <em>p</em><sub>i</sub>. The logit of <em>p</em><sub>i</sub> (i.e., the logarithm of the odds that <em>Y</em> = 1) is modeled as a linear function of the predictor variables.</p>
-<p><span class="math display">\[Y_i~Bernoulli\left(p_i\right)\]</span> <span class="math display">\[logit\left(p_i\right)=\log{\left(\frac{p_i}{1-p_i}\right)}=\beta_0+\beta_1X_i\]</span></p>
+<p><span class="math display">\[Y_i \sim Bernoulli\left(p_i\right)\]</span> <span class="math display">\[logit\left(p_i\right)=\log{\left(\frac{p_i}{1-p_i}\right)}=\beta_0+\beta_1X_i\]</span></p>
 <p>The inverse link function is the <strong>logistic function</strong>, which is also where the name “logistic regression” comes from:</p>
 <p><span class="math display">\[logistic\left(x\right)=\frac{e^x}{1+e^x}\]</span></p>
 <p>The linear predictor in logistic regression predicts the “log-odds” of an event occurring. The unit of the log-odds scale is the <strong>logistic unit</strong>, or <strong>logit</strong>. The logit link function is useful because it allows the outcome of a linear function–which can take on any real value–to be mapped smoothly to the natural domain of probabilities, the open interval (0, 1). A key consequence of this link function is that increasing the value of one of the predictor variables by 1 will scale the log-odds by a constant. That constant is the coefficient estimated for the predictor.</p>
@@ -1774,44 +1774,25 @@ aicdf</code></pre>
 ## -1.482  -1.014  -0.894   1.168   1.569  
 ## 
 ## Coefficients:
-##                               Estimate Std. Error z value Pr(&gt;|z|)
-## (Intercept)                   -0.88545    0.08600 -10.296  &lt; 2e-16
-## strainCB4856                   0.16098    0.10906   1.476 0.139917
-## strainJU1395                   0.90836    0.10589   8.578  &lt; 2e-16
-## treatEColi                     0.39570    0.11247   3.518 0.000434
-## treatProvidencia               0.32157    0.10997   2.924 0.003453
-## treatPseudomonas               0.19686    0.10931   1.801 0.071700
-## treatRaoultella                0.31098    0.10873   2.860 0.004237
-## treatSerratia                  0.17476    0.10342   1.690 0.091047
-## strainCB4856:treatEColi        0.02885    0.14641   0.197 0.843775
-## strainJU1395:treatEColi       -0.31958    0.14267  -2.240 0.025092
-## strainCB4856:treatProvidencia -0.16375    0.14639  -1.119 0.263322
-## strainJU1395:treatProvidencia  0.34868    0.14110   2.471 0.013471
-## strainCB4856:treatPseudomonas  0.02154    0.14561   0.148 0.882395
-## strainJU1395:treatPseudomonas -0.08647    0.13921  -0.621 0.534473
-## strainCB4856:treatRaoultella   0.01729    0.14010   0.123 0.901753
-## strainJU1395:treatRaoultella  -0.06146    0.13640  -0.451 0.652285
-## strainCB4856:treatSerratia     0.28390    0.13426   2.115 0.034464
-## strainJU1395:treatSerratia     0.11132    0.13381   0.832 0.405476
-##                                  
-## (Intercept)                   ***
-## strainCB4856                     
-## strainJU1395                  ***
-## treatEColi                    ***
-## treatProvidencia              ** 
-## treatPseudomonas              .  
-## treatRaoultella               ** 
-## treatSerratia                 .  
-## strainCB4856:treatEColi          
-## strainJU1395:treatEColi       *  
-## strainCB4856:treatProvidencia    
-## strainJU1395:treatProvidencia *  
-## strainCB4856:treatPseudomonas    
-## strainJU1395:treatPseudomonas    
-## strainCB4856:treatRaoultella     
-## strainJU1395:treatRaoultella     
-## strainCB4856:treatSerratia    *  
-## strainJU1395:treatSerratia       
+##                               Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)                   -0.88545    0.08600 -10.296  &lt; 2e-16 ***
+## strainCB4856                   0.16098    0.10906   1.476 0.139917    
+## strainJU1395                   0.90836    0.10589   8.578  &lt; 2e-16 ***
+## treatEColi                     0.39570    0.11247   3.518 0.000434 ***
+## treatProvidencia               0.32157    0.10997   2.924 0.003453 ** 
+## treatPseudomonas               0.19686    0.10931   1.801 0.071700 .  
+## treatRaoultella                0.31098    0.10873   2.860 0.004237 ** 
+## treatSerratia                  0.17476    0.10342   1.690 0.091047 .  
+## strainCB4856:treatEColi        0.02885    0.14641   0.197 0.843775    
+## strainJU1395:treatEColi       -0.31958    0.14267  -2.240 0.025092 *  
+## strainCB4856:treatProvidencia -0.16375    0.14639  -1.119 0.263322    
+## strainJU1395:treatProvidencia  0.34868    0.14110   2.471 0.013471 *  
+## strainCB4856:treatPseudomonas  0.02154    0.14561   0.148 0.882395    
+## strainJU1395:treatPseudomonas -0.08647    0.13921  -0.621 0.534473    
+## strainCB4856:treatRaoultella   0.01729    0.14010   0.123 0.901753    
+## strainJU1395:treatRaoultella  -0.06146    0.13640  -0.451 0.652285    
+## strainCB4856:treatSerratia     0.28390    0.13426   2.115 0.034464 *  
+## strainJU1395:treatSerratia     0.11132    0.13381   0.832 0.405476    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
@@ -1825,44 +1806,25 @@ aicdf</code></pre>
 <p>In a typical ANOVA, the coefficients for each factor represent the difference in means from the baseline. In this logistic regression model, the coefficients represent differences in the log of the odds ratio. Recall that the link scale for logistic regression is the log of the odds ratio. The odds ratio of an event with probability <em>p</em> is <span class="math inline">\(p/(1-p)\)</span>. In practical terms, this describes the relative likelihood of an event occurring. For example, if the odds ratio for treatment <em>A</em> vs. <em>control</em> is 1.8, then the event is 1.8 times more likely to occur in treatment group <em>A</em>. Alternatively, being in treatment <em>A</em> increases the probability of the event by a factor of 1.8. The SE of the coefficient can be used to estimate a 95% CI of the odds ratio.</p>
 <pre class="r"><code>coefs &lt;- summary(mlist[[4]])$coefficients
 coefs</code></pre>
-<pre><code>##                                  Estimate Std. Error     z value
-## (Intercept)                   -0.88545363 0.08599663 -10.2963755
-## strainCB4856                   0.16098397 0.10906031   1.4761005
-## strainJU1395                   0.90835539 0.10589011   8.5782836
-## treatEColi                     0.39569527 0.11246670   3.5183329
-## treatProvidencia               0.32156980 0.10996822   2.9242066
-## treatPseudomonas               0.19686226 0.10930596   1.8010204
-## treatRaoultella                0.31097514 0.10873444   2.8599508
-## treatSerratia                  0.17476214 0.10341550   1.6899028
-## strainCB4856:treatEColi        0.02885225 0.14640819   0.1970672
-## strainJU1395:treatEColi       -0.31958315 0.14267199  -2.2399852
-## strainCB4856:treatProvidencia -0.16374584 0.14638809  -1.1185735
-## strainJU1395:treatProvidencia  0.34867562 0.14110387   2.4710563
-## strainCB4856:treatPseudomonas  0.02154085 0.14561178   0.1479334
-## strainJU1395:treatPseudomonas -0.08647351 0.13920564  -0.6211926
-## strainCB4856:treatRaoultella   0.01729485 0.14009989   0.1234466
-## strainJU1395:treatRaoultella  -0.06146231 0.13640390  -0.4505905
-## strainCB4856:treatSerratia     0.28389752 0.13425558   2.1146050
-## strainJU1395:treatSerratia     0.11131617 0.13381251   0.8318816
-##                                   Pr(&gt;|z|)
-## (Intercept)                   7.316629e-25
-## strainCB4856                  1.399169e-01
-## strainJU1395                  9.629926e-18
-## treatEColi                    4.342673e-04
-## treatProvidencia              3.453355e-03
-## treatPseudomonas              7.169966e-02
-## treatRaoultella               4.237067e-03
-## treatSerratia                 9.104656e-02
-## strainCB4856:treatEColi       8.437750e-01
-## strainJU1395:treatEColi       2.509188e-02
-## strainCB4856:treatProvidencia 2.633221e-01
-## strainJU1395:treatProvidencia 1.347146e-02
-## strainCB4856:treatPseudomonas 8.823953e-01
-## strainJU1395:treatPseudomonas 5.344729e-01
-## strainCB4856:treatRaoultella  9.017535e-01
-## strainJU1395:treatRaoultella  6.522847e-01
-## strainCB4856:treatSerratia    3.446363e-02
-## strainJU1395:treatSerratia    4.054758e-01</code></pre>
+<pre><code>##                                  Estimate Std. Error     z value     Pr(&gt;|z|)
+## (Intercept)                   -0.88545363 0.08599663 -10.2963755 7.316629e-25
+## strainCB4856                   0.16098397 0.10906031   1.4761005 1.399169e-01
+## strainJU1395                   0.90835539 0.10589011   8.5782836 9.629926e-18
+## treatEColi                     0.39569527 0.11246670   3.5183329 4.342673e-04
+## treatProvidencia               0.32156980 0.10996822   2.9242066 3.453355e-03
+## treatPseudomonas               0.19686226 0.10930596   1.8010204 7.169966e-02
+## treatRaoultella                0.31097514 0.10873444   2.8599508 4.237067e-03
+## treatSerratia                  0.17476214 0.10341550   1.6899028 9.104656e-02
+## strainCB4856:treatEColi        0.02885225 0.14640819   0.1970672 8.437750e-01
+## strainJU1395:treatEColi       -0.31958315 0.14267199  -2.2399852 2.509188e-02
+## strainCB4856:treatProvidencia -0.16374584 0.14638809  -1.1185735 2.633221e-01
+## strainJU1395:treatProvidencia  0.34867562 0.14110387   2.4710563 1.347146e-02
+## strainCB4856:treatPseudomonas  0.02154085 0.14561178   0.1479334 8.823953e-01
+## strainJU1395:treatPseudomonas -0.08647351 0.13920564  -0.6211926 5.344729e-01
+## strainCB4856:treatRaoultella   0.01729485 0.14009989   0.1234466 9.017535e-01
+## strainJU1395:treatRaoultella  -0.06146231 0.13640390  -0.4505905 6.522847e-01
+## strainCB4856:treatSerratia     0.28389752 0.13425558   2.1146050 3.446363e-02
+## strainJU1395:treatSerratia     0.11131617 0.13381251   0.8318816 4.054758e-01</code></pre>
 <p>In our model, we have an interaction, so interpreting the coefficients is tricky. The interaction term between strain and treatment means that the effects of strain and the effects of treatment should not be interpreted by themselves. Let’s start with the coefficients in a simpler version of the model, the one without the interaction:</p>
 <p>Let’s interpret the terms from top to bottom. The <code>Intercept</code> term describes the expectation for an observation with all factors at their baseline values (strain = <code>N2</code>, treatment = <code>control</code>). We can translate this to a probability using the inverse logit function:</p>
 <pre class="r"><code>plogis(coefs[1,1])</code></pre>
