@@ -1680,11 +1680,11 @@ my.df$x7 &lt;- 1:7</code></pre>
 <p>The random number seed can be set with function <code>set.seed()</code>. Setting the seed defines the initial state of R’s pseudo-random number generator.</p>
 <pre class="r"><code># different results each time:
 runif(3)</code></pre>
-<pre><code>## [1] 0.8687877 0.7189878 0.9998773</code></pre>
+<pre><code>## [1] 0.5978155 0.3900973 0.7727116</code></pre>
 <pre class="r"><code>runif(3)</code></pre>
-<pre><code>## [1] 0.04727967 0.42941771 0.79458655</code></pre>
+<pre><code>## [1] 0.006558656 0.320315087 0.350743630</code></pre>
 <pre class="r"><code>runif(3)</code></pre>
-<pre><code>## [1] 0.7962377 0.8615604 0.9610831</code></pre>
+<pre><code>## [1] 0.5327573 0.4055658 0.3614895</code></pre>
 <pre class="r"><code># same results each time:
 set.seed(42)
 runif(3)</code></pre>
@@ -1756,7 +1756,7 @@ a4 &lt;- runif(N, 5, 25)
 ## Poisson with lambda = 10
 a5 &lt;- rpois(N, 10)
 
-## lognormal with logmu = 5 and logsd = 2
+## lognormal with logmu = 1.2 and logsd = 2
 a6 &lt;- rlnorm(N, 1.2, 0.9)
 
 # produce histogram of each distribution above
