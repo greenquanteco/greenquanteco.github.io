@@ -11,9 +11,9 @@
 
 <meta name="author" content="Nick Green, Kennesaw State University" />
 
-<meta name="date" content="2021-11-23" />
+<meta name="date" content="2021-12-01" />
 
-<title>Home page for Applied Biological Data Analysis</title>
+<title>Data manipulation in R 4: Dates, times, and character strings</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -1538,308 +1538,518 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Home page for Applied Biological Data Analysis</h1>
-<h3 class="subtitle">BIOL 4490/6490</h3>
+<h1 class="title toc-ignore">Data manipulation in R 4: Dates, times, and character strings</h1>
 <h4 class="author">Nick Green, Kennesaw State University</h4>
-<h4 class="date">November 23, 2021</h4>
+<h4 class="date">December 1, 2021</h4>
 
 </div>
 
 
-<div id="basic-information" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Basic information</h1>
-<p>This website accompanies a course I developed in Fall 2021: <strong>Applied Biological Data Analysis</strong>. The course is currently a “special topics” (i.e., seminar), but will hopefully someday evolve into a regular course. The target audience is biology graduate students and advanced undergraduates who need to analyze data for their research projects. If you find the material here helpful, please let me know! Likewise, if you have comments for improvement, I’d love to hear from you.</p>
-<div id="license-and-permissions" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> License and permissions</h2>
-<p>This work and its content is released under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0</a> license. This means that you are allowed to share the material and adapt it for your purposes, under the following conditions:</p>
-<ol style="list-style-type: decimal">
-<li>Give appropriate credit to the <a href="https://facultyweb.kennesaw.edu/ngreen62/index.php">author</a>. This includes citing the original sources of any third-party datasets used in some of the tutorials. I’ve done my best to provide appropriate citations alongside these datasets.</li>
-<li>If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.</li>
-</ol>
+<div id="overview" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Overview</h1>
+<p>Most of the data we deal with in R are numbers, but textual and temporal data are important two. Working with dates, times, and character strings can be significantly more complicated than working with numbers…so, I’ve put together an entire page on it. I am the first to admit that the approaches demonstrated here are a little “old-school” compared to some of the newer packages. In particular, many people prefer the tidyverse package <code>lubridate</code> <span class="citation">(Grolemund and Wickham 2011)</span> for temporal data. Much of this guide is based on <span class="citation">Spector (2008)</span>.</p>
 </div>
-<div id="course-description" class="section level2" number="1.2">
-<h2><span class="header-section-number">1.2</span> Course description</h2>
-<p>This course is a survey of data analysis skills and statistical methods that are essential for modern biology. The course takes a holistic approach to the data analysis workflow in biology using the open-source environment R, including data management, exploratory data analysis, data modeling, and reproducible science practices. Statistical topics covered include generalized linear models, mixed effects models, non-linear models, and ordination. Students are required to apply techniques learned in class to real or simulated biological datasets as a course project.</p>
+<div id="temporal-data-and-dates" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Temporal data and dates</h1>
+<p>Temporal data can be read and interpreted by R in many formats. The general rule is to use the simplest way that you can, because the date and time classes can be very complicated. For example, don’t store date and time if you only need date. This doesn’t mean to discard potentially useful data; just to be judicious in what you import to and try to manipulate in R.</p>
+<p>It should be noted that the easiest way to deal with dates and times is “don’t”. In many situations it’s actually not necessary to use temporal data classes. For example, if a field study was conducted in two years, and there is no temporal component to the question, it might be sufficient to just call the years <code>year1</code> and <code>year2</code> in the dataset. Or, if an elapsed time is used as a variable, it might make more sense to store the elapsed time (e.g., 10 minutes, 11.2 minutes, etc.) rather than use full date/time codes for each observation time.</p>
+<div id="dates-without-times" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Dates without times</h2>
+<p>The easiest way to handle dates is to use the base function <code>as.Date()</code>. This function converts character strings to the R date format. This implies that you will have a much easier time if you send dates to R in YYYY-MM-DD format. You can do this in Excel by setting a custom number format. Once in R, use <code>as.Date()</code> to convert your properly-formatted text strings into date objects. Once converted, R can do simple arithmetic such as finding intervals between dates.</p>
+<pre class="r"><code>a &lt;- c(&quot;2021-07-23&quot;, &quot;2021-08-01&quot;, &quot;2021-09-03&quot;)
+b &lt;- as.Date(a)
+class(a)</code></pre>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<pre class="r"><code>class(b)</code></pre>
+<pre><code>## [1] &quot;Date&quot;</code></pre>
+<pre class="r"><code>b[2] - b[1]</code></pre>
+<pre><code>## Time difference of 9 days</code></pre>
+<p>The examples above use the <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601 date format</a>, Year-Month-Day (or YYYY-MM-DD). This format has the advantage that sorting it alphanumerically is the same as sorting it chronologically. Each element has a fixed number of digits to avoid issues like January and October (months 1 and 10) being sorted next to each other.</p>
+<p>I suggest that you get in the habit of storing dates this way. This format is the default date format in R (and many other programs), such that R can read dates in this format without additional arguments. If you insist on storing dates in other formats, you can still read those dates into R. You just need to tell <code>as.Date()</code> the format that the date is in. The syntax for formatting dates and times is handled by the function <code>strptime()</code> (see <code>?strptime</code> for more examples). Something common to all of the formats below is that each element has a <em>fixed number of digits</em>, 4 for year and 2 for month or day. This is to avoid ambiguity: does “7/2/2019” “July second, 2019”, or “February 7, 2019”?. This also avoids issues arising from treating numbers as character strings. For example, January and October (months 1 and 10) might be sorted next to each other unless represented by “01” and “10” instead of “1” and “10”.</p>
+<pre class="r"><code># YYYYMMDD
+a &lt;- &quot;20210721&quot;
+as.Date(a, &quot;%Y%m%d&quot;)</code></pre>
+<pre><code>## [1] &quot;2021-07-21&quot;</code></pre>
+<pre class="r"><code># MMDDYYYY
+a &lt;- &quot;07212021&quot;
+as.Date(a, &quot;%m%d%Y&quot;)</code></pre>
+<pre><code>## [1] &quot;2021-07-21&quot;</code></pre>
+<pre class="r"><code># MM/DD/YYYY
+a &lt;- &quot;07/21/2021&quot;
+as.Date(a, &quot;%m/%d/%Y&quot;)</code></pre>
+<pre><code>## [1] &quot;2021-07-21&quot;</code></pre>
+<pre class="r"><code># DD-MM-YYYY
+a &lt;- &quot;21-07-2021&quot;
+as.Date(a, &quot;%d-%m-%Y&quot;)</code></pre>
+<pre><code>## [1] &quot;2021-07-21&quot;</code></pre>
+<p>An even simpler option for dates, if all dates are within the same year, is to use Julian dates (i.e., day-of-year). If you want to read Julian dates into R as dates, you can also use <code>as.Date()</code>. Notice in the example below that the Julian dates must be supplied as <em>character strings with 3 digits</em>, not as numerals. Notice also that R assigns the current year (2021) to the dates unless you specifically tell it to do something else.</p>
+<pre class="r"><code>a &lt;- as.character(c(204, 213, 246))
+as.Date(a, &quot;%j&quot;)</code></pre>
+<pre><code>## [1] &quot;2021-07-23&quot; &quot;2021-08-01&quot; &quot;2021-09-03&quot;</code></pre>
+<pre class="r"><code>## not run:
+## causes error because nchar(&quot;15&quot;) &lt; 3:
+#a &lt;- c(15, 204, 213, 246)
+#as.Date(a, &quot;%j&quot;)
+
+# convert all numbers to 3 digit
+# character strings first with formatC():
+a &lt;- c(15, 204, 213, 246)
+x &lt;- formatC(a, width=3, flag=&quot;0&quot;)
+as.Date(x, &quot;%j&quot;)</code></pre>
+<pre><code>## [1] &quot;2021-01-15&quot; &quot;2021-07-23&quot; &quot;2021-08-01&quot; &quot;2021-09-03&quot;</code></pre>
+<p>Dates can be reformatted using the function <code>format()</code>. Notice that the output is a character string, not a date. The syntax for the conversion comes from <code>strptime()</code>, just as with <code>as.Date()</code> above. If you need to use a formatted date (character string) as a date (R class) you need to convert it with <code>as.Date()</code>.</p>
+<pre class="r"><code>a &lt;- c(&quot;2021-07-23&quot;, &quot;2021-08-01&quot;, &quot;2021-09-03&quot;)
+x &lt;- as.Date(a)
+format(x, &quot;%j&quot;)</code></pre>
+<pre><code>## [1] &quot;204&quot; &quot;213&quot; &quot;246&quot;</code></pre>
+<pre class="r"><code>format(x, &quot;%Y-%m-%d&quot;)</code></pre>
+<pre><code>## [1] &quot;2021-07-23&quot; &quot;2021-08-01&quot; &quot;2021-09-03&quot;</code></pre>
+<pre class="r"><code>format(x, &quot;%b/%d/%y&quot;)</code></pre>
+<pre><code>## [1] &quot;Jul/23/21&quot; &quot;Aug/01/21&quot; &quot;Sep/03/21&quot;</code></pre>
 </div>
-<div id="course-objectives" class="section level2" number="1.3">
-<h2><span class="header-section-number">1.3</span> Course objectives</h2>
-<ol style="list-style-type: decimal">
-<li>Explain the role of statistics in the biological sciences and the ways in which analytical results are communicated.</li>
-<li>Manipulate, summarize, display, and analyze data using the open-source environment and language R.</li>
-<li>Use probability distributions to model and think about biological phenomena. Students should come away from the course able to translate biological hypotheses and ideas into statistical statements and vice versa.</li>
-<li>Conduct exploratory data analyses in support of scientific investigations, particularly to detect and diagnose common problems with biological datasets.</li>
-<li>Employ modern statistical methods to answer biological questions.</li>
-<li>Communicate data and analytical results to audiences who may or may not have statistical backgrounds.</li>
-</ol>
+<div id="dates-with-times-and-time-zones" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Dates with times (and time zones)</h2>
+<p>Here be dragons.</p>
+<p>Things get more complicated when time is included with a date, but the basic procedures are the same as date-only data. By default, R assumes that times are in the time zone of the current user. So, if you are collaborating with someone in a different time zone, you need to account for time zone in your code. Another default behavior is that R will assume that times without dates are on the current day.</p>
+<p>The main function for working with dates <em>and</em> times is <code>strptime()</code>. This function takes in a character vector and a format argument, which tells R how the character vector is formatted. It returns objects of class <code>POSIXlt</code> and <code>POSIXt</code>, which contain date and time information in a standardized way.</p>
+<pre class="r"><code>a &lt;- c(&quot;01:15:03&quot;, &quot;14:28:21&quot;)
+strptime(a, format=&quot;%H:%M:%S&quot;) # includes seconds</code></pre>
+<pre><code>## [1] &quot;2021-12-02 01:15:03 EST&quot; &quot;2021-12-02 14:28:21 EST&quot;</code></pre>
+<pre class="r"><code>strptime(a, format=&quot;%H:%M&quot;)    # seconds dropped</code></pre>
+<pre><code>## [1] &quot;2021-12-02 01:15:00 EST&quot; &quot;2021-12-02 14:28:00 EST&quot;</code></pre>
+<p>Notice that the current date was included in the result of <code>strptime()</code> (at least, the date when I rendered this page with R Markdown).</p>
+<p>Time zones should be specified when working with data that contain dates and times. Remember that R will assume the time is in the current user’s time zone. This almost always means the time zone used by the operating system in which R is running. If you did something silly like record data in one time zone and analyze it in another, you have to be careful. For example, I once ran a field study in Indiana where data were recorded in Eastern time. But, the office where I analyzed the data was in Missouri (Central time). R kept converting the time-stamped data to Central time, which interfered with the analysis until I learned how to work with time zones in R.</p>
+<pre class="r"><code>a &lt;- c(&quot;2021-07-23 13:21&quot;, &quot;2021-08-01 09:15&quot;)
+x &lt;- strptime(a, &quot;%Y-%m-%d %H:%M&quot;)
+x</code></pre>
+<pre><code>## [1] &quot;2021-07-23 13:21:00 EDT&quot; &quot;2021-08-01 09:15:00 EDT&quot;</code></pre>
+<pre class="r"><code># compare to :
+a2 &lt;- c(&quot;13:21&quot;, &quot;09:15&quot;)
+x2 &lt;- strptime(a2, &quot;%H:%M&quot;)
+x2</code></pre>
+<pre><code>## [1] &quot;2021-12-02 13:21:00 EST&quot; &quot;2021-12-02 09:15:00 EST&quot;</code></pre>
+<p>Time zone names are not always portable across systems. R has a list of built-in time zones that it can handle, and these should work, but be careful and <strong><em>always</em></strong> validate any code that depends on time zones. The list of time zones R can use can be printed to the console with the command <code>OlsonNames()</code>.</p>
+<pre class="r"><code># US Central Daylight Time (5 hours behind UTC)
+a &lt;- c(&quot;2021-07-23 13:21&quot;, &quot;2021-08-01 09:15&quot;)
+b &lt;- strptime(a, &quot;%Y-%m-%d %H:%M&quot;, tz=&quot;US/Central&quot;)</code></pre>
+<p>Internally, dates and times are stored as the number of seconds elapsed since 00:00 on 1 January 1970, in UTC. You can see these values with <code>as.numeric()</code>. The time zone of a value affects what is printed to the console. That time zone is stored by R as an <strong>attribute</strong> of the value. Attributes are a kind of metadata associated with some R data types that can be accessed with <code>attributes()</code>.</p>
+<pre class="r"><code>attributes(b)$tzone</code></pre>
+<pre><code>## [1] &quot;US/Central&quot; &quot;CST&quot;        &quot;CDT&quot;</code></pre>
+<p>To change the time zone associated with value, simply set the attribute to the desired time zone. This is basically telling R the time zone that a date and time refer to. Note that will change the actual value of a date/time. It does NOT translate times in one time zone to another.</p>
+<pre class="r"><code>as.numeric(b)</code></pre>
+<pre><code>## [1] 1627064460 1627827300</code></pre>
+<pre class="r"><code>attr(b, &quot;tzone&quot;) &lt;- &quot;America/Los_Angeles&quot;
+
+# different by 7200 seconds (2 hours)
+as.numeric(b)</code></pre>
+<pre><code>## [1] 1627071660 1627834500</code></pre>
+<p>To convert one time zone to another, the values must first be converted to the <code>POSIXct</code> class.</p>
+<pre class="r"><code>b &lt;- strptime(a, &quot;%Y-%m-%d %H:%M&quot;, tz=&quot;US/Central&quot;)
+b2 &lt;- as.POSIXct(b)
+
+# check time zone
+attributes(b2)$tzone</code></pre>
+<pre><code>## [1] &quot;US/Central&quot;</code></pre>
+<pre class="r"><code># check actual time (seconds since epoch)
+as.numeric(b2)</code></pre>
+<pre><code>## [1] 1627064460 1627827300</code></pre>
+<pre class="r"><code># change time zone of POSIXct object
+attr(b2, &quot;tzone&quot;) &lt;- &quot;Europe/London&quot;
+
+# actual time same as before:
+as.numeric(b2)</code></pre>
+<pre><code>## [1] 1627064460 1627827300</code></pre>
 </div>
-<div id="course-requirements" class="section level2" number="1.4">
-<h2><span class="header-section-number">1.4</span> Course requirements</h2>
+<div id="working-with-dates-and-times" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Working with dates and times</h2>
+<p>Why should we go through all of this trouble to format dates and times as dates and times? The answer is that R can perform many useful calculations with dates and times. One of these is time intervals by using subtraction or the function <code>difftime()</code>. Subtracting two date/times will return an answer but perhaps not in the units you want; use <code>difftime()</code> if you want to specify the units.</p>
+<pre class="r"><code># how many days, hours, and minutes until Prof. Green can retire?
+
+## current time:
+a &lt;- Sys.time()
+
+## retirement date per USG:
+b &lt;- &quot;2048-07-01 00:00&quot;
+
+## convert to POSIXlt
+x &lt;- strptime(a, &quot;%Y-%m-%d %H:%M&quot;)
+y &lt;- strptime(b, &quot;%Y-%m-%d %H:%M&quot;)
+
+## calculate time in different units:
+difftime(y,x, units=&quot;days&quot;)</code></pre>
+<pre><code>## Time difference of 9707.299 days</code></pre>
+<pre class="r"><code>difftime(y,x, units=&quot;hours&quot;)</code></pre>
+<pre><code>## Time difference of 232975.2 hours</code></pre>
+<pre class="r"><code>difftime(y,x, units=&quot;mins&quot;)</code></pre>
+<pre><code>## Time difference of 13978511 mins</code></pre>
+<pre class="r"><code>y-x</code></pre>
+<pre><code>## Time difference of 9707.299 days</code></pre>
+<p>Another application: what is the time difference between Chicago and Honolulu?</p>
+<pre class="r"><code>a &lt;- c(&quot;2021-07-23 13:21&quot;)
+x &lt;- strptime(a, &quot;%Y-%m-%d %H:%M&quot;, tz=&quot;US/Central&quot;)
+y &lt;- strptime(a, &quot;%Y-%m-%d %H:%M&quot;, tz=&quot;US/Hawaii&quot;)
+difftime(x,y)</code></pre>
+<pre><code>## Time difference of -5 hours</code></pre>
+<p>Oddly, <code>difftime()</code> cannot return years. This is probably because there are <a href="https://en.wikipedia.org/wiki/Year">different types of years</a> (sidereal, tropical, anomalistic, lunar, etc.). You can convert a time difference in days to one in years by dividing by the number of days in the kind of year you want. The example below converts to does this and changes the “units” attribute of the difftime output to match.</p>
+<pre class="r"><code>d &lt;- difftime(y,x, units=&quot;days&quot;)
+
+# julian year
+d &lt;- d/365.25
+attr(d, &quot;units&quot;) &lt;- &quot;years&quot;
+d</code></pre>
+<pre><code>## Time difference of 0.0005703856 years</code></pre>
+<p>The Julian year is useful because it is defined in terms of an SI units as 31557600 seconds, or 365.25 days<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. Most of the alternative years at the link above vary by less than a few minutes.</p>
+<p>R can also generate regular sequences of dates and times just like it can numeric values. See <code>?seq.date</code> for details and syntax.</p>
+<pre class="r"><code>a &lt;- as.Date(&quot;2021-07-23&quot;)
+seq(a, by=&quot;day&quot;, length=10)</code></pre>
+<pre><code>##  [1] &quot;2021-07-23&quot; &quot;2021-07-24&quot; &quot;2021-07-25&quot; &quot;2021-07-26&quot; &quot;2021-07-27&quot;
+##  [6] &quot;2021-07-28&quot; &quot;2021-07-29&quot; &quot;2021-07-30&quot; &quot;2021-07-31&quot; &quot;2021-08-01&quot;</code></pre>
+<pre class="r"><code>seq(a, by=&quot;days&quot;, length=6)</code></pre>
+<pre><code>## [1] &quot;2021-07-23&quot; &quot;2021-07-24&quot; &quot;2021-07-25&quot; &quot;2021-07-26&quot; &quot;2021-07-27&quot;
+## [6] &quot;2021-07-28&quot;</code></pre>
+<pre class="r"><code>seq(a, by=&quot;week&quot;, length=10)</code></pre>
+<pre><code>##  [1] &quot;2021-07-23&quot; &quot;2021-07-30&quot; &quot;2021-08-06&quot; &quot;2021-08-13&quot; &quot;2021-08-20&quot;
+##  [6] &quot;2021-08-27&quot; &quot;2021-09-03&quot; &quot;2021-09-10&quot; &quot;2021-09-17&quot; &quot;2021-09-24&quot;</code></pre>
+<pre class="r"><code>seq(a, by=&quot;6 weeks&quot;, length=10)</code></pre>
+<pre><code>##  [1] &quot;2021-07-23&quot; &quot;2021-09-03&quot; &quot;2021-10-15&quot; &quot;2021-11-26&quot; &quot;2022-01-07&quot;
+##  [6] &quot;2022-02-18&quot; &quot;2022-04-01&quot; &quot;2022-05-13&quot; &quot;2022-06-24&quot; &quot;2022-08-05&quot;</code></pre>
+<pre class="r"><code>seq(a, by=&quot;-4 weeks&quot;, length=5)</code></pre>
+<pre><code>## [1] &quot;2021-07-23&quot; &quot;2021-06-25&quot; &quot;2021-05-28&quot; &quot;2021-04-30&quot; &quot;2021-04-02&quot;</code></pre>
+</div>
+</div>
+<div id="character-data-text" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Character data (text)</h1>
+<p>Recall from earlier that “character” is just another <strong>type</strong> of data in R–the type that contains text. This means that text values can be stored and manipulated in many of the same ways as numeric data. The vectorized functions in R can make managing your text-based data very fast and efficient.</p>
+<p>A value containing text, or stored as text, is called a <strong>character string</strong>. Character strings can be stored in many R objects. A set of character strings is called a <strong>character vector</strong>.</p>
+<div id="combining-character-strings" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Combining character strings</h2>
+<p>Character strings can be combined together into larger character strings using the function <code>paste()</code>. Notice that this is not the same as making a vector containing several character strings. That operation is done with <code>c()</code>.</p>
+<pre class="r"><code>x &lt;- paste(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;)
+y &lt;- c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;)
+x</code></pre>
+<pre><code>## [1] &quot;a b c&quot;</code></pre>
+<pre class="r"><code>y</code></pre>
+<pre><code>## [1] &quot;a&quot; &quot;b&quot; &quot;c&quot;</code></pre>
+<pre class="r"><code>length(x)</code></pre>
+<pre><code>## [1] 1</code></pre>
+<pre class="r"><code>length(y)</code></pre>
+<pre><code>## [1] 3</code></pre>
+<p>The function <code>paste()</code>, and its cousin <code>paste0()</code>, combine their arguments together and output a character string. The inputs do not have to be character strings, but the outputs will be. The difference between <code>paste()</code> and <code>paste0()</code> is that <code>paste0()</code> does not put any characters between its inputs, while <code>paste()</code> can place any valid character between its inputs. The default separator is a space.</p>
+<pre class="r"><code>paste0(&quot;a&quot;, &quot;zebra&quot;, 3)</code></pre>
+<pre><code>## [1] &quot;azebra3&quot;</code></pre>
+<pre class="r"><code>paste(&quot;a&quot;, &quot;zebra&quot;, 3)</code></pre>
+<pre><code>## [1] &quot;a zebra 3&quot;</code></pre>
+<pre class="r"><code>paste(&quot;a&quot;, &quot;zebra&quot;, 3, sep=&quot;_&quot;)</code></pre>
+<pre><code>## [1] &quot;a_zebra_3&quot;</code></pre>
+<pre class="r"><code>paste(&quot;a&quot;, &quot;zebra&quot;, 3, sep=&quot;.&quot;)</code></pre>
+<pre><code>## [1] &quot;a.zebra.3&quot;</code></pre>
+<pre class="r"><code>paste(&quot;a&quot;, &quot;zebra&quot;, 3, sep=&quot;/&quot;)</code></pre>
+<pre><code>## [1] &quot;a/zebra/3&quot;</code></pre>
+<pre class="r"><code>paste(&quot;a&quot;, &quot;zebra&quot;, 3, sep=&quot;giraffe&quot;)</code></pre>
+<pre><code>## [1] &quot;agiraffezebragiraffe3&quot;</code></pre>
+<p>One of my favorite uses for the paste functions is to automatically generate folder names and output file names. The example below adds the current date (<code>Sys.Date()</code>) into a file name.</p>
+<pre class="r"><code># not run
+top.dir &lt;- &quot;C:/_data&quot;
+out.dir &lt;- paste(top.dir, &quot;test&quot;, sep=&quot;/&quot;)
+out.name &lt;- paste0(&quot;output_&quot;, Sys.Date(), &quot;.csv&quot;)
+write.csv(iris, paste(geo.dir, out.name, sep=&quot;/&quot;))</code></pre>
+<p>When the inputs to a <code>paste()</code> function are contained in a single vector, then the desired separator must be supplied using the argument <code>collapse</code> instead of <code>sep</code>.</p>
+<pre class="r"><code>a &lt;- c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;)
+paste(a, collapse=&quot;-&quot;)</code></pre>
+<pre><code>## [1] &quot;a-b-c&quot;</code></pre>
+</div>
+<div id="printing-character-strings" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Printing character strings</h2>
+<p>The <code>cat()</code> function can not only put strings together, but also print them to the R console. This is useful if you want to generate messages from inside functions or loops. When <code>cat()</code> receives inputs that are not character strings, it evaluates them and converts them to character strings. The examples below show how inputs can be evaluated and printed. It also illustrates the use of <code>\n</code> and <code>\t</code> to insert new lines and tabs, respectively. Finally, the command flush.console() ensures that the console is updated with the most recent outputs.</p>
+<pre class="r"><code># using cat() in a function:
+my.fun &lt;- function(x){
+    cat(&quot;You entered&quot;, x, &quot;!&quot;, &quot;\n&quot;)
+    cat(&quot;\t&quot;, &quot;1 more is&quot;, x+1, &quot;\n&quot;)
+}
+my.fun(7)</code></pre>
+<pre><code>## You entered 7 ! 
+##   1 more is 8</code></pre>
+<pre class="r"><code>my.fun(42)</code></pre>
+<pre><code>## You entered 42 ! 
+##   1 more is 43</code></pre>
+<pre class="r"><code># using cat() in a loop:
+for(i in 1:5){
+    cat(&quot;starting iteration&quot;, i, &quot;\n&quot;)
+    for(j in 1:10){
+        cat(&quot;\t&quot;, &quot;iteration&quot;, i, &quot;part&quot;, j, &quot;complete!&quot;, &quot;\n&quot;)
+        flush.console()
+    }
+    cat(&quot;iteration&quot;, i, &quot;complete!&quot;, &quot;\n&quot;)
+}</code></pre>
+<pre><code>## starting iteration 1 
+##   iteration 1 part 1 complete! 
+##   iteration 1 part 2 complete! 
+##   iteration 1 part 3 complete! 
+##   iteration 1 part 4 complete! 
+##   iteration 1 part 5 complete! 
+##   iteration 1 part 6 complete! 
+##   iteration 1 part 7 complete! 
+##   iteration 1 part 8 complete! 
+##   iteration 1 part 9 complete! 
+##   iteration 1 part 10 complete! 
+## iteration 1 complete! 
+## starting iteration 2 
+##   iteration 2 part 1 complete! 
+##   iteration 2 part 2 complete! 
+##   iteration 2 part 3 complete! 
+##   iteration 2 part 4 complete! 
+##   iteration 2 part 5 complete! 
+##   iteration 2 part 6 complete! 
+##   iteration 2 part 7 complete! 
+##   iteration 2 part 8 complete! 
+##   iteration 2 part 9 complete! 
+##   iteration 2 part 10 complete! 
+## iteration 2 complete! 
+## starting iteration 3 
+##   iteration 3 part 1 complete! 
+##   iteration 3 part 2 complete! 
+##   iteration 3 part 3 complete! 
+##   iteration 3 part 4 complete! 
+##   iteration 3 part 5 complete! 
+##   iteration 3 part 6 complete! 
+##   iteration 3 part 7 complete! 
+##   iteration 3 part 8 complete! 
+##   iteration 3 part 9 complete! 
+##   iteration 3 part 10 complete! 
+## iteration 3 complete! 
+## starting iteration 4 
+##   iteration 4 part 1 complete! 
+##   iteration 4 part 2 complete! 
+##   iteration 4 part 3 complete! 
+##   iteration 4 part 4 complete! 
+##   iteration 4 part 5 complete! 
+##   iteration 4 part 6 complete! 
+##   iteration 4 part 7 complete! 
+##   iteration 4 part 8 complete! 
+##   iteration 4 part 9 complete! 
+##   iteration 4 part 10 complete! 
+## iteration 4 complete! 
+## starting iteration 5 
+##   iteration 5 part 1 complete! 
+##   iteration 5 part 2 complete! 
+##   iteration 5 part 3 complete! 
+##   iteration 5 part 4 complete! 
+##   iteration 5 part 5 complete! 
+##   iteration 5 part 6 complete! 
+##   iteration 5 part 7 complete! 
+##   iteration 5 part 8 complete! 
+##   iteration 5 part 9 complete! 
+##   iteration 5 part 10 complete! 
+## iteration 5 complete!</code></pre>
+<p>The other printing function, <code>sink()</code>, is specifically for printing outputs into text files. Refer back to the <a href="https://greenquanteco.github.io/03-manip-01-inout.html">page on data import/export</a> for an example.</p>
+</div>
+<div id="searching-character-strings" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Searching character strings</h2>
+<div id="matching-character-strings" class="section level3" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Matching character strings</h3>
+<p>Like numeric data, character strings can be matched exactly with the comparison operator <code>==</code>.</p>
+<pre class="r"><code>x &lt;- c(&quot;zebra&quot;, &quot;hippo&quot;)
+x == &quot;zebra&quot;</code></pre>
+<pre><code>## [1]  TRUE FALSE</code></pre>
+<pre class="r"><code>which(x == &quot;zebra&quot;)</code></pre>
+<pre><code>## [1] 1</code></pre>
+<pre class="r"><code>which(x != &quot;zebra&quot;)</code></pre>
+<pre><code>## [1] 2</code></pre>
+<pre class="r"><code>any(x == &quot;zebra&quot;)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>all(x == &quot;zebra&quot;)</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<p>Notice that this kind of matching is case-sensitive. If you need to match regardless of case, you can either force all of the comparands to be the same case, or use regular expressions (see next section).</p>
+<pre class="r"><code>x &lt;- c(&quot;zebra&quot;, &quot;hippo&quot;)
+any(x == &quot;Zebra&quot;)</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<pre class="r"><code>any(x == tolower(&quot;zebra&quot;))</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<p>R is smart enough to sort text alphabetically, and to make comparisons based on alphabetical sorting.</p>
+<pre class="r"><code>x &lt;- c(&quot;zebra&quot;, &quot;hippo&quot;, &quot;lion&quot;)
+sort(x)</code></pre>
+<pre><code>## [1] &quot;hippo&quot; &quot;lion&quot;  &quot;zebra&quot;</code></pre>
+<pre class="r"><code>&quot;zebra&quot; &gt; &quot;hippo&quot;</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>&quot;lion&quot; &gt; &quot;zebra&quot;</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<pre class="r"><code>which(x &gt; &quot;jaguar&quot;)</code></pre>
+<pre><code>## [1] 1 3</code></pre>
+</div>
+<div id="searching-with-grep-and-grepl" class="section level3" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> Searching with <code>grep()</code> and <code>grepl()</code></h3>
+<p><strong>Regular expressions</strong>, or <strong>regex</strong>, are a syntax for searching text strings. Learning how to use regular expressions is easily a semester-long course on its own. Here we’ll just explore a few common use cases. The R functions that deal with regular expressions are <code>grep()</code> and its cousins. The most commonly used versions are <code>grep()</code> and <code>grepl()</code>.</p>
 <ul>
-<li>Access to a computer or laptop capable of running <a href="https://cran.r-project.org/bin/windows/base/">R</a> version <span class="math inline">\(\ge\)</span> 4.0.</li>
-<li>Having a recent version of <a href="https://www.rstudio.com/products/rstudio/">RStudio</a> is helpful but not esssential.</li>
-<li>A 64-bit system is highly recommended for speed and stability.</li>
-<li>A separate program in which to write and edit code.
-<ul>
-<li>Most people prefer to use an “integrated development environment” (IDE) or dedicated code editor for coding.</li>
-<li>IDEs and code editors are often subject to irrationally strong personal and organizational preferences, so just pick the one that works for you. Or, use the one your supervisor tells you to use.</li>
-<li>My usual workflow includes two windows: the base R GUI, and <a href="https://notepad-plus-plus.org/downloads/">Notepad++</a>.</li>
-</ul></li>
-<li>It would helpful to have a dataset of your own to work with. Each course module uses numerous examples with simulated or published datasets. But, at the end of the day, you’re probably here because you need to apply these methods to your own work.</li>
+<li><code>grep()</code> returns the indices in the input vector that match the pattern</li>
+<li><code>grepl()</code> returns a logical value (TRUE or FALSE) telling whether each element in the input vector matches the pattern.</li>
 </ul>
+<p>This means that <code>grepl()</code> is analogous to using <code>==</code> to test for equality, while <code>grep()</code> is analogous to using <code>which()</code>. Compare the results of the two commands on the simple vector <code>x</code> below. It’s not hard to imagine how powerful these functions can be.</p>
+<pre class="r"><code>x &lt;- c(&quot;zebra&quot;, &quot;hippo&quot;, &quot;lion&quot;, &quot;tiger&quot;)
+grep(&quot;e&quot;, x)</code></pre>
+<pre><code>## [1] 1 4</code></pre>
+<pre class="r"><code>grepl(&quot;e&quot;, x)</code></pre>
+<pre><code>## [1]  TRUE FALSE FALSE  TRUE</code></pre>
+<p>Some of the arguments to <code>grep()</code> can save you some time. Setting <code>value=TRUE</code> will return the values where the input matches the pattern.</p>
+<pre class="r"><code>grep(&quot;e&quot;, x, value=TRUE)</code></pre>
+<pre><code>## [1] &quot;zebra&quot; &quot;tiger&quot;</code></pre>
+<pre class="r"><code># equivalent to:
+x[grep(&quot;e&quot;, x)]</code></pre>
+<pre><code>## [1] &quot;zebra&quot; &quot;tiger&quot;</code></pre>
+<p>Setting <code>invert=TRUE</code> will find elements of the input that do NOT match the pattern.</p>
+<pre class="r"><code>grep(&quot;e&quot;, x)</code></pre>
+<pre><code>## [1] 1 4</code></pre>
+<pre class="r"><code>grep(&quot;e&quot;, x, invert=TRUE)</code></pre>
+<pre><code>## [1] 2 3</code></pre>
+<p>By default, <code>grep()</code> is case-sensitive. This can be overridden with the option <code>ignore.case</code>.</p>
+<pre class="r"><code>x &lt;- c(&quot;zebra&quot;, &quot;hippo&quot;, &quot;lion&quot;, &quot;tiger&quot;, &quot;Tiger&quot;)
+grep(&quot;tiger&quot;, x)</code></pre>
+<pre><code>## [1] 4</code></pre>
+<pre class="r"><code>grep(&quot;Tiger&quot;, x)</code></pre>
+<pre><code>## [1] 5</code></pre>
+<pre class="r"><code>grep(&quot;tiger&quot;, x, ignore.case=TRUE)</code></pre>
+<pre><code>## [1] 4 5</code></pre>
+<pre class="r"><code>grep(&quot;TIGER&quot;, x, ignore.case=TRUE)</code></pre>
+<pre><code>## [1] 4 5</code></pre>
+<p>We will see some uses of <code>grep()</code> and its cousins in the examples later.</p>
 </div>
 </div>
-<div id="recommended-reading" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> Recommended reading</h1>
-<p>The primary textbook for the course is <span class="citation">Bolker (2008)</span>. This is a general statistics textbook for biologists. The applications and examples are focused on ecology, but the statistical exposition is relevant to any area of biology.</p>
-<p>Some other general statistics and R books you may find helpful include <span class="citation">Dalgaard (2002)</span> and <span class="citation">Zuur et al. (2009)</span>. A more advanced statistics book that also introduces machine learning is <span class="citation">James et al. (2013)</span>, which is also available for <a href="http://faculty.marshall.usc.edu/gareth-james/ISL/">free online</a>. Parts of the course also lean heavily on <span class="citation">Zuur et al. (2007)</span>, <span class="citation">McCune et al. (2002)</span>, <span class="citation">Legendre and Legendre (2012)</span>, and <span class="citation">Kéry (2010)</span>.</p>
+<div id="replacing-parts-of-character-strings" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Replacing parts of character strings</h2>
+<p>Text within character strings can be replaced or modified in several ways. If you are comfortable with regular expressions (see previous section) then you can use function <code>gsub()</code>. The syntax for <code>gsub()</code> is similar to that of <code>grep()</code>, with an additional input for the replacement string. Note that <code>gsub()</code> will replace every occurrence of the pattern, whether or not an occurrence is a whole word or not. The related function <code>sub()</code> works like <code>gsub()</code>, but only replaces the first occurrence of the pattern.</p>
+<pre class="r"><code>x &lt;- c(&quot;zebra&quot;, &quot;hippo&quot;, &quot;lion&quot;, &quot;tiger&quot;, &quot;Tiger&quot;)
+gsub(&quot;tiger&quot;, &quot;giraffe&quot;, x)</code></pre>
+<pre><code>## [1] &quot;zebra&quot;   &quot;hippo&quot;   &quot;lion&quot;    &quot;giraffe&quot; &quot;Tiger&quot;</code></pre>
+<pre class="r"><code>gsub(&quot;tiger&quot;, &quot;giraffe&quot;, x, ignore.case=TRUE)</code></pre>
+<pre><code>## [1] &quot;zebra&quot;   &quot;hippo&quot;   &quot;lion&quot;    &quot;giraffe&quot; &quot;giraffe&quot;</code></pre>
+<pre class="r"><code>gsub(&quot;z&quot;, &quot;Z&quot;, x)</code></pre>
+<pre><code>## [1] &quot;Zebra&quot; &quot;hippo&quot; &quot;lion&quot;  &quot;tiger&quot; &quot;Tiger&quot;</code></pre>
+<pre class="r"><code>sub(&quot;tiger&quot;, &quot;giraffe&quot;, x, ignore.case=TRUE)</code></pre>
+<pre><code>## [1] &quot;zebra&quot;   &quot;hippo&quot;   &quot;lion&quot;    &quot;giraffe&quot; &quot;giraffe&quot;</code></pre>
 </div>
-<div id="course-modules" class="section level1" number="3">
-<h1><span class="header-section-number">3</span> Course modules</h1>
-<p>This section is a work in progress as I figure out how to use Github pages. All documents below were rendered using RMarkdown.</p>
-<table>
-<colgroup>
-<col width="28%" />
-<col width="35%" />
-<col width="35%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Module</th>
-<th align="center">Page (html)</th>
-<th align="center">PDF version</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Statistics in biology</td>
-<td align="center">(coming soon)</td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Introduction to R</td>
-<td align="center">(coming soon)</td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>Data manipulation 1: Data import/export</td>
-<td align="center"><a href="https://greenquanteco.github.io/03-manip-01-inout.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Data manipulation 2: Making values in R</td>
-<td align="center"><a href="https://greenquanteco.github.io/03-manip-02-makevals.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>Data manipulation 3: Selecting data with <code>[]</code></td>
-<td align="center"><a href="https://greenquanteco.github.io/03-manip-03-brackets.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Data manipulation 4: Managing characters and dates</td>
-<td align="center"><a href="https://greenquanteco.github.io/03-manip-04-chardate.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>Data manipulation 5: Data frame management</td>
-<td align="center"><a href="https://greenquanteco.github.io/03-manip-05-dataframe.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Data exploration 1: Descriptive and summary statistics</td>
-<td align="center">(coming soon)</td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>Data exploration 2: Visualizing data distributions</td>
-<td align="center">(coming soon)</td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Statistical distributions</td>
-<td align="center">(coming soon)</td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>Data exploration 3: Fitting and testing distributions</td>
-<td align="center">(coming soon)</td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Data exploration 4: Data transformations</td>
-<td align="center">(coming soon)</td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>Data exploration 5: Multivariate data exploration (preview)</td>
-<td align="center">(coming soon)</td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Data exploration 6: Common statistical problems</td>
-<td align="center">(coming soon)</td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>GLM 1: Prelude with linear models</td>
-<td align="center"><a href="https://greenquanteco.github.io/05-glm-01-prelude.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>GLM 2: GLM basics</td>
-<td align="center"><a href="https://greenquanteco.github.io/05-glm-02-glm_basics.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>GLM 3: Log-linear models</td>
-<td align="center"><a href="https://greenquanteco.github.io/05-glm-03-loglinear_models.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>GLM 4: Poisson models for counts</td>
-<td align="center"><a href="https://greenquanteco.github.io/05-glm-04-poisson_glm.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>GLM 5: Quasi-Poisson and negative binomial models for counts</td>
-<td align="center"><a href="https://greenquanteco.github.io/05-glm-05-quasi_nb_glm.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>GLM 6: Logistic regression for binary outcomes</td>
-<td align="center"><a href="https://greenquanteco.github.io/05-glm-06-logistic_glm.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>GLM 7: Binomial regression for proportional data</td>
-<td align="center"><a href="https://greenquanteco.github.io/05-glm-07-binomial_glm.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>GLM 8: Gamma models for overdispersed data</td>
-<td align="center"><a href="https://greenquanteco.github.io/05-glm-08-gamma_glm.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>GLM 9: Beyond GLM: Overview of GAM and GEE</td>
-<td align="center"><a href="https://greenquanteco.github.io/05-glm-09-beyond_glm.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Nonlinear models 1: Background</td>
-<td align="center"><a href="https://greenquanteco.github.io/06-non-01-intro.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>Nonlinear models 2: Michaelis-Menten curves with <code>nls()</code> and JAGS</td>
-<td align="center"><a href="https://greenquanteco.github.io/06-non-02-micmen.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Nonlinear models 3: Biological growth curves</td>
-<td align="center"><a href="https://greenquanteco.github.io/06-non-03-growth.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>Nonlinear models 4: Dose response curves</td>
-<td align="center"><a href="https://greenquanteco.github.io/06-non-04-dose.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Alternatives to NLS: quantile regression, additive models, and CART</td>
-<td align="center"><a href="https://greenquanteco.github.io/06-non-05-alts.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>Mixed models 1: Linear mixed models (LMM)</td>
-<td align="center">(coming soon)</td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Mixed models 2: Generalized linear mixed models (GLMM)</td>
-<td align="center">(coming soon)</td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>Mixed models 3: Nonlinear mixed models (NLME)</td>
-<td align="center">(coming soon)</td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Mixed models 4: (Generalized) additive mixed models (GAM/GAMM)</td>
-<td align="center">(coming soon)</td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>Multivariate 1: Distance measures</td>
-<td align="center"><a href="https://greenquanteco.github.io/08-multi-01-distance.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Multivariate 2: Clustering</td>
-<td align="center"><a href="https://greenquanteco.github.io/08-multi-02-cluster.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>Multivariate 3: Analyzing dissimilarity</td>
-<td align="center"><a href="https://greenquanteco.github.io/08-multi-03-analyzing_sim.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Multivariate 4: Ordination intro and PCA</td>
-<td align="center"><a href="https://greenquanteco.github.io/08-multi-04-ordination1.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>Multivariate 5: NMDS and other methods</td>
-<td align="center"><a href="https://greenquanteco.github.io/08-multi-05-ordination2.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-</tbody>
-</table>
+<div id="extracting-from-and-splitting-character-strings" class="section level2" number="3.5">
+<h2><span class="header-section-number">3.5</span> Extracting from and splitting character strings</h2>
+<p>Character strings can be split up using the function <code>strsplit()</code> (short for “string split”). This function can use regular expressions like <code>grep()</code> or <code>gsub()</code> can. It works by breaking a character string apart at a given text string. Unfortunately, its output can be a little confusing if you’re not used to working with R objects:</p>
+<pre class="r"><code>x &lt;- c(&quot;Peromyscus_leucopus&quot;,
+       &quot;Sigmodon_hispidus&quot;,
+       &quot;Microtus_pennsylvanicus&quot;)
+strsplit(x, &quot;_&quot;)</code></pre>
+<pre><code>## [[1]]
+## [1] &quot;Peromyscus&quot; &quot;leucopus&quot;  
+## 
+## [[2]]
+## [1] &quot;Sigmodon&quot; &quot;hispidus&quot;
+## 
+## [[3]]
+## [1] &quot;Microtus&quot;       &quot;pennsylvanicus&quot;</code></pre>
+<p>Function <code>strsplit()</code> returns a list with one element for each element in the input vector. Each element of that list is a character vector, consisting of the pieces of that element of the input vector split by the splitting string. So, if you want only one part of each element of the input vector, you need to extract them from the output list. In this example, we can get the generic epithets by pulling the first element of each list element. The function <code>sapply()</code> applies a function to each element of a list and returns a result with the simplest possible structure (<code>sapply</code> is short for “apply and simplify”). The two commands below are equivalent, but the first is much simpler and should be the method you use.</p>
+<pre class="r"><code>sapply(strsplit(x, &quot;_&quot;), &quot;[&quot;, 1)</code></pre>
+<pre><code>## [1] &quot;Peromyscus&quot; &quot;Sigmodon&quot;   &quot;Microtus&quot;</code></pre>
+<pre class="r"><code># equivalent, not as easy:
+do.call(c, lapply(strsplit(x, &quot;_&quot;), &quot;[&quot;, 1))</code></pre>
+<pre><code>## [1] &quot;Peromyscus&quot; &quot;Sigmodon&quot;   &quot;Microtus&quot;</code></pre>
+<p>The “<code>sapply</code>-<code>strsplit</code>” method is useful for breaking apart strings whose parts carry information. One common use case is breaking up dates into year, month, and day. Note that there are more elegant ways to do this using the R date classes, but treating dates as text strings can be convenient because the date and time classes are such a pain in the neck. When using this method, you will need to keep track of when date components are stored as text and when they are stored as numbers.</p>
+<p>The code block below shows how to break apart dates using <code>strsplit()</code> and <code>sapply()</code>.</p>
+<pre class="r"><code>x &lt;- c(&quot;2019-08-03&quot;, &quot;2020-08-15&quot;, &quot;2021-08-07&quot;)
+ssx &lt;- strsplit(x, &quot;-&quot;)
+a &lt;- data.frame(year=sapply(ssx, &quot;[&quot;, 1),
+                mon=sapply(ssx, &quot;[&quot;, 2),
+                day=sapply(ssx, &quot;[&quot;, 3))
+
+class(a$year) # character, not a number!</code></pre>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<pre class="r"><code>class(a$mon) # character, not a number!</code></pre>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<pre class="r"><code>class(a$day) # character, not a number!</code></pre>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<pre class="r"><code>a$year &lt;- as.numeric(a$year)
+a$mon &lt;- as.numeric(a$mon)
+a$day &lt;- as.numeric(a$day)
+
+class(a$year) # numbers!</code></pre>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<pre class="r"><code>class(a$mon)  # numbers!</code></pre>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<pre class="r"><code>class(a$day)  # numbers!</code></pre>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
 </div>
-<div id="about-the-author" class="section level1" number="4">
-<h1><span class="header-section-number">4</span> About the author</h1>
-<p>I’m a <a href="https://facultyweb.kennesaw.edu/ngreen62/index.php">quantitative ecologist at Kennesaw State University</a> who studies human impacts on animal populations. Since earning by PhD at Baylor University in 2012, I’ve had the good fortune to have worked in a variety of government and industry roles. Those experiences have shaped my perspective on biology and education. In my courses and advising I do my best to impress upon students the the variety of biological experiences and perspectives that different domains bring to the table…and the value that they all bring. Most of my <a href="https://facultyweb.kennesaw.edu/ngreen62/research.php">current research</a> focuses on understanding human impacts on animal communities and how animal populations adapt to rapidly changing environments.</p>
-<p>Why am I making this R guide? I have been using R since about 2008, when I was a graduate student trying to make a multi-panel plot for a manuscript. I had seen R mentioned in publications and thought that using R would be more effective than kludging something together with Excel and Powerpoint. Needless to say, jumping straight to making plots with the <code>lattice</code> package was not the easiest way to learn a new programming language. The final result was a little clunky <span class="citation">(Kirchner et al. 2011)</span> but I was really proud of it. Eventually I took some courses and did a lot of self-teaching, and am finally (14 years later) mostly decent at R. I have used R in my work pretty much continuously since 2008 for everything from Bayesian data analysis <span class="citation">(e.g., Green et al. 2020)</span> to simulation modeling <span class="citation">(e.g., Green et al. 2019)</span>. This guide is meant to be a primer for self-starting with R. A lot of the explanations that are included are there to hopefully save someone some of the trouble I had getting started.</p>
+<div id="matching-text-strings" class="section level2" number="3.6">
+<h2><span class="header-section-number">3.6</span> Matching text strings</h2>
+<p>As biologists we often keep our data in several separate spreadsheets or tables. These tables are interrelated by a set of “key” variables. If that sounds like a sketchy, haphazard way to build a database, it is. Databases per se are outside the scope of this course, but we will learn how to relate tables using R. If you’ve ever used the VLOOKUP function in Excel, then you know exactly what problem <code>match()</code> is designed to solve.</p>
+<p>The function <code>match()</code> finds the indices of the matches of its first argument in its second. In other words, it searches for the values in one vector in a second vector, then returns the positions of the matches from the second vector. A simple example is below:</p>
+<pre class="r"><code>vec1 &lt;- c(&quot;gene1&quot;, &quot;gene2&quot;, &quot;gene3&quot;, &quot;gene4&quot;)
+vec2 &lt;- c(&quot;gene1&quot;, &quot;gene2&quot;, &quot;gene1&quot;, &quot;gene2&quot;, 
+          &quot;gene5&quot;, &quot;gene3&quot;, &quot;gene3&quot;, &quot;gene4&quot;)
+vec3 &lt;- c(&quot;gene1&quot;, &quot;gene2&quot;, &quot;gene1&quot;, &quot;gene2&quot;, 
+          &quot;gene4&quot;, &quot;gene3&quot;, &quot;gene3&quot;, &quot;gene4&quot;)
+
+match(vec1, vec2)</code></pre>
+<pre><code>## [1] 1 2 6 8</code></pre>
+<pre class="r"><code>match(vec2, vec1)</code></pre>
+<pre><code>## [1]  1  2  1  2 NA  3  3  4</code></pre>
+<pre class="r"><code>match(vec3, vec1)</code></pre>
+<pre><code>## [1] 1 2 1 2 4 3 3 4</code></pre>
+<p>The first example shows what <code>match()</code> is doing. For element in the first vector, <code>match()</code> returns the first position where that value occurs in the second vector. The second example shows what happens when trying to match a value that is not in the second vector: R returns <code>NA</code>. The third example shows how <code>match()</code> can be used to relate tables. The longer vector <code>vec3</code> is matched to the shorter vector <code>vec1</code>, which contains each unique value only once. If <code>vec1</code> was a variable in a data frame that contained other variables associated with genes, then the result of <code>match(vec3, vec1)</code> would return the rows in <code>vec1</code>’s data frame associated with each row of <code>vec3</code>’s data frame.</p>
+<p>The code below demonstrates how <code>match()</code> might be used in practice. This example uses three tables from a real dataset. The three tables contain data and metadata for samples taken from stream across Georgia. The commands use <code>match()</code> to assign site numbers, dates, and geographic coordinates to observations using different key variables. We’ll revisit these data again in the <a href="https://greenquanteco.github.io/03-manip-05-dataframe.html">next section</a> where we see how to merge datasets.</p>
+<pre class="r"><code># not run (see next section)
+
+options(stringsAsFactors=FALSE)
+name1 &lt;- &quot;dat_samples_2021-08-04.csv&quot;
+name2 &lt;- &quot;dat_stream_indices_2021-08-04.csv&quot;
+name3 &lt;- &quot;loc_meta_vaa_2020-11-18.csv&quot;
+
+x1 &lt;- read.csv(name1, header=TRUE)
+x2 &lt;- read.csv(name2, header=TRUE)
+x3 &lt;- read.csv(name3, header=TRUE)
+
+# x2 contains the response variable
+dat &lt;- x2
+# add site name, year, and date from x1
+matchx &lt;- match(dat$uocc, x1$uocc)
+dat$site &lt;- x1$loc[matchx]
+dat$year &lt;- x1$year[matchx]
+dat$doy  &lt;- x1$doy[matchx]
+
+# equivalent to:
+#dat$site &lt;- x1$loc[match(dat$uocc, x1$uocc)]
+#dat$year &lt;- x1$year[match(dat$uocc, x1$uocc)]
+#dat$doy  &lt;- x1$doy[match(dat$uocc, x1$uocc)]
+
+# grab latitude and longitude from x3
+matchx &lt;- match(dat$site, x3$loc)
+dat$lat &lt;- x3$lat[matchx]
+dat$long &lt;- x3$long[matchx]</code></pre>
 </div>
-<div id="references" class="section level1 unnumbered">
-<h1 class="unnumbered">References</h1>
+<div id="standardizing-numbers-as-text" class="section level2" number="3.7">
+<h2><span class="header-section-number">3.7</span> Standardizing numbers as text</h2>
+<p>The function <code>formatC()</code> formats numbers in a manner similar to the language C. This is useful for naming objects or parts of objects with numeric names that have a fixed width or format. The most common use case is converting numbers like “1, 12, 112” to strings like “001, 012, 112”. The example below uses <code>formatC()</code> in combination with <code>paste()</code> to generate some file names.</p>
+<pre class="r"><code>file.nums &lt;- formatC(1:4, width=3, flag=&quot;0&quot;)
+file.names &lt;- paste(&quot;file&quot;, file.nums, sep=&quot;_&quot;)
+file.names</code></pre>
+<pre><code>## [1] &quot;file_001&quot; &quot;file_002&quot; &quot;file_003&quot; &quot;file_004&quot;</code></pre>
+<hr />
+<p><a href="https://greenquanteco.github.io/index.html"><strong>Go back to main page</strong></a></p>
+</div>
+</div>
+<div id="references" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> References</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
-<div id="ref-bolker2008ecological" class="csl-entry">
-Bolker, B. M. 2008. Ecological models and data in <span>R</span>. Princeton University Press, Princeton, New Jersey, USA.
+<div id="ref-grolemund2011" class="csl-entry">
+Grolemund, G., and H. Wickham. 2011. <a href="https://www.jstatsoft.org/v40/i03/">Dates and times made easy with <span class="nocase">lubridate</span></a>. Journal of Statistical Software 40:1–25.
 </div>
-<div id="ref-dalgaard2002" class="csl-entry">
-Dalgaard, P. 2002. Introductory statistics with <span>R</span>. Springer Science <span></span> Business Media.
-</div>
-<div id="ref-green2019" class="csl-entry">
-Green, N. S., M. L. Wildhaber, and J. L. Albers. 2019. <a href="https://doi.org/10.1111/jai.13701">Potential responses of the <span>L</span>ower <span>M</span>issouri <span>R</span>iver shovelnose sturgeon (<em><span>S</span>caphirhynchus platorynchus</em>) population to a commercial fishing ban</a>. Journal of Applied Ichthyology 35:370–377.
-</div>
-<div id="ref-green2020" class="csl-entry">
-Green, N. S., M. L. Wildhaber, J. L. Albers, T. W. Pettit, and M. J. Hooper. 2020. <a href="https://doi.org/10.1002/ieam.4324">Efficient mammal biodiversity surveys for ecological restoration monitoring</a>. Integrated Environmental Assessment and Management.
-</div>
-<div id="ref-james2013" class="csl-entry">
-James, G., D. Witten, T. Hastie, and R. Tibshirani. 2013. <a href="http://faculty.marshall.usc.edu/gareth-james/ISL/">An introduction to statistical learning</a>. 7th edition. Springer.
-</div>
-<div id="ref-kery2010" class="csl-entry">
-Kéry, M. 2010. Introduction to <span>W</span>in<span>BUGS</span> for ecologists: <span>B</span>ayesian approach to regression, <span>ANOVA</span>, mixed models and related analyses. Academic Press.
-</div>
-<div id="ref-kirchner2011" class="csl-entry">
-Kirchner, B. N., N. S. Green, D. A. Sergeant, J. N. Mink, and K. T. Wilkins. 2011. <a href="https://doi.org/10.1674/0003-0031-166.1.112">Responses of small mammals and vegetation to a prescribed burn in a tallgrass blackland prairie</a>. The American Midland Naturalist 166:112–125.
-</div>
-<div id="ref-legendre2012numerical" class="csl-entry">
-Legendre, P., and L. Legendre. 2012. Numerical ecology. Elsevier, Amsterdam.
-</div>
-<div id="ref-mccune2002analysis" class="csl-entry">
-McCune, B., J. B. Grace, and D. L. Urban. 2002. Analysis of ecological communities. MjM software design Gleneden Beach, Oregon, USA.
-</div>
-<div id="ref-zuur2007analysing" class="csl-entry">
-Zuur, A. F., E. N. Ieno, and G. M. Smith. 2007. Analysing ecological data. Springer Science<span></span>Business Media, New York.
-</div>
-<div id="ref-zuur2009" class="csl-entry">
-Zuur, A., E. N. Ieno, and E. Meesters. 2009. A beginner’s guide to <span>R</span>. Springer Science <span></span> Business Media, New York.
+<div id="ref-spector2008" class="csl-entry">
+Spector, P. 2008. Data manipulation with r. Springer Science &amp; Business Media, New York.
 </div>
 </div>
+</div>
+<div id="legal-notice" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Legal notice</h1>
+<p>This site is for educational purposes only. This work and its content is released under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0</a> license. Inclusion of third-party data falls under guidelines of fair use as defined in <a href="https://www.law.cornell.edu/uscode/text/17/107">section 107 of the US Copyright Act of 1976</a>.</p>
+</div>
+<div class="footnotes footnotes-end-of-document">
+<hr />
+<ol>
+<li id="fn1"><p>This is slightly longer than a <em>Rent</em> year, which is 525600 minutes (31536000 seconds).<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
 
 

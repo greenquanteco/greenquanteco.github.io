@@ -11,9 +11,9 @@
 
 <meta name="author" content="Nick Green, Kennesaw State University" />
 
-<meta name="date" content="2021-11-23" />
+<meta name="date" content="2021-11-30" />
 
-<title>Home page for Applied Biological Data Analysis</title>
+<title>Data manipulation in R 1: Data import and export</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -1538,308 +1538,511 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Home page for Applied Biological Data Analysis</h1>
-<h3 class="subtitle">BIOL 4490/6490</h3>
+<h1 class="title toc-ignore">Data manipulation in R 1: Data import and export</h1>
 <h4 class="author">Nick Green, Kennesaw State University</h4>
-<h4 class="date">November 23, 2021</h4>
+<h4 class="date">November 30, 2021</h4>
 
 </div>
 
 
-<div id="basic-information" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Basic information</h1>
-<p>This website accompanies a course I developed in Fall 2021: <strong>Applied Biological Data Analysis</strong>. The course is currently a “special topics” (i.e., seminar), but will hopefully someday evolve into a regular course. The target audience is biology graduate students and advanced undergraduates who need to analyze data for their research projects. If you find the material here helpful, please let me know! Likewise, if you have comments for improvement, I’d love to hear from you.</p>
-<div id="license-and-permissions" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> License and permissions</h2>
-<p>This work and its content is released under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0</a> license. This means that you are allowed to share the material and adapt it for your purposes, under the following conditions:</p>
-<ol style="list-style-type: decimal">
-<li>Give appropriate credit to the <a href="https://facultyweb.kennesaw.edu/ngreen62/index.php">author</a>. This includes citing the original sources of any third-party datasets used in some of the tutorials. I’ve done my best to provide appropriate citations alongside these datasets.</li>
-<li>If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.</li>
-</ol>
-</div>
-<div id="course-description" class="section level2" number="1.2">
-<h2><span class="header-section-number">1.2</span> Course description</h2>
-<p>This course is a survey of data analysis skills and statistical methods that are essential for modern biology. The course takes a holistic approach to the data analysis workflow in biology using the open-source environment R, including data management, exploratory data analysis, data modeling, and reproducible science practices. Statistical topics covered include generalized linear models, mixed effects models, non-linear models, and ordination. Students are required to apply techniques learned in class to real or simulated biological datasets as a course project.</p>
-</div>
-<div id="course-objectives" class="section level2" number="1.3">
-<h2><span class="header-section-number">1.3</span> Course objectives</h2>
-<ol style="list-style-type: decimal">
-<li>Explain the role of statistics in the biological sciences and the ways in which analytical results are communicated.</li>
-<li>Manipulate, summarize, display, and analyze data using the open-source environment and language R.</li>
-<li>Use probability distributions to model and think about biological phenomena. Students should come away from the course able to translate biological hypotheses and ideas into statistical statements and vice versa.</li>
-<li>Conduct exploratory data analyses in support of scientific investigations, particularly to detect and diagnose common problems with biological datasets.</li>
-<li>Employ modern statistical methods to answer biological questions.</li>
-<li>Communicate data and analytical results to audiences who may or may not have statistical backgrounds.</li>
-</ol>
-</div>
-<div id="course-requirements" class="section level2" number="1.4">
-<h2><span class="header-section-number">1.4</span> Course requirements</h2>
+<p>Before you can use R to analyze your data, you need to get you data into R. Most of us store our data in an Excel spreadsheet or some kind of database. These are fine, but if you plan to have R in your workflow I strongly recommend you get in the habit of storing your data in plain text files. Plain text files store data separated (or “delimited”) by a particular character such as a comma or a tab. Unsurprisingly, these are called <strong>comma-delimited (.csv)</strong> or <strong>tab-delimited (.txt)</strong> text files. The reason for storing and importing your data this way is simple: plain text files are a stable, almost-universally supported file format that can be read and opened by many programs on any computer. Proprietary formats such as Excel spreadsheets (.xlsx or .xls) or the Mac “Numbers” program (.numbers) are not as widely supported and change more frequently than plain text formats. The fact that plain text formats are typically smaller than equivalent Excel files is a nice bonus.</p>
+<p>Reading your data in from text files has another benefit: repeatability. Chances are you will need to revisit or repeat your data analysis several times. If you program the importation of data in a few lines of R code, you can just run the code. If, however, you use one of the “point-and-click” methods available in RStudio or base R you will have to repeat those steps manually. This can get very aggravating and time consuming if you have multiple datasets to import. This page is designed to demystify the process of getting data into R and to demonstrate some good practices for data storage.</p>
+<p>Note that many of the code blocks below have <code># not run:</code> in them, and no output. These indicate that either single commands or the entire block was not actually evaluated when rendering the R Markdown. This was either because the code was designed to return an error (which would prevent R Markdown rendering), produce large outputs, or would clutter up the folder where I store the files for this website. These commands will work on your machine, and will demonstrate important R concepts, so try them out!</p>
+<div id="importing-data-preliminaries" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Importing data: preliminaries</h1>
+<p>Before you try to import your data into R, take a few minutes to set yourself up for success.</p>
+<div id="naming-data-files" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Naming data files</h2>
+<p>Good file names are essential for a working biologist. Chances are you will work on many projects over the course of your career, each with its own collection of data files. Even if you store each project’s data in a separate folder, it is a very good idea to give data files within those folders names that are descriptive. I have worked with many people who insist on using file names like “data.xlsx” and relying on their own memory or paper notes to tell them which file is which. Consider this list of particularly egregious file names:</p>
 <ul>
-<li>Access to a computer or laptop capable of running <a href="https://cran.r-project.org/bin/windows/base/">R</a> version <span class="math inline">\(\ge\)</span> 4.0.</li>
-<li>Having a recent version of <a href="https://www.rstudio.com/products/rstudio/">RStudio</a> is helpful but not esssential.</li>
-<li>A 64-bit system is highly recommended for speed and stability.</li>
-<li>A separate program in which to write and edit code.
-<ul>
-<li>Most people prefer to use an “integrated development environment” (IDE) or dedicated code editor for coding.</li>
-<li>IDEs and code editors are often subject to irrationally strong personal and organizational preferences, so just pick the one that works for you. Or, use the one your supervisor tells you to use.</li>
-<li>My usual workflow includes two windows: the base R GUI, and <a href="https://notepad-plus-plus.org/downloads/">Notepad++</a>.</li>
-</ul></li>
-<li>It would helpful to have a dataset of your own to work with. Each course module uses numerous examples with simulated or published datasets. But, at the end of the day, you’re probably here because you need to apply these methods to your own work.</li>
+<li>data.txt</li>
+<li>Data.txt</li>
+<li>data.set.csv</li>
+<li>analysis data.xlsx</li>
+<li>thesis data.xlsx</li>
+<li>DATA FINAL - copy.txt</li>
+<li>data current.revised.2019.txt.xlsx</li>
+<li>final thesis data revised revised final revised analysis.csv</li>
 </ul>
+<p>We are all guilty of this kind of bad naming from time to time. What do all of the above have in common? They are vague. The names contain no meaningful information about what the files actually contain. Some of them are ambiguous: different operating systems or programs might read “data.txt” and “Data.txt” as the same file, or as different files!</p>
+<p>Data file names should be <strong>short</strong>, <strong>simple</strong>, and <strong>descriptive</strong>. There are no hard and fast rules for naming data files so I’m not going to prescribe any. Instead, I’ll share some examples and explain why these names are helpful. As you go along and get getter at working with data you will probably develop your own habits, and that’s ok. Just try to follow the guiding principles of short, simple, and descriptive.</p>
+<p>Here are some example file names with explanations of their desirable properties:</p>
+<p><strong>sturgeon_growth_data_2017-02-21.txt</strong></p>
+<p>This name declares what the file contains (growth data for sturgeon), and the date it was created. Notice that the date is given as “YYYY-MM-DD”. This format is useful because it automatically sorts chronologically. This file name separates its words with underscores rather than spaces or periods. This can prevent some occasional issues with programs misreading file names (white space and periods can have specific meanings in some contexts).</p>
+<p><strong>dat_combine_2020-07-13.csv</strong></p>
+<p>This name signifies that the file contains a “combined” dataset, and includes the date of its creation. This would be kept in a folder with the files that were combined to make it. Within a project I usually use prefixes on file names to help identify them: “dat” for datasets with response and explanatory variables; “met” for “metadata”; “geo” or “loc” for geospatial datasets and GIS layers; and “key” for lookup tables that relate dat and met files. You might develop your own conventions for types of data that occur in your work.</p>
+<p><strong>dat_vegcover_nrda_releaseversion_2021-05-03.csv</strong></p>
+<p>This name is similar to the last name, but includes some additional signifiers for the project funder (NRDA) and the fact that this is the final released version.</p>
+</div>
+<div id="formatting-data-files" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Formatting data files</h2>
+<p>Recently <span class="citation">Broman and Woo (2018)</span> reviewed common good practices for storing data in spreadsheets. Their article is short and easy to read, and gave a few recommendations for data formatting:</p>
+<ul>
+<li>Be consistent</li>
+<li>Choose good names for things</li>
+<li>Write dates as YYYY-MM-DD</li>
+<li>No empty cells</li>
+<li>Put just one thing in a cell</li>
+<li>Make it a rectangle</li>
+<li>Create a data dictionary</li>
+<li>No calculations in the raw data files</li>
+<li>Do not use font color or highlighting as data</li>
+<li>Make backups</li>
+<li>Use data validation to avoid errors</li>
+<li>Save the data in plain text files</li>
+</ul>
+<p>Most people who work with data, myself included, probably agree with their recommendations. There is room for individual preferences in the exact implementation of each principle, but the general ideas are solid. You will save yourself a lot of headache if you follow their advice. I strongly suggest you read their paper.</p>
+<div id="variable-names" class="section level3" number="1.2.1">
+<h3><span class="header-section-number">1.2.1</span> Variable names</h3>
+<p>Variable names, like data file names, should be brief but informative. There are few restrictions on what variable names can be in R. For simplicity, I recommend you use only <strong>lowercase letters</strong>, <strong>numbers</strong>, <strong>underscores</strong> (<code>_</code>), and <strong>periods</strong> (<code>.</code>) in variable names. Other symbols are either inconvenient to type, or can cause issues being parsed by R. Some common pifalls include:</p>
+<p><strong><em>Leading numerals</em></strong> will cause an error if not enclosed in quotation marks:</p>
+<pre class="r"><code>x &lt;- iris[1:5,]
+names(x)[1] &lt;- &quot;3a&quot;
+x$3a
+x$&#39;3a&#39;
+x[,&quot;3a&quot;]</code></pre>
+<p><strong><em>Numeral-only names</em></strong> will cause an error. They can also be mis-interpreted as column numbers. Don’t give your variables numeral-only names.</p>
+<pre class="r"><code>x &lt;- iris[1:5,]
+names(x)[1] &lt;- &quot;3&quot;
+x$3     # error
+x$&#39;3&#39;   # works
+x[,3]   # column number 3
+x[,&quot;3&quot;] # column named &quot;3&quot;</code></pre>
+<p><strong><em>Spaces</em></strong> in variable names will cause errors because R interprets a space as whitespace, not part of a name. If you insist on using spaces, enclose the variable name in quotation marks every time you use it. This is one of the few places where R cares about whitespace.</p>
+<pre class="r"><code>x &lt;- iris[1:5,]
+names(x)[1] &lt;- &quot;a b&quot;
+# not run (error):
+# x$a b
+x$&#39;a b&#39;</code></pre>
+<pre><code>## [1] 5.1 4.9 4.7 4.6 5.0</code></pre>
+<p><strong><em>Special characters</em></strong> in variable names can cause issues with parsing. Many symbols that you might think to use, such as hyphens (or dashes, <code>-</code>) or slashes <code>/</code> are also R operators. Again, try to avoid these issues by using letters, numbers, underscores, and periods.</p>
+<pre class="r"><code>x &lt;- iris[1:5,]
+names(x)[1] &lt;- &quot;a/b&quot;
+b &lt;- 10
+# not run (error):
+#x$a/b
+# works:
+x$&#39;a/b&#39;</code></pre>
+<pre><code>## [1] 5.1 4.9 4.7 4.6 5.0</code></pre>
+<pre class="r"><code>names(x)[1] &lt;- &quot;surv%&quot;
+x</code></pre>
+<pre><code>##   surv% Sepal.Width Petal.Length Petal.Width Species
+## 1   5.1         3.5          1.4         0.2  setosa
+## 2   4.9         3.0          1.4         0.2  setosa
+## 3   4.7         3.2          1.3         0.2  setosa
+## 4   4.6         3.1          1.5         0.2  setosa
+## 5   5.0         3.6          1.4         0.2  setosa</code></pre>
+<pre class="r"><code># not run (error):
+#x$surv%
+x$&#39;surv%&#39;</code></pre>
+<pre><code>## [1] 5.1 4.9 4.7 4.6 5.0</code></pre>
+<p><strong><em>Uppercase letters</em></strong> in variable names work just fine, but they can be inconvenient. Because R is case sensitive, you need to type the variable exactly the same way each time. This can be tedious if you have several variables with similar names.</p>
+<pre class="r"><code>x &lt;- iris[1:5,]
+names(x)[1] &lt;- &quot;sep.len&quot; # convenient
+names(x)[2] &lt;- &quot;SEP.LEN&quot; # slightly inconvenient
+names(x)[3] &lt;- &quot;Sep.Len&quot; # more inconvenient
+names(x)[4] &lt;- &quot;SeP.lEn&quot; # just don&#39;t
+x</code></pre>
+<pre><code>##   sep.len SEP.LEN Sep.Len SeP.lEn Species
+## 1     5.1     3.5     1.4     0.2  setosa
+## 2     4.9     3.0     1.4     0.2  setosa
+## 3     4.7     3.2     1.3     0.2  setosa
+## 4     4.6     3.1     1.5     0.2  setosa
+## 5     5.0     3.6     1.4     0.2  setosa</code></pre>
+</div>
+<div id="data-values" class="section level3" number="1.2.2">
+<h3><span class="header-section-number">1.2.2</span> Data values</h3>
+<p>All data in R have a type: numeric, logical, character, etc. Within a vector, matrix, or array, all values must have the same type or they will be converted to character strings. Each variable in a data frame (the most common R data structure) is essentially a vector. This means that in your input file you should try to have one and only one type of data in each column. Otherwise, R will coerce the values into character strings, which may or may not be a problem. Putting only one type of value into each column will also help get your data into “wide” or “tidy” format (<span class="citation">Wickham (2014)</span>).</p>
+<p>Entering data should also include some measure of <strong>quality assurance and quality control (QA/QC)</strong>. This basically means making sure that your data are entered correctly, and are formatted correctly. Correct entry can be accomplished by direct comparison to original datasheets or lab notebooks. Cross-checking is a valuable tool here: have two people enter the data and compare their files.</p>
+<p>Data formatting requires thinking about what kinds of data are being entered. For numbers, this means entering the correct values and an appropriate number of significant digits. For text values, this may mean spell-checking or settling on a standard set of possible values. The figure below shows some problems that a QA/QC step might fix:</p>
+<p><img src="data:image/jpeg;base64,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" /></p>
 </div>
 </div>
-<div id="recommended-reading" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> Recommended reading</h1>
-<p>The primary textbook for the course is <span class="citation">Bolker (2008)</span>. This is a general statistics textbook for biologists. The applications and examples are focused on ecology, but the statistical exposition is relevant to any area of biology.</p>
-<p>Some other general statistics and R books you may find helpful include <span class="citation">Dalgaard (2002)</span> and <span class="citation">Zuur et al. (2009)</span>. A more advanced statistics book that also introduces machine learning is <span class="citation">James et al. (2013)</span>, which is also available for <a href="http://faculty.marshall.usc.edu/gareth-james/ISL/">free online</a>. Parts of the course also lean heavily on <span class="citation">Zuur et al. (2007)</span>, <span class="citation">McCune et al. (2002)</span>, <span class="citation">Legendre and Legendre (2012)</span>, and <span class="citation">Kéry (2010)</span>.</p>
 </div>
-<div id="course-modules" class="section level1" number="3">
-<h1><span class="header-section-number">3</span> Course modules</h1>
-<p>This section is a work in progress as I figure out how to use Github pages. All documents below were rendered using RMarkdown.</p>
-<table>
-<colgroup>
-<col width="28%" />
-<col width="35%" />
-<col width="35%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Module</th>
-<th align="center">Page (html)</th>
-<th align="center">PDF version</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Statistics in biology</td>
-<td align="center">(coming soon)</td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Introduction to R</td>
-<td align="center">(coming soon)</td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>Data manipulation 1: Data import/export</td>
-<td align="center"><a href="https://greenquanteco.github.io/03-manip-01-inout.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Data manipulation 2: Making values in R</td>
-<td align="center"><a href="https://greenquanteco.github.io/03-manip-02-makevals.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>Data manipulation 3: Selecting data with <code>[]</code></td>
-<td align="center"><a href="https://greenquanteco.github.io/03-manip-03-brackets.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Data manipulation 4: Managing characters and dates</td>
-<td align="center"><a href="https://greenquanteco.github.io/03-manip-04-chardate.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>Data manipulation 5: Data frame management</td>
-<td align="center"><a href="https://greenquanteco.github.io/03-manip-05-dataframe.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Data exploration 1: Descriptive and summary statistics</td>
-<td align="center">(coming soon)</td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>Data exploration 2: Visualizing data distributions</td>
-<td align="center">(coming soon)</td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Statistical distributions</td>
-<td align="center">(coming soon)</td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>Data exploration 3: Fitting and testing distributions</td>
-<td align="center">(coming soon)</td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Data exploration 4: Data transformations</td>
-<td align="center">(coming soon)</td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>Data exploration 5: Multivariate data exploration (preview)</td>
-<td align="center">(coming soon)</td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Data exploration 6: Common statistical problems</td>
-<td align="center">(coming soon)</td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>GLM 1: Prelude with linear models</td>
-<td align="center"><a href="https://greenquanteco.github.io/05-glm-01-prelude.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>GLM 2: GLM basics</td>
-<td align="center"><a href="https://greenquanteco.github.io/05-glm-02-glm_basics.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>GLM 3: Log-linear models</td>
-<td align="center"><a href="https://greenquanteco.github.io/05-glm-03-loglinear_models.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>GLM 4: Poisson models for counts</td>
-<td align="center"><a href="https://greenquanteco.github.io/05-glm-04-poisson_glm.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>GLM 5: Quasi-Poisson and negative binomial models for counts</td>
-<td align="center"><a href="https://greenquanteco.github.io/05-glm-05-quasi_nb_glm.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>GLM 6: Logistic regression for binary outcomes</td>
-<td align="center"><a href="https://greenquanteco.github.io/05-glm-06-logistic_glm.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>GLM 7: Binomial regression for proportional data</td>
-<td align="center"><a href="https://greenquanteco.github.io/05-glm-07-binomial_glm.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>GLM 8: Gamma models for overdispersed data</td>
-<td align="center"><a href="https://greenquanteco.github.io/05-glm-08-gamma_glm.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>GLM 9: Beyond GLM: Overview of GAM and GEE</td>
-<td align="center"><a href="https://greenquanteco.github.io/05-glm-09-beyond_glm.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Nonlinear models 1: Background</td>
-<td align="center"><a href="https://greenquanteco.github.io/06-non-01-intro.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>Nonlinear models 2: Michaelis-Menten curves with <code>nls()</code> and JAGS</td>
-<td align="center"><a href="https://greenquanteco.github.io/06-non-02-micmen.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Nonlinear models 3: Biological growth curves</td>
-<td align="center"><a href="https://greenquanteco.github.io/06-non-03-growth.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>Nonlinear models 4: Dose response curves</td>
-<td align="center"><a href="https://greenquanteco.github.io/06-non-04-dose.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Alternatives to NLS: quantile regression, additive models, and CART</td>
-<td align="center"><a href="https://greenquanteco.github.io/06-non-05-alts.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>Mixed models 1: Linear mixed models (LMM)</td>
-<td align="center">(coming soon)</td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Mixed models 2: Generalized linear mixed models (GLMM)</td>
-<td align="center">(coming soon)</td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>Mixed models 3: Nonlinear mixed models (NLME)</td>
-<td align="center">(coming soon)</td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Mixed models 4: (Generalized) additive mixed models (GAM/GAMM)</td>
-<td align="center">(coming soon)</td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>Multivariate 1: Distance measures</td>
-<td align="center"><a href="https://greenquanteco.github.io/08-multi-01-distance.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Multivariate 2: Clustering</td>
-<td align="center"><a href="https://greenquanteco.github.io/08-multi-02-cluster.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>Multivariate 3: Analyzing dissimilarity</td>
-<td align="center"><a href="https://greenquanteco.github.io/08-multi-03-analyzing_sim.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Multivariate 4: Ordination intro and PCA</td>
-<td align="center"><a href="https://greenquanteco.github.io/08-multi-04-ordination1.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>Multivariate 5: NMDS and other methods</td>
-<td align="center"><a href="https://greenquanteco.github.io/08-multi-05-ordination2.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-</tbody>
-</table>
+<div id="importing-data-from-text-files-with-read.csv-and-read.table" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Importing data from text files with <code>read.csv()</code> and <code>read.table()</code></h1>
+<p>Plain text files are imported, or read, using functions that are named for that purpose. The function <code>read.table()</code> works on many types of text files, including tab-delimited and comma-delimited. The function <code>read.csv()</code> works on comma-delimited files only. The syntax for both is very similar.</p>
+<p>Put the files <a href="https://greenquanteco.github.io/elk_data_2021-01-21.txt">elk_data_2021-01-21.txt</a> and <a href="https://greenquanteco.github.io/elk_data_2021-01-21.csv">elk_data_2021-01-21.csv</a> in your R home directory. The R home directory depends on your operating system:</p>
+<ul>
+<li><em>Windows users:</em> the home directory is your <strong>Documents</strong> folder. The address of this folder is <code>C:/Users/username/Documents</code>, where <code>username</code> is your Windows logon name. You can get to your Documents folder by opening Windows Explorer (Win-E) and double-clicking “Documents”.</li>
+<li><em>Mac users:</em> the home directory is your <strong>home</strong> folder. The address of this folder is <code>/Users/username</code> (where <code>username</code> is your username) or <code>~/</code>. You can open your home folder by pressing CMD-SHIFT-H, or by using the Go pulldown menu from the menu bar.</li>
+</ul>
+<p>Import a tab-delimited file from your home directory:</p>
+<pre class="r"><code>dat &lt;- read.table(&quot;elk_data_2021-01-21.txt&quot;, header=TRUE)</code></pre>
+<p>Import a comma-delimited version from your home directory. Note how similar the syntax is.</p>
+<pre class="r"><code>dat &lt;- read.csv(&quot;elk_data_2021-01-21.csv&quot;, header=TRUE)
+
+# alternative, using read.table():
+dat &lt;- read.table(&quot;elk_data_2021-01-21.csv&quot;, 
+                  header=TRUE, sep=&quot;,&quot;)</code></pre>
+<p>The examples above required the name of the data file-—notice the file extensions!-—and an argument <code>header</code> which specifies that the first row of the data file contains column names. Try one of those commands without that argument and see what happens.</p>
+<pre class="r"><code>dat &lt;- read.table(&quot;elk_data_2021-01-21.txt&quot;, header=TRUE)
+head(dat)</code></pre>
+<pre><code>##   height antler species
+## 1   69.3   24.8 unknown
+## 2   69.3   34.5 unknown
+## 3   87.7   53.5 unknown
+## 4   99.8   58.3 unknown
+## 5   69.3   61.2 unknown
+## 6   84.1   67.3 unknown</code></pre>
+<pre class="r"><code>dat &lt;- read.table(&quot;elk_data_2021-01-21.txt&quot;)
+head(dat)</code></pre>
+<pre><code>##       V1     V2      V3
+## 1 height antler species
+## 2   69.3   24.8 unknown
+## 3   69.3   34.5 unknown
+## 4   87.7   53.5 unknown
+## 5   99.8   58.3 unknown
+## 6   69.3   61.2 unknown</code></pre>
+<p>Without the <code>header</code> argument, the column names were read as the first row of the dataset and the columns of the data frame were given generic names <code>V1</code>, <code>V2</code>, and so on. As a side effect, the values in each of the columns are all of character type instead of numbers. This is because both <code>read.table()</code> and <code>read.csv()</code> import all values as character strings by default, and convert to other types only if possible. In this case, conversion is not possible because the strings <code>height</code>, <code>antler</code>, and <code>species</code> cannot be encoded as numbers, but the numbers form the original file can be encoded as character strings. Further, the values within a single column of a data frame are a vector, and all elements of a vector must have the same type. Thus, importing without the <code>header</code> argument will likely result in a data frame full of text representations of your data.</p>
+<p>Both <code>read.table()</code> and <code>read.csv()</code> will bring in data stored as a table, and produce a type of R object called a <strong>data frame</strong>. This data frame must be saved to an object to be used by R. If not saved, the data frame will be printed to the console. Compare the results of the two lines below on your machine.</p>
+<pre class="r"><code>read.table(&quot;elk data 2021-01-21.txt&quot;, header=TRUE)
+dat &lt;- read.table(&quot;elk data 2021-01-21.txt&quot;, header=TRUE)</code></pre>
+<p>The first command read the file, and printed it to the console. The second command read the file and stored it in an object named <code>dat</code>. Nothing is returned to the console when this happens.</p>
+<div id="important-arguments-to-read.table-and-read.csv" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Important arguments to <code>read.table()</code> and <code>read.csv()</code></h2>
+<div id="file" class="section level3" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> <code>file</code></h3>
+<p>The first argument to <code>read.table()</code> and <code>read.csv()</code> is <code>file</code>, which is the filename, including directory path, of the file to be imported. By default, R will look in your home directory for the file. If the file is stored in the home directory, then you can just supply the filename as a character string. Don’t forget the file extension! Most of the examples on this site will, for convenience, use data files stored in your home directory. In your own work you may want to use other folders.</p>
+<p>If you want to import a file from another folder, you need to supply the folder name as part of the argument <code>file</code>. My preferred way to do this is by specifying the folder and file name separately, and combining them with the <code>paste()</code> command. The function <code>paste()</code> concatenates, or sticks together, character strings. Separating the folder from the file name also makes your code more portable. For example, if you needed to run your code on another machine you would only need to update the directory. An example of how this might work is shown below:</p>
+<pre class="r"><code># not run:
+
+# directory that contains all data and folders
+top.dir &lt;- &quot;C:/_data&quot;
+
+# project folder
+proj.dir &lt;- paste(top.dir, &quot;ne stream/dat&quot;, sep=&quot;/&quot;)
+
+# folder that holds dataset
+data.dir &lt;- proj.dir
+
+# name of dataset
+data.name &lt;- &quot;dat_combine_2020-07-13.csv&quot;
+
+# import dataset
+in.name &lt;- paste(data.dir, data.name, sep=&quot;/&quot;)
+dat &lt;- read.csv(in.name, header=TRUE)</code></pre>
+<p>In the example above, moving to a new machine would only necessitate changing one line, the definition of <code>data.dir</code> (or <code>top.dir</code>, if you keep the same folder structure on multiple machines).</p>
 </div>
-<div id="about-the-author" class="section level1" number="4">
-<h1><span class="header-section-number">4</span> About the author</h1>
-<p>I’m a <a href="https://facultyweb.kennesaw.edu/ngreen62/index.php">quantitative ecologist at Kennesaw State University</a> who studies human impacts on animal populations. Since earning by PhD at Baylor University in 2012, I’ve had the good fortune to have worked in a variety of government and industry roles. Those experiences have shaped my perspective on biology and education. In my courses and advising I do my best to impress upon students the the variety of biological experiences and perspectives that different domains bring to the table…and the value that they all bring. Most of my <a href="https://facultyweb.kennesaw.edu/ngreen62/research.php">current research</a> focuses on understanding human impacts on animal communities and how animal populations adapt to rapidly changing environments.</p>
-<p>Why am I making this R guide? I have been using R since about 2008, when I was a graduate student trying to make a multi-panel plot for a manuscript. I had seen R mentioned in publications and thought that using R would be more effective than kludging something together with Excel and Powerpoint. Needless to say, jumping straight to making plots with the <code>lattice</code> package was not the easiest way to learn a new programming language. The final result was a little clunky <span class="citation">(Kirchner et al. 2011)</span> but I was really proud of it. Eventually I took some courses and did a lot of self-teaching, and am finally (14 years later) mostly decent at R. I have used R in my work pretty much continuously since 2008 for everything from Bayesian data analysis <span class="citation">(e.g., Green et al. 2020)</span> to simulation modeling <span class="citation">(e.g., Green et al. 2019)</span>. This guide is meant to be a primer for self-starting with R. A lot of the explanations that are included are there to hopefully save someone some of the trouble I had getting started.</p>
+<div id="header" class="section level3" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> <code>header</code></h3>
+<p>We’ve already seen the importance of <code>header</code>. You’ll use <code>header=TRUE</code> in almost every import command you ever run. Occasionally you’ll run into datasets that do not come with a header row. Of course, you won’t store your data that way because it complicates data management.</p>
 </div>
-<div id="references" class="section level1 unnumbered">
-<h1 class="unnumbered">References</h1>
+<div id="sep" class="section level3" number="2.1.3">
+<h3><span class="header-section-number">2.1.3</span> <code>sep</code></h3>
+<p>As seen in one of the examples above, the <code>sep</code> argument specifies what character <strong>sep</strong>arates values on each line of the data file. This argument has some useful default values. If you are using <code>read.table()</code> with a tab-delimited file, or <code>read.csv()</code> with a comma-delimited file, you don’t need to set <code>sep</code>.</p>
+<p>The default in <code>read.table()</code> reads any white space as a delimiter. This is fine if you have a tab-delimited file, but if the file contains a mix of spaces and tabs you might have some problems. For example, if entries are separated by tabs, but some values contain spaces. In those cases, specify the appropriate delimiter:</p>
+<pre class="r"><code># not run:
+in.name &lt;- &quot;elk_data_2021-01-21.txt&quot;
+
+# tab-delimited (sep=&quot;\t&quot;):
+dat &lt;- read.table(in.name, header=TRUE, sep=&quot;\t&quot;)
+
+# space-delimited (sep=&quot; &quot;): 
+#dat &lt;- read.table(in.name, header=TRUE, sep=&quot; &quot;)</code></pre>
+<p>The <code>sep</code> argument is usually necessary when using the “clipboard trick” (see below).</p>
+</div>
+<div id="row.names" class="section level3" number="2.1.4">
+<h3><span class="header-section-number">2.1.4</span> <code>row.names</code></h3>
+<p>When R imports a table of data, it will assign names to the rows. The default names are just the row numbers. Some data files will have their own row names. If you want to not import these names, you can set <code>row.names</code> argument to <code>FALSE</code> to get the default numbers. You can also specify names as a character vector.</p>
+<pre class="r"><code># not run:
+use.rownames &lt;- paste(&quot;row&quot;, 1:20, sep=&quot;_&quot;)
+dat &lt;- read.table(in.name, header=TRUE, row.names=use.rownames)
+dat</code></pre>
+</div>
+<div id="col.names" class="section level3" number="2.1.5">
+<h3><span class="header-section-number">2.1.5</span> <code>col.names</code></h3>
+<p>The argument <code>col.names</code> works in a similar manner to <code>row.names</code>, but for column names. If column names are not provided with argument header, R will assign the columns <code>V</code> followed by a column number (<code>V1</code>, <code>V2</code>, etc.). If you want to provide your own names, use <code>col.names</code>. Personally, I’ve never used this argument and instead prefer to either include column names in my data files or just assign names after importing.</p>
+<pre class="r"><code># not run:
+use.colnames &lt;- c(&quot;ht&quot;, &quot;an&quot;, &quot;sp&quot;)
+dat &lt;- read.table(in.name, header=TRUE, col.names=use.colnames)
+dat</code></pre>
+</div>
+<div id="skip" class="section level3" number="2.1.6">
+<h3><span class="header-section-number">2.1.6</span> <code>skip</code></h3>
+<p>Some data files will contain rows of text or other information before the tabular data starts. The argument <code>skip</code> allows you to skip these lines. Without <code>skip</code>, R will try to read those rows of text as if they were data and fail to import. Use the file <a href="https://greenquanteco.github.io/elk_data_2021-07-14.txt">elk_data_2021-07-14.txt</a>, which has some extra rows of text that would otherwise cause <code>read.table()</code> to fail.</p>
+<pre class="r"><code># not run:
+# alternate file with some header rows
+in.name &lt;- &quot;elk_data_2021-07-14.txt&quot;
+# fails:
+dat &lt;- read.table(in.name, header=TRUE)
+# works:
+dat &lt;- read.table(in.name, header=TRUE, skip=2)
+dat</code></pre>
+<p>The error message when you tried to import the file without <code>skip=2</code> comes up a lot when trying to import data into R. What is happening is that R uses the number of elements in the first row to calculate the dimensions of the data frame that it makes upon import. In this case, it interpreted the 7 words in the first row of text, <code>Here is some text about the dataset</code>, as 7 column headings <code>Here</code>, <code>is</code>, <code>some</code>, <code>text</code>, <code>about</code>, <code>the</code>, and <code>dataset</code>. Then, when next line <code>that came from Gould (1974).</code> only had 5 elements (<code>that</code>, <code>came</code>, <code>from</code>, <code>Gould</code>, and <code>(1974)</code>), this caused an error.</p>
+<p>Why does this issue vex so many new R users (and experienced R users)? Often we will have incomplete records in a data set, where a row is missing values in one or more columns. Sometimes blank values are not read correctly. Consider the file <a href="https://greenquanteco.github.io/elk_data_blanks_2021-07-14.txt">elk_data_blanks_2021-07-14.txt</a>, which has a blank in line 13.</p>
+<p>When we try to import that file, we get a similar error:</p>
+<pre class="r"><code># not run:
+in.name &lt;- &quot;elk_data_blanks_2021-07-14.txt&quot;
+dat &lt;- read.table(in.name, header=TRUE)</code></pre>
+<p>There are a few ways to deal with this error. The first is to go back to the original datafile and put R’s blank value, <code>NA</code>, in the blanks. You could also put in a value that is not likely to occur, such as -9999 in variables that must be positive. This would make your file more readable, but without locking you in to using R. Either solution will ensure that missing values are not interpreted as extra white space. This method can be very time consuming for very large datasets, even in Excel (or especially in Excel). The best time to fix this issue is at data entry. Recall that having no empty cells is one of the recommendations of <span class="citation">Broman and Woo (2018)</span>.</p>
+<p>Another way is to save the file as a comma-delimited file, because commas are less ambiguous than white space for defining missing values. This method usually works, but might still create problems if there are multiple blank values per record or blanks at the ends of rows. The third option is to use the <code>fill</code> argument in the R import functions (see below).</p>
+</div>
+<div id="fill" class="section level3" number="2.1.7">
+<h3><span class="header-section-number">2.1.7</span> <code>fill</code></h3>
+<p>As described above, missing values can cause problems when importing data into R. One way to deal with missing values that occur at the end of a line in the data file is to use the <code>fill</code> argument. Setting <code>fill=TRUE</code> will automatically pad the data frame with blanks so that every row has the same number of values.</p>
+<pre class="r"><code>in.name &lt;- &quot;elk_data_blanks_2021-07-14.txt&quot;
+dat &lt;- read.table(in.name, header=TRUE, fill=TRUE)</code></pre>
+<p>As convenient as <code>fill=TRUE</code> can be, you need to be careful when using it. R may add the wrong number of values, or values of the wrong type. In the example above, the value of species in row 13 is a blank character string (<code>&quot;&quot;</code>), not a missing value <code>NA</code>. This is an important difference because <code>&quot;&quot;</code> and <code>NA</code> are treated very differently by many R functions. The commands below show that R interprets the padded entry <code>&quot;&quot;</code> as a character string of length 0, not a missing value.</p>
+<pre class="r"><code>table(dat$species)</code></pre>
+<pre><code>## 
+##                   alces megaloceros     unknown 
+##           1           2           1          16</code></pre>
+<pre class="r"><code>aggregate(dat$antler, by=list(dat$species), mean)</code></pre>
+<pre><code>##       Group.1        x
+## 1             107.8000
+## 2       alces 164.4500
+## 3 megaloceros 239.1000
+## 4     unknown  85.1375</code></pre>
+<pre class="r"><code>is.na(dat$species)</code></pre>
+<pre><code>##  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</code></pre>
+</div>
+<div id="stringsasfactors" class="section level3" number="2.1.8">
+<h3><span class="header-section-number">2.1.8</span> <code>stringsAsFactors</code></h3>
+<p>A <strong>factor</strong> is a variable in a dataset that defines group membership: control vs. treated, red vs. blue, gene 1 vs. gene 2 vs. gene 3, and so on. The different groups to which an observation can belong are called the <strong>levels</strong> of the factor. This is very useful for statistical modeling, but can be a pain in the neck when trying to work with data in R. Functions <code>read.table()</code> and <code>read.csv()</code> have an argument to automatically convert character strings to factors for convenience: <code>stringsAsFactors</code>. This is a logical switch that will interpret character strings as levels of a factor (<code>stringsAsFactors=TRUE</code>, the default) or as character strings (<code>stringsAsFactors=FALSE</code>).</p>
+<p>The reason that factors can cause headaches in R is because although they look like character strings, they are really numeric codes and the text you see is just a label. If you try to use a factor as if it was a character string, you can get strange errors. My advice is to always import data with <code>stringsAsFactors=FALSE</code> and only convert to factor later if needed. Most statistical functions will convert to factor for you automatically anyway. The only time when you may want to store data as a factor is when you a very large dataset with many levels of a factor; in those situations, factors will use memory more efficiently.</p>
+<p>If you get tired of typing <code>stringsAsFactors=TRUE</code> in your import commands, you can set an option at the beginning of your script that will change the default behavior of <code>read.table()</code> and <code>read.csv()</code>:</p>
+<pre class="r"><code>options(stringsAsFactors=FALSE)</code></pre>
+<p>I put this command at the start of every new R script as a matter of habit. Your mileage may vary.</p>
+</div>
+</div>
+</div>
+<div id="importing-data-from-saved-workspaces" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Importing data from saved workspaces</h1>
+<div id="importing-r-objects-with-readrds" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Importing R objects with <code>readRDS()</code></h2>
+<p>Some R objects are not easily represented by tables. For example, the outputs of statistical methods are usually <strong>lists</strong>. Such objects can be saved using function <code>saveRDS()</code> and read into R using <code>readRDS()</code>. The example below will save an R data object to file <code>rds_test.rds</code> in your R working directory.</p>
+<pre class="r"><code>mod1 &lt;- lm(Petal.Width~Sepal.Width, data=iris)
+mod1</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = Petal.Width ~ Sepal.Width, data = iris)
+## 
+## Coefficients:
+## (Intercept)  Sepal.Width  
+##      3.1569      -0.6403</code></pre>
+<pre class="r"><code>saveRDS(mod1, &quot;rds_test.rds&quot;)
+b &lt;- readRDS(&quot;rds_test.rds&quot;)
+b</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = Petal.Width ~ Sepal.Width, data = iris)
+## 
+## Coefficients:
+## (Intercept)  Sepal.Width  
+##      3.1569      -0.6403</code></pre>
+<p>There is a lazier way to accomplish this task using function <code>dput()</code>. This function saves a plain text representation of an object that can later be used to recreate the object (i.e., R code that can reproduce the object). The help file for <code>dput()</code> cautions that this is not a good method for transferring objects between R sessions and recommends using <code>saveRDS()</code> instead. That being said, I use this method all the time for simple objects and have never had a problem. The procedure is to copy the output of <code>dput()</code> into your R script, and later assign that text to another object. Use <code>dput()</code> at your own risk.</p>
+<pre class="r"><code>a &lt;- iris[1:6,]
+dput(a)</code></pre>
+<pre><code>## structure(list(Sepal.Length = c(5.1, 4.9, 4.7, 4.6, 5, 5.4), 
+##     Sepal.Width = c(3.5, 3, 3.2, 3.1, 3.6, 3.9), Petal.Length = c(1.4, 
+##     1.4, 1.3, 1.5, 1.4, 1.7), Petal.Width = c(0.2, 0.2, 0.2, 
+##     0.2, 0.2, 0.4), Species = structure(c(1L, 1L, 1L, 1L, 1L, 
+##     1L), .Label = c(&quot;setosa&quot;, &quot;versicolor&quot;, &quot;virginica&quot;), class = &quot;factor&quot;)), row.names = c(NA, 
+## 6L), class = &quot;data.frame&quot;)</code></pre>
+<pre class="r"><code>b &lt;- dput(a)</code></pre>
+<pre><code>## structure(list(Sepal.Length = c(5.1, 4.9, 4.7, 4.6, 5, 5.4), 
+##     Sepal.Width = c(3.5, 3, 3.2, 3.1, 3.6, 3.9), Petal.Length = c(1.4, 
+##     1.4, 1.3, 1.5, 1.4, 1.7), Petal.Width = c(0.2, 0.2, 0.2, 
+##     0.2, 0.2, 0.4), Species = structure(c(1L, 1L, 1L, 1L, 1L, 
+##     1L), .Label = c(&quot;setosa&quot;, &quot;versicolor&quot;, &quot;virginica&quot;), class = &quot;factor&quot;)), row.names = c(NA, 
+## 6L), class = &quot;data.frame&quot;)</code></pre>
+<pre class="r"><code>b</code></pre>
+<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa
+## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
+</div>
+<div id="importing-r-workspaces-with-load" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Importing R workspaces with <code>load()</code></h2>
+<p>Everything you do in R takes place within the <strong>workspace</strong>. This can be thought of as a sandbox where all of your data and functions reside. If you want to save this entire environment and continue working later you can do this by saving the workspace (see below). Workspaces can be loaded using function <code>load()</code>. The example below loads workspace <code>example.RData</code> from your home directory. Notice that this command will load every object from the saved workspace into your current workspace. This might cause problems if the saved workspace and current workspace have objects with the same names.</p>
+<pre class="r"><code># not run:
+load(&quot;example.RData&quot;)</code></pre>
+<p>When loading a workspace, it is sometimes more useful to import it into a new environment. This will let you import objects from that workspace without putting its objects into your current workspace. I use this method a lot for working with model outputs. The typical workflow is:</p>
+<ol style="list-style-type: decimal">
+<li>Run an analysis or set of simulations in multiple R instances and save the results of each in its own R workspace.</li>
+<li>After simulations are complete, import the results of each simulation from its individual workspace into a new environment.</li>
+<li>Copy the objects from the environment containing the loaded workspace to the main workspace.</li>
+<li>Delete the environment containing the loaded workspace.</li>
+<li>Repeat until all results are imported.</li>
+</ol>
+<p>Here is an example of importing individual objects from a workspace into a new environment, then copying that object into the current workspace:</p>
+<pre class="r"><code># not run:
+rm(a) # will return error if a does not already exist
+temp &lt;- new.env()
+load(&quot;example.RData&quot;, env=temp)
+a &lt;- temp$a
+rm(temp)
+a</code></pre>
+</div>
+</div>
+<div id="importing-data-special-cases" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Importing data: special cases:</h1>
+<div id="getting-data-from-the-clipboard" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Getting data from the clipboard</h2>
+<p>Sometimes it can be convenient to copy and paste data directly from a spreadsheet into R. This is fine for quick or one-off data imports, but not recommended for routine use because it is tedious to reproduce and error-prone. The procedure is as follows:</p>
+<ol style="list-style-type: decimal">
+<li>In the R console, type this command but do NOT run it: <code>a &lt;- read.table(&quot;clipboard&quot;, header=TRUE, sep=&quot;\t&quot;)</code></li>
+<li>In Excel, highlight your data and copy it to the clipboard using Ctrl-C.</li>
+<li>Click in the R console to move your focus there. In R, hit the ENTER key.</li>
+</ol>
+<p>The command you typed in step 1 will read the table from the clipboard. Note that if you try to copy/paste the <code>read.table(&quot;clipboard&quot;,…)</code> command into the R console, you will then have that command in your clipboard and not your data.</p>
+</div>
+<div id="entering-data-using-scan" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Entering data using <code>scan()</code></h2>
+<p>The <code>scan()</code> function lets you enter values one-by-one, separated by pressing ENTER. You can use this just like typing values into Excel. Or, you can copy and paste a single column of values from Excel. The latter case works because R interprets the values within a column as being separated by a line return (i.e., pressing ENTER).</p>
+<p>Type the name of an object to which data will be saved, the assignment operator <code>&lt;-</code>, <code>scan()</code>, then ENTER, then values (each followed by ENTER), then hit ENTER twice after the last value. This is obviously inefficient for large datasets, but it’s a nice trick to be aware of.</p>
+<pre class="r"><code>a &lt;- scan()
+1
+2
+3
+4
+5
+
+a</code></pre>
+<p>To enter values from a column in Excel, highlight and copy the column. Then go to R, enter the command below, and press ENTER. Then paste your values and press ENTER again.</p>
+<pre class="r"><code># not run:
+a &lt;- scan()
+# paste in values
+# press ENTER again
+a</code></pre>
+</div>
+<div id="entering-data-directly-using-c" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Entering data directly using <code>c()</code></h2>
+<p>Function <code>c()</code> combines its arguments as a vector. As with all functions, arguments must be separated by commas and can be on different lines.</p>
+<pre class="r"><code>c(1:3,9:5)</code></pre>
+<pre><code>## [1] 1 2 3 9 8 7 6 5</code></pre>
+<pre class="r"><code>a &lt;- c(1,
+      3,
+       5
+       )</code></pre>
+<p>Like <code>scan()</code>, data can be entered directly into the console using <code>c()</code>. Also like <code>scan()</code>, this is horribly inefficient but can be useful for small numbers of values.</p>
+</div>
+</div>
+<div id="export-data-from-r" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Export data from R</h1>
+<div id="writing-out-tables-best-method" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Writing out tables (best method)</h2>
+<p>Everything you do in R takes place within the “workspace”. You can save entire workspaces, but in most situations it is more useful to write out data or results as delimited text files. “Delimited” means that individual data within the file are separated, or delimited, by a particular symbol. The most common formats are comma-delimited files (.csv) or tab-delimited files (.txt). Which format to use is largely a matter of personal preference. I’ve found that comma-delimited files are slightly less likely to have issues when opened in Excel.</p>
+<p>Tab-delimited files are written out using <code>write.table()</code>. In the example below, the first argument <code>dat</code> is the object from the R workspace that you want to write out. The argument <code>sep</code> works the same way as in <code>read.table()</code>. The example below will save a file called <code>mydata.txt</code> in your home directory (R’s working directory). Option <code>sep=&quot;\t&quot;</code> can be provided to ensure that the file is written as a tab-delimited file and not a space-delimited file.</p>
+<pre class="r"><code># not run:
+dat &lt;- iris[1:6,]
+write.table(dat,&quot;mydata.txt&quot;, sep=&quot;\t&quot;)</code></pre>
+<p>Comma-delimited files are written out by <code>write.csv()</code>. The syntax is similar to <code>write.table()</code>. Note that the file extension must be “.csv” instead of “.txt”. If you save a file with the wrong extension, then it may be unusable.</p>
+<pre class="r"><code># not run:
+write.csv(dat,&quot;mydata.csv&quot;)</code></pre>
+<p>Most of the time you will not be saving files to your home directory, but to another folder. The folder and the file name must both be specified to save somewhere else. It is usually a good idea to define the file name and file destination separately. This way if you re-use your code on another machine, or a different folder, you only need to update the folder address once.</p>
+<pre class="r"><code># not run:
+
+# do this:
+out.dir &lt;- &quot;C:/_data&quot;
+out.name &lt;- &quot;mydata.csv&quot;
+write.csv(dat, paste(out.dir, out.name, sep=&quot;/&quot;))
+
+# or this:
+out.dir &lt;- &quot;C:/_data&quot;
+out.name &lt;- &quot;mydata.csv&quot;
+out.file &lt;- paste(out.dir, out.name, sep=&quot;/&quot;)
+write.csv(dat, out.file)
+
+# not this:
+write.csv(dat, &quot;C:/_data/mydata.csv&quot;)</code></pre>
+<p>The latter example is problematic because the output file name contains both the destination folder and the filename itself. If you try to run your code on another machine, it will take longer to update the code with a new folder address. This method is also problematic because exporting multiple files will require typing the folder address multiple times. Consider this example:</p>
+<pre class="r"><code># not run:
+
+dat1 &lt;- iris[1:6,]
+dat2 &lt;- iris[7:12,]
+
+write.csv(dat1, &quot;C:/_data/mydata1.csv&quot;)
+write.csv(dat2, &quot;C:/_data/mydata2.csv&quot;)</code></pre>
+<p>Running that code on a new machine, or modifying it for a new project in a different folder, requires changing the folder address twice. The better way is to define the folder name only once:</p>
+<pre class="r"><code># not run:
+
+out.dir &lt;- &quot;C:/_data&quot;
+write.csv(dat1, paste(out.dir, &quot;mydata1.csv&quot;, sep=&quot;/&quot;))
+write.csv(dat2, paste(out.dir, &quot;mydata2.csv&quot;, sep=&quot;/&quot;))</code></pre>
+<p>See the difference? The revised code is much more portable and reusable. This illustrates a good practice for programming in general (not just R) called “Single Point of Definition”. Defining variables or objects once and only once makes your code more robust to changes and easier to maintain or reuse. The example below shows a more compact way to export the files <code>mydata1.csv</code> and <code>mydata2.csv</code>, with even fewer points of definition for file names:</p>
+<pre class="r"><code># not run:
+
+out.dir &lt;- &quot;C:/_data&quot;
+out.names &lt;- paste0(&quot;mydata&quot;, 1:2, &quot;.csv&quot;)
+out.files &lt;- paste(out.dir, out.names, sep=&quot;/&quot;)
+write.csv(dat1, out.files[1])
+write.csv(dat2, out.files[2])</code></pre>
+<p>One handy trick is to auto-generate an output filename that includes the current date. This can really help keep multiple versions of analyses or model runs organized. The <code>paste0()</code> command pastes its arguments together as they are, with no separator between them (equivalent to <code>paste(…,sep=&quot;&quot;))</code>. Function <code>Sys.Date()</code> prints the current date (according to your machine) in YYYY-MM-DD format.</p>
+<pre class="r"><code># not run:
+
+out.dir &lt;- &quot;C:/_data&quot;
+out.name &lt;- paste0(&quot;mydata&quot;, &quot;_&quot;, Sys.Date(), &quot;.csv&quot;)
+write.csv(dat, paste(out.dir, out.name, sep=&quot;/&quot;))</code></pre>
+</div>
+<div id="writing-out-individul-r-objects" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Writing out individul R objects</h2>
+<p>Some data do not fit easily into tables. Individual R objects can be saved to an “.rds” file using the function <code>saveRDS()</code>. This function saves a single object that can later be loaded into another R session with function <code>readRDS()</code>.</p>
+<pre class="r"><code># not run:
+
+x &lt;- t.test(rnorm(100))
+
+# save to working directory:
+saveRDS(x, &quot;zebra.rds&quot;)
+
+# load the file:
+z &lt;- readRDS(&quot;zebra.rds&quot;)</code></pre>
+</div>
+<div id="saving-entire-r-workspaces" class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> Saving entire R workspaces</h2>
+<p>Entire R workspaces or parts of workspaces can be saved using the function <code>save.image()</code>. The command by itself will save the entire current workspace with a generic name to the working directory. It is more useful to save the workspace under a particular name and/or only save specific objects.</p>
+<pre class="r"><code># not run:
+
+# save entire workspace with generic name (avoid):
+save.image()
+
+# save entire workspace with specific name (better):
+save.image(file=&quot;test1.RData&quot;)
+
+# save specific objects (best):
+x &lt;- rnorm(100)
+z &lt;- t.test(x)
+save(list=c(&quot;x&quot;, &quot;z&quot;), file=&quot;testworkspace.RData&quot;)</code></pre>
+</div>
+<div id="writing-text-to-a-file-special-cases" class="section level2" number="5.4">
+<h2><span class="header-section-number">5.4</span> Writing text to a file (special cases)</h2>
+<p>Sometimes you need to write out data that do not fit easily into tables. An example might be the results of a single <em>t</em>-test or ANOVA. This is also sometimes necessary when working with programs outside of R. For example, the programs OpenBUGS and JAGS require a text file that defines the model to be fit. This text file can be generated by R, which makes your workflow simpler because you don’t need to use a separate program to store the outputs.</p>
+<p>The function to write such files is <code>sink()</code>. Functions <code>print()</code> and <code>cat()</code> are also useful in conjunction with <code>sink()</code>.</p>
+<ul>
+<li><code>sink()</code> works in pairs. The first command defines a file to put text into. The second command finishes the file and writes it.</li>
+<li><code>print()</code> prints its arguments as-is. It should produce the same text as running its argument in the R console.</li>
+<li><code>cat()</code> stands for “concatenate and print”. Use this to combine expressions and then print them.</li>
+</ul>
+<pre class="r"><code># not run:
+
+my.result &lt;- t.test(rnorm(50))
+sink(&quot;C:/_data/myresult.txt&quot;)
+cat(&quot;t-test results:&quot;,&quot;\n&quot;) #\n = new line
+print(my.result)
+sink()</code></pre>
+<hr />
+<p><a href="https://greenquanteco.github.io/index.html"><strong>Go back to main page</strong></a></p>
+</div>
+</div>
+<div id="references" class="section level1" number="6">
+<h1><span class="header-section-number">6</span> References</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
-<div id="ref-bolker2008ecological" class="csl-entry">
-Bolker, B. M. 2008. Ecological models and data in <span>R</span>. Princeton University Press, Princeton, New Jersey, USA.
+<div id="ref-broman2018" class="csl-entry">
+Broman, K. W., and K. H. Woo. 2018. <a href="https://doi.org/10.1080/00031305.2017.1375989">Data organization in spreadsheets</a>. The American Statistician 72:2–10.
 </div>
-<div id="ref-dalgaard2002" class="csl-entry">
-Dalgaard, P. 2002. Introductory statistics with <span>R</span>. Springer Science <span></span> Business Media.
-</div>
-<div id="ref-green2019" class="csl-entry">
-Green, N. S., M. L. Wildhaber, and J. L. Albers. 2019. <a href="https://doi.org/10.1111/jai.13701">Potential responses of the <span>L</span>ower <span>M</span>issouri <span>R</span>iver shovelnose sturgeon (<em><span>S</span>caphirhynchus platorynchus</em>) population to a commercial fishing ban</a>. Journal of Applied Ichthyology 35:370–377.
-</div>
-<div id="ref-green2020" class="csl-entry">
-Green, N. S., M. L. Wildhaber, J. L. Albers, T. W. Pettit, and M. J. Hooper. 2020. <a href="https://doi.org/10.1002/ieam.4324">Efficient mammal biodiversity surveys for ecological restoration monitoring</a>. Integrated Environmental Assessment and Management.
-</div>
-<div id="ref-james2013" class="csl-entry">
-James, G., D. Witten, T. Hastie, and R. Tibshirani. 2013. <a href="http://faculty.marshall.usc.edu/gareth-james/ISL/">An introduction to statistical learning</a>. 7th edition. Springer.
-</div>
-<div id="ref-kery2010" class="csl-entry">
-Kéry, M. 2010. Introduction to <span>W</span>in<span>BUGS</span> for ecologists: <span>B</span>ayesian approach to regression, <span>ANOVA</span>, mixed models and related analyses. Academic Press.
-</div>
-<div id="ref-kirchner2011" class="csl-entry">
-Kirchner, B. N., N. S. Green, D. A. Sergeant, J. N. Mink, and K. T. Wilkins. 2011. <a href="https://doi.org/10.1674/0003-0031-166.1.112">Responses of small mammals and vegetation to a prescribed burn in a tallgrass blackland prairie</a>. The American Midland Naturalist 166:112–125.
-</div>
-<div id="ref-legendre2012numerical" class="csl-entry">
-Legendre, P., and L. Legendre. 2012. Numerical ecology. Elsevier, Amsterdam.
-</div>
-<div id="ref-mccune2002analysis" class="csl-entry">
-McCune, B., J. B. Grace, and D. L. Urban. 2002. Analysis of ecological communities. MjM software design Gleneden Beach, Oregon, USA.
-</div>
-<div id="ref-zuur2007analysing" class="csl-entry">
-Zuur, A. F., E. N. Ieno, and G. M. Smith. 2007. Analysing ecological data. Springer Science<span></span>Business Media, New York.
-</div>
-<div id="ref-zuur2009" class="csl-entry">
-Zuur, A., E. N. Ieno, and E. Meesters. 2009. A beginner’s guide to <span>R</span>. Springer Science <span></span> Business Media, New York.
+<div id="ref-wickham2014" class="csl-entry">
+Wickham, H. 2014. <a href="https://doi.org/10.18637/jss.v059.i10">Tidy data</a>. Journal of Statistical Software 59.
 </div>
 </div>
+</div>
+<div id="legal-notice" class="section level1" number="7">
+<h1><span class="header-section-number">7</span> Legal notice</h1>
+<p>This site is for educational purposes only. This work and its content is released under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0</a> license. Inclusion of third-party data falls under guidelines of fair use as defined in <a href="https://www.law.cornell.edu/uscode/text/17/107">section 107 of the US Copyright Act of 1976</a>.</p>
 </div>
 
 

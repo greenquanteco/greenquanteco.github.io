@@ -11,9 +11,9 @@
 
 <meta name="author" content="Nick Green, Kennesaw State University" />
 
-<meta name="date" content="2021-11-23" />
+<meta name="date" content="2021-12-01" />
 
-<title>Home page for Applied Biological Data Analysis</title>
+<title>Data manipulation in R 3: Selecting data with brackets</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -1538,308 +1538,317 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Home page for Applied Biological Data Analysis</h1>
-<h3 class="subtitle">BIOL 4490/6490</h3>
+<h1 class="title toc-ignore">Data manipulation in R 3: Selecting data with brackets</h1>
 <h4 class="author">Nick Green, Kennesaw State University</h4>
-<h4 class="date">November 23, 2021</h4>
+<h4 class="date">December 1, 2021</h4>
 
 </div>
 
 
-<div id="basic-information" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Basic information</h1>
-<p>This website accompanies a course I developed in Fall 2021: <strong>Applied Biological Data Analysis</strong>. The course is currently a “special topics” (i.e., seminar), but will hopefully someday evolve into a regular course. The target audience is biology graduate students and advanced undergraduates who need to analyze data for their research projects. If you find the material here helpful, please let me know! Likewise, if you have comments for improvement, I’d love to hear from you.</p>
-<div id="license-and-permissions" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> License and permissions</h2>
-<p>This work and its content is released under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0</a> license. This means that you are allowed to share the material and adapt it for your purposes, under the following conditions:</p>
-<ol style="list-style-type: decimal">
-<li>Give appropriate credit to the <a href="https://facultyweb.kennesaw.edu/ngreen62/index.php">author</a>. This includes citing the original sources of any third-party datasets used in some of the tutorials. I’ve done my best to provide appropriate citations alongside these datasets.</li>
-<li>If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.</li>
+<div id="overview" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Overview</h1>
+<p>One of the most common data manipulation tasks is selecting, or <strong>extracting</strong>, from your data. The most common way of selecting subsets of an object (aka: extracting) is the R <strong>bracket notation</strong>. This refers to the symbols used, <code>[]</code>. These are also sometimes called <strong>square brackets</strong>, to distinguish them from <strong>curly brackets</strong>, <code>{}</code>. The latter are more properly called <strong>braces</strong> and are used for an entirely different purpose in R.</p>
+<p>Brackets tell R that you want a part of an object. Which part is determined either by a name, or an <strong>index</strong> inside the brackets. Indices should usually be supplied as numbers, but other types can be used. For objects with more than 1 dimension, you need to supply as many indices, or vectors of indices, as the object has dimensions. Within brackets, vectors of indices are separated by commas.</p>
+<p>Brackets can also be used to exclude certain elements by using the negative sign, but this can be tricky. We’ll explore how negative indices work below.</p>
+</div>
+<div id="basics-of-brackets" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Basics of brackets</h1>
+<div id="selecting-from-a-vector" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Selecting from a vector</h2>
+<p>Vectors have 1 dimension, so you must specify a single vector of indices. Notice that the brackets can be empty, in which case all elements can be returned. If the vector supplied is of length 0, then no elements will be returned. When a vector of indices with &gt; 0 elements is specified, R will return the elements of the vector in the order requested. For example, <code>a[c(1,3,5)]</code> and <code>a[c(3,5,1)]</code> will return the same values but in different orders.</p>
+<pre class="r"><code>a &lt;- 11:20
+# all elements returned
+a[]        </code></pre>
+<pre><code>##  [1] 11 12 13 14 15 16 17 18 19 20</code></pre>
+<pre class="r"><code># second element
+a[2]</code></pre>
+<pre><code>## [1] 12</code></pre>
+<pre class="r"><code># elements 3, 4, 5, 6, and 7
+a[3:7]</code></pre>
+<pre><code>## [1] 13 14 15 16 17</code></pre>
+<pre class="r"><code># error (not run)
+# a[3:7,2]    
+
+# correct version of previous command
+a[c(3:7,2)]</code></pre>
+<pre><code>## [1] 13 14 15 16 17 12</code></pre>
+<pre class="r"><code># notice different ordering from previous command
+a[c(2:7)]   </code></pre>
+<pre><code>## [1] 12 13 14 15 16 17</code></pre>
+</div>
+<div id="selecting-from-a-matrix" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Selecting from a matrix</h2>
+<p>Matrices have 2 dimensions, so you must specify two dimension’s worth of indices. If you want all of one dimension (e.g., rows 1 to 3 and all columns), you can leave the spot for the index blank. Separate the dimensions using a comma. Positive indices select elements; negative elements remove elements.</p>
+<p>I’ll reiterate this because it is a common mistake: you must specify all dimensions using a comma. Failing to do so will result in an error (bad) or unexpected results (worse).</p>
+<p><strong>Remember: in R, indices start at 1. In some languages such as Python indices start at 0.</strong></p>
+<pre class="r"><code>a &lt;- matrix(1:12, nrow=3, byrow=TRUE)
+
+# value in row 1, column 2
+a[1,2]</code></pre>
+<pre><code>## [1] 2</code></pre>
+<pre class="r"><code># values in rows 1-3 and columns 1-2
+a[1:3, 1:2]</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]    1    2
+## [2,]    5    6
+## [3,]    9   10</code></pre>
+<pre class="r"><code># rows 1 and 2, all columns
+a[1:2,]</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]    1    2    3    4
+## [2,]    5    6    7    8</code></pre>
+<pre class="r"><code># columns 1 and 2, all rows
+a[,1:2]</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]    1    2
+## [2,]    5    6
+## [3,]    9   10</code></pre>
+<p>Negative indices remove elements, or return all positive indices.</p>
+<pre class="r"><code># rows except for row 1
+a[-1,]</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]    5    6    7    8
+## [2,]    9   10   11   12</code></pre>
+<p>Removing multiple elements with <code>-</code> can be a bit tricky. All elements of the vector of things to remove must be negative. In the first example below, R returns an error because you request elements -1, 0, 1, and 2. Element -1 does not exist, and you don’t want elements 1 and 2!</p>
+<pre class="r"><code># rows except for row 1 and 2
+## returns error (not run)
+a[-1:2,]</code></pre>
+<p>There are several correct ways to get rows other than 1 and 2. Notice that all of them result in indices with a 1-, a -2, and no positive values. The first option is probably the best for most situations.</p>
+<pre class="r"><code>a[-c(1,2),]</code></pre>
+<pre><code>## [1]  9 10 11 12</code></pre>
+<pre class="r"><code>a[-1*1:2,]</code></pre>
+<pre><code>## [1]  9 10 11 12</code></pre>
+<pre class="r"><code>a[-2:0,]</code></pre>
+<pre><code>## [1]  9 10 11 12</code></pre>
+<p>Notice that all three of these lines return a vector, not a matrix. This is because a single row or column of a matrix simplifies to a vector. If you want to keep your result in matrix format, you can specify this using the argument <code>drop=FALSE</code> after the last dimension and a comma:</p>
+<pre class="r"><code>a[-c(1,2),,drop=FALSE]</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]    9   10   11   12</code></pre>
+</div>
+<div id="selecting-from-a-data-frame" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Selecting from a data frame</h2>
+<p>Selecting from a data frame using brackets is largely the same as selecting from a matrix. Just keep in mind that the result might come back as a vector (if you select rows in a single column) or a data frame (any other situation).</p>
+<pre class="r"><code>a &lt;- iris[1:5,]
+
+# returns a vector
+a[,1]</code></pre>
+<pre><code>## [1] 5.1 4.9 4.7 4.6 5.0</code></pre>
+<pre class="r"><code># returns a data frame
+a[1,]</code></pre>
+<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa</code></pre>
+<pre class="r"><code># returns a data frame
+a[1:3,]</code></pre>
+<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa</code></pre>
+<pre class="r"><code># returns a data frame
+a[1:3, 1:3]</code></pre>
+<pre><code>##   Sepal.Length Sepal.Width Petal.Length
+## 1          5.1         3.5          1.4
+## 2          4.9         3.0          1.4
+## 3          4.7         3.2          1.3</code></pre>
+</div>
+<div id="selecting-from-arrays" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> Selecting from arrays</h2>
+</div>
+<div id="selecting-from-lists" class="section level2" number="2.5">
+<h2><span class="header-section-number">2.5</span> Selecting from lists</h2>
+<p>One of the most important kinds of R object is the <strong>list</strong>. A list can be thought of like a series of containers or buckets. Each bucket can contain completely unrelated things, or even other series of buckets. Each bucket is called an <strong>element</strong> of the list. Because of this flexibility, lists are extremely versatile and useful in R programming. Many function outputs are really lists (e.g., the outputs of <code>lm()</code> or <code>t.test()</code>).</p>
+<p>Single elements of a list can be accessed with <strong>double brackets</strong> <code>[[]]</code>. Elements can be selected by name or by index. Elements that have a name can be selected by name using the <code>$</code> symbol instead of by double brackets.</p>
+<pre class="r"><code># make a list &quot;a&quot;
+x &lt;- runif(10)
+y &lt;- &quot;zebra&quot;
+z &lt;- matrix(1:12, nrow=3)
+a &lt;- list(e1=x, e2=y, e3=z)
+
+a[[1]]</code></pre>
+<pre><code>##  [1] 0.48455613 0.46315243 0.42924154 0.26881092 0.13951478 0.03108833
+##  [7] 0.37119592 0.28906588 0.14279648 0.64557472</code></pre>
+<pre class="r"><code>a[[2]]</code></pre>
+<pre><code>## [1] &quot;zebra&quot;</code></pre>
+<pre class="r"><code>a[[&quot;e1&quot;]]</code></pre>
+<pre><code>##  [1] 0.48455613 0.46315243 0.42924154 0.26881092 0.13951478 0.03108833
+##  [7] 0.37119592 0.28906588 0.14279648 0.64557472</code></pre>
+<pre class="r"><code>a$e1</code></pre>
+<pre><code>##  [1] 0.48455613 0.46315243 0.42924154 0.26881092 0.13951478 0.03108833
+##  [7] 0.37119592 0.28906588 0.14279648 0.64557472</code></pre>
+<p>Multiple elements of a list can be selected using <strong>single brackets</strong>. Doing so will return a new list containing the requested elements, <strong>not</strong> the requested elements themselves. This can be a little confusing. Compare the following two commands and notice that the first returns the 10 random numbers in the first element of <code>a</code>, while the second returns a list with 1 element, and that element is the numbers 1 through 10.</p>
+<pre class="r"><code>a[[1]]</code></pre>
+<pre><code>##  [1] 0.48455613 0.46315243 0.42924154 0.26881092 0.13951478 0.03108833
+##  [7] 0.37119592 0.28906588 0.14279648 0.64557472</code></pre>
+<pre class="r"><code>a[1]</code></pre>
+<pre><code>## $e1
+##  [1] 0.48455613 0.46315243 0.42924154 0.26881092 0.13951478 0.03108833
+##  [7] 0.37119592 0.28906588 0.14279648 0.64557472</code></pre>
+<p>Next, observe what happens when we select more than one element of the list <code>a</code>. The output is a list.</p>
+<pre class="r"><code>a[1:2]</code></pre>
+<pre><code>## $e1
+##  [1] 0.48455613 0.46315243 0.42924154 0.26881092 0.13951478 0.03108833
+##  [7] 0.37119592 0.28906588 0.14279648 0.64557472
+## 
+## $e2
+## [1] &quot;zebra&quot;</code></pre>
+<pre class="r"><code>class(a[1:2])</code></pre>
+<pre><code>## [1] &quot;list&quot;</code></pre>
+<p>The reason for this syntax is that the single brackets notation allows you to extract multiple elements of the list at once to quickly make a new list.</p>
+<pre class="r"><code>a2 &lt;- a[1:2]
+a2</code></pre>
+<pre><code>## $e1
+##  [1] 0.48455613 0.46315243 0.42924154 0.26881092 0.13951478 0.03108833
+##  [7] 0.37119592 0.28906588 0.14279648 0.64557472
+## 
+## $e2
+## [1] &quot;zebra&quot;</code></pre>
+</div>
+</div>
+<div id="extracting-and-selecting-data-with-logical-tests" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Extracting and selecting data with logical tests</h1>
+<p>Selecting data from a data frame is one of the most common data manipulations. R offers several ways to accomplish this. One of the most fundamental is the function <code>which()</code>, returns the indices in a vector where a logical condition is <code>TRUE</code>. This means that you can select any piece of a dataset that can be identified logically. Consider the example below, which extracts the rows of the <code>iris</code> dataset where the variable <code>Species</code> matches the character string <code>&quot;setosa&quot;</code>.</p>
+<pre class="r"><code>iris[which(iris$Species == &quot;setosa&quot;),]</code></pre>
+<pre><code>##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1           5.1         3.5          1.4         0.2  setosa
+## 2           4.9         3.0          1.4         0.2  setosa
+## 3           4.7         3.2          1.3         0.2  setosa
+## 4           4.6         3.1          1.5         0.2  setosa
+## 5           5.0         3.6          1.4         0.2  setosa
+## 6           5.4         3.9          1.7         0.4  setosa
+## 7           4.6         3.4          1.4         0.3  setosa
+## 8           5.0         3.4          1.5         0.2  setosa
+## 9           4.4         2.9          1.4         0.2  setosa
+## 10          4.9         3.1          1.5         0.1  setosa
+## 11          5.4         3.7          1.5         0.2  setosa
+## 12          4.8         3.4          1.6         0.2  setosa
+## 13          4.8         3.0          1.4         0.1  setosa
+## 14          4.3         3.0          1.1         0.1  setosa
+## 15          5.8         4.0          1.2         0.2  setosa
+## 16          5.7         4.4          1.5         0.4  setosa
+## 17          5.4         3.9          1.3         0.4  setosa
+## 18          5.1         3.5          1.4         0.3  setosa
+## 19          5.7         3.8          1.7         0.3  setosa
+## 20          5.1         3.8          1.5         0.3  setosa
+## 21          5.4         3.4          1.7         0.2  setosa
+## 22          5.1         3.7          1.5         0.4  setosa
+## 23          4.6         3.6          1.0         0.2  setosa
+## 24          5.1         3.3          1.7         0.5  setosa
+## 25          4.8         3.4          1.9         0.2  setosa
+## 26          5.0         3.0          1.6         0.2  setosa
+## 27          5.0         3.4          1.6         0.4  setosa
+## 28          5.2         3.5          1.5         0.2  setosa
+## 29          5.2         3.4          1.4         0.2  setosa
+## 30          4.7         3.2          1.6         0.2  setosa
+## 31          4.8         3.1          1.6         0.2  setosa
+## 32          5.4         3.4          1.5         0.4  setosa
+## 33          5.2         4.1          1.5         0.1  setosa
+## 34          5.5         4.2          1.4         0.2  setosa
+## 35          4.9         3.1          1.5         0.2  setosa
+## 36          5.0         3.2          1.2         0.2  setosa
+## 37          5.5         3.5          1.3         0.2  setosa
+## 38          4.9         3.6          1.4         0.1  setosa
+## 39          4.4         3.0          1.3         0.2  setosa
+## 40          5.1         3.4          1.5         0.2  setosa
+## 41          5.0         3.5          1.3         0.3  setosa
+## 42          4.5         2.3          1.3         0.3  setosa
+## 43          4.4         3.2          1.3         0.2  setosa
+## 44          5.0         3.5          1.6         0.6  setosa
+## 45          5.1         3.8          1.9         0.4  setosa
+## 46          4.8         3.0          1.4         0.3  setosa
+## 47          5.1         3.8          1.6         0.2  setosa
+## 48          4.6         3.2          1.4         0.2  setosa
+## 49          5.3         3.7          1.5         0.2  setosa
+## 50          5.0         3.3          1.4         0.2  setosa</code></pre>
+<p>In most situations, <code>which()</code> can be omitted because it is implicit in the command. However, not using it can sometimes produce strange results. Because of this, I always use <code>which()</code> in my code. Including <code>which()</code> can also make your code a little clearer to someone who is not familiar with R. For example, the two commands below are exactly equivalent:</p>
+<pre class="r"><code># not run:
+iris[which(iris$Species == &quot;setosa&quot;),]
+iris[iris$Species == &quot;setosa&quot;,]</code></pre>
+<p>What <code>which()</code> is really doing in the commands above is returning a vector of numbers. That vector is then used by the containing brackets <code>[]</code> to determine which pieces of the data frame to pull. The numbers returned by <code>which()</code> are the indices at which a logical vector is TRUE. Compare the results of the two commands below, which were used in the commands above to select from <code>iris</code>:</p>
+<pre class="r"><code># logical vector:
+iris$Species == &quot;setosa&quot;</code></pre>
+<pre><code>##   [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+##  [13]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+##  [25]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+##  [37]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+##  [49]  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [61] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [73] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [85] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [97] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [109] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [121] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [133] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [145] FALSE FALSE FALSE FALSE FALSE FALSE</code></pre>
+<pre class="r"><code># which identifies which elements of vector are TRUE:
+which(iris$Species == &quot;setosa&quot;)</code></pre>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+## [26] 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50</code></pre>
+<p>Multiple conditions can be used to select data using the <code>&amp;</code> (and) and <code>|</code> (or) operators.</p>
+<pre class="r"><code># not run (long output):
+iris[which(iris$Species == &quot;versicolor&quot; &amp; iris$Petal.Length &lt;= 4),]
+iris[which(iris$Species == &quot;versicolor&quot; | iris$Petal.Length &lt;= 1.6),]</code></pre>
+<p>The examples above could also be accomplished in several lines; in fact, splitting the selection criteria up can make for cleaner code. The commands below also show how splitting the selection commands up can help you abide by the “single point of definition” principle.</p>
+<pre class="r"><code># not run (long output):
+flag1 &lt;- iris$Species == &quot;versicolor&quot;
+flag2 &lt;- iris$Petal.Length &lt;= 4
+iris[flag1 &amp; flag2,]
+iris[flag1 | flag2,]</code></pre>
+<p>More than 2 conditions can be combined just as easily:</p>
+<pre class="r"><code>flag1 &lt;- iris$Species == &quot;versicolor&quot;
+flag2 &lt;- iris$Petal.Length &lt;= 4
+flag3 &lt;- iris$Petal.Length &gt; 0.5
+iris[flag1 &amp; flag2 &amp; flag3,]</code></pre>
+<pre><code>##    Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
+## 54          5.5         2.3          4.0         1.3 versicolor
+## 58          4.9         2.4          3.3         1.0 versicolor
+## 60          5.2         2.7          3.9         1.4 versicolor
+## 61          5.0         2.0          3.5         1.0 versicolor
+## 63          6.0         2.2          4.0         1.0 versicolor
+## 65          5.6         2.9          3.6         1.3 versicolor
+## 70          5.6         2.5          3.9         1.1 versicolor
+## 72          6.1         2.8          4.0         1.3 versicolor
+## 80          5.7         2.6          3.5         1.0 versicolor
+## 81          5.5         2.4          3.8         1.1 versicolor
+## 82          5.5         2.4          3.7         1.0 versicolor
+## 83          5.8         2.7          3.9         1.2 versicolor
+## 90          5.5         2.5          4.0         1.3 versicolor
+## 93          5.8         2.6          4.0         1.2 versicolor
+## 94          5.0         2.3          3.3         1.0 versicolor
+## 99          5.1         2.5          3.0         1.1 versicolor</code></pre>
+<p>Selections can return 0 matches. This often manifests as a data frame or matrix with 0 rows.</p>
+<pre class="r"><code>flag1 &lt;- iris$Species == &quot;versicolor&quot;
+flag2 &lt;- iris$Petal.Length &lt;= 1
+iris[flag1 &amp; flag2,]</code></pre>
+<pre><code>## [1] Sepal.Length Sepal.Width  Petal.Length Petal.Width  Species     
+## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
+<p>A related function is the binary operator<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> <code>%in%</code>. For a command like <code>A &amp;in% B</code>, R returns a vector of logical values for each element in A, indicating whether those values occur in B.</p>
+<pre class="r"><code>A &lt;- c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;)
+B &lt;- c(&quot;c&quot;, &quot;d&quot;, &quot;e&quot;, &quot;f&quot;)
+A %in% B</code></pre>
+<pre><code>## [1] FALSE FALSE  TRUE  TRUE  TRUE</code></pre>
+<pre class="r"><code>B %in% A</code></pre>
+<pre><code>## [1]  TRUE  TRUE  TRUE FALSE</code></pre>
+<p>One example of how this might be useful is if you want to select observations from a dataset containing one of several values. The example below illustrates this with <code>iris</code>:</p>
+<pre class="r"><code># not run (long output):
+iris[iris$Species %in% c(&quot;setosa&quot;, &quot;versicolor&quot;),]</code></pre>
+<p>We’ll go over some more complicated selection methods in a future section, but what you’ve seen so far can be very powerful.</p>
+<hr />
+<p><a href="https://greenquanteco.github.io/index.html"><strong>Go back to main page</strong></a></p>
+</div>
+<div id="references" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> References</h1>
+<div id="refs">
+
+</div>
+</div>
+<div id="legal-notice" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Legal notice</h1>
+<p>This site is for educational purposes only. This work and its content is released under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0</a> license. Inclusion of third-party data falls under guidelines of fair use as defined in <a href="https://www.law.cornell.edu/uscode/text/17/107">section 107 of the US Copyright Act of 1976</a>.</p>
+</div>
+<div class="footnotes footnotes-end-of-document">
+<hr />
+<ol>
+<li id="fn1"><p>A binary operator uses two arguments, one before the symbol and one after. For example, <code>+</code> is a binary operator that adds the the argument before the <code>+</code> to the argument after the <code>+</code>.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
 </ol>
-</div>
-<div id="course-description" class="section level2" number="1.2">
-<h2><span class="header-section-number">1.2</span> Course description</h2>
-<p>This course is a survey of data analysis skills and statistical methods that are essential for modern biology. The course takes a holistic approach to the data analysis workflow in biology using the open-source environment R, including data management, exploratory data analysis, data modeling, and reproducible science practices. Statistical topics covered include generalized linear models, mixed effects models, non-linear models, and ordination. Students are required to apply techniques learned in class to real or simulated biological datasets as a course project.</p>
-</div>
-<div id="course-objectives" class="section level2" number="1.3">
-<h2><span class="header-section-number">1.3</span> Course objectives</h2>
-<ol style="list-style-type: decimal">
-<li>Explain the role of statistics in the biological sciences and the ways in which analytical results are communicated.</li>
-<li>Manipulate, summarize, display, and analyze data using the open-source environment and language R.</li>
-<li>Use probability distributions to model and think about biological phenomena. Students should come away from the course able to translate biological hypotheses and ideas into statistical statements and vice versa.</li>
-<li>Conduct exploratory data analyses in support of scientific investigations, particularly to detect and diagnose common problems with biological datasets.</li>
-<li>Employ modern statistical methods to answer biological questions.</li>
-<li>Communicate data and analytical results to audiences who may or may not have statistical backgrounds.</li>
-</ol>
-</div>
-<div id="course-requirements" class="section level2" number="1.4">
-<h2><span class="header-section-number">1.4</span> Course requirements</h2>
-<ul>
-<li>Access to a computer or laptop capable of running <a href="https://cran.r-project.org/bin/windows/base/">R</a> version <span class="math inline">\(\ge\)</span> 4.0.</li>
-<li>Having a recent version of <a href="https://www.rstudio.com/products/rstudio/">RStudio</a> is helpful but not esssential.</li>
-<li>A 64-bit system is highly recommended for speed and stability.</li>
-<li>A separate program in which to write and edit code.
-<ul>
-<li>Most people prefer to use an “integrated development environment” (IDE) or dedicated code editor for coding.</li>
-<li>IDEs and code editors are often subject to irrationally strong personal and organizational preferences, so just pick the one that works for you. Or, use the one your supervisor tells you to use.</li>
-<li>My usual workflow includes two windows: the base R GUI, and <a href="https://notepad-plus-plus.org/downloads/">Notepad++</a>.</li>
-</ul></li>
-<li>It would helpful to have a dataset of your own to work with. Each course module uses numerous examples with simulated or published datasets. But, at the end of the day, you’re probably here because you need to apply these methods to your own work.</li>
-</ul>
-</div>
-</div>
-<div id="recommended-reading" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> Recommended reading</h1>
-<p>The primary textbook for the course is <span class="citation">Bolker (2008)</span>. This is a general statistics textbook for biologists. The applications and examples are focused on ecology, but the statistical exposition is relevant to any area of biology.</p>
-<p>Some other general statistics and R books you may find helpful include <span class="citation">Dalgaard (2002)</span> and <span class="citation">Zuur et al. (2009)</span>. A more advanced statistics book that also introduces machine learning is <span class="citation">James et al. (2013)</span>, which is also available for <a href="http://faculty.marshall.usc.edu/gareth-james/ISL/">free online</a>. Parts of the course also lean heavily on <span class="citation">Zuur et al. (2007)</span>, <span class="citation">McCune et al. (2002)</span>, <span class="citation">Legendre and Legendre (2012)</span>, and <span class="citation">Kéry (2010)</span>.</p>
-</div>
-<div id="course-modules" class="section level1" number="3">
-<h1><span class="header-section-number">3</span> Course modules</h1>
-<p>This section is a work in progress as I figure out how to use Github pages. All documents below were rendered using RMarkdown.</p>
-<table>
-<colgroup>
-<col width="28%" />
-<col width="35%" />
-<col width="35%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Module</th>
-<th align="center">Page (html)</th>
-<th align="center">PDF version</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Statistics in biology</td>
-<td align="center">(coming soon)</td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Introduction to R</td>
-<td align="center">(coming soon)</td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>Data manipulation 1: Data import/export</td>
-<td align="center"><a href="https://greenquanteco.github.io/03-manip-01-inout.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Data manipulation 2: Making values in R</td>
-<td align="center"><a href="https://greenquanteco.github.io/03-manip-02-makevals.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>Data manipulation 3: Selecting data with <code>[]</code></td>
-<td align="center"><a href="https://greenquanteco.github.io/03-manip-03-brackets.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Data manipulation 4: Managing characters and dates</td>
-<td align="center"><a href="https://greenquanteco.github.io/03-manip-04-chardate.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>Data manipulation 5: Data frame management</td>
-<td align="center"><a href="https://greenquanteco.github.io/03-manip-05-dataframe.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Data exploration 1: Descriptive and summary statistics</td>
-<td align="center">(coming soon)</td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>Data exploration 2: Visualizing data distributions</td>
-<td align="center">(coming soon)</td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Statistical distributions</td>
-<td align="center">(coming soon)</td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>Data exploration 3: Fitting and testing distributions</td>
-<td align="center">(coming soon)</td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Data exploration 4: Data transformations</td>
-<td align="center">(coming soon)</td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>Data exploration 5: Multivariate data exploration (preview)</td>
-<td align="center">(coming soon)</td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Data exploration 6: Common statistical problems</td>
-<td align="center">(coming soon)</td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>GLM 1: Prelude with linear models</td>
-<td align="center"><a href="https://greenquanteco.github.io/05-glm-01-prelude.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>GLM 2: GLM basics</td>
-<td align="center"><a href="https://greenquanteco.github.io/05-glm-02-glm_basics.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>GLM 3: Log-linear models</td>
-<td align="center"><a href="https://greenquanteco.github.io/05-glm-03-loglinear_models.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>GLM 4: Poisson models for counts</td>
-<td align="center"><a href="https://greenquanteco.github.io/05-glm-04-poisson_glm.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>GLM 5: Quasi-Poisson and negative binomial models for counts</td>
-<td align="center"><a href="https://greenquanteco.github.io/05-glm-05-quasi_nb_glm.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>GLM 6: Logistic regression for binary outcomes</td>
-<td align="center"><a href="https://greenquanteco.github.io/05-glm-06-logistic_glm.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>GLM 7: Binomial regression for proportional data</td>
-<td align="center"><a href="https://greenquanteco.github.io/05-glm-07-binomial_glm.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>GLM 8: Gamma models for overdispersed data</td>
-<td align="center"><a href="https://greenquanteco.github.io/05-glm-08-gamma_glm.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>GLM 9: Beyond GLM: Overview of GAM and GEE</td>
-<td align="center"><a href="https://greenquanteco.github.io/05-glm-09-beyond_glm.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Nonlinear models 1: Background</td>
-<td align="center"><a href="https://greenquanteco.github.io/06-non-01-intro.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>Nonlinear models 2: Michaelis-Menten curves with <code>nls()</code> and JAGS</td>
-<td align="center"><a href="https://greenquanteco.github.io/06-non-02-micmen.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Nonlinear models 3: Biological growth curves</td>
-<td align="center"><a href="https://greenquanteco.github.io/06-non-03-growth.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>Nonlinear models 4: Dose response curves</td>
-<td align="center"><a href="https://greenquanteco.github.io/06-non-04-dose.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Alternatives to NLS: quantile regression, additive models, and CART</td>
-<td align="center"><a href="https://greenquanteco.github.io/06-non-05-alts.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>Mixed models 1: Linear mixed models (LMM)</td>
-<td align="center">(coming soon)</td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Mixed models 2: Generalized linear mixed models (GLMM)</td>
-<td align="center">(coming soon)</td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>Mixed models 3: Nonlinear mixed models (NLME)</td>
-<td align="center">(coming soon)</td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Mixed models 4: (Generalized) additive mixed models (GAM/GAMM)</td>
-<td align="center">(coming soon)</td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>Multivariate 1: Distance measures</td>
-<td align="center"><a href="https://greenquanteco.github.io/08-multi-01-distance.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Multivariate 2: Clustering</td>
-<td align="center"><a href="https://greenquanteco.github.io/08-multi-02-cluster.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>Multivariate 3: Analyzing dissimilarity</td>
-<td align="center"><a href="https://greenquanteco.github.io/08-multi-03-analyzing_sim.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="even">
-<td>Multivariate 4: Ordination intro and PCA</td>
-<td align="center"><a href="https://greenquanteco.github.io/08-multi-04-ordination1.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-<tr class="odd">
-<td>Multivariate 5: NMDS and other methods</td>
-<td align="center"><a href="https://greenquanteco.github.io/08-multi-05-ordination2.html">Click here!</a></td>
-<td align="center">(coming soon)</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="about-the-author" class="section level1" number="4">
-<h1><span class="header-section-number">4</span> About the author</h1>
-<p>I’m a <a href="https://facultyweb.kennesaw.edu/ngreen62/index.php">quantitative ecologist at Kennesaw State University</a> who studies human impacts on animal populations. Since earning by PhD at Baylor University in 2012, I’ve had the good fortune to have worked in a variety of government and industry roles. Those experiences have shaped my perspective on biology and education. In my courses and advising I do my best to impress upon students the the variety of biological experiences and perspectives that different domains bring to the table…and the value that they all bring. Most of my <a href="https://facultyweb.kennesaw.edu/ngreen62/research.php">current research</a> focuses on understanding human impacts on animal communities and how animal populations adapt to rapidly changing environments.</p>
-<p>Why am I making this R guide? I have been using R since about 2008, when I was a graduate student trying to make a multi-panel plot for a manuscript. I had seen R mentioned in publications and thought that using R would be more effective than kludging something together with Excel and Powerpoint. Needless to say, jumping straight to making plots with the <code>lattice</code> package was not the easiest way to learn a new programming language. The final result was a little clunky <span class="citation">(Kirchner et al. 2011)</span> but I was really proud of it. Eventually I took some courses and did a lot of self-teaching, and am finally (14 years later) mostly decent at R. I have used R in my work pretty much continuously since 2008 for everything from Bayesian data analysis <span class="citation">(e.g., Green et al. 2020)</span> to simulation modeling <span class="citation">(e.g., Green et al. 2019)</span>. This guide is meant to be a primer for self-starting with R. A lot of the explanations that are included are there to hopefully save someone some of the trouble I had getting started.</p>
-</div>
-<div id="references" class="section level1 unnumbered">
-<h1 class="unnumbered">References</h1>
-<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
-<div id="ref-bolker2008ecological" class="csl-entry">
-Bolker, B. M. 2008. Ecological models and data in <span>R</span>. Princeton University Press, Princeton, New Jersey, USA.
-</div>
-<div id="ref-dalgaard2002" class="csl-entry">
-Dalgaard, P. 2002. Introductory statistics with <span>R</span>. Springer Science <span></span> Business Media.
-</div>
-<div id="ref-green2019" class="csl-entry">
-Green, N. S., M. L. Wildhaber, and J. L. Albers. 2019. <a href="https://doi.org/10.1111/jai.13701">Potential responses of the <span>L</span>ower <span>M</span>issouri <span>R</span>iver shovelnose sturgeon (<em><span>S</span>caphirhynchus platorynchus</em>) population to a commercial fishing ban</a>. Journal of Applied Ichthyology 35:370–377.
-</div>
-<div id="ref-green2020" class="csl-entry">
-Green, N. S., M. L. Wildhaber, J. L. Albers, T. W. Pettit, and M. J. Hooper. 2020. <a href="https://doi.org/10.1002/ieam.4324">Efficient mammal biodiversity surveys for ecological restoration monitoring</a>. Integrated Environmental Assessment and Management.
-</div>
-<div id="ref-james2013" class="csl-entry">
-James, G., D. Witten, T. Hastie, and R. Tibshirani. 2013. <a href="http://faculty.marshall.usc.edu/gareth-james/ISL/">An introduction to statistical learning</a>. 7th edition. Springer.
-</div>
-<div id="ref-kery2010" class="csl-entry">
-Kéry, M. 2010. Introduction to <span>W</span>in<span>BUGS</span> for ecologists: <span>B</span>ayesian approach to regression, <span>ANOVA</span>, mixed models and related analyses. Academic Press.
-</div>
-<div id="ref-kirchner2011" class="csl-entry">
-Kirchner, B. N., N. S. Green, D. A. Sergeant, J. N. Mink, and K. T. Wilkins. 2011. <a href="https://doi.org/10.1674/0003-0031-166.1.112">Responses of small mammals and vegetation to a prescribed burn in a tallgrass blackland prairie</a>. The American Midland Naturalist 166:112–125.
-</div>
-<div id="ref-legendre2012numerical" class="csl-entry">
-Legendre, P., and L. Legendre. 2012. Numerical ecology. Elsevier, Amsterdam.
-</div>
-<div id="ref-mccune2002analysis" class="csl-entry">
-McCune, B., J. B. Grace, and D. L. Urban. 2002. Analysis of ecological communities. MjM software design Gleneden Beach, Oregon, USA.
-</div>
-<div id="ref-zuur2007analysing" class="csl-entry">
-Zuur, A. F., E. N. Ieno, and G. M. Smith. 2007. Analysing ecological data. Springer Science<span></span>Business Media, New York.
-</div>
-<div id="ref-zuur2009" class="csl-entry">
-Zuur, A., E. N. Ieno, and E. Meesters. 2009. A beginner’s guide to <span>R</span>. Springer Science <span></span> Business Media, New York.
-</div>
-</div>
 </div>
 
 
