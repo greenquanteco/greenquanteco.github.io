@@ -1614,9 +1614,9 @@ format(x, &quot;%j&quot;)</code></pre>
 <p>The main function for working with dates <em>and</em> times is <code>strptime()</code>. This function takes in a character vector and a format argument, which tells R how the character vector is formatted. It returns objects of class <code>POSIXlt</code> and <code>POSIXt</code>, which contain date and time information in a standardized way.</p>
 <pre class="r"><code>a &lt;- c(&quot;01:15:03&quot;, &quot;14:28:21&quot;)
 strptime(a, format=&quot;%H:%M:%S&quot;) # includes seconds</code></pre>
-<pre><code>## [1] &quot;2021-12-02 01:15:03 EST&quot; &quot;2021-12-02 14:28:21 EST&quot;</code></pre>
+<pre><code>## [1] &quot;2021-12-21 01:15:03 EST&quot; &quot;2021-12-21 14:28:21 EST&quot;</code></pre>
 <pre class="r"><code>strptime(a, format=&quot;%H:%M&quot;)    # seconds dropped</code></pre>
-<pre><code>## [1] &quot;2021-12-02 01:15:00 EST&quot; &quot;2021-12-02 14:28:00 EST&quot;</code></pre>
+<pre><code>## [1] &quot;2021-12-21 01:15:00 EST&quot; &quot;2021-12-21 14:28:00 EST&quot;</code></pre>
 <p>Notice that the current date was included in the result of <code>strptime()</code> (at least, the date when I rendered this page with R Markdown).</p>
 <p>Time zones should be specified when working with data that contain dates and times. Remember that R will assume the time is in the current user’s time zone. This almost always means the time zone used by the operating system in which R is running. If you did something silly like record data in one time zone and analyze it in another, you have to be careful. For example, I once ran a field study in Indiana where data were recorded in Eastern time. But, the office where I analyzed the data was in Missouri (Central time). R kept converting the time-stamped data to Central time, which interfered with the analysis until I learned how to work with time zones in R.</p>
 <pre class="r"><code>a &lt;- c(&quot;2021-07-23 13:21&quot;, &quot;2021-08-01 09:15&quot;)
@@ -1627,7 +1627,7 @@ x</code></pre>
 a2 &lt;- c(&quot;13:21&quot;, &quot;09:15&quot;)
 x2 &lt;- strptime(a2, &quot;%H:%M&quot;)
 x2</code></pre>
-<pre><code>## [1] &quot;2021-12-02 13:21:00 EST&quot; &quot;2021-12-02 09:15:00 EST&quot;</code></pre>
+<pre><code>## [1] &quot;2021-12-21 13:21:00 EST&quot; &quot;2021-12-21 09:15:00 EST&quot;</code></pre>
 <p>Time zone names are not always portable across systems. R has a list of built-in time zones that it can handle, and these should work, but be careful and <strong><em>always</em></strong> validate any code that depends on time zones. The list of time zones R can use can be printed to the console with the command <code>OlsonNames()</code>.</p>
 <pre class="r"><code># US Central Daylight Time (5 hours behind UTC)
 a &lt;- c(&quot;2021-07-23 13:21&quot;, &quot;2021-08-01 09:15&quot;)
@@ -1677,13 +1677,13 @@ y &lt;- strptime(b, &quot;%Y-%m-%d %H:%M&quot;)
 
 ## calculate time in different units:
 difftime(y,x, units=&quot;days&quot;)</code></pre>
-<pre><code>## Time difference of 9707.299 days</code></pre>
+<pre><code>## Time difference of 9688.492 days</code></pre>
 <pre class="r"><code>difftime(y,x, units=&quot;hours&quot;)</code></pre>
-<pre><code>## Time difference of 232975.2 hours</code></pre>
+<pre><code>## Time difference of 232523.8 hours</code></pre>
 <pre class="r"><code>difftime(y,x, units=&quot;mins&quot;)</code></pre>
-<pre><code>## Time difference of 13978511 mins</code></pre>
+<pre><code>## Time difference of 13951429 mins</code></pre>
 <pre class="r"><code>y-x</code></pre>
-<pre><code>## Time difference of 9707.299 days</code></pre>
+<pre><code>## Time difference of 9688.492 days</code></pre>
 <p>Another application: what is the time difference between Chicago and Honolulu?</p>
 <pre class="r"><code>a &lt;- c(&quot;2021-07-23 13:21&quot;)
 x &lt;- strptime(a, &quot;%Y-%m-%d %H:%M&quot;, tz=&quot;US/Central&quot;)

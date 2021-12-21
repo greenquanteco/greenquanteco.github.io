@@ -2196,20 +2196,13 @@ model05 &lt;- jags(data=in.data, inits=inits,
 
 # rounded to fit better on screen:
 print(round(out, 1))</code></pre>
-<pre><code>##               mean     sd    2.5%     25%     50%     75%   97.5%
-## a.water[1] 72696.1 3204.7 66797.5 70527.3 72560.4 74638.8 79153.5
-## a.water[2] 25692.2 1840.1 22460.4 24394.4 25641.5 26795.7 29748.8
-## b.water[1]  4450.3  536.4  3527.9  4067.7  4424.8  4771.7  5598.3
-## b.water[2]  2190.3  593.7  1282.1  1770.2  2124.9  2507.9  3634.0
-## deviance    1245.8    3.4  1241.1  1243.2  1245.1  1247.6  1253.7
-## sigma       3067.9  289.0  2550.6  2867.5  3046.8  3243.5  3666.6
-##            Rhat n.eff
-## a.water[1]    1  1200
-## a.water[2]    1  1200
-## b.water[1]    1  1200
-## b.water[2]    1  1200
-## deviance      1  1200
-## sigma         1  1200</code></pre>
+<pre><code>##               mean     sd    2.5%     25%     50%     75%   97.5% Rhat n.eff
+## a.water[1] 72696.1 3204.7 66797.5 70527.3 72560.4 74638.8 79153.5    1  1200
+## a.water[2] 25692.2 1840.1 22460.4 24394.4 25641.5 26795.7 29748.8    1  1200
+## b.water[1]  4450.3  536.4  3527.9  4067.7  4424.8  4771.7  5598.3    1  1200
+## b.water[2]  2190.3  593.7  1282.1  1770.2  2124.9  2507.9  3634.0    1  1200
+## deviance    1245.8    3.4  1241.1  1243.2  1245.1  1247.6  1253.7    1  1200
+## sigma       3067.9  289.0  2550.6  2867.5  3046.8  3243.5  3666.6    1  1200</code></pre>
 <p>The parameter estimates (mean) are close to their true values. The next few columns show SD and various quantiles of the posterior distribution of each parameter. The Gelman-Rubin statistic, <span class="math inline">\(\hat{R}\)</span> (“R-hat”) are &lt;1.01 for each parameter, suggesting that the MCMC chains converged. Using JAGS can be overkill sometimes, but might be the only way to get a model to fit (and there is no guarantee that JAGS can fit a model!). This method has the advantage of fitting the model directly, without adding in dummy variables for each treatment. We can use the MCMC samples saved in the model object to generate model predictions. The intervals produced for this plot are not true confidence intervals (CI), but their Bayesian analogue, credible intervals (CRI).</p>
 <pre class="r"><code># MCMC samples
 z &lt;- model05$BUGSoutput$sims.list
@@ -2292,7 +2285,7 @@ Leonard, E. M., and C. M. Wood. 2013. <a href="https://doi.org/10.1016/j.cbpc.20
 Mangiafico, S. 2021. <a href="https://CRAN.R-project.org/package=rcompanion"><span class="nocase">r</span>companion: Functions to support extension education program evaluation</a>.
 </div>
 <div id="ref-schabenberger2001contemporary" class="csl-entry">
-Schabenberger, O., and F. J. Pierce. 2001. Contemporary statistical models for the plant and soil sciences. CRC press.
+Schabenberger, O., and F. J. Pierce. 2001. Contemporary statistical models for the plant and soil sciences. CRC press, Boca Raton, Florida, USA.
 </div>
 <div id="ref-spiess2018" class="csl-entry">
 Spiess, A.-N. 2018. <a href="https://CRAN.R-project.org/package=propagate"><span class="nocase">p</span>ropagate: Propagation of uncertainty</a>.
