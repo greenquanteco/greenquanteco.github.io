@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Applied Biological Data Analysis</title>
+  <title>Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis</title>
   <meta name="description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Applied Biological Data Analysis" />
+  <meta property="og:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://greenquanteco.github.io/index.html" />
   <meta property="og:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Applied Biological Data Analysis" />
+  <meta name="twitter:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
   
   <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="twitter:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="1-mod-01.html"/>
+<link rel="prev" href="8-mod-08.html"/>
+<link rel="next" href="literature-cited.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -530,113 +530,119 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Applied Biological Data Analysis</h1>
-<h2 class="subtitle"><em>Statistics and R for Biologists</em></h2>
-<p class="author"><em>Nick Green, Kennesaw State University</em></p>
-<p class="date"><em>January 12, 2022</em></p>
-</div>
-<div id="preface" class="section level1 unnumbered">
-<h1>Preface</h1>
-<p>This website accompanies a course I developed in Fall 2021: <strong>Applied Biological Data Analysis</strong>. The course is currently a “special topics” (i.e., seminar), but will hopefully someday evolve into a regular course. The target audience is biology graduate students and advanced undergraduates who need to analyze data for their research projects. If you find the material here helpful, please let me know! Likewise, if you have comments for improvement, I’d love to hear from you.</p>
-<div id="license-and-permissions" class="section level2 unnumbered">
-<h2>License and permissions</h2>
-<p>This work and its content is released under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0</a> license. This means that you are allowed to share the material and adapt it for your purposes, under the following conditions:</p>
+<div id="mod-09" class="section level1" number="9">
+<h1><span class="header-section-number">Module 9</span> Planning your analysis (what test?)</h1>
+<p>One of the main questions that biologists have after collecting data is, “What statistical test do I use?” Ignoring the fact that they should have thought about that <strong><em>before collecting data</em></strong>, the answer to that question depends on the answers to two other questions:</p>
 <ol style="list-style-type: decimal">
-<li>Give appropriate credit to the <a href="https://facultyweb.kennesaw.edu/ngreen62/index.php">author</a>. This includes citing the original sources of any third-party datasets used in some of the tutorials. I’ve done my best to provide appropriate citations alongside these datasets.</li>
-<li>If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.</li>
+<li>What question are you trying to answer?</li>
+<li>What kind of data do you have?</li>
 </ol>
-<p>This site is for educational purposes only. This work and its content is released under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0</a> license. Inclusion of third-party data falls under guidelines of fair use as defined in <a href="https://www.law.cornell.edu/uscode/text/17/107">section 107 of the US Copyright Act of 1976</a>.</p>
+<p>After <a href="4-mod-04.html#mod-04">exploring the data</a> and gaining an understanding of the patterns and <a href="4-mod-04.html#mod-04-prob">problems</a> in a dataset, it is time to run the main analysis. This guide is designed to help you use what you learned in exploring the data to choose an appropriate analytical strategy.</p>
+<div id="how-to-use-this-guide" class="section level2" number="9.1">
+<h2><span class="header-section-number">9.1</span> How to use this guide</h2>
+<p>The sections below list some common analytical strategies that you might use for some common types of biological questions, and guides you through the selection process. This document is meant to serve as a primer and rough guide; it is not meant to be exhaustive. This document is also very much a work in progress. Not every situation is covered, and there might be issues in your dataset that make the recommendations below problematic. Each section is structured as a dichotomous key, because biologists love dichotomous keys. At each step, choose the option that best applies to your data. If you don’t know the answer to a question or which option to choose, you may need to go back and do some more exploratory data analysis. R functions are provided for most methods.</p>
 </div>
-<div id="course-description" class="section level2 unnumbered">
-<h2>Course description</h2>
-<p>This course is a survey of data analysis skills and statistical methods that are essential for modern biology. The course takes a holistic approach to the data analysis workflow in biology using the open-source environment R, including data management, exploratory data analysis, data modeling, and reproducible science practices. Statistical topics covered include generalized linear models, mixed effects models, non-linear models, and ordination. Students are required to apply techniques learned in class to real or simulated biological datasets as a course project.</p>
-</div>
-<div id="course-objectives" class="section level2 unnumbered">
-<h2>Course objectives</h2>
+<div id="what-question-are-you-trying-to-answer" class="section level2" number="9.2">
+<h2><span class="header-section-number">9.2</span> What question are you trying to answer?</h2>
+<p>The first thing to nail down is what question you are trying to answer. This does not mean what biological question you are investigating, but the two are related. An example biological question might be:</p>
+<blockquote>
+<p>How do small mammals (rodents) adapt to live in urban environments?</p>
+</blockquote>
+<p>This is a good biological question, but it is not a question that you can answer with statistics. In order to answer the overarching biological question, we usually need to break it down into smaller chunks: hypotheses that can either be true or false, and predictions (patterns in the data) that would be observed if the hypothesis is true and not observed if a hypothesis is false. For the question above, we might have some working hypothesis like:</p>
+<blockquote>
+<p>Rodents living in urban environments shift their diet to take advantage of anthropogenic food sources.</p>
+</blockquote>
+<p>This is closer to a statistical hypothesis, but we’re not quite there yet. What does it mean to “shift their diet”? Compared to what? How do we quantify a “shift”? To make a statistical hypothesis we need to think of specific quantitative or categorical comparisons that would support or contradict the hypothesis. For example, here are a few of the potential predictions implied by the hypothesis above:</p>
+<ul>
+<li>Rodents in urban environments will have a greater proportion of artificial foods in their feces than conspecific rodents in rural or natural environments.</li>
+<li>Rodents in urban environments will consume a smaller number of different kinds of food than rodents in rural environments because of the availability of calorie-dense foods associated with humans.</li>
+<li>Rodents in urban environments will spend less time foraging and make shorter foraging movements than rodents in rural or natural environments.</li>
+</ul>
+<p>These three predictions are statements of the kinds of patterns that we should observe if the hypothesis was true. Critically, they include comparison phrases like <strong>greater than</strong> or <strong>smaller number of</strong> or <strong>less time than</strong>. Those comparisons are the sorts of patterns that a statistical model can actually evaluate. Knowing what kind of pattern you are testing is a key step in planning your data analysis.</p>
+<p>Broadly speaking, statistical hypotheses in biology tend to fall into just a few categories:</p>
 <ol style="list-style-type: decimal">
-<li>Explain the role of statistics in the biological sciences and the ways in which analytical results are communicated.</li>
-<li>Manipulate, summarize, display, and analyze data using the open-source environment and language R.</li>
-<li>Use probability distributions to model and think about biological phenomena. Students should come away from the course able to translate biological hypotheses and ideas into statistical statements and vice versa.</li>
-<li>Conduct exploratory data analyses in support of scientific investigations, particularly to detect and diagnose common problems with biological datasets.</li>
-<li>Employ modern statistical methods to answer biological questions.</li>
-<li>Communicate data and analytical results to audiences who may or may not have statistical backgrounds.</li>
+<li>Testing for a difference in mean or location between groups.</li>
+<li>Testing for a continuous relationship between a response variable (or multiple variables) and one or more predictor variables. Also referred to as “predicting” or “modeling” a continuous variable.</li>
+<li>Classifying observations based on predictor variables.</li>
 </ol>
+<p>These categories are not mutually exclusive. Many questions phrased as one category can be reframed into another. How you frame your question depends on many factors and at some point will involve some discretion on your part. <em>There is often more than one right way analyze a dataset</em>, but the right ways are a vanishingly small subset of the possible ways to analyze your data.</p>
 </div>
-<div id="course-requirements" class="section level2 unnumbered">
-<h2>Course requirements</h2>
+<div id="testing-for-a-difference-in-mean-or-location" class="section level2" number="9.3">
+<h2><span class="header-section-number">9.3</span> Testing for a difference in mean or location</h2>
+<p>Dichotomous key for testing for a difference in mean or location:</p>
+<div class="line-block">1. Single response variable (or, one variable tested at a time): 5<br />
+1<span class="math inline">\(&#39;\)</span>. Multiple response variables tested at once: 2<br />
+  2. Data multivariate normal: 3<br />
+  2<span class="math inline">\(&#39;\)</span>. Data not multivariate normal: 4<br />
+3. All conditions for MANOVA met: try <a href="8-mod-08.html#mod-08-manova">MANOVA</a>. R function <code>manova()</code>.<br />
+3<span class="math inline">\(&#39;\)</span>. MANOVA conditions not all met: 4.<br />
+  4. Try permutational <a href="8-mod-08.html#mod-08-manova">MANOVA (PERMANOVA)</a> (R function <code>vegan::adonis()</code>) or:<br />
+  4<span class="math inline">\(&#39;\)</span>. Ordinate using NMDS, then try <a href="8-mod-08.html#mod-08-mrpp">MRPP</a> in NMDS-space. R functions <code>vegan::metaMDS()</code> followed by <code>vegan::mrpp()</code>.<br />
+5. Comparing between 2 groups (i.e., a single factor with 2 levels): 6<br />
+5<span class="math inline">\(&#39;\)</span>. Comparing between &gt;2 groups: 8<br />
+  6. Data meet assumptions of t-test: use <em>t</em>-test. R function <code>t.test()</code>.<br />
+  6<span class="math inline">\(&#39;\)</span>. Data do not meet assumptions of <em>t</em>-test: 7.<br />
+7. Need to predict values of response variable: use <a href="5-mod-05.html#mod-05">GLM</a>. R function <code>glm()</code>.<br />
+7<span class="math inline">\(&#39;\)</span>. Need only to test for difference in location: use Mann-Whitney test (aka: Wilcoxon rank sum test). R function <code>wilcox.test()</code>.<br />
+  8. Response variables normal, variance homogeneous: use <a href="5-mod-05.html#mod-05-anova">ANOVA</a>. R function <code>lm()</code> followed by <code>anova()</code> and/or <code>aov()</code>.<br />
+  8<span class="math inline">\(&#39;\)</span>. Response variables nonnormal OR variance heterogeneous: 9.<br />
+9. Need to predict values of response variable: use <a href="5-mod-05.html#mod-05">GLM</a>. R function <code>glm()</code>.<br />
+9<span class="math inline">\(&#39;\)</span>. Need to test for difference in location only: use Kruskal-Wallis test. R function <code>kruskal.test()</code>.</div>
+<div id="additional-considerations" class="section level3" number="9.3.1">
+<h3><span class="header-section-number">9.3.1</span> Additional considerations</h3>
+<p>Once you reach a decision from the key above, there are a few more options to consider:</p>
 <ul>
-<li>Access to a computer or laptop capable of running <a href="https://cran.r-project.org/bin/windows/base/">R</a> version <span class="math inline">\(\ge\)</span> 4.0.</li>
-<li>Having a recent version of <a href="https://www.rstudio.com/products/rstudio/">RStudio</a> is helpful but not esssential.</li>
-<li>A 64-bit system is highly recommended for speed and stability.</li>
-<li>A separate program in which to write and edit code.
-<ul>
-<li>Most people prefer to use an “integrated development environment” (IDE) or dedicated code editor for coding.</li>
-<li>IDEs and code editors are often subject to irrationally strong personal and organizational preferences, so just pick the one that works for you. Or, use the one your supervisor tells you to use.</li>
-<li>My usual workflow includes two windows: the base R GUI, and <a href="https://notepad-plus-plus.org/downloads/">Notepad++</a>.</li>
-</ul></li>
-<li>It would helpful to have a dataset of your own to work with. Each course module uses numerous examples with simulated or published datasets. But, at the end of the day, you’re probably here because you need to apply these methods to your own work.</li>
+<li>Are there any interactions between your predictor variables? This means that the effects of two predictors are not additive; i.e., the effect of one variable affects the effect of another variable. Most of the methods above can accommodate interactions. You can use R function <code>interaction.plot()</code> to explore potential interactions visually.</li>
+<li>Is there a hierarchical structure to your data, with the higher-level groups representing variation that you are interested in explaining? This is often called “blocking” and needs to be included in your model.</li>
+<li>Is there a hierarchical structure to your data, with the higher-level groups representing variance you are not interested in but still need to account for? If so, you may want to consider adding random effects to your model. This creates a <strong>mixed model</strong> (see <a href="7-mod-07.html#mod-07">Module 7</a>).</li>
 </ul>
 </div>
-<div id="recommended-reading" class="section level2 unnumbered">
-<h2>Recommended reading</h2>
-<p>The primary textbook for the course is <span class="citation">Bolker (<a href="#ref-bolker2008ecological" role="doc-biblioref">2008</a>)</span>. This is a general statistics textbook for biologists. The applications and examples are focused on ecology, but the statistical exposition is relevant to any area of biology.</p>
-<p>Some other general statistics and R books you may find helpful include <span class="citation">Dalgaard (<a href="#ref-dalgaard2002" role="doc-biblioref">2002</a>)</span> and <span class="citation">Zuur et al. (<a href="#ref-zuur2009" role="doc-biblioref">2009b</a>)</span>. A more advanced statistics book that also introduces machine learning is <span class="citation">James et al. (<a href="#ref-james2013" role="doc-biblioref">2013</a>)</span>, which is also available for <a href="http://faculty.marshall.usc.edu/gareth-james/ISL/">free online</a>. Parts of the course also lean heavily on <span class="citation">Zuur et al. (<a href="#ref-zuur2007analysing" role="doc-biblioref">2007</a>)</span>, <span class="citation">McCune et al. (<a href="#ref-mccune2002analysis" role="doc-biblioref">2002</a>)</span>, <span class="citation">Legendre and Legendre (<a href="#ref-legendre2012numerical" role="doc-biblioref">2012</a>)</span>, and <span class="citation">Kéry (<a href="#ref-kery2010" role="doc-biblioref">2010</a>)</span>.</p>
 </div>
-<div id="course-organization" class="section level2 unnumbered">
-<h2>Course organization</h2>
-<p>This course is organized into <em>modules</em> that each focus on one of the objectives of the course. The links below will take you straight to the start of each module.</p>
-<p><a href="1-mod-01.html#mod-01">Module 1</a> is an introduction to the use of statistics in biology, and explores some fundamental issues related to how biologists make inferences based on data.</p>
-<p><a href="2-mod-02.html#mod-02">Module 2</a> is an introduction to the R progam and programming language.</p>
-<p><a href="3-mod-03.html#mod-03">Module 3</a> takes a deep dive into manipulating data in R. This includes data import and export, working with special data types such as dates and times, and data frame management.</p>
-<p><a href="4-mod-04.html#mod-04">Module 4</a> is a survey of common techniques for exploratory data analysis. This is a vital step in the data analysis workflow because it can reveal unexpected patterns and problems in the data.</p>
-<p><a href="5-mod-05.html#mod-05">Module 5</a> introduces generalized linear models (GLM), an extremely general and powerful framework for analyzing biological data. This module presents worked examples of some of the most common GLMs in biology.</p>
-<p><a href="6-mod-06.html#mod-06">Module 6</a> explores nonlinear models for relationships that don’t follow a straight line. These models include biological growth curves and dose response curves.</p>
-<p><a href="7-mod-07.html#mod-07">Module 7</a> introduces mixed models, which extend GLM and other models to include random effects. Mixed models allow biologists to account for variability from unknown sources.</p>
-<p><a href="8-mod-08.html#mod-08">Module 8</a> explores methods for multivariate data analysis, including distance measures and ordination.</p>
-<p><a href="9-mod-09.html#mod-09">Module 9</a> is a guide to selecting statistics for your research. This module contains dichotomous keys to help you decide what statistical methods are most appropriate for the question you are trying to analyze.</p>
+<div id="testing-for-a-continuous-relationship-between-two-or-more-variables" class="section level2" number="9.4">
+<h2><span class="header-section-number">9.4</span> Testing for a continuous relationship between two or more variables</h2>
+<p>Dichotomous key for testing continuous relationships:</p>
+<div class="line-block">1. Need to test whether two variables vary together, not predict actual values: 2<br />
+1<span class="math inline">\(&#39;\)</span>. Need to predict values of response variables: 3<br />
+  2. Both variables normally distributed, suspected relationship linear: use Pearson’s product moment correlation <em>r</em>. R function <code>cor()</code> or <code>cor.test()</code>.<br />
+  2<span class="math inline">\(&#39;\)</span>. One or both variables nonnormal and/or suspected relationship nonlinear: use Spearman’s rank correlation coefficient <span class="math inline">\(\rho\)</span> (“rho”). R function <code>cor.test()</code>.<br />
+3. Suspected relationship linear, or can be made linear by transform: 4<br />
+3<span class="math inline">\(&#39;\)</span>. Suspected relationship nonlinear and cannot be made linear: 5.<br />
+  4. Response variable normally distributed or can be transformed to be normal: use <a href="5-mod-05.html#mod-05-lm">linear regression</a> (on transformed scale, if needed). R function <code>lm()</code>.<br />
+  4<span class="math inline">\(&#39;\)</span>. Response variable nonnormal and cannot be transformed to normality: use <a href="5-mod-05.html#mod-05">GLM</a>. R function <code>glm()</code>.<br />
+5. Response variable and residuals normal: use NLS. R function <code>nls()</code>.<br />
+5<span class="math inline">\(&#39;\)</span>. Response variable and residuals nonnormal: try <a href="6-mod-06.html#mod-06-gam">GAM</a>, GNM, or <a href="6-mod-06.html#mod-06-cart2">regression trees</a> (in that order). R functions <code>mgcv::gam()</code>, <code>gnm::gnm()</code>, and <code>rpart::rpart()</code>, respectively.</div>
+<div id="additional-considerations-1" class="section level3" number="9.4.1">
+<h3><span class="header-section-number">9.4.1</span> Additional considerations</h3>
+<p>Once you reach a decision from the key above, there are a few more options to consider:</p>
+<ul>
+<li>Is there autocorrelation in your data? If so, you may want to consider including an autocorrelation structure.</li>
+<li>Is there a hierarchical structure to your data, with the higher-level groups representing variance you are not interested in but still need to account for? If so, you may want to consider adding random effects to your model. This creates a <strong>mixed model</strong>:
+<ul>
+<li>Linear models become <a href="7-mod-07.html#mod-07-lmm">linear mixed models (LMM)</a>. R function <code>lme4::lmer()</code>.</li>
+<li>Generalized linear models become <a href="7-mod-07.html#mod-07-glmm">generalized linear mixed models (GLMM)</a>. R function <code>lme4::glmer()</code>.</li>
+<li>Additive models become <a href="7-mod-07.html#mod-07-gamm">generalized additive mixed models (GAMM)</a>. R function <code>mgcv::gamm()</code>.</li>
+<li>NLS models become <a href="">nonlinear mixed models (NLME)</a>. R function <code>nlme::nlme(#mod-07-nlme)</code> or <code>lme4::nlmer()</code>.</li>
+</ul></li>
+<li>Do your data meet most of the assumptions for linear regression, but with heteroscedasticity (non-constant variance in residuals)? You might consider using generalized least squares (GLS) with a different variance structure. R function <code>nlme::gls()</code>.</li>
+<li>Is there severe <a href="4-mod-04.html#mod-04-multicol">multicollinearity</a> among your predictor variables? If so, try dropping some of the collinear predictors or try a regularization technique such as ridge or lasso regression. Various R packages.</li>
+<li>Do you not have a clear idea of the form of the relationship between your continuous response variable and the predictors? Or, do you not want to assume a data model and just let the data speak for themselves? Try a machine learning technique like boosted regression trees. R function <code>gbm::gbm()</code>.</li>
+</ul>
 </div>
-<div id="about-the-author" class="section level2 unnumbered">
-<h2>About the author</h2>
-<p>I’m a <a href="https://facultyweb.kennesaw.edu/ngreen62/index.php">quantitative ecologist at Kennesaw State University</a> who studies human impacts on animal populations. Since earning by PhD at Baylor University in 2012, I’ve had the good fortune to have worked in a variety of government and industry roles. Those experiences have shaped my perspective on biology and education. In my courses and advising I do my best to impress upon students the the variety of biological experiences and perspectives that different domains bring to the table…and the value that they all bring. Most of my <a href="https://facultyweb.kennesaw.edu/ngreen62/research.php">current research</a> focuses on understanding human impacts on animal communities and how animal populations adapt to rapidly changing environments.</p>
-<p>Why am I making this R guide? I have been using R since about 2008, when I was a graduate student trying to make a multi-panel plot for a manuscript. I had seen R mentioned in publications and thought that using R would be more effective than kludging something together with Excel and Powerpoint. Needless to say, jumping straight to making plots with the <code>lattice</code> package was not the easiest way to learn a new programming language. The final result was a little clunky <span class="citation">(<a href="#ref-kirchner2011" role="doc-biblioref">Kirchner et al. 2011</a>)</span> but I was really proud of it. Eventually I took some courses and did a lot of self-teaching, and am finally (14 years later) mostly decent at R. I have used R in my work pretty much continuously since 2008 for everything from Bayesian data analysis <span class="citation">(e.g., <a href="#ref-green2020" role="doc-biblioref">Green et al. 2020</a>)</span> to simulation modeling <span class="citation">(e.g., <a href="#ref-green2019" role="doc-biblioref">Green et al. 2019</a>)</span>. This guide is meant to be a primer for self-starting with R. A lot of the explanations that are included are there to hopefully save someone some of the trouble I had getting started.</p>
+</div>
+<div id="classifying-observations" class="section level2" number="9.5">
+<h2><span class="header-section-number">9.5</span> Classifying observations</h2>
+<p>Dichotomous key for classification problems:</p>
+<div class="line-block">1. Outcome binary: 2<br />
+1<span class="math inline">\(&#39;\)</span>. Outcome not binary (&gt;2 options): 3.<br />
+  2. Logistic regression works: use <a href="5-mod-05.html#mod-05-logistic">logistic regression</a>. R function <code>glm()</code>.<br />
+  2<span class="math inline">\(&#39;\)</span>. Logistic regression doesn’t work: use <a href="6-mod-06.html#mod-06-cart1">classification trees</a>. R function <code>rpart::rpart()</code>.<br />
+3. Try multinomial logistic regression. Several R packages, including <code>nnet</code> and <code>mlogit</code>.<br />
+3<span class="math inline">\(&#39;\)</span>. Try <a href="6-mod-06.html#mod-06-cart1">classification trees</a>. R function <code>rpart::rpart()</code>.</div>
+</div>
+<div id="conclusions" class="section level2" number="9.6">
+<h2><span class="header-section-number">9.6</span> Conclusions</h2>
+<p>This guide was designed to cover a lot of possible pathways for biological data analysis, but of course there are some situations that aren’t covered. By the time you have deconstructed your problem enough to answer the diagnostic questions above, you should be well on your way to figuring out what analysis to use. Whatever you do, make sure that you document your decision and its justification…this will be very helpful later!</p>
 
-</div>
-</div>
-<h3>Literature Cited</h3>
-<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
-<div id="ref-bolker2008ecological" class="csl-entry">
-Bolker, B. M. 2008. Ecological models and data in <span>R</span>. Princeton University Press, Princeton, New Jersey, USA.
-</div>
-<div id="ref-dalgaard2002" class="csl-entry">
-Dalgaard, P. 2002. Introductory statistics with <span>R</span>. Springer Science+Business Media.
-</div>
-<div id="ref-green2019" class="csl-entry">
-Green, N. S., M. L. Wildhaber, and J. L. Albers. 2019. <a href="https://doi.org/10.1111/jai.13701">Potential responses of the <span>L</span>ower <span>M</span>issouri <span>R</span>iver shovelnose sturgeon (<em><span>S</span>caphirhynchus platorynchus</em>) population to a commercial fishing ban</a>. Journal of Applied Ichthyology 35:370–377.
-</div>
-<div id="ref-green2020" class="csl-entry">
-Green, N. S., M. L. Wildhaber, J. L. Albers, T. W. Pettit, and M. J. Hooper. 2020. <a href="https://doi.org/10.1002/ieam.4324">Efficient mammal biodiversity surveys for ecological restoration monitoring</a>. Integrated Environmental Assessment and Management.
-</div>
-<div id="ref-james2013" class="csl-entry">
-James, G., D. Witten, T. Hastie, and R. Tibshirani. 2013. <a href="http://faculty.marshall.usc.edu/gareth-james/ISL/">An introduction to statistical learning</a>. 7th edition. Springer.
-</div>
-<div id="ref-kery2010" class="csl-entry">
-Kéry, M. 2010. Introduction to <span>W</span>in<span>BUGS</span> for ecologists: <span>B</span>ayesian approach to regression, <span>ANOVA</span>, mixed models and related analyses. Academic Press.
-</div>
-<div id="ref-kirchner2011" class="csl-entry">
-Kirchner, B. N., N. S. Green, D. A. Sergeant, J. N. Mink, and K. T. Wilkins. 2011. <a href="https://doi.org/10.1674/0003-0031-166.1.112">Responses of small mammals and vegetation to a prescribed burn in a tallgrass blackland prairie</a>. The American Midland Naturalist 166:112–125.
-</div>
-<div id="ref-legendre2012numerical" class="csl-entry">
-Legendre, P., and L. Legendre. 2012. Numerical ecology. Elsevier, Amsterdam.
-</div>
-<div id="ref-mccune2002analysis" class="csl-entry">
-McCune, B., J. B. Grace, and D. L. Urban. 2002. Analysis of ecological communities. MjM software design Gleneden Beach, Oregon, USA.
-</div>
-<div id="ref-zuur2007analysing" class="csl-entry">
-Zuur, A. F., E. N. Ieno, and G. M. Smith. 2007. Analysing ecological data. Springer Science+Business Media, New York.
-</div>
-<div id="ref-zuur2009" class="csl-entry">
-Zuur, A., E. N. Ieno, and E. Meesters. 2009b. A beginner’s guide to <span>R</span>. Springer Science+Business Media, New York.
 </div>
 </div>
             </section>
@@ -644,8 +650,8 @@ Zuur, A., E. N. Ieno, and E. Meesters. 2009b. A beginner’s guide to <span>R</s
           </div>
         </div>
       </div>
-
-<a href="1-mod-01.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="8-mod-08.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="literature-cited.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
