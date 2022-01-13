@@ -1,0 +1,1603 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Module 1 Statistics in modern biology | Applied Biological Data Analysis</title>
+  <meta name="description" content="Helping biologists to become more informed users of R and statistical methods." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Module 1 Statistics in modern biology | Applied Biological Data Analysis" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://greenquanteco.github.io/index.html" />
+  <meta property="og:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
+  <meta property="og:description" content="Helping biologists to become more informed users of R and statistical methods." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Module 1 Statistics in modern biology | Applied Biological Data Analysis" />
+  
+  <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
+  <meta name="twitter:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
+
+<meta name="author" content="Nick Green, Kennesaw State University" />
+
+
+<meta name="date" content="2022-01-12" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="mod-02.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#license-and-permissions"><i class="fa fa-check"></i>License and permissions</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-description"><i class="fa fa-check"></i>Course description</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-objectives"><i class="fa fa-check"></i>Course objectives</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-requirements"><i class="fa fa-check"></i>Course requirements</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#recommended-reading"><i class="fa fa-check"></i>Recommended reading</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-organization"><i class="fa fa-check"></i>Course organization</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#about-the-author"><i class="fa fa-check"></i>About the author</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="mod-01.html"><a href="mod-01.html"><i class="fa fa-check"></i><b>1</b> Statistics in modern biology</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="mod-01.html"><a href="mod-01.html#overview"><i class="fa fa-check"></i><b>1.1</b> Overview</a></li>
+<li class="chapter" data-level="1.2" data-path="mod-01.html"><a href="mod-01.html#statistics-in-modern-biology"><i class="fa fa-check"></i><b>1.2</b> Statistics in modern biology</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="mod-01.html"><a href="mod-01.html#the-scientific-method"><i class="fa fa-check"></i><b>1.2.1</b> The scientific method</a></li>
+<li class="chapter" data-level="1.2.2" data-path="mod-01.html"><a href="mod-01.html#example-data-analysis"><i class="fa fa-check"></i><b>1.2.2</b> Example data analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="mod-01.html"><a href="mod-01.html#misuses-of-statistics"><i class="fa fa-check"></i><b>1.3</b> Misuses of statistics</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="mod-01.html"><a href="mod-01.html#proving-the-trivial-and-meaningless-hypotheses"><i class="fa fa-check"></i><b>1.3.1</b> “Proving” the trivial and meaningless hypotheses</a></li>
+<li class="chapter" data-level="1.3.2" data-path="mod-01.html"><a href="mod-01.html#inappropriate-methods"><i class="fa fa-check"></i><b>1.3.2</b> Inappropriate methods</a></li>
+<li class="chapter" data-level="1.3.3" data-path="mod-01.html"><a href="mod-01.html#p-hacking-and-data-dredging"><i class="fa fa-check"></i><b>1.3.3</b> <em>P</em>-hacking and data dredging</a></li>
+<li class="chapter" data-level="1.3.4" data-path="mod-01.html"><a href="mod-01.html#inadequate-sample-sizes-and-pseudoreplication"><i class="fa fa-check"></i><b>1.3.4</b> Inadequate sample sizes and pseudoreplication</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="mod-01.html"><a href="mod-01.html#p-values-and-null-hypothesis-significance-testing-nhst"><i class="fa fa-check"></i><b>1.4</b> <em>P</em>-values and null hypothesis significance testing (NHST)</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="mod-01.html"><a href="mod-01.html#definition"><i class="fa fa-check"></i><b>1.4.1</b> Definition</a></li>
+<li class="chapter" data-level="1.4.2" data-path="mod-01.html"><a href="mod-01.html#history-and-status-of-p-values"><i class="fa fa-check"></i><b>1.4.2</b> History and status of <em>P</em>-values</a></li>
+<li class="chapter" data-level="1.4.3" data-path="mod-01.html"><a href="mod-01.html#where-p-values-come-from"><i class="fa fa-check"></i><b>1.4.3</b> Where <em>P</em>-values come from</a></li>
+<li class="chapter" data-level="1.4.4" data-path="mod-01.html"><a href="mod-01.html#what-p-values-mean-and-do-not-mean"><i class="fa fa-check"></i><b>1.4.4</b> What <em>P</em>-values mean and do not mean</a></li>
+<li class="chapter" data-level="1.4.5" data-path="mod-01.html"><a href="mod-01.html#do-you-need-a-p-value"><i class="fa fa-check"></i><b>1.4.5</b> Do you need a <em>P</em>-value?</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="mod-01.html"><a href="mod-01.html#alternatives-to-nhst"><i class="fa fa-check"></i><b>1.5</b> Alternatives to NHST</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="mod-01.html"><a href="mod-01.html#bayesian-inference"><i class="fa fa-check"></i><b>1.5.1</b> Bayesian inference</a></li>
+<li class="chapter" data-level="1.5.2" data-path="mod-01.html"><a href="mod-01.html#information-theoretic-methods"><i class="fa fa-check"></i><b>1.5.2</b> Information-theoretic methods</a></li>
+<li class="chapter" data-level="1.5.3" data-path="mod-01.html"><a href="mod-01.html#machine-learning"><i class="fa fa-check"></i><b>1.5.3</b> Machine learning</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="mod-02.html"><a href="mod-02.html"><i class="fa fa-check"></i><b>2</b> Introduction to R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="mod-02.html"><a href="mod-02.html#getting-started-with-r"><i class="fa fa-check"></i><b>2.1</b> Getting started with R</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="mod-02.html"><a href="mod-02.html#what-is-r"><i class="fa fa-check"></i><b>2.1.1</b> What is R?</a></li>
+<li class="chapter" data-level="2.1.2" data-path="mod-02.html"><a href="mod-02.html#advantages-of-r"><i class="fa fa-check"></i><b>2.1.2</b> Advantages of R</a></li>
+<li class="chapter" data-level="2.1.3" data-path="mod-02.html"><a href="mod-02.html#disadvantages-of-r"><i class="fa fa-check"></i><b>2.1.3</b> Disadvantages of R</a></li>
+<li class="chapter" data-level="2.1.4" data-path="mod-02.html"><a href="mod-02.html#base-r-and-vs.-tidyverse"><i class="fa fa-check"></i><b>2.1.4</b> Base R and (vs.?) <code>tidyverse</code></a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="mod-02.html"><a href="mod-02.html#download-and-install-r-and-rstudio"><i class="fa fa-check"></i><b>2.2</b> Download and install R (and RStudio)</a></li>
+<li class="chapter" data-level="2.3" data-path="mod-02.html"><a href="mod-02.html#using-r"><i class="fa fa-check"></i><b>2.3</b> Using R</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="mod-02.html"><a href="mod-02.html#using-the-base-r-gui"><i class="fa fa-check"></i><b>2.3.1</b> Using the base R GUI</a></li>
+<li class="chapter" data-level="2.3.2" data-path="mod-02.html"><a href="mod-02.html#using-r-in-rstudio"><i class="fa fa-check"></i><b>2.3.2</b> Using R in RStudio</a></li>
+<li class="chapter" data-level="2.3.3" data-path="mod-02.html"><a href="mod-02.html#using-r-with-other-programs"><i class="fa fa-check"></i><b>2.3.3</b> Using R with other programs</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="mod-02.html"><a href="mod-02.html#mod-02-first"><i class="fa fa-check"></i><b>2.4</b> A first R session</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="mod-02.html"><a href="mod-02.html#import-data"><i class="fa fa-check"></i><b>2.4.1</b> Import data</a></li>
+<li class="chapter" data-level="2.4.2" data-path="mod-02.html"><a href="mod-02.html#explore-and-visualize-data"><i class="fa fa-check"></i><b>2.4.2</b> Explore and visualize data</a></li>
+<li class="chapter" data-level="2.4.3" data-path="mod-02.html"><a href="mod-02.html#transform-data"><i class="fa fa-check"></i><b>2.4.3</b> Transform data</a></li>
+<li class="chapter" data-level="2.4.4" data-path="mod-02.html"><a href="mod-02.html#analyze-data"><i class="fa fa-check"></i><b>2.4.4</b> Analyze data</a></li>
+<li class="chapter" data-level="2.4.5" data-path="mod-02.html"><a href="mod-02.html#write-out-results"><i class="fa fa-check"></i><b>2.4.5</b> Write out results</a></li>
+<li class="chapter" data-level="2.4.6" data-path="mod-02.html"><a href="mod-02.html#save-your-work"><i class="fa fa-check"></i><b>2.4.6</b> Save your work?</a></li>
+<li class="chapter" data-level="2.4.7" data-path="mod-02.html"><a href="mod-02.html#whats-next"><i class="fa fa-check"></i><b>2.4.7</b> What’s next?</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="mod-02.html"><a href="mod-02.html#write-and-execute-commands-in-the-r-console"><i class="fa fa-check"></i><b>2.5</b> Write and execute commands in the R console</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="mod-02.html"><a href="mod-02.html#r-commandsbasics"><i class="fa fa-check"></i><b>2.5.1</b> R commands–basics</a></li>
+<li class="chapter" data-level="2.5.2" data-path="mod-02.html"><a href="mod-02.html#elements-of-r-code"><i class="fa fa-check"></i><b>2.5.2</b> Elements of R code</a></li>
+<li class="chapter" data-level="2.5.3" data-path="mod-02.html"><a href="mod-02.html#the-r-workspace"><i class="fa fa-check"></i><b>2.5.3</b> The R workspace</a></li>
+<li class="chapter" data-level="2.5.4" data-path="mod-02.html"><a href="mod-02.html#r-code-basics-assignment-and-operators"><i class="fa fa-check"></i><b>2.5.4</b> R code basics: assignment and operators</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="mod-02.html"><a href="mod-02.html#mod-02-struct"><i class="fa fa-check"></i><b>2.6</b> Basic R data structures</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="mod-02.html"><a href="mod-02.html#vectors"><i class="fa fa-check"></i><b>2.6.1</b> Vectors</a></li>
+<li class="chapter" data-level="2.6.2" data-path="mod-02.html"><a href="mod-02.html#data-frames"><i class="fa fa-check"></i><b>2.6.2</b> Data frames</a></li>
+<li class="chapter" data-level="2.6.3" data-path="mod-02.html"><a href="mod-02.html#matrices-and-arrays"><i class="fa fa-check"></i><b>2.6.3</b> Matrices and arrays</a></li>
+<li class="chapter" data-level="2.6.4" data-path="mod-02.html"><a href="mod-02.html#lists"><i class="fa fa-check"></i><b>2.6.4</b> Lists</a></li>
+<li class="chapter" data-level="2.6.5" data-path="mod-02.html"><a href="mod-02.html#s4-objects"><i class="fa fa-check"></i><b>2.6.5</b> S4 objects</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="mod-02.html"><a href="mod-02.html#r-data-types"><i class="fa fa-check"></i><b>2.7</b> R data types</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="mod-02.html"><a href="mod-02.html#character-type"><i class="fa fa-check"></i><b>2.7.1</b> Character type</a></li>
+<li class="chapter" data-level="2.7.2" data-path="mod-02.html"><a href="mod-02.html#numeric-type"><i class="fa fa-check"></i><b>2.7.2</b> Numeric type</a></li>
+<li class="chapter" data-level="2.7.3" data-path="mod-02.html"><a href="mod-02.html#integer-type"><i class="fa fa-check"></i><b>2.7.3</b> Integer type</a></li>
+<li class="chapter" data-level="2.7.4" data-path="mod-02.html"><a href="mod-02.html#logical-type"><i class="fa fa-check"></i><b>2.7.4</b> Logical type</a></li>
+<li class="chapter" data-level="2.7.5" data-path="mod-02.html"><a href="mod-02.html#special-values"><i class="fa fa-check"></i><b>2.7.5</b> Special values</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="mod-02.html"><a href="mod-02.html#manage-r-code-as-scripts-.r-files"><i class="fa fa-check"></i><b>2.8</b> Manage R code as scripts (.r files)</a></li>
+<li class="chapter" data-level="2.9" data-path="mod-02.html"><a href="mod-02.html#manage-and-use-r-packages"><i class="fa fa-check"></i><b>2.9</b> Manage and use R packages</a>
+<ul>
+<li class="chapter" data-level="2.9.1" data-path="mod-02.html"><a href="mod-02.html#your-r-library"><i class="fa fa-check"></i><b>2.9.1</b> Your R library</a></li>
+<li class="chapter" data-level="2.9.2" data-path="mod-02.html"><a href="mod-02.html#installing-packages-using-the-r-gui"><i class="fa fa-check"></i><b>2.9.2</b> Installing packages using the R GUI</a></li>
+<li class="chapter" data-level="2.9.3" data-path="mod-02.html"><a href="mod-02.html#installing-packages-in-rstudio"><i class="fa fa-check"></i><b>2.9.3</b> Installing packages in RStudio</a></li>
+<li class="chapter" data-level="2.9.4" data-path="mod-02.html"><a href="mod-02.html#installing-packages-using-the-r-console"><i class="fa fa-check"></i><b>2.9.4</b> Installing packages using the R console</a></li>
+<li class="chapter" data-level="2.9.5" data-path="mod-02.html"><a href="mod-02.html#working-with-packages-in-r"><i class="fa fa-check"></i><b>2.9.5</b> Working with packages in R</a></li>
+<li class="chapter" data-level="2.9.6" data-path="mod-02.html"><a href="mod-02.html#package-dependencies"><i class="fa fa-check"></i><b>2.9.6</b> Package dependencies</a></li>
+<li class="chapter" data-level="2.9.7" data-path="mod-02.html"><a href="mod-02.html#citing-packages"><i class="fa fa-check"></i><b>2.9.7</b> Citing packages</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="mod-02.html"><a href="mod-02.html#r-documentation"><i class="fa fa-check"></i><b>2.10</b> R documentation</a>
+<ul>
+<li class="chapter" data-level="2.10.1" data-path="mod-02.html"><a href="mod-02.html#documentation-help-files"><i class="fa fa-check"></i><b>2.10.1</b> Documentation (help) files</a></li>
+<li class="chapter" data-level="2.10.2" data-path="mod-02.html"><a href="mod-02.html#r-vignettes"><i class="fa fa-check"></i><b>2.10.2</b> R vignettes</a></li>
+<li class="chapter" data-level="2.10.3" data-path="mod-02.html"><a href="mod-02.html#official-r-project-resources"><i class="fa fa-check"></i><b>2.10.3</b> Official R Project resources</a></li>
+<li class="chapter" data-level="2.10.4" data-path="mod-02.html"><a href="mod-02.html#unofficial-online-resources"><i class="fa fa-check"></i><b>2.10.4</b> Unofficial online resources</a></li>
+<li class="chapter" data-level="2.10.5" data-path="mod-02.html"><a href="mod-02.html#r-books"><i class="fa fa-check"></i><b>2.10.5</b> R books</a></li>
+<li class="chapter" data-level="2.10.6" data-path="mod-02.html"><a href="mod-02.html#two-reminders"><i class="fa fa-check"></i><b>2.10.6</b> Two reminders</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="mod-03.html"><a href="mod-03.html"><i class="fa fa-check"></i><b>3</b> Data manipulation with R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="mod-03.html"><a href="mod-03.html#mod-03-inout"><i class="fa fa-check"></i><b>3.1</b> Data import and export</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="mod-03.html"><a href="mod-03.html#importing-data-preliminaries"><i class="fa fa-check"></i><b>3.1.1</b> Importing data: preliminaries</a></li>
+<li class="chapter" data-level="3.1.2" data-path="mod-03.html"><a href="mod-03.html#importing-data-from-text-files-with-read.csv-and-read.table"><i class="fa fa-check"></i><b>3.1.2</b> Importing data from text files with <code>read.csv()</code> and <code>read.table()</code></a></li>
+<li class="chapter" data-level="3.1.3" data-path="mod-03.html"><a href="mod-03.html#importing-data-from-saved-workspaces"><i class="fa fa-check"></i><b>3.1.3</b> Importing data from saved workspaces</a></li>
+<li class="chapter" data-level="3.1.4" data-path="mod-03.html"><a href="mod-03.html#importing-data-special-cases"><i class="fa fa-check"></i><b>3.1.4</b> Importing data: special cases:</a></li>
+<li class="chapter" data-level="3.1.5" data-path="mod-03.html"><a href="mod-03.html#export-data-from-r"><i class="fa fa-check"></i><b>3.1.5</b> Export data from R</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="mod-03.html"><a href="mod-03.html#making-values-in-r"><i class="fa fa-check"></i><b>3.2</b> Making values in R</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="mod-03.html"><a href="mod-03.html#producing-arbitrary-values-with-c"><i class="fa fa-check"></i><b>3.2.1</b> Producing arbitrary values with <code>c()</code></a></li>
+<li class="chapter" data-level="3.2.2" data-path="mod-03.html"><a href="mod-03.html#generating-regular-values"><i class="fa fa-check"></i><b>3.2.2</b> Generating regular values</a></li>
+<li class="chapter" data-level="3.2.3" data-path="mod-03.html"><a href="mod-03.html#generating-random-values"><i class="fa fa-check"></i><b>3.2.3</b> Generating random values</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="mod-03.html"><a href="mod-03.html#selecting-data-with"><i class="fa fa-check"></i><b>3.3</b> Selecting data with <code>[]</code></a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="mod-03.html"><a href="mod-03.html#mod-03-brackets"><i class="fa fa-check"></i><b>3.3.1</b> Basics of brackets</a></li>
+<li class="chapter" data-level="3.3.2" data-path="mod-03.html"><a href="mod-03.html#extracting-and-selecting-data-with-logical-tests"><i class="fa fa-check"></i><b>3.3.2</b> Extracting and selecting data with logical tests</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="mod-03.html"><a href="mod-03.html#managing-dates-and-characters"><i class="fa fa-check"></i><b>3.4</b> Managing dates and characters</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="mod-03.html"><a href="mod-03.html#temporal-data-and-dates"><i class="fa fa-check"></i><b>3.4.1</b> Temporal data and dates</a></li>
+<li class="chapter" data-level="3.4.2" data-path="mod-03.html"><a href="mod-03.html#character-data-text"><i class="fa fa-check"></i><b>3.4.2</b> Character data (text)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="mod-03.html"><a href="mod-03.html#mod-03-dataframe"><i class="fa fa-check"></i><b>3.5</b> Data frame management</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="mod-03.html"><a href="mod-03.html#data-frame-structure"><i class="fa fa-check"></i><b>3.5.1</b> Data frame structure</a></li>
+<li class="chapter" data-level="3.5.2" data-path="mod-03.html"><a href="mod-03.html#common-data-frame-operations"><i class="fa fa-check"></i><b>3.5.2</b> Common data frame operations</a></li>
+<li class="chapter" data-level="3.5.3" data-path="mod-03.html"><a href="mod-03.html#other-data-frame-operations"><i class="fa fa-check"></i><b>3.5.3</b> Other data frame operations</a></li>
+<li class="chapter" data-level="3.5.4" data-path="mod-03.html"><a href="mod-03.html#mod-03-reshape"><i class="fa fa-check"></i><b>3.5.4</b> Reshaping data frames</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="mod-04.html"><a href="mod-04.html"><i class="fa fa-check"></i><b>4</b> Exploratory data analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="mod-04.html"><a href="mod-04.html#descriptive-and-summary-statistics"><i class="fa fa-check"></i><b>4.1</b> Descriptive and summary statistics</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="mod-04.html"><a href="mod-04.html#basic-summary-statistics"><i class="fa fa-check"></i><b>4.1.1</b> Basic summary statistics</a></li>
+<li class="chapter" data-level="4.1.2" data-path="mod-04.html"><a href="mod-04.html#summarizing-data-with-the-apply-family"><i class="fa fa-check"></i><b>4.1.2</b> Summarizing data with the <code>apply()</code> family</a></li>
+<li class="chapter" data-level="4.1.3" data-path="mod-04.html"><a href="mod-04.html#mod-04-tabagg"><i class="fa fa-check"></i><b>4.1.3</b> Tabulation and aggregation</a></li>
+<li class="chapter" data-level="4.1.4" data-path="mod-04.html"><a href="mod-04.html#aggregation-aka-pivot-tables"><i class="fa fa-check"></i><b>4.1.4</b> Aggregation (aka: pivot tables)</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="mod-04.html"><a href="mod-04.html#mod-04-vis"><i class="fa fa-check"></i><b>4.2</b> Visualizing data distributions</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="mod-04.html"><a href="mod-04.html#boxplots-aka-box-and-whisker-plots"><i class="fa fa-check"></i><b>4.2.1</b> Boxplots (aka: box-and-whisker plots)</a></li>
+<li class="chapter" data-level="4.2.2" data-path="mod-04.html"><a href="mod-04.html#histograms"><i class="fa fa-check"></i><b>4.2.2</b> Histograms</a></li>
+<li class="chapter" data-level="4.2.3" data-path="mod-04.html"><a href="mod-04.html#kernel-density-plots"><i class="fa fa-check"></i><b>4.2.3</b> Kernel density plots</a></li>
+<li class="chapter" data-level="4.2.4" data-path="mod-04.html"><a href="mod-04.html#empirical-cumulative-distribution-plots-ecdf"><i class="fa fa-check"></i><b>4.2.4</b> Empirical cumulative distribution plots (ECDF)</a></li>
+<li class="chapter" data-level="4.2.5" data-path="mod-04.html"><a href="mod-04.html#quantile-quantile-qq-plots"><i class="fa fa-check"></i><b>4.2.5</b> Quantile-quantile (QQ) plots</a></li>
+<li class="chapter" data-level="4.2.6" data-path="mod-04.html"><a href="mod-04.html#how-should-i-plot-my-data"><i class="fa fa-check"></i><b>4.2.6</b> How should I plot my data?</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="mod-04.html"><a href="mod-04.html#mod-04-dists1"><i class="fa fa-check"></i><b>4.3</b> Statistical distributions</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="mod-04.html"><a href="mod-04.html#probability-distributions"><i class="fa fa-check"></i><b>4.3.1</b> Probability distributions</a></li>
+<li class="chapter" data-level="4.3.2" data-path="mod-04.html"><a href="mod-04.html#probability-distributions-in-r"><i class="fa fa-check"></i><b>4.3.2</b> Probability distributions in R</a></li>
+<li class="chapter" data-level="4.3.3" data-path="mod-04.html"><a href="mod-04.html#discrete-distributions"><i class="fa fa-check"></i><b>4.3.3</b> Discrete distributions</a></li>
+<li class="chapter" data-level="4.3.4" data-path="mod-04.html"><a href="mod-04.html#continuous-distributions"><i class="fa fa-check"></i><b>4.3.4</b> Continuous distributions</a></li>
+<li class="chapter" data-level="4.3.5" data-path="mod-04.html"><a href="mod-04.html#distributions-summary"><i class="fa fa-check"></i><b>4.3.5</b> Distributions summary</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="mod-04.html"><a href="mod-04.html#mod-04-dists2"><i class="fa fa-check"></i><b>4.4</b> Fitting and testing distributions</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="mod-04.html"><a href="mod-04.html#estimating-distributional-parameters"><i class="fa fa-check"></i><b>4.4.1</b> Estimating distributional parameters</a></li>
+<li class="chapter" data-level="4.4.2" data-path="mod-04.html"><a href="mod-04.html#graphical-methods-for-examining-distributions"><i class="fa fa-check"></i><b>4.4.2</b> Graphical methods for examining distributions</a></li>
+<li class="chapter" data-level="4.4.3" data-path="mod-04.html"><a href="mod-04.html#formal-tests-for-distributions"><i class="fa fa-check"></i><b>4.4.3</b> Formal tests for distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="mod-04.html"><a href="mod-04.html#mod-04-trans"><i class="fa fa-check"></i><b>4.5</b> Data transformations</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="mod-04.html"><a href="mod-04.html#why-transform"><i class="fa fa-check"></i><b>4.5.1</b> Why transform?</a></li>
+<li class="chapter" data-level="4.5.2" data-path="mod-04.html"><a href="mod-04.html#transforms-vs.-link-functions"><i class="fa fa-check"></i><b>4.5.2</b> Transforms vs. link functions</a></li>
+<li class="chapter" data-level="4.5.3" data-path="mod-04.html"><a href="mod-04.html#log-transformation"><i class="fa fa-check"></i><b>4.5.3</b> Log transformation</a></li>
+<li class="chapter" data-level="4.5.4" data-path="mod-04.html"><a href="mod-04.html#rank-transformation"><i class="fa fa-check"></i><b>4.5.4</b> Rank transformation</a></li>
+<li class="chapter" data-level="4.5.5" data-path="mod-04.html"><a href="mod-04.html#other-transforms-less-common"><i class="fa fa-check"></i><b>4.5.5</b> Other transforms (less common)</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="mod-04.html"><a href="mod-04.html#multivariate-data-exploration"><i class="fa fa-check"></i><b>4.6</b> Multivariate data exploration</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="mod-04.html"><a href="mod-04.html#scatterplots-for-two-variables"><i class="fa fa-check"></i><b>4.6.1</b> Scatterplots for two variables</a></li>
+<li class="chapter" data-level="4.6.2" data-path="mod-04.html"><a href="mod-04.html#mod-04-smat"><i class="fa fa-check"></i><b>4.6.2</b> Scatterplot matrices for many variables</a></li>
+<li class="chapter" data-level="4.6.3" data-path="mod-04.html"><a href="mod-04.html#lattice-plots-for-hierarchical-data"><i class="fa fa-check"></i><b>4.6.3</b> Lattice plots for hierarchical data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="mod-04.html"><a href="mod-04.html#ordination-brief-introduction"><i class="fa fa-check"></i><b>4.7</b> Ordination (brief introduction)</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="mod-04.html"><a href="mod-04.html#principal-components-analysis-pca"><i class="fa fa-check"></i><b>4.7.1</b> Principal components analysis (PCA)</a></li>
+<li class="chapter" data-level="4.7.2" data-path="mod-04.html"><a href="mod-04.html#nonmetric-multidimensional-scaling-nmds"><i class="fa fa-check"></i><b>4.7.2</b> Nonmetric multidimensional scaling (NMDS)</a></li>
+<li class="chapter" data-level="4.7.3" data-path="mod-04.html"><a href="mod-04.html#plotting-ordinations"><i class="fa fa-check"></i><b>4.7.3</b> Plotting ordinations</a></li>
+<li class="chapter" data-level="4.7.4" data-path="mod-04.html"><a href="mod-04.html#ordination-wrap-up-for-now"><i class="fa fa-check"></i><b>4.7.4</b> Ordination wrap-up (for now)</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="mod-04.html"><a href="mod-04.html#mod-04-prob"><i class="fa fa-check"></i><b>4.8</b> Common statistical problems</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="mod-04.html"><a href="mod-04.html#outliers-and-erroneous-values"><i class="fa fa-check"></i><b>4.8.1</b> Outliers and erroneous values</a></li>
+<li class="chapter" data-level="4.8.2" data-path="mod-04.html"><a href="mod-04.html#autocorrelation"><i class="fa fa-check"></i><b>4.8.2</b> Autocorrelation</a></li>
+<li class="chapter" data-level="4.8.3" data-path="mod-04.html"><a href="mod-04.html#mod-04-multicol"><i class="fa fa-check"></i><b>4.8.3</b> Collinearity</a></li>
+<li class="chapter" data-level="4.8.4" data-path="mod-04.html"><a href="mod-04.html#missing-data"><i class="fa fa-check"></i><b>4.8.4</b> Missing data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="mod-05.html"><a href="mod-05.html"><i class="fa fa-check"></i><b>5</b> Generalized linear models (GLM)</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="mod-05.html"><a href="mod-05.html#mod-05-lm"><i class="fa fa-check"></i><b>5.1</b> Prelude with linear models</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="mod-05.html"><a href="mod-05.html#assumptions-of-linear-models"><i class="fa fa-check"></i><b>5.1.1</b> Assumptions of linear models</a></li>
+<li class="chapter" data-level="5.1.2" data-path="mod-05.html"><a href="mod-05.html#linear-regression-in-r"><i class="fa fa-check"></i><b>5.1.2</b> Linear regression in R</a></li>
+<li class="chapter" data-level="5.1.3" data-path="mod-05.html"><a href="mod-05.html#multiple-linear-regression"><i class="fa fa-check"></i><b>5.1.3</b> Multiple linear regression</a></li>
+<li class="chapter" data-level="5.1.4" data-path="mod-05.html"><a href="mod-05.html#mod-05-anova"><i class="fa fa-check"></i><b>5.1.4</b> ANOVA and ANCOVA with <code>lm()</code></a></li>
+<li class="chapter" data-level="5.1.5" data-path="mod-05.html"><a href="mod-05.html#variations-on-linear-models"><i class="fa fa-check"></i><b>5.1.5</b> Variations on linear models</a></li>
+<li class="chapter" data-level="5.1.6" data-path="mod-05.html"><a href="mod-05.html#example-linear-regression-workflow"><i class="fa fa-check"></i><b>5.1.6</b> Example linear regression workflow</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="mod-05.html"><a href="mod-05.html#mod-05-basic"><i class="fa fa-check"></i><b>5.2</b> GLM basics</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="mod-05.html"><a href="mod-05.html#example-glms"><i class="fa fa-check"></i><b>5.2.1</b> Example GLMS</a></li>
+<li class="chapter" data-level="5.2.2" data-path="mod-05.html"><a href="mod-05.html#glm-families"><i class="fa fa-check"></i><b>5.2.2</b> GLM families</a></li>
+<li class="chapter" data-level="5.2.3" data-path="mod-05.html"><a href="mod-05.html#glm-link-functions"><i class="fa fa-check"></i><b>5.2.3</b> GLM link functions</a></li>
+<li class="chapter" data-level="5.2.4" data-path="mod-05.html"><a href="mod-05.html#deviance-and-other-glm-diagnostics"><i class="fa fa-check"></i><b>5.2.4</b> Deviance and other GLM diagnostics</a></li>
+<li class="chapter" data-level="5.2.5" data-path="mod-05.html"><a href="mod-05.html#to-pseudo-r2-or-not-to-pseudo-r2"><i class="fa fa-check"></i><b>5.2.5</b> To pseudo-<em>R</em><sup>2</sup> or not to pseudo-<em>R</em><sup>2</sup>?</a></li>
+<li class="chapter" data-level="5.2.6" data-path="mod-05.html"><a href="mod-05.html#common-glms"><i class="fa fa-check"></i><b>5.2.6</b> Common GLMs</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="mod-05.html"><a href="mod-05.html#mod-05-loglin"><i class="fa fa-check"></i><b>5.3</b> Log-linear models</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="mod-05.html"><a href="mod-05.html#mod-05-loglin-examp"><i class="fa fa-check"></i><b>5.3.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="5.3.2" data-path="mod-05.html"><a href="mod-05.html#example-with-real-data"><i class="fa fa-check"></i><b>5.3.2</b> Example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="mod-05.html"><a href="mod-05.html#mod-05-poisson"><i class="fa fa-check"></i><b>5.4</b> Poisson GLM for counts</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="mod-05.html"><a href="mod-05.html#example-with-simulated-data"><i class="fa fa-check"></i><b>5.4.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="5.4.2" data-path="mod-05.html"><a href="mod-05.html#example-with-real-data-1"><i class="fa fa-check"></i><b>5.4.2</b> Example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="mod-05.html"><a href="mod-05.html#mod-05-quasi"><i class="fa fa-check"></i><b>5.5</b> Quasi-Poisson and negative binomial GLM</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="mod-05.html"><a href="mod-05.html#example-with-simulated-data-1"><i class="fa fa-check"></i><b>5.5.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="5.5.2" data-path="mod-05.html"><a href="mod-05.html#example-with-real-data-2"><i class="fa fa-check"></i><b>5.5.2</b> Example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="mod-05.html"><a href="mod-05.html#mod-05-logistic"><i class="fa fa-check"></i><b>5.6</b> Logistic regression for binary outcomes</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="mod-05.html"><a href="mod-05.html#example-with-simulated-data-2"><i class="fa fa-check"></i><b>5.6.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="5.6.2" data-path="mod-05.html"><a href="mod-05.html#example-with-real-data-3"><i class="fa fa-check"></i><b>5.6.2</b> Example with real data</a></li>
+<li class="chapter" data-level="5.6.3" data-path="mod-05.html"><a href="mod-05.html#mod-05-auc"><i class="fa fa-check"></i><b>5.6.3</b> Logistic GLM diagnostics: AUC and ROC</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="mod-05.html"><a href="mod-05.html#mod-05-binom"><i class="fa fa-check"></i><b>5.7</b> Binomial GLM for proportional data</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="mod-05.html"><a href="mod-05.html#binomial-glm"><i class="fa fa-check"></i><b>5.7.1</b> Binomial GLM</a></li>
+<li class="chapter" data-level="5.7.2" data-path="mod-05.html"><a href="mod-05.html#example-with-simulated-data-3"><i class="fa fa-check"></i><b>5.7.2</b> Example with simulated data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="mod-05.html"><a href="mod-05.html#mod-05-gamma"><i class="fa fa-check"></i><b>5.8</b> Gamma models for overdispersed data</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="mod-05.html"><a href="mod-05.html#example-with-simulated-data-4"><i class="fa fa-check"></i><b>5.8.1</b> Example with simulated data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="mod-05.html"><a href="mod-05.html#mod-05-beyond"><i class="fa fa-check"></i><b>5.9</b> Beyond GLM: Overview of GAM and GEE</a>
+<ul>
+<li class="chapter" data-level="5.9.1" data-path="mod-05.html"><a href="mod-05.html#mod-05-gam"><i class="fa fa-check"></i><b>5.9.1</b> Generalized additive models (GAM)</a></li>
+<li class="chapter" data-level="5.9.2" data-path="mod-05.html"><a href="mod-05.html#mod-05-gee"><i class="fa fa-check"></i><b>5.9.2</b> Generalized estimating equations (GEE)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="mod-06.html"><a href="mod-06.html"><i class="fa fa-check"></i><b>6</b> Nonlinear models</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="mod-06.html"><a href="mod-06.html#background"><i class="fa fa-check"></i><b>6.1</b> Background</a></li>
+<li class="chapter" data-level="6.2" data-path="mod-06.html"><a href="mod-06.html#mod-06-intro"><i class="fa fa-check"></i><b>6.2</b> Nonlinear least squares (NLS)</a></li>
+<li class="chapter" data-level="6.3" data-path="mod-06.html"><a href="mod-06.html#mod-06-micmen"><i class="fa fa-check"></i><b>6.3</b> Michaelis-Menten curves</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="mod-06.html"><a href="mod-06.html#mod-06-micmen-sim"><i class="fa fa-check"></i><b>6.3.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="6.3.2" data-path="mod-06.html"><a href="mod-06.html#example-with-real-data-4"><i class="fa fa-check"></i><b>6.3.2</b> Example with real data</a></li>
+<li class="chapter" data-level="6.3.3" data-path="mod-06.html"><a href="mod-06.html#alternative-strategies-for-the-analysis"><i class="fa fa-check"></i><b>6.3.3</b> Alternative strategies for the analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="mod-06.html"><a href="mod-06.html#mod-06-grow"><i class="fa fa-check"></i><b>6.4</b> Biological growth curves</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="mod-06.html"><a href="mod-06.html#gompertz-and-von-bertalanffy-curves"><i class="fa fa-check"></i><b>6.4.1</b> Gompertz and von Bertalanffy curves</a></li>
+<li class="chapter" data-level="6.4.2" data-path="mod-06.html"><a href="mod-06.html#example-with-real-data-5"><i class="fa fa-check"></i><b>6.4.2</b> Example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="mod-06.html"><a href="mod-06.html#dose-response-curves"><i class="fa fa-check"></i><b>6.5</b> Dose response curves</a></li>
+<li class="chapter" data-level="6.6" data-path="mod-06.html"><a href="mod-06.html#alternatives-to-nls"><i class="fa fa-check"></i><b>6.6</b> Alternatives to NLS</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="mod-06.html"><a href="mod-06.html#generalized-nonlinear-models"><i class="fa fa-check"></i><b>6.6.1</b> Generalized nonlinear models</a></li>
+<li class="chapter" data-level="6.6.2" data-path="mod-06.html"><a href="mod-06.html#quantile-regression"><i class="fa fa-check"></i><b>6.6.2</b> Quantile regression</a></li>
+<li class="chapter" data-level="6.6.3" data-path="mod-06.html"><a href="mod-06.html#mod-06-gam"><i class="fa fa-check"></i><b>6.6.3</b> Generalized additive models (GAM)</a></li>
+<li class="chapter" data-level="6.6.4" data-path="mod-06.html"><a href="mod-06.html#classification-and-regression-trees-cart"><i class="fa fa-check"></i><b>6.6.4</b> Classification and regression trees (CART)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="mod-07.html"><a href="mod-07.html"><i class="fa fa-check"></i><b>7</b> Mixed models</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="mod-07.html"><a href="mod-07.html#prelude-glm"><i class="fa fa-check"></i><b>7.1</b> Prelude (GLM)</a></li>
+<li class="chapter" data-level="7.2" data-path="mod-07.html"><a href="mod-07.html#mod-07-lmm"><i class="fa fa-check"></i><b>7.2</b> Linear mixed models (LMM)</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="mod-07.html"><a href="mod-07.html#formal-definition-and-example"><i class="fa fa-check"></i><b>7.2.1</b> Formal definition and example</a></li>
+<li class="chapter" data-level="7.2.2" data-path="mod-07.html"><a href="mod-07.html#example-with-simulated-data-5"><i class="fa fa-check"></i><b>7.2.2</b> Example with simulated data</a></li>
+<li class="chapter" data-level="7.2.3" data-path="mod-07.html"><a href="mod-07.html#p-values-in-lmm"><i class="fa fa-check"></i><b>7.2.3</b> <em>P</em>-values in LMM</a></li>
+<li class="chapter" data-level="7.2.4" data-path="mod-07.html"><a href="mod-07.html#specifying-random-effects"><i class="fa fa-check"></i><b>7.2.4</b> Specifying random effects</a></li>
+<li class="chapter" data-level="7.2.5" data-path="mod-07.html"><a href="mod-07.html#lmm-example-with-real-data"><i class="fa fa-check"></i><b>7.2.5</b> LMM example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="mod-07.html"><a href="mod-07.html#mod-07-glmm"><i class="fa fa-check"></i><b>7.3</b> Generalized linear mixed models (GLMM)</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="mod-07.html"><a href="mod-07.html#definition-1"><i class="fa fa-check"></i><b>7.3.1</b> Definition</a></li>
+<li class="chapter" data-level="7.3.2" data-path="mod-07.html"><a href="mod-07.html#glmm-on-simulated-data"><i class="fa fa-check"></i><b>7.3.2</b> GLMM on simulated data</a></li>
+<li class="chapter" data-level="7.3.3" data-path="mod-07.html"><a href="mod-07.html#glmm-on-real-data"><i class="fa fa-check"></i><b>7.3.3</b> GLMM on real data</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="mod-07.html"><a href="mod-07.html#mod-07-nlme"><i class="fa fa-check"></i><b>7.4</b> Nonlinear mixed models (NLME)</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="mod-07.html"><a href="mod-07.html#definition-and-background"><i class="fa fa-check"></i><b>7.4.1</b> Definition and background</a></li>
+<li class="chapter" data-level="7.4.2" data-path="mod-07.html"><a href="mod-07.html#nlme-on-simulated-data"><i class="fa fa-check"></i><b>7.4.2</b> NLME on simulated data</a></li>
+<li class="chapter" data-level="7.4.3" data-path="mod-07.html"><a href="mod-07.html#nlme-on-real-data"><i class="fa fa-check"></i><b>7.4.3</b> NLME on real data</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="mod-07.html"><a href="mod-07.html#mod-07-gamm"><i class="fa fa-check"></i><b>7.5</b> (Generalized) additive mixed models (AMM/GAMM)</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="mod-07.html"><a href="mod-07.html#example-gamm-with-real-data"><i class="fa fa-check"></i><b>7.5.1</b> Example GAMM with real data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="mod-08.html"><a href="mod-08.html"><i class="fa fa-check"></i><b>8</b> Multivariate data analysis</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="mod-08.html"><a href="mod-08.html#multivariate-data"><i class="fa fa-check"></i><b>8.1</b> Multivariate data</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="mod-08.html"><a href="mod-08.html#univariate-vs.-multivariate-data"><i class="fa fa-check"></i><b>8.1.1</b> Univariate vs. multivariate data</a></li>
+<li class="chapter" data-level="8.1.2" data-path="mod-08.html"><a href="mod-08.html#components-of-multivariate-data"><i class="fa fa-check"></i><b>8.1.2</b> Components of multivariate data</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="mod-08.html"><a href="mod-08.html#mod-08-dist"><i class="fa fa-check"></i><b>8.2</b> Distance metrics: biological (dis)similarity</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="mod-08.html"><a href="mod-08.html#euclidean-distance"><i class="fa fa-check"></i><b>8.2.1</b> Euclidean distance</a></li>
+<li class="chapter" data-level="8.2.2" data-path="mod-08.html"><a href="mod-08.html#bray-curtis-and-other-distance-metrics"><i class="fa fa-check"></i><b>8.2.2</b> Bray-Curtis and other distance metrics</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="mod-08.html"><a href="mod-08.html#clustering"><i class="fa fa-check"></i><b>8.3</b> Clustering</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="mod-08.html"><a href="mod-08.html#k-means-clustering"><i class="fa fa-check"></i><b>8.3.1</b> <em>K</em>-means clustering</a></li>
+<li class="chapter" data-level="8.3.2" data-path="mod-08.html"><a href="mod-08.html#hierarchical-agglomerative-clustering"><i class="fa fa-check"></i><b>8.3.2</b> Hierarchical agglomerative clustering</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="mod-08.html"><a href="mod-08.html#mod-08-sims"><i class="fa fa-check"></i><b>8.4</b> Analyzing dissimilarity</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="mod-08.html"><a href="mod-08.html#mantel-tests-distance-vs.-distance"><i class="fa fa-check"></i><b>8.4.1</b> Mantel tests: distance vs. distance</a></li>
+<li class="chapter" data-level="8.4.2" data-path="mod-08.html"><a href="mod-08.html#comparing-dissimilarity-between-groups"><i class="fa fa-check"></i><b>8.4.2</b> Comparing dissimilarity between groups</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="mod-08.html"><a href="mod-08.html#mod-08-ord"><i class="fa fa-check"></i><b>8.5</b> Ordination</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="mod-08.html"><a href="mod-08.html#principal-components-analysis-pca-1"><i class="fa fa-check"></i><b>8.5.1</b> Principal components analysis (PCA)</a></li>
+<li class="chapter" data-level="8.5.2" data-path="mod-08.html"><a href="mod-08.html#nmds-and-other-ordination-methods"><i class="fa fa-check"></i><b>8.5.2</b> NMDS and other ordination methods</a></li>
+<li class="chapter" data-level="8.5.3" data-path="mod-08.html"><a href="mod-08.html#other-ordination-techniques"><i class="fa fa-check"></i><b>8.5.3</b> Other ordination techniques</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="mod-09.html"><a href="mod-09.html"><i class="fa fa-check"></i><b>9</b> Planning your analysis (what test?)</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="mod-09.html"><a href="mod-09.html#how-to-use-this-guide"><i class="fa fa-check"></i><b>9.1</b> How to use this guide</a></li>
+<li class="chapter" data-level="9.2" data-path="mod-09.html"><a href="mod-09.html#what-question-are-you-trying-to-answer"><i class="fa fa-check"></i><b>9.2</b> What question are you trying to answer?</a></li>
+<li class="chapter" data-level="9.3" data-path="mod-09.html"><a href="mod-09.html#testing-for-a-difference-in-mean-or-location"><i class="fa fa-check"></i><b>9.3</b> Testing for a difference in mean or location</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="mod-09.html"><a href="mod-09.html#additional-considerations"><i class="fa fa-check"></i><b>9.3.1</b> Additional considerations</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="mod-09.html"><a href="mod-09.html#testing-for-a-continuous-relationship-between-two-or-more-variables"><i class="fa fa-check"></i><b>9.4</b> Testing for a continuous relationship between two or more variables</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="mod-09.html"><a href="mod-09.html#additional-considerations-1"><i class="fa fa-check"></i><b>9.4.1</b> Additional considerations</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="mod-09.html"><a href="mod-09.html#classifying-observations"><i class="fa fa-check"></i><b>9.5</b> Classifying observations</a></li>
+<li class="chapter" data-level="9.6" data-path="mod-09.html"><a href="mod-09.html#conclusions"><i class="fa fa-check"></i><b>9.6</b> Conclusions</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="literature-cited.html"><a href="literature-cited.html"><i class="fa fa-check"></i>Literature Cited</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Applied Biological Data Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="mod-01" class="section level1" number="1">
+<h1><span class="header-section-number">Module 1</span> Statistics in modern biology</h1>
+<div id="overview" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Overview</h2>
+<p>Science works by testing ideas to see if they line up with observations. In other words, checking the predictions of hypotheses against <em>data</em>. This process is called <strong>data analysis</strong>, because it involves careful examination of numerical patterns in observational or experimental data. The branch of mathematics concerned with analyzing data is called <strong>statistics</strong>. Statistics is vital to modern science in general, including biology.</p>
+<p>This website and the course it supports is designed to introduce the ways that statistics are used in biology. This includes strategies for data analysis and an introduction to the open source program and language R. Specific tasks in the data analysis workflow (e.g., data manipulation) and specific analysis methods (e.g., generalized linear models) are covered on individual pages. This first module is a more general exploration of the role of statistics in modern biology, common statistical frameworks, and common misuses of statistics.</p>
+</div>
+<div id="statistics-in-modern-biology" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Statistics in modern biology</h2>
+<div id="the-scientific-method" class="section level3" number="1.2.1">
+<h3><span class="header-section-number">1.2.1</span> The scientific method</h3>
+<p>The famous astronomer and popularizer of science Carl Sagan used to say that, “Science is much more than a body of knowledge. It is a way of thinking.” This quote sums up the way that you, as an emerging scientist, should start to think about the way science works. As an undergraduate, you were (or are) primarily a consumer of scientific knowledge. As a graduate student you will start to become a producer of that knowledge. The key step in that transition is to start to view science as a method for finding answers rather than a set of subjects with answers to be memorized.</p>
+<p>Biology, and science in general, depends on the <strong>scientific method</strong>. What is the scientific method? In school you probably learned about a series of discrete steps that goes something like this:</p>
+<ol style="list-style-type: decimal">
+<li>Observation or question</li>
+<li>Hypothesis</li>
+<li>Experiment</li>
+<li>Conclusions</li>
+</ol>
+<p>The reality is a little more complicated. A more realistic representation might be something like this <span class="citation">(<a href="#ref-voit2019" role="doc-biblioref">Voit 2019</a>)</span>:</p>
+<p><img src="fig/01_01.jpg" width="90%" /></p>
+<p>TESTING</p>
+<p>This model includes the key decision point <em>Test results support the hypothesis</em>. If this is the case, new insight has been gained which can be shared with the world and which should provoke new questions. If the test results do not support the hypothesis, then there is more work to do before any conclusions can be drawn. Namely, one hypothesis may have been eliminated, so an experiment must be devised to test another candidate explanation.</p>
+<p>This course is about that decision process: determining whether biological data support a hypothesis or not. Every step before and after that decision point depends on your subject matter expertise as a biologist. The logic of the decision process itself, however, is in the realm of statistics. Being a biologist requires being able to use the tools of statistics to determine whether data support or refute a hypothesis. Even if you do not end up working as a biologist, a career in any knowledge field (scientific or otherwise) will be greatly enhanced by this ability.</p>
+<p>Many biology majors, including myself as an undergraduate, seem to have a phobia of statistics and mathematics. That’s perfectly understandable. In some ways, biology and mathematics use very different mindsets. Biologists tend to revel in the gory details (literally) of anatomy, taxonomy, biochemistry, ecology, behavior, and genetics. These details are often taxon and even situation-specific. Mathematicians, on the other hand, spend a lot of effort trying to abstract those details away and discover general underlying patterns. But, as we will see this semester, as biologists we can benefit a lot from trying to express our ideas in terms of mathematics. Specifically, in the language of statistics, which is the discipline of applied mathematics that is concerned with measuring and interpreting data. The modern discipline of statistics was developed in large part to help answer the kinds of questions that scientists ask<a href="literature-cited.html#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. In other words, to help make the critical decision about whether test results support a hypothesis or not.</p>
+</div>
+<div id="example-data-analysis" class="section level3" number="1.2.2">
+<h3><span class="header-section-number">1.2.2</span> Example data analysis</h3>
+<p>Perhaps the best way to see how statistics are used in biology is to work through the process, paying special attention to how different statistical methods are used. The data and conclusions for this example are mostly fictitious, but the thought process is the same as for any good research project.</p>
+<p>Imagine a study where researchers are interested in the effects of agricultural chemicals on turtle reproduction. This study is motivated by anecdotal evidence that baby turtles are not observed in ponds downstream from farms, prompting concern from a state fish and wildlife agency. The researchers hypothesize that a common herbicide, atrazine, acts as an estrogen-antagonist and thus interferes with the sexual maturation of male turtles.</p>
+<p>The researchers performed two experiments:</p>
+<ul>
+<li><strong>Experiment 1</strong>: 40 turtles are raised in the lab: 20 exposed to low levels of atrazine, and 20 not exposed to atrazine. Turtle eggs were incubated at 25 <span class="math inline">\(^\circ\)</span>C, a temperature known to produce only male hatchlings. They then counted the number of male and female hatchlings.</li>
+</ul>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_19.jpg" /></p>
+<ul>
+<li><strong>Experiment 2:</strong> 30 ponds are surveyed for turtle nests. The number of nests at each pond and eggs in each nest are counted. Surrounding land use and other environmental variables are also recorded.</li>
+</ul>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_20.jpg" /></p>
+<p>In experiment 1, at the incubation temperature of 25 <span class="math inline">\(^\circ\)</span>C, all embryos should have developed into male hatchlings. The actual results were:</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="center">Female</th>
+<th align="center">Male</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Control</td>
+<td align="center">0</td>
+<td align="center">20</td>
+</tr>
+<tr class="even">
+<td>Exposed</td>
+<td align="center">2</td>
+<td align="center">18</td>
+</tr>
+</tbody>
+</table>
+<p>The researchers performed a <span class="math inline">\(\chi^2\)</span> test and found that the proportion of hatchlings that were male did not differ significantly between the control and exposed treatments (<span class="math inline">\(\chi^2\)</span>=0.526, 1 d.f., <em>P</em> = 0.4682). From this they concluded that atrazine does not interfere substantially with male turtle development<a href="literature-cited.html#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>.</p>
+<p>In the experiment 2, researchers found that ponds near farms tended to have fewer turtle nests. Their data are shown graphically below. The researchers compared the mean number of nests in the farm vs. non-farm ponds and found that, on average, ponds surrounded by farms tended to have about 2.86 fewer nests (95% confidence interval of difference = [1.46, 4.38]). A <em>t</em>-test found that this difference was statistically significant (<em>t</em> = 4.1737, 27.253 d.f., <em>P</em> = 0.0002). When the researchers compared the number of eggs per nest, they found no difference in mean eggs per nest between pond types (<em>t</em> = 0, 27.253 d.f., <em>P</em> &gt; 0.9999).</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-3-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>So, what can the researchers conclude? From experiment 2, they can conclude that something about being surrounded by farms appears to reduce the number of turtle nests in the ponds, but does not affect the number of eggs per nest. From experiment 1, they can also conclude that atrazine by itself does not appear to affect development of male turtles.</p>
+<p>Notice that in the investigation described above, the researchers did not obtain a definitive answer to their question from any single test. Instead, they used their working hypothesis (proposed explanation) to deduce several predictions of results they should have observed if their hypothesis was correct. Here is the thought process more explicitly:</p>
+<ul>
+<li><strong>Hypothesis:</strong> Atrazine interferes with the sexual maturation of male turtles because it acts as an estrogen-antagonist.
+<ul>
+<li><strong>Deduction 1:</strong> If atrazine interferes with an embryo’s estrogen receptors, that embryo should not be able to develop as a male. If individual embryos cannot develop as male, then a group of embryos exposed to atrazine should all develop as female.
+<ul>
+<li><strong>Specific prediction based on deduction 1:</strong> A greater proportion of eggs will develop into females in the experimental group exposed to atrazine than in the group not exposed to atrazine.</li>
+</ul></li>
+<li><strong>Deduction 2:</strong> If atrazine reduces turtle reproductive output, then turtle populations exposed to atrazine should have lower reproductive success.
+<ul>
+<li><strong>Specific prediction based on deduction 2:</strong> Habitats surrounded by agricultural fields (and thus exposed to atrazine) should have fewer turtle nests than habitats surrounded by other land use types (and thus not exposed to atrazine).</li>
+<li><strong>Another specific prediction based on deduction 2:</strong> Turtle nests in habitats surrounded by agricultural fields (and thus exposed to atrazine) should have fewer eggs than nests in habitats surrounded by other land use types (and thus not exposed to atrazine).</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>The <span class="math inline">\(\chi^2\)</span> test was used to evaluate the specific prediction based on deduction 1, because the researchers were comparing proportions. The <em>t</em>-tests were used to test the specific predictions of deduction 2, because the researchers were comparing means. What were the results? The table below lays the results out:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Prediction</th>
+<th align="center">Correct?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Exposed eggs all develop as female</td>
+<td align="center">No</td>
+</tr>
+<tr class="even">
+<td>Fewer nests in agricultural landscapes</td>
+<td align="center">Yes</td>
+</tr>
+<tr class="odd">
+<td>Fewer eggs/nest in agricultural landscapes</td>
+<td align="center">No</td>
+</tr>
+</tbody>
+</table>
+<p>So, what should the researchers conclude? The results suggest that whatever is happening between agricultural fields and turtle nests, it does not appear that pesticides are hampering turtle reproduction. This is seen in the lack of effect of the chemical in experiment 1, and the lack of a relationship between eggs per nest and agricultural land. However, the researchers can’t rule out that something about agriculture reduces the likelihood that turtles will build nests. If you were in their position, what would you investigate next?</p>
+</div>
+</div>
+<div id="misuses-of-statistics" class="section level2" number="1.3">
+<h2><span class="header-section-number">1.3</span> Misuses of statistics</h2>
+<p>There are too many ways to misuse statistics, both intentionally and accidentally, to cover here. In this course we’ll explore a few examples that are closely related to this lesson’s main ideas. In my experience, there are 4 common ways in which biologists misuse statistics (intentionally or not):</p>
+<ol style="list-style-type: decimal">
+<li>Proving the trivial</li>
+<li>Inappropriate methods</li>
+<li><em>P</em>-value abuse</li>
+<li>Inadequate sample size</li>
+</ol>
+<p>Let’s examine each in turn.</p>
+<div id="proving-the-trivial-and-meaningless-hypotheses" class="section level3" number="1.3.1">
+<h3><span class="header-section-number">1.3.1</span> “Proving” the trivial and meaningless hypotheses</h3>
+<p>As valuable as statistics are, it can be tempting to use them too much. Sometimes we do this from an abundance of caution–after all, we want to be sure about the conclusions we draw! However, there is such a thing as too cautious. For example, consider the two versions of a statement below from a fictional article about the effects of forestry practices on soil nitrogen fixation in a national forest:</p>
+<p><strong>Version 1:</strong></p>
+<blockquote>
+<p>All trees were removed by clearcutting between 2 and 4 June 2021.</p>
+</blockquote>
+<p><strong>Version 2:</strong></p>
+<blockquote>
+<p>Aboveground woody plant stem count was reduced by 63.1 <span class="math inline">\(\pm\)</span> 3.8 trees ha<sup>-1</sup> days<sup>-1</sup> (95% CI = [61.5, 64.9] trees ha<sup>-1</sup> days<sup>-1</sup>); this effect was statistically significant (<em>t</em> = 77.56, 19 d.f., <em>P</em> &lt; 0.0001).</p>
+</blockquote>
+<p>Both statements convey essentially the same information. There were some trees in the forest, then trees were removed by clear-cutting, then there were no trees.</p>
+<p>The first statement is just fine. The second statement is also fine, in the sense that it is true and because it includes a perfectly legitimate <em>t</em>-test. But, the test reported in the second statement is of a completely trivial question. Of course there were fewer trees after clear-cutting…that’s what clear-cutting means! The additional verbiage adds no real information to the paper because the paper wasn’t about aboveground woody biomass, but rather about soil N fixation. The reviewers (or editors) would be justified in requiring the removal or shortening of the second statement.</p>
+<p>Including unnecessary statistical tests can be tempting in situations where there aren’t many significant test results. For example, if your study produces no significant statistical differences related to your main hypothesis, or a marginal effect that is hard to interpret. Padding the manuscript with additional <em>P</em>-values &lt;0.05 can make the work feel more legitimate and on less shaky ground. Resist this temptation.</p>
+<p>The logic of null hypothesis significance testing (NHST; see below) sometimes requires us to consider, at least statistically, hypotheses that we know to be false. One such example involves simulation: when data are simulated, it is meaningless to test whether or not two simulations with different parameters were “significantly different” because they are <em>known</em> to be different. Consider the example below <span class="citation">(<a href="#ref-green2021" role="doc-biblioref">Green et al. 2021</a>)</span>:</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_02.jpg" /></p>
+<p>In this study, researchers simulated deer populations and the results of surveying those deer using different survey methods. They then used analysis of variance (ANOVA) to compare the mean population estimates resulting from different methods. Their goal was not to determine whether the population estimates were different between different methods. The estimates were known to be different, because the data were simulated in the first place! What they were trying to do was partition the variance; i.e., measure how much of the difference in estimated population size was attributable to survey method <span class="citation">(<a href="#ref-white2014" role="doc-biblioref">White et al. 2014</a>)</span>. If you are conducting a simulation study, remember that the literal null hypothesis of your statistical test is likely meaningless, or at least, known <em>a priori</em> to be false.</p>
+</div>
+<div id="inappropriate-methods" class="section level3" number="1.3.2">
+<h3><span class="header-section-number">1.3.2</span> Inappropriate methods</h3>
+<p>Another very common misuse of statistics is simply using statistics incorrectly. Many of these mistakes can be mitigated by better understanding of the methods. In other words, researchers should read the manual. I also like to call this a “problem between chair and keyboard” error<a href="literature-cited.html#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>.</p>
+<div id="common-mistake-1-mischaracterizing-a-variable" class="section level4" number="1.3.2.1">
+<h4><span class="header-section-number">1.3.2.1</span> Common mistake 1: Mischaracterizing a variable</h4>
+<p>When you perform a statistical test, the variables must have a well-defined type. Some variables are continuous, others are discrete but numerical, and others are categorical. If a variable is treated as the wrong type, it can produce meaningless statistical results. Consider the example below in which the researchers investigated the length of flower petals across 3 species of flower:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="mod-01.html#cb1-1" aria-hidden="true" tabindex="-1"></a>iris<span class="sc">$</span>x <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(iris<span class="sc">$</span>Species)</span>
+<span id="cb1-2"><a href="mod-01.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(Petal.Length<span class="sc">~</span>x, <span class="at">data=</span>iris))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Petal.Length ~ x, data = iris)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -1.303 -0.313 -0.113  0.342  1.342 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -0.33200    0.12060  -2.753  0.00664 ** 
+## x            2.04500    0.05582  36.632  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.5582 on 148 degrees of freedom
+## Multiple R-squared:  0.9007, Adjusted R-squared:    0.9 
+## F-statistic:  1342 on 1 and 148 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-5-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>See the problem? The dependent variable is modeled as a linear function of the species’ identities: literally the numbers 1, 2, and 3. The category labels (species) were treated as numeric values. While the plot shows some clear differences between the species, what if the species had been labeled differently? There is a correct way to analyze these data, but it is not linear regression<a href="literature-cited.html#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>.</p>
+</div>
+<div id="common-mistake-2-overfitting" class="section level4" number="1.3.2.2">
+<h4><span class="header-section-number">1.3.2.2</span> Common mistake 2: Overfitting</h4>
+<p><strong>Overfitting</strong> is when a statistical model is fit with more variables than the data can justify. Generally, a model is overfit when <em>random noise is modeled as if it was part of the deterministic part of the model</em>. Most statistical models have a deterministic part and a stochastic part. The <strong>deterministic part</strong> predicts the “average” or expected value of the response variable as some function of the explanatory variables. It usually takes the form of an equation (or set of equations). The <strong>stochastic part</strong> of the model describes how observations vary from the expected value predicted by the deterministic part. The stochastic part usually includes one of more probability distributions. We’ll discuss common probability distributions in a later module.</p>
+<p>The figure below shows the relationship between the deterministic part and stochastic part of a common statistical model, the linear model.</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_03.jpg" /></p>
+<p>Using computers, it is easy to fit equations to data. In most software it is trivial to add predictor variables to a model until all of the variance is explained (i.e., <em>R</em><sup>2</sup> = 1). However, this is usually not a good idea. There is <em>always</em> random noise in any dataset, and the appropriate strategy is always to model that noise rather than try to explain it deterministically. This is because some of that noise is unique to the specific entities or samples that are being sampled. Modeling the noise that is specific to a particular study as if it was representative of all potential studies makes an analysis too parochial to be generally applicable.</p>
+<p>Consider the example below. In this plot, 12 data points were generated using a linear model (Y ~ X) with normally distributed residuals. Then, various regression models were fit to the data. Each model contained one more term than the last:</p>
+<p><span class="math display">\[\begin{matrix}Linear\ model&amp;Y=\beta_0+\beta_1X\\Quadratic\ model&amp;Y=\beta_0+\beta_1X+\beta_2X^2\\Cubic\ model&amp;Y=\beta_0+\beta_1X+\beta_2X^2+\beta_3X^3\\Quartic\ model&amp;Y=\beta_0+\beta_1X+\beta_2X^2+\beta_3X^3+\beta_4X^4\\Quintic\ model&amp;Y=\beta_0+\beta_1X+\beta_2X^2+\beta_3X^3+\beta_4X^4+\beta_5X^5\\Sextic\ model&amp;Y=\beta_0+\beta_1X+\beta_2X^2+\beta_3X^3+\beta_4X^4+\beta_5X^5+\beta_6X^6\\\end{matrix}\]</span></p>
+<p>In this figure, the model prediction and 95% confidence interval (CI) are shown as a red line and red shaded area. The model residuals are shown as blue lines. The original data are shown as black points.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-7-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>Notice that the as the model includes more terms, the fit improves. This can be seen because the residuals are generally getting smaller and the predicted values are getting closer to the observed values.</p>
+<p>The figure below shows how the fit improved as more terms were added. This figure shows how root mean squared error (RMSE), a measure of model predictive ability, decreases with increasing model complexity.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-8-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>Notice what happens as the curves pass through more and more of the points: for <em>X</em> values other than the input points, the curves vary wildly. What’s going on here is that the higher-order polynomials are forcing the curves through each point, at the expense of reasonableness between the points. In fact, for any dataset with n observations, you can obtain a perfect fit to the points with a polynomial curve of order <em>n</em>. But, such a curve is highly unlikely to be reasonable because it is not likely to be very applicable to other data. In other words, the model includes terms that are fitting random noise, but do not have general applicability.</p>
+<p>A simpler model with fewer terms, and thus greater variance between the data and their predicted values, would likely have more predictive power for new data. Thus, the simpler model might be a better representation of the underlying process. In data science this phenomenon is often called the <strong>bias-variance trade-off</strong> because in general it’s easy to minimize prediction error on the training data (“variance”) but at the cost of decreasing prediction error on new observations (“bias”). This is because some of the variation in the training data is actually random noise and thus fitting the model to explain it is really explaining nothing.</p>
+</div>
+</div>
+<div id="p-hacking-and-data-dredging" class="section level3" number="1.3.3">
+<h3><span class="header-section-number">1.3.3</span> <em>P</em>-hacking and data dredging</h3>
+<p>The third misuse of statistics that we’ll explore here is that of searching for significant <em>P</em>-values, and worrying later whether or not the tests make sense. <strong><em>P</em>-hacking</strong> refers to massaging or adjusting an analysis to produce a <em>P</em>-value &lt;0.05. This can take many forms: post hoc rationalizations for removing certain observations, reframing a question, dropping categories or levels of a factor, and so on. <strong>Data dredging</strong> is a similar kind of practice where a researcher compares many variables or performs many tests, and builds a story out of the tests with <em>P</em> &lt; 0.05. Both of these activities can produce interesting results, but the results might not be very meaningful.</p>
+<p>The problems with <em>P</em>-hacking are legion, but I’ll just point out two.</p>
+<ol style="list-style-type: decimal">
+<li><em>P</em>-hacking allows the researcher to commit scientific misconduct, whether intentionally or not. Your objective should be to find the correct answer, not to minimize a <em>P</em>-value.</li>
+<li><em>P</em>-hacking sets you up to commit what’s called the <strong>Texas Sharpshooter Fallacy</strong>. This name evokes the story of a (Texan) gunman shooting a barn, then drawing targets around the bullet holes to make it look like he hit his targets. Another expression that describes this is, “Hypothesizing after results known,” or HARK.</li>
+</ol>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_07.jpg" style="width:70.0%" /></p>
+<p>Data dredging has all of the same problems as <em>P</em>-hacking, but arrives at them a different way. Whereas a <em>P</em>-hacker adjusts the analysis until the <em>P</em>-value is significant, a data dredger just keeps trying new variables until one of them hits. This approach is perhaps best summarized in the following comic<a href="literature-cited.html#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>, although <span class="citation">Head et al. (<a href="#ref-head2015" role="doc-biblioref">2015</a>)</span> provide a more rigorous treatment.</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_04.png" style="width:70.0%" /></p>
+</div>
+<div id="inadequate-sample-sizes-and-pseudoreplication" class="section level3" number="1.3.4">
+<h3><span class="header-section-number">1.3.4</span> Inadequate sample sizes and pseudoreplication</h3>
+<div id="sample-sizes-and-statistical-power" class="section level4" number="1.3.4.1">
+<h4><span class="header-section-number">1.3.4.1</span> Sample sizes and statistical power</h4>
+<p>Size matters in biology <span class="citation">(<a href="#ref-smith2013" role="doc-biblioref">Smith and Lyons 2013</a>)</span>. Size also matters in statistics <span class="citation">(<a href="#ref-makin2019" role="doc-biblioref">Makin and Xivry 2019</a>)</span>. As we’ll see in the next section, the number of observations in a study can have a large impact on whether or not a pattern is detected in the data. Generally, studies with greater sample sizes can detect smaller effects. Put another way, studies with greater sample sizes are more likely to detect an effect of a given magnitude. On the other hand, studies with smaller sample sizes are less likely to detect an effect. Both of these situations present their own kinds of problems, summarized in the table below.</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_05.jpg" /></p>
+<p>Ideally we should reject the null hypothesis when it is false, and fail to reject it when it is true. However, data always have some element of randomness in them and thus we can never be perfectly sure that the conclusions of a test are correct. Statisticians have thought about this problem a lot and boiled it down to two probabilities: <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>.</p>
+<ul>
+<li><span class="math inline">\(\alpha\)</span> is the <strong>type I error rate</strong>, the probability of rejecting the null hypothesis when it is true.</li>
+<li><span class="math inline">\(\beta\)</span> is the <strong>type II error rate</strong>, the probability of failing to reject the null hypothesis when it is false.</li>
+</ul>
+<p>There is a trade-off between the two error probabilities: decreasing one usually increases the other. By convention, <span class="math inline">\(\alpha\)</span> is usually set to 5% (0.05). <em>P</em>-values are compared to this value <span class="math inline">\(\alpha\)</span>: if <span class="math inline">\(P \ge \alpha\)</span>, then we “fail to reject” the null hypothesis. If <em>P</em> &lt; <span class="math inline">\(\alpha\)</span>, then we reject the null hypothesis with the understanding that <em>P</em> is the probability of a type I error.</p>
+<p>What does all of this have to do with sample size? That probability that a test will correctly reject a false null hypothesis, <span class="math inline">\(1-\beta\)</span>, is known as the <strong>power</strong> of a test. The power of a test tends to increase with larger <span class="math inline">\(\alpha\)</span>, greater sample size, and larger effect size. The R commands below demonstrate this:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="mod-01.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb3-2"><a href="mod-01.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># type II error:</span></span>
+<span id="cb3-3"><a href="mod-01.html#cb3-3" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">5</span>, <span class="dv">2</span>)</span>
+<span id="cb3-4"><a href="mod-01.html#cb3-4" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="fl">5.2</span>, <span class="dv">2</span>)</span>
+<span id="cb3-5"><a href="mod-01.html#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(x1, x2)</span></code></pre></div>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  x1 and x2
+## t = -0.5249, df = 17.872, p-value = 0.6061
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -2.342098  1.406112
+## sample estimates:
+## mean of x mean of y 
+##  5.149251  5.617244</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="mod-01.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># larger sample size:</span></span>
+<span id="cb5-2"><a href="mod-01.html#cb5-2" aria-hidden="true" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">5</span>, <span class="dv">2</span>)</span>
+<span id="cb5-3"><a href="mod-01.html#cb5-3" aria-hidden="true" tabindex="-1"></a>x4 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="fl">5.2</span>, <span class="dv">2</span>) </span>
+<span id="cb5-4"><a href="mod-01.html#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(x3,x4)</span></code></pre></div>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  x3 and x4
+## t = -2.6522, df = 1998, p-value = 0.008059
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.41274937 -0.06182918
+## sample estimates:
+## mean of x mean of y 
+##  5.036722  5.274011</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="mod-01.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># larger effect size:</span></span>
+<span id="cb7-2"><a href="mod-01.html#cb7-2" aria-hidden="true" tabindex="-1"></a>x5 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">5</span>, <span class="dv">2</span>)</span>
+<span id="cb7-3"><a href="mod-01.html#cb7-3" aria-hidden="true" tabindex="-1"></a>x6 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">2</span>)</span>
+<span id="cb7-4"><a href="mod-01.html#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(x5, x6)</span></code></pre></div>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  x5 and x6
+## t = -5.4059, df = 16.404, p-value = 5.348e-05
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -6.524121 -2.853887
+## sample estimates:
+## mean of x mean of y 
+##  5.522159 10.211163</code></pre>
+<p>In practical terms, this means that conducting a test with too few observations can make it more likely that you will fail to detect a pattern that is really there: a type II error. This happens all the time in biology, and it can be devastating to a research program. To reduce the chances that it happens to you, consider these steps:</p>
+<ul>
+<li><strong>Increase your sample size.</strong> When in doubt, increase your sample size.</li>
+<li><strong>Decrease sources of variation</strong> that you can control. Any extraneous variation caused by experimental errors, sloppy technique, improperly trained lab assistants, etc., will reduce the power of your test.</li>
+<li><strong>Conduct a power analysis.</strong> Power analysis is a set of techniques for estimating the probability of detecting an effect given sample size, effect size, and other factors. It works best when you have some pilot data or comparable data from literature. Power analysis is extremely useful for answering questions like, “How many samples should I collect?” or “What is the relative benefit of collecting 10 more samples or 20 more samples?”. Power analyses for simple methods like <em>t</em>-tests or ANOVA are very straightforward; more complex methods may require simulation.</li>
+</ul>
+</div>
+<div id="pseudoreplication" class="section level4" number="1.3.4.2">
+<h4><span class="header-section-number">1.3.4.2</span> Pseudoreplication</h4>
+<p><strong>Psuedoreplication</strong> is a situation where samples are treated as independent when they are not <span class="citation">(<a href="#ref-hurlbert1984" role="doc-biblioref">Hurlbert 1984</a>)</span>. This leads to an analysis where the sample size is artificially inflated, and thus the analysis has greater apparent power than it actually does. Pseudoreplication is essentially the opposite problem as inadequate sample size: rather than having fewer observations than needed to do the analysis, the researcher does the analysis as if they have more observations than they really do. The seminal paper on this topic in ecology is <span class="citation">Hurlbert (<a href="#ref-hurlbert1984" role="doc-biblioref">1984</a>)</span>..</p>
+<p>To understand pseudoreplication, it’s important to keep in mind the difference between an <strong>observation</strong> and a <strong>degree of freedom</strong>. Degrees of freedom can be thought of as <strong>independent pieces of information</strong>. Ideally, each observation contributes information to the dataset and so a dataset contains as many pieces of information as it does observations. In statistics, however, we find that this not possible. Every time we calculate a summary statistic or estimate a model parameter, we use information from the dataset. If we know the data and know a statistic such as the mean, then some of the information must be in the statistic and not the dataset. For example, if you have 10 values and calculate the mean, the mean is considered to be known with 9 degrees of freedom. This is because if you know the mean, 9 of the values are free to vary without taking away your ability to calculate the 10th value given those 9 values and the mean. The R code below illustrates this:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="mod-01.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb9-2"><a href="mod-01.html#cb9-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">10</span>, <span class="at">replace=</span><span class="cn">TRUE</span>)</span>
+<span id="cb9-3"><a href="mod-01.html#cb9-3" aria-hidden="true" tabindex="-1"></a>a</span></code></pre></div>
+<pre><code>##  [1]  3  3 10  2  6  5  4  6  9 10</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="mod-01.html#cb11-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">mean</span>(a)<span class="sc">*</span><span class="fu">length</span>(a))<span class="sc">-</span><span class="fu">sum</span>(a[<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>]) <span class="sc">==</span> a[<span class="dv">10</span>]</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>Psuedoreplication often occurs when researchers consider multiple measurements from the same sampling unit as different observations. For example, if an ecologist measures tree diameters from multiple trees within 20 m of each other. Or, a microbiologist measures cell counts from multiple assays of the same culture tube. In both cases, there is strong reason to suspect that the multiple values are not independent of each other. In fact, it might be more appropriate to take the average of the multiple values and treat them as a single value (a “measure twice, cut once” approach).</p>
+<p>Pseudoreplication can be a serious issue in investigations because most statistical models (e.g., ANOVA) assume that treatments are replicated. This means that each treatment is applied to multiple experimental units (i.e., samples). Applying a treatment or condition to multiple samples allows estimation of variability within a treatment. This variability must be separated from variability between treatments in order for a researcher to be able to infer how much variation is caused by the treatments.</p>
+<p>For example, imagine a drug trial where Drug A and Drug B are each given to one person. This trial cannot distinguish whether Drug A or Drug B is more effective, because there is no way to know whether any difference in outcome between the two subjects is due to the drugs or due to differences between people. But, if Drug A and Drug B were each tried on 100 people, the variability among the 100 people who received Drug A and among the 100 people who receive Drug B could be compared to the variability between people who received Drug A or Drug B. This would allow the researchers to make some inferences about how effective each drug was.</p>
+<p>The best strategy for mitigating pseudoreplication is to <strong>avoid it</strong>. This requires thinking very carefully about your experimental design and about what the experimental units (i.e., samples) really are. Avoiding pseudoreplication often involves some degree of randomization, in order to break any connection between potentially confounding variables.</p>
+<p>If avoiding pseudoreplication is not possible, then you need to <strong>account for it</strong>. One way is to take steps to mitigate confounding variables. For example, you could rearrange plants in a growth chamber each day so that any effects of location within the chamber would be minimized. Another way is to acknowledge pseudoreplication in your analysis. Some methods such as mixed effects models or autocorrelation structures can account for some pseudoreplication (but you need to be very careful about doing this and very explicit about what you did). Finally, you can be open about the limitations of your study and present your findings as preliminary, or as not conclusive. Note that this strategy, while certainly ego-deflating, does not mean that your work is invalid. Openness and honesty are vital parts of the scientific process. What would be invalid would be ignoring any pseudoreplication in your study and overstating the validity of your results.</p>
+<p><span class="citation">Hurlbert (<a href="#ref-hurlbert1984" role="doc-biblioref">1984</a>)</span> defined four kinds of pseudoreplication: simple, temporal, sacrificial, and implicit. The first 3 is shown in the figure below.</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_06.jpg" /></p>
+<div id="simple-pseudoreplication" class="section level5" number="1.3.4.2.1">
+<h5><span class="header-section-number">1.3.4.2.1</span> Simple pseudoreplication</h5>
+<p>Simple pseudoreplication occurs when there is one experimental unit, or replicate, per treatment, regardless of how many samples are taken within each replicate. When this occurs, variability between replicates cannot be separated from variation between treatments.</p>
+<p><strong>Example</strong></p>
+<blockquote>
+<p>Barney is interested in the effects of forest management practices on soil microbes. He visits two forest sites: Site A is burned regularly, and Site B is unmanaged. Barney uses a GIS to randomly identify a 1 ha plot within each site. He then visits each site and takes 20 soil samples from the randomly selected plot. Barney then measures the metabolic profile of each soil microbe sample (<em>n</em> = 40) and compares the 20 samples from the burned plot to the 20 samples from the unburned plot.</p>
+</blockquote>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_08.jpg" /></p>
+<p>The problem here is that Barney might actually only have 2 samples: one from the burned plot, and one from the unburned plot. If the plots are relatively homogenous, then we should expect their microbiota to be similar simply because of their proximity and shared environment. So, the proper experimental unit is the plot, not the soil sample. Barney has collected a dataset with simple pseudoreplication because he confused taking multiple measurements within an experimental unit with taking measurements at multiple experimental units. In other words, his “replicates” are not true replicates. Barney’s thesis advisor tells him to sample more sites and to investigate mixed models and block designs for his analysis.</p>
+</div>
+<div id="temporal-pseudoreplication" class="section level5" number="1.3.4.2.2">
+<h5><span class="header-section-number">1.3.4.2.2</span> Temporal pseudoreplication</h5>
+<p>Temporal pseudoreplication occurs when multiple samples from an experimental unit are taken over time and then treated as statistically independent. Because successive samples from the same experimental unit are likely to be correlated with each other, they cannot be treated as independent.</p>
+<p><strong>Example</strong></p>
+<blockquote>
+<p>Betty is interested in the effects of a new sugar substitute on the growth of gut bacteria. She inoculates 10 plates with <em>E. coli</em> bacteria and gives the new sweetener to 5 of them. She then counts the number of colony forming units (CFU) on each plate at 1, 2, 3, and 4 days after exposure. Betty analyzes her data using a t-test, with 20 exposed samples (5 plates <span class="math inline">\(\times\)</span> 4 sampling occasions) and 20 control samples.</p>
+</blockquote>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_09.jpg" /></p>
+<p>Betty’s problem is like Barney’s problem, but with time instead of space. The subsequent samples from each plate are not independent of each other. For example, the number of CFU in plate A at 2 days was at least partially dependent on the number of CFU in plate A at 1 day. Using consecutive samples from the same plates does not increase the number of samples in a test of the effect of the sweetener. Instead, Betty introduced a new variable, time, into the system that added variation instead of increasing sample size. She could account for the temporal pseudoreplication in her analysis by including time as a covariate or using some sort of autocorrelation structure. If she does not include time in her analysis, however, she’s going to have a bad time.</p>
+</div>
+<div id="sacrificial-pseudoreplication" class="section level5" number="1.3.4.2.3">
+<h5><span class="header-section-number">1.3.4.2.3</span> Sacrificial pseudoreplication</h5>
+<p>Sacrificial pseudoreplication occurs when data for replicates are pooled prior to analysis, or where two or more observations from the same experimental unit are treated as independent replicates. The term “sacrificial” comes from the fact that information about variation among replicates is confounded with variation among samples within replicates, and thus “lost”.</p>
+<p><strong>Example</strong></p>
+<blockquote>
+<p>Fred is studying the onset of estrus in female cotton rats (<em>Sigmodon hispidus</em>) and suspects that it may be driven by exposure to a compound produced by certain grasses in the spring. He places 80 female rats in 40 cages (2 per cage). Rats in 40 cages are fed ordinary rodent chow, while the rates in the other cages are fed chow supplemented with the suspect compound. Rats are checked each day for signs of estrus. Clearly, each treatment (control vs. supplemented) is replicated. How many times? Fred tells his advisor that each treatment is replicated 40 times, because 40 rats received each treatment.</p>
+</blockquote>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_10.jpg" /></p>
+<p>Not so fast. Mammalogists know that estrus can be induced in female rodents by exposure to airborne chemical cues (pheromones) from other females already in estrus. So, if there are two females in one cage and one goes into estrus (no matter the reason), the other animal might go into estrus in response the first animal’s pheromones and not at all in response to its diet. This means that the two animals in each cage cannot be considered statistically independent. So, Fred has at most 20 replicates of each treatment, not 40.</p>
+<p>But it gets worse for Fred. The vivarium is old and cramped and poorly ventilated. All 40 cages are kept on a single shelving unit in a single room, and the air always smells like fouled rodent cages. Are the 40 cages really independent of each other, if chemical signals can waft between cages? So, depending on the ventilation in the room, Fred might have 0 replicates because none of the animals are statistically independent of each other. Fred’s thesis defense does not go well.</p>
+</div>
+<div id="implicit-pseudoreplication" class="section level5" number="1.3.4.2.4">
+<h5><span class="header-section-number">1.3.4.2.4</span> Implicit pseudoreplication</h5>
+<p>The last kind of pseudoreplication, implicit pseudoreplication, occurs when researchers present means and standard errors (SE) (or 95% CI) for observations <em>within</em> experimental units. Doing so implicitly tests for a difference between units, effectively getting a significance test for free without actually performing one! Meaningful means and SE should be calculated <em>between</em> experimental units, not within units. Variability within experimental units should be expressed using standard deviation, not standard error.</p>
+<p><strong>Example</strong></p>
+<blockquote>
+<p>Wilma is studying soil nutrient content in forests under different climate change scenarios. She grows 5 pine tree seedlings in growth chamber A under atmospheric CO<sub>2</sub> (400 ppm) and 5 seedlings in growth chamber B under elevated CO<sub>2</sub> (600 ppm). She then calculates the mean and SE of soil N content from the 5 seedlings in each chamber. In chamber A, soil N concentration was 1.89 <span class="math inline">\(\pm\)</span> 0.34 SE g/kg; in chamber B, N concentration was 3.72 <span class="math inline">\(\pm\)</span> 0.14 g/kg. Because the mean soil N concentration was greater in chamber B, and the means <span class="math inline">\(\pm\)</span> SE did not overlap, she concluded that growing pine seedlings in elevated CO<sub>2</sub> increased soil N concentration.</p>
+</blockquote>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_11.jpg" /></p>
+<p>Not quite. Wilma summarized the uncertainty surrounding soil N measurements, which was a good idea. But, she presented the uncertainty as standard error, not standard deviation. Variation within each chamber should be calculated as SD. The SE would be appropriate for describing uncertainty about the difference in means between chambers. By presenting SE instead of SD, Wilma made it look like there was much less variability within treatments than there really was. As a rule, you should always calculate SD. SE usually comes up as part of the results of a statistical test.</p>
+</div>
+</div>
+<div id="sample-size-and-pseudoreplication-summary" class="section level4" number="1.3.4.3">
+<h4><span class="header-section-number">1.3.4.3</span> Sample size and pseudoreplication summary</h4>
+<p>The problems related to statistical power are not new in biology. <span class="citation">Button et al. (<a href="#ref-button2013" role="doc-biblioref">2013</a>)</span> reviewed some causes and consequences of low power in neuroscience. <span class="citation">Lazic et al. (<a href="#ref-lazic2018" role="doc-biblioref">2018</a>)</span> describe some of the difficulties with defining sample sizes in cell culture and animal studies, and the resulting issue of pseudoreplication. In ecology and environmental biology, <span class="citation">Hurlbert (<a href="#ref-hurlbert1984" role="doc-biblioref">1984</a>)</span> is the seminal reference on sample size and pseudoreplication.</p>
+</div>
+</div>
+</div>
+<div id="p-values-and-null-hypothesis-significance-testing-nhst" class="section level2" number="1.4">
+<h2><span class="header-section-number">1.4</span> <em>P</em>-values and null hypothesis significance testing (NHST)</h2>
+<div id="definition" class="section level3" number="1.4.1">
+<h3><span class="header-section-number">1.4.1</span> Definition</h3>
+<p>When scientists design experiments, they are testing one or more hypotheses: proposed explanations for a phenomenon. Contrary to population belief, the statistical analysis of experimental results usually does not address the researchers’ hypotheses directly. Instead, statistical analysis of experimental results focuses on comparing experimental results to the results that might have occurred if there was no effect of the factor under investigation. Some terms that you need to understand:</p>
+<ul>
+<li><strong>Hypothesis:</strong> proposed explanation of a phenomenon</li>
+<li><strong>Null hypothesis:</strong> default assumption that some effect (or quantity, or relationship, etc.) is zero and does not affect the experimental results</li>
+<li><strong>Alternative hypothesis:</strong> assumption that the null hypothesis is false</li>
+</ul>
+<p>In (slightly) more concrete terms, if researchers want to test the hypothesis that some factor <em>X</em> has an effect on measurement <em>Y</em>, then they set up an experiment comparing observations of <em>Y</em> across different values of <em>X</em>. They would then have the following set up:</p>
+<ul>
+<li><strong>Null hypothesis:</strong> Factor <em>X</em> does not affect <em>Y</em>.</li>
+<li><strong>Alternative hypothesis:</strong> Factor <em>X</em> does affect <em>Y</em></li>
+</ul>
+<p>Notice that in NHST the alternative hypothesis is the <strong>logical negation</strong> of the null hypothesis, not a statement about another variable altogether (e.g., “Factor <em>Z</em> affects <em>Y</em>”). This is an easy mistake to make and one of the weaknesses of NHST: the word “hypothesis” in the phrase “null hypothesis” is not being used in the sense that scientists usually use it. This unfortunate choice of vocabulary is responsible for generations of confusion among researchers<a href="literature-cited.html#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>.</p>
+<p>In order to test their “alternative hypothesis”, what researchers usually do is test the null hypothesis. Statistical evidence that the null hypothesis can be rejected is then taken as evidence in favor of the alternative hypothesis. The null hypothesis is usually translated to a prediction like one of the following:</p>
+<ul>
+<li>The mean of <em>Y</em> is the same for all levels of <em>X</em>.</li>
+<li>The mean of <em>Y</em> does not differ between observations exposed to <em>X</em> and observations not exposed to <em>X</em>.</li>
+<li>Outcome <em>Y</em> is equally likely to occur when <em>X</em> occurs as it is when <em>X</em> does not occur.</li>
+<li>Rank order of <em>Y</em> values does not differ between levels of <em>X</em>.</li>
+</ul>
+<p>Notice that all these predictions have something in common: <em>Y</em> is independent of <em>X</em>. That’s what the null hypothesis means. To test the predictions of the null hypothesis, we need a way to calculate what the data might have looked like if the null hypothesis was correct. Once we calculate that, we can compare the data to those calculations to see how “unlikely” the actual data were. Data that are sufficiently unlikely under the assumption that the null hypothesis is correct—a “significant difference”—are a kind of evidence that the null hypothesis is false<a href="literature-cited.html#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>.</p>
+<p>This kind of analysis is referred to as <strong>Null Hypothesis Significance Testing (NHST)</strong> and is one of the most important paradigms in modern science. Whether or not this is a good thing is a subject of fierce debate among scientists, statisticians, and philosophers of science. For better or worse, NHST is all but the de facto standard of inference in scientific publishing, so regardless of its merits in your particular case you will need to be able to use it. The purpose of this course module is to encourage you to use it correctly.</p>
+</div>
+<div id="history-and-status-of-p-values" class="section level3" number="1.4.2">
+<h3><span class="header-section-number">1.4.2</span> History and status of <em>P</em>-values</h3>
+<p>The <em>P</em>-value is a statistical statement about the likelihood of observing a pattern in data when the null hypothesis is true. They were first developed in the 1700s, and eventually popularized by the statistician R.A. Fisher in the 1920s. In Fisher’s formulation, the <em>P</em>-value was only meant as a “rule-of-thumb” or <strong>heuristic</strong> for determining whether the null hypothesis could be safely rejected. His original publications did not imply that rejecting the null hypothesis should automatically imply acceptance of the alternative hypothesis, or offer any justification for particular cut-offs or critical values of <em>P</em>. These ideas came later. Fisher suggested a critical <em>P</em>-value of 0.05 for convenience, but did not prescribe its use. In fact, he also suggested using other cut-offs, and even using the <em>P</em>-value itself as a measure of support for a hypothesis. The adoption of 0.05 as a threshold for significance proved popular, and has been taken as a kind of gospel for generations of researchers ever since.</p>
+<p>In my opinion, the ubiquity of <em>P</em>-values on scientific research illustrates <a href="https://en.wikipedia.org/wiki/Goodhart%27s_law">Goodhart’s Law</a>: “When a measure becomes a target, it ceases to be a good measure”. Because the cut-off value of <em>P</em> &lt; 0.05 is so widely used and accepted as a measure of the “truth” of a hypothesis, many researchers will take steps to ensure that their experiments produce <em>P</em>-values &lt; 0.05. This can lead to the practices of <em>P</em>-hacking or data dredging. Or worse, setting up experiments to test meaningless null hypotheses or analyzing data selectively. The attention and effort spent increasing the likelihood of a significant outcome is attention and effort that is not spent on formulating hypotheses, developing theory, or conducting experiments. Thus, intensive focus on <em>P</em>-values can be a real distraction from more important things.</p>
+<p>These criticisms of <em>P</em>-values are neither new nor little known. Criticisms of the uncritical devotion to <em>P</em>-values can be found going back decades in the literature. In ecology, for example, debates about the place of NHST flare up occasionally, as new advances in statistical methods have offered opportunities for a new inferential paradigms.</p>
+<p>Recently, the American Statistical Association (ASA) published a number of papers criticizing the current use of <em>P</em>-values and offering alternatives. <span class="citation">Wasserstein and Lazar (<a href="#ref-wasserstein2016" role="doc-biblioref">2016</a>)</span> provide a good starting point to the series and an overview of the major themes. Some of the proposed alternative or complementary methods have started to make their way into various scientific disciplines. Others have not. By and large, NHST remains the standard method of testing hypotheses with data and will likely remain so for a long time.</p>
+</div>
+<div id="where-p-values-come-from" class="section level3" number="1.4.3">
+<h3><span class="header-section-number">1.4.3</span> Where <em>P</em>-values come from</h3>
+<p>So where do <em>P</em>-values come from, anyway? Remember, <em>P</em>-values are an expression of how likely the observed data would be if the null hypothesis was true. The actual calculation of a <em>P</em>-value involves assumptions about the size of the effect (i.e., difference between the results if the null is true vs. not true), the variability of the outcome (random or otherwise), and the distribution of different summary statistics of the results assuming that the null hypothesis is true. Let’s consider the example of a <em>t</em>-test. A <em>t</em>-test is used to compare means betwen two groups. We will use R to simulate some data and explore a basic <em>t</em>-test.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="mod-01.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb13-2"><a href="mod-01.html#cb13-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb13-3"><a href="mod-01.html#cb13-3" aria-hidden="true" tabindex="-1"></a>mu1 <span class="ot">&lt;-</span> <span class="dv">6</span></span>
+<span id="cb13-4"><a href="mod-01.html#cb13-4" aria-hidden="true" tabindex="-1"></a>mu2 <span class="ot">&lt;-</span> <span class="dv">8</span></span>
+<span id="cb13-5"><a href="mod-01.html#cb13-5" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb13-6"><a href="mod-01.html#cb13-6" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, mu1, sigma)</span>
+<span id="cb13-7"><a href="mod-01.html#cb13-7" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, mu2, sigma)</span>
+<span id="cb13-8"><a href="mod-01.html#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(x1, x2)</span></code></pre></div>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  x1 and x2
+## t = -1.796, df = 17.872, p-value = 0.08941
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -5.2131465  0.4091686
+## sample estimates:
+## mean of x mean of y 
+##  6.223877  8.625866</code></pre>
+<p>The results show us that the means of groups <code>x1</code> and <code>x2</code> are not significantly different (<em>t</em> = -1.796, 17.87 d.f., <em>P</em> = 0.0894). Because P <span class="math inline">\(\ge\)</span> 0.05, we cannot reject the null hypothesis of no difference; i.e., the hypothesis that the means of <code>x1</code> and <code>x2</code> are the same.</p>
+<p>But why? Where do the numbers in the output come from?</p>
+<p>The <em>t</em> value is what’s called a <strong>test statistic</strong>. This is a summary of the quantity of interest–difference in means–that depends on the quantity of interest <em>and</em> additional terms that describe how that summary might vary randomly. In the case of the <em>t</em>-test, the test statistic <em>t</em> is calculated as:</p>
+<p><span class="math display">\[t=\frac{{\bar{X}}_1-{\bar{X}}_2}{\sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}}\]</span></p>
+<p>In this equation:</p>
+<ul>
+<li><span class="math inline">\({\bar{X}}_1\)</span> and <span class="math inline">\({\bar{X}}_2\)</span> are the means of <code>x1</code> and <code>x2</code></li>
+<li><span class="math inline">\(s_1^2\)</span> and <span class="math inline">\(s_2^2\)</span> are the variances in <code>x1</code> and <code>x2</code>. The <strong>variance</strong> is a measure of how spread out values are away from the mean.</li>
+<li><span class="math inline">\(n_1\)</span> and <span class="math inline">\(n_2\)</span> are the number of observations in <code>x1</code> and <code>x2</code></li>
+</ul>
+<p>The numerator is the quantity we are interested in: the difference between the means in group 1 and group 2. The denominator scales the difference according to the sample size and the amount of variation in both groups. Thus, <em>t</em> accounts for the quantity of interest (the pattern), the variability in the pattern, and the number of observations of the pattern.</p>
+<p>In the example above, the <em>t</em> statistic was -1.796. This was the difference in means (-2.402) scaled by the variability in means given the variability in observations. The “significance” of the test comes from the fact that <em>t</em>-statistics themselves follow a pattern called the <strong>Student’s t distribution</strong>. The Student’s <em>t</em> distribution describes how likely different values of <em>t</em> are given a certain sample size. This sample size used is not the total number of observations, but instead a scaled version of sample size called <strong>degrees of freedom (d.f.)</strong>. For the example above with 17.872 d.f., the <em>t</em> distribution looks like this:</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>If there was no difference between the means of <code>x1</code> and <code>x2</code>, then <em>t</em> statistics should cluster around 0 with more extreme values being much less common. Test statistics <span class="math inline">\(\ge\)</span> 4 or <span class="math inline">\(\le\)</span> -4 almost never happen.</p>
+<p>What about our <em>t</em> statistic, -1.796? The figure below shows how the total possible space of <em>t</em> statistics (given 17.872 d.f.) is partitioned. The total area under this curve, called a “probability density plot”, is equals 1. If you think about it, <em>t</em> must take on a value…so the sum of probabilities for all t is 1. The red area shows the probability of a t occurring randomly that is &lt; -1.796. That is, more extreme than the observed <em>t</em>. But “more extreme” can work the other way too: <em>t</em> could randomly be &gt; 1.796 as well. This probability of this possibility is shown by the blue area. The total of the red and blue areas is the total probability of a <em>t</em> value more extreme than the observed <em>t</em>.</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_12.jpg" /></p>
+<p>But as we shall see, increasing the sample size can make the same difference appear significant:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="mod-01.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb15-2"><a href="mod-01.html#cb15-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb15-3"><a href="mod-01.html#cb15-3" aria-hidden="true" tabindex="-1"></a>mu1 <span class="ot">&lt;-</span> <span class="dv">6</span></span>
+<span id="cb15-4"><a href="mod-01.html#cb15-4" aria-hidden="true" tabindex="-1"></a>mu2 <span class="ot">&lt;-</span> <span class="dv">8</span></span>
+<span id="cb15-5"><a href="mod-01.html#cb15-5" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb15-6"><a href="mod-01.html#cb15-6" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, mu1, sigma)</span>
+<span id="cb15-7"><a href="mod-01.html#cb15-7" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, mu2, sigma)</span>
+<span id="cb15-8"><a href="mod-01.html#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(x1, x2)</span></code></pre></div>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  x1 and x2
+## t = -15.485, df = 1997.4, p-value &lt; 2.2e-16
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -2.342319 -1.815705
+## sample estimates:
+## mean of x mean of y 
+##  6.048384  8.127396</code></pre>
+<p>We can also achieve significance by reducing the amount of variation (<code>sigma</code>, or <span class="math inline">\(\sigma\)</span>). Here variance within each group is expressed as the residual standard deviation (SD). <strong>Residual</strong> variation is variation not explained by the model (i.e., not related to the difference in means between groups). The SD is the square root of the variance, and is how R expresses the variation in a normal distribution (<code>rnorm()</code>).</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="mod-01.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb17-2"><a href="mod-01.html#cb17-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb17-3"><a href="mod-01.html#cb17-3" aria-hidden="true" tabindex="-1"></a>mu1 <span class="ot">&lt;-</span> <span class="dv">6</span></span>
+<span id="cb17-4"><a href="mod-01.html#cb17-4" aria-hidden="true" tabindex="-1"></a>mu2 <span class="ot">&lt;-</span> <span class="dv">8</span></span>
+<span id="cb17-5"><a href="mod-01.html#cb17-5" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="fl">0.001</span></span>
+<span id="cb17-6"><a href="mod-01.html#cb17-6" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, mu1, sigma)</span>
+<span id="cb17-7"><a href="mod-01.html#cb17-7" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, mu2, sigma)</span>
+<span id="cb17-8"><a href="mod-01.html#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(x1, x2)</span></code></pre></div>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  x1 and x2
+## t = -4486.7, df = 17.872, p-value &lt; 2.2e-16
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -2.001071 -1.999197
+## sample estimates:
+## mean of x mean of y 
+##  6.000075  8.000209</code></pre>
+<p>So, what the <em>P</em>-value in our <em>t</em>-test tells us depends on not just the actual difference, but how variable that difference is and how many times we measure it (metaphorically speaking).</p>
+<p>The table below summarizes the results of the three simulations we just ran:</p>
+<table>
+<colgroup>
+<col width="16%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="24%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>True difference (<span class="math inline">\({\bar{x}}_1-{\bar{x}}_2\)</span>)</th>
+<th align="right">Residual SD</th>
+<th align="right">Sample size</th>
+<th align="right"><em>P</em></th>
+<th align="center">Significant?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>-2</td>
+<td align="right">3</td>
+<td align="right">20</td>
+<td align="right">0.0894</td>
+<td align="center">No</td>
+</tr>
+<tr class="even">
+<td>-2</td>
+<td align="right">3</td>
+<td align="right">2000</td>
+<td align="right">&lt;0.0001</td>
+<td align="center">Yes</td>
+</tr>
+<tr class="odd">
+<td>-2</td>
+<td align="right">0.001</td>
+<td align="right">20</td>
+<td align="right">&lt;0.0001</td>
+<td align="center">Yes</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="what-p-values-mean-and-do-not-mean" class="section level3" number="1.4.4">
+<h3><span class="header-section-number">1.4.4</span> What <em>P</em>-values mean and do not mean</h3>
+<p>In the simulations above, we know that the true difference was -2 because that is how we programmed the simulations. But the conclusion of the experiments depended on experimental parameters other than the one of interest! For each of the three scenarios above, consider these questions:</p>
+<ul>
+<li>Should the researchers reject the null hypothesis, and conclude that there is a difference between <code>x1</code> and <code>x2</code>?</li>
+<li>Should the researchers accept the null hypothesis, and conclude that there is no difference between <code>x1</code> and <code>x2</code>?</li>
+<li>Should the researchers accept the alternative hypothesis, and conclude that there is a difference between <code>x1</code> and <code>x2</code>?</li>
+</ul>
+<p>The researchers should reject the null hypothesis only in scenarios 2 and 3. In scenario 1, they should not accept the null hypothesis. The correct action is <strong>fail to reject</strong> the null. Accepting the null hypothesis would imply some certainty that the difference was 0. But that is not what the <em>t</em>-test actually says. What the <em>t</em>-test really says is that a difference (measured as <em>t</em>) between -1.796 and 1.796 is likely to occur about 91% (i.e., 1-<em>P</em>) of the time even if the true difference is 0. In other words, if we repeated the experiment, we would get a <span class="math inline">\(|t|&gt;1.796\)</span> over 9 times out of 10!</p>
+<p>One of the most common misconceptions about <em>P</em>-values is that they represent the probability of the null hypothesis being true, or of the alternative hypothesis being false. Neither of these interpretations is correct. Similarly, many people think that 1 minus the <em>P</em>-value represents the probability that the alternative hypothesis is true. This is also incorrect. Remember:</p>
+<p><strong>The <em>P</em>-value is only a statistical summary, and says nothing about whether or not a hypothesis is true.</strong></p>
+<p><strong>The <em>P</em>-value is only a statement about how unlikely the result would be if there was no real effect.</strong></p>
+<p>A <em>P</em>-value is a purely statistical calculation and says nothing about biological importance or the truth of your hypothesis. Interpreting <em>P</em>-values and other statistical outputs is the job of the scientist, not the computer.</p>
+<p><em>P</em>-values and NHST in general is that each test can only ever make binary distinctions:</p>
+<ul>
+<li>Reject or fail to reject the null.</li>
+<li>True difference is 0 or not 0.</li>
+<li>Difference is <span class="math inline">\(\ge\)</span> 3 or not <span class="math inline">\(\ge\)</span> 3.</li>
+<li>And so on.</li>
+</ul>
+<p>In each example, each of the two alternatives is the logical negation of the other. But, <em>rejecting</em> one side of each dichotomy is <em>not the same as accepting</em> the other. By analogy, juries in criminal trials in the US make one of two determinations: guilty or not guilty. A verdict of not guilty includes innocent as a possibility, but does not mean we can conclude the defendant is innocent. Likewise, the <em>P</em>-value might help distinguish “difference in means is different from 0 (<em>P</em> &lt; 0.05)” vs. “difference in means is not different from 0 (<em>P</em> <span class="math inline">\(\ge\)</span> 0.05)”. The latter choice includes a difference in means of 0 as a possibility, but does not actually demonstrate that the value is 0.</p>
+</div>
+<div id="do-you-need-a-p-value" class="section level3" number="1.4.5">
+<h3><span class="header-section-number">1.4.5</span> Do you need a <em>P</em>-value?</h3>
+<p>Now that we have a better handle on what a <em>P</em>-value really is, you might be tempted to ask, “Do I need a <em>P</em>-value?” Yes, you probably do. For better or for worse, <em>P</em>-values and NHST are firmly entrenched in most areas of science, including biology. Despite its shortcomings, the NHST paradigm does offer a powerful way to test and reject proposed explanations. This utility means that NHST and <em>P</em>-values are not going away any time soon. The rest of this module will explore some alternatives to NHST.</p>
+</div>
+</div>
+<div id="alternatives-to-nhst" class="section level2" number="1.5">
+<h2><span class="header-section-number">1.5</span> Alternatives to NHST</h2>
+<div id="bayesian-inference" class="section level3" number="1.5.1">
+<h3><span class="header-section-number">1.5.1</span> Bayesian inference</h3>
+<p><strong>Bayesian inference</strong> is a framework for evaluating evidence and updating beliefs about hypotheses based on evidence. When conducting Bayesian inference, researchers start with some initial idea about their model system: a <strong>prior</strong>. They then collect evidence, and update their idea based on the evidence. The updated idea is called the <strong>posterior</strong>.</p>
+<ul>
+<li>When the prior is strong, or the evidence weak, their ideas will not be updated much and the posterior will be strongly influenced by the prior.</li>
+<li>When the evidence is strong, or the prior weak, the posterior will be updated more and thus less influenced by the prior.</li>
+</ul>
+<p>Some researchers prefer to use naïve or uninformative priors, so that their conclusions are influenced mostly by the evidence. Bayesian statistical methods will return essentially the same parameter estimates (e.g., differences in means or slopes) as frequentist methods when uninformative priors are used. This means that almost any traditional statistical analysis can be replaced with an equivalent Bayesian one. The statistical models that are fit, such as linear regression or ANOVA, are the same. All that really changes is how the researcher interprets the relationship between the model and the data.</p>
+<p>Bayesian inference depends on <strong>Bayes’ theorem</strong>:</p>
+<p><span class="math display">\[p\left(H|E\right)=\frac{P\left(E|H\right)P\left(H\right)}{P\left(H\right)P\left(E|H\right)+P\left(\lnot H\right)P\left(E|\lnot H\right)}=\frac{P\left(E|H\right)P\left(H\right)}{P\left(E\right)}\]</span></p>
+<p>where</p>
+<ul>
+<li><em>H</em> is a hypothesis that can be true or false</li>
+<li><span class="math inline">\(p\left(H\right)\)</span> is the prior, an estimate of the probability of the hypothesis being true before any new data (<em>E</em>) are observed</li>
+<li><em>E</em> is evidence, specifically new data used to update the prior</li>
+<li><span class="math inline">\(p\left(H|E\right)\)</span> is the probability of <em>H</em> given <em>E</em>. I.e., the probability of the hypothesis being true after new evidence is observed. This is also called the <strong>posterior probability</strong>.</li>
+<li><span class="math inline">\(p\left(E\right)\)</span> is the probability of <em>E</em> regardless of <em>H</em>. I.e., the probability of observing the evidence whether or not the hypothesis is true. <span class="math inline">\(p\left(E\right)\)</span> is called the <strong>marginal likelihood</strong>.</li>
+<li><span class="math inline">\(p\left(E|H\right)\)</span> is the probability of observing the evidence <em>E</em> given <em>H</em>. I.e., the probability of observing the evidence if the hypothesis is true. <span class="math inline">\(p\left(E|H\right)\)</span> is also called the <strong>likelihood</strong>.</li>
+</ul>
+<p>Bayes’ theorem is powerful because it is very general. The precise nature of <em>E</em> and <em>H</em> do not matter. All that matters is that one could sensibly define an experiment or set of observations in which <em>E</em> might depend on <em>H</em> and vice versa.</p>
+<div id="example-bayesian-analysissimple" class="section level4" number="1.5.1.1">
+<h4><span class="header-section-number">1.5.1.1</span> Example Bayesian analysis–simple</h4>
+<p>Imagine you go to the doctor and get tested for a rare condition, <a href="https://medlineplus.gov/genetics/condition/niemann-pick-disease/">Niemann-Pick disease</a>. Your doctor tells you that this disease affects about 1 in 250000 people. Unfortunately, you test positive. But, the doctor tells you not to worry because the test only 99% reliable. Why is the doctor so sanguine, and what is the probability that you have Niemann-Pick disease<a href="literature-cited.html#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a>?</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_17.png" /></p>
+<p>The probability of having this disease can be estimated using Bayes’ theorem. First, use what you know to assemble the terms:</p>
+<ul>
+<li>The overall incidence is 1 in 250000 people, or 0.0004%. So, the prior probability <span class="math inline">\(P\left(H\right)\)</span> is 0.000004.</li>
+<li>The probability of a positive test given that you have the disease, <span class="math inline">\(P\left(E|H\right)\)</span>, is 0.99 because the test is 99% reliable.</li>
+<li>The denominator, <span class="math inline">\(P\left(E\right)\)</span>, is a little trickier to calculate. What we need is the unconditional probability of a positive test. This probability includes two situations: either a positive test when someone has the disease, or a positive test when someone doesn’t have the disease. Because of this, the denominator of Bayes rule is often rewritten as:</li>
+</ul>
+<p><span class="math display">\[P\left(E\right)=P\left(H\right)P\left(E|H\right)+P\left(\lnot H\right)P\left(E|\lnot H\right)\]</span></p>
+<p>Where <span class="math inline">\(P\left(\lnot H\right)\)</span> is the probability of <em>H</em> being false (<span class="math inline">\(\lnot\)</span> means “negate” or “not”). If you think about it, <span class="math inline">\(P\left(\lnot H\right)\)</span> is just <span class="math inline">\(1 – P\left(H\right)\)</span>, and <span class="math inline">\(P\left(E|\lnot H\right)\)</span> is just <span class="math inline">\(1 – P\left(E|H\right)\)</span>.</p>
+<p>Next, plug the terms into Bayes’ rule:</p>
+<p><span class="math display">\[p\left(H|E\right)=\frac{P\left(E|H\right)P\left(H\right)}{P\left(H\right)P\left(E|H\right)+P\left(\lnot H\right)P\left(E|\lnot H\right)}\]</span></p>
+<p><span class="math display">\[p\left(H|E\right)=\frac{\left(0.99\right)\left(0.000004\right)}{\left(0.000004\right)\left(0.99\right)+\left(0.999996\right)\left(0.01\right)}\]</span></p>
+<p><span class="math display">\[p\left(H|E\right)=\frac{0.00000396}{0.01000392}=0.000396\]</span></p>
+<p>That’s not very worrying! In this example, the test evidence can’t overcome the fact that the disease is so rare. In other words, even among people who get a positive test, it’s far more likely that you don’t have the disease but got a false positive than that you have the disease and got a true positive. This is an example of a very strong prior being more influential than the evidence.</p>
+<p>There’s an issue with this calculation, though. The prior probability of 0.000004 was based on the assumption that the test was conducted on a random person from the population. Do physicians conduct tests for vanishingly rare diseases on random people? Of course not. Maybe this physician only prescribes this test if they think that there is a 10% chance that you really have the disease. This might be because, in their experience, 10% of people with your symptoms turn out to have the disease. In that case, the calculation becomes:</p>
+<p><span class="math display">\[\left(H|E\right)=\frac{\left(0.99\right)\left(0.1\right)}{\left(0.1\right)\left(0.99\right)+\left(0.9\right)\left(0.01\right)}\]</span></p>
+<p><span class="math display">\[p\left(H|E\right)=\frac{0.099}{0.108}=0.916\]</span></p>
+<p>91.6% is a lot more worrying than 0.0004%<a href="literature-cited.html#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a>. This example shows that the prior probability can have a huge effect on the posterior probability. Below is an R function that will calculate and print out posterior probabilities conditional on a fixed <span class="math inline">\(P\left(H\right)\)</span> and varying <span class="math inline">\(P\left(E|H\right)\)</span>, or on a fixed <span class="math inline">\(P\left(E|H\right)\)</span> and varying <span class="math inline">\(P\left(H\right)\)</span>. One and only one of the parameters must have more than 1 value.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="mod-01.html#cb19-1" aria-hidden="true" tabindex="-1"></a>test.bt <span class="ot">&lt;-</span> <span class="cf">function</span>(peh, ph){</span>
+<span id="cb19-2"><a href="mod-01.html#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">length</span>(peh)<span class="sc">==</span><span class="dv">1</span>){</span>
+<span id="cb19-3"><a href="mod-01.html#cb19-3" aria-hidden="true" tabindex="-1"></a>        xl <span class="ot">&lt;-</span> <span class="st">&quot;P(H)&quot;</span></span>
+<span id="cb19-4"><a href="mod-01.html#cb19-4" aria-hidden="true" tabindex="-1"></a>        use.x <span class="ot">&lt;-</span> ph</span>
+<span id="cb19-5"><a href="mod-01.html#cb19-5" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb19-6"><a href="mod-01.html#cb19-6" aria-hidden="true" tabindex="-1"></a>        xl <span class="ot">&lt;-</span> <span class="st">&quot;P(E|H)&quot;</span></span>
+<span id="cb19-7"><a href="mod-01.html#cb19-7" aria-hidden="true" tabindex="-1"></a>        use.x <span class="ot">&lt;-</span> peh</span>
+<span id="cb19-8"><a href="mod-01.html#cb19-8" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb19-9"><a href="mod-01.html#cb19-9" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> (peh<span class="sc">*</span>ph)<span class="sc">/</span>((peh<span class="sc">*</span>ph)<span class="sc">+</span>((<span class="dv">1</span><span class="sc">-</span>ph)<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>peh)))</span>
+<span id="cb19-10"><a href="mod-01.html#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="mod-01.html#cb19-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(use.x, y, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">xlab=</span>xl, </span>
+<span id="cb19-12"><a href="mod-01.html#cb19-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">ylab=</span><span class="st">&quot;P(H|E)&quot;</span>, <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),<span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span>
+<span id="cb19-13"><a href="mod-01.html#cb19-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-14"><a href="mod-01.html#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="co"># example usage:</span></span>
+<span id="cb19-15"><a href="mod-01.html#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="fu">test.bt</span>(<span class="at">peh=</span><span class="fl">0.9</span>, <span class="at">ph=</span><span class="dv">10</span><span class="sc">^</span><span class="fu">seq</span>(<span class="sc">-</span><span class="dv">6</span>, <span class="sc">-</span><span class="fl">0.0001</span>, <span class="at">length=</span><span class="dv">100</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="mod-01.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test.bt</span>(<span class="at">peh=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">9</span><span class="sc">/</span><span class="dv">10</span>, <span class="at">ph=</span><span class="fl">0.25</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-15-2.png" width="672" /></p>
+<p>Let’s change the numbers a bit to get a more visual understanding of how this rule is working. Imagine another scenario:</p>
+<p>About 24% of US adults are nearsighted<a href="literature-cited.html#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a>. As of 2019, about 6% of US adults worked in education<a href="literature-cited.html#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a>. If someone is nearsighted, what is the probability that they work in education?</p>
+<p>First, assemble the terms:</p>
+<ul>
+<li><span class="math inline">\(P\left(H\right)\)</span>, the prior unconditional probability that someone works in education, 6% or 0.06</li>
+<li><span class="math inline">\(P\left(E\right)\)</span>, the unconditional probability of being nearsighted, or marginal likelihood, is 24% or 0.24.</li>
+<li><span class="math inline">\(P\left(E|H\right)\)</span>, the probability of a nearsighted educational worker (assuming independence) is 0.24 <span class="math inline">\(\times\)</span> 0.06 = 0.0144.</li>
+</ul>
+<p>We can then calculate <span class="math inline">\(P\left(H|E\right)\)</span> as:</p>
+<p><span class="math display">\[P\left(educator|nearsighted\right)=\frac{P\left(H\right)P\left(E|H\right)}{P\left(H\right)P\left(E|H\right)+\left(1-P\left(H\right)\right)\left(P\left(E\right)\left(1-P\left(H\right)\right)\right)}=0.064\]</span></p>
+<p>This might make sense if we draw the probabilities in rectangle with area = 1. The probability of the hypothesis being true given the evidence collected is the ratio of the probability that the evidence is observed and the hypothesis is true—<span class="math inline">\(P\left(E|H\right)\)</span>—and the total probability that the evidence is observed at all<a href="literature-cited.html#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a></p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_13.jpg" /></p>
+<p>And the critical calculation:</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_14.jpg" /></p>
+<p>This example was kind of trivial, but what about if the probability of observing the evidence is not the same in each group? What if educators were 10<span class="math inline">\(\times\)</span> as likely to be nearsighted as other workers? Then the rectangle and calculation would look like this:</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_15.jpg" /></p>
+<p>In the second example, the probability that someone is an educational worker given that they are nearsighted is about 38.9%…quite a step up from the first number! This latter example shows the power of the evidence when the evidence is strong. Even though the probability of the posterior seems quite low relative to the space of all possibilities, a Bayesian would evaluate that probability in light of the evidence. The evidence restricts the range of possibilities to the cases where the evidence was actually observed (the darker sections of the rectangles). In the Bayesian framework, the probability associated with the lighter sectors, <span class="math inline">\(P\left(\lnot E|H\right)\)</span> and <span class="math inline">\(P\left(\lnot E|\lnot H\right)\)</span>, <em>don’t matter because they weren’t observed</em>.</p>
+<p>This latter point is one of the key points of difference between a traditional frequentist analysis (i.e., NHST) and a Bayesian analysis. In a frequentist analysis, the evidence is viewed as coming from a random distribution conditional on some true set of model parameters (i.e., on <em>H</em>). In Bayesian inference, the evidence is taken as given, and the model parameters conditional on the the data.</p>
+</div>
+<div id="example-bayesian-analysisnot-so-simple" class="section level4" number="1.5.1.2">
+<h4><span class="header-section-number">1.5.1.2</span> Example Bayesian analysis–not so simple</h4>
+<p>Let’s try another Bayesian analysis, this one not so simple. Usually, a biologist will use Bayesian inference to fit models to biological data, not make trivial calculations about the probability of observing near-sighted college professors (although you could). The example below illustrates how to fit a simple linear regression model using Bayesian inference. We will use the program JAGS, short for Just Another Gibbs Sampler <span class="citation">(<a href="#ref-plummer2003jags" role="doc-biblioref">Plummer 2003</a>)</span>, called from R using package <code>rjags</code> <span class="citation">(<a href="#ref-plummer2021" role="doc-biblioref">Plummer 2021</a>)</span>.</p>
+<p>Let’s simulate a dataset for our example analysis:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="mod-01.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb21-2"><a href="mod-01.html#cb21-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">100</span>, <span class="dv">1</span>, <span class="dv">16</span>)</span>
+<span id="cb21-3"><a href="mod-01.html#cb21-3" aria-hidden="true" tabindex="-1"></a>beta0 <span class="ot">&lt;-</span> <span class="dv">40</span>   <span class="co"># intercept</span></span>
+<span id="cb21-4"><a href="mod-01.html#cb21-4" aria-hidden="true" tabindex="-1"></a>beta1 <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">1.5</span> <span class="co"># slope</span></span>
+<span id="cb21-5"><a href="mod-01.html#cb21-5" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="dv">5</span>    <span class="co"># residual SD</span></span>
+<span id="cb21-6"><a href="mod-01.html#cb21-6" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> beta0 <span class="sc">+</span> beta1<span class="sc">*</span>x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(x), <span class="dv">0</span>, sigma)</span></code></pre></div>
+<p>Next, we need to write the model in the language used by JAGS. JAGS was designed to mostly work with a language developed for an older program for Bayesian modeling called BUGS (Bayesian inference Using Gibbs Sampling) <span class="citation">(<a href="#ref-lunn2009" role="doc-biblioref">Lunn et al. 2009</a>)</span>. BUGS itself has very similar syntax to R, and for that among other reasons is one of the most popular Bayesian statistics platforms. Both use a technique called <strong>Markov Chain Monte Carlo (MCMC)</strong> to fit models and sample from the posterior distributions of the parameters. In a nutshell, MCMC works by trying lots of random values in a sequence. At each step, the algorithm randomly changes each parameter. Parameters can change a lot when the model fit is poor, or a little bit when the model fit is good. Eventually the chain of values converges on a set of parameters with good model fit<a href="literature-cited.html#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a>.</p>
+<p>JAGS is a separate program from R that must be installed on your machine. When called from R, JAGS will read a plain text file that contains a model. We will use the <code>sink()</code> command to make that file within R and save it to the home directory.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="mod-01.html#cb22-1" aria-hidden="true" tabindex="-1"></a>mod.name <span class="ot">&lt;-</span> <span class="st">&quot;mod01.txt&quot;</span></span>
+<span id="cb22-2"><a href="mod-01.html#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sink</span>(mod.name)</span>
+<span id="cb22-3"><a href="mod-01.html#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span></span>
+<span id="cb22-4"><a href="mod-01.html#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="st">    model{</span></span>
+<span id="cb22-5"><a href="mod-01.html#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="st">        # priors</span></span>
+<span id="cb22-6"><a href="mod-01.html#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="st">        beta0 ~ dnorm(0, 0.001)</span></span>
+<span id="cb22-7"><a href="mod-01.html#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="st">        beta1 ~ dnorm(0, 0.001)</span></span>
+<span id="cb22-8"><a href="mod-01.html#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="st">        sigma ~ dunif(0, 10)</span></span>
+<span id="cb22-9"><a href="mod-01.html#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="st">        tau.y &lt;- 1 / (sigma * sigma)</span></span>
+<span id="cb22-10"><a href="mod-01.html#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="st">        </span></span>
+<span id="cb22-11"><a href="mod-01.html#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="st">        # likelihood</span></span>
+<span id="cb22-12"><a href="mod-01.html#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="st">        for(i in 1:N){</span></span>
+<span id="cb22-13"><a href="mod-01.html#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="st">            y[i] ~ dnorm(y.hat[i], tau.y)</span></span>
+<span id="cb22-14"><a href="mod-01.html#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="st">            y.hat[i] &lt;- beta0 + beta1 * x[i]</span></span>
+<span id="cb22-15"><a href="mod-01.html#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="st">        }# i for N</span></span>
+<span id="cb22-16"><a href="mod-01.html#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="st">    }#model</span></span>
+<span id="cb22-17"><a href="mod-01.html#cb22-17" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span>, <span class="at">fill=</span><span class="cn">TRUE</span>)</span>
+<span id="cb22-18"><a href="mod-01.html#cb22-18" aria-hidden="true" tabindex="-1"></a><span class="fu">sink</span>()</span></code></pre></div>
+<p>This model defines the important parts of a Bayesian model: the priors <span class="math inline">\(P(H)\)</span> and the likelihood <span class="math inline">\(P\left(E|H\right)\)</span>. JAGS will automatically calculate the other terms for you (it is also calculating the actual probabilities of the priors and likelihood). Notice that the priors are very uninformative, so that the posteriors are driven by the data. For example, for the intercept and slope we assume that they fall somewhere in a normal distribution with mean 0 and variance 1000. That’s a pretty big range. We could also specify something like a uniform distribution with limits ±1000, or ±10000, something even wider. The wider and thus less informative the priors, the more influence the data will have. However, that comes at the cost of longer model run times required to zero in on the right solution.</p>
+<p>Next, we must define initial values for the model, package up the data for JAGS, and set the MCMC parameters.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="mod-01.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># define initial values for MCMC chains</span></span>
+<span id="cb23-2"><a href="mod-01.html#cb23-2" aria-hidden="true" tabindex="-1"></a>init.fun <span class="ot">&lt;-</span> <span class="cf">function</span>(nc){</span>
+<span id="cb23-3"><a href="mod-01.html#cb23-3" aria-hidden="true" tabindex="-1"></a>    res <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">&quot;list&quot;</span>, <span class="at">length=</span>nc)</span>
+<span id="cb23-4"><a href="mod-01.html#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nc){</span>
+<span id="cb23-5"><a href="mod-01.html#cb23-5" aria-hidden="true" tabindex="-1"></a>        res[[i]] <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">beta0=</span><span class="fu">rnorm</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">10</span>),</span>
+<span id="cb23-6"><a href="mod-01.html#cb23-6" aria-hidden="true" tabindex="-1"></a>                         <span class="at">beta1=</span><span class="fu">rnorm</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">10</span>),</span>
+<span id="cb23-7"><a href="mod-01.html#cb23-7" aria-hidden="true" tabindex="-1"></a>                         <span class="at">sigma=</span><span class="fu">runif</span>(<span class="dv">1</span>, <span class="fl">0.1</span>, <span class="dv">10</span>))</span>
+<span id="cb23-8"><a href="mod-01.html#cb23-8" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb23-9"><a href="mod-01.html#cb23-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(res)</span>
+<span id="cb23-10"><a href="mod-01.html#cb23-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb23-11"><a href="mod-01.html#cb23-11" aria-hidden="true" tabindex="-1"></a>nchains <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb23-12"><a href="mod-01.html#cb23-12" aria-hidden="true" tabindex="-1"></a>inits <span class="ot">&lt;-</span> <span class="fu">init.fun</span>(nchains)</span>
+<span id="cb23-13"><a href="mod-01.html#cb23-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-14"><a href="mod-01.html#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="co"># parameters to monitor</span></span>
+<span id="cb23-15"><a href="mod-01.html#cb23-15" aria-hidden="true" tabindex="-1"></a>params <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;beta0&quot;</span>, <span class="st">&quot;beta1&quot;</span>, <span class="st">&quot;sigma&quot;</span>)</span>
+<span id="cb23-16"><a href="mod-01.html#cb23-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-17"><a href="mod-01.html#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="co"># MCMC parameters</span></span>
+<span id="cb23-18"><a href="mod-01.html#cb23-18" aria-hidden="true" tabindex="-1"></a>n.iter <span class="ot">&lt;-</span> <span class="fl">5e4</span></span>
+<span id="cb23-19"><a href="mod-01.html#cb23-19" aria-hidden="true" tabindex="-1"></a>n.burnin <span class="ot">&lt;-</span> <span class="fl">1e4</span></span>
+<span id="cb23-20"><a href="mod-01.html#cb23-20" aria-hidden="true" tabindex="-1"></a>n.thin <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb23-21"><a href="mod-01.html#cb23-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-22"><a href="mod-01.html#cb23-22" aria-hidden="true" tabindex="-1"></a><span class="co"># package data for JAGS</span></span>
+<span id="cb23-23"><a href="mod-01.html#cb23-23" aria-hidden="true" tabindex="-1"></a>in.data <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">y=</span>y, <span class="at">x=</span>x, <span class="at">N=</span><span class="fu">length</span>(x))</span></code></pre></div>
+<p>Finally we can run the model:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="mod-01.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rjags)</span>
+<span id="cb24-2"><a href="mod-01.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(R2jags)</span>
+<span id="cb24-3"><a href="mod-01.html#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="mod-01.html#cb24-4" aria-hidden="true" tabindex="-1"></a>model01 <span class="ot">&lt;-</span> <span class="fu">jags</span>(<span class="at">data=</span>in.data, <span class="at">inits=</span>inits,</span>
+<span id="cb24-5"><a href="mod-01.html#cb24-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">parameters.to.save=</span>params,</span>
+<span id="cb24-6"><a href="mod-01.html#cb24-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">model.file=</span>mod.name,</span>
+<span id="cb24-7"><a href="mod-01.html#cb24-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">n.chains=</span>nchains, <span class="at">n.iter=</span>n.iter,</span>
+<span id="cb24-8"><a href="mod-01.html#cb24-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">n.burnin=</span>n.burnin, <span class="at">n.thin=</span>n.thin)<span class="co">#jags</span></span></code></pre></div>
+<pre><code>## Compiling model graph
+##    Resolving undeclared variables
+##    Allocating nodes
+## Graph information:
+##    Observed stochastic nodes: 100
+##    Unobserved stochastic nodes: 3
+##    Total graph size: 414
+## 
+## Initializing model
+## 
+## 
+  |                                                        
+  |                                                  |   0%
+  |                                                        
+  |+++++                                             |  10%
+  |                                                        
+  |++++++++++                                        |  20%
+  |                                                        
+  |+++++++++++++++                                   |  30%
+  |                                                        
+  |++++++++++++++++++++                              |  40%
+  |                                                        
+  |+++++++++++++++++++++++++                         |  50%
+  |                                                        
+  |++++++++++++++++++++++++++++++                    |  60%
+  |                                                        
+  |+++++++++++++++++++++++++++++++++++               |  70%
+  |                                                        
+  |++++++++++++++++++++++++++++++++++++++++          |  80%
+  |                                                        
+  |+++++++++++++++++++++++++++++++++++++++++++++     |  90%
+  |                                                        
+  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100%
+## 
+  |                                                        
+  |                                                  |   0%
+  |                                                        
+  |*                                                 |   2%
+  |                                                        
+  |**                                                |   5%
+  |                                                        
+  |****                                              |   8%
+  |                                                        
+  |*****                                             |  10%
+  |                                                        
+  |******                                            |  12%
+  |                                                        
+  |********                                          |  15%
+  |                                                        
+  |*********                                         |  18%
+  |                                                        
+  |**********                                        |  20%
+  |                                                        
+  |***********                                       |  22%
+  |                                                        
+  |************                                      |  25%
+  |                                                        
+  |**************                                    |  28%
+  |                                                        
+  |***************                                   |  30%
+  |                                                        
+  |****************                                  |  32%
+  |                                                        
+  |******************                                |  35%
+  |                                                        
+  |*******************                               |  38%
+  |                                                        
+  |********************                              |  40%
+  |                                                        
+  |*********************                             |  42%
+  |                                                        
+  |**********************                            |  45%
+  |                                                        
+  |************************                          |  48%
+  |                                                        
+  |*************************                         |  50%
+  |                                                        
+  |**************************                        |  52%
+  |                                                        
+  |****************************                      |  55%
+  |                                                        
+  |*****************************                     |  58%
+  |                                                        
+  |******************************                    |  60%
+  |                                                        
+  |*******************************                   |  62%
+  |                                                        
+  |********************************                  |  65%
+  |                                                        
+  |**********************************                |  68%
+  |                                                        
+  |***********************************               |  70%
+  |                                                        
+  |************************************              |  72%
+  |                                                        
+  |**************************************            |  75%
+  |                                                        
+  |***************************************           |  78%
+  |                                                        
+  |****************************************          |  80%
+  |                                                        
+  |*****************************************         |  82%
+  |                                                        
+  |******************************************        |  85%
+  |                                                        
+  |********************************************      |  88%
+  |                                                        
+  |*********************************************     |  90%
+  |                                                        
+  |**********************************************    |  92%
+  |                                                        
+  |************************************************  |  95%
+  |                                                        
+  |************************************************* |  98%
+  |                                                        
+  |**************************************************| 100%</code></pre>
+<p>The most important part of the output is here:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="mod-01.html#cb26-1" aria-hidden="true" tabindex="-1"></a>model01</span></code></pre></div>
+<pre><code>## Inference for Bugs model at &quot;mod01.txt&quot;, fit using jags,
+##  3 chains, each with 50000 iterations (first 10000 discarded), n.thin = 100
+##  n.sims = 1200 iterations saved
+##          mu.vect sd.vect    2.5%     25%     50%     75%   97.5%  Rhat n.eff
+## beta0     39.937   1.084  37.698  39.247  39.941  40.650  41.920 1.001  1200
+## beta1     -1.524   0.114  -1.742  -1.598  -1.525  -1.449  -1.293 1.001  1200
+## sigma      4.908   0.366   4.236   4.642   4.876   5.140   5.684 1.000  1200
+## deviance 600.500   2.511 597.596 598.648 599.891 601.643 606.925 1.001  1200
+## 
+## For each parameter, n.eff is a crude measure of effective sample size,
+## and Rhat is the potential scale reduction factor (at convergence, Rhat=1).
+## 
+## DIC info (using the rule, pD = var(deviance)/2)
+## pD = 3.2 and DIC = 603.7
+## DIC is an estimate of expected predictive error (lower deviance is better).</code></pre>
+<p>This table shows the posterior distribution of each model parameter: the intercept <code>beta0</code>, the slope <code>beta1</code>, and the residual SD <code>sigma</code>. There is also a measure of model predictive power called <strong>deviance</strong>. Better-fitting models have smaller deviance. The posterior distributions are given by their mean (<code>mu</code>), SD, and various quantiles. The <code>Rhat</code> statistic (<span class="math inline">\(\hat{R}\)</span>) is also called the <strong>Gelman-Rubin statistic</strong>, and helps determine whether or not the model converged. Values of <span class="math inline">\(\hat{R}\)</span> close to 1 are better (usually &lt;1.001 or &lt;1.01 are desirable, but there is no universally agreed-upon rule).</p>
+<p>These parameter estimates are not far off from the true values of 40, -1.5, and 5. Notice that the means of the posterior distributions are close to the values estimated by ordinary linear regression:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="mod-01.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y<span class="sc">~</span>x))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y ~ x)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -11.1899  -3.0661  -0.0987   2.9817  11.0861 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  39.9851     1.0808   37.00   &lt;2e-16 ***
+## x            -1.5299     0.1139  -13.43   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 4.846 on 98 degrees of freedom
+## Multiple R-squared:  0.6479, Adjusted R-squared:  0.6443 
+## F-statistic: 180.3 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>So why go through all of that Bayesian trouble? There are a few reasons where Bayesian inference might be preferable:</p>
+<ol style="list-style-type: decimal">
+<li>The model to be fit is very complex. Because the user can specify any model they want, they can fit any model they want.</li>
+<li>Maximum-likelihood methods often require explicit derivations of model likelihoods, whereas an MCMC approach does not. This means that models whose likelihoods have no closed form solution, or computationally difficult solutions, can be estimated more easily with Bayesian methods than maximum likelihood (sometimes).</li>
+<li>The researcher has prior information that they would like to incorporate into the analysis. This can reduce the amount of data needed to reach certain conclusions (see below)<a href="literature-cited.html#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a>.</li>
+<li>Maximum likelihood methods are not effective in some situations.</li>
+<li>Error propagation is very easy under Bayesian inference (especially MCMC).</li>
+<li>The researcher prefers the philosophy of Bayesian inference.</li>
+</ol>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_16.png" style="width:50.0%" /></p>
+<p>Bayesian methods are largely beyond the scope of this course, but we will use MCMC in JAGS from time to time to fit complicated models where maximum likelihood doesn’t work so well.</p>
+</div>
+</div>
+<div id="information-theoretic-methods" class="section level3" number="1.5.2">
+<h3><span class="header-section-number">1.5.2</span> Information-theoretic methods</h3>
+<p>Another alternative to NHST is <strong>information-theoretic (IT)</strong> modeling. IT methods borrow insights from information theory to draw conclusions about the extent to which statistical models describe data <span class="citation">(<a href="#ref-burnham2002" role="doc-biblioref">Burnham and Anderson 2002</a>)</span>. Rather than estimate parameters that minimize a loss function (e.g., residual sums of squared errors) and eliminate variables individually based on <em>P</em>-values, IT methods are used to compare different data models in terms of how much information is lost by using one of the models to represent the underlying process <span class="citation">(<a href="#ref-hobbs2006" role="doc-biblioref">Hobbs and Hilborn 2006</a>)</span>. In other words, NHST arrives at a model by testing individual variables, while IT tests entire models.</p>
+<p>There are several types of information criteria in use, but they all boil down to the sum of two terms: one that expresses the likelihood function of the data given the model, and another that penalizes the model for excess complexity (i.e., number of parameters). Information criteria such are used to compare models to each other, not to determine whether any particular model is “significant” or whether any of its terms are significant. For this reason, researchers using IT methods need to be very cautious to avoid overfitting.</p>
+<p>The most common information criterion is Akaike’s Information Criterion (AIC) <span class="citation">(<a href="#ref-burnham2002" role="doc-biblioref">Burnham and Anderson 2002</a>)</span>:</p>
+<p><span class="math display">\[AIC=-2L+2K=2K-2\log{\left(\hat{L}\right)}\]</span></p>
+<p>where <em>L</em> is the natural logarithm of the likelihood function (<span class="math inline">\(\hat{L}\)</span>) and <em>K</em> is the number of parameters in the model. The 2<span class="math inline">\(\times\)</span> penalty on <em>K</em> makes it so that simpler models are preferred. Without this penalty, the likelihood could be increased simply by adding additional parameters (i.e., by overfitting). The likelihood function is expressed as -2 times its logarithm so that better fits (greater likelihoods) reduce AIC. The logarithm makes this effect nonlinear.</p>
+<p>Other information criteria exist, such as the AIC corrected for small sample sizes (<span class="math inline">\({AIC}_C\)</span>):</p>
+<p><span class="math display">\[{AIC}_C=AIC+\frac{2K\left(K+1\right)}{n-K-1}\]</span></p>
+<p>Where <em>n</em> is the number of observations used to fit the model. Exactly what constitutes a “small” sample size is subjective, but <span class="citation">Burnham and Anderson (<a href="#ref-burnham2002" role="doc-biblioref">2002</a>)</span> suggest that <span class="math inline">\({AIC}_C\)</span> should be used when <em>n</em>/<em>K</em> &lt;40. Many other criteria exist, such as QAIC and <span class="math inline">\({QAIC}_C\)</span> for use when overdispersion in suspected <span class="citation">(<a href="#ref-lebreton1992" role="doc-biblioref">Lebreton et al. 1992</a>)</span>, Bayesian information criterion (BIC) for a more conservative alternative to AIC; and DIC (deviance information criterion) for use in Bayesian contexts.</p>
+<div id="likelihood" class="section level4" number="1.5.2.1">
+<h4><span class="header-section-number">1.5.2.1</span> Likelihood?</h4>
+<p>Before we jump into an example IT data analysis, we also need to understand what a “likelihood” function is. We’ve encountered the term several times in both Bayesian and non-Bayesian contexts. Formally, a <strong>likelihood</strong> is a function of the probability of observing the data under a particular data model. A data model is an expression of the mathematical relationships between variables; e.g., the linear regression model. When statisticians work with likelihoods, they are usually trying to find the model parameters that maximize the likelihood, or minimize the negative log-likelihood. Likelihoods are related to but not the same thing as probabilities.</p>
+</div>
+<div id="example-it-analysis" class="section level4" number="1.5.2.2">
+<h4><span class="header-section-number">1.5.2.2</span> Example IT analysis</h4>
+<p>As before, we will simulate a dataset so we know exactly what the results should be. Let’s create a dataset where some outcome <code>y</code> depends on 1 of 3 predictor variables: <code>x1</code>, <code>x2</code>, and <code>x3</code>. To illustrate how AIC can distinguish between models with better or worse predictive power, we’ll make the dependent variable dependent on only one predictor, <code>x1</code>.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="mod-01.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">456</span>)</span>
+<span id="cb30-2"><a href="mod-01.html#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="mod-01.html#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="co"># sample size</span></span>
+<span id="cb30-4"><a href="mod-01.html#cb30-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb30-5"><a href="mod-01.html#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="mod-01.html#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="co"># draw potential predictor variables</span></span>
+<span id="cb30-7"><a href="mod-01.html#cb30-7" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">20</span><span class="sc">:</span><span class="dv">100</span>, n, <span class="at">replace=</span><span class="cn">TRUE</span>)</span>
+<span id="cb30-8"><a href="mod-01.html#cb30-8" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">45</span>, <span class="dv">10</span>)</span>
+<span id="cb30-9"><a href="mod-01.html#cb30-9" aria-hidden="true" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">41</span><span class="sc">:</span><span class="dv">42</span>, n, <span class="at">replace=</span><span class="cn">TRUE</span>)</span>
+<span id="cb30-10"><a href="mod-01.html#cb30-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-11"><a href="mod-01.html#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="co"># model parameters</span></span>
+<span id="cb30-12"><a href="mod-01.html#cb30-12" aria-hidden="true" tabindex="-1"></a>beta0 <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb30-13"><a href="mod-01.html#cb30-13" aria-hidden="true" tabindex="-1"></a>beta1 <span class="ot">&lt;-</span> <span class="fl">3.2</span></span>
+<span id="cb30-14"><a href="mod-01.html#cb30-14" aria-hidden="true" tabindex="-1"></a>beta2 <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">8</span></span>
+<span id="cb30-15"><a href="mod-01.html#cb30-15" aria-hidden="true" tabindex="-1"></a>beta3 <span class="ot">&lt;-</span> <span class="fl">0.03</span></span>
+<span id="cb30-16"><a href="mod-01.html#cb30-16" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb30-17"><a href="mod-01.html#cb30-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-18"><a href="mod-01.html#cb30-18" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;true&quot; model</span></span>
+<span id="cb30-19"><a href="mod-01.html#cb30-19" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> beta0 <span class="sc">+</span> beta1<span class="sc">*</span>x1 <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, sigma)</span></code></pre></div>
+<p>Next, fit linear regression models (“candidate models”) using different combinations of predictors. You can fit as many models as you like in this part, but should try to restrict the candidate set to those models you really think are viable, realistic hypotheses. Datasets with many predictors can easily generate hundreds or thousands of candidate models by assembling all of the combinations and permutations of different numbers of predictors. Don’t do that.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="mod-01.html#cb31-1" aria-hidden="true" tabindex="-1"></a>m00 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y<span class="sc">~</span><span class="dv">1</span>)</span>
+<span id="cb31-2"><a href="mod-01.html#cb31-2" aria-hidden="true" tabindex="-1"></a>m01 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y<span class="sc">~</span>x1)</span>
+<span id="cb31-3"><a href="mod-01.html#cb31-3" aria-hidden="true" tabindex="-1"></a>m02 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y<span class="sc">~</span>x2)</span>
+<span id="cb31-4"><a href="mod-01.html#cb31-4" aria-hidden="true" tabindex="-1"></a>m03 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y<span class="sc">~</span>x3)</span>
+<span id="cb31-5"><a href="mod-01.html#cb31-5" aria-hidden="true" tabindex="-1"></a>m04 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y<span class="sc">~</span>x1<span class="sc">+</span>x2)</span>
+<span id="cb31-6"><a href="mod-01.html#cb31-6" aria-hidden="true" tabindex="-1"></a>m05 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y<span class="sc">~</span>x1<span class="sc">+</span>x3)</span>
+<span id="cb31-7"><a href="mod-01.html#cb31-7" aria-hidden="true" tabindex="-1"></a>m06 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y<span class="sc">~</span>x2<span class="sc">+</span>x3)</span>
+<span id="cb31-8"><a href="mod-01.html#cb31-8" aria-hidden="true" tabindex="-1"></a>m07 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y<span class="sc">~</span>x1<span class="sc">+</span>x2<span class="sc">+</span>x3)</span></code></pre></div>
+<p>You can inspect these models (e.g., <code>summary(m01)</code>) and see that <code>x1</code> is always a significant predictor, while <code>x2</code> and <code>x3</code> are not. In frequentist terms, we would say that there was no significant effect of <code>x2</code> or <code>x3</code> on <code>y</code> because <em>P</em> <span class="math inline">\(\ge\)</span> 0.05. In IT terms we would say that adding <code>x2</code> or <code>x3</code> to the model did not add explanatory power. Those statements are similar, but not quite the same because they use different criteria to infer how the variables are related.</p>
+<p>We can compare the models using AIC. The command below will make a data frame holding the name of each model and its AIC.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="mod-01.html#cb32-1" aria-hidden="true" tabindex="-1"></a>aic.df <span class="ot">&lt;-</span> <span class="fu">AIC</span>(m00, m01, m02, m03, m04, m05, m06, m07)</span>
+<span id="cb32-2"><a href="mod-01.html#cb32-2" aria-hidden="true" tabindex="-1"></a>aic.df</span></code></pre></div>
+<pre><code>##     df       AIC
+## m00  2 1145.3398
+## m01  3  623.8889
+## m02  3 1144.8685
+## m03  3 1147.1488
+## m04  4  625.6944
+## m05  4  624.2252
+## m06  4 1146.5993
+## m07  5  626.0870</code></pre>
+<p>What do we do with this? One common approach is to calculate what’s called an <strong>AIC weight</strong>. This quantity is an estimate of the probability that a model is the best model out of present candidates. This is NOT the same as the probability that a model is correct, or the best of all possible models—only the best out of the current set of candidates. We can calculate AIC weights in R with a few commands:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="mod-01.html#cb34-1" aria-hidden="true" tabindex="-1"></a>aic.df<span class="sc">$</span>delta <span class="ot">&lt;-</span> aic.df<span class="sc">$</span>AIC <span class="sc">-</span> <span class="fu">min</span>(aic.df<span class="sc">$</span>AIC)</span>
+<span id="cb34-2"><a href="mod-01.html#cb34-2" aria-hidden="true" tabindex="-1"></a>aic.df<span class="sc">$</span>wt <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">0.5</span><span class="sc">*</span>aic.df<span class="sc">$</span>delta)</span>
+<span id="cb34-3"><a href="mod-01.html#cb34-3" aria-hidden="true" tabindex="-1"></a>aic.df<span class="sc">$</span>wt <span class="ot">&lt;-</span> aic.df<span class="sc">$</span>wt<span class="sc">/</span><span class="fu">sum</span>(aic.df<span class="sc">$</span>wt)</span>
+<span id="cb34-4"><a href="mod-01.html#cb34-4" aria-hidden="true" tabindex="-1"></a>aic.df <span class="ot">&lt;-</span> aic.df[<span class="fu">order</span>(<span class="sc">-</span>aic.df<span class="sc">$</span>wt),]</span>
+<span id="cb34-5"><a href="mod-01.html#cb34-5" aria-hidden="true" tabindex="-1"></a>aic.df</span></code></pre></div>
+<pre><code>##     df       AIC       delta            wt
+## m01  3  623.8889   0.0000000  3.870182e-01
+## m05  4  624.2252   0.3362974  3.271187e-01
+## m04  4  625.6944   1.8055142  1.569166e-01
+## m07  5  626.0870   2.1981493  1.289464e-01
+## m02  3 1144.8685 520.9796540 2.873670e-114
+## m00  2 1145.3398 521.4509418 2.270378e-114
+## m06  4 1146.5993 522.7103962 1.209514e-114
+## m03  3 1147.1488 523.2599265 9.189293e-115</code></pre>
+<p>In this example, the model with the smallest AIC—and thus greatest AIC weight—was model 1 (the correct model). Interestingly, models 4 and 5 had <span class="math inline">\(\Delta\)</span>AIC &lt;2, which is usually interpreted as not being distinguishable from the best-supported model. This shouldn’t be surprising, because models 4 and 5 also included the true predictor <code>x1</code>. Model 7, which also included <code>x3</code>, was nearly as good but with a <span class="math inline">\(\Delta\)</span>AIC <span class="math inline">\(\ge\)</span> 2 we can exclude it. Notice that the worst-supported models (2, 0, 6, and 3) were the models that did not include the true predictor <code>x1</code>.</p>
+<p>One key advantage of the IT framework is that it focuses less on <em>P</em>-values and permits the consideration of multiple hypotheses at once. If competing hypotheses can be expressed as a different statistical model (like in the example above), then an information criterion can be used to estimate which hypothesis is best supported by the data (although not necessarily whether any of them is correct). Another key advantage is that it allows averaging parameter estimates across multiple models. This allows researchers to say something about the effect of a factor without concluding exactly which statistical model is the correct one. Essentially, the weighted mean of parameter estimates across the models is calculated. The AIC weights are used to weight the mean:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="mod-01.html#cb36-1" aria-hidden="true" tabindex="-1"></a>res.list <span class="ot">&lt;-</span> <span class="fu">list</span>(m01, m05, m04, m07)</span>
+<span id="cb36-2"><a href="mod-01.html#cb36-2" aria-hidden="true" tabindex="-1"></a>x1.ests <span class="ot">&lt;-</span> <span class="fu">sapply</span>(res.list, <span class="cf">function</span>(x){x<span class="sc">$</span>coefficients[<span class="st">&quot;x1&quot;</span>]})</span>
+<span id="cb36-3"><a href="mod-01.html#cb36-3" aria-hidden="true" tabindex="-1"></a>x1.ests</span></code></pre></div>
+<pre><code>##       x1       x1       x1       x1 
+## 3.232883 3.234502 3.231263 3.233119</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="mod-01.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">weighted.mean</span>(x1.ests, aic.df<span class="sc">$</span>wt[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>])</span></code></pre></div>
+<pre><code>## [1] 3.233189</code></pre>
+<p>Not too far off from the true value of 3.2!</p>
+<p>We’ll use an IT model selection approach occasionally in this class. While the example above was easy and relatively straightforward, there are some important caveats to using AIC and similar methods:</p>
+<ol style="list-style-type: decimal">
+<li>Information criteria are only a measure of relative model performance, not model correctness or overall goodness of fit.</li>
+<li>Information criteria are only interpretable for sets of nested models: models that can be transformed to each other by setting one or more coefficients to 0.</li>
+<li>Rules-of-thumb about information criteria are just as arbitrary as the <em>P</em> &lt; 0.05 criterion.</li>
+<li>Not every information criterion can be used in every situation. Read the friendly manual.</li>
+<li>IT methods are vulnerable to overfitting because they evaluate entire models, not individual variables. Researchers must think carefully about what variables to include.</li>
+</ol>
+</div>
+</div>
+<div id="machine-learning" class="section level3" number="1.5.3">
+<h3><span class="header-section-number">1.5.3</span> Machine learning</h3>
+<p>The last alternative to NHST that we’ll explore in this class is machine learning (ML). ML is a huge and rapidly growing field of methods for extracting patterns from complex datasets. Many of these methods bear little resemblance to traditional statistics<a href="literature-cited.html#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a>.</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_18.png" style="width:60.0%" /></p>
+<p>There are too many ML algorithms out there to even begin to cover here, but they all have the same underlying philosophy: ML builds a model on a sample of the data, called the “training data”, and refines or improves the model based on its ability to predict additional “test data” that were not used in the model building process.</p>
+<p>This strategy has some considerable advantages over traditional frequentist and Bayesian statistics. In those paradigms, researchers must specify a data model ahead of time and then test how well the data support that model. Specifying a data model makes many assumptions about the distribution of the response variable, the shape of the relationship between the variables (e.g., linear vs. curved vs. stepped), the relationships between predictors, and so on. ML usually makes no such assumptions. Instead, the model is treated as a “black box” that takes in input and spits out predictions. Researchers using ML methods typically don’t worry about or even try to interpret the inner workings of the black box. Those inner workings are often nonsensical to humans anyway. Instead, users of ML report and interpret the predictions of their models and different measures of predictive accuracy.</p>
+<p>The disadvantages of ML compared to traditional statistics are also considerable. By not specifying a data model, researchers must assume that their training data are representative of the process they are trying to model. There’s an old saying in statistics and modeling: “Garbage in, garbage out.” If training data are not appropriate, or if there really is no relationship between the predictor variables and the response variable, there is no guarantee that a ML algorithm won’t find one anyway (this is similar to how traditional statistics sometimes get false positives). It’s still up to the researcher to interpret the patterns that the ML method detects and think long and hard about whether those patterns are reasonable.</p>
+<p>Other disadvantages of ML are more practical. Most ML techniques require a lot of computing power, that may not be feasible for very large datasets for some researchers. ML techniques are also not standard practice in most fields of science, so researchers wanting to use ML will need to do extra work to show to editors and reviewers that their methods are legitimate and appropriate to their question. ML techniques are not as widely implemented in software packages as traditional statistical methods, and are not as well documented. This means that you will have fewer choices for what software to use and fewer places to get help. Finally, ML techniques can be easy to use but the details can be very hard to understand. As with any data analysis method, it is very easy to get yourself stuck or get into trouble using a technique you only partially understand.</p>
+<p>I won’t include an example ML analysis here but can point you to some resources. For ecologists, <span class="citation">De’ath (<a href="#ref-death2007" role="doc-biblioref">2007</a>)</span> and <span class="citation">Elith et al. (<a href="#ref-elith2008" role="doc-biblioref">2008</a>)</span> are the standard references. <span class="citation">Elith et al. (<a href="#ref-elith2008" role="doc-biblioref">2008</a>)</span> also points to an online source for some R functions that simplify the process <span class="citation">(<a href="#ref-elith2017" role="doc-biblioref">Elith and Leathwick 2017</a>)</span>. <span class="citation">Tarca et al. (<a href="#ref-tarca2007" role="doc-biblioref">2007</a>)</span> provided an early review for biology in general. <span class="citation">Jones (<a href="#ref-jones2019" role="doc-biblioref">2019</a>)</span> reviewed some applications of ML in cell biology. ML methods are being applied to problems that are not amenable to traditional statistics, particularly image analysis <span class="citation">(<a href="#ref-kan2017" role="doc-biblioref">Kan 2017</a>, <a href="#ref-whytock2021" role="doc-biblioref">Whytock et al. 2021</a>)</span>.</p>
+
+</div>
+</div>
+</div>
+<h3>Literature Cited</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-burnham2002" class="csl-entry">
+Burnham, K., and D. Anderson. 2002. Model selection and multi-model inference: <span class="nocase">a</span> practical information-theoretic approach. Springer-<span>V</span>erlag, New York.
+</div>
+<div id="ref-button2013" class="csl-entry">
+Button, K. S., J. P. Ioannidis, C. Mokrysz, B. A. Nosek, J. Flint, E. S. Robinson, and M. R. Munafò. 2013. <a href="https://doi.org/10.1038/nrn3475">Power failure: <span class="nocase">w</span>hy small sample size undermines the reliability of neuroscience</a>. Nature <span>R</span>eviews <span>N</span>euroscience 14:365–376.
+</div>
+<div id="ref-death2007" class="csl-entry">
+De’ath, G. 2007. <a href="https://doi.org/10.1890/0012-9658(2007)88[243:btfema]2.0.co;2">Boosted trees for ecological modeling and prediction</a>. Ecology 88:243–251.
+</div>
+<div id="ref-elith2017" class="csl-entry">
+Elith, J., and J. Leathwick. 2017. Boosted regression trees for ecological modeling. R Documentation. Available online: https://cran.r-project.org/web/packages/dismo/vignettes/brt.pdf (accessed on 2021-12-23).
+</div>
+<div id="ref-elith2008" class="csl-entry">
+Elith, J., J. R. Leathwick, and T. Hastie. 2008. <a href="https://doi.org/10.1111/j.1365-2656.2008.01390.x">A working guide to boosted regression trees</a>. Journal of Animal Ecology 77:802–813.
+</div>
+<div id="ref-green2021" class="csl-entry">
+Green, N. S., M. L. Wildhaber, and J. L. Albers. 2021. Effectiveness of a distance sampling from roads program for white-tailed deer in the <span>N</span>ational <span>C</span>apital <span>R</span>egion parks. Natural Resource Report, National Park Service, Fort Collins, Colorado.
+</div>
+<div id="ref-head2015" class="csl-entry">
+Head, M. L., L. Holman, R. Lanfear, A. T. Kahn, and M. D. Jennions. 2015. <a href="https://doi.org/10.1371/journal.pbio.1002106">The extent and consequences of p-hacking in science</a>. <span>PLoS</span> <span>B</span>iology 13:e1002106.
+</div>
+<div id="ref-hobbs2006" class="csl-entry">
+Hobbs, N. T., and R. Hilborn. 2006. <a href="https://doi.org/10.1890/04-0645">Alternatives to statistical hypothesis testing in ecology: <span class="nocase">a</span> guide to self teaching</a>. Ecological Applications 16:5–19.
+</div>
+<div id="ref-hurlbert1984" class="csl-entry">
+Hurlbert, S. H. 1984. <a href="https://doi.org/10.2307/1942661">Pseudoreplication and the design of ecological field experiments</a>. Ecological <span>M</span>onographs 54:187–211.
+</div>
+<div id="ref-jones2019" class="csl-entry">
+Jones, D. T. 2019. <a href="https://doi.org/10.1038/s41580-019-0176-5">Setting the standards for machine learning in biology</a>. Nature <span>R</span>eviews <span>M</span>olecular <span>C</span>ell <span>B</span>iology 20:659–660.
+</div>
+<div id="ref-kan2017" class="csl-entry">
+Kan, A. 2017. <a href="https://doi.org/10.1038/icb.2017.16">Machine learning applications in cell image analysis</a>. Immunology and <span>C</span>ell <span>B</span>iology 95:525–530.
+</div>
+<div id="ref-lazic2018" class="csl-entry">
+Lazic, S. E., C. J. Clarke-Williams, and M. R. Munafò. 2018. <a href="https://doi.org/10.1371/journal.pbio.2005282">What exactly is ‘<span>N</span>’in cell culture and animal experiments?</a> <span>PLoS</span> <span>B</span>iology 16:e2005282.
+</div>
+<div id="ref-lebreton1992" class="csl-entry">
+Lebreton, J.-D., K. P. Burnham, J. Clobert, and D. R. Anderson. 1992. <a href="https://doi.org/10.2307/2937171">Modeling survival and testing biological hypotheses using marked animals: <span class="nocase">a</span> unified approach with case studies</a>. Ecological <span>M</span>onographs 62:67–118.
+</div>
+<div id="ref-lunn2009" class="csl-entry">
+Lunn, D., D. Spiegelhalter, A. Thomas, and N. Best. 2009. <a href="https://doi.org/10.1002/sim.3680">The <span>BUGS</span> project: <span class="nocase">e</span>volution, critique and future directions</a>. Statistics in <span>M</span>edicine 28:3049–3067.
+</div>
+<div id="ref-makin2019" class="csl-entry">
+Makin, T. R., and J.-J. O. de Xivry. 2019. <a href="https://doi.org/10.7554/eLife.48175">Science forum: Ten common statistical mistakes to watch out for when writing or reviewing a manuscript</a>. Elife 8:e48175.
+</div>
+<div id="ref-plummer2003jags" class="csl-entry">
+Plummer, M. 2003. <span>JAGS</span>: A program for analysis of <span>B</span>ayesian graphical models using <span>G</span>ibbs sampling. Pages 1–10 Proceedings of the 3rd international workshop on distributed statistical computing. Vienna, Austria.
+</div>
+<div id="ref-plummer2021" class="csl-entry">
+Plummer, M. 2021. <a href="https://CRAN.R-project.org/package=rjags"><span class="nocase">r</span>jags: <span>B</span>ayesian graphical models using <span>MCMC</span></a>.
+</div>
+<div id="ref-smith2013" class="csl-entry">
+Smith, F. A., and S. K. Lyons. 2013. Animal body size: Linking pattern and process across space, time, and taxonomic group. University of Chicago Press, Chicago.
+</div>
+<div id="ref-tarca2007" class="csl-entry">
+Tarca, A. L., V. J. Carey, X. Chen, R. Romero, and S. Drăghici. 2007. <a href="https://doi.org/10.1371/journal.pcbi.0030116">Machine learning and its applications to biology</a>. <span>PLoS</span> <span>C</span>omputational <span>B</span>iology 3:e116.
+</div>
+<div id="ref-voit2019" class="csl-entry">
+Voit, E. O. 2019. <a href="https://doi.org/10.1371/journal.pcbi.1007279">Perspective: <span class="nocase">d</span>imensions of the scientific method</a>. <span>PLoS</span> <span>C</span>omputational <span>B</span>iology 15:e1007279.
+</div>
+<div id="ref-wasserstein2016" class="csl-entry">
+Wasserstein, R. L., and N. A. Lazar. 2016. <a href="https://doi.org/10.1080/00031305.2016.1154108">The ASA statement on p-values: Context, process, and purpose</a>. Taylor &amp; Francis.
+</div>
+<div id="ref-white2014" class="csl-entry">
+White, J. W., A. Rassweiler, J. F. Samhouri, A. C. Stier, and C. White. 2014. <a href="https://doi.org/10.1111/j.1600-0706.2013.01073.x">Ecologists should not use statistical significance tests to interpret simulation model results</a>. Oikos 123:385–388.
+</div>
+<div id="ref-whytock2021" class="csl-entry">
+Whytock, R. C., J. Świeżewski, J. A. Zwerts, T. Bara-Słupski, A. F. Koumba Pambo, M. Rogala, L. Bahaa-el-din, K. Boekee, S. Brittain, A. W. Cardoso, and others. 2021. <a href="https://doi.org/10.1111/2041-210X.13576">Robust ecological analysis of camera trap data labelled by a machine learning model</a>. Methods in <span>E</span>cology and <span>E</span>volution.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="mod-02.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
