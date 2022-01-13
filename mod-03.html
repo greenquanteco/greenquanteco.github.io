@@ -1663,13 +1663,13 @@ div.csl-indent {
 <span id="cb519-12"><a href="mod-03.html#cb519-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb519-13"><a href="mod-03.html#cb519-13" aria-hidden="true" tabindex="-1"></a><span class="do">## calculate time in different units:</span></span>
 <span id="cb519-14"><a href="mod-03.html#cb519-14" aria-hidden="true" tabindex="-1"></a><span class="fu">difftime</span>(y,x, <span class="at">units=</span><span class="st">&quot;days&quot;</span>)</span></code></pre></div>
-<pre><code>## Time difference of 9665.533 days</code></pre>
+<pre><code>## Time difference of 9665.521 days</code></pre>
 <div class="sourceCode" id="cb521"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb521-1"><a href="mod-03.html#cb521-1" aria-hidden="true" tabindex="-1"></a><span class="fu">difftime</span>(y,x, <span class="at">units=</span><span class="st">&quot;hours&quot;</span>)</span></code></pre></div>
-<pre><code>## Time difference of 231972.8 hours</code></pre>
+<pre><code>## Time difference of 231972.5 hours</code></pre>
 <div class="sourceCode" id="cb523"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb523-1"><a href="mod-03.html#cb523-1" aria-hidden="true" tabindex="-1"></a><span class="fu">difftime</span>(y,x, <span class="at">units=</span><span class="st">&quot;mins&quot;</span>)</span></code></pre></div>
-<pre><code>## Time difference of 13918367 mins</code></pre>
+<pre><code>## Time difference of 13918350 mins</code></pre>
 <div class="sourceCode" id="cb525"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb525-1"><a href="mod-03.html#cb525-1" aria-hidden="true" tabindex="-1"></a>y<span class="sc">-</span>x</span></code></pre></div>
-<pre><code>## Time difference of 9665.533 days</code></pre>
+<pre><code>## Time difference of 9665.521 days</code></pre>
 <p>Another application: what is the time difference between Chicago and Honolulu?</p>
 <div class="sourceCode" id="cb527"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb527-1"><a href="mod-03.html#cb527-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;2021-07-23 13:21&quot;</span>)</span>
 <span id="cb527-2"><a href="mod-03.html#cb527-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">strptime</span>(a, <span class="st">&quot;%Y-%m-%d %H:%M&quot;</span>, <span class="at">tz=</span><span class="st">&quot;US/Central&quot;</span>)</span>
