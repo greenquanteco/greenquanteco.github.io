@@ -885,7 +885,7 @@ div.csl-indent {
 <span id="cb1610-20"><a href="mod-08.html#cb1610-20" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(kvec, wss, <span class="at">type=</span><span class="st">&quot;o&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">pch=</span><span class="fl">1.5</span>,</span>
 <span id="cb1610-21"><a href="mod-08.html#cb1610-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab=</span><span class="st">&quot;Clusters (k)&quot;</span>,</span>
 <span id="cb1610-22"><a href="mod-08.html#cb1610-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab=</span><span class="st">&quot;Total WSS&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-716-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-715-1.png" width="672" /></p>
 <p>Notice that total <em>WSS</em> drops off much more slowly above 3 clusters. That is, going from 3 to 4 clusters reduces <em>WSS</em> much less than going from 2 to 3 clusters. The result above could reasonably justify 3 or 4 clusters. The figure below shows how the data are divided into 3 and 4 clusters.</p>
 <div class="sourceCode" id="cb1611"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1611-1"><a href="mod-08.html#cb1611-1" aria-hidden="true" tabindex="-1"></a><span class="co"># assemble values needed for plots</span></span>
 <span id="cb1611-2"><a href="mod-08.html#cb1611-2" aria-hidden="true" tabindex="-1"></a><span class="do">## get clusters</span></span>
@@ -922,7 +922,7 @@ div.csl-indent {
 <span id="cb1611-33"><a href="mod-08.html#cb1611-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">col=</span>dat<span class="sc">$</span>col4, <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
 <span id="cb1611-34"><a href="mod-08.html#cb1611-34" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(dat<span class="sc">$</span>cenx4, dat<span class="sc">$</span>ceny4, <span class="at">pch=</span><span class="dv">21</span>, <span class="at">cex=</span><span class="dv">2</span>,</span>
 <span id="cb1611-35"><a href="mod-08.html#cb1611-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">bg=</span><span class="st">&quot;yellow&quot;</span>, <span class="at">col=</span>dat<span class="sc">$</span>col4, <span class="at">lwd=</span><span class="dv">4</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-717-1.png" width="864" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-716-1.png" width="864" /></p>
 <p>Most of the group assignments stayed the same, but the algorithm split the blue group when <em>k</em> increased from 3 to 4. Accepting the 3 cluster or 4 cluster solution is as much of a biological decision as it is a statistical one. When you get to this point, you need to think about whether the groups make sense or not. Notice that <em>k</em>-means clustering does not necessarily result in groups of equal sizes. This may or may not be a problem depending on the structure of your dataset and the question you are trying to answer.</p>
 <p>Below is another example of <em>k</em>-means clustering applied to the taxonomy dataset from above. Examine the figure and ask yourself whether the groupings make sense from a biological perspective. Note that the code block below requires that you have the data file <code>tax_example_2021-10-27.csv</code> in your R home directory. Download it <a href="https://greenquanteco.github.io/tax_example_2021-10-27.csv">here</a>. Note that this is a completely made-up dataset, so you should not use it for anything important.</p>
 <div class="sourceCode" id="cb1612"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1612-1"><a href="mod-08.html#cb1612-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
@@ -957,7 +957,7 @@ div.csl-indent {
 <span id="cb1614-10"><a href="mod-08.html#cb1614-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(kvec, wss, <span class="at">type=</span><span class="st">&quot;o&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">pch=</span><span class="fl">1.5</span>,</span>
 <span id="cb1614-11"><a href="mod-08.html#cb1614-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab=</span><span class="st">&quot;Clusters (k)&quot;</span>,</span>
 <span id="cb1614-12"><a href="mod-08.html#cb1614-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab=</span><span class="st">&quot;Total WSS&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-718-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-717-1.png" width="672" /></p>
 <p>Four clusters appears to be the “elbow” of the curve, but this varied from run to run (try changing the random number seed and seeing if you get different results). Let’s use <em>k</em> = 4.</p>
 <div class="sourceCode" id="cb1615"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1615-1"><a href="mod-08.html#cb1615-1" aria-hidden="true" tabindex="-1"></a><span class="co"># assemble values needed for plots</span></span>
 <span id="cb1615-2"><a href="mod-08.html#cb1615-2" aria-hidden="true" tabindex="-1"></a><span class="do">## get clusters</span></span>
@@ -984,7 +984,7 @@ div.csl-indent {
 <span id="cb1615-23"><a href="mod-08.html#cb1615-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab=</span><span class="st">&quot;PC 1(54%)&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;PC2 (19%)&quot;</span>)</span>
 <span id="cb1615-24"><a href="mod-08.html#cb1615-24" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(dat<span class="sc">$</span>x, <span class="fu">jitter</span>(dat<span class="sc">$</span>y, <span class="at">amount=</span><span class="fl">0.1</span>),</span>
 <span id="cb1615-25"><a href="mod-08.html#cb1615-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rownames</span>(dat), <span class="at">col=</span>dat<span class="sc">$</span>col4)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-719-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-718-1.png" width="672" /></p>
 <p>It’s a little hard to see some of the names, even with the jittering of the Y coordinates. How did the algorithm do? The groups appear to mostly make sense, but there are some oddities. For example:</p>
 <ul>
 <li>Elephants and penguins are more similar than either is to other mammals or birds, respectively (although they are in the same group).</li>
@@ -1018,12 +1018,12 @@ div.csl-indent {
 <span id="cb1619-3"><a href="mod-08.html#cb1619-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1619-4"><a href="mod-08.html#cb1619-4" aria-hidden="true" tabindex="-1"></a>h1 <span class="ot">&lt;-</span> <span class="fu">hclust</span>(d1, <span class="at">method=</span><span class="st">&quot;ward.D&quot;</span>)</span>
 <span id="cb1619-5"><a href="mod-08.html#cb1619-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(h1)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-720-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-719-1.png" width="672" /></p>
 <p>The results of hierarchical clustering are usually presented as a <strong>dendrogram</strong>. The word root <em>dendro</em>- means “tree”, which is a good way to think of a dendrogram. The branches show the relationship between the clusters. In the result above, pines and ferns form a cluster, as do maple and ivy. The “pine-fern” and “maple-ivy” clusters together form a bigger cluster.</p>
 <p>The clustering based on Bray-Curtis distances is slightly different:</p>
 <div class="sourceCode" id="cb1620"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1620-1"><a href="mod-08.html#cb1620-1" aria-hidden="true" tabindex="-1"></a>h2 <span class="ot">&lt;-</span> <span class="fu">hclust</span>(d2, <span class="at">method=</span><span class="st">&quot;ward.D&quot;</span>)</span>
 <span id="cb1620-2"><a href="mod-08.html#cb1620-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(h2)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-721-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-720-1.png" width="672" /></p>
 <p>The results using the Euclidean and Bray-Curtis distance metrics are similar, but both dendrograms make some “interesting” choices. For example, one would expect the most basal (toward the root of the tree) division between animals and non-animals, or between prokaryotes and eukaryotes. Is that the case?</p>
 <p>Not at all. The method clustered the taxa in a way that doesn’t match their real-life phylogenetic relationships. This is partly because of the characteristics that were used (a very vertebrate animal-centric set!). This also illustrates the difference between taxonomy, which seeks to combine organisms by shared characteristics; and phylogeny, which results from how lineages divide over time.</p>
 </div>
@@ -1087,7 +1087,7 @@ div.csl-indent {
 <span id="cb1625-3"><a href="mod-08.html#cb1625-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab=</span><span class="st">&quot;Petal dissimilarity (Eucl.)&quot;</span>)</span>
 <span id="cb1625-4"><a href="mod-08.html#cb1625-4" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="fu">max</span>(d1), <span class="fu">max</span>(d2), </span>
 <span id="cb1625-5"><a href="mod-08.html#cb1625-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-724-1.png" width="576" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-723-1.png" width="576" /></p>
 <p>The figure shows what the Mantel <em>r</em> statistic already indicated: that flowers with similar sepal morphology tend to have similar petal morphology.</p>
 <p>Just for fun, the figure below visualizes the Mantel correlation based on the Euclidean (left) and Bray-Curtis (right) distances.</p>
 <div class="sourceCode" id="cb1626"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1626-1"><a href="mod-08.html#cb1626-1" aria-hidden="true" tabindex="-1"></a>d3 <span class="ot">&lt;-</span> <span class="fu">vegdist</span>(x1) <span class="co"># default Bray-Curtis</span></span>
@@ -1121,7 +1121,7 @@ div.csl-indent {
 <span id="cb1628-12"><a href="mod-08.html#cb1628-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab=</span><span class="st">&quot;Petal dissimilarity (Bray-Curtis)&quot;</span>)</span>
 <span id="cb1628-13"><a href="mod-08.html#cb1628-13" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="fu">max</span>(d3), <span class="fu">max</span>(d4), </span>
 <span id="cb1628-14"><a href="mod-08.html#cb1628-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-725-1.png" width="864" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-724-1.png" width="864" /></p>
 <p>Interestingly, the Bray-Curtis distances seemed to fall into two clusters in terms of the petal dissimilarity. That probably has something to do with the difference between <em>I</em>. <em>setosa</em> and the other species, but I haven’t investigated it.</p>
 <p>The Mantel test can also be performed with correlation coefficients other than the linear correlation coefficient. This makes sense if the correlation appears nonlinear. For example, if one dissimilarity metric increases consistently with the other dissimilarity metric, but not in a straight line. The most common alternative is the Spearman’s rank correlation coefficient <span class="math inline">\(\rho\)</span> (“rho”).</p>
 <div class="sourceCode" id="cb1629"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1629-1"><a href="mod-08.html#cb1629-1" aria-hidden="true" tabindex="-1"></a><span class="co"># euclidean distance metric</span></span>
@@ -1158,7 +1158,7 @@ div.csl-indent {
 ## Number of permutations: 999</code></pre>
 <p>Changing from a linear to nonlinear correlation coefficient slightly decreased the Mantel correlation for the Euclidean distances (0.7326 to 0.7258), and slightly increased the correlation for the Bray-Curtis distances (0.6552 to 0.69). Examine the figure above and see if you can work out why this is.</p>
 <p>The figure below shows the two sets of distances with two lines: a straight line to represent the linear correlation <em>r</em> and a spline curve to represent the nonlinear correlation <span class="math inline">\(\rho\)</span>.</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-727-1.png" width="864" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-726-1.png" width="864" /></p>
 </div>
 <div id="comparing-dissimilarity-between-groups" class="section level3" number="8.4.2">
 <h3><span class="header-section-number">8.4.2</span> Comparing dissimilarity between groups</h3>
@@ -1292,7 +1292,7 @@ div.csl-indent {
 <span id="cb1645-12"><a href="mod-08.html#cb1645-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab=</span><span class="st">&quot;NMDS 1&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;NMDS 2&quot;</span>)</span>
 <span id="cb1645-13"><a href="mod-08.html#cb1645-13" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="at">legend=</span><span class="fu">unique</span>(iris<span class="sc">$</span>Species),</span>
 <span id="cb1645-14"><a href="mod-08.html#cb1645-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch=</span><span class="dv">16</span>, <span class="at">cex=</span><span class="fl">1.5</span>, <span class="at">col=</span>cols)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-731-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-730-1.png" width="672" /></p>
 <p>The figure suggests that there is good separation between at least <em>I</em>. <em>setosa</em> and the other species, and likely separation between <em>I</em>. <em>versicolor</em> and <em>I</em>. <em>virginica</em>. The MRPP will test whether or not the clouds of points overlap.</p>
 <div class="sourceCode" id="cb1646"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1646-1"><a href="mod-08.html#cb1646-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mrpp</span>(<span class="fu">scores</span>(n1), iris<span class="sc">$</span>Species)</span></code></pre></div>
 <pre><code>## 
@@ -1348,7 +1348,7 @@ div.csl-indent {
 <p>Principal components analysis (PCA) is a method for extracting synthetic gradients from a multivariate dataset that capture most of the variation in that dataset. These gradients are calculated by finding linear combinations of the variables that minimize sums of squared deviations from the gradient. This means that PCA has a lot in common with linear regression, and many of the same assumptions apply.
 If you’ve never heard of principal components analysis or ordination, it might be worth watching a video that explains and shows the basic ideas. Here is one that only takes 5 minutes and has a nice theme song (accessed 2021-08-10) .
 Imagine a dataset with 2 variables, <em>x</em> and <em>y</em>. You could capture and display all the information about this dataset in a 2-d scatterplot, by simply plotting <em>y</em> vs. <em>x</em>. Likewise, you could capture and display all of the information about a 3-dimensional dataset with a 3-d plot. For 4 or more dimensions, a true scatterplot can’t be rendered sensibly or even understood by our pathetic meat-based brains.</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-733-1.png" width="576" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-732-1.png" width="576" /></p>
 <p>One way to describe the variation in the dataset above is to think about how the samples vary along each axis. The figure below shows how the variation among samples can be broken down into the variation in Variable 1 and the variation in Variable 2. When we say “variation in variable 1”, we mean “deviation between the values of variable 1 and the mean of variable 1”. That is what is shown in the figure below.</p>
 <ul>
 <li>Each point, or sample, has a Variable 1 coordinate and a Variable 2 coordinate.</li>
@@ -1357,19 +1357,19 @@ Imagine a dataset with 2 variables, <em>x</em> and <em>y</em>. You could capture
 <li>The position of each point can thus be reframed as its deviation with respect to the Variable 1, and its deviation with respect to Variable 2. This reframing is the same as centering each variable (i.e., subtracting the mean).</li>
 <li>The total variance among the samples is equal to the variance with respect to Variable 1 plus the variance with respect to Variable 2.</li>
 </ul>
-<p><img src="_main_files/figure-html/unnamed-chunk-734-1.png" width="864" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-733-1.png" width="864" /></p>
 <p>The figure above shows how the total variation in the dataset is split up (“partitioned”) into variation in Variable 1 and variation in Variable 2.</p>
 <p>Describing each observation as its deviation from the mean of each variable has the effect of <strong>centering</strong> the points at the origin. Notice that the variation, expressed as sums of squared deviations, is unchanged.</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-735-1.png" width="864" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-734-1.png" width="864" /></p>
 <p>If variables have different ranges, it is a good idea to scale them as well as center them (aka: standardizing or <em>Z</em>-scaling). This means that the original values are converted to <em>Z</em>-scores by subtracting the mean and dividing by the SD. Trying to use PCA or other eigenvector-based methods without standardizing variables will distort the results. Standardization puts variation along any axis on equal footing.</p>
 <p>The figure below shows the data as deviations from variable means after standardization. Note that the sums of squares are equal in both directions now.</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-736-1.png" width="864" />
+<p><img src="_main_files/figure-html/unnamed-chunk-735-1.png" width="864" />
 If our goal is to describe variation in the data as succinctly as possible, then using Variable 1 and Variable 2 as axes might not be the best approach. Notice that most of the variation in the points doesn’t line up exactly with either of the variables, but along the red arrow shown below. The rest of the variation is along the direction perpendicular to the red arrow, illustrated by the blue arrow. (Note that the arrows may only appear perpendicular if the plot is precisely square).</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-737-1.png" width="576" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-736-1.png" width="576" /></p>
 <p>The red arrow is a vector that contains information about both Variable 1 and Variable 2. It is tricky, but not too hard, to calculate each observation’s deviations from the mean of that vector (left panel below). We can also calculate the deviations along a perpendicular vector, because even after describing the variation in the “red” direction, there is still some variation in the “blue” direction (right panel).</p>
 <pre><code>## [1] 21.44365</code></pre>
 <pre><code>## [1] 76.55635</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-738-1.png" width="960" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-737-1.png" width="960" /></p>
 <p>We know that the variation on the red and blue axes is the same as the variation on the <em>X</em> and <em>Y</em> axes, because the sums of squares are the same. The red and blue axes are just different ways of orienting the data to express the same patterns. All we really did was <strong>rotate</strong> the original coordinate system (defined by Variables 1 and 2) to a new coordinate system (defined by red and blue).</p>
 <p>You may have guessed that the red and blue axes have special names: they are the <strong>principal components</strong> of this dataset. Principal components (PCs) are <strong>synthetic</strong> or <strong>composite axes</strong> that capture most of the variation. A PC is a <strong>linear combination</strong> of each of the original variables. This is easy to see in the figure above, because PC1 is defined by its coordinates. The same logic is true with more variables; it’s just harder to visualize.</p>
 </div>
@@ -1501,7 +1501,7 @@ The linear algebra method of PCA in R is illustrated below.</li>
 <div class="sourceCode" id="cb1659"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1659-1"><a href="mod-08.html#cb1659-1" aria-hidden="true" tabindex="-1"></a>pc.cols <span class="ot">&lt;-</span> <span class="dv">4</span><span class="sc">:</span><span class="fu">ncol</span>(dat)</span>
 <span id="cb1659-2"><a href="mod-08.html#cb1659-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>))</span>
 <span id="cb1659-3"><a href="mod-08.html#cb1659-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(pc.cols)){<span class="fu">hist</span>(dat[,pc.cols[i]])}</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-744-1.png" width="768" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-743-1.png" width="768" /></p>
 <p>The histograms suggest that a log transform would be appropriate, because PCA requires multivariate normality.</p>
 <div class="sourceCode" id="cb1660"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1660-1"><a href="mod-08.html#cb1660-1" aria-hidden="true" tabindex="-1"></a>dat2 <span class="ot">&lt;-</span> dat</span>
 <span id="cb1660-2"><a href="mod-08.html#cb1660-2" aria-hidden="true" tabindex="-1"></a>dat2[,pc.cols] <span class="ot">&lt;-</span> <span class="fu">apply</span>(dat2[,pc.cols], <span class="dv">2</span>, log)</span>
@@ -1510,7 +1510,7 @@ The linear algebra method of PCA in R is illustrated below.</li>
 <span id="cb1660-5"><a href="mod-08.html#cb1660-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hist</span>(dat2[,pc.cols[i]],</span>
 <span id="cb1660-6"><a href="mod-08.html#cb1660-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">main=</span><span class="fu">names</span>(dat2)[pc.cols[i]])</span>
 <span id="cb1660-7"><a href="mod-08.html#cb1660-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-745-1.png" width="768" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-744-1.png" width="768" /></p>
 <p>Much better. We should also check to see if any of the variables are related to each other. It’s okay if they are, but such relationships need to be kept in mind when interpreting the PCA (or any ordination, for that matter). To explore relationships between the variables, we will use a <code>pairs()</code> plot and a function borrowed from the <code>pairs()</code> help page.</p>
 <div class="sourceCode" id="cb1661"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1661-1"><a href="mod-08.html#cb1661-1" aria-hidden="true" tabindex="-1"></a><span class="co"># borrowed from ?pairs examples</span></span>
 <span id="cb1661-2"><a href="mod-08.html#cb1661-2" aria-hidden="true" tabindex="-1"></a>panel.cor <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y, <span class="at">digits =</span> <span class="dv">2</span>, <span class="at">prefix =</span> <span class="st">&quot;&quot;</span>, cex.cor, ...)</span>
@@ -1529,7 +1529,7 @@ The linear algebra method of PCA in R is illustrated below.</li>
 <span id="cb1661-15"><a href="mod-08.html#cb1661-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">lower.panel =</span> panel.smooth,</span>
 <span id="cb1661-16"><a href="mod-08.html#cb1661-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">upper.panel =</span> panel.cor,</span>
 <span id="cb1661-17"><a href="mod-08.html#cb1661-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">gap=</span><span class="dv">0</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-746-1.png" width="768" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-745-1.png" width="768" /></p>
 <p>The scatterplot matrix suggests that every variable is closely related to every other variable. This makes sense for morphological data: the sizes of different body parts tend to scale with overall body size. We are interested in brain morphology independent of size, we can factor out size by dividing the volumes of each brain part by the body weight. Because the data are already on the log scale, the division is accomplished by subtracting the log-transformed body weight. The new values of <code>brw</code>, <code>aud</code>, <code>mob</code>, and <code>hip</code> are the sizes of those brain components with body size factored out. Neglecting to factor out body size or overall size prior to an ordination will result in an ordination dominated by body size.</p>
 <div class="sourceCode" id="cb1662"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1662-1"><a href="mod-08.html#cb1662-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="ot">&lt;-</span> dat2</span>
 <span id="cb1662-2"><a href="mod-08.html#cb1662-2" aria-hidden="true" tabindex="-1"></a>dat3[,pc.cols[<span class="sc">-</span><span class="dv">1</span>]] <span class="ot">&lt;-</span> <span class="fu">apply</span>(dat3[,pc.cols], <span class="dv">1</span>,</span>
@@ -1538,7 +1538,7 @@ The linear algebra method of PCA in R is illustrated below.</li>
 <span id="cb1662-5"><a href="mod-08.html#cb1662-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">lower.panel =</span> panel.smooth,</span>
 <span id="cb1662-6"><a href="mod-08.html#cb1662-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">upper.panel =</span> panel.cor,</span>
 <span id="cb1662-7"><a href="mod-08.html#cb1662-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">gap=</span><span class="dv">0</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-747-1.png" width="768" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-746-1.png" width="768" /></p>
 <p>Next, use the function <code>rda()</code> from <code>vegan</code> to calculate the PCA. In this PCA we scale the variables (aka: standardize) by subtracting the mean and dividing by the SD. This has the effect of making each variable have mean = 0 and SD = 1. Scaling is not required for PCA but is <strong><em>highly</em></strong> recommended. If values are not scaled, then the PCA will be dominated by the variables with the greatest values or by the observations with extreme values.</p>
 <div class="sourceCode" id="cb1663"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1663-1"><a href="mod-08.html#cb1663-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">rda</span>(dat3[,pc.cols], <span class="at">scale=</span><span class="cn">TRUE</span>)</span>
 <span id="cb1663-2"><a href="mod-08.html#cb1663-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(p1)</span></code></pre></div>
@@ -1668,7 +1668,7 @@ The linear algebra method of PCA in R is illustrated below.</li>
 <span id="cb1669-7"><a href="mod-08.html#cb1669-7" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(prx, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">30</span>),</span>
 <span id="cb1669-8"><a href="mod-08.html#cb1669-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">main=</span><span class="st">&quot;%Variance&quot;</span>,</span>
 <span id="cb1669-9"><a href="mod-08.html#cb1669-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab=</span><span class="st">&quot;Proportion of variance explained&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-751-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-750-1.png" width="672" /></p>
 <p>The <strong>loadings</strong> of the variables express how much each variable is associated with each PC. These values have two interpretations:</p>
 <ul>
 <li>First, they are the correlations between the variables and the PCs.</li>
@@ -1690,7 +1690,7 @@ The linear algebra method of PCA in R is illustrated below.</li>
 <p>An ordination <strong>biplot</strong> is probably the most important tool for interpreting the relationships in the data captured by the ordination. It is called a biplot because it presents two kinds of data: <em>similarity between the samples</em> indicated by proximity in the ordination space; and <em>relationships between some set of quantitative variables and the ordination axes</em>. The samples are plotted as points; the variables are plotted as vectors radiating from the origin.</p>
 <div class="sourceCode" id="cb1672"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1672-1"><a href="mod-08.html#cb1672-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
 <span id="cb1672-2"><a href="mod-08.html#cb1672-2" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(p1)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-753-1.png" width="576" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-752-1.png" width="576" /></p>
 <p>The biplot shows the points (by row name/number) and the five numeric variables that went into the PCA. Each vector shows the projection of a variable into the ordination space.</p>
 <ul>
 <li>The direction of a vector shows the direction (in ordination space) in which a variable increases. For example, samples in the upper left have increased aud; samples in the upper right have increased mob, and so on. A variable decreases in the direction opposite its vector: samples in the lower right have decreased aud.
@@ -1717,7 +1717,7 @@ The linear algebra method of PCA in R is illustrated below.</li>
 <span id="cb1673-2"><a href="mod-08.html#cb1673-2" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(p1, <span class="at">choices=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
 <span id="cb1673-3"><a href="mod-08.html#cb1673-3" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(p1, <span class="at">choices=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
 <span id="cb1673-4"><a href="mod-08.html#cb1673-4" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(p1, <span class="at">choices=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-754-1.png" width="768" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-753-1.png" width="768" /></p>
 <p>Even better, we can make a 3-d plot using the <code>rgl</code> package. Note that the code block below was not run to make this page; try running it on your machine. The plots made by <code>plot3d()</code> are cool because you can rotate them with the mouse. Exporting <code>rgl</code> figures to static image formats like <code>.jpg</code> can be tricky because you must specify the rotation angles, which can pretty much only be done by trial and error.</p>
 <div class="sourceCode" id="cb1674"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1674-1"><a href="mod-08.html#cb1674-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rgl)</span>
 <span id="cb1674-2"><a href="mod-08.html#cb1674-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
@@ -1763,7 +1763,7 @@ The linear algebra method of PCA in R is illustrated below.</li>
 <span id="cb1676-19"><a href="mod-08.html#cb1676-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab=</span><span class="st">&quot;PC2&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;PC3&quot;</span>, <span class="at">xlim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>, <span class="fl">1.5</span>), <span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>, <span class="fl">1.5</span>))</span>
 <span id="cb1676-20"><a href="mod-08.html#cb1676-20" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(<span class="dv">0</span>, <span class="dv">0</span>, vx[,<span class="dv">2</span>], vx[,<span class="dv">3</span>], <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
 <span id="cb1676-21"><a href="mod-08.html#cb1676-21" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(vx[,<span class="dv">2</span>], vx[,<span class="dv">3</span>], <span class="fu">rownames</span>(vx), <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-757-1.png" width="864" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-756-1.png" width="864" /></p>
 </div>
 <div id="application-of-pca-pc-regression" class="section level4" number="8.5.1.4">
 <h4><span class="header-section-number">8.5.1.4</span> Application of PCA: PC regression</h4>
@@ -1978,7 +1978,7 @@ The linear algebra method of PCA in R is illustrated below.</li>
 <span id="cb1679-13"><a href="mod-08.html#cb1679-13" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(vx[,<span class="dv">1</span>], vx[,<span class="dv">2</span>], <span class="fu">rownames</span>(vx), <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
 <span id="cb1679-14"><a href="mod-08.html#cb1679-14" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="at">legend=</span><span class="fu">levels</span>(iris<span class="sc">$</span>Species),</span>
 <span id="cb1679-15"><a href="mod-08.html#cb1679-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch=</span><span class="dv">16</span>, <span class="at">col=</span><span class="fu">rainbow</span>(<span class="dv">3</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-758-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-757-1.png" width="672" /></p>
 <p>The ordination reveals that 73% of variation is explained by PC1. The figure shows that the species fall out very cleanly along PC1, with is associated with petal morphology. Let’s use PC1 as a predictor for species in a logistic regression.</p>
 <div class="sourceCode" id="cb1680"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1680-1"><a href="mod-08.html#cb1680-1" aria-hidden="true" tabindex="-1"></a>dat2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y=</span>iris<span class="sc">$</span>Species, <span class="at">pc1=</span>px[,<span class="dv">1</span>])</span>
 <span id="cb1680-2"><a href="mod-08.html#cb1680-2" aria-hidden="true" tabindex="-1"></a>dat2<span class="sc">$</span>z <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(dat2<span class="sc">$</span>y <span class="sc">==</span> <span class="st">&quot;virginica&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
@@ -2028,7 +2028,7 @@ The linear algebra method of PCA in R is illustrated below.</li>
 <span id="cb1682-18"><a href="mod-08.html#cb1682-18" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(prx, uu, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
 <span id="cb1682-19"><a href="mod-08.html#cb1682-19" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(prx, mn, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
 <span id="cb1682-20"><a href="mod-08.html#cb1682-20" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(dat2<span class="sc">$</span>pc1, <span class="fu">jitter</span>(dat2<span class="sc">$</span>z, <span class="at">amount=</span><span class="fl">0.05</span>), <span class="at">xpd=</span><span class="cn">NA</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-760-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-759-1.png" width="672" /></p>
 <div class="sourceCode" id="cb1683"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1683-1"><a href="mod-08.html#cb1683-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pROC)</span></code></pre></div>
 <pre><code>## Type &#39;citation(&quot;pROC&quot;)&#39; for a citation.</code></pre>
 <pre><code>## 
@@ -2040,7 +2040,7 @@ The linear algebra method of PCA in R is illustrated below.</li>
 <span id="cb1687-2"><a href="mod-08.html#cb1687-2" aria-hidden="true" tabindex="-1"></a>roc1 <span class="ot">&lt;-</span> <span class="fu">roc</span>(dat2<span class="sc">$</span>z <span class="sc">~</span> p1, <span class="at">plot =</span> <span class="cn">TRUE</span>, <span class="at">print.auc =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## Setting levels: control = 0, case = 1</code></pre>
 <pre><code>## Setting direction: controls &lt; cases</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-760-2.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-759-2.png" width="672" /></p>
 <div class="sourceCode" id="cb1690"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1690-1"><a href="mod-08.html#cb1690-1" aria-hidden="true" tabindex="-1"></a>roc1</span></code></pre></div>
 <pre><code>## 
 ## Call:
@@ -2073,7 +2073,7 @@ The linear algebra method of PCA in R is illustrated below.</li>
 <p>The distance matrix gives the distance between each pair of cities, identified by row labels.</p>
 <p>If you plot latitude vs. longitude, you will get a reasonable map of the continental US (CONUS).</p>
 <div class="sourceCode" id="cb1694"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1694-1"><a href="mod-08.html#cb1694-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dat<span class="sc">$</span>long, dat<span class="sc">$</span>lat)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-763-1.png" width="768" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-762-1.png" width="768" /></p>
 <p>Wouldn’t it be neat if we could recover the actual arrangement of capitals shown above just using their distance matrix? It turns out, we can, with NMDS. The main function for NMDS is <code>metaMDS()</code> in package <code>vegan</code>. NMDS involves random sampling, so set the random number seed for reproducibility.</p>
 <div class="sourceCode" id="cb1695"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1695-1"><a href="mod-08.html#cb1695-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
 <span id="cb1695-2"><a href="mod-08.html#cb1695-2" aria-hidden="true" tabindex="-1"></a>n1 <span class="ot">&lt;-</span> <span class="fu">metaMDS</span>(dat, <span class="at">distance=</span><span class="st">&quot;euclidean&quot;</span>)</span></code></pre></div>
@@ -2135,15 +2135,15 @@ The linear algebra method of PCA in R is illustrated below.</li>
 <pre><code>## Warning in metaMDS(dat, distance = &quot;euclidean&quot;): stress is (nearly) zero: you
 ## may have insufficient data</code></pre>
 <div class="sourceCode" id="cb1699"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1699-1"><a href="mod-08.html#cb1699-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">scores</span>(n1))</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-764-1.png" width="768" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-763-1.png" width="768" /></p>
 <p>Notice anything odd? The <em>arrangement</em> of the cities, or relative positions, are mostly correct. However, the cities are flipped east to west! This is because NMDS only considers relative position, not absolute position. NMDS positions are arbitrary, so we can rotate or flip the axes to make better sense of them. We’ll flip the first axis (NMDS1) by multiplying it by -1.</p>
 <div class="sourceCode" id="cb1700"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1700-1"><a href="mod-08.html#cb1700-1" aria-hidden="true" tabindex="-1"></a>sn <span class="ot">&lt;-</span> <span class="fu">scores</span>(n1)</span>
 <span id="cb1700-2"><a href="mod-08.html#cb1700-2" aria-hidden="true" tabindex="-1"></a>sn[,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>sn[,<span class="dv">1</span>]</span>
 <span id="cb1700-3"><a href="mod-08.html#cb1700-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sn)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-765-1.png" width="768" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-764-1.png" width="768" /></p>
 <p>Much better. The coordinates aren’t quite the same as the original data, but the relative positions of the cities are correct. We can confirm this with a stress plot.</p>
 <div class="sourceCode" id="cb1701"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1701-1"><a href="mod-08.html#cb1701-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stressplot</span>(n1)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-766-1.png" width="576" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-765-1.png" width="576" /></p>
 <p>This chart shows that the distances between points in the NMDS space (Ordination Distance) are nearly identical to the distances between points in the original data space (Observed Dissimilarity). A good NMDS fit will have nearly all of the points on the red line of equality.</p>
 </div>
 <div id="nmds-more-complicated-explanation" class="section level4" number="8.5.2.2">
@@ -2166,7 +2166,7 @@ The linear algebra method of PCA in R is illustrated below.</li>
 <span id="cb1704-2"><a href="mod-08.html#cb1704-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>), <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>))</span>
 <span id="cb1704-3"><a href="mod-08.html#cb1704-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, z, <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>), <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>))</span>
 <span id="cb1704-4"><a href="mod-08.html#cb1704-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y,z, <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>), <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-769-1.png" width="864" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-768-1.png" width="864" /></p>
 <p>The scatterplots suggest that most of the variation is tied up in <em>X</em> and <em>Z</em>, with very little in <em>Y</em>. If we wanted to present the data in two dimensions, we could use NMDS to arrange the points in a 2-d space that preserves the relative distances. Data can be passed directly to <code>metaMDS()</code>, in which case it will calculate the distance matrix for you. Alternatively, you can supply a distance matrix. The function will figure out what to do based on what your input.</p>
 <p>As always, set the random number seed for reproducibility.</p>
 <div class="sourceCode" id="cb1705"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1705-1"><a href="mod-08.html#cb1705-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
@@ -2251,7 +2251,7 @@ The linear algebra method of PCA in R is illustrated below.</li>
 <p>The stressplot below shows that the NMDS did a very good job representing the distance matrix in the reduced space, because the points are clustered near the line and the <em>R</em><sup>2</sup> values very high.</p>
 <div class="sourceCode" id="cb1709"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1709-1"><a href="mod-08.html#cb1709-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
 <span id="cb1709-2"><a href="mod-08.html#cb1709-2" aria-hidden="true" tabindex="-1"></a><span class="fu">stressplot</span>(n2)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-771-1.png" width="576" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-770-1.png" width="576" /></p>
 <p>The <strong>screeplot</strong> shows how the stress of the ordination changes as more dimensions are added. An NMDS ordination with the same number of dimensions as the original data would have stress 0. Generally, adding dimensions decreases stress, but there is usually a point of diminishing returns.</p>
 <p>For the example below, I added a few more dimensions to the dataset <code>dat</code> with no information so that a better screeplot could be constructed. You don’t need to do this to your own data—the only reason it’s being done here is because our dataset only had 3 dimensions to start with. With your data, you should fit NMDS ordinations with more dimensions than you think you need, to see how stress decreases with dimensionality.</p>
 <div class="sourceCode" id="cb1710"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1710-1"><a href="mod-08.html#cb1710-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extra dimensions with random numbers (no information)</span></span>
@@ -2274,7 +2274,7 @@ The linear algebra method of PCA in R is illustrated below.</li>
 <span id="cb1711-3"><a href="mod-08.html#cb1711-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(nlist), strs, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>,</span>
 <span id="cb1711-4"><a href="mod-08.html#cb1711-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab=</span><span class="st">&quot;Dimensions in NMDS&quot;</span>,</span>
 <span id="cb1711-5"><a href="mod-08.html#cb1711-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab=</span><span class="st">&quot;Stress&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-773-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-772-1.png" width="672" /></p>
 <p>The screeplot shows that the stress decreases much more when going from 1 to 2 dimensions than it does for going from 2 to 3 dimensions. Stress becomes negligible for <span class="math inline">\(\ge\)</span> 3 dimensions, because the original data had 3 dimensions and the two additional dimensions had almost 0 variance. The bend in the curve at <em>k</em> = 2 indicates that 2 is probably the optimal number of dimensions. If you’re not sure how many dimensions to use, examine biplots for both <em>k</em> and try to determine which plot is more interpretable biologically.</p>
 <p>We can plot the scores of the samples much in the same way as we did the PCA scores in the previous example. We can also produce a biplot that works much the same way as the PCA biplot. We’ll explore those methods in the next section.</p>
 </div>
@@ -2290,7 +2290,7 @@ The linear algebra method of PCA in R is illustrated below.</li>
 <p>If we are interested in in plant diversity among the sites, we could use multivariate methods to describe variation in plant cover. First, make some histograms of the cover of each plant species.</p>
 <div class="sourceCode" id="cb1713"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1713-1"><a href="mod-08.html#cb1713-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">6</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="fl">4.1</span>, <span class="fl">4.1</span>, <span class="fl">1.1</span>, <span class="fl">1.1</span>))</span>
 <span id="cb1713-2"><a href="mod-08.html#cb1713-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(dat)){<span class="fu">hist</span>(dat[,i], <span class="at">main=</span><span class="st">&quot;&quot;</span>)}</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-775-1.png" width="1344" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-774-1.png" width="1344" /></p>
 <p>The cover of most species is clearly non-normal. This means that PCA would be difficult to fit. What’s more, the response variable (canopy cover class) isn’t really quantitative. Instead, it is ordinal. For example, category 2 represents greater proportion of plant cover than category 1, but it’s not clear how much more. So, an analysis based on rank order might make more sense than one based on actual values. That suggests using NMDS instead of PCA. Use <code>vegan::metaMDS()</code> to fit the NMDS, using the default Bray-Curtis distance metric.</p>
 <div class="sourceCode" id="cb1714"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1714-1"><a href="mod-08.html#cb1714-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">456</span>)</span>
 <span id="cb1714-2"><a href="mod-08.html#cb1714-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">metaMDS</span>(dat)</span></code></pre></div>
@@ -2343,7 +2343,7 @@ The linear algebra method of PCA in R is illustrated below.</li>
 ## Species: expanded scores based on &#39;dat&#39;</code></pre>
 <p>The NMDS fit has stress = 0.118, which is not too bad. Let’s take a look at the ordination.</p>
 <div class="sourceCode" id="cb1718"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1718-1"><a href="mod-08.html#cb1718-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p1)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-777-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-776-1.png" width="672" /></p>
 <p>The default NMDS biplot is not very informative, so lets’ build the plot manually. While we’re at it, let’s use the environmental dataset to assign some category labels.</p>
 <div class="sourceCode" id="cb1719"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1719-1"><a href="mod-08.html#cb1719-1" aria-hidden="true" tabindex="-1"></a><span class="co"># management regimes</span></span>
 <span id="cb1719-2"><a href="mod-08.html#cb1719-2" aria-hidden="true" tabindex="-1"></a>mans <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">unique</span>(env<span class="sc">$</span>Management))</span>
@@ -2375,7 +2375,7 @@ The linear algebra method of PCA in R is illustrated below.</li>
 <span id="cb1719-28"><a href="mod-08.html#cb1719-28" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(mult<span class="sc">*</span>vx[,<span class="dv">1</span>], mult<span class="sc">*</span>vx[,<span class="dv">2</span>], <span class="fu">rownames</span>(vx))</span>
 <span id="cb1719-29"><a href="mod-08.html#cb1719-29" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;bottomright&quot;</span>, <span class="at">legend=</span>mans, <span class="at">pch=</span>pchs, <span class="at">cex=</span><span class="fl">1.3</span>)</span>
 <span id="cb1719-30"><a href="mod-08.html#cb1719-30" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;bottomleft&quot;</span>, <span class="at">legend=</span>uses, <span class="at">col=</span>cols, <span class="at">pch=</span><span class="dv">16</span>, <span class="at">cex=</span><span class="fl">1.3</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-778-1.png" width="768" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-777-1.png" width="768" /></p>
 <p>There’s a lot of information in that figure, so let’s break it down:</p>
 <ul>
 <li>Points show samples (sites).</li>
@@ -2402,7 +2402,7 @@ Code one factor at a time:</p>
 <span id="cb1720-13"><a href="mod-08.html#cb1720-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>, <span class="fl">1.5</span>), <span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>, <span class="fl">1.5</span>))</span>
 <span id="cb1720-14"><a href="mod-08.html#cb1720-14" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;bottomright&quot;</span>, <span class="at">legend=</span>mans,</span>
 <span id="cb1720-15"><a href="mod-08.html#cb1720-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch=</span><span class="dv">16</span>, <span class="at">col=</span>cols2, <span class="at">cex=</span><span class="fl">1.3</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-779-1.png" width="960" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-778-1.png" width="960" /></p>
 <p>When only one factor is plotted, it’s a little easier to see the potential grouping by management style in the right panel. Styles SF, HF, and NM fall out mostly along NMDS2, but BF does not separate cleanly from the others. Let’s investigate the differences related to management styles.</p>
 <p>We can add ellipses to help illustrate group centers (aka: “centroids”, or average positions in NMDS space) and the 95% CI of the centroids.</p>
 <div class="sourceCode" id="cb1721"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1721-1"><a href="mod-08.html#cb1721-1" aria-hidden="true" tabindex="-1"></a><span class="co"># define some colors</span></span>
@@ -2435,7 +2435,7 @@ Code one factor at a time:</p>
 <span id="cb1721-28"><a href="mod-08.html#cb1721-28" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, <span class="at">pch=</span><span class="dv">21</span>, <span class="at">bg=</span>colsx, <span class="at">fg=</span><span class="st">&quot;black&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">cex=</span><span class="fl">1.4</span>)</span>
 <span id="cb1721-29"><a href="mod-08.html#cb1721-29" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;bottomright&quot;</span>, <span class="at">legend=</span>mans,</span>
 <span id="cb1721-30"><a href="mod-08.html#cb1721-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch=</span><span class="dv">21</span>, <span class="at">pt.bg=</span>cols, <span class="at">col=</span><span class="st">&quot;black&quot;</span>, <span class="at">pt.lwd=</span><span class="dv">2</span>, <span class="at">cex=</span><span class="fl">1.3</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-780-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-779-1.png" width="672" /></p>
 <p>The default colors produced by <code>rainbow()</code> can be horrendous, but you get the idea. There are better ways to get color palettes that you can explore. The figure shows that it is quite likely that at least some of the management groups differ from each other in terms of their plant cover. We can test this directly with MRPP.</p>
 <div class="sourceCode" id="cb1722"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1722-1"><a href="mod-08.html#cb1722-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mrpp</span>(px, env<span class="sc">$</span>Management)</span></code></pre></div>
 <pre><code>## 
@@ -2508,7 +2508,7 @@ Code one factor at a time:</p>
 <span id="cb1726-12"><a href="mod-08.html#cb1726-12" aria-hidden="true" tabindex="-1"></a>mult <span class="ot">&lt;-</span> <span class="fl">1.2</span></span>
 <span id="cb1726-13"><a href="mod-08.html#cb1726-13" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(mult<span class="sc">*</span>ef.vec[<span class="dv">1</span>,<span class="dv">1</span>], mult<span class="sc">*</span>ef.vec[<span class="dv">1</span>,<span class="dv">2</span>],</span>
 <span id="cb1726-14"><a href="mod-08.html#cb1726-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rownames</span>(ef.vec)[<span class="dv">1</span>], <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-783-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-782-1.png" width="672" /></p>
 <div class="sourceCode" id="cb1727"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1727-1"><a href="mod-08.html#cb1727-1" aria-hidden="true" tabindex="-1"></a><span class="co"># not run:</span></span>
 <span id="cb1727-2"><a href="mod-08.html#cb1727-2" aria-hidden="true" tabindex="-1"></a><span class="co"># if more than one continuous envfit to plot:</span></span>
 <span id="cb1727-3"><a href="mod-08.html#cb1727-3" aria-hidden="true" tabindex="-1"></a><span class="co">#mult &lt;- 1.2</span></span>
@@ -2549,7 +2549,7 @@ Code one factor at a time:</p>
 <span id="cb1728-26"><a href="mod-08.html#cb1728-26" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, </span>
 <span id="cb1728-27"><a href="mod-08.html#cb1728-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;Moisture gradient&quot;</span>, <span class="st">&quot;Manure gradient&quot;</span>),</span>
 <span id="cb1728-28"><a href="mod-08.html#cb1728-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>), <span class="at">bty=</span><span class="st">&quot;n&quot;</span>, <span class="at">cex=</span><span class="fl">1.3</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-784-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-783-1.png" width="672" /></p>
 </div>
 <div id="hypothesis-testing-using-nmds" class="section level4" number="8.5.2.4">
 <h4><span class="header-section-number">8.5.2.4</span> Hypothesis testing using NMDS</h4>
