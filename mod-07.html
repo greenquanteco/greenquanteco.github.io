@@ -780,7 +780,8 @@ div.csl-indent {
 <span id="cb1483-6"><a href="mod-07.html#cb1483-6" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(mod1)</span></span>
 <span id="cb1483-7"><a href="mod-07.html#cb1483-7" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(mod2)</span></span>
 <span id="cb1483-8"><a href="mod-07.html#cb1483-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod3)</span></code></pre></div>
-<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [&#39;lmerModLmerTest&#39;]
+<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
+## lmerModLmerTest]
 ## Formula: mass ~ len.sc + (len.sc | group)
 ##    Data: sim
 ## 
@@ -1020,13 +1021,14 @@ div.csl-indent {
 <span id="cb1490-4"><a href="mod-07.html#cb1490-4" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(logy<span class="sc">~</span>logx<span class="sc">+</span>(<span class="dv">1</span><span class="sc">|</span>group1), <span class="at">data=</span>dat)</span>
 <span id="cb1490-5"><a href="mod-07.html#cb1490-5" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(logy<span class="sc">~</span>logx<span class="sc">+</span>(<span class="dv">0</span><span class="sc">+</span>logx<span class="sc">|</span>group1), <span class="at">data=</span>dat)</span>
 <span id="cb1490-6"><a href="mod-07.html#cb1490-6" aria-hidden="true" tabindex="-1"></a>mod3 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(logy<span class="sc">~</span>logx<span class="sc">+</span>(logx<span class="sc">|</span>group1), <span class="at">data=</span>dat)</span></code></pre></div>
-<pre><code>## Warning in checkConv(attr(opt, &quot;derivs&quot;), opt$par, ctrl = control$checkConv, : Model failed to converge with max|grad| = 0.00274806 (tol = 0.002,
-## component 1)</code></pre>
+<pre><code>## Warning in checkConv(attr(opt, &quot;derivs&quot;), opt$par, ctrl = control$checkConv, :
+## Model failed to converge with max|grad| = 0.00274806 (tol = 0.002, component 1)</code></pre>
 <div class="sourceCode" id="cb1492"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1492-1"><a href="mod-07.html#cb1492-1" aria-hidden="true" tabindex="-1"></a>mod4 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(logy<span class="sc">~</span>logx<span class="sc">+</span>(logx<span class="sc">||</span>group1), <span class="at">data=</span>dat)</span></code></pre></div>
 <p>Notice that model 3 did not fit (<code>failed to converge</code>). This happens a lot in LMM with correlated random effects. If you think about it, assuming that random intercepts are correlated with random slopes “sneaks in” an extra parameter that has to be estimated: the correlation coefficient. There are plenty of situations where random effects should be correlated, but this may not be one of them. Because it did not converge, Model 3 can probably be safely discarded. That leaves us with models 1, 2, and 4. Model 4 is similar to model 3, but does <em>not</em> assume that the random intercepts and slopes are correlated with each other.</p>
 <p>Use <code>summary()</code> to take a look at the models. We’ll look at model 1..</p>
 <div class="sourceCode" id="cb1493"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1493-1"><a href="mod-07.html#cb1493-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code></pre></div>
-<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [&#39;lmerModLmerTest&#39;]
+<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
+## lmerModLmerTest]
 ## Formula: logy ~ logx + (1 | group1)
 ##    Data: dat
 ## 
@@ -1327,7 +1329,8 @@ div.csl-indent {
 <p>Interestingly, AIC identifies model 1 (random intercept) as the best fitting model, when we know that model 4 (random uncorrelated slopes and intercepts) is the truth. Looking back at the simulation parameters, can you guess why this happened? However, <span class="math inline">\(\Delta\left(AIC\right)\)</span> was &lt;2 for models 1, 2, and 4, suggesting that any of them could be considered “best fitting”.</p>
 <p>Inspect the outputs to see what the parameter estimates are. The estimated intercept and slope aren’t very close to the true values (<code>mu.beta0</code> and <code>mu.beta1</code>), but this might have something do with the large variability in the intercepts (<code>sd.beta0</code>).</p>
 <div class="sourceCode" id="cb1515"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1515-1"><a href="mod-07.html#cb1515-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code></pre></div>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) [&#39;glmerMod&#39;]
+<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
+##   Approximation) [glmerMod]
 ##  Family: binomial  ( logit )
 ## Formula: y ~ urb + (1 | year)
 ##    Data: sim
@@ -1458,7 +1461,8 @@ div.csl-indent {
 <div class="sourceCode" id="cb1524"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1524-1"><a href="mod-07.html#cb1524-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
 <span id="cb1524-2"><a href="mod-07.html#cb1524-2" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">glmer</span>(y<span class="sc">~</span>len<span class="sc">*</span>sex<span class="sc">+</span>(<span class="dv">1</span><span class="sc">|</span>Farm), <span class="at">data=</span>dat, <span class="at">family=</span>binomial)</span>
 <span id="cb1524-3"><a href="mod-07.html#cb1524-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code></pre></div>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) [&#39;glmerMod&#39;]
+<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
+##   Approximation) [glmerMod]
 ##  Family: binomial  ( logit )
 ## Formula: y ~ len * sex + (1 | Farm)
 ##    Data: dat
@@ -1882,29 +1886,52 @@ div.csl-indent {
 <pre><code>## Inference for Bugs model at &quot;nlme_mod03.txt&quot;, fit using jags,
 ##  3 chains, each with 5000 iterations (first 100 discarded), n.thin = 100
 ##  n.sims = 147 iterations saved
-##           mu.vect sd.vect     2.5%      25%      50%      75%    97.5%  Rhat n.eff
-## a.vec[1]  128.513   6.888  116.049  123.847  128.003  133.146  142.769 0.995   150
-## a.vec[2]  124.844   7.369  112.265  119.553  123.998  129.427  141.065 1.027    75
-## a.vec[3]  131.011   8.392  117.081  125.895  129.974  135.282  149.705 1.002   150
-## a.vec[4]  128.561   7.784  114.009  123.471  128.797  133.397  143.299 1.018   150
-## a.vec[5]  130.787   8.030  116.861  125.303  129.991  135.742  146.610 1.034    68
-## a.vec[6]  141.115   7.310  128.492  136.745  139.739  145.799  157.006 1.030   150
-## a.vec[7]  157.374   8.199  142.347  152.461  156.953  161.871  173.935 1.023   140
-## a.vec[8]  112.327   9.903   94.144  105.211  111.992  118.570  132.351 0.999   150
-## b.vec[1]   17.655   3.048   12.552   15.310   17.434   19.692   23.174 0.998   150
-## b.vec[2]   17.503   3.452   12.110   14.843   17.549   19.415   24.899 1.045    58
-## b.vec[3]   30.481   5.581   21.453   27.065   29.868   33.323   43.953 1.004   150
-## b.vec[4]   25.801   4.611   18.427   22.587   25.446   28.601   35.398 0.993   150
-## b.vec[5]   22.084   3.786   15.758   19.649   21.693   24.311   29.921 1.026    67
-## b.vec[6]   22.279   3.304   17.169   19.847   21.889   24.332   29.111 1.015   140
-## b.vec[7]   23.264   3.522   17.293   20.870   22.635   25.248   30.658 1.036    76
-## b.vec[8]   38.488   8.071   25.234   32.215   37.642   44.289   55.795 1.007   120
-## mu.a      131.686   5.700  120.606  128.297  131.977  135.282  143.156 0.999   150
-## mu.b       24.845   3.978   18.438   22.266   24.084   27.565   32.609 1.018   150
-## sd.a       14.226   3.392    7.310   11.971   14.170   16.999   19.760 1.064    83
-## sd.b        9.087   3.613    3.604    6.349    8.695   11.196   17.040 1.037    75
-## sigma       8.244   0.411    7.515    7.919    8.222    8.496    9.086 1.017   150
-## deviance 1523.397   6.499 1513.634 1518.874 1522.689 1526.226 1537.916 1.080    35
+##           mu.vect sd.vect     2.5%      25%      50%      75%    97.5%  Rhat
+## a.vec[1]  128.513   6.888  116.049  123.847  128.003  133.146  142.769 0.995
+## a.vec[2]  124.844   7.369  112.265  119.553  123.998  129.427  141.065 1.027
+## a.vec[3]  131.011   8.392  117.081  125.895  129.974  135.282  149.705 1.002
+## a.vec[4]  128.561   7.784  114.009  123.471  128.797  133.397  143.299 1.018
+## a.vec[5]  130.787   8.030  116.861  125.303  129.991  135.742  146.610 1.034
+## a.vec[6]  141.115   7.310  128.492  136.745  139.739  145.799  157.006 1.030
+## a.vec[7]  157.374   8.199  142.347  152.461  156.953  161.871  173.935 1.023
+## a.vec[8]  112.327   9.903   94.144  105.211  111.992  118.570  132.351 0.999
+## b.vec[1]   17.655   3.048   12.552   15.310   17.434   19.692   23.174 0.998
+## b.vec[2]   17.503   3.452   12.110   14.843   17.549   19.415   24.899 1.045
+## b.vec[3]   30.481   5.581   21.453   27.065   29.868   33.323   43.953 1.004
+## b.vec[4]   25.801   4.611   18.427   22.587   25.446   28.601   35.398 0.993
+## b.vec[5]   22.084   3.786   15.758   19.649   21.693   24.311   29.921 1.026
+## b.vec[6]   22.279   3.304   17.169   19.847   21.889   24.332   29.111 1.015
+## b.vec[7]   23.264   3.522   17.293   20.870   22.635   25.248   30.658 1.036
+## b.vec[8]   38.488   8.071   25.234   32.215   37.642   44.289   55.795 1.007
+## mu.a      131.686   5.700  120.606  128.297  131.977  135.282  143.156 0.999
+## mu.b       24.845   3.978   18.438   22.266   24.084   27.565   32.609 1.018
+## sd.a       14.226   3.392    7.310   11.971   14.170   16.999   19.760 1.064
+## sd.b        9.087   3.613    3.604    6.349    8.695   11.196   17.040 1.037
+## sigma       8.244   0.411    7.515    7.919    8.222    8.496    9.086 1.017
+## deviance 1523.397   6.499 1513.634 1518.874 1522.689 1526.226 1537.916 1.080
+##          n.eff
+## a.vec[1]   150
+## a.vec[2]    75
+## a.vec[3]   150
+## a.vec[4]   150
+## a.vec[5]    68
+## a.vec[6]   150
+## a.vec[7]   140
+## a.vec[8]   150
+## b.vec[1]   150
+## b.vec[2]    58
+## b.vec[3]   150
+## b.vec[4]   150
+## b.vec[5]    67
+## b.vec[6]   140
+## b.vec[7]    76
+## b.vec[8]   120
+## mu.a       150
+## mu.b       150
+## sd.a        83
+## sd.b        75
+## sigma      150
+## deviance    35
 ## 
 ## For each parameter, n.eff is a crude measure of effective sample size,
 ## and Rhat is the potential scale reduction factor (at convergence, Rhat=1).
@@ -2139,9 +2166,11 @@ div.csl-indent {
 <span id="cb1553-13"><a href="mod-07.html#cb1553-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">data=</span>dat, <span class="at">start=</span>startvec)</span>
 <span id="cb1553-14"><a href="mod-07.html#cb1553-14" aria-hidden="true" tabindex="-1"></a>mod05 <span class="ot">&lt;-</span> <span class="fu">nlmer</span>(logy<span class="sc">~</span><span class="fu">hollfun</span>(temp, a, b)<span class="sc">~</span>b<span class="sc">|</span>sea,</span>
 <span id="cb1553-15"><a href="mod-07.html#cb1553-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">data=</span>dat, <span class="at">start=</span>startvec)</span></code></pre></div>
-<pre><code>## Warning in (function (fn, par, lower = rep.int(-Inf, n), upper = rep.int(Inf, : failure to converge in 10000 evaluations</code></pre>
-<pre><code>## Warning in optwrap(control$optimizer[[1]], devfun, rho$pp$theta, lower = rho$lower, : convergence code 4 from Nelder_Mead: failure to converge in
-## 10000 evaluations</code></pre>
+<pre><code>## Warning in (function (fn, par, lower = rep.int(-Inf, n), upper = rep.int(Inf, :
+## failure to converge in 10000 evaluations</code></pre>
+<pre><code>## Warning in optwrap(control$optimizer[[1]], devfun, rho$pp$theta, lower =
+## rho$lower, : convergence code 4 from Nelder_Mead: failure to converge in 10000
+## evaluations</code></pre>
 <pre><code>## Error in fn(nM$xeval()): prss{Update} failed to converge in &#39;maxit&#39; iterations</code></pre>
 <div class="sourceCode" id="cb1557"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1557-1"><a href="mod-07.html#cb1557-1" aria-hidden="true" tabindex="-1"></a>mod06 <span class="ot">&lt;-</span> <span class="fu">nlmer</span>(logy<span class="sc">~</span><span class="fu">hollfun</span>(temp, a, b)<span class="sc">~</span>(a<span class="sc">|</span>sea)<span class="sc">+</span>(b<span class="sc">|</span>sea),</span>
 <span id="cb1557-2"><a href="mod-07.html#cb1557-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">data=</span>dat, <span class="at">start=</span>startvec)</span></code></pre></div>
@@ -2270,13 +2299,20 @@ Let’s generate and plot model predictions as usual. We’ll have to calculate 
 <span id="cb1564-5"><a href="mod-07.html#cb1564-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1564-6"><a href="mod-07.html#cb1564-6" aria-hidden="true" tabindex="-1"></a><span class="co"># inspect dataset</span></span>
 <span id="cb1564-7"><a href="mod-07.html#cb1564-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat)</span></code></pre></div>
-<pre><code>##            species        common       date    lat    long ocean fork  d15n   tp
-## 1 Thunnus alalunga Albacore tuna 2002-10-10 -16.64 -150.79    PO   91 15.17 7.32
-## 2 Thunnus alalunga Albacore tuna 2004-16-09 -25.85  153.98    PO   87  9.55 4.98
-## 3 Thunnus alalunga Albacore tuna 2004-16-09 -25.85  153.98    PO   99  9.48 4.95
-## 4 Thunnus alalunga Albacore tuna 2004-20-09 -28.17  155.82    PO   78 10.46 5.36
-## 5 Thunnus alalunga Albacore tuna 2004-23-09 -28.37  160.13    PO   76 12.23 6.10
-## 6 Thunnus alalunga Albacore tuna 2004-23-09 -28.37  160.13    PO   80 10.35 5.31</code></pre>
+<pre><code>##            species        common       date    lat    long ocean fork  d15n
+## 1 Thunnus alalunga Albacore tuna 2002-10-10 -16.64 -150.79    PO   91 15.17
+## 2 Thunnus alalunga Albacore tuna 2004-16-09 -25.85  153.98    PO   87  9.55
+## 3 Thunnus alalunga Albacore tuna 2004-16-09 -25.85  153.98    PO   99  9.48
+## 4 Thunnus alalunga Albacore tuna 2004-20-09 -28.17  155.82    PO   78 10.46
+## 5 Thunnus alalunga Albacore tuna 2004-23-09 -28.37  160.13    PO   76 12.23
+## 6 Thunnus alalunga Albacore tuna 2004-23-09 -28.37  160.13    PO   80 10.35
+##     tp
+## 1 7.32
+## 2 4.98
+## 3 4.95
+## 4 5.36
+## 5 6.10
+## 6 5.31</code></pre>
 <p>The dataset has the following variables:</p>
 <table>
 <colgroup>

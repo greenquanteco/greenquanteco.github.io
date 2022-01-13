@@ -931,13 +931,20 @@ div.csl-indent {
 <span id="cb1606-4"><a href="mod-08.html#cb1606-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(dat) <span class="ot">&lt;-</span> dat<span class="sc">$</span>organism</span>
 <span id="cb1606-5"><a href="mod-08.html#cb1606-5" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>organism <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
 <span id="cb1606-6"><a href="mod-08.html#cb1606-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat)</span></code></pre></div>
-<pre><code>##          multicellular heterotrophic flowering vertebrate gills amnion endothermic tetrapod dna opisthokont protostome deuterostome
-## bacteria             0           0.5         0          0     0      0           0        0   1           0          0            0
-## maple                1           0.0         1          0     0      0           0        0   1           0          0            0
-## pine                 1           0.0         0          0     0      0           0        0   1           0          0            0
-## octopus              1           1.0         0          0     1      0           0        0   1           1          1            0
-## shark                1           1.0         0          1     1      0           0        0   1           1          0            1
-## mushroom             1           1.0         0          0     0      0           0        0   1           1          0            0</code></pre>
+<pre><code>##          multicellular heterotrophic flowering vertebrate gills amnion
+## bacteria             0           0.5         0          0     0      0
+## maple                1           0.0         1          0     0      0
+## pine                 1           0.0         0          0     0      0
+## octopus              1           1.0         0          0     1      0
+## shark                1           1.0         0          1     1      0
+## mushroom             1           1.0         0          0     0      0
+##          endothermic tetrapod dna opisthokont protostome deuterostome
+## bacteria           0        0   1           0          0            0
+## maple              0        0   1           0          0            0
+## pine               0        0   1           0          0            0
+## octopus            0        0   1           1          1            0
+## shark              0        0   1           1          0            1
+## mushroom           0        0   1           1          0            0</code></pre>
 <div class="sourceCode" id="cb1608"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1608-1"><a href="mod-08.html#cb1608-1" aria-hidden="true" tabindex="-1"></a>kvec <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">8</span></span>
 <span id="cb1608-2"><a href="mod-08.html#cb1608-2" aria-hidden="true" tabindex="-1"></a>nk <span class="ot">&lt;-</span> <span class="fu">length</span>(kvec)</span>
 <span id="cb1608-3"><a href="mod-08.html#cb1608-3" aria-hidden="true" tabindex="-1"></a>k.list <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">&quot;list&quot;</span>, nk)</span>
@@ -2125,7 +2132,8 @@ The linear algebra method of PCA in R is illustrated below.</li>
 ## ... Procrustes: rmse 0.0003414834  max resid 0.001047844 
 ## ... Similar to previous best
 ## *** Solution reached</code></pre>
-<pre><code>## Warning in metaMDS(dat, distance = &quot;euclidean&quot;): stress is (nearly) zero: you may have insufficient data</code></pre>
+<pre><code>## Warning in metaMDS(dat, distance = &quot;euclidean&quot;): stress is (nearly) zero: you
+## may have insufficient data</code></pre>
 <div class="sourceCode" id="cb1693"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1693-1"><a href="mod-08.html#cb1693-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">scores</span>(n1))</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-764-1.png" width="768" /></p>
 <p>Notice anything odd? The <em>arrangement</em> of the cities, or relative positions, are mostly correct. However, the cities are flipped east to west! This is because NMDS only considers relative position, not absolute position. NMDS positions are arbitrary, so we can rotate or flip the axes to make better sense of them. We’ll flip the first axis (NMDS1) by multiplying it by -1.</p>

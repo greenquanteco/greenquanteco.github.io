@@ -894,8 +894,10 @@ will produce main-effects analysis of covariance (ANCOVA).</p>
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <div class="sourceCode" id="cb1131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1131-1"><a href="mod-05.html#cb1131-1" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(<span class="fu">aov</span>(mod4))</span></code></pre></div>
-<pre><code>## Warning in replications(paste(&quot;~&quot;, xx), data = mf): non-factors ignored: Sepal.Length</code></pre>
-<pre><code>## Warning in TukeyHSD.aov(aov(mod4)): &#39;which&#39; specified some non-factors which will be dropped</code></pre>
+<pre><code>## Warning in replications(paste(&quot;~&quot;, xx), data = mf): non-factors ignored:
+## Sepal.Length</code></pre>
+<pre><code>## Warning in TukeyHSD.aov(aov(mod4)): &#39;which&#39; specified some non-factors which
+## will be dropped</code></pre>
 <pre><code>##   Tukey multiple comparisons of means
 ##     95% family-wise confidence level
 ## 
