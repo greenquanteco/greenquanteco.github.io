@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis</title>
+  <title>2.3 Using R | Applied Biological Data Analysis</title>
   <meta name="description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta property="og:title" content="2.3 Using R | Applied Biological Data Analysis" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://greenquanteco.github.io/index.html" />
   <meta property="og:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta name="twitter:title" content="2.3 Using R | Applied Biological Data Analysis" />
   
   <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="twitter:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="8.5-mod-08-ord.html"/>
-<link rel="next" href="9.1-how-to-use-this-guide.html"/>
+<link rel="prev" href="2.2-download-and-install-r-and-rstudio.html"/>
+<link rel="next" href="2.4-mod-02-first.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -530,22 +530,75 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="mod-09" class="section level1" number="9">
-<h1><span class="header-section-number">Module 9</span> Planning your analysis (what test?)</h1>
-<p>One of the main questions that biologists have after collecting data is, “What statistical test do I use?” Ignoring the fact that they should have thought about that <strong><em>before collecting data</em></strong>, the answer to that question depends on the answers to two other questions:</p>
+<div id="using-r" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Using R</h2>
+<div id="using-the-base-r-gui" class="section level3" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> Using the base R GUI</h3>
+<p>R has a very basic front end, or <strong>graphical user interface (GUI)</strong>. Most users find it easier to write their R code in another program. Some of these programs, such as RStudio, are <strong>integrated development environments (IDE)</strong>. Others are text editors with programming capabilities. We’ll explore the default R GUI first and then meet some editor options. The basic R GUI is shown below.</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/02_01.jpg" /></p>
+<p>The main window with R is the <strong>R console</strong>. This is the command line interface to R. Some important features of the console are:</p>
 <ol style="list-style-type: decimal">
-<li>What question are you trying to answer?</li>
-<li>What kind of data do you have?</li>
+<li>Command prompt: The <code>&gt;</code> symbol signifies the beginning of a command. You can enter commands here.</li>
+<li>Continue prompt: <code>+</code> signifies the continuation of a previous command. If you have a <code>+</code> at the beginning of your line, you can get back to a new line using ESCAPE. Note that this will delete the currently incomplete line or command.</li>
+<li>The ENTER key executes the current command. This could mean the current line, or multiple lines going back to the most recent <code>&gt;</code>.</li>
+<li><code>[1]</code> at the beginning of results: because your result is an object (with length <span class="math inline">\(\ge\)</span> 1). The very first value (“element”) in the result is element 1.</li>
+<li>Up arrow key: cycles through previously entered commands. You can see many previous commands at once by using the command <code>history()</code>.</li>
 </ol>
-<p>After <a href="4-mod-04.html#mod-04">exploring the data</a> and gaining an understanding of the patterns and <a href="4.8-mod-04-prob.html#mod-04-prob">problems</a> in a dataset, it is time to run the main analysis. This guide is designed to help you use what you learned in exploring the data to choose an appropriate analytical strategy.</p>
+<p>Other important features of the R GUI are found in the menu bar:</p>
+<ul>
+<li>File
+<ul>
+<li>New script: opens a new script window within the GUI.</li>
+<li>Ability to open saved scripts or load previous workspaces</li>
+</ul></li>
+<li>Edit
+<ul>
+<li>Copy, paste, etc.: very useful!</li>
+<li>Data editor: opens a rudimentary spreadsheet-like viewer for datasets that can be used to make edits. Not recommended for routine use.</li>
+<li>GUI preferences: options to change colors, fonts, font sizes, etc., in the GUI. To make changes permanent you may need to save a new <code>.RConsole</code> file in your home directory.</li>
+</ul></li>
+<li>View</li>
+<li>Misc
+<ul>
+<li>List objects: lists all objects in workspace. Equivalent to command <code>ls()</code>.</li>
+<li>Remove all objects: removes all objects form workspace. Equivalent to command <code>rm(list=ls(all=TRUE))</code>.</li>
+<li>List search path: lists currently attached packages. Equivalent to command <code>search()</code>.</li>
+</ul></li>
+<li>Packages: functions to download and install packages.</li>
+<li>Windows: options to change how windows are displayed within GUI.</li>
+<li>Help: options and resources for getting help, including several free R manuals in PDF format.</li>
+</ul>
+</div>
+<div id="using-r-in-rstudio" class="section level3" number="2.3.2">
+<h3><span class="header-section-number">2.3.2</span> Using R in RStudio</h3>
+<p>Although you can type R code directly into the console, or type in script windows within the base R GUI, it is usually easiest to use a separate program for writing code. The two best, in my experience, are RStudio and Notepad++ (see below). <strong>RStudio</strong> is an IDE designed to manage R projects, and has many useful features. Unlike some other options, RStudio has R built in so you can write code and execute it within the same program. RStudio can be used on Windows, Mac, and Linux operating systems. RStudio also has built-in support for utilities like RMarkdown.</p>
+<p>Once you have RStudio installed, open it and you will see a screen like this<a href="literature-cited.html#fn17" class="footnote-ref" id="fnref17"><sup>17</sup></a></p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/02_02.jpg" /></p>
+<p>RStudio has an entire environment for working with R in one window. Each of the panels performs different functions. Starting at the bottom left and going clockwise, the panels are:</p>
+<ul>
+<li>Console: command line interface for R. You can type commands here and execute them by pressing ENTER.</li>
+<li>Script: a space where you can type code and later execute it by either clicking “Run” or pressing CRTL-ENTER (CMD-ENTER on a Mac). Usually people write code in the script window rather than typing it directly into the console.</li>
+<li>Environment: this window lists all of the data objects that you have loaded.</li>
+<li>Files: this window lists all of the files available in your R home directory. You can also navigate to other folders on your machine and select files to open.</li>
+</ul>
+<p>The bottom right panel also has a tab called “Plots”. This is where plots that you make can be seen. Sometimes you will need to resize this panel to see the plots clearly. All of the panels can be resized by clicking and dragging the borders between them.</p>
+</div>
+<div id="using-r-with-other-programs" class="section level3" number="2.3.3">
+<h3><span class="header-section-number">2.3.3</span> Using R with other programs</h3>
+<p><strong>Notepad++</strong> is an open-source code editor that is <a href="https://notepad-plus-plus.org/downloads/">available on Windows</a> (accessed 2021-12-20). Notepad++ is a more generic source code editor with built-in R support and many programming features. It includes programming support for R as well as other languages used by biologists, such as Python, C++, Visual Basic, and LaTeX. The key disadvantage of Notepad++ is that it does not connect to R, so you must copy and paste your code to an R console. Another disadvantage is that it is only available for Windows. The image below shows a script in Notepad++,</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/02_03.jpg" /></p>
+<p><strong>emacs</strong> is a GNU program that is an extremely powerful text editor, code editor, and pretty much everything else. With its extension ess or “emacs speaks statistics”, it can also be an R IDE. Be forewarned, getting emacs and ess to work on Windows can be a major pain.</p>
+<p>Other good options include Tinn-R, Jupyter notebooks, and many more. All of these options are subject to irrationally strong personal and organizational preferences. For example, I use Notepad++ almost exclusively in my research for writing and editing R code. I would prefer to use emacs, but it doesn’t play nice with my university PCs. Many people swear by RStudio. Try a few R interfaces and use what works best for you. Or, use the interface that your manager tells you to use.</p>
+<p>Whatever you do, you should not use a word processor (e.g., Microsoft Word) to write and edit R code. The reason that you should not use Word for code editing is because Word documents include lots of invisible formatting that can cause issues in R. Worse, Word autocorrects some characters in counter-productive ways. The most problematic are automatic capitalization (because R is case sensitive) and quotation marks. Word autocorrects <code>""</code> to “” as you type, which makes for nice looking text. However, the curved quotation marks (“”) are not read as valid quotation marks by R. Only “straight quotes” (<code>""</code>) are recognized by R.</p>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="8.5-mod-08-ord.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="9.1-how-to-use-this-guide.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="2.2-download-and-install-r-and-rstudio.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="2.4-mod-02-first.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

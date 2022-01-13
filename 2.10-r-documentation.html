@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis</title>
+  <title>2.10 R documentation | Applied Biological Data Analysis</title>
   <meta name="description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta property="og:title" content="2.10 R documentation | Applied Biological Data Analysis" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://greenquanteco.github.io/index.html" />
   <meta property="og:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta name="twitter:title" content="2.10 R documentation | Applied Biological Data Analysis" />
   
   <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="twitter:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="8.5-mod-08-ord.html"/>
-<link rel="next" href="9.1-how-to-use-this-guide.html"/>
+<link rel="prev" href="2.9-manage-and-use-r-packages.html"/>
+<link rel="next" href="3-mod-03.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -530,22 +530,129 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="mod-09" class="section level1" number="9">
-<h1><span class="header-section-number">Module 9</span> Planning your analysis (what test?)</h1>
-<p>One of the main questions that biologists have after collecting data is, “What statistical test do I use?” Ignoring the fact that they should have thought about that <strong><em>before collecting data</em></strong>, the answer to that question depends on the answers to two other questions:</p>
-<ol style="list-style-type: decimal">
-<li>What question are you trying to answer?</li>
-<li>What kind of data do you have?</li>
-</ol>
-<p>After <a href="4-mod-04.html#mod-04">exploring the data</a> and gaining an understanding of the patterns and <a href="4.8-mod-04-prob.html#mod-04-prob">problems</a> in a dataset, it is time to run the main analysis. This guide is designed to help you use what you learned in exploring the data to choose an appropriate analytical strategy.</p>
+<div id="r-documentation" class="section level2" number="2.10">
+<h2><span class="header-section-number">2.10</span> R documentation</h2>
+<p>The most important lesson of this R and biological data analysis course is simple: <strong><em>Don’t panic!</em></strong> Lots of people have trouble with R. The learning curve is steep, and the error messages are inscrutable. But, there are a lot of resources available to help you.</p>
+<div id="documentation-help-files" class="section level3" number="2.10.1">
+<h3><span class="header-section-number">2.10.1</span> Documentation (help) files</h3>
+<p>Documentation for each function, or help files, come included with the base R installation. You can access them from within R by using the <code>?</code> command. <code>?functionname</code> will open the documentation file for function <code>functionname</code>. <code>?</code> will search all currently attached packages. The command below opens the page for the mean function. Notice that this file is stored on your local machine, so no internet access is required.</p>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="2.10-r-documentation.html#cb257-1" aria-hidden="true" tabindex="-1"></a>?mean</span></code></pre></div>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/02_13.jpg" /></p>
+<p>Some functions belong to a family of related functions that share a common documentation page. For example, all of the functions related to the normal distribution share a common page:</p>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="2.10-r-documentation.html#cb258-1" aria-hidden="true" tabindex="-1"></a>?dnorm</span>
+<span id="cb258-2"><a href="2.10-r-documentation.html#cb258-2" aria-hidden="true" tabindex="-1"></a>?pnorm</span>
+<span id="cb258-3"><a href="2.10-r-documentation.html#cb258-3" aria-hidden="true" tabindex="-1"></a>?qnorm</span>
+<span id="cb258-4"><a href="2.10-r-documentation.html#cb258-4" aria-hidden="true" tabindex="-1"></a>?rnorm</span></code></pre></div>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/02_14.jpg" /></p>
+<p>You can also search for help on functions in packages that are not attached. Or, you might want to know about a function but don’t know what package it belongs to. Either way, <code>??functionname</code> is a more general search option that will search any package in your library. Compare what happens if search for function <code>fitdistr()</code> using <code>?</code> and <code>??</code> (this function is in package <code>MASS</code>, and so not loaded by default). With <code>??</code>, R searches all installed packages and returns a browser window with every result that might match your search term.</p>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="2.10-r-documentation.html#cb259-1" aria-hidden="true" tabindex="-1"></a>?fitdistr</span>
+<span id="cb259-2"><a href="2.10-r-documentation.html#cb259-2" aria-hidden="true" tabindex="-1"></a><span class="do">## No documentation for ‘fitdistr’ in specified packages and libraries:</span></span>
+<span id="cb259-3"><a href="2.10-r-documentation.html#cb259-3" aria-hidden="true" tabindex="-1"></a><span class="do">## you could try ‘??fitdistr’</span></span>
+<span id="cb259-4"><a href="2.10-r-documentation.html#cb259-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb259-5"><a href="2.10-r-documentation.html#cb259-5" aria-hidden="true" tabindex="-1"></a>??fitdistr</span></code></pre></div>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/02_15.jpg" /></p>
+<p>The R documentation pages all tend to follow the same format:</p>
+<ul>
+<li><strong>Description:</strong> brief description of what the function does.</li>
+<li><strong>Usage:</strong> presentation of the function with its arguments in their typical format <em>and expected order</em>.</li>
+<li><strong>Arguments:</strong> list of the arguments to the function <em>in order</em>, their required type/format, and allowed values. This section is very important. When my code isn’t working, the answer to why is usually in the arguments section.</li>
+<li><strong>Details:</strong> additional information necessary to use the function.</li>
+<li><strong>Value:</strong> description of the function’s outputs.</li>
+<li><strong>Source:</strong> description of where the original algorithm or method came from.</li>
+<li><strong>References:</strong> citations for the methods used.</li>
+<li><strong>See also:</strong> list of similar or related R functions.</li>
+<li><strong>Examples:</strong> illustration of how to use the function. This section is <em>very</em> important. If your code is not working, compare how you are using the function to the examples. Are you inputs in the right format? Did you name your arguments or put unnamed arguments in the wrong order? Careful examination and running of the examples will usually reveal why your code is not working.</li>
+</ul>
+<p>R documentation pages tend to be very terse and include very little in the way of background or explanation. They are generally meant to refresh the memory of people already familiar with R and with statistics, not to educate new R users or inexperienced statisticians. If you fall into one of the latter categories, or if you are trying to learn a new function, read on.</p>
+</div>
+<div id="r-vignettes" class="section level3" number="2.10.2">
+<h3><span class="header-section-number">2.10.2</span> R vignettes</h3>
+<p>A <strong>vignette</strong> is a document demonstrating the use of an R package or its functions, with more details and explanation than in the help files. Not all packages offer vignettes. You can see what vignettes are available with the command <code>vignette()</code>. Specific vignettes are accessed by name and package. The examples below show how to get a list of available vignettes, available vignettes by package, and open specific vignettes.</p>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="2.10-r-documentation.html#cb260-1" aria-hidden="true" tabindex="-1"></a><span class="co"># list vignettes in all installed packages</span></span>
+<span id="cb260-2"><a href="2.10-r-documentation.html#cb260-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vignette</span>()</span></code></pre></div>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/02_16.jpg" /></p>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="2.10-r-documentation.html#cb261-1" aria-hidden="true" tabindex="-1"></a><span class="co"># list vignettes in package vegan</span></span>
+<span id="cb261-2"><a href="2.10-r-documentation.html#cb261-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vignette</span>(<span class="at">package=</span><span class="st">&quot;vegan&quot;</span>)</span></code></pre></div>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/02_17.jpg" /></p>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="2.10-r-documentation.html#cb262-1" aria-hidden="true" tabindex="-1"></a><span class="co"># open vignette &quot;intro-vegan&quot; in local PDF reader</span></span>
+<span id="cb262-2"><a href="2.10-r-documentation.html#cb262-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vignette</span>(<span class="st">&quot;intro-vegan&quot;</span>, <span class="at">package=</span><span class="st">&quot;vegan&quot;</span>)</span></code></pre></div>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/02_18.jpg" /></p>
+</div>
+<div id="official-r-project-resources" class="section level3" number="2.10.3">
+<h3><span class="header-section-number">2.10.3</span> Official R Project resources</h3>
+<div id="r-project-help-pages" class="section level4" number="2.10.3.1">
+<h4><span class="header-section-number">2.10.3.1</span> R Project help pages</h4>
+<p>The R project maintains an <a href="https://www.r-project.org/help.html">official help page</a> with lists of places to get help. They also maintain a <a href="https://cran.r-project.org/manuals.html">list of manuals and documentation</a>. If you want a handy desk reference, you could do worse than the <a href="https://cran.r-project.org/doc/contrib/Short-refcard.pdf">R reference card</a> (accessed 2021-12-21).</p>
+<p>The <a href="https://www.jstatsoft.org/index">Journal of Statistical Software</a> publishes papers about new statistical algorithms and software packages. Many of its papers are about new R packages and applications. The papers about new R packages and methods often include extensive code examples.</p>
+</div>
+<div id="r-task-views" class="section level4" number="2.10.3.2">
+<h4><span class="header-section-number">2.10.3.2</span> R task views</h4>
+<p>The <a href="https://cran.r-project.org/web/views/">Task Views</a> on CRAN contain frequently updated lists of packages that are useful for specific domains. For example, ecologists might check the <a href="https://cran.r-project.org/web/views/Environmetrics.html">Environmetrics</a>, <a href="https://cran.r-project.org/web/views/Hydrology.html">Hydrology</a> or <a href="https://cran.r-project.org/web/views/Spatial.html">Spatial</a> task views. Geneticists might be more interested in <a href="https://cran.r-project.org/web/views/Genetics.html">Genetics</a> or <a href="https://cran.r-project.org/web/views/Phylogenetics.html">Phylogenetics</a>. Physiologists and biochemists might be interested in <a href="https://cran.r-project.org/web/views/Pharmacokinetics.html">Pharmacokinetics</a>, <a href="https://cran.r-project.org/web/views/ClinicalTrials.html">Clinical Trials</a>, or <a href="https://cran.r-project.org/web/views/Survival.html">Survival</a>. I’ve spent a lot of time in the <a href="https://cran.r-project.org/web/views/Bayesian.html">Bayesian</a>, <a href="https://cran.r-project.org/web/views/NumericalMathematics.html">Numerical Mathematics</a>, and <a href="https://cran.r-project.org/web/views/MachineLearning.html">Machine Learning</a> task views. There’s something for everyone…even a <a href="https://cran.r-project.org/web/views/TeachingStatistics.html">Teaching Statistics</a> task view with resources to help you learn R and stats at the same time.</p>
+<p>(All links accessed 2021-12-21).</p>
+</div>
+<div id="r-mailing-lists" class="section level4" number="2.10.3.3">
+<h4><span class="header-section-number">2.10.3.3</span> R mailing lists</h4>
+<p>If your question has been asked before—and this is very likely—there may be an answer waiting for you on the <a href="https://www.r-project.org/mail.html">R Help mailing list</a>. Results from the R help mailing list will usually show up in Google results. You can submit a question to the R mailing list, but be very cautious about doing so. You will need to provide a short, clear, reproducible example in your question so that other people can see the issue you are having<a href="literature-cited.html#fn25" class="footnote-ref" id="fnref25"><sup>25</sup></a>. You also need to be sure that your question hasn’t been asked before. Some members of the mailing list will respond with great hostility and condescension if you fail to follow those rules.</p>
+<p>There are several <a href="https://stat.ethz.ch/mailman/listinfo">special interest groups (SIG)</a>, e-mail mailing lists for R users who work in specific fields. For example, <a href="https://stat.ethz.ch/mailman/listinfo/r-sig-ecology">R-sig-ecology</a> is an e-mail list for ecologists who use R. Other SIG of interest to biologists include <a href="https://stat.ethz.ch/mailman/listinfo/r-sig-genetics">R-sig-genetics</a> for genetics, <a href="https://stat.ethz.ch/mailman/listinfo/r-sig-mixed-models">R-sig-mixed-models</a> for mixed models, <a href="https://stat.ethz.ch/mailman/listinfo/r-sig-phylo">R-sig-phylo</a> for phylogenetics and related methods, and <a href="https://stat.ethz.ch/mailman/listinfo/r-sig-geo">R-sig-Geo</a> for GIS and spatial analysis.</p>
+</div>
+</div>
+<div id="unofficial-online-resources" class="section level3" number="2.10.4">
+<h3><span class="header-section-number">2.10.4</span> Unofficial online resources</h3>
+<p>Unofficial resources are becoming more and more abundant and useful. One of the most important sources for R help is <a href="https://stackoverflow.com">StackOverflow</a>. StackOverflow is a hugely popular forum site where programmers ask and answer questions, and has an active <a href="https://stackoverflow.com/questions/tagged/r">R section</a>. When (not if) you find a solution on StackOverflow, include a link to the answer in your code as a comment. This can save you some headache down the line when you need to remember how you solved a problem. Other useful resources include <a href="https://rseek.org/">RSeek.org</a>, a search engine for R resources; and <a href="https://www.r-bloggers.com/">R-Bloggers</a>, which aggregates many blogs about R and statistics.</p>
+<p>Many R users maintain blogs or websites that may or may not be aggregated on R-Bloggers. You can usually find these via a Google search. I have used the pages on <a href="https://www.statmethods.net/">Quick-R</a> many times. The UCLA Statistical Consulting Group has an <a href="https://stats.oarc.ucla.edu/r/">excellent collection of tutorials</a>.</p>
+</div>
+<div id="r-books" class="section level3" number="2.10.5">
+<h3><span class="header-section-number">2.10.5</span> R books</h3>
+<p>The last 10 years have seen an explosion of books published specifically about the R language and its uses. Some of these books are general introductions to R and statistics; others are very domain specific. Inclusion of a book here does not constitute specific endorsement. I own some of these, but others are included because they are common R-related references that you might find helpful.</p>
+<ul>
+<li>The <a href="https://www.springer.com/series/6991">Use R! series</a> contains many high-quality general and domain-specific books, although some of the older titles are a bit dated. For example:
+<ul>
+<li>A Beginner’s Guide to R by Alain Zuur et al.</li>
+<li>Data Manipulation with R by Phil Spector</li>
+<li>Introductory time series with R by P.S.P. Cowperthwaite and A.V. Metcalfe.</li>
+<li>Bayesian computation with R by Jim Albert</li>
+<li>Introductory Statistics with R by Peter Dalgaard</li>
+<li>Morphometrics with R by Julien Claude</li>
+</ul></li>
+<li>The R Book by Michael Crawley</li>
+<li>Advanced R by Hadley Wickham</li>
+<li>R for Dummies by Andrie DeVries</li>
+</ul>
+<p>When I was first starting out with R I found several books invaluable. Having code examples printed where I could highlight, annotate, etc., was really helpful. Over time I’ve found myself relying less on textbooks and more on online sources (especially StackOverflow). Still, a there are a few books that I use frequently, for their statistical exposition more than their code examples. At least one of <span class="citation">Bolker (<a href="#ref-bolker2008ecological" role="doc-biblioref">2008</a>)</span>, <span class="citation">Kéry (<a href="#ref-kery2010" role="doc-biblioref">2010</a>)</span>, <span class="citation">Legendre and Legendre (<a href="#ref-legendre2012numerical" role="doc-biblioref">2012</a>)</span>, <span class="citation">Zuur et al. (<a href="#ref-zuur2007analysing" role="doc-biblioref">2007</a>)</span>, and <span class="citation">Zuur et al. (<a href="#ref-zuur2009mixed" role="doc-biblioref">2009a</a>)</span> is usually on my desk at any given time.</p>
+</div>
+<div id="two-reminders" class="section level3" number="2.10.6">
+<h3><span class="header-section-number">2.10.6</span> Two reminders</h3>
+<p>I said it at the beginning of this section, and it bears repeating: <strong><em>Don’t panic!</em></strong> R has a steep learning curve, but the pay-off is worth it. There are plenty of resources and people out there who can help you.</p>
+<p>Finally, be sure to <strong><em>read the manual</em></strong> when you are stuck. The R help pages and code examples usually have a solution. Make sure your inputs are in the right format. Check for syntax and spelling error–including capitalization! As a funny meme on I saw on Reddit said, <em>6 hours of debugging can save you 5 minutes of reading documentation</em><a href="literature-cited.html#fn26" class="footnote-ref" id="fnref26"><sup>26</sup></a>.</p>
+
+</div>
+</div>
+<!-- </div> -->
+<h3>Literature Cited</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-bolker2008ecological" class="csl-entry">
+Bolker, B. M. 2008. Ecological models and data in <span>R</span>. Princeton University Press, Princeton, New Jersey, USA.
+</div>
+<div id="ref-kery2010" class="csl-entry">
+Kéry, M. 2010. Introduction to <span>W</span>in<span>BUGS</span> for ecologists: <span>B</span>ayesian approach to regression, <span>ANOVA</span>, mixed models and related analyses. Academic Press.
+</div>
+<div id="ref-legendre2012numerical" class="csl-entry">
+Legendre, P., and L. Legendre. 2012. Numerical ecology. Elsevier, Amsterdam.
+</div>
+<div id="ref-zuur2007analysing" class="csl-entry">
+Zuur, A. F., E. N. Ieno, and G. M. Smith. 2007. Analysing ecological data. Springer Science+Business Media, New York.
+</div>
+<div id="ref-zuur2009mixed" class="csl-entry">
+Zuur, A. F., E. N. Ieno, N. J. Walker, A. A. Saveliev, G. M. Smith, and others. 2009a. Mixed effects models and extensions in ecology with <span>R</span>. Springer, New York.
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="8.5-mod-08-ord.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="9.1-how-to-use-this-guide.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="2.9-manage-and-use-r-packages.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="3-mod-03.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

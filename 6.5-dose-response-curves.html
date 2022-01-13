@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis</title>
+  <title>6.5 Dose response curves | Applied Biological Data Analysis</title>
   <meta name="description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta property="og:title" content="6.5 Dose response curves | Applied Biological Data Analysis" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://greenquanteco.github.io/index.html" />
   <meta property="og:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta name="twitter:title" content="6.5 Dose response curves | Applied Biological Data Analysis" />
   
   <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="twitter:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="8.5-mod-08-ord.html"/>
-<link rel="next" href="9.1-how-to-use-this-guide.html"/>
+<link rel="prev" href="6.4-mod-06-grow.html"/>
+<link rel="next" href="6.6-alternatives-to-nls.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -530,22 +530,128 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="mod-09" class="section level1" number="9">
-<h1><span class="header-section-number">Module 9</span> Planning your analysis (what test?)</h1>
-<p>One of the main questions that biologists have after collecting data is, “What statistical test do I use?” Ignoring the fact that they should have thought about that <strong><em>before collecting data</em></strong>, the answer to that question depends on the answers to two other questions:</p>
-<ol style="list-style-type: decimal">
-<li>What question are you trying to answer?</li>
-<li>What kind of data do you have?</li>
-</ol>
-<p>After <a href="4-mod-04.html#mod-04">exploring the data</a> and gaining an understanding of the patterns and <a href="4.8-mod-04-prob.html#mod-04-prob">problems</a> in a dataset, it is time to run the main analysis. This guide is designed to help you use what you learned in exploring the data to choose an appropriate analytical strategy.</p>
+<div id="dose-response-curves" class="section level2" number="6.5">
+<h2><span class="header-section-number">6.5</span> Dose response curves</h2>
+<p>A <strong>dose response curve</strong> describes the change in a biological system following a quantitative perturbation. Most dose response models are nonlinear because of the dynamics of the systems they describe. Mechanistically, there is often a rate that scales with the current concentration of a compound, or some other aspect of the system. In other words, the dynamics of the system are described by a kind of <strong>differential equation</strong>. The state of the system is thus described by solutions to those equations.</p>
+<p>There are many dose-response models out there. We will fit two common ones using the R package <code>drc</code> <span class="citation">(<a href="#ref-ritz2015" role="doc-biblioref">Ritz et al. 2015</a>)</span>. Many dose response models could also be fit by <code>nls()</code>, but we will use the <code>drc</code> package because of its convenience and so that we can learn an alternative approach.</p>
+<p>We will use an example from the <a href="https://doi.org/10.1371/journal.pone.0146021.s001">Supplemental Information</a> provided by the authors of <code>drc</code> <span class="citation">(<a href="#ref-ritz2015" role="doc-biblioref">Ritz et al. 2015</a>)</span>. <span class="citation">Inderjit et al. (<a href="#ref-inderjit2002" role="doc-biblioref">2002</a>)</span> studied the effect of an herbicide mixture on perennial ryegrass (<em>Lolium perenne</em>). Rye grass seeds were placed in Petri dishes and treated with a solution of ferulic acid in concentrations ranging from 0 to 30 mM. The seeds were allowed to germinate and develop for 8 days. After 8 days the root length of each individual seed was measured.</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/06_04.jpg" alt="Perennial ryegrass (Lolium perenne)." /></p>
+<div class="sourceCode" id="cb1419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1419-1"><a href="6.5-dose-response-curves.html#cb1419-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(drc)</span>
+<span id="cb1419-2"><a href="6.5-dose-response-curves.html#cb1419-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> ryegrass</span>
+<span id="cb1419-3"><a href="6.5-dose-response-curves.html#cb1419-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dat<span class="sc">$</span>conc, dat<span class="sc">$</span>rootl)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-609-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>The plot suggests that increasing ferulic acid concentration decreases mean root length. The relationship also appears nonlinear: root length decreases very quickly at low ferulic acid concentration, and then levels out as concentration increases beyond about 5 mM.</p>
+<p>We will try two nonlinear models found in the <code>drc</code> package. The first is the <strong>log-logistic model</strong>. The log-logistic model comes in several flavors, defined by the number of parameters used to specify the curve. Two common varieties are shown below. By convention, one of the parameters is labeled “<em>e</em>”, but it is not the same as Euler’s constant <em>e</em> (<span class="math inline">\(\approx\)</span> 2.71828). The parameter labeled <em>e</em> shows up only in the exponent as <span class="math inline">\(log(e)\)</span>, but this does not mean <span class="math inline">\(log(exp(1))\)</span> (which would be 1, by definition). The bases of the exponents in the models below are Euler’s <em>e</em>. For clarity, the parameter <em>e</em> is sometimes labeled with another letter, or the exponential function <span class="math inline">\(e^x\)</span> is written as <span class="math inline">\(exp(x)\)</span>.</p>
+<p><strong>Three-parameter log-logistic:</strong></p>
+<p><span class="math display">\[f\left(x,\left(b,d,e\right)\right)=\frac{d}{1+e^{b\left(log{\left(x\right)}-log{\left(e\right)}\right)}}=\frac{d}{1+exp\left(log{\left(x\right)}-log{\left(e\right)}\right)}\]</span></p>
+<p><strong>Four-parameter log-logistic:</strong></p>
+<p><span class="math display">\[f\left(x,\left(b,c,d,e\right)\right)=\frac{d-c}{1+e^{b\left(log{\left(x\right)}-log{\left(e\right)}\right)}}=\frac{d-c}{1+exp\left(b\left(log{\left(x\right)}-log{\left(e\right)}\right)\right)}\]</span></p>
+<p>Just for fun we can also try a <strong>Weibull type I</strong> function:
+<span class="math display">\[\begin{matrix}f\left(x,\ \left(b,c,d,e\right)\right)=&amp;c+\left(d-c\right)e^{-e^{b\left(log{\left(x\right)}-log{\left(e\right)}\right)}}\\f\left(x,\ \left(b,c,d,e\right)\right)=&amp;c+\left(d-c\right)exp\left(-exp\left(b\left(log{\left(x\right)}-log{\left(e\right)}\right)\right)\right)\\\end{matrix}\]</span></p>
+<p>Fitting the models in <code>drc</code> is straightforward. First define the response and predictor variables in a formula (as in <code>lm()</code> and other functions), specify the dataset to be used, and finally the curve (<code>fct</code>) to be fitted. The full list of functions that <code>drm()</code> can fit can be found with the command <code>getMeanFunctions()</code>.</p>
+<div class="sourceCode" id="cb1420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1420-1"><a href="6.5-dose-response-curves.html#cb1420-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">drm</span>(rootl<span class="sc">~</span>conc, <span class="at">data=</span>ryegrass, <span class="at">fct=</span><span class="fu">LL.3</span>())</span>
+<span id="cb1420-2"><a href="6.5-dose-response-curves.html#cb1420-2" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">drm</span>(rootl<span class="sc">~</span>conc, <span class="at">data=</span>ryegrass, <span class="at">fct=</span><span class="fu">LL.4</span>())</span>
+<span id="cb1420-3"><a href="6.5-dose-response-curves.html#cb1420-3" aria-hidden="true" tabindex="-1"></a>mod3 <span class="ot">&lt;-</span> <span class="fu">drm</span>(rootl<span class="sc">~</span>conc, <span class="at">data=</span>ryegrass, <span class="at">fct=</span><span class="fu">weibull1</span>())</span>
+<span id="cb1420-4"><a href="6.5-dose-response-curves.html#cb1420-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1420-5"><a href="6.5-dose-response-curves.html#cb1420-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code></pre></div>
+<pre><code>## 
+## Model fitted: Log-logistic (ED50 as parameter) with lower limit at 0 (3 parms)
+## 
+## Parameter estimates:
+## 
+##               Estimate Std. Error t-value   p-value    
+## b:(Intercept)  2.47033    0.34168  7.2299 4.011e-07 ***
+## d:(Intercept)  7.85543    0.20438 38.4352 &lt; 2.2e-16 ***
+## e:(Intercept)  3.26336    0.19641 16.6154 1.474e-13 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error:
+## 
+##  0.5615802 (21 degrees of freedom)</code></pre>
+<div class="sourceCode" id="cb1422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1422-1"><a href="6.5-dose-response-curves.html#cb1422-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod2)</span></code></pre></div>
+<pre><code>## 
+## Model fitted: Log-logistic (ED50 as parameter) (4 parms)
+## 
+## Parameter estimates:
+## 
+##               Estimate Std. Error t-value   p-value    
+## b:(Intercept)  2.98222    0.46506  6.4125 2.960e-06 ***
+## c:(Intercept)  0.48141    0.21219  2.2688   0.03451 *  
+## d:(Intercept)  7.79296    0.18857 41.3272 &lt; 2.2e-16 ***
+## e:(Intercept)  3.05795    0.18573 16.4644 4.268e-13 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error:
+## 
+##  0.5196256 (20 degrees of freedom)</code></pre>
+<div class="sourceCode" id="cb1424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1424-1"><a href="6.5-dose-response-curves.html#cb1424-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod3)</span></code></pre></div>
+<pre><code>## 
+## Model fitted: Weibull (type 1) (4 parms)
+## 
+## Parameter estimates:
+## 
+##               Estimate Std. Error t-value   p-value    
+## b:(Intercept)  2.39341    0.47832  5.0038 6.813e-05 ***
+## c:(Intercept)  0.66045    0.18857  3.5023  0.002243 ** 
+## d:(Intercept)  7.80586    0.20852 37.4348 &lt; 2.2e-16 ***
+## e:(Intercept)  3.60013    0.20311 17.7250 1.068e-13 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error:
+## 
+##  0.5488238 (20 degrees of freedom)</code></pre>
+<p>All three models fit, had statistically-significant parameters, and had similar residual standard errors (RSE; a measure of model fit similar to RMSE). Model 2 (4 parameter log-logistic) had the smallest RSE and the smallest AIC:</p>
+<div class="sourceCode" id="cb1426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1426-1"><a href="6.5-dose-response-curves.html#cb1426-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(mod1, mod2, mod3)</span></code></pre></div>
+<pre><code>##      df      AIC
+## mod1  4 45.20827
+## mod2  5 42.31029
+## mod3  5 44.93439</code></pre>
+<p>This is moderately convincing evidence that model 2 is the best-fitting of the three models that we fit. Let’s calculate predictions and 95% CI for a range of concentrations and present them in a graph. Unlike <code>nls()</code> objects, models fitted using <code>drm()</code> have a predict method that can generate confidence intervals. The code below may return warnings, but these messages can probably be ignored.</p>
+<div class="sourceCode" id="cb1428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1428-1"><a href="6.5-dose-response-curves.html#cb1428-1" aria-hidden="true" tabindex="-1"></a>L <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb1428-2"><a href="6.5-dose-response-curves.html#cb1428-2" aria-hidden="true" tabindex="-1"></a>px <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(dat<span class="sc">$</span>conc), <span class="fu">max</span>(dat<span class="sc">$</span>conc), <span class="at">length=</span>L)</span>
+<span id="cb1428-3"><a href="6.5-dose-response-curves.html#cb1428-3" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod2,</span>
+<span id="cb1428-4"><a href="6.5-dose-response-curves.html#cb1428-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">conc=</span>px),</span>
+<span id="cb1428-5"><a href="6.5-dose-response-curves.html#cb1428-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">interval=</span><span class="st">&quot;confidence&quot;</span>)</span>
+<span id="cb1428-6"><a href="6.5-dose-response-curves.html#cb1428-6" aria-hidden="true" tabindex="-1"></a>mn <span class="ot">&lt;-</span> pred[,<span class="dv">1</span>]</span>
+<span id="cb1428-7"><a href="6.5-dose-response-curves.html#cb1428-7" aria-hidden="true" tabindex="-1"></a>lo <span class="ot">&lt;-</span> pred[,<span class="dv">2</span>]</span>
+<span id="cb1428-8"><a href="6.5-dose-response-curves.html#cb1428-8" aria-hidden="true" tabindex="-1"></a>up <span class="ot">&lt;-</span> pred[,<span class="dv">3</span>]</span>
+<span id="cb1428-9"><a href="6.5-dose-response-curves.html#cb1428-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1428-10"><a href="6.5-dose-response-curves.html#cb1428-10" aria-hidden="true" tabindex="-1"></a><span class="co"># fancy plot options</span></span>
+<span id="cb1428-11"><a href="6.5-dose-response-curves.html#cb1428-11" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="fl">5.1</span>, <span class="fl">5.1</span>, <span class="fl">1.1</span>, <span class="fl">1.1</span>),</span>
+<span id="cb1428-12"><a href="6.5-dose-response-curves.html#cb1428-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">las=</span><span class="dv">1</span>, <span class="at">lend=</span><span class="dv">1</span>, <span class="at">bty=</span><span class="st">&quot;n&quot;</span>, </span>
+<span id="cb1428-13"><a href="6.5-dose-response-curves.html#cb1428-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex.axis=</span><span class="fl">1.3</span>, <span class="at">cex.lab=</span><span class="fl">1.3</span>)</span>
+<span id="cb1428-14"><a href="6.5-dose-response-curves.html#cb1428-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1428-15"><a href="6.5-dose-response-curves.html#cb1428-15" aria-hidden="true" tabindex="-1"></a><span class="co"># make the plot</span></span>
+<span id="cb1428-16"><a href="6.5-dose-response-curves.html#cb1428-16" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dat<span class="sc">$</span>conc, dat<span class="sc">$</span>rootl,</span>
+<span id="cb1428-17"><a href="6.5-dose-response-curves.html#cb1428-17" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch=</span><span class="dv">16</span>, <span class="at">cex=</span><span class="fl">1.2</span>,</span>
+<span id="cb1428-18"><a href="6.5-dose-response-curves.html#cb1428-18" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">&quot;Ferulic acid (mM)&quot;</span>,</span>
+<span id="cb1428-19"><a href="6.5-dose-response-curves.html#cb1428-19" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">&quot;Root length (cm)&quot;</span>)</span>
+<span id="cb1428-20"><a href="6.5-dose-response-curves.html#cb1428-20" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="fu">c</span>(px, <span class="fu">rev</span>(px)), <span class="fu">c</span>(lo, <span class="fu">rev</span>(up)),</span>
+<span id="cb1428-21"><a href="6.5-dose-response-curves.html#cb1428-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">border=</span><span class="cn">NA</span>, <span class="at">col=</span><span class="st">&quot;lightgrey&quot;</span>)</span>
+<span id="cb1428-22"><a href="6.5-dose-response-curves.html#cb1428-22" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, mn, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>)</span>
+<span id="cb1428-23"><a href="6.5-dose-response-curves.html#cb1428-23" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(dat<span class="sc">$</span>conc, dat<span class="sc">$</span>rootl, <span class="at">pch=</span><span class="dv">16</span>, <span class="at">cex=</span><span class="fl">1.2</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-612-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>Regardless of whether or not you get warning messages, you should carefully inspect the data, the residuals, and the model predictions to be sure that the estimates are biologically reasonable. The figure above shows no obvious red flags, but your data might not be so well-behaved.</p>
+</div>
+<h3>Literature Cited</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-inderjit2002" class="csl-entry">
+Inderjit, J. C. Streibig, and M. Olofsdotter. 2002. <a href="https://doi.org/10.1034/j.1399-3054.2002.1140312.x">Joint action of phenolic acid mixtures and its significance in allelopathy research</a>. Physiologia Plantarum 114:422–428.
+</div>
+<div id="ref-ritz2015" class="csl-entry">
+Ritz, C., F. Baty, J. C. Streibig, and D. Gerhard. 2015. <a href="https://doi.org/10.1371/journal.pone.0146021">Dose-response analysis using <span>R</span></a>. PLoS ONE 10:e0146021.
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="8.5-mod-08-ord.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="9.1-how-to-use-this-guide.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="6.4-mod-06-grow.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="6.6-alternatives-to-nls.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

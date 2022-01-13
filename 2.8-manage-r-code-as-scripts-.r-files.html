@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis</title>
+  <title>2.8 Manage R code as scripts (.r files) | Applied Biological Data Analysis</title>
   <meta name="description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta property="og:title" content="2.8 Manage R code as scripts (.r files) | Applied Biological Data Analysis" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://greenquanteco.github.io/index.html" />
   <meta property="og:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta name="twitter:title" content="2.8 Manage R code as scripts (.r files) | Applied Biological Data Analysis" />
   
   <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="twitter:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="8.5-mod-08-ord.html"/>
-<link rel="next" href="9.1-how-to-use-this-guide.html"/>
+<link rel="prev" href="2.7-r-data-types.html"/>
+<link rel="next" href="2.9-manage-and-use-r-packages.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -530,22 +530,21 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="mod-09" class="section level1" number="9">
-<h1><span class="header-section-number">Module 9</span> Planning your analysis (what test?)</h1>
-<p>One of the main questions that biologists have after collecting data is, “What statistical test do I use?” Ignoring the fact that they should have thought about that <strong><em>before collecting data</em></strong>, the answer to that question depends on the answers to two other questions:</p>
-<ol style="list-style-type: decimal">
-<li>What question are you trying to answer?</li>
-<li>What kind of data do you have?</li>
-</ol>
-<p>After <a href="4-mod-04.html#mod-04">exploring the data</a> and gaining an understanding of the patterns and <a href="4.8-mod-04-prob.html#mod-04-prob">problems</a> in a dataset, it is time to run the main analysis. This guide is designed to help you use what you learned in exploring the data to choose an appropriate analytical strategy.</p>
+<div id="manage-r-code-as-scripts-.r-files" class="section level2" number="2.8">
+<h2><span class="header-section-number">2.8</span> Manage R code as scripts (.r files)</h2>
+<p>Over your career you will probably write a lot of code. You will download and run even more code. This page describes how to manage code that you write (scripts) and code that you get from R repositories (packages).</p>
+<p>Often it is easiest to write your R code in separate files, called <strong>scripts</strong>. An R script has the file extension <strong>.r</strong> or <strong>.R</strong>. Scripts can be used as files that store R code (basically plain text files) or as stand-alone R programs. One advantage of keeping your R code in scripts is that you will avoid the formatting issues that arise when writing R code in word processors like Microsoft Word. Another advantage comes from using specialized code editors like Notepad++, RStudio, or others: syntax highlighting. Consider the image below:</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/02_12.jpg" /></p>
+<p>This shows some typical R code in Notepad++ with comments, a <code>for</code> loop, some functions being called, datasets being subsetted, etc. Notice how code elements are colored differently, so it’s easier to see the different parts. Notice also how matching braces <code>{}</code> are highlighted. This is <strong><em>extremely</em></strong> helpful when programming complex operations.</p>
+<p>The final advantage to working with R scripts that I’ll mention is automation and running from source. R can read and run .r files with the <code>source()</code> command. This can be useful when managing a large set of simulations or analyses: code the individual simulations in a stand-alone script, and then repeatedly call that script from a different script or R instance. This can work as a simple (albeit labor-intensive) way to achieve parallelization.</p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="8.5-mod-08-ord.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="9.1-how-to-use-this-guide.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="2.7-r-data-types.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="2.9-manage-and-use-r-packages.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

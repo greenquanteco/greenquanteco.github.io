@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis</title>
+  <title>8.2 Distance metrics: biological (dis)similarity | Applied Biological Data Analysis</title>
   <meta name="description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta property="og:title" content="8.2 Distance metrics: biological (dis)similarity | Applied Biological Data Analysis" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://greenquanteco.github.io/index.html" />
   <meta property="og:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta name="twitter:title" content="8.2 Distance metrics: biological (dis)similarity | Applied Biological Data Analysis" />
   
   <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="twitter:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="8.5-mod-08-ord.html"/>
-<link rel="next" href="9.1-how-to-use-this-guide.html"/>
+<link rel="prev" href="8.1-multivariate-data.html"/>
+<link rel="next" href="8.3-clustering.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -530,22 +530,263 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="mod-09" class="section level1" number="9">
-<h1><span class="header-section-number">Module 9</span> Planning your analysis (what test?)</h1>
-<p>One of the main questions that biologists have after collecting data is, “What statistical test do I use?” Ignoring the fact that they should have thought about that <strong><em>before collecting data</em></strong>, the answer to that question depends on the answers to two other questions:</p>
-<ol style="list-style-type: decimal">
-<li>What question are you trying to answer?</li>
-<li>What kind of data do you have?</li>
-</ol>
-<p>After <a href="4-mod-04.html#mod-04">exploring the data</a> and gaining an understanding of the patterns and <a href="4.8-mod-04-prob.html#mod-04-prob">problems</a> in a dataset, it is time to run the main analysis. This guide is designed to help you use what you learned in exploring the data to choose an appropriate analytical strategy.</p>
+<div id="mod-08-dist" class="section level2" number="8.2">
+<h2><span class="header-section-number">8.2</span> Distance metrics: biological (dis)similarity</h2>
+<p>One of the central questions in a multivariate analysis is, “How similar to each other are my samples?” This is a more complicated question than it appears. It’s worth considering for a moment what “similar” even means. Consider the set of organisms below. How would you group them by “similarity”?</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/08_04.jpg" /></p>
+<p>Here is one way:</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/08_05.jpg" /></p>
+<p>You might have come up with a slightly different set of groupings. This one is just as valid:</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/08_06.jpg" /></p>
+<p>These examples illustrate how we might classify the organisms based on qualitative characteristics. But do our choices weight each characteristic equally? After all, fungi and plants are far more different from each other than ants and fish, but the second scheme lumps all non-animals together. Which characteristics of the organisms are really driving our classification decisions?</p>
+<p>One way around this problem is to assign numeric scores to characters: 1 if an organism has the trait, and 0 if it doesn’t. The table below illustrates this for a few organisms and characteristics. Note that bacteria have <code>NA</code> for hetertrophy, becuase many bacteria are also autotrophs.</p>
+<table style="width:100%;">
+<colgroup>
+<col width="7%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Organism</th>
+<th align="center">Multicellular</th>
+<th align="center">Heterotrophic</th>
+<th align="center">Flowering</th>
+<th align="center">Vertebrate</th>
+<th align="center">Gills</th>
+<th align="center">Amnion</th>
+<th align="center">Endothermic</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Bacteria</td>
+<td align="center">0</td>
+<td align="center">NA</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td>Maple</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td>Pine</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td>Octopus</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td>Shark</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td>Mushroom</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td>Frog</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td>Elephant</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td>Penguin</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td>…</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<p>The <a href="https://greenquanteco.github.io/tax_example_2021-10-27.csv">full table</a> for our organisms has more columns and rows (we’ll get to that later).</p>
+<p>The next step is to somehow quantify the similarities between the organisms. It turns out that it’s easier to define <strong>dissimilarity</strong> than it is define similarity. This is because the range of a similarity metric is ill-defined: there is no natural value to assign to identical samples. I.e., what value should identical samples have? Infinity? Some other arbitrary value? The first isn’t very useful, and the second is highly subjective. Dissimilarity, on the other hand, has a natural value to assign to identical samples: 0. Dissimilarity is often expressed as a <strong>distance</strong> through a <strong>hyperspace</strong>. Hyperspace in this context means a coordinate system with one axis (dimension) for each variable in the data.</p>
+<p>To quantify distances between taxa, we might try adding up the differences between each pair. We should also square each individual difference, so <span class="math inline">\(1-0\)</span> counts the same as <span class="math inline">\(0-1\)</span>. Then, we add up the squared differences and take the square root to get back to the original scale. For example, the distance between maple and pine in the table above would be:</p>
+<p><span class="math display">\[ D(maple,pine)=\sqrt{(1-1)^{2}+(0-0)^{2}+(1-0)^{2}+(0-0)^{2}+(0-0)^{2}+(0-0)^{2}+(0-0)^{2}}=1\]</span></p>
+<p>The difference between octopus and penguin would be:</p>
+<p><span class="math display">\[ D(octopus,penguin)=\sqrt{(1-1)^{2}+(1-1)^{2}+(0-0)^{2}+(0-1)^{2}+(1-0)^{2}+(0-1)^{2}+(0-1)^{2}}=1\]</span></p>
+<p>And the difference between mushrooms and elephants is:</p>
+<p><span class="math display">\[ D(mushroom,elephant)=\sqrt{(1-1)^{2}+(1-1)^{2}+(0-0)^{2}+(0-1)^{2}+(1-0)^{2}+(0-1)^{2}+(0-1)^{2}}\approx1.73\]</span></p>
+<p>So, for this set of characteristics, octopuses and penguins are twice as different from each other as are maple trees and pine trees, while mushrooms and elephants are not quite as different from each other as octopuses and penguins. Interestingly, mushrooms and elephants are more different from each other than are maples and pines, even though maples and pines are in the same kingdom while mushrooms and plants are not. Does that make sense biologically?</p>
+<p>These comparisons were chosen to make a couple of points about quantifying differences. First, the choice of characteristics (or measurements, or metrics, etc.) has a large influence over the calculation. Look over the list again and ask yourself if those characteristics are applicable to all of the organisms. Four of the eight traits are specific to just the animals! Second, the choice of how to combine the differences makes a big difference. There are other methods we could have chosen (see below) that might have measured dissimilarity differently.</p>
+<div id="euclidean-distance" class="section level3" number="8.2.1">
+<h3><span class="header-section-number">8.2.1</span> Euclidean distance</h3>
+<p>The most basic distance metric is the <strong>Euclidean distance</strong>. This is a generalization of the Pythagorean theorem to an arbitrary number of dimensions. The calculations above were presented in a cumbersome way to show how they work, but the Euclidean distance metric is usually written in a more compact format:</p>
+<p><span class="math display">\[D(x_{i},x_{h})=\sqrt{\sum_{j=1}^{p}(x_{i,j}-x_{h,j})^{2}} \]</span></p>
+<p>In this expression the difference between observation <em>i</em> and observation <em>h</em> (<span class="math inline">\(x[i]\)</span> and <span class="math inline">\(x[h]\)</span>) is the square root of the sum of squared differences between <span class="math inline">\(x_{i}\)</span> and <span class="math inline">\(x_{h}\)</span> in terms of each variable <em>j</em>, up to the number of variables <em>p</em>. When <em>p</em> = 2, this formula reduces to the Pythagorean theorem:</p>
+<p><span class="math display">\[D(x_{i},x_{h})=\sqrt{\sum_{j=1}^{2}(x_{i,j}-x_{h,j})^{2}}=\sqrt{(x_{i,1}-x_{h,1})^{2}+(x_{i,2}-x_{h,2})^{2}} \]</span></p>
+<p>Again, the Euclidean distance is just the Pythagorean theorem generalized to <em>p</em> dimensions rather than the usual 2. One way to think of the Pythagorean theorem is as the distance between points on the 2-d plane, with the <em>x</em> and <em>y</em> coordinates as the side lengths of the triangle.</p>
+<p>Here and for the rest of this course, “dimension” means the same as “variable”. When thinking about multivariate statistics, it can be useful to think of your data as defining a <strong>hyperspace</strong> or <strong>hypervolume</strong>, with one dimension for each variable in your data. Thus a dataset with 2 variables defines a space with 2 dimensions (i.e., a plane); a dataset with 3 dimensions defines a space with 3 dimensions (i.e., a volume), and so on. When discussing multivariate differences between sample units, we usually refer to the differences as distances through these hyperspaces. Each distance metric calculates that distance a slightly different way.</p>
+<p>Back to our organism classification example, the figure below shows Euclidean distances for 30 organisms across 12 traits. The distances are distances between each of the 435 unique pairs of taxa in a 12-dimensional hyperspace. Darker colors indicate greater distance—i.e., greater dissimilarity or smaller similarity.</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/08_07.jpg" /></p>
+<p>If you examine the chart above you will find that some if the distances are silly: for example, octopuses are presented as more different from owls than they are from bacteria. This suggests that the Euclidean distance metric was maybe not the right one.</p>
+</div>
+<div id="bray-curtis-and-other-distance-metrics" class="section level3" number="8.2.2">
+<h3><span class="header-section-number">8.2.2</span> Bray-Curtis and other distance metrics</h3>
+<p>Another distance metric is called the <strong>Manhattan</strong> or <strong>city block</strong> distance. It gets its name from the way that distances are added up by assuming that samples can only be connected by paths that move along one axis (i.e., dimension) at a time. This is analogous to how people in cities can walk along the sidewalks of the city street grid, but cannot cut through blocks. The figure below illustrates this.</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/08_08.jpg" /></p>
+<p>The Manhattan distance is longer than the Euclidean distance, but it can sometimes be a better representation of the differences between sample units in terms of many variables. The Manhattan distance is calculated as:</p>
+<p><span class="math display">\[D(x_{i},x_{h})=\sum_{j=1}^{p}|x_{i,j}-x_{h,j}|\]</span></p>
+<p>The Manhattan distance is not often used by itself, but a relativized version of it is extremely common in biology: the <strong>Bray-Curtis distance</strong>, also known as the <strong>Sørenson distance</strong>. This distance measure is called the Sørenson index when used with binary data (such as 1/0 for presence/absence). The name Bray-Curtis is used when the same formula is applied to continuous data (often proportions or percentages). The Bray-Curtis distance is calculated as:</p>
+<p><span class="math display">\[D_{BC}(x_{i},x_{h})=\frac{\sum_{j=1}^{p}|x_{i,j}-x_{h,j}|}{\sum_{i=1}^{p}x_{i,j}+\sum_{i=1}^{p}x_{h,j}}=1-\frac{2\sum_{j=1}^{p}MIN(x_{i,j},x_{h,j})}{\sum_{i=1}^{p}x_{i,j}+\sum_{i=1}^{p}x_{h,j}}\]</span></p>
+<p>In the second expression, <em>MIN</em>() is a function that returns the smaller of two values. Notice that the Bray-Curtis distance is essentially the Manhattan distance divided by the shared total values in both samples. This ratio can be thought of as the shared values divided by the total of values. The division makes this value “relativized” (i.e., relative to something else, in the same way that percentages are relative to 100). The figure below shows the approximate relationship between the Euclidean distance, Manhattan distance.</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/08_09.jpg" /></p>
+<p>If we recalculate the distance matrix between the taxa in our example, the distances now look like this:</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/08_10.jpg" /></p>
+<p>The new distances are an improvement but there is still a lot of room to get better. For example, salamanders are more similar to pines than they are to maples. I’ll leave the interpretation of that finding up to you (hint: there isn’t one…this is a silly example).</p>
+<p>There are lots of other distance metrics, but a full exploration is beyond the scope of this course. The table below, adapted from <span class="citation">McCune et al. (<a href="#ref-mccune2002analysis" role="doc-biblioref">2002</a>)</span>, gives some characteristics of some common measures. The range of input data <em>x</em> and distance measures <em>d</em> is provided. For most biological situations where data are nonnormal and relationships are nonlinear, the Bray-Curtis distance is likely to be the most appropriate. When many variables contain lots of 0s, a modified version can be used that adds a “dummy species” present in every sample to stabilize the distances <span class="citation">(<a href="#ref-clarke2006" role="doc-biblioref">Clarke et al. 2006</a>)</span>. The Euclidean metric has strong requirements of multivariate normality and collinearity among variables; the Bray-Curtis metric does not. The other metrics aren’t as commonly used as the Euclidean and Bray-Curtis, but are included here for reference.</p>
+<table>
+<colgroup>
+<col width="22%" />
+<col width="27%" />
+<col width="27%" />
+<col width="22%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Metric</th>
+<th align="center">Domain of <em>x</em></th>
+<th align="center">Range of <em>d</em></th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Bray-Curtis (Sørenson)</td>
+<td align="center"><span class="math inline">\(x \le 0\)</span></td>
+<td align="center"><span class="math inline">\(0 \le d \le 1\)</span></td>
+<td>Preferred in many biological situations</td>
+</tr>
+<tr class="even">
+<td>Relative Sørenson (Kulczynski)</td>
+<td align="center"><span class="math inline">\(x \le 0\)</span></td>
+<td align="center"><span class="math inline">\(0 \le d \le 1\)</span></td>
+<td>Relativized by sample totals</td>
+</tr>
+<tr class="odd">
+<td>Jaccard</td>
+<td align="center"><span class="math inline">\(x \le 0\)</span></td>
+<td align="center"><span class="math inline">\(0 \le d \le 1\)</span></td>
+<td>Related to Manhattan distance</td>
+</tr>
+<tr class="even">
+<td>Euclidean (Pythagorean)</td>
+<td align="center"><span class="math inline">\(x \in \mathbb{R}\)</span></td>
+<td align="center"><span class="math inline">\(0 \le d\)</span></td>
+<td>Often requires multivariate normality</td>
+</tr>
+<tr class="odd">
+<td>Relative Euclidean (chord distance)</td>
+<td align="center"><span class="math inline">\(x \in \mathbb{R}\)</span></td>
+<td align="center"><span class="math inline">\(0 \le d \le \sqrt{2}\)</span> or <span class="math inline">\(0 \le d \le 2\)</span></td>
+<td>Euclidean distance on a hypersphere</td>
+</tr>
+<tr class="even">
+<td>Chi-square</td>
+<td align="center"><span class="math inline">\(x \ge 0\)</span></td>
+<td align="center"><span class="math inline">\(0 \le d\)</span></td>
+<td>Euclidean but weighted by sample and variable totals</td>
+</tr>
+<tr class="odd">
+<td>Squared Euclidean</td>
+<td align="center"><span class="math inline">\(x \in \mathbb{R}\)</span></td>
+<td align="center"><span class="math inline">\(0 \le d\)</span></td>
+<td>Square of Euclidean distance</td>
+</tr>
+<tr class="even">
+<td>Mahalanobis</td>
+<td align="center"><span class="math inline">\(x \in \mathbb{R}\)</span></td>
+<td align="center"><span class="math inline">\(0 \le d\)</span></td>
+<td>Distance between groups weighted by intragroup variance</td>
+</tr>
+</tbody>
+</table>
+<p>Remember that distances express differences between samples with respect to several variables. This can be visualized as a distance through a hyperspace with as many dimensions as you have variables. As we’ll see in the next section, we can use distances to explore similiarites and differences between samples.</p>
+</div>
+</div>
+<h3>Literature Cited</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-clarke2006" class="csl-entry">
+Clarke, K. R., P. J. Somerfield, and M. G. Chapman. 2006. <a href="https://doi.org/10.1016/j.jembe.2005.12.017">On resemblance measures for ecological studies, including taxonomic dissimilarities and a zero-adjusted bray-curtis coefficient for denuded assemblages</a>. Journal of Experimental Marine Biology and Ecology 330:55–80.
+</div>
+<div id="ref-mccune2002analysis" class="csl-entry">
+McCune, B., J. B. Grace, and D. L. Urban. 2002. Analysis of ecological communities. MjM software design Gleneden Beach, Oregon, USA.
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="8.5-mod-08-ord.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="9.1-how-to-use-this-guide.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="8.1-multivariate-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="8.3-clustering.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

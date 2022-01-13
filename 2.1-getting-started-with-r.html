@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis</title>
+  <title>2.1 Getting started with R | Applied Biological Data Analysis</title>
   <meta name="description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta property="og:title" content="2.1 Getting started with R | Applied Biological Data Analysis" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://greenquanteco.github.io/index.html" />
   <meta property="og:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta name="twitter:title" content="2.1 Getting started with R | Applied Biological Data Analysis" />
   
   <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="twitter:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="8.5-mod-08-ord.html"/>
-<link rel="next" href="9.1-how-to-use-this-guide.html"/>
+<link rel="prev" href="2-mod-02.html"/>
+<link rel="next" href="2.2-download-and-install-r-and-rstudio.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -530,22 +530,75 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="mod-09" class="section level1" number="9">
-<h1><span class="header-section-number">Module 9</span> Planning your analysis (what test?)</h1>
-<p>One of the main questions that biologists have after collecting data is, “What statistical test do I use?” Ignoring the fact that they should have thought about that <strong><em>before collecting data</em></strong>, the answer to that question depends on the answers to two other questions:</p>
+<div id="getting-started-with-r" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Getting started with R</h2>
+<div id="what-is-r" class="section level3" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> What is R?</h3>
+<p>R is an open-source language and environment for data analysis, statistics, and data visualization. It is descended from an older language called S, which is the basis for the commercial statistics software S-Plus. R is part of part of the <a href="https://www.gnu.org/software/">GNU free software project</a>. The GNU project is a free and open-source software ecosystem including an operating system and many programs that can replace paid proprietary software. GNU is a recursive acronym that stands for “GNU’s Not Unix”.</p>
+<p>R is designed for statistics and data analysis, but it is also a general-purpose programming language. One of the most important features of the R language is that it is <strong>object-oriented</strong>. R commands and programs focus on manipulating <strong>objects</strong> in the computer memory. An object is a construct that has a <strong>class</strong>, and can be acted upon by <strong>methods</strong>.</p>
+<ul>
+<li>A class is like a blueprint for an object. The class defines the data format in an object, and how other objects can interact with that object.</li>
+<li>An object is an instance of a class.</li>
+<li>A method is a function that works with objects according to their class.</li>
+</ul>
+<p>For example, a graphics program might have classes such as “circle”, “square”, and “triangle”. Every circle, square, or triangle that the user draws is an instance of one of those classes. This way the user can create different examples of common shape types without having to define the shapes anew every time one is created.</p>
+<p><strong><em>Everything in R is an object of one kind or another!</em></strong> Understanding this idea is the key to R success. We will learn about some of the most important R classes <a href="2.6-mod-02-struct.html#mod-02-struct">later</a>.</p>
+</div>
+<div id="advantages-of-r" class="section level3" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> Advantages of R</h3>
+<p>If you are going to choose a tool for statistics in your research, you need to have a good reason. R offers several very good reasons to choose it for your statistical computing needs. The key advantages of R are:</p>
+<ul>
+<li>R is free!</li>
+<li>R is widely used for statistics and data analysis.</li>
+<li>R has a large and active community of users and developers. This means that new statistical techniques are often implemented in R before they are implemented in other software.</li>
+<li>R is a highly marketable professional skill because it is widely used in academia, government, and industry.</li>
+<li>R Is open source: you can modify it to suit your needs, and see exactly how it does what it does. The R source code is <a href="https://github.com/wch/r-source">hosted on github</a> (accessed 2021-12-20).</li>
+</ul>
+</div>
+<div id="disadvantages-of-r" class="section level3" number="2.1.3">
+<h3><span class="header-section-number">2.1.3</span> Disadvantages of R</h3>
+<p>For all of its advantages, R has some drawbacks. Chief among them:</p>
+<ul>
+<li>R is free. Unlike some paid and proprietary software, there is no official help line to call if you have issues.</li>
+<li>Along the same lines, R is distributed with absolutely no warranty (it says so every time you open R). The accuracy of your analysis depends on the competence of the (unpaid) contributors and the user.</li>
+<li>R often requires more coding than SAS or other tools to get a similar amount of output or perform a similar amount of work. The <code>tidyverse</code> ecosystem of packages addresses some of these issues.</li>
+<li>R is slower than SAS and other tools at handling large datasets because it holds all data and objects in memory (RAM) at once. This limits the performance of your machine if you are doing other tasks.</li>
+<li>R is single-threaded by default. This means that R does not handle parallel computation very easily, which could potentially speed up many tasks.</li>
+<li>R has a difficult learning curve because it is so programming-focused.</li>
+<li>Error messages that R gives are often vague and infuriating.</li>
+</ul>
+</div>
+<div id="base-r-and-vs.-tidyverse" class="section level3" number="2.1.4">
+<h3><span class="header-section-number">2.1.4</span> Base R and (vs.?) <code>tidyverse</code></h3>
+<p>A colleague of mine who moved from using mostly SAS to using mostly R says that the <code>tidyverse</code> makes R feel more like SAS. The difference he was referring to is the way that SAS functions (“PROCs”, or procedures) tend to automate or abstract away a lot of the low-level functionality and options associated with their methods. Those functions and options are there, but they can be inconvenient to access. The equivalent base R functions, on the other hand, require the user to specify options and manipulate output to a far greater extent. Or, depending on your perspective, they <em>allow</em> the user to specify options and manipulate output. Some people like that, and some people don’t. The amount of interaction and coding in R require to get outputs that other programs like SAS produce automatically is, in my experience, one of the biggest stumbling blocks for new R users.</p>
+<p>Because of the amount of work required to get base R to do anything, the degree of automation and abstraction available in the <code>tidyverse</code> packages <span class="citation">(<a href="#ref-wickham2019" role="doc-biblioref">Wickham et al. 2019</a>)</span> is very attractive to many R users: they can focus on high-level decisions without having to get into every picayune detail of routine workflows and standard analyses. Tidyverse packages allow for very streamlined and (once you learn it) easy to understand code. These advantages come at a cost: because the functions abstract the finer details away, those details are harder to see. This can be problematic if you need to work more directly with function inputs and outputs, or manipulate options or data in non-standard ways<a href="literature-cited.html#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a>. The abstraction of the low-level workings of an analysis or program can save a lot of time and headache, but can also make it harder to track down or even to notice errors (although to be fair, systematic approaches to data manipulation such as in package <code>dplyr</code> can also <strong>prevent</strong> many errors as well).</p>
+<p>In my own workflow, and in this course, I tend to use base R methods instead of <code>tidyverse</code> for a few reasons. The first three are entirely personal and subjective.</p>
 <ol style="list-style-type: decimal">
-<li>What question are you trying to answer?</li>
-<li>What kind of data do you have?</li>
+<li>I learned R before <code>tidyverse</code> became a thing. This isn’t an advantage or disadvantage to either paradigm; it just is. For me, the time and effort costs of switching to <code>tidyverse</code> would likely outweigh the benefits.</li>
+<li>I prefer the syntax of base R to the “grammar” of <code>tidyverse</code>. In particular, <code>tidyverse</code> seems to make extensive use of the pipe operator <code>%&gt;%</code>, which tends to make for less clear (to me) code.</li>
+<li>I prefer to write code with as few dependencies as possible. This makes it less likely that some random update will break my code.</li>
 </ol>
-<p>After <a href="4-mod-04.html#mod-04">exploring the data</a> and gaining an understanding of the patterns and <a href="4.8-mod-04-prob.html#mod-04-prob">problems</a> in a dataset, it is time to run the main analysis. This guide is designed to help you use what you learned in exploring the data to choose an appropriate analytical strategy.</p>
+<p>The other two reasons are more functional and less subjective:</p>
+<ol start="4" style="list-style-type: decimal">
+<li>Debugging and error correction is easier in base R because of the <em>lack</em> of abstraction. If every step is coded manually and out in the open, errors are easier to find, isolate, and fix.</li>
+<li>Debugging and fixing <code>tidy</code> code often requires knowing base R, but the reverse is never true.</li>
+</ol>
+<p>The takehome message is that while both base R and <code>tidyverse</code> offer powerful tools for working with and analyzing data, they represent two overlapping but different programming paradigms. Neither is objectively “better” than the other. Which framework you use depends on what level of abstraction vs. explicitness you are comfortable with in your own code. Base R makes it easier to work flexibly with the low-level inputs and outputs of different methods, but usually at the cost of a steeper learning curve. <code>tidyverse</code> makes routine tasks more streamlined with a unified syntax and grammar for data manipulation, but at the cost of flexibility. My advice is to not restrict yourself to one or the other.</p>
+</div>
+</div>
+<h3>Literature Cited</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-wickham2019" class="csl-entry">
+Wickham, H., M. Averick, J. Bryan, W. Chang, L. D. McGowan, R. François, G. Grolemund, A. Hayes, L. Henry, J. Hester, M. Kuhn, T. L. Pedersen, E. Miller, S. M. Bache, K. Müller, J. Ooms, D. Robinson, D. P. Seidel, V. Spinu, K. Takahashi, D. Vaughan, C. Wilke, K. Woo, and H. Yutani. 2019. <a href="https://doi.org/10.21105/joss.01686">Welcome to the <span class="nocase">tidyverse</span></a>. Journal of Open Source Software 4:1686.
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="8.5-mod-08-ord.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="9.1-how-to-use-this-guide.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="2-mod-02.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="2.2-download-and-install-r-and-rstudio.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

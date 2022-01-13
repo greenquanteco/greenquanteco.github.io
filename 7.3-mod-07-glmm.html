@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>7.3 Generalized linear mixed models (GLMM) | Applied Biological Data Analysis</title>
+  <meta name="description" content="Helping biologists to become more informed users of R and statistical methods." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="7.3 Generalized linear mixed models (GLMM) | Applied Biological Data Analysis" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://greenquanteco.github.io/index.html" />
+  <meta property="og:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
+  <meta property="og:description" content="Helping biologists to become more informed users of R and statistical methods." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="7.3 Generalized linear mixed models (GLMM) | Applied Biological Data Analysis" />
+  
+  <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
+  <meta name="twitter:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
+
+<meta name="author" content="Nick Green, Kennesaw State University" />
+
+
+<meta name="date" content="2022-01-12" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="7.2-mod-07-lmm.html"/>
+<link rel="next" href="7.4-mod-07-nlme.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="license-and-permissions.html"><a href="license-and-permissions.html"><i class="fa fa-check"></i>License and permissions</a></li>
+<li class="chapter" data-level="" data-path="course-description.html"><a href="course-description.html"><i class="fa fa-check"></i>Course description</a></li>
+<li class="chapter" data-level="" data-path="course-objectives.html"><a href="course-objectives.html"><i class="fa fa-check"></i>Course objectives</a></li>
+<li class="chapter" data-level="" data-path="course-requirements.html"><a href="course-requirements.html"><i class="fa fa-check"></i>Course requirements</a></li>
+<li class="chapter" data-level="" data-path="recommended-reading.html"><a href="recommended-reading.html"><i class="fa fa-check"></i>Recommended reading</a></li>
+<li class="chapter" data-level="" data-path="course-organization.html"><a href="course-organization.html"><i class="fa fa-check"></i>Course organization</a></li>
+<li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the author</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="1-mod-01.html"><a href="1-mod-01.html"><i class="fa fa-check"></i><b>1</b> Statistics in modern biology</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="1.1-overview.html"><a href="1.1-overview.html"><i class="fa fa-check"></i><b>1.1</b> Overview</a></li>
+<li class="chapter" data-level="1.2" data-path="1.2-statistics-in-modern-biology.html"><a href="1.2-statistics-in-modern-biology.html"><i class="fa fa-check"></i><b>1.2</b> Statistics in modern biology</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="1.2-statistics-in-modern-biology.html"><a href="1.2-statistics-in-modern-biology.html#the-scientific-method"><i class="fa fa-check"></i><b>1.2.1</b> The scientific method</a></li>
+<li class="chapter" data-level="1.2.2" data-path="1.2-statistics-in-modern-biology.html"><a href="1.2-statistics-in-modern-biology.html#example-data-analysis"><i class="fa fa-check"></i><b>1.2.2</b> Example data analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="1.3-misuses-of-statistics.html"><a href="1.3-misuses-of-statistics.html"><i class="fa fa-check"></i><b>1.3</b> Misuses of statistics</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="1.3-misuses-of-statistics.html"><a href="1.3-misuses-of-statistics.html#proving-the-trivial-and-meaningless-hypotheses"><i class="fa fa-check"></i><b>1.3.1</b> “Proving” the trivial and meaningless hypotheses</a></li>
+<li class="chapter" data-level="1.3.2" data-path="1.3-misuses-of-statistics.html"><a href="1.3-misuses-of-statistics.html#inappropriate-methods"><i class="fa fa-check"></i><b>1.3.2</b> Inappropriate methods</a></li>
+<li class="chapter" data-level="1.3.3" data-path="1.3-misuses-of-statistics.html"><a href="1.3-misuses-of-statistics.html#p-hacking-and-data-dredging"><i class="fa fa-check"></i><b>1.3.3</b> <em>P</em>-hacking and data dredging</a></li>
+<li class="chapter" data-level="1.3.4" data-path="1.3-misuses-of-statistics.html"><a href="1.3-misuses-of-statistics.html#inadequate-sample-sizes-and-pseudoreplication"><i class="fa fa-check"></i><b>1.3.4</b> Inadequate sample sizes and pseudoreplication</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><i class="fa fa-check"></i><b>1.4</b> <em>P</em>-values and null hypothesis significance testing (NHST)</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#definition"><i class="fa fa-check"></i><b>1.4.1</b> Definition</a></li>
+<li class="chapter" data-level="1.4.2" data-path="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#history-and-status-of-p-values"><i class="fa fa-check"></i><b>1.4.2</b> History and status of <em>P</em>-values</a></li>
+<li class="chapter" data-level="1.4.3" data-path="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#where-p-values-come-from"><i class="fa fa-check"></i><b>1.4.3</b> Where <em>P</em>-values come from</a></li>
+<li class="chapter" data-level="1.4.4" data-path="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#what-p-values-mean-and-do-not-mean"><i class="fa fa-check"></i><b>1.4.4</b> What <em>P</em>-values mean and do not mean</a></li>
+<li class="chapter" data-level="1.4.5" data-path="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#do-you-need-a-p-value"><i class="fa fa-check"></i><b>1.4.5</b> Do you need a <em>P</em>-value?</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="1.5-alternatives-to-nhst.html"><a href="1.5-alternatives-to-nhst.html"><i class="fa fa-check"></i><b>1.5</b> Alternatives to NHST</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="1.5-alternatives-to-nhst.html"><a href="1.5-alternatives-to-nhst.html#bayesian-inference"><i class="fa fa-check"></i><b>1.5.1</b> Bayesian inference</a></li>
+<li class="chapter" data-level="1.5.2" data-path="1.5-alternatives-to-nhst.html"><a href="1.5-alternatives-to-nhst.html#information-theoretic-methods"><i class="fa fa-check"></i><b>1.5.2</b> Information-theoretic methods</a></li>
+<li class="chapter" data-level="1.5.3" data-path="1.5-alternatives-to-nhst.html"><a href="1.5-alternatives-to-nhst.html#machine-learning"><i class="fa fa-check"></i><b>1.5.3</b> Machine learning</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="2-mod-02.html"><a href="2-mod-02.html"><i class="fa fa-check"></i><b>2</b> Introduction to R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="2.1-getting-started-with-r.html"><a href="2.1-getting-started-with-r.html"><i class="fa fa-check"></i><b>2.1</b> Getting started with R</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="2.1-getting-started-with-r.html"><a href="2.1-getting-started-with-r.html#what-is-r"><i class="fa fa-check"></i><b>2.1.1</b> What is R?</a></li>
+<li class="chapter" data-level="2.1.2" data-path="2.1-getting-started-with-r.html"><a href="2.1-getting-started-with-r.html#advantages-of-r"><i class="fa fa-check"></i><b>2.1.2</b> Advantages of R</a></li>
+<li class="chapter" data-level="2.1.3" data-path="2.1-getting-started-with-r.html"><a href="2.1-getting-started-with-r.html#disadvantages-of-r"><i class="fa fa-check"></i><b>2.1.3</b> Disadvantages of R</a></li>
+<li class="chapter" data-level="2.1.4" data-path="2.1-getting-started-with-r.html"><a href="2.1-getting-started-with-r.html#base-r-and-vs.-tidyverse"><i class="fa fa-check"></i><b>2.1.4</b> Base R and (vs.?) <code>tidyverse</code></a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="2.2-download-and-install-r-and-rstudio.html"><a href="2.2-download-and-install-r-and-rstudio.html"><i class="fa fa-check"></i><b>2.2</b> Download and install R (and RStudio)</a></li>
+<li class="chapter" data-level="2.3" data-path="2.3-using-r.html"><a href="2.3-using-r.html"><i class="fa fa-check"></i><b>2.3</b> Using R</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="2.3-using-r.html"><a href="2.3-using-r.html#using-the-base-r-gui"><i class="fa fa-check"></i><b>2.3.1</b> Using the base R GUI</a></li>
+<li class="chapter" data-level="2.3.2" data-path="2.3-using-r.html"><a href="2.3-using-r.html#using-r-in-rstudio"><i class="fa fa-check"></i><b>2.3.2</b> Using R in RStudio</a></li>
+<li class="chapter" data-level="2.3.3" data-path="2.3-using-r.html"><a href="2.3-using-r.html#using-r-with-other-programs"><i class="fa fa-check"></i><b>2.3.3</b> Using R with other programs</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html"><i class="fa fa-check"></i><b>2.4</b> A first R session</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#import-data"><i class="fa fa-check"></i><b>2.4.1</b> Import data</a></li>
+<li class="chapter" data-level="2.4.2" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#explore-and-visualize-data"><i class="fa fa-check"></i><b>2.4.2</b> Explore and visualize data</a></li>
+<li class="chapter" data-level="2.4.3" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#transform-data"><i class="fa fa-check"></i><b>2.4.3</b> Transform data</a></li>
+<li class="chapter" data-level="2.4.4" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#analyze-data"><i class="fa fa-check"></i><b>2.4.4</b> Analyze data</a></li>
+<li class="chapter" data-level="2.4.5" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#write-out-results"><i class="fa fa-check"></i><b>2.4.5</b> Write out results</a></li>
+<li class="chapter" data-level="2.4.6" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#save-your-work"><i class="fa fa-check"></i><b>2.4.6</b> Save your work?</a></li>
+<li class="chapter" data-level="2.4.7" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#whats-next"><i class="fa fa-check"></i><b>2.4.7</b> What’s next?</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="2.5-write-and-execute-commands-in-the-r-console.html"><a href="2.5-write-and-execute-commands-in-the-r-console.html"><i class="fa fa-check"></i><b>2.5</b> Write and execute commands in the R console</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="2.5-write-and-execute-commands-in-the-r-console.html"><a href="2.5-write-and-execute-commands-in-the-r-console.html#r-commandsbasics"><i class="fa fa-check"></i><b>2.5.1</b> R commands–basics</a></li>
+<li class="chapter" data-level="2.5.2" data-path="2.5-write-and-execute-commands-in-the-r-console.html"><a href="2.5-write-and-execute-commands-in-the-r-console.html#elements-of-r-code"><i class="fa fa-check"></i><b>2.5.2</b> Elements of R code</a></li>
+<li class="chapter" data-level="2.5.3" data-path="2.5-write-and-execute-commands-in-the-r-console.html"><a href="2.5-write-and-execute-commands-in-the-r-console.html#the-r-workspace"><i class="fa fa-check"></i><b>2.5.3</b> The R workspace</a></li>
+<li class="chapter" data-level="2.5.4" data-path="2.5-write-and-execute-commands-in-the-r-console.html"><a href="2.5-write-and-execute-commands-in-the-r-console.html#r-code-basics-assignment-and-operators"><i class="fa fa-check"></i><b>2.5.4</b> R code basics: assignment and operators</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="2.6-mod-02-struct.html"><a href="2.6-mod-02-struct.html"><i class="fa fa-check"></i><b>2.6</b> Basic R data structures</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="2.6-mod-02-struct.html"><a href="2.6-mod-02-struct.html#vectors"><i class="fa fa-check"></i><b>2.6.1</b> Vectors</a></li>
+<li class="chapter" data-level="2.6.2" data-path="2.6-mod-02-struct.html"><a href="2.6-mod-02-struct.html#data-frames"><i class="fa fa-check"></i><b>2.6.2</b> Data frames</a></li>
+<li class="chapter" data-level="2.6.3" data-path="2.6-mod-02-struct.html"><a href="2.6-mod-02-struct.html#matrices-and-arrays"><i class="fa fa-check"></i><b>2.6.3</b> Matrices and arrays</a></li>
+<li class="chapter" data-level="2.6.4" data-path="2.6-mod-02-struct.html"><a href="2.6-mod-02-struct.html#lists"><i class="fa fa-check"></i><b>2.6.4</b> Lists</a></li>
+<li class="chapter" data-level="2.6.5" data-path="2.6-mod-02-struct.html"><a href="2.6-mod-02-struct.html#s4-objects"><i class="fa fa-check"></i><b>2.6.5</b> S4 objects</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="2.7-r-data-types.html"><a href="2.7-r-data-types.html"><i class="fa fa-check"></i><b>2.7</b> R data types</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="2.7-r-data-types.html"><a href="2.7-r-data-types.html#character-type"><i class="fa fa-check"></i><b>2.7.1</b> Character type</a></li>
+<li class="chapter" data-level="2.7.2" data-path="2.7-r-data-types.html"><a href="2.7-r-data-types.html#numeric-type"><i class="fa fa-check"></i><b>2.7.2</b> Numeric type</a></li>
+<li class="chapter" data-level="2.7.3" data-path="2.7-r-data-types.html"><a href="2.7-r-data-types.html#integer-type"><i class="fa fa-check"></i><b>2.7.3</b> Integer type</a></li>
+<li class="chapter" data-level="2.7.4" data-path="2.7-r-data-types.html"><a href="2.7-r-data-types.html#logical-type"><i class="fa fa-check"></i><b>2.7.4</b> Logical type</a></li>
+<li class="chapter" data-level="2.7.5" data-path="2.7-r-data-types.html"><a href="2.7-r-data-types.html#special-values"><i class="fa fa-check"></i><b>2.7.5</b> Special values</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="2.8-manage-r-code-as-scripts-.r-files.html"><a href="2.8-manage-r-code-as-scripts-.r-files.html"><i class="fa fa-check"></i><b>2.8</b> Manage R code as scripts (.r files)</a></li>
+<li class="chapter" data-level="2.9" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html"><i class="fa fa-check"></i><b>2.9</b> Manage and use R packages</a>
+<ul>
+<li class="chapter" data-level="2.9.1" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#your-r-library"><i class="fa fa-check"></i><b>2.9.1</b> Your R library</a></li>
+<li class="chapter" data-level="2.9.2" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#installing-packages-using-the-r-gui"><i class="fa fa-check"></i><b>2.9.2</b> Installing packages using the R GUI</a></li>
+<li class="chapter" data-level="2.9.3" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#installing-packages-in-rstudio"><i class="fa fa-check"></i><b>2.9.3</b> Installing packages in RStudio</a></li>
+<li class="chapter" data-level="2.9.4" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#installing-packages-using-the-r-console"><i class="fa fa-check"></i><b>2.9.4</b> Installing packages using the R console</a></li>
+<li class="chapter" data-level="2.9.5" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#working-with-packages-in-r"><i class="fa fa-check"></i><b>2.9.5</b> Working with packages in R</a></li>
+<li class="chapter" data-level="2.9.6" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#package-dependencies"><i class="fa fa-check"></i><b>2.9.6</b> Package dependencies</a></li>
+<li class="chapter" data-level="2.9.7" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#citing-packages"><i class="fa fa-check"></i><b>2.9.7</b> Citing packages</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html"><i class="fa fa-check"></i><b>2.10</b> R documentation</a>
+<ul>
+<li class="chapter" data-level="2.10.1" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html#documentation-help-files"><i class="fa fa-check"></i><b>2.10.1</b> Documentation (help) files</a></li>
+<li class="chapter" data-level="2.10.2" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html#r-vignettes"><i class="fa fa-check"></i><b>2.10.2</b> R vignettes</a></li>
+<li class="chapter" data-level="2.10.3" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html#official-r-project-resources"><i class="fa fa-check"></i><b>2.10.3</b> Official R Project resources</a></li>
+<li class="chapter" data-level="2.10.4" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html#unofficial-online-resources"><i class="fa fa-check"></i><b>2.10.4</b> Unofficial online resources</a></li>
+<li class="chapter" data-level="2.10.5" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html#r-books"><i class="fa fa-check"></i><b>2.10.5</b> R books</a></li>
+<li class="chapter" data-level="2.10.6" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html#two-reminders"><i class="fa fa-check"></i><b>2.10.6</b> Two reminders</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="3-mod-03.html"><a href="3-mod-03.html"><i class="fa fa-check"></i><b>3</b> Data manipulation with R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="3.1-mod-03-inout.html"><a href="3.1-mod-03-inout.html"><i class="fa fa-check"></i><b>3.1</b> Data import and export</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="3.1-mod-03-inout.html"><a href="3.1-mod-03-inout.html#importing-data-preliminaries"><i class="fa fa-check"></i><b>3.1.1</b> Importing data: preliminaries</a></li>
+<li class="chapter" data-level="3.1.2" data-path="3.1-mod-03-inout.html"><a href="3.1-mod-03-inout.html#importing-data-from-text-files-with-read.csv-and-read.table"><i class="fa fa-check"></i><b>3.1.2</b> Importing data from text files with <code>read.csv()</code> and <code>read.table()</code></a></li>
+<li class="chapter" data-level="3.1.3" data-path="3.1-mod-03-inout.html"><a href="3.1-mod-03-inout.html#importing-data-from-saved-workspaces"><i class="fa fa-check"></i><b>3.1.3</b> Importing data from saved workspaces</a></li>
+<li class="chapter" data-level="3.1.4" data-path="3.1-mod-03-inout.html"><a href="3.1-mod-03-inout.html#importing-data-special-cases"><i class="fa fa-check"></i><b>3.1.4</b> Importing data: special cases:</a></li>
+<li class="chapter" data-level="3.1.5" data-path="3.1-mod-03-inout.html"><a href="3.1-mod-03-inout.html#export-data-from-r"><i class="fa fa-check"></i><b>3.1.5</b> Export data from R</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="3.2-making-values-in-r.html"><a href="3.2-making-values-in-r.html"><i class="fa fa-check"></i><b>3.2</b> Making values in R</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="3.2-making-values-in-r.html"><a href="3.2-making-values-in-r.html#producing-arbitrary-values-with-c"><i class="fa fa-check"></i><b>3.2.1</b> Producing arbitrary values with <code>c()</code></a></li>
+<li class="chapter" data-level="3.2.2" data-path="3.2-making-values-in-r.html"><a href="3.2-making-values-in-r.html#generating-regular-values"><i class="fa fa-check"></i><b>3.2.2</b> Generating regular values</a></li>
+<li class="chapter" data-level="3.2.3" data-path="3.2-making-values-in-r.html"><a href="3.2-making-values-in-r.html#generating-random-values"><i class="fa fa-check"></i><b>3.2.3</b> Generating random values</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="3.3-selecting-data-with.html"><a href="3.3-selecting-data-with.html"><i class="fa fa-check"></i><b>3.3</b> Selecting data with <code>[]</code></a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="3.3-selecting-data-with.html"><a href="3.3-selecting-data-with.html#mod-03-brackets"><i class="fa fa-check"></i><b>3.3.1</b> Basics of brackets</a></li>
+<li class="chapter" data-level="3.3.2" data-path="3.3-selecting-data-with.html"><a href="3.3-selecting-data-with.html#extracting-and-selecting-data-with-logical-tests"><i class="fa fa-check"></i><b>3.3.2</b> Extracting and selecting data with logical tests</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="3.4-managing-dates-and-characters.html"><a href="3.4-managing-dates-and-characters.html"><i class="fa fa-check"></i><b>3.4</b> Managing dates and characters</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="3.4-managing-dates-and-characters.html"><a href="3.4-managing-dates-and-characters.html#temporal-data-and-dates"><i class="fa fa-check"></i><b>3.4.1</b> Temporal data and dates</a></li>
+<li class="chapter" data-level="3.4.2" data-path="3.4-managing-dates-and-characters.html"><a href="3.4-managing-dates-and-characters.html#character-data-text"><i class="fa fa-check"></i><b>3.4.2</b> Character data (text)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="3.5-mod-03-dataframe.html"><a href="3.5-mod-03-dataframe.html"><i class="fa fa-check"></i><b>3.5</b> Data frame management</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="3.5-mod-03-dataframe.html"><a href="3.5-mod-03-dataframe.html#data-frame-structure"><i class="fa fa-check"></i><b>3.5.1</b> Data frame structure</a></li>
+<li class="chapter" data-level="3.5.2" data-path="3.5-mod-03-dataframe.html"><a href="3.5-mod-03-dataframe.html#common-data-frame-operations"><i class="fa fa-check"></i><b>3.5.2</b> Common data frame operations</a></li>
+<li class="chapter" data-level="3.5.3" data-path="3.5-mod-03-dataframe.html"><a href="3.5-mod-03-dataframe.html#other-data-frame-operations"><i class="fa fa-check"></i><b>3.5.3</b> Other data frame operations</a></li>
+<li class="chapter" data-level="3.5.4" data-path="3.5-mod-03-dataframe.html"><a href="3.5-mod-03-dataframe.html#mod-03-reshape"><i class="fa fa-check"></i><b>3.5.4</b> Reshaping data frames</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="4-mod-04.html"><a href="4-mod-04.html"><i class="fa fa-check"></i><b>4</b> Exploratory data analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="4.1-descriptive-and-summary-statistics.html"><a href="4.1-descriptive-and-summary-statistics.html"><i class="fa fa-check"></i><b>4.1</b> Descriptive and summary statistics</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="4.1-descriptive-and-summary-statistics.html"><a href="4.1-descriptive-and-summary-statistics.html#basic-summary-statistics"><i class="fa fa-check"></i><b>4.1.1</b> Basic summary statistics</a></li>
+<li class="chapter" data-level="4.1.2" data-path="4.1-descriptive-and-summary-statistics.html"><a href="4.1-descriptive-and-summary-statistics.html#summarizing-data-with-the-apply-family"><i class="fa fa-check"></i><b>4.1.2</b> Summarizing data with the <code>apply()</code> family</a></li>
+<li class="chapter" data-level="4.1.3" data-path="4.1-descriptive-and-summary-statistics.html"><a href="4.1-descriptive-and-summary-statistics.html#mod-04-tabagg"><i class="fa fa-check"></i><b>4.1.3</b> Tabulation and aggregation</a></li>
+<li class="chapter" data-level="4.1.4" data-path="4.1-descriptive-and-summary-statistics.html"><a href="4.1-descriptive-and-summary-statistics.html#aggregation-aka-pivot-tables"><i class="fa fa-check"></i><b>4.1.4</b> Aggregation (aka: pivot tables)</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html"><i class="fa fa-check"></i><b>4.2</b> Visualizing data distributions</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html#boxplots-aka-box-and-whisker-plots"><i class="fa fa-check"></i><b>4.2.1</b> Boxplots (aka: box-and-whisker plots)</a></li>
+<li class="chapter" data-level="4.2.2" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html#histograms"><i class="fa fa-check"></i><b>4.2.2</b> Histograms</a></li>
+<li class="chapter" data-level="4.2.3" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html#kernel-density-plots"><i class="fa fa-check"></i><b>4.2.3</b> Kernel density plots</a></li>
+<li class="chapter" data-level="4.2.4" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html#empirical-cumulative-distribution-plots-ecdf"><i class="fa fa-check"></i><b>4.2.4</b> Empirical cumulative distribution plots (ECDF)</a></li>
+<li class="chapter" data-level="4.2.5" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html#quantile-quantile-qq-plots"><i class="fa fa-check"></i><b>4.2.5</b> Quantile-quantile (QQ) plots</a></li>
+<li class="chapter" data-level="4.2.6" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html#how-should-i-plot-my-data"><i class="fa fa-check"></i><b>4.2.6</b> How should I plot my data?</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="4.3-mod-04-dists1.html"><a href="4.3-mod-04-dists1.html"><i class="fa fa-check"></i><b>4.3</b> Statistical distributions</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="4.3-mod-04-dists1.html"><a href="4.3-mod-04-dists1.html#probability-distributions"><i class="fa fa-check"></i><b>4.3.1</b> Probability distributions</a></li>
+<li class="chapter" data-level="4.3.2" data-path="4.3-mod-04-dists1.html"><a href="4.3-mod-04-dists1.html#probability-distributions-in-r"><i class="fa fa-check"></i><b>4.3.2</b> Probability distributions in R</a></li>
+<li class="chapter" data-level="4.3.3" data-path="4.3-mod-04-dists1.html"><a href="4.3-mod-04-dists1.html#discrete-distributions"><i class="fa fa-check"></i><b>4.3.3</b> Discrete distributions</a></li>
+<li class="chapter" data-level="4.3.4" data-path="4.3-mod-04-dists1.html"><a href="4.3-mod-04-dists1.html#continuous-distributions"><i class="fa fa-check"></i><b>4.3.4</b> Continuous distributions</a></li>
+<li class="chapter" data-level="4.3.5" data-path="4.3-mod-04-dists1.html"><a href="4.3-mod-04-dists1.html#distributions-summary"><i class="fa fa-check"></i><b>4.3.5</b> Distributions summary</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="4.4-mod-04-dists2.html"><a href="4.4-mod-04-dists2.html"><i class="fa fa-check"></i><b>4.4</b> Fitting and testing distributions</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="4.4-mod-04-dists2.html"><a href="4.4-mod-04-dists2.html#estimating-distributional-parameters"><i class="fa fa-check"></i><b>4.4.1</b> Estimating distributional parameters</a></li>
+<li class="chapter" data-level="4.4.2" data-path="4.4-mod-04-dists2.html"><a href="4.4-mod-04-dists2.html#graphical-methods-for-examining-distributions"><i class="fa fa-check"></i><b>4.4.2</b> Graphical methods for examining distributions</a></li>
+<li class="chapter" data-level="4.4.3" data-path="4.4-mod-04-dists2.html"><a href="4.4-mod-04-dists2.html#formal-tests-for-distributions"><i class="fa fa-check"></i><b>4.4.3</b> Formal tests for distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="4.5-mod-04-trans.html"><a href="4.5-mod-04-trans.html"><i class="fa fa-check"></i><b>4.5</b> Data transformations</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="4.5-mod-04-trans.html"><a href="4.5-mod-04-trans.html#why-transform"><i class="fa fa-check"></i><b>4.5.1</b> Why transform?</a></li>
+<li class="chapter" data-level="4.5.2" data-path="4.5-mod-04-trans.html"><a href="4.5-mod-04-trans.html#transforms-vs.-link-functions"><i class="fa fa-check"></i><b>4.5.2</b> Transforms vs. link functions</a></li>
+<li class="chapter" data-level="4.5.3" data-path="4.5-mod-04-trans.html"><a href="4.5-mod-04-trans.html#log-transformation"><i class="fa fa-check"></i><b>4.5.3</b> Log transformation</a></li>
+<li class="chapter" data-level="4.5.4" data-path="4.5-mod-04-trans.html"><a href="4.5-mod-04-trans.html#rank-transformation"><i class="fa fa-check"></i><b>4.5.4</b> Rank transformation</a></li>
+<li class="chapter" data-level="4.5.5" data-path="4.5-mod-04-trans.html"><a href="4.5-mod-04-trans.html#other-transforms-less-common"><i class="fa fa-check"></i><b>4.5.5</b> Other transforms (less common)</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="4.6-multivariate-data-exploration.html"><a href="4.6-multivariate-data-exploration.html"><i class="fa fa-check"></i><b>4.6</b> Multivariate data exploration</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="4.6-multivariate-data-exploration.html"><a href="4.6-multivariate-data-exploration.html#scatterplots-for-two-variables"><i class="fa fa-check"></i><b>4.6.1</b> Scatterplots for two variables</a></li>
+<li class="chapter" data-level="4.6.2" data-path="4.6-multivariate-data-exploration.html"><a href="4.6-multivariate-data-exploration.html#mod-04-smat"><i class="fa fa-check"></i><b>4.6.2</b> Scatterplot matrices for many variables</a></li>
+<li class="chapter" data-level="4.6.3" data-path="4.6-multivariate-data-exploration.html"><a href="4.6-multivariate-data-exploration.html#lattice-plots-for-hierarchical-data"><i class="fa fa-check"></i><b>4.6.3</b> Lattice plots for hierarchical data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="4.7-ordination-brief-introduction.html"><a href="4.7-ordination-brief-introduction.html"><i class="fa fa-check"></i><b>4.7</b> Ordination (brief introduction)</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="4.7-ordination-brief-introduction.html"><a href="4.7-ordination-brief-introduction.html#principal-components-analysis-pca"><i class="fa fa-check"></i><b>4.7.1</b> Principal components analysis (PCA)</a></li>
+<li class="chapter" data-level="4.7.2" data-path="4.7-ordination-brief-introduction.html"><a href="4.7-ordination-brief-introduction.html#nonmetric-multidimensional-scaling-nmds"><i class="fa fa-check"></i><b>4.7.2</b> Nonmetric multidimensional scaling (NMDS)</a></li>
+<li class="chapter" data-level="4.7.3" data-path="4.7-ordination-brief-introduction.html"><a href="4.7-ordination-brief-introduction.html#plotting-ordinations"><i class="fa fa-check"></i><b>4.7.3</b> Plotting ordinations</a></li>
+<li class="chapter" data-level="4.7.4" data-path="4.7-ordination-brief-introduction.html"><a href="4.7-ordination-brief-introduction.html#ordination-wrap-up-for-now"><i class="fa fa-check"></i><b>4.7.4</b> Ordination wrap-up (for now)</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="4.8-mod-04-prob.html"><a href="4.8-mod-04-prob.html"><i class="fa fa-check"></i><b>4.8</b> Common statistical problems</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="4.8-mod-04-prob.html"><a href="4.8-mod-04-prob.html#outliers-and-erroneous-values"><i class="fa fa-check"></i><b>4.8.1</b> Outliers and erroneous values</a></li>
+<li class="chapter" data-level="4.8.2" data-path="4.8-mod-04-prob.html"><a href="4.8-mod-04-prob.html#autocorrelation"><i class="fa fa-check"></i><b>4.8.2</b> Autocorrelation</a></li>
+<li class="chapter" data-level="4.8.3" data-path="4.8-mod-04-prob.html"><a href="4.8-mod-04-prob.html#mod-04-multicol"><i class="fa fa-check"></i><b>4.8.3</b> Collinearity</a></li>
+<li class="chapter" data-level="4.8.4" data-path="4.8-mod-04-prob.html"><a href="4.8-mod-04-prob.html#missing-data"><i class="fa fa-check"></i><b>4.8.4</b> Missing data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="5-mod-05.html"><a href="5-mod-05.html"><i class="fa fa-check"></i><b>5</b> Generalized linear models (GLM)</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html"><i class="fa fa-check"></i><b>5.1</b> Prelude with linear models</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html#assumptions-of-linear-models"><i class="fa fa-check"></i><b>5.1.1</b> Assumptions of linear models</a></li>
+<li class="chapter" data-level="5.1.2" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html#linear-regression-in-r"><i class="fa fa-check"></i><b>5.1.2</b> Linear regression in R</a></li>
+<li class="chapter" data-level="5.1.3" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html#multiple-linear-regression"><i class="fa fa-check"></i><b>5.1.3</b> Multiple linear regression</a></li>
+<li class="chapter" data-level="5.1.4" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html#mod-05-anova"><i class="fa fa-check"></i><b>5.1.4</b> ANOVA and ANCOVA with <code>lm()</code></a></li>
+<li class="chapter" data-level="5.1.5" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html#variations-on-linear-models"><i class="fa fa-check"></i><b>5.1.5</b> Variations on linear models</a></li>
+<li class="chapter" data-level="5.1.6" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html#example-linear-regression-workflow"><i class="fa fa-check"></i><b>5.1.6</b> Example linear regression workflow</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html"><i class="fa fa-check"></i><b>5.2</b> GLM basics</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html#example-glms"><i class="fa fa-check"></i><b>5.2.1</b> Example GLMS</a></li>
+<li class="chapter" data-level="5.2.2" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html#glm-families"><i class="fa fa-check"></i><b>5.2.2</b> GLM families</a></li>
+<li class="chapter" data-level="5.2.3" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html#glm-link-functions"><i class="fa fa-check"></i><b>5.2.3</b> GLM link functions</a></li>
+<li class="chapter" data-level="5.2.4" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html#deviance-and-other-glm-diagnostics"><i class="fa fa-check"></i><b>5.2.4</b> Deviance and other GLM diagnostics</a></li>
+<li class="chapter" data-level="5.2.5" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html#to-pseudo-r2-or-not-to-pseudo-r2"><i class="fa fa-check"></i><b>5.2.5</b> To pseudo-<em>R</em><sup>2</sup> or not to pseudo-<em>R</em><sup>2</sup>?</a></li>
+<li class="chapter" data-level="5.2.6" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html#common-glms"><i class="fa fa-check"></i><b>5.2.6</b> Common GLMs</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="5.3-mod-05-loglin.html"><a href="5.3-mod-05-loglin.html"><i class="fa fa-check"></i><b>5.3</b> Log-linear models</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="5.3-mod-05-loglin.html"><a href="5.3-mod-05-loglin.html#mod-05-loglin-examp"><i class="fa fa-check"></i><b>5.3.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="5.3.2" data-path="5.3-mod-05-loglin.html"><a href="5.3-mod-05-loglin.html#example-with-real-data"><i class="fa fa-check"></i><b>5.3.2</b> Example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="5.4-mod-05-poisson.html"><a href="5.4-mod-05-poisson.html"><i class="fa fa-check"></i><b>5.4</b> Poisson GLM for counts</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="5.4-mod-05-poisson.html"><a href="5.4-mod-05-poisson.html#example-with-simulated-data"><i class="fa fa-check"></i><b>5.4.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="5.4.2" data-path="5.4-mod-05-poisson.html"><a href="5.4-mod-05-poisson.html#example-with-real-data-1"><i class="fa fa-check"></i><b>5.4.2</b> Example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="5.5-mod-05-quasi.html"><a href="5.5-mod-05-quasi.html"><i class="fa fa-check"></i><b>5.5</b> Quasi-Poisson and negative binomial GLM</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="5.5-mod-05-quasi.html"><a href="5.5-mod-05-quasi.html#example-with-simulated-data-1"><i class="fa fa-check"></i><b>5.5.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="5.5.2" data-path="5.5-mod-05-quasi.html"><a href="5.5-mod-05-quasi.html#example-with-real-data-2"><i class="fa fa-check"></i><b>5.5.2</b> Example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="5.6-mod-05-logistic.html"><a href="5.6-mod-05-logistic.html"><i class="fa fa-check"></i><b>5.6</b> Logistic regression for binary outcomes</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="5.6-mod-05-logistic.html"><a href="5.6-mod-05-logistic.html#example-with-simulated-data-2"><i class="fa fa-check"></i><b>5.6.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="5.6.2" data-path="5.6-mod-05-logistic.html"><a href="5.6-mod-05-logistic.html#example-with-real-data-3"><i class="fa fa-check"></i><b>5.6.2</b> Example with real data</a></li>
+<li class="chapter" data-level="5.6.3" data-path="5.6-mod-05-logistic.html"><a href="5.6-mod-05-logistic.html#mod-05-auc"><i class="fa fa-check"></i><b>5.6.3</b> Logistic GLM diagnostics: AUC and ROC</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="5.7-mod-05-binom.html"><a href="5.7-mod-05-binom.html"><i class="fa fa-check"></i><b>5.7</b> Binomial GLM for proportional data</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="5.7-mod-05-binom.html"><a href="5.7-mod-05-binom.html#binomial-glm"><i class="fa fa-check"></i><b>5.7.1</b> Binomial GLM</a></li>
+<li class="chapter" data-level="5.7.2" data-path="5.7-mod-05-binom.html"><a href="5.7-mod-05-binom.html#example-with-simulated-data-3"><i class="fa fa-check"></i><b>5.7.2</b> Example with simulated data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="5.8-mod-05-gamma.html"><a href="5.8-mod-05-gamma.html"><i class="fa fa-check"></i><b>5.8</b> Gamma models for overdispersed data</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="5.8-mod-05-gamma.html"><a href="5.8-mod-05-gamma.html#example-with-simulated-data-4"><i class="fa fa-check"></i><b>5.8.1</b> Example with simulated data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="5.9-mod-05-beyond.html"><a href="5.9-mod-05-beyond.html"><i class="fa fa-check"></i><b>5.9</b> Beyond GLM: Overview of GAM and GEE</a>
+<ul>
+<li class="chapter" data-level="5.9.1" data-path="5.9-mod-05-beyond.html"><a href="5.9-mod-05-beyond.html#mod-05-gam"><i class="fa fa-check"></i><b>5.9.1</b> Generalized additive models (GAM)</a></li>
+<li class="chapter" data-level="5.9.2" data-path="5.9-mod-05-beyond.html"><a href="5.9-mod-05-beyond.html#mod-05-gee"><i class="fa fa-check"></i><b>5.9.2</b> Generalized estimating equations (GEE)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="6-mod-06.html"><a href="6-mod-06.html"><i class="fa fa-check"></i><b>6</b> Nonlinear models</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="6.1-background.html"><a href="6.1-background.html"><i class="fa fa-check"></i><b>6.1</b> Background</a></li>
+<li class="chapter" data-level="6.2" data-path="6.2-mod-06-intro.html"><a href="6.2-mod-06-intro.html"><i class="fa fa-check"></i><b>6.2</b> Nonlinear least squares (NLS)</a></li>
+<li class="chapter" data-level="6.3" data-path="6.3-mod-06-micmen.html"><a href="6.3-mod-06-micmen.html"><i class="fa fa-check"></i><b>6.3</b> Michaelis-Menten curves</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="6.3-mod-06-micmen.html"><a href="6.3-mod-06-micmen.html#mod-06-micmen-sim"><i class="fa fa-check"></i><b>6.3.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="6.3.2" data-path="6.3-mod-06-micmen.html"><a href="6.3-mod-06-micmen.html#example-with-real-data-4"><i class="fa fa-check"></i><b>6.3.2</b> Example with real data</a></li>
+<li class="chapter" data-level="6.3.3" data-path="6.3-mod-06-micmen.html"><a href="6.3-mod-06-micmen.html#alternative-strategies-for-the-analysis"><i class="fa fa-check"></i><b>6.3.3</b> Alternative strategies for the analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="6.4-mod-06-grow.html"><a href="6.4-mod-06-grow.html"><i class="fa fa-check"></i><b>6.4</b> Biological growth curves</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="6.4-mod-06-grow.html"><a href="6.4-mod-06-grow.html#gompertz-and-von-bertalanffy-curves"><i class="fa fa-check"></i><b>6.4.1</b> Gompertz and von Bertalanffy curves</a></li>
+<li class="chapter" data-level="6.4.2" data-path="6.4-mod-06-grow.html"><a href="6.4-mod-06-grow.html#example-with-real-data-5"><i class="fa fa-check"></i><b>6.4.2</b> Example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="6.5-dose-response-curves.html"><a href="6.5-dose-response-curves.html"><i class="fa fa-check"></i><b>6.5</b> Dose response curves</a></li>
+<li class="chapter" data-level="6.6" data-path="6.6-alternatives-to-nls.html"><a href="6.6-alternatives-to-nls.html"><i class="fa fa-check"></i><b>6.6</b> Alternatives to NLS</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="6.6-alternatives-to-nls.html"><a href="6.6-alternatives-to-nls.html#generalized-nonlinear-models"><i class="fa fa-check"></i><b>6.6.1</b> Generalized nonlinear models</a></li>
+<li class="chapter" data-level="6.6.2" data-path="6.6-alternatives-to-nls.html"><a href="6.6-alternatives-to-nls.html#quantile-regression"><i class="fa fa-check"></i><b>6.6.2</b> Quantile regression</a></li>
+<li class="chapter" data-level="6.6.3" data-path="6.6-alternatives-to-nls.html"><a href="6.6-alternatives-to-nls.html#mod-06-gam"><i class="fa fa-check"></i><b>6.6.3</b> Generalized additive models (GAM)</a></li>
+<li class="chapter" data-level="6.6.4" data-path="6.6-alternatives-to-nls.html"><a href="6.6-alternatives-to-nls.html#classification-and-regression-trees-cart"><i class="fa fa-check"></i><b>6.6.4</b> Classification and regression trees (CART)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="7-mod-07.html"><a href="7-mod-07.html"><i class="fa fa-check"></i><b>7</b> Mixed models</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="7.1-prelude-glm.html"><a href="7.1-prelude-glm.html"><i class="fa fa-check"></i><b>7.1</b> Prelude (GLM)</a></li>
+<li class="chapter" data-level="7.2" data-path="7.2-mod-07-lmm.html"><a href="7.2-mod-07-lmm.html"><i class="fa fa-check"></i><b>7.2</b> Linear mixed models (LMM)</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="7.2-mod-07-lmm.html"><a href="7.2-mod-07-lmm.html#formal-definition-and-example"><i class="fa fa-check"></i><b>7.2.1</b> Formal definition and example</a></li>
+<li class="chapter" data-level="7.2.2" data-path="7.2-mod-07-lmm.html"><a href="7.2-mod-07-lmm.html#example-with-simulated-data-5"><i class="fa fa-check"></i><b>7.2.2</b> Example with simulated data</a></li>
+<li class="chapter" data-level="7.2.3" data-path="7.2-mod-07-lmm.html"><a href="7.2-mod-07-lmm.html#p-values-in-lmm"><i class="fa fa-check"></i><b>7.2.3</b> <em>P</em>-values in LMM</a></li>
+<li class="chapter" data-level="7.2.4" data-path="7.2-mod-07-lmm.html"><a href="7.2-mod-07-lmm.html#specifying-random-effects"><i class="fa fa-check"></i><b>7.2.4</b> Specifying random effects</a></li>
+<li class="chapter" data-level="7.2.5" data-path="7.2-mod-07-lmm.html"><a href="7.2-mod-07-lmm.html#lmm-example-with-real-data"><i class="fa fa-check"></i><b>7.2.5</b> LMM example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="7.3-mod-07-glmm.html"><a href="7.3-mod-07-glmm.html"><i class="fa fa-check"></i><b>7.3</b> Generalized linear mixed models (GLMM)</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="7.3-mod-07-glmm.html"><a href="7.3-mod-07-glmm.html#definition-1"><i class="fa fa-check"></i><b>7.3.1</b> Definition</a></li>
+<li class="chapter" data-level="7.3.2" data-path="7.3-mod-07-glmm.html"><a href="7.3-mod-07-glmm.html#glmm-on-simulated-data"><i class="fa fa-check"></i><b>7.3.2</b> GLMM on simulated data</a></li>
+<li class="chapter" data-level="7.3.3" data-path="7.3-mod-07-glmm.html"><a href="7.3-mod-07-glmm.html#glmm-on-real-data"><i class="fa fa-check"></i><b>7.3.3</b> GLMM on real data</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="7.4-mod-07-nlme.html"><a href="7.4-mod-07-nlme.html"><i class="fa fa-check"></i><b>7.4</b> Nonlinear mixed models (NLME)</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="7.4-mod-07-nlme.html"><a href="7.4-mod-07-nlme.html#definition-and-background"><i class="fa fa-check"></i><b>7.4.1</b> Definition and background</a></li>
+<li class="chapter" data-level="7.4.2" data-path="7.4-mod-07-nlme.html"><a href="7.4-mod-07-nlme.html#nlme-on-simulated-data"><i class="fa fa-check"></i><b>7.4.2</b> NLME on simulated data</a></li>
+<li class="chapter" data-level="7.4.3" data-path="7.4-mod-07-nlme.html"><a href="7.4-mod-07-nlme.html#nlme-on-real-data"><i class="fa fa-check"></i><b>7.4.3</b> NLME on real data</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="7.5-mod-07-gamm.html"><a href="7.5-mod-07-gamm.html"><i class="fa fa-check"></i><b>7.5</b> (Generalized) additive mixed models (AMM/GAMM)</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="7.5-mod-07-gamm.html"><a href="7.5-mod-07-gamm.html#example-gamm-with-real-data"><i class="fa fa-check"></i><b>7.5.1</b> Example GAMM with real data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="8-mod-08.html"><a href="8-mod-08.html"><i class="fa fa-check"></i><b>8</b> Multivariate data analysis</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="8.1-multivariate-data.html"><a href="8.1-multivariate-data.html"><i class="fa fa-check"></i><b>8.1</b> Multivariate data</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="8.1-multivariate-data.html"><a href="8.1-multivariate-data.html#univariate-vs.-multivariate-data"><i class="fa fa-check"></i><b>8.1.1</b> Univariate vs. multivariate data</a></li>
+<li class="chapter" data-level="8.1.2" data-path="8.1-multivariate-data.html"><a href="8.1-multivariate-data.html#components-of-multivariate-data"><i class="fa fa-check"></i><b>8.1.2</b> Components of multivariate data</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="8.2-mod-08-dist.html"><a href="8.2-mod-08-dist.html"><i class="fa fa-check"></i><b>8.2</b> Distance metrics: biological (dis)similarity</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="8.2-mod-08-dist.html"><a href="8.2-mod-08-dist.html#euclidean-distance"><i class="fa fa-check"></i><b>8.2.1</b> Euclidean distance</a></li>
+<li class="chapter" data-level="8.2.2" data-path="8.2-mod-08-dist.html"><a href="8.2-mod-08-dist.html#bray-curtis-and-other-distance-metrics"><i class="fa fa-check"></i><b>8.2.2</b> Bray-Curtis and other distance metrics</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="8.3-clustering.html"><a href="8.3-clustering.html"><i class="fa fa-check"></i><b>8.3</b> Clustering</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="8.3-clustering.html"><a href="8.3-clustering.html#k-means-clustering"><i class="fa fa-check"></i><b>8.3.1</b> <em>K</em>-means clustering</a></li>
+<li class="chapter" data-level="8.3.2" data-path="8.3-clustering.html"><a href="8.3-clustering.html#hierarchical-agglomerative-clustering"><i class="fa fa-check"></i><b>8.3.2</b> Hierarchical agglomerative clustering</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="8.4-mod-08-sims.html"><a href="8.4-mod-08-sims.html"><i class="fa fa-check"></i><b>8.4</b> Analyzing dissimilarity</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="8.4-mod-08-sims.html"><a href="8.4-mod-08-sims.html#mantel-tests-distance-vs.-distance"><i class="fa fa-check"></i><b>8.4.1</b> Mantel tests: distance vs. distance</a></li>
+<li class="chapter" data-level="8.4.2" data-path="8.4-mod-08-sims.html"><a href="8.4-mod-08-sims.html#comparing-dissimilarity-between-groups"><i class="fa fa-check"></i><b>8.4.2</b> Comparing dissimilarity between groups</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="8.5-mod-08-ord.html"><a href="8.5-mod-08-ord.html"><i class="fa fa-check"></i><b>8.5</b> Ordination</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="8.5-mod-08-ord.html"><a href="8.5-mod-08-ord.html#principal-components-analysis-pca-1"><i class="fa fa-check"></i><b>8.5.1</b> Principal components analysis (PCA)</a></li>
+<li class="chapter" data-level="8.5.2" data-path="8.5-mod-08-ord.html"><a href="8.5-mod-08-ord.html#nmds-and-other-ordination-methods"><i class="fa fa-check"></i><b>8.5.2</b> NMDS and other ordination methods</a></li>
+<li class="chapter" data-level="8.5.3" data-path="8.5-mod-08-ord.html"><a href="8.5-mod-08-ord.html#other-ordination-techniques"><i class="fa fa-check"></i><b>8.5.3</b> Other ordination techniques</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="9-mod-09.html"><a href="9-mod-09.html"><i class="fa fa-check"></i><b>9</b> Planning your analysis (what test?)</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="9.1-how-to-use-this-guide.html"><a href="9.1-how-to-use-this-guide.html"><i class="fa fa-check"></i><b>9.1</b> How to use this guide</a></li>
+<li class="chapter" data-level="9.2" data-path="9.2-what-question-are-you-trying-to-answer.html"><a href="9.2-what-question-are-you-trying-to-answer.html"><i class="fa fa-check"></i><b>9.2</b> What question are you trying to answer?</a></li>
+<li class="chapter" data-level="9.3" data-path="9.3-testing-for-a-difference-in-mean-or-location.html"><a href="9.3-testing-for-a-difference-in-mean-or-location.html"><i class="fa fa-check"></i><b>9.3</b> Testing for a difference in mean or location</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="9.3-testing-for-a-difference-in-mean-or-location.html"><a href="9.3-testing-for-a-difference-in-mean-or-location.html#additional-considerations"><i class="fa fa-check"></i><b>9.3.1</b> Additional considerations</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="9.4-testing-for-a-continuous-relationship-between-two-or-more-variables.html"><a href="9.4-testing-for-a-continuous-relationship-between-two-or-more-variables.html"><i class="fa fa-check"></i><b>9.4</b> Testing for a continuous relationship between two or more variables</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="9.4-testing-for-a-continuous-relationship-between-two-or-more-variables.html"><a href="9.4-testing-for-a-continuous-relationship-between-two-or-more-variables.html#additional-considerations-1"><i class="fa fa-check"></i><b>9.4.1</b> Additional considerations</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="9.5-classifying-observations.html"><a href="9.5-classifying-observations.html"><i class="fa fa-check"></i><b>9.5</b> Classifying observations</a></li>
+<li class="chapter" data-level="9.6" data-path="9.6-conclusions.html"><a href="9.6-conclusions.html"><i class="fa fa-check"></i><b>9.6</b> Conclusions</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="literature-cited.html"><a href="literature-cited.html"><i class="fa fa-check"></i>Literature Cited</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Applied Biological Data Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="mod-07-glmm" class="section level2" number="7.3">
+<h2><span class="header-section-number">7.3</span> Generalized linear mixed models (GLMM)</h2>
+<div id="definition-1" class="section level3" number="7.3.1">
+<h3><span class="header-section-number">7.3.1</span> Definition</h3>
+<p>Just as the linear mixed model (LMM) is an extension of the linear model, the <strong>generalized linear mixed model (GLMM)</strong> is an extension of the generalized linear model (GLM). The difference between the LMM and GLMM is the same as the difference between the LM and GLM: the response values can come from distributions other than the normal, and the model can be linear on a different scale than of the original scale (i.e., the link scale).</p>
+<p>The equations for a simple GLMM, with normal (Gaussian) family and identify link function, one continuous predictor variable <em>X</em>, and random intercepts and slope by a factor <em>Z</em>, are shown below. The normal distributions of the random effects are presented as parameterized by a mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span> (or sometimes SD <span class="math inline">\(\sigma\)</span>)<a href="literature-cited.html#fn72" class="footnote-ref" id="fnref72"><sup>72</sup></a>.</p>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Component</th>
+<th>Expression</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Stochastic part (<em>Y</em> values)</td>
+<td><span class="math inline">\(y_i \sim Normal\left(\mu_i,\sigma^2\right)\)</span></td>
+</tr>
+<tr class="even">
+<td>Link function</td>
+<td><span class="math inline">\(E\left(y_i\right)=\mu_i=\eta_i\)</span></td>
+</tr>
+<tr class="odd">
+<td>Linear predictor</td>
+<td><span class="math inline">\(\eta_i=\beta_{0,Z}+\beta_{1,Z}X_i\)</span></td>
+</tr>
+<tr class="even">
+<td>Random intercepts</td>
+<td><span class="math inline">\(\beta_{0,Z} \sim Normal\left(\mu_{\beta_0},\sigma_{\beta_0}^2\right)\)</span></td>
+</tr>
+<tr class="odd">
+<td>Random slopes</td>
+<td><span class="math inline">\(\beta_{1,Z} \sim Normal\left(\mu_{\beta_1},\sigma_{\beta_1}^2\right)\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="glmm-on-simulated-data" class="section level3" number="7.3.2">
+<h3><span class="header-section-number">7.3.2</span> GLMM on simulated data</h3>
+<p>Let’s explore the GLMM with a simulated example. We’ll simulate data for a simulated study of the occurrence (i.e., presence/absence) of an imaginary bird species along a gradient of urbanization. The imaginary study was conducted over 12 years. In each year, between 9 and 19 sites were surveyed and the presence or absence of an endangered bird was recorded. The researchers assumed that variation in environmental conditions from year to year affected bird presence, so they used a mixed effects model to analyze their data. The explanatory variable, <code>urb</code>, is an index of urbanization and land use intensity derived from satellite data. Because they are interested in modeling bird presence/absence, they used a logistic regression model, with a random effect for year. In ecology this sort of thing is called an <strong>occupancy model</strong>.</p>
+<p>The code below simulates the dataset described above. First the dataset structure is defined. Then, the <strong>hyperparameters</strong>, which define the distribution of random effects, are set. These are then used to define the group-level parameters and the individual observations.</p>
+<div class="sourceCode" id="cb1508"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1508-1"><a href="7.3-mod-07-glmm.html#cb1508-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb1508-2"><a href="7.3-mod-07-glmm.html#cb1508-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1508-3"><a href="7.3-mod-07-glmm.html#cb1508-3" aria-hidden="true" tabindex="-1"></a><span class="co"># years in study</span></span>
+<span id="cb1508-4"><a href="7.3-mod-07-glmm.html#cb1508-4" aria-hidden="true" tabindex="-1"></a>n.groups <span class="ot">&lt;-</span> <span class="dv">12</span></span>
+<span id="cb1508-5"><a href="7.3-mod-07-glmm.html#cb1508-5" aria-hidden="true" tabindex="-1"></a><span class="co"># random number of sites each year</span></span>
+<span id="cb1508-6"><a href="7.3-mod-07-glmm.html#cb1508-6" aria-hidden="true" tabindex="-1"></a>n.sample <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">8</span><span class="sc">:</span><span class="dv">20</span>, n.groups, <span class="at">replace=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1508-7"><a href="7.3-mod-07-glmm.html#cb1508-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1508-8"><a href="7.3-mod-07-glmm.html#cb1508-8" aria-hidden="true" tabindex="-1"></a><span class="co"># hyperparameters</span></span>
+<span id="cb1508-9"><a href="7.3-mod-07-glmm.html#cb1508-9" aria-hidden="true" tabindex="-1"></a>mu.beta0 <span class="ot">&lt;-</span> <span class="fl">1.5</span></span>
+<span id="cb1508-10"><a href="7.3-mod-07-glmm.html#cb1508-10" aria-hidden="true" tabindex="-1"></a>sd.beta0 <span class="ot">&lt;-</span> <span class="fl">1.7</span></span>
+<span id="cb1508-11"><a href="7.3-mod-07-glmm.html#cb1508-11" aria-hidden="true" tabindex="-1"></a>mu.beta1 <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">6.8</span></span>
+<span id="cb1508-12"><a href="7.3-mod-07-glmm.html#cb1508-12" aria-hidden="true" tabindex="-1"></a>sd.beta1 <span class="ot">&lt;-</span> <span class="fl">0.1</span></span>
+<span id="cb1508-13"><a href="7.3-mod-07-glmm.html#cb1508-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1508-14"><a href="7.3-mod-07-glmm.html#cb1508-14" aria-hidden="true" tabindex="-1"></a><span class="co"># draw random effects</span></span>
+<span id="cb1508-15"><a href="7.3-mod-07-glmm.html#cb1508-15" aria-hidden="true" tabindex="-1"></a>beta0 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n.groups, mu.beta0, sd.beta0)</span>
+<span id="cb1508-16"><a href="7.3-mod-07-glmm.html#cb1508-16" aria-hidden="true" tabindex="-1"></a>beta1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n.groups, mu.beta1, sd.beta1)</span>
+<span id="cb1508-17"><a href="7.3-mod-07-glmm.html#cb1508-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1508-18"><a href="7.3-mod-07-glmm.html#cb1508-18" aria-hidden="true" tabindex="-1"></a><span class="co"># set up data frame with explanatory variable.</span></span>
+<span id="cb1508-19"><a href="7.3-mod-07-glmm.html#cb1508-19" aria-hidden="true" tabindex="-1"></a>dlist <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">&quot;list&quot;</span>, n.groups)</span>
+<span id="cb1508-20"><a href="7.3-mod-07-glmm.html#cb1508-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n.groups){</span>
+<span id="cb1508-21"><a href="7.3-mod-07-glmm.html#cb1508-21" aria-hidden="true" tabindex="-1"></a>    dlist[[i]] <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">year=</span>i, <span class="at">site=</span><span class="dv">1</span><span class="sc">:</span>n.sample[i])</span>
+<span id="cb1508-22"><a href="7.3-mod-07-glmm.html#cb1508-22" aria-hidden="true" tabindex="-1"></a>    dlist[[i]]<span class="sc">$</span>urb <span class="ot">&lt;-</span> <span class="fu">runif</span>(n.sample[i], <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb1508-23"><a href="7.3-mod-07-glmm.html#cb1508-23" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1508-24"><a href="7.3-mod-07-glmm.html#cb1508-24" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, dlist)</span>
+<span id="cb1508-25"><a href="7.3-mod-07-glmm.html#cb1508-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1508-26"><a href="7.3-mod-07-glmm.html#cb1508-26" aria-hidden="true" tabindex="-1"></a><span class="co"># add coefficients for each observation</span></span>
+<span id="cb1508-27"><a href="7.3-mod-07-glmm.html#cb1508-27" aria-hidden="true" tabindex="-1"></a>sim<span class="sc">$</span>beta0 <span class="ot">&lt;-</span> beta0[sim<span class="sc">$</span>year]</span>
+<span id="cb1508-28"><a href="7.3-mod-07-glmm.html#cb1508-28" aria-hidden="true" tabindex="-1"></a>sim<span class="sc">$</span>beta1 <span class="ot">&lt;-</span> beta1[sim<span class="sc">$</span>year]</span>
+<span id="cb1508-29"><a href="7.3-mod-07-glmm.html#cb1508-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1508-30"><a href="7.3-mod-07-glmm.html#cb1508-30" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate linear predictor eta (logit scale)</span></span>
+<span id="cb1508-31"><a href="7.3-mod-07-glmm.html#cb1508-31" aria-hidden="true" tabindex="-1"></a><span class="co"># and probability p (probability scale)</span></span>
+<span id="cb1508-32"><a href="7.3-mod-07-glmm.html#cb1508-32" aria-hidden="true" tabindex="-1"></a>sim<span class="sc">$</span>eta <span class="ot">&lt;-</span> sim<span class="sc">$</span>beta0<span class="sc">+</span>sim<span class="sc">$</span>beta1<span class="sc">*</span>sim<span class="sc">$</span>urb</span>
+<span id="cb1508-33"><a href="7.3-mod-07-glmm.html#cb1508-33" aria-hidden="true" tabindex="-1"></a>sim<span class="sc">$</span>p <span class="ot">&lt;-</span> <span class="fu">plogis</span>(sim<span class="sc">$</span>eta)</span>
+<span id="cb1508-34"><a href="7.3-mod-07-glmm.html#cb1508-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1508-35"><a href="7.3-mod-07-glmm.html#cb1508-35" aria-hidden="true" tabindex="-1"></a><span class="co"># apply stochastic part of model (Bernoulli draws)</span></span>
+<span id="cb1508-36"><a href="7.3-mod-07-glmm.html#cb1508-36" aria-hidden="true" tabindex="-1"></a>sim<span class="sc">$</span>y <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="fu">nrow</span>(sim), <span class="dv">1</span>, sim<span class="sc">$</span>p)</span></code></pre></div>
+<p>Let’s start the analysis by examining the data:</p>
+<div class="sourceCode" id="cb1509"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1509-1"><a href="7.3-mod-07-glmm.html#cb1509-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="fl">5.1</span>, <span class="fl">5.1</span>, <span class="fl">1.1</span>, <span class="fl">1.1</span>))</span>
+<span id="cb1509-2"><a href="7.3-mod-07-glmm.html#cb1509-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sim<span class="sc">$</span>urb, <span class="fu">jitter</span>(sim<span class="sc">$</span>y))</span>
+<span id="cb1509-3"><a href="7.3-mod-07-glmm.html#cb1509-3" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(sim<span class="sc">$</span>urb<span class="sc">~</span>sim<span class="sc">$</span>y, <span class="at">horizontal=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-663-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>The figure suggests that increasing urbanization tends to decrease occupancy by this bird species. This makes sense, biologically, but it also appears that there is a lot of variation in urbanization within the sites where the bird occurs and the sites where it doesn’t. Maybe there is some variation related to year?</p>
+<div class="sourceCode" id="cb1510"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1510-1"><a href="7.3-mod-07-glmm.html#cb1510-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add colors for each year</span></span>
+<span id="cb1510-2"><a href="7.3-mod-07-glmm.html#cb1510-2" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> <span class="fu">rainbow</span>(n.groups)</span>
+<span id="cb1510-3"><a href="7.3-mod-07-glmm.html#cb1510-3" aria-hidden="true" tabindex="-1"></a>sim<span class="sc">$</span>col <span class="ot">&lt;-</span> cols[sim<span class="sc">$</span>year]</span>
+<span id="cb1510-4"><a href="7.3-mod-07-glmm.html#cb1510-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1510-5"><a href="7.3-mod-07-glmm.html#cb1510-5" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="fl">5.1</span>, <span class="fl">5.1</span>, <span class="fl">1.1</span>, <span class="fl">1.1</span>))</span>
+<span id="cb1510-6"><a href="7.3-mod-07-glmm.html#cb1510-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sim<span class="sc">$</span>urb, <span class="fu">jitter</span>(sim<span class="sc">$</span>y), <span class="at">col=</span>sim<span class="sc">$</span>col, <span class="at">pch=</span><span class="dv">16</span>)</span>
+<span id="cb1510-7"><a href="7.3-mod-07-glmm.html#cb1510-7" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(sim<span class="sc">$</span>urb<span class="sc">~</span>sim<span class="sc">$</span>y, <span class="at">horizontal=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-664-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>With so many groups (years) it’s hard to tell if year might be affecting the relationship between occupancy and urbanization. Let’s use package <code>lattice</code> to make a hierarchical plot that shows the groups separately.</p>
+<div class="sourceCode" id="cb1511"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1511-1"><a href="7.3-mod-07-glmm.html#cb1511-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lattice)</span>
+<span id="cb1511-2"><a href="7.3-mod-07-glmm.html#cb1511-2" aria-hidden="true" tabindex="-1"></a><span class="fu">bwplot</span>(y<span class="sc">~</span>urb<span class="sc">|</span><span class="fu">factor</span>(year), <span class="at">data=</span>sim)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-665-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>The figure shows that urbanization appears to decrease occupancy in almost every year. The bird was not observed at all in year 1. In some years, occupancy dropped off at low levels of urbanization (e.g., years 2, 6, and 7); in other years, the bird was found in sites with much higher levels of urbanization (e.g., years 3 and 9). These findings support the idea that year needs to be accounted for. We’ll fit three versions of the model, because we don’t know if the random effect of year should affect the intercept, slope, or intercept and slope of the linear predictor.</p>
+<div class="sourceCode" id="cb1512"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1512-1"><a href="7.3-mod-07-glmm.html#cb1512-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb1512-2"><a href="7.3-mod-07-glmm.html#cb1512-2" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">glmer</span>(y<span class="sc">~</span>urb<span class="sc">+</span>(<span class="dv">1</span><span class="sc">|</span>year), <span class="at">data=</span>sim, <span class="at">family=</span>binomial)</span>
+<span id="cb1512-3"><a href="7.3-mod-07-glmm.html#cb1512-3" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">glmer</span>(y<span class="sc">~</span>urb<span class="sc">+</span>(<span class="dv">0</span><span class="sc">+</span>urb<span class="sc">|</span>year), <span class="at">data=</span>sim, <span class="at">family=</span>binomial)</span>
+<span id="cb1512-4"><a href="7.3-mod-07-glmm.html#cb1512-4" aria-hidden="true" tabindex="-1"></a>mod3 <span class="ot">&lt;-</span> <span class="fu">glmer</span>(y<span class="sc">~</span>urb<span class="sc">+</span>(urb<span class="sc">|</span>year), <span class="at">data=</span>sim, <span class="at">family=</span>binomial)</span>
+<span id="cb1512-5"><a href="7.3-mod-07-glmm.html#cb1512-5" aria-hidden="true" tabindex="-1"></a>mod4 <span class="ot">&lt;-</span> <span class="fu">glmer</span>(y<span class="sc">~</span>urb<span class="sc">+</span>(urb<span class="sc">||</span>year), <span class="at">data=</span>sim, <span class="at">family=</span>binomial)</span></code></pre></div>
+<p>All of the models converged<a href="literature-cited.html#fn73" class="footnote-ref" id="fnref73"><sup>73</sup></a>, so let’s use AIC to determine which model is the best supported by the data.</p>
+<div class="sourceCode" id="cb1513"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1513-1"><a href="7.3-mod-07-glmm.html#cb1513-1" aria-hidden="true" tabindex="-1"></a>aic.df <span class="ot">&lt;-</span> <span class="fu">AIC</span>(mod1, mod2, mod3, mod4)</span>
+<span id="cb1513-2"><a href="7.3-mod-07-glmm.html#cb1513-2" aria-hidden="true" tabindex="-1"></a>aic.df<span class="sc">$</span>delta <span class="ot">&lt;-</span> aic.df<span class="sc">$</span>AIC <span class="sc">-</span> <span class="fu">min</span>(aic.df<span class="sc">$</span>AIC)</span>
+<span id="cb1513-3"><a href="7.3-mod-07-glmm.html#cb1513-3" aria-hidden="true" tabindex="-1"></a>aic.df<span class="sc">$</span>wt <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">0.5</span><span class="sc">*</span>aic.df<span class="sc">$</span>delta)</span>
+<span id="cb1513-4"><a href="7.3-mod-07-glmm.html#cb1513-4" aria-hidden="true" tabindex="-1"></a>aic.df<span class="sc">$</span>wt <span class="ot">&lt;-</span> aic.df<span class="sc">$</span>wt<span class="sc">/</span><span class="fu">sum</span>(aic.df<span class="sc">$</span>wt)</span>
+<span id="cb1513-5"><a href="7.3-mod-07-glmm.html#cb1513-5" aria-hidden="true" tabindex="-1"></a>aic.df <span class="ot">&lt;-</span> aic.df[<span class="fu">order</span>(<span class="sc">-</span>aic.df<span class="sc">$</span>wt),]</span>
+<span id="cb1513-6"><a href="7.3-mod-07-glmm.html#cb1513-6" aria-hidden="true" tabindex="-1"></a>aic.df</span></code></pre></div>
+<pre><code>##      df      AIC    delta         wt
+## mod1  3 139.7622 0.000000 0.50498148
+## mod2  3 141.2993 1.537081 0.23415450
+## mod4  4 141.7594 1.997213 0.18603135
+## mod3  5 143.5807 3.818534 0.07483267</code></pre>
+<p>Interestingly, AIC identifies model 1 (random intercept) as the best fitting model, when we know that model 4 (random uncorrelated slopes and intercepts) is the truth. Looking back at the simulation parameters, can you guess why this happened? However, <span class="math inline">\(\Delta\left(AIC\right)\)</span> was &lt;2 for models 1, 2, and 4, suggesting that any of them could be considered “best fitting”.</p>
+<p>Inspect the outputs to see what the parameter estimates are. The estimated intercept and slope aren’t very close to the true values (<code>mu.beta0</code> and <code>mu.beta1</code>), but this might have something do with the large variability in the intercepts (<code>sd.beta0</code>).</p>
+<div class="sourceCode" id="cb1515"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1515-1"><a href="7.3-mod-07-glmm.html#cb1515-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code></pre></div>
+<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
+##   Approximation) [glmerMod]
+##  Family: binomial  ( logit )
+## Formula: y ~ urb + (1 | year)
+##    Data: sim
+## 
+##      AIC      BIC   logLik deviance df.resid 
+##    139.8    149.1    -66.9    133.8      161 
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -2.8969 -0.4530 -0.1617  0.3846  4.1386 
+## 
+## Random effects:
+##  Groups Name        Variance Std.Dev.
+##  year   (Intercept) 1.137    1.066   
+## Number of obs: 164, groups:  year, 12
+## 
+## Fixed effects:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)    1.959      0.602   3.254  0.00114 ** 
+## urb           -7.312      1.330  -5.496 3.88e-08 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Correlation of Fixed Effects:
+##     (Intr)
+## urb -0.753</code></pre>
+<p>The intercepts vary quite a bit between years:</p>
+<div class="sourceCode" id="cb1517"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1517-1"><a href="7.3-mod-07-glmm.html#cb1517-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(mod1)<span class="sc">$</span>year</span></code></pre></div>
+<pre><code>##    (Intercept)       urb
+## 1    0.8792071 -7.312053
+## 2    1.4874052 -7.312053
+## 3    2.8794661 -7.312053
+## 4    2.0679683 -7.312053
+## 5    1.3682659 -7.312053
+## 6    2.5975640 -7.312053
+## 7    0.9167481 -7.312053
+## 8    3.6762635 -7.312053
+## 9    2.6771235 -7.312053
+## 10   1.1477449 -7.312053
+## 11   2.0878343 -7.312053
+## 12   2.0208604 -7.312053</code></pre>
+<p>Plotting the intercept vs. year (i.e., time) might tell us something about how environmental factors varied over time.</p>
+<div class="sourceCode" id="cb1519"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1519-1"><a href="7.3-mod-07-glmm.html#cb1519-1" aria-hidden="true" tabindex="-1"></a>ints <span class="ot">&lt;-</span> <span class="fu">coef</span>(mod1)<span class="sc">$</span>year</span>
+<span id="cb1519-2"><a href="7.3-mod-07-glmm.html#cb1519-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb1519-3"><a href="7.3-mod-07-glmm.html#cb1519-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ints[,<span class="dv">1</span>], <span class="at">type=</span><span class="st">&quot;o&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">pch=</span><span class="dv">16</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-670-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>It appears that the intercept dropped precipitously 3 times: year 3, year 6, and years 8-10. Maybe something happened in those years that reduced the likelihood of the bird showing up. For example, maybe these were drought years. Or maybe those were the years when new cohorts of graduate students were recruited who weren’t as effective at finding the birds. Whatever the cause of the variation was, the GLMM accounted for it. Explaining and interpreting that variation it is the job of the biologist.</p>
+<p>We’ll finish our example GLMM analysis by plotting the model predictions.</p>
+<div class="sourceCode" id="cb1520"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1520-1"><a href="7.3-mod-07-glmm.html#cb1520-1" aria-hidden="true" tabindex="-1"></a><span class="co"># number of points and x values</span></span>
+<span id="cb1520-2"><a href="7.3-mod-07-glmm.html#cb1520-2" aria-hidden="true" tabindex="-1"></a>pn <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb1520-3"><a href="7.3-mod-07-glmm.html#cb1520-3" aria-hidden="true" tabindex="-1"></a>px <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">length=</span>pn)</span>
+<span id="cb1520-4"><a href="7.3-mod-07-glmm.html#cb1520-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1520-5"><a href="7.3-mod-07-glmm.html#cb1520-5" aria-hidden="true" tabindex="-1"></a><span class="co"># predictions by level (year)</span></span>
+<span id="cb1520-6"><a href="7.3-mod-07-glmm.html#cb1520-6" aria-hidden="true" tabindex="-1"></a>dx1 <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">year=</span><span class="dv">1</span><span class="sc">:</span>n.groups, <span class="at">urb=</span>px)</span>
+<span id="cb1520-7"><a href="7.3-mod-07-glmm.html#cb1520-7" aria-hidden="true" tabindex="-1"></a>dx1 <span class="ot">&lt;-</span> dx1[<span class="fu">order</span>(dx1<span class="sc">$</span>year, dx1<span class="sc">$</span>urb),]</span>
+<span id="cb1520-8"><a href="7.3-mod-07-glmm.html#cb1520-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1520-9"><a href="7.3-mod-07-glmm.html#cb1520-9" aria-hidden="true" tabindex="-1"></a><span class="co"># coefficients (include random beta0)</span></span>
+<span id="cb1520-10"><a href="7.3-mod-07-glmm.html#cb1520-10" aria-hidden="true" tabindex="-1"></a>dx1<span class="sc">$</span>y <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod1, <span class="at">newdata=</span><span class="fu">data.frame</span>(dx1), <span class="at">type=</span><span class="st">&quot;link&quot;</span>)</span>
+<span id="cb1520-11"><a href="7.3-mod-07-glmm.html#cb1520-11" aria-hidden="true" tabindex="-1"></a>dx1<span class="sc">$</span>y <span class="ot">&lt;-</span> <span class="fu">plogis</span>(dx1<span class="sc">$</span>y)</span>
+<span id="cb1520-12"><a href="7.3-mod-07-glmm.html#cb1520-12" aria-hidden="true" tabindex="-1"></a>dx1<span class="sc">$</span>col <span class="ot">&lt;-</span> cols[dx1<span class="sc">$</span>year]</span>
+<span id="cb1520-13"><a href="7.3-mod-07-glmm.html#cb1520-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1520-14"><a href="7.3-mod-07-glmm.html#cb1520-14" aria-hidden="true" tabindex="-1"></a><span class="co"># predictions for &quot;average&quot;</span></span>
+<span id="cb1520-15"><a href="7.3-mod-07-glmm.html#cb1520-15" aria-hidden="true" tabindex="-1"></a>dx2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">year=</span><span class="cn">NA</span>, <span class="at">urb=</span>px)</span>
+<span id="cb1520-16"><a href="7.3-mod-07-glmm.html#cb1520-16" aria-hidden="true" tabindex="-1"></a>dx2<span class="sc">$</span>y <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod1, <span class="at">newdata=</span><span class="fu">data.frame</span>(dx2), </span>
+<span id="cb1520-17"><a href="7.3-mod-07-glmm.html#cb1520-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">type=</span><span class="st">&quot;link&quot;</span>, <span class="at">re.form=</span><span class="cn">NA</span>, <span class="at">allow.new.levels=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1520-18"><a href="7.3-mod-07-glmm.html#cb1520-18" aria-hidden="true" tabindex="-1"></a>dx2<span class="sc">$</span>y <span class="ot">&lt;-</span> <span class="fu">plogis</span>(dx2<span class="sc">$</span>y)</span></code></pre></div>
+<p>Now make the plot:</p>
+<div class="sourceCode" id="cb1521"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1521-1"><a href="7.3-mod-07-glmm.html#cb1521-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="fl">5.1</span>, <span class="fl">5.1</span>, <span class="fl">1.1</span>, <span class="fl">1.1</span>),</span>
+<span id="cb1521-2"><a href="7.3-mod-07-glmm.html#cb1521-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">lend=</span><span class="dv">1</span>, <span class="at">las=</span><span class="dv">1</span>, <span class="at">bty=</span><span class="st">&quot;n&quot;</span>,</span>
+<span id="cb1521-3"><a href="7.3-mod-07-glmm.html#cb1521-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex.axis=</span><span class="fl">1.3</span>, <span class="at">cex.lab=</span><span class="fl">1.3</span>)</span>
+<span id="cb1521-4"><a href="7.3-mod-07-glmm.html#cb1521-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dx1<span class="sc">$</span>urb, dx1<span class="sc">$</span>y, <span class="at">type=</span><span class="st">&quot;n&quot;</span>, </span>
+<span id="cb1521-5"><a href="7.3-mod-07-glmm.html#cb1521-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">ylab=</span><span class="st">&quot;Occupancy probability&quot;</span>,</span>
+<span id="cb1521-6"><a href="7.3-mod-07-glmm.html#cb1521-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab=</span><span class="st">&quot;Urbanization index&quot;</span>)</span>
+<span id="cb1521-7"><a href="7.3-mod-07-glmm.html#cb1521-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n.groups){</span>
+<span id="cb1521-8"><a href="7.3-mod-07-glmm.html#cb1521-8" aria-hidden="true" tabindex="-1"></a>    flag <span class="ot">&lt;-</span> <span class="fu">which</span>(dx1<span class="sc">$</span>year<span class="sc">==</span>i)</span>
+<span id="cb1521-9"><a href="7.3-mod-07-glmm.html#cb1521-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">points</span>(dx1<span class="sc">$</span>urb[flag], dx1<span class="sc">$</span>y[flag], <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">col=</span><span class="st">&quot;grey60&quot;</span>)</span>
+<span id="cb1521-10"><a href="7.3-mod-07-glmm.html#cb1521-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1521-11"><a href="7.3-mod-07-glmm.html#cb1521-11" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(dx2<span class="sc">$</span>urb, dx2<span class="sc">$</span>y, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-672-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div id="glmm-on-real-data" class="section level3" number="7.3.3">
+<h3><span class="header-section-number">7.3.3</span> GLMM on real data</h3>
+<p>This example is adapted from <span class="citation">Zuur et al. (<a href="#ref-zuur2009mixed" role="doc-biblioref">2009a</a>)</span>. <span class="citation">Vicente et al. (<a href="#ref-vicente2005" role="doc-biblioref">2005</a>)</span> studied the distribution of the parasitic nematode <em>Elaphostrongylus cervi</em> in red deer (<em>Cervus elephus</em>) in Spain (below)<a href="literature-cited.html#fn74" class="footnote-ref" id="fnref74"><sup>74</sup></a>. Red deer are the primary hosts of <em>E. cervi</em>, which primarily affect the hosts’ lung tissue. <span class="citation">Vicente et al. (<a href="#ref-vicente2005" role="doc-biblioref">2005</a>)</span> surveyed deer feces on many farms in Spain and tested droppings for <em>E. cervi</em> larvae. We will analyze part of their dataset, to see if red deer size and sex affect the occurrence of <em>E. cervi</em> larvae. We will use GLMM to account for potential variation in parasite occurrence between farms. GLMM is appropriate in this situation because we are not interested in the effects of particular farms, which are a subsample of the locations where red deer occur.</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/07_01.jpg" /></p>
+<p>Download the dataset and save it to your R home directory. This is a tab-delimited file (<code>.txt</code>), so you need to use <code>read.table()</code> instead of <code>read.csv()</code>.</p>
+<div class="sourceCode" id="cb1522"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1522-1"><a href="7.3-mod-07-glmm.html#cb1522-1" aria-hidden="true" tabindex="-1"></a>dat.name <span class="ot">&lt;-</span> <span class="st">&quot;DeerEcervi.txt&quot;</span></span>
+<span id="cb1522-2"><a href="7.3-mod-07-glmm.html#cb1522-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.table</span>(dat.name, <span class="at">sep=</span><span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p>The dataset has the following variables:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Farm</td>
+<td>Farm (i.e., sampling site)</td>
+</tr>
+<tr class="even">
+<td>Sex</td>
+<td>Sex of deer (1 = female, 2 = male)</td>
+</tr>
+<tr class="odd">
+<td>Length</td>
+<td>Deer body length (cm)</td>
+</tr>
+<tr class="even">
+<td>Ecervi</td>
+<td>Parasite load in fecal sample</td>
+</tr>
+</tbody>
+</table>
+<p>Because we are interested in parasite occurrence, not abundance, we should use logistic regression. That is, a binomial GLM with a logit link. We will include a random effect associated with <code>farm</code>. Before running the analysis, let’s modify the variables in the dataset. First, define a response variable <code>y</code> that is 1 when parasites are present and 0 when parasite are absent. Then, center the deer lengths by subtracting the mean length. Finally, recode the sexes as <code>f</code> and <code>m</code> instead of 1 and 2. This is optional but will make things easier later.</p>
+<div class="sourceCode" id="cb1523"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1523-1"><a href="7.3-mod-07-glmm.html#cb1523-1" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>y <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(dat<span class="sc">$</span>Ecervi <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb1523-2"><a href="7.3-mod-07-glmm.html#cb1523-2" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>len <span class="ot">&lt;-</span> dat<span class="sc">$</span>Length<span class="sc">-</span><span class="fu">mean</span>(dat<span class="sc">$</span>Length)</span>
+<span id="cb1523-3"><a href="7.3-mod-07-glmm.html#cb1523-3" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>sex <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(dat<span class="sc">$</span>Sex<span class="sc">==</span><span class="dv">1</span>, <span class="st">&quot;f&quot;</span>, <span class="st">&quot;m&quot;</span>)</span></code></pre></div>
+<p>Now we can fit a model. Like the original authors, we will investigate the effects of sex, size, and farm. The model for parasite presence <em>y</em> in individual <em>j</em> on farm <em>i</em>, with probability <span class="math inline">\(p_{ij}\)</span>, varies with length <span class="math inline">\(L_{ij}\)</span>, sex <span class="math inline">\(S_{ij}\)</span>, the interaction between sex and length <span class="math inline">\(S_{ij}L_{ij}\)</span>, and farm <span class="math inline">\(F_i\)</span> as:</p>
+<p><span class="math display">\[y_i \sim Bernoulli\left(p_{ij}\right)\]</span>
+<span class="math display">\[logit\left(p_{ij}\right)=\beta_0+\beta_1L_{ij}+\beta_2S_{ij}+\beta_3L_{ij}S_{ij}+\gamma_i\]</span>
+<span class="math display">\[\gamma_i \sim Normal\left(\mu_\gamma,\sigma_{\gamma}\right)\]</span></p>
+<p>In this model farm has a random effect on the intercept, <span class="math inline">\(\gamma_i\)</span>. The random effects on the intercepts are assumed to come from a normal distribution with mean <span class="math inline">\(\mu_{\gamma}\)</span> and SD <span class="math inline">\(\sigma_{\gamma}\)</span>. Some people prefer to write the model a slightly different way, which combines the overall intercept <span class="math inline">\(\beta_0\)</span> with the random effects on the intercept <span class="math inline">\(\gamma_i\)</span> as a single parameter <span class="math inline">\(\beta_{0,i}\)</span>:</p>
+<p><span class="math display">\[logit\left(p_{ij}\right)=\beta_{0,i}+\beta_1L_{ij}+\beta_2S_{ij}+\beta_3L_{ij}S_{ij}+\gamma_i\]</span>
+<span class="math display">\[\beta_{0,i} \sim Normal\left(\mu_{\beta_0},\sigma_{\beta_0}\right)\]</span></p>
+<p>In this format, the combined intercept <span class="math inline">\(\beta_{0,i}\)</span>, is equivalent to <span class="math inline">\(\left( \beta_0 + \gamma_i \right)\)</span> for each group <em>i</em>. This is the way I prefer to write GLMM formulas because it makes it more clear what the random effects are really doing.</p>
+<p>GLMM can be fit with <code>lme4::glmer()</code>:</p>
+<div class="sourceCode" id="cb1524"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1524-1"><a href="7.3-mod-07-glmm.html#cb1524-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb1524-2"><a href="7.3-mod-07-glmm.html#cb1524-2" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">glmer</span>(y<span class="sc">~</span>len<span class="sc">*</span>sex<span class="sc">+</span>(<span class="dv">1</span><span class="sc">|</span>Farm), <span class="at">data=</span>dat, <span class="at">family=</span>binomial)</span>
+<span id="cb1524-3"><a href="7.3-mod-07-glmm.html#cb1524-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code></pre></div>
+<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
+##   Approximation) [glmerMod]
+##  Family: binomial  ( logit )
+## Formula: y ~ len * sex + (1 | Farm)
+##    Data: dat
+## 
+##      AIC      BIC   logLik deviance df.resid 
+##    832.6    856.1   -411.3    822.6      821 
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -6.2678 -0.6090  0.2809  0.5022  3.4546 
+## 
+## Random effects:
+##  Groups Name        Variance Std.Dev.
+##  Farm   (Intercept) 2.391    1.546   
+## Number of obs: 826, groups:  Farm, 24
+## 
+## Fixed effects:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept) 0.938969   0.356004   2.638  0.00835 ** 
+## len         0.038964   0.006917   5.633 1.77e-08 ***
+## sexm        0.624487   0.222938   2.801  0.00509 ** 
+## len:sexm    0.035859   0.011409   3.143  0.00167 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Correlation of Fixed Effects:
+##          (Intr) len    sexm  
+## len      -0.107              
+## sexm     -0.189  0.238       
+## len:sexm  0.091 -0.514  0.232</code></pre>
+<p>The model is essentially an ANCOVA model (continuous predictor that interacts with a factor, <code>sex</code>) fit as a binomial GLM (logistic regression) with a random effect of another factor (<code>Farm</code>). Interpreting the fixed effects length (<code>len</code>) and <code>sex</code> is a little tricky because of the interaction. We have to be careful and think about which observations each coefficient applies to:</p>
+<ul>
+<li>The printed intercept, <code>(Intercept)</code>, of 0.939 is the intercept for the baseline <code>sex</code>, females, regardless of farm effects.</li>
+<li>The printed coefficient for length (<code>len</code>), 0.038, is the slope for the baseline <code>sex</code> (females).</li>
+<li>The intercept for males is the baseline intercept plus the effect of being male: 0.9389 + 0.6244 = 1.5634.</li>
+<li>The slope for males is the baseline slope plus the effect of being male on the slope: 0.0389 + 0.0358 = 0.0748.</li>
+</ul>
+<p>Thus, the fixed effects for females are:</p>
+<p><span class="math display">\[logit\left(p_j\right)=0.939+0.038L_j\]</span></p>
+<p>And the fixed effects for males are:</p>
+<p><span class="math display">\[logit\left(p_j\right)=\left(0.939+0.624\right)+\left(0.039+0.036\right)L_j=1.563+0.075L_j\]</span></p>
+<p>Now let’s plot the model predictions against the original data. We’ll assemble a new dataset that covers the domain of <em>x</em> values (centered lengths), both sexes, and the 24 farms.</p>
+<div class="sourceCode" id="cb1526"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1526-1"><a href="7.3-mod-07-glmm.html#cb1526-1" aria-hidden="true" tabindex="-1"></a>farms <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">unique</span>(dat<span class="sc">$</span>Farm))</span>
+<span id="cb1526-2"><a href="7.3-mod-07-glmm.html#cb1526-2" aria-hidden="true" tabindex="-1"></a>nfarm <span class="ot">&lt;-</span> <span class="fu">length</span>(farms)</span>
+<span id="cb1526-3"><a href="7.3-mod-07-glmm.html#cb1526-3" aria-hidden="true" tabindex="-1"></a>agg <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(len<span class="sc">~</span>sex, <span class="at">data=</span>dat, range)</span>
+<span id="cb1526-4"><a href="7.3-mod-07-glmm.html#cb1526-4" aria-hidden="true" tabindex="-1"></a>agg <span class="ot">&lt;-</span> agg[[<span class="dv">2</span>]]</span>
+<span id="cb1526-5"><a href="7.3-mod-07-glmm.html#cb1526-5" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb1526-6"><a href="7.3-mod-07-glmm.html#cb1526-6" aria-hidden="true" tabindex="-1"></a>dx1 <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
+<span id="cb1526-7"><a href="7.3-mod-07-glmm.html#cb1526-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">sex=</span><span class="st">&quot;f&quot;</span>,</span>
+<span id="cb1526-8"><a href="7.3-mod-07-glmm.html#cb1526-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">len=</span><span class="fu">seq</span>(agg[<span class="dv">1</span>,<span class="dv">1</span>], agg[<span class="dv">1</span>,<span class="dv">2</span>], <span class="at">length=</span>n),</span>
+<span id="cb1526-9"><a href="7.3-mod-07-glmm.html#cb1526-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Farm=</span>farms)</span>
+<span id="cb1526-10"><a href="7.3-mod-07-glmm.html#cb1526-10" aria-hidden="true" tabindex="-1"></a>dx2 <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
+<span id="cb1526-11"><a href="7.3-mod-07-glmm.html#cb1526-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">sex=</span><span class="st">&quot;m&quot;</span>,</span>
+<span id="cb1526-12"><a href="7.3-mod-07-glmm.html#cb1526-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">len=</span><span class="fu">seq</span>(agg[<span class="dv">2</span>,<span class="dv">1</span>], agg[<span class="dv">2</span>,<span class="dv">2</span>], <span class="at">length=</span>n),</span>
+<span id="cb1526-13"><a href="7.3-mod-07-glmm.html#cb1526-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">Farm=</span>farms)</span>
+<span id="cb1526-14"><a href="7.3-mod-07-glmm.html#cb1526-14" aria-hidden="true" tabindex="-1"></a>dx <span class="ot">&lt;-</span> <span class="fu">rbind</span>(dx1, dx2)</span></code></pre></div>
+<p>Now generate the predictions:</p>
+<div class="sourceCode" id="cb1527"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1527-1"><a href="7.3-mod-07-glmm.html#cb1527-1" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod1, <span class="at">newdata=</span><span class="fu">data.frame</span>(dx), <span class="at">type=</span><span class="st">&quot;link&quot;</span>)</span>
+<span id="cb1527-2"><a href="7.3-mod-07-glmm.html#cb1527-2" aria-hidden="true" tabindex="-1"></a>dx<span class="sc">$</span>y <span class="ot">&lt;-</span> pred</span>
+<span id="cb1527-3"><a href="7.3-mod-07-glmm.html#cb1527-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1527-4"><a href="7.3-mod-07-glmm.html#cb1527-4" aria-hidden="true" tabindex="-1"></a><span class="co"># inverse link function</span></span>
+<span id="cb1527-5"><a href="7.3-mod-07-glmm.html#cb1527-5" aria-hidden="true" tabindex="-1"></a>dx<span class="sc">$</span>py <span class="ot">&lt;-</span> <span class="fu">plogis</span>(dx<span class="sc">$</span>y)</span></code></pre></div>
+<p>The predictions we just calculated are specific to each farm. The “average” probability, which ignores farm, can be obtained either predicting without random effects (safest), by manual calculation using the fixed effects (more trouble but generally okay) or by averaging across levels of the random effect (not recommended). The first two methods are demonstrated below, but we’re going to use the outputs from the first.</p>
+<div class="sourceCode" id="cb1528"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1528-1"><a href="7.3-mod-07-glmm.html#cb1528-1" aria-hidden="true" tabindex="-1"></a><span class="co"># method 1: predict with re.form=NA</span></span>
+<span id="cb1528-2"><a href="7.3-mod-07-glmm.html#cb1528-2" aria-hidden="true" tabindex="-1"></a>dx3 <span class="ot">&lt;-</span> dx[<span class="fu">which</span>(dx<span class="sc">$</span>Farm <span class="sc">==</span> farms[<span class="dv">1</span>]),]</span>
+<span id="cb1528-3"><a href="7.3-mod-07-glmm.html#cb1528-3" aria-hidden="true" tabindex="-1"></a>dx3<span class="sc">$</span>y <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod1,</span>
+<span id="cb1528-4"><a href="7.3-mod-07-glmm.html#cb1528-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">newdata=</span><span class="fu">data.frame</span>(dx3),</span>
+<span id="cb1528-5"><a href="7.3-mod-07-glmm.html#cb1528-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">type=</span><span class="st">&quot;link&quot;</span>, <span class="at">re.form=</span><span class="cn">NA</span>)</span>
+<span id="cb1528-6"><a href="7.3-mod-07-glmm.html#cb1528-6" aria-hidden="true" tabindex="-1"></a>dx3<span class="sc">$</span>py <span class="ot">&lt;-</span> <span class="fu">plogis</span>(dx3<span class="sc">$</span>y)</span>
+<span id="cb1528-7"><a href="7.3-mod-07-glmm.html#cb1528-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1528-8"><a href="7.3-mod-07-glmm.html#cb1528-8" aria-hidden="true" tabindex="-1"></a><span class="co"># method 1 ver. 2: predict to a new level of the random effect</span></span>
+<span id="cb1528-9"><a href="7.3-mod-07-glmm.html#cb1528-9" aria-hidden="true" tabindex="-1"></a>dx5 <span class="ot">&lt;-</span> dx[<span class="fu">which</span>(dx<span class="sc">$</span>Farm <span class="sc">==</span> farms[<span class="dv">1</span>]),]</span>
+<span id="cb1528-10"><a href="7.3-mod-07-glmm.html#cb1528-10" aria-hidden="true" tabindex="-1"></a>dx5<span class="sc">$</span>Farm <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb1528-11"><a href="7.3-mod-07-glmm.html#cb1528-11" aria-hidden="true" tabindex="-1"></a>dx5<span class="sc">$</span>y <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod1,</span>
+<span id="cb1528-12"><a href="7.3-mod-07-glmm.html#cb1528-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">newdata=</span><span class="fu">data.frame</span>(dx5),</span>
+<span id="cb1528-13"><a href="7.3-mod-07-glmm.html#cb1528-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">type=</span><span class="st">&quot;link&quot;</span>, <span class="at">re.form=</span><span class="cn">NA</span>,</span>
+<span id="cb1528-14"><a href="7.3-mod-07-glmm.html#cb1528-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">allow.new.levels=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1528-15"><a href="7.3-mod-07-glmm.html#cb1528-15" aria-hidden="true" tabindex="-1"></a>dx5<span class="sc">$</span>py <span class="ot">&lt;-</span> <span class="fu">plogis</span>(dx5<span class="sc">$</span>y)</span>
+<span id="cb1528-16"><a href="7.3-mod-07-glmm.html#cb1528-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1528-17"><a href="7.3-mod-07-glmm.html#cb1528-17" aria-hidden="true" tabindex="-1"></a><span class="co"># method 2: manually calculate</span></span>
+<span id="cb1528-18"><a href="7.3-mod-07-glmm.html#cb1528-18" aria-hidden="true" tabindex="-1"></a>dx4 <span class="ot">&lt;-</span> dx3</span>
+<span id="cb1528-19"><a href="7.3-mod-07-glmm.html#cb1528-19" aria-hidden="true" tabindex="-1"></a>flag <span class="ot">&lt;-</span> <span class="fu">which</span>(dx4<span class="sc">$</span>sex <span class="sc">==</span> <span class="st">&quot;f&quot;</span>)</span>
+<span id="cb1528-20"><a href="7.3-mod-07-glmm.html#cb1528-20" aria-hidden="true" tabindex="-1"></a>dx4<span class="sc">$</span>y[flag] <span class="ot">&lt;-</span> <span class="fl">0.939+0.038</span><span class="sc">*</span>dx4<span class="sc">$</span>len[flag]</span>
+<span id="cb1528-21"><a href="7.3-mod-07-glmm.html#cb1528-21" aria-hidden="true" tabindex="-1"></a>dx4<span class="sc">$</span>y[<span class="sc">-</span>flag] <span class="ot">&lt;-</span> <span class="fl">1.563+0.075</span><span class="sc">*</span>dx4<span class="sc">$</span>len[<span class="sc">-</span>flag]</span></code></pre></div>
+<p>For clarity, we will plot females and males on separate plots. Also for clarity, we will not plot the data and instead will plot the predicted probabilities.</p>
+<div class="sourceCode" id="cb1529"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1529-1"><a href="7.3-mod-07-glmm.html#cb1529-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb1529-2"><a href="7.3-mod-07-glmm.html#cb1529-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dx<span class="sc">$</span>len, dx<span class="sc">$</span>py, <span class="at">type=</span><span class="st">&quot;n&quot;</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
+<span id="cb1529-3"><a href="7.3-mod-07-glmm.html#cb1529-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab=</span><span class="st">&quot;Centered length (cm)&quot;</span>,</span>
+<span id="cb1529-4"><a href="7.3-mod-07-glmm.html#cb1529-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab=</span><span class="fu">expression</span>(Probability<span class="sc">~</span>of<span class="sc">~</span><span class="fu">italic</span>(E)<span class="sc">*</span>.<span class="sc">~</span><span class="fu">italic</span>(cervi)<span class="sc">~</span>larvae))</span>
+<span id="cb1529-5"><a href="7.3-mod-07-glmm.html#cb1529-5" aria-hidden="true" tabindex="-1"></a>use.dx <span class="ot">&lt;-</span> dx[<span class="fu">which</span>(dx<span class="sc">$</span>sex <span class="sc">==</span> <span class="st">&quot;f&quot;</span>),]</span>
+<span id="cb1529-6"><a href="7.3-mod-07-glmm.html#cb1529-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nfarm){</span>
+<span id="cb1529-7"><a href="7.3-mod-07-glmm.html#cb1529-7" aria-hidden="true" tabindex="-1"></a>    flag <span class="ot">&lt;-</span> <span class="fu">which</span>(use.dx<span class="sc">$</span>Farm <span class="sc">==</span> farms[i])</span>
+<span id="cb1529-8"><a href="7.3-mod-07-glmm.html#cb1529-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">points</span>(use.dx<span class="sc">$</span>len[flag], use.dx<span class="sc">$</span>py[flag], <span class="at">type=</span><span class="st">&quot;l&quot;</span>)</span>
+<span id="cb1529-9"><a href="7.3-mod-07-glmm.html#cb1529-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1529-10"><a href="7.3-mod-07-glmm.html#cb1529-10" aria-hidden="true" tabindex="-1"></a>flag <span class="ot">&lt;-</span> <span class="fu">which</span>(dx3<span class="sc">$</span>sex <span class="sc">==</span> <span class="st">&quot;f&quot;</span>)</span>
+<span id="cb1529-11"><a href="7.3-mod-07-glmm.html#cb1529-11" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(dx3<span class="sc">$</span>len[flag], dx3<span class="sc">$</span>py[flag], <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">4</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb1529-12"><a href="7.3-mod-07-glmm.html#cb1529-12" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="at">main=</span><span class="st">&quot;Female deer&quot;</span>)</span>
+<span id="cb1529-13"><a href="7.3-mod-07-glmm.html#cb1529-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1529-14"><a href="7.3-mod-07-glmm.html#cb1529-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dx<span class="sc">$</span>len, dx<span class="sc">$</span>py, <span class="at">type=</span><span class="st">&quot;n&quot;</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
+<span id="cb1529-15"><a href="7.3-mod-07-glmm.html#cb1529-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab=</span><span class="st">&quot;Centered length (cm)&quot;</span>,</span>
+<span id="cb1529-16"><a href="7.3-mod-07-glmm.html#cb1529-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab=</span><span class="fu">expression</span>(Probability<span class="sc">~</span>of<span class="sc">~</span><span class="fu">italic</span>(E)<span class="sc">*</span>.<span class="sc">~</span><span class="fu">italic</span>(cervi)<span class="sc">~</span>larvae))</span>
+<span id="cb1529-17"><a href="7.3-mod-07-glmm.html#cb1529-17" aria-hidden="true" tabindex="-1"></a>use.dx <span class="ot">&lt;-</span> dx[<span class="fu">which</span>(dx<span class="sc">$</span>sex <span class="sc">==</span> <span class="st">&quot;m&quot;</span>),]</span>
+<span id="cb1529-18"><a href="7.3-mod-07-glmm.html#cb1529-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nfarm){</span>
+<span id="cb1529-19"><a href="7.3-mod-07-glmm.html#cb1529-19" aria-hidden="true" tabindex="-1"></a>    flag <span class="ot">&lt;-</span> <span class="fu">which</span>(use.dx<span class="sc">$</span>Farm <span class="sc">==</span> farms[i])</span>
+<span id="cb1529-20"><a href="7.3-mod-07-glmm.html#cb1529-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">points</span>(use.dx<span class="sc">$</span>len[flag], use.dx<span class="sc">$</span>py[flag], <span class="at">type=</span><span class="st">&quot;l&quot;</span>)</span>
+<span id="cb1529-21"><a href="7.3-mod-07-glmm.html#cb1529-21" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1529-22"><a href="7.3-mod-07-glmm.html#cb1529-22" aria-hidden="true" tabindex="-1"></a>flag <span class="ot">&lt;-</span> <span class="fu">which</span>(dx3<span class="sc">$</span>sex <span class="sc">==</span> <span class="st">&quot;m&quot;</span>)</span>
+<span id="cb1529-23"><a href="7.3-mod-07-glmm.html#cb1529-23" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(dx3<span class="sc">$</span>len[flag], dx3<span class="sc">$</span>py[flag], <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">4</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb1529-24"><a href="7.3-mod-07-glmm.html#cb1529-24" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="at">main=</span><span class="st">&quot;Male deer&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-679-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>It is worth asking what the 95% CI of the predicted probability for an “average” farm would be. We can calculate this using some information from the summary of model 1 (see above). The random effects on the intercept for each farm have mean 0 and SD = 1.546. Because this model has only a random intercept, and not a random slope, we can express uncertainty about the predicted value (on the logit scale) by shifting the predicted value up or down. This means that the predicted value (on the logit scale) has a confidence interval defined by a normal distribution with the predicted value as the mean, and a standard deviation of 1.546. For any predicted value <span class="math inline">\(E(logit(p))\)</span>, the 95% CI can be approximated as <span class="math inline">\(E(logit(p)) \pm 1.96\times1.546\)</span>.</p>
+<p>In R we can calculate the CI directly using the normal distribution quantile functions:</p>
+<div class="sourceCode" id="cb1530"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1530-1"><a href="7.3-mod-07-glmm.html#cb1530-1" aria-hidden="true" tabindex="-1"></a>dx5 <span class="ot">&lt;-</span> dx[<span class="fu">which</span>(dx<span class="sc">$</span>Farm <span class="sc">==</span> farms[<span class="dv">1</span>]),]</span>
+<span id="cb1530-2"><a href="7.3-mod-07-glmm.html#cb1530-2" aria-hidden="true" tabindex="-1"></a>dx5<span class="sc">$</span>Farm <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb1530-3"><a href="7.3-mod-07-glmm.html#cb1530-3" aria-hidden="true" tabindex="-1"></a>dx5<span class="sc">$</span>y <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod1,</span>
+<span id="cb1530-4"><a href="7.3-mod-07-glmm.html#cb1530-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">newdata=</span><span class="fu">data.frame</span>(dx5),</span>
+<span id="cb1530-5"><a href="7.3-mod-07-glmm.html#cb1530-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">type=</span><span class="st">&quot;link&quot;</span>, <span class="at">re.form=</span><span class="cn">NA</span>,</span>
+<span id="cb1530-6"><a href="7.3-mod-07-glmm.html#cb1530-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">allow.new.levels=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1530-7"><a href="7.3-mod-07-glmm.html#cb1530-7" aria-hidden="true" tabindex="-1"></a>dx5<span class="sc">$</span>lo <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.025</span>, dx5<span class="sc">$</span>y, <span class="fl">1.546</span>)</span>
+<span id="cb1530-8"><a href="7.3-mod-07-glmm.html#cb1530-8" aria-hidden="true" tabindex="-1"></a>dx5<span class="sc">$</span>up <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>, dx5<span class="sc">$</span>y, <span class="fl">1.546</span>)</span>
+<span id="cb1530-9"><a href="7.3-mod-07-glmm.html#cb1530-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1530-10"><a href="7.3-mod-07-glmm.html#cb1530-10" aria-hidden="true" tabindex="-1"></a><span class="co"># inverse link function</span></span>
+<span id="cb1530-11"><a href="7.3-mod-07-glmm.html#cb1530-11" aria-hidden="true" tabindex="-1"></a>dx5<span class="sc">$</span>py <span class="ot">&lt;-</span> <span class="fu">plogis</span>(dx5<span class="sc">$</span>y)</span>
+<span id="cb1530-12"><a href="7.3-mod-07-glmm.html#cb1530-12" aria-hidden="true" tabindex="-1"></a>dx5<span class="sc">$</span>plo <span class="ot">&lt;-</span> <span class="fu">plogis</span>(dx5<span class="sc">$</span>lo)</span>
+<span id="cb1530-13"><a href="7.3-mod-07-glmm.html#cb1530-13" aria-hidden="true" tabindex="-1"></a>dx5<span class="sc">$</span>pup <span class="ot">&lt;-</span> <span class="fu">plogis</span>(dx5<span class="sc">$</span>up)</span></code></pre></div>
+<p>Finally, we can make the plot with the approximated 95% CI:</p>
+<div class="sourceCode" id="cb1531"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1531-1"><a href="7.3-mod-07-glmm.html#cb1531-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb1531-2"><a href="7.3-mod-07-glmm.html#cb1531-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dx<span class="sc">$</span>len, dx<span class="sc">$</span>py, <span class="at">type=</span><span class="st">&quot;n&quot;</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
+<span id="cb1531-3"><a href="7.3-mod-07-glmm.html#cb1531-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab=</span><span class="st">&quot;Centered length (cm)&quot;</span>,</span>
+<span id="cb1531-4"><a href="7.3-mod-07-glmm.html#cb1531-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab=</span><span class="fu">expression</span>(Probability<span class="sc">~</span>of<span class="sc">~</span><span class="fu">italic</span>(E)<span class="sc">*</span>.<span class="sc">~</span><span class="fu">italic</span>(cervi)<span class="sc">~</span>larvae))</span>
+<span id="cb1531-5"><a href="7.3-mod-07-glmm.html#cb1531-5" aria-hidden="true" tabindex="-1"></a>flag1 <span class="ot">&lt;-</span> <span class="fu">which</span>(dx5<span class="sc">$</span>sex <span class="sc">==</span> <span class="st">&quot;f&quot;</span>)</span>
+<span id="cb1531-6"><a href="7.3-mod-07-glmm.html#cb1531-6" aria-hidden="true" tabindex="-1"></a>flag2 <span class="ot">&lt;-</span> <span class="fu">which</span>(dx5<span class="sc">$</span>sex <span class="sc">==</span> <span class="st">&quot;m&quot;</span>)</span>
+<span id="cb1531-7"><a href="7.3-mod-07-glmm.html#cb1531-7" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x=</span><span class="fu">c</span>(dx5<span class="sc">$</span>len[flag1], <span class="fu">rev</span>(dx5<span class="sc">$</span>len[flag1])),</span>
+<span id="cb1531-8"><a href="7.3-mod-07-glmm.html#cb1531-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y=</span><span class="fu">c</span>(dx5<span class="sc">$</span>plo[flag1], <span class="fu">rev</span>(dx5<span class="sc">$</span>pup[flag1])),</span>
+<span id="cb1531-9"><a href="7.3-mod-07-glmm.html#cb1531-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">border=</span><span class="cn">NA</span>, <span class="at">col=</span><span class="st">&quot;#FF000030&quot;</span>)</span>
+<span id="cb1531-10"><a href="7.3-mod-07-glmm.html#cb1531-10" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x=</span><span class="fu">c</span>(dx5<span class="sc">$</span>len[flag2], <span class="fu">rev</span>(dx5<span class="sc">$</span>len[flag2])),</span>
+<span id="cb1531-11"><a href="7.3-mod-07-glmm.html#cb1531-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y=</span><span class="fu">c</span>(dx5<span class="sc">$</span>plo[flag2], <span class="fu">rev</span>(dx5<span class="sc">$</span>pup[flag2])),</span>
+<span id="cb1531-12"><a href="7.3-mod-07-glmm.html#cb1531-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">border=</span><span class="cn">NA</span>, <span class="at">col=</span><span class="st">&quot;#0000FF30&quot;</span>)</span>
+<span id="cb1531-13"><a href="7.3-mod-07-glmm.html#cb1531-13" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(dx5<span class="sc">$</span>len[flag1], dx5<span class="sc">$</span>py[flag1], <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&quot;red3&quot;</span>)</span>
+<span id="cb1531-14"><a href="7.3-mod-07-glmm.html#cb1531-14" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(dx5<span class="sc">$</span>len[flag2], dx5<span class="sc">$</span>py[flag2], <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&quot;blue3&quot;</span>)</span>
+<span id="cb1531-15"><a href="7.3-mod-07-glmm.html#cb1531-15" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;bottomright&quot;</span>, <span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;Female&quot;</span>, <span class="st">&quot;Male&quot;</span>),</span>
+<span id="cb1531-16"><a href="7.3-mod-07-glmm.html#cb1531-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;red3&quot;</span>, <span class="st">&quot;blue3&quot;</span>), <span class="at">bty=</span><span class="st">&quot;n&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-681-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>Because the GLMM we fit was a logistic regression model, you could also calculate an <a href="5.6-mod-05-logistic.html#mod-05-auc">ROC curve and AUC</a>) to express the predictive accuracy of the model. For other GLMM, you could perform a cross-validation analysis to see how well the model predicts out-of-sample data.</p>
+</div>
+</div>
+<h3>Literature Cited</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-vicente2005" class="csl-entry">
+Vicente, J., Y. Fierro, and C. Gortazar. 2005. <a href="https://doi.org/10.1007/s00436-004-1255-9">Seasonal dynamics of the fecal excretion of <em><span>E</span>laphostrongylus cervi</em> (<span>N</span>ematoda, <span>M</span>etastrongyloidea) first-stage larvae in <span>I</span>berian red deer (<em><span>C</span>ervus elaphus hispanicus) from southern <span>S</span>pain</em></a>. Parasitology Research 95:60–64.
+</div>
+<div id="ref-zuur2009mixed" class="csl-entry">
+Zuur, A. F., E. N. Ieno, N. J. Walker, A. A. Saveliev, G. M. Smith, and others. 2009a. Mixed effects models and extensions in ecology with <span>R</span>. Springer, New York.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="7.2-mod-07-lmm.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="7.4-mod-07-nlme.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

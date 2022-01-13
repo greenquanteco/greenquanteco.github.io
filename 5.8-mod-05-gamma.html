@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis</title>
+  <title>5.8 Gamma models for overdispersed data | Applied Biological Data Analysis</title>
   <meta name="description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta property="og:title" content="5.8 Gamma models for overdispersed data | Applied Biological Data Analysis" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://greenquanteco.github.io/index.html" />
   <meta property="og:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta name="twitter:title" content="5.8 Gamma models for overdispersed data | Applied Biological Data Analysis" />
   
   <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="twitter:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="8.5-mod-08-ord.html"/>
-<link rel="next" href="9.1-how-to-use-this-guide.html"/>
+<link rel="prev" href="5.7-mod-05-binom.html"/>
+<link rel="next" href="5.9-mod-05-beyond.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -530,22 +530,164 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="mod-09" class="section level1" number="9">
-<h1><span class="header-section-number">Module 9</span> Planning your analysis (what test?)</h1>
-<p>One of the main questions that biologists have after collecting data is, “What statistical test do I use?” Ignoring the fact that they should have thought about that <strong><em>before collecting data</em></strong>, the answer to that question depends on the answers to two other questions:</p>
-<ol style="list-style-type: decimal">
-<li>What question are you trying to answer?</li>
-<li>What kind of data do you have?</li>
-</ol>
-<p>After <a href="4-mod-04.html#mod-04">exploring the data</a> and gaining an understanding of the patterns and <a href="4.8-mod-04-prob.html#mod-04-prob">problems</a> in a dataset, it is time to run the main analysis. This guide is designed to help you use what you learned in exploring the data to choose an appropriate analytical strategy.</p>
+<div id="mod-05-gamma" class="section level2" number="5.8">
+<h2><span class="header-section-number">5.8</span> Gamma models for overdispersed data</h2>
+<p>This section explores GLMs for data following a <strong>gamma distribution</strong>. Gamma-distributed data can show up in two ways in biology: waiting times, or overdispersed continuous data (i.e., data where <span class="math inline">\(\sigma &gt; \mu\)</span>). The latter case can also be well-modeled by a <a href="5.3-mod-05-loglin.html#mod-05-loglin">log-linear GLM</a>, but the gamma GLM offers an elegant (and under-utilized) alternative.</p>
+<p><strong>Gamma regression</strong> is a GLM where response values follow a gamma distribution. The gamma distribution usually describes one of two kinds of data: waiting times until a certain number of events occur, or right-skewed continuous data. The gamma distribution is the continuous analogue of the negative binomial distribution. The figure below shows this:</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-561-1.png" width="768" /></p>
+<p>A gamma distribution with shape <em>a</em> and scale <em>s</em> is basically a continuous version of a negative binomial distribution with size <em>n</em> and probability <em>p</em> according to the following relationships:</p>
+<p><span class="math display">\[a=\frac{\mu^2}{\sigma^2}\]</span>
+<span class="math display">\[s=\frac{\mu}{a}\]</span></p>
+<p>Where <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span> can be calculated from the parameters of the negative binomial distribution as:</p>
+<p><span class="math display">\[\mu=\frac{n\left(1-p\right)}{p},\ \sigma^2=\frac{n\left(1-p\right)}{p^2}\]</span></p>
+<p>The relationships above can be used to convert between gamma distributions and negative binomial distributions with other parameterizations. For example, ecologists often use an alternate version of the negative binomial with mean <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^{2}=\mu + (\mu^{2}/k)\)</span>.</p>
+<p>Like the negative binomial, biologists can take advantage of the numerical properties of the gamma to model phenomena for which the variance is much greater than the mean. The <strong>log-normal distribution</strong> is another option for right-skewed data. Neither the log-normal nor the gamma distribution can take the value 0, so users of the gamma distribution may need to adjust their data so that 0s do not occur. Of the GLMs described in this guide, gamma models are probably the most under-utilized by biologists.</p>
+<div id="example-with-simulated-data-4" class="section level3" number="5.8.1">
+<h3><span class="header-section-number">5.8.1</span> Example with simulated data</h3>
+<p>As always, we will start with analysis of simulated data. Notice that we are using <strong>log link function</strong>. The canonical link for the gamma distribution is the <strong>reciprocal function</strong> (<span class="math inline">\(f(x)=1/x\)</span>). However, the reciprocal function is more applicable for the “waiting time” interpretation of the distribution. For the “right-skewed non-negative distribution” interpretation, the log or identity links can be appropriate. However, the log-link cannot be used if your data contain 0s.</p>
+<div class="sourceCode" id="cb1346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1346-1"><a href="5.8-mod-05-gamma.html#cb1346-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb1346-2"><a href="5.8-mod-05-gamma.html#cb1346-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">30</span></span>
+<span id="cb1346-3"><a href="5.8-mod-05-gamma.html#cb1346-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">4</span>), <span class="dv">1</span>)</span>
+<span id="cb1346-4"><a href="5.8-mod-05-gamma.html#cb1346-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1346-5"><a href="5.8-mod-05-gamma.html#cb1346-5" aria-hidden="true" tabindex="-1"></a><span class="co"># coefficients</span></span>
+<span id="cb1346-6"><a href="5.8-mod-05-gamma.html#cb1346-6" aria-hidden="true" tabindex="-1"></a>beta0 <span class="ot">&lt;-</span> <span class="fl">0.9</span></span>
+<span id="cb1346-7"><a href="5.8-mod-05-gamma.html#cb1346-7" aria-hidden="true" tabindex="-1"></a>beta1 <span class="ot">&lt;-</span> <span class="fl">1.2</span></span>
+<span id="cb1346-8"><a href="5.8-mod-05-gamma.html#cb1346-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1346-9"><a href="5.8-mod-05-gamma.html#cb1346-9" aria-hidden="true" tabindex="-1"></a><span class="co"># linear predictor</span></span>
+<span id="cb1346-10"><a href="5.8-mod-05-gamma.html#cb1346-10" aria-hidden="true" tabindex="-1"></a>eta <span class="ot">&lt;-</span> beta0 <span class="sc">+</span> beta1 <span class="sc">*</span> x</span>
+<span id="cb1346-11"><a href="5.8-mod-05-gamma.html#cb1346-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1346-12"><a href="5.8-mod-05-gamma.html#cb1346-12" aria-hidden="true" tabindex="-1"></a><span class="co"># inverse link</span></span>
+<span id="cb1346-13"><a href="5.8-mod-05-gamma.html#cb1346-13" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">exp</span>(eta)</span>
+<span id="cb1346-14"><a href="5.8-mod-05-gamma.html#cb1346-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1346-15"><a href="5.8-mod-05-gamma.html#cb1346-15" aria-hidden="true" tabindex="-1"></a><span class="co"># gamma parameter</span></span>
+<span id="cb1346-16"><a href="5.8-mod-05-gamma.html#cb1346-16" aria-hidden="true" tabindex="-1"></a>shape <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb1346-17"><a href="5.8-mod-05-gamma.html#cb1346-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1346-18"><a href="5.8-mod-05-gamma.html#cb1346-18" aria-hidden="true" tabindex="-1"></a><span class="co"># draw y values (stochastic part)</span></span>
+<span id="cb1346-19"><a href="5.8-mod-05-gamma.html#cb1346-19" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rgamma</span>(n, <span class="at">rate=</span>shape<span class="sc">/</span>y, <span class="at">shape=</span>shape)</span>
+<span id="cb1346-20"><a href="5.8-mod-05-gamma.html#cb1346-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1346-21"><a href="5.8-mod-05-gamma.html#cb1346-21" aria-hidden="true" tabindex="-1"></a><span class="co"># assemble dataset</span></span>
+<span id="cb1346-22"><a href="5.8-mod-05-gamma.html#cb1346-22" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x=</span>x, <span class="at">y=</span>y)</span>
+<span id="cb1346-23"><a href="5.8-mod-05-gamma.html#cb1346-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1346-24"><a href="5.8-mod-05-gamma.html#cb1346-24" aria-hidden="true" tabindex="-1"></a><span class="co"># take a look at the data:</span></span>
+<span id="cb1346-25"><a href="5.8-mod-05-gamma.html#cb1346-25" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat)</span></code></pre></div>
+<pre><code>##     x          y
+## 1 1.2  19.831466
+## 2 3.2 128.548423
+## 3 1.6   3.303748
+## 4 3.5  89.653108
+## 5 3.8 105.050148
+## 6 0.2   2.268062</code></pre>
+<div class="sourceCode" id="cb1348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1348-1"><a href="5.8-mod-05-gamma.html#cb1348-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x,y)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-562-1.png" width="480" /></p>
+<p>The data look like they might be log-linear—i.e., linear on a logarithmic scale. We can check that with another scatterplot:</p>
+<div class="sourceCode" id="cb1349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1349-1"><a href="5.8-mod-05-gamma.html#cb1349-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, <span class="fu">log</span>(y))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-563-1.png" width="480" /></p>
+<p>When <em>y</em> is log-transformed, things look linear. We will try a Gaussian GLM with log link function. Because the variance looks like it increases at larger <em>X</em> values, we will also try a gamma GLM. One characteristic of the gamma distribution is that the variance is proportional to the mean squared, which might be the case here.</p>
+<div class="sourceCode" id="cb1350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1350-1"><a href="5.8-mod-05-gamma.html#cb1350-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(y<span class="sc">~</span>x, <span class="at">data=</span>dat, <span class="at">family=</span><span class="fu">gaussian</span>(<span class="at">link=</span><span class="st">&quot;log&quot;</span>))</span>
+<span id="cb1350-2"><a href="5.8-mod-05-gamma.html#cb1350-2" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(y<span class="sc">~</span>x, <span class="at">data=</span>dat, <span class="at">family=</span><span class="fu">Gamma</span>(<span class="at">link=</span><span class="st">&quot;log&quot;</span>))</span>
+<span id="cb1350-3"><a href="5.8-mod-05-gamma.html#cb1350-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = y ~ x, family = gaussian(link = &quot;log&quot;), data = dat)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -52.584  -18.722   -8.663   -4.337  143.577  
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   1.8969     0.6141   3.089   0.0045 ** 
+## x             0.8122     0.1725   4.708 6.16e-05 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for gaussian family taken to be 1650.88)
+## 
+##     Null deviance: 128445  on 29  degrees of freedom
+## Residual deviance:  46225  on 28  degrees of freedom
+## AIC: 311.34
+## 
+## Number of Fisher Scoring iterations: 6</code></pre>
+<div class="sourceCode" id="cb1352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1352-1"><a href="5.8-mod-05-gamma.html#cb1352-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod2)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = y ~ x, family = Gamma(link = &quot;log&quot;), data = dat)
+## 
+## Deviance Residuals: 
+##      Min        1Q    Median        3Q       Max  
+## -1.23251  -0.35454  -0.05758   0.13402   0.76848  
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.99844    0.17787   5.613 5.21e-06 ***
+## x            1.08949    0.06932  15.717 2.02e-15 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for Gamma family taken to be 0.1887889)
+## 
+##     Null deviance: 41.3449  on 29  degrees of freedom
+## Residual deviance:  5.4667  on 28  degrees of freedom
+## AIC: 245.54
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<p>Notice that the parameter estimates from the gamma GLM were much closer to “reality” than those of the Gaussian GLM. Which model performed better? The pseudo-<em>R</em><sup>2</sup> suggests the gamma:</p>
+<div class="sourceCode" id="cb1354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1354-1"><a href="5.8-mod-05-gamma.html#cb1354-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">-</span>mod1<span class="sc">$</span>deviance<span class="sc">/</span>mod1<span class="sc">$</span>null.deviance</span></code></pre></div>
+<pre><code>## [1] 0.6401217</code></pre>
+<div class="sourceCode" id="cb1356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1356-1"><a href="5.8-mod-05-gamma.html#cb1356-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">-</span>mod2<span class="sc">$</span>deviance<span class="sc">/</span>mod2<span class="sc">$</span>null.deviance</span></code></pre></div>
+<pre><code>## [1] 0.8677773</code></pre>
+<p>The best test is to plot the predicted values against the actual values and compare the models.</p>
+<div class="sourceCode" id="cb1358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1358-1"><a href="5.8-mod-05-gamma.html#cb1358-1" aria-hidden="true" tabindex="-1"></a><span class="co"># values for prediction</span></span>
+<span id="cb1358-2"><a href="5.8-mod-05-gamma.html#cb1358-2" aria-hidden="true" tabindex="-1"></a>use.n <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb1358-3"><a href="5.8-mod-05-gamma.html#cb1358-3" aria-hidden="true" tabindex="-1"></a>px <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(x), <span class="fu">max</span>(x), <span class="at">length=</span>use.n)</span>
+<span id="cb1358-4"><a href="5.8-mod-05-gamma.html#cb1358-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1358-5"><a href="5.8-mod-05-gamma.html#cb1358-5" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate predictions and CI</span></span>
+<span id="cb1358-6"><a href="5.8-mod-05-gamma.html#cb1358-6" aria-hidden="true" tabindex="-1"></a>pred1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod1, <span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">x=</span>px),</span>
+<span id="cb1358-7"><a href="5.8-mod-05-gamma.html#cb1358-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">type=</span><span class="st">&quot;link&quot;</span>, <span class="at">se.fit=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1358-8"><a href="5.8-mod-05-gamma.html#cb1358-8" aria-hidden="true" tabindex="-1"></a>mn1 <span class="ot">&lt;-</span> pred1<span class="sc">$</span>fit</span>
+<span id="cb1358-9"><a href="5.8-mod-05-gamma.html#cb1358-9" aria-hidden="true" tabindex="-1"></a>lo1 <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.025</span>, mn1, pred1<span class="sc">$</span>se.fit)</span>
+<span id="cb1358-10"><a href="5.8-mod-05-gamma.html#cb1358-10" aria-hidden="true" tabindex="-1"></a>up1 <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>, mn1, pred1<span class="sc">$</span>se.fit)</span>
+<span id="cb1358-11"><a href="5.8-mod-05-gamma.html#cb1358-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1358-12"><a href="5.8-mod-05-gamma.html#cb1358-12" aria-hidden="true" tabindex="-1"></a><span class="co"># inverse link function</span></span>
+<span id="cb1358-13"><a href="5.8-mod-05-gamma.html#cb1358-13" aria-hidden="true" tabindex="-1"></a>mn1 <span class="ot">&lt;-</span> mod1<span class="sc">$</span>family<span class="sc">$</span><span class="fu">linkinv</span>(mn1)</span>
+<span id="cb1358-14"><a href="5.8-mod-05-gamma.html#cb1358-14" aria-hidden="true" tabindex="-1"></a>lo1 <span class="ot">&lt;-</span> mod1<span class="sc">$</span>family<span class="sc">$</span><span class="fu">linkinv</span>(lo1)</span>
+<span id="cb1358-15"><a href="5.8-mod-05-gamma.html#cb1358-15" aria-hidden="true" tabindex="-1"></a>up1 <span class="ot">&lt;-</span> mod1<span class="sc">$</span>family<span class="sc">$</span><span class="fu">linkinv</span>(up1)</span>
+<span id="cb1358-16"><a href="5.8-mod-05-gamma.html#cb1358-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1358-17"><a href="5.8-mod-05-gamma.html#cb1358-17" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate predictions and CI for gamma model</span></span>
+<span id="cb1358-18"><a href="5.8-mod-05-gamma.html#cb1358-18" aria-hidden="true" tabindex="-1"></a>pred2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod2, <span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">x=</span>px),</span>
+<span id="cb1358-19"><a href="5.8-mod-05-gamma.html#cb1358-19" aria-hidden="true" tabindex="-1"></a>                 <span class="at">type=</span><span class="st">&quot;link&quot;</span>, <span class="at">se.fit=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1358-20"><a href="5.8-mod-05-gamma.html#cb1358-20" aria-hidden="true" tabindex="-1"></a>mn2 <span class="ot">&lt;-</span> pred1<span class="sc">$</span>fit</span>
+<span id="cb1358-21"><a href="5.8-mod-05-gamma.html#cb1358-21" aria-hidden="true" tabindex="-1"></a>lo2 <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.025</span>, mn2, pred2<span class="sc">$</span>se.fit)</span>
+<span id="cb1358-22"><a href="5.8-mod-05-gamma.html#cb1358-22" aria-hidden="true" tabindex="-1"></a>up2 <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>, mn2, pred2<span class="sc">$</span>se.fit)</span>
+<span id="cb1358-23"><a href="5.8-mod-05-gamma.html#cb1358-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1358-24"><a href="5.8-mod-05-gamma.html#cb1358-24" aria-hidden="true" tabindex="-1"></a><span class="co"># inverse link function</span></span>
+<span id="cb1358-25"><a href="5.8-mod-05-gamma.html#cb1358-25" aria-hidden="true" tabindex="-1"></a>mn2 <span class="ot">&lt;-</span> mod1<span class="sc">$</span>family<span class="sc">$</span><span class="fu">linkinv</span>(mn2)</span>
+<span id="cb1358-26"><a href="5.8-mod-05-gamma.html#cb1358-26" aria-hidden="true" tabindex="-1"></a>lo2 <span class="ot">&lt;-</span> mod1<span class="sc">$</span>family<span class="sc">$</span><span class="fu">linkinv</span>(lo2)</span>
+<span id="cb1358-27"><a href="5.8-mod-05-gamma.html#cb1358-27" aria-hidden="true" tabindex="-1"></a>up2 <span class="ot">&lt;-</span> mod1<span class="sc">$</span>family<span class="sc">$</span><span class="fu">linkinv</span>(up2)</span>
+<span id="cb1358-28"><a href="5.8-mod-05-gamma.html#cb1358-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1358-29"><a href="5.8-mod-05-gamma.html#cb1358-29" aria-hidden="true" tabindex="-1"></a><span class="co"># make plot</span></span>
+<span id="cb1358-30"><a href="5.8-mod-05-gamma.html#cb1358-30" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb1358-31"><a href="5.8-mod-05-gamma.html#cb1358-31" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x,y, <span class="at">main=</span><span class="st">&quot;Normal GLM&quot;</span>)</span>
+<span id="cb1358-32"><a href="5.8-mod-05-gamma.html#cb1358-32" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x=</span><span class="fu">c</span>(px, <span class="fu">rev</span>(px)), <span class="at">y=</span><span class="fu">c</span>(lo1, <span class="fu">rev</span>(up1)),</span>
+<span id="cb1358-33"><a href="5.8-mod-05-gamma.html#cb1358-33" aria-hidden="true" tabindex="-1"></a>        <span class="at">border=</span><span class="cn">NA</span>, <span class="at">col=</span><span class="st">&quot;grey80&quot;</span>)</span>
+<span id="cb1358-34"><a href="5.8-mod-05-gamma.html#cb1358-34" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, mn1, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>)</span>
+<span id="cb1358-35"><a href="5.8-mod-05-gamma.html#cb1358-35" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(x, y)</span>
+<span id="cb1358-36"><a href="5.8-mod-05-gamma.html#cb1358-36" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x,y, <span class="at">main=</span><span class="st">&quot;Gamma GLM&quot;</span>)</span>
+<span id="cb1358-37"><a href="5.8-mod-05-gamma.html#cb1358-37" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x=</span><span class="fu">c</span>(px, <span class="fu">rev</span>(px)), <span class="at">y=</span><span class="fu">c</span>(lo2, <span class="fu">rev</span>(up2)),</span>
+<span id="cb1358-38"><a href="5.8-mod-05-gamma.html#cb1358-38" aria-hidden="true" tabindex="-1"></a>        <span class="at">border=</span><span class="cn">NA</span>, <span class="at">col=</span><span class="st">&quot;grey80&quot;</span>)</span>
+<span id="cb1358-39"><a href="5.8-mod-05-gamma.html#cb1358-39" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, mn2, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>)</span>
+<span id="cb1358-40"><a href="5.8-mod-05-gamma.html#cb1358-40" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(x, y)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-566-1.png" width="768" /></p>
+<p>The gamma GLM captured the heteroscedasticity in the data (non-constant variance) better than the Gaussian (normal) GLM. We should conclude that the gamma GLM better represents the data. If you have a heteroscedastic relationship that isn’t well-modeled by other GLMs, the gamma GLM might be worth a try.</p>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="8.5-mod-08-ord.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="9.1-how-to-use-this-guide.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="5.7-mod-05-binom.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="5.9-mod-05-beyond.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>5.6 Logistic regression for binary outcomes | Applied Biological Data Analysis</title>
+  <meta name="description" content="Helping biologists to become more informed users of R and statistical methods." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="5.6 Logistic regression for binary outcomes | Applied Biological Data Analysis" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://greenquanteco.github.io/index.html" />
+  <meta property="og:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
+  <meta property="og:description" content="Helping biologists to become more informed users of R and statistical methods." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="5.6 Logistic regression for binary outcomes | Applied Biological Data Analysis" />
+  
+  <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
+  <meta name="twitter:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
+
+<meta name="author" content="Nick Green, Kennesaw State University" />
+
+
+<meta name="date" content="2022-01-12" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="5.5-mod-05-quasi.html"/>
+<link rel="next" href="5.7-mod-05-binom.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="license-and-permissions.html"><a href="license-and-permissions.html"><i class="fa fa-check"></i>License and permissions</a></li>
+<li class="chapter" data-level="" data-path="course-description.html"><a href="course-description.html"><i class="fa fa-check"></i>Course description</a></li>
+<li class="chapter" data-level="" data-path="course-objectives.html"><a href="course-objectives.html"><i class="fa fa-check"></i>Course objectives</a></li>
+<li class="chapter" data-level="" data-path="course-requirements.html"><a href="course-requirements.html"><i class="fa fa-check"></i>Course requirements</a></li>
+<li class="chapter" data-level="" data-path="recommended-reading.html"><a href="recommended-reading.html"><i class="fa fa-check"></i>Recommended reading</a></li>
+<li class="chapter" data-level="" data-path="course-organization.html"><a href="course-organization.html"><i class="fa fa-check"></i>Course organization</a></li>
+<li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the author</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="1-mod-01.html"><a href="1-mod-01.html"><i class="fa fa-check"></i><b>1</b> Statistics in modern biology</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="1.1-overview.html"><a href="1.1-overview.html"><i class="fa fa-check"></i><b>1.1</b> Overview</a></li>
+<li class="chapter" data-level="1.2" data-path="1.2-statistics-in-modern-biology.html"><a href="1.2-statistics-in-modern-biology.html"><i class="fa fa-check"></i><b>1.2</b> Statistics in modern biology</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="1.2-statistics-in-modern-biology.html"><a href="1.2-statistics-in-modern-biology.html#the-scientific-method"><i class="fa fa-check"></i><b>1.2.1</b> The scientific method</a></li>
+<li class="chapter" data-level="1.2.2" data-path="1.2-statistics-in-modern-biology.html"><a href="1.2-statistics-in-modern-biology.html#example-data-analysis"><i class="fa fa-check"></i><b>1.2.2</b> Example data analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="1.3-misuses-of-statistics.html"><a href="1.3-misuses-of-statistics.html"><i class="fa fa-check"></i><b>1.3</b> Misuses of statistics</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="1.3-misuses-of-statistics.html"><a href="1.3-misuses-of-statistics.html#proving-the-trivial-and-meaningless-hypotheses"><i class="fa fa-check"></i><b>1.3.1</b> “Proving” the trivial and meaningless hypotheses</a></li>
+<li class="chapter" data-level="1.3.2" data-path="1.3-misuses-of-statistics.html"><a href="1.3-misuses-of-statistics.html#inappropriate-methods"><i class="fa fa-check"></i><b>1.3.2</b> Inappropriate methods</a></li>
+<li class="chapter" data-level="1.3.3" data-path="1.3-misuses-of-statistics.html"><a href="1.3-misuses-of-statistics.html#p-hacking-and-data-dredging"><i class="fa fa-check"></i><b>1.3.3</b> <em>P</em>-hacking and data dredging</a></li>
+<li class="chapter" data-level="1.3.4" data-path="1.3-misuses-of-statistics.html"><a href="1.3-misuses-of-statistics.html#inadequate-sample-sizes-and-pseudoreplication"><i class="fa fa-check"></i><b>1.3.4</b> Inadequate sample sizes and pseudoreplication</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><i class="fa fa-check"></i><b>1.4</b> <em>P</em>-values and null hypothesis significance testing (NHST)</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#definition"><i class="fa fa-check"></i><b>1.4.1</b> Definition</a></li>
+<li class="chapter" data-level="1.4.2" data-path="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#history-and-status-of-p-values"><i class="fa fa-check"></i><b>1.4.2</b> History and status of <em>P</em>-values</a></li>
+<li class="chapter" data-level="1.4.3" data-path="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#where-p-values-come-from"><i class="fa fa-check"></i><b>1.4.3</b> Where <em>P</em>-values come from</a></li>
+<li class="chapter" data-level="1.4.4" data-path="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#what-p-values-mean-and-do-not-mean"><i class="fa fa-check"></i><b>1.4.4</b> What <em>P</em>-values mean and do not mean</a></li>
+<li class="chapter" data-level="1.4.5" data-path="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#do-you-need-a-p-value"><i class="fa fa-check"></i><b>1.4.5</b> Do you need a <em>P</em>-value?</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="1.5-alternatives-to-nhst.html"><a href="1.5-alternatives-to-nhst.html"><i class="fa fa-check"></i><b>1.5</b> Alternatives to NHST</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="1.5-alternatives-to-nhst.html"><a href="1.5-alternatives-to-nhst.html#bayesian-inference"><i class="fa fa-check"></i><b>1.5.1</b> Bayesian inference</a></li>
+<li class="chapter" data-level="1.5.2" data-path="1.5-alternatives-to-nhst.html"><a href="1.5-alternatives-to-nhst.html#information-theoretic-methods"><i class="fa fa-check"></i><b>1.5.2</b> Information-theoretic methods</a></li>
+<li class="chapter" data-level="1.5.3" data-path="1.5-alternatives-to-nhst.html"><a href="1.5-alternatives-to-nhst.html#machine-learning"><i class="fa fa-check"></i><b>1.5.3</b> Machine learning</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="2-mod-02.html"><a href="2-mod-02.html"><i class="fa fa-check"></i><b>2</b> Introduction to R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="2.1-getting-started-with-r.html"><a href="2.1-getting-started-with-r.html"><i class="fa fa-check"></i><b>2.1</b> Getting started with R</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="2.1-getting-started-with-r.html"><a href="2.1-getting-started-with-r.html#what-is-r"><i class="fa fa-check"></i><b>2.1.1</b> What is R?</a></li>
+<li class="chapter" data-level="2.1.2" data-path="2.1-getting-started-with-r.html"><a href="2.1-getting-started-with-r.html#advantages-of-r"><i class="fa fa-check"></i><b>2.1.2</b> Advantages of R</a></li>
+<li class="chapter" data-level="2.1.3" data-path="2.1-getting-started-with-r.html"><a href="2.1-getting-started-with-r.html#disadvantages-of-r"><i class="fa fa-check"></i><b>2.1.3</b> Disadvantages of R</a></li>
+<li class="chapter" data-level="2.1.4" data-path="2.1-getting-started-with-r.html"><a href="2.1-getting-started-with-r.html#base-r-and-vs.-tidyverse"><i class="fa fa-check"></i><b>2.1.4</b> Base R and (vs.?) <code>tidyverse</code></a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="2.2-download-and-install-r-and-rstudio.html"><a href="2.2-download-and-install-r-and-rstudio.html"><i class="fa fa-check"></i><b>2.2</b> Download and install R (and RStudio)</a></li>
+<li class="chapter" data-level="2.3" data-path="2.3-using-r.html"><a href="2.3-using-r.html"><i class="fa fa-check"></i><b>2.3</b> Using R</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="2.3-using-r.html"><a href="2.3-using-r.html#using-the-base-r-gui"><i class="fa fa-check"></i><b>2.3.1</b> Using the base R GUI</a></li>
+<li class="chapter" data-level="2.3.2" data-path="2.3-using-r.html"><a href="2.3-using-r.html#using-r-in-rstudio"><i class="fa fa-check"></i><b>2.3.2</b> Using R in RStudio</a></li>
+<li class="chapter" data-level="2.3.3" data-path="2.3-using-r.html"><a href="2.3-using-r.html#using-r-with-other-programs"><i class="fa fa-check"></i><b>2.3.3</b> Using R with other programs</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html"><i class="fa fa-check"></i><b>2.4</b> A first R session</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#import-data"><i class="fa fa-check"></i><b>2.4.1</b> Import data</a></li>
+<li class="chapter" data-level="2.4.2" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#explore-and-visualize-data"><i class="fa fa-check"></i><b>2.4.2</b> Explore and visualize data</a></li>
+<li class="chapter" data-level="2.4.3" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#transform-data"><i class="fa fa-check"></i><b>2.4.3</b> Transform data</a></li>
+<li class="chapter" data-level="2.4.4" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#analyze-data"><i class="fa fa-check"></i><b>2.4.4</b> Analyze data</a></li>
+<li class="chapter" data-level="2.4.5" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#write-out-results"><i class="fa fa-check"></i><b>2.4.5</b> Write out results</a></li>
+<li class="chapter" data-level="2.4.6" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#save-your-work"><i class="fa fa-check"></i><b>2.4.6</b> Save your work?</a></li>
+<li class="chapter" data-level="2.4.7" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#whats-next"><i class="fa fa-check"></i><b>2.4.7</b> What’s next?</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="2.5-write-and-execute-commands-in-the-r-console.html"><a href="2.5-write-and-execute-commands-in-the-r-console.html"><i class="fa fa-check"></i><b>2.5</b> Write and execute commands in the R console</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="2.5-write-and-execute-commands-in-the-r-console.html"><a href="2.5-write-and-execute-commands-in-the-r-console.html#r-commandsbasics"><i class="fa fa-check"></i><b>2.5.1</b> R commands–basics</a></li>
+<li class="chapter" data-level="2.5.2" data-path="2.5-write-and-execute-commands-in-the-r-console.html"><a href="2.5-write-and-execute-commands-in-the-r-console.html#elements-of-r-code"><i class="fa fa-check"></i><b>2.5.2</b> Elements of R code</a></li>
+<li class="chapter" data-level="2.5.3" data-path="2.5-write-and-execute-commands-in-the-r-console.html"><a href="2.5-write-and-execute-commands-in-the-r-console.html#the-r-workspace"><i class="fa fa-check"></i><b>2.5.3</b> The R workspace</a></li>
+<li class="chapter" data-level="2.5.4" data-path="2.5-write-and-execute-commands-in-the-r-console.html"><a href="2.5-write-and-execute-commands-in-the-r-console.html#r-code-basics-assignment-and-operators"><i class="fa fa-check"></i><b>2.5.4</b> R code basics: assignment and operators</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="2.6-mod-02-struct.html"><a href="2.6-mod-02-struct.html"><i class="fa fa-check"></i><b>2.6</b> Basic R data structures</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="2.6-mod-02-struct.html"><a href="2.6-mod-02-struct.html#vectors"><i class="fa fa-check"></i><b>2.6.1</b> Vectors</a></li>
+<li class="chapter" data-level="2.6.2" data-path="2.6-mod-02-struct.html"><a href="2.6-mod-02-struct.html#data-frames"><i class="fa fa-check"></i><b>2.6.2</b> Data frames</a></li>
+<li class="chapter" data-level="2.6.3" data-path="2.6-mod-02-struct.html"><a href="2.6-mod-02-struct.html#matrices-and-arrays"><i class="fa fa-check"></i><b>2.6.3</b> Matrices and arrays</a></li>
+<li class="chapter" data-level="2.6.4" data-path="2.6-mod-02-struct.html"><a href="2.6-mod-02-struct.html#lists"><i class="fa fa-check"></i><b>2.6.4</b> Lists</a></li>
+<li class="chapter" data-level="2.6.5" data-path="2.6-mod-02-struct.html"><a href="2.6-mod-02-struct.html#s4-objects"><i class="fa fa-check"></i><b>2.6.5</b> S4 objects</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="2.7-r-data-types.html"><a href="2.7-r-data-types.html"><i class="fa fa-check"></i><b>2.7</b> R data types</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="2.7-r-data-types.html"><a href="2.7-r-data-types.html#character-type"><i class="fa fa-check"></i><b>2.7.1</b> Character type</a></li>
+<li class="chapter" data-level="2.7.2" data-path="2.7-r-data-types.html"><a href="2.7-r-data-types.html#numeric-type"><i class="fa fa-check"></i><b>2.7.2</b> Numeric type</a></li>
+<li class="chapter" data-level="2.7.3" data-path="2.7-r-data-types.html"><a href="2.7-r-data-types.html#integer-type"><i class="fa fa-check"></i><b>2.7.3</b> Integer type</a></li>
+<li class="chapter" data-level="2.7.4" data-path="2.7-r-data-types.html"><a href="2.7-r-data-types.html#logical-type"><i class="fa fa-check"></i><b>2.7.4</b> Logical type</a></li>
+<li class="chapter" data-level="2.7.5" data-path="2.7-r-data-types.html"><a href="2.7-r-data-types.html#special-values"><i class="fa fa-check"></i><b>2.7.5</b> Special values</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="2.8-manage-r-code-as-scripts-.r-files.html"><a href="2.8-manage-r-code-as-scripts-.r-files.html"><i class="fa fa-check"></i><b>2.8</b> Manage R code as scripts (.r files)</a></li>
+<li class="chapter" data-level="2.9" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html"><i class="fa fa-check"></i><b>2.9</b> Manage and use R packages</a>
+<ul>
+<li class="chapter" data-level="2.9.1" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#your-r-library"><i class="fa fa-check"></i><b>2.9.1</b> Your R library</a></li>
+<li class="chapter" data-level="2.9.2" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#installing-packages-using-the-r-gui"><i class="fa fa-check"></i><b>2.9.2</b> Installing packages using the R GUI</a></li>
+<li class="chapter" data-level="2.9.3" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#installing-packages-in-rstudio"><i class="fa fa-check"></i><b>2.9.3</b> Installing packages in RStudio</a></li>
+<li class="chapter" data-level="2.9.4" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#installing-packages-using-the-r-console"><i class="fa fa-check"></i><b>2.9.4</b> Installing packages using the R console</a></li>
+<li class="chapter" data-level="2.9.5" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#working-with-packages-in-r"><i class="fa fa-check"></i><b>2.9.5</b> Working with packages in R</a></li>
+<li class="chapter" data-level="2.9.6" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#package-dependencies"><i class="fa fa-check"></i><b>2.9.6</b> Package dependencies</a></li>
+<li class="chapter" data-level="2.9.7" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#citing-packages"><i class="fa fa-check"></i><b>2.9.7</b> Citing packages</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html"><i class="fa fa-check"></i><b>2.10</b> R documentation</a>
+<ul>
+<li class="chapter" data-level="2.10.1" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html#documentation-help-files"><i class="fa fa-check"></i><b>2.10.1</b> Documentation (help) files</a></li>
+<li class="chapter" data-level="2.10.2" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html#r-vignettes"><i class="fa fa-check"></i><b>2.10.2</b> R vignettes</a></li>
+<li class="chapter" data-level="2.10.3" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html#official-r-project-resources"><i class="fa fa-check"></i><b>2.10.3</b> Official R Project resources</a></li>
+<li class="chapter" data-level="2.10.4" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html#unofficial-online-resources"><i class="fa fa-check"></i><b>2.10.4</b> Unofficial online resources</a></li>
+<li class="chapter" data-level="2.10.5" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html#r-books"><i class="fa fa-check"></i><b>2.10.5</b> R books</a></li>
+<li class="chapter" data-level="2.10.6" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html#two-reminders"><i class="fa fa-check"></i><b>2.10.6</b> Two reminders</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="3-mod-03.html"><a href="3-mod-03.html"><i class="fa fa-check"></i><b>3</b> Data manipulation with R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="3.1-mod-03-inout.html"><a href="3.1-mod-03-inout.html"><i class="fa fa-check"></i><b>3.1</b> Data import and export</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="3.1-mod-03-inout.html"><a href="3.1-mod-03-inout.html#importing-data-preliminaries"><i class="fa fa-check"></i><b>3.1.1</b> Importing data: preliminaries</a></li>
+<li class="chapter" data-level="3.1.2" data-path="3.1-mod-03-inout.html"><a href="3.1-mod-03-inout.html#importing-data-from-text-files-with-read.csv-and-read.table"><i class="fa fa-check"></i><b>3.1.2</b> Importing data from text files with <code>read.csv()</code> and <code>read.table()</code></a></li>
+<li class="chapter" data-level="3.1.3" data-path="3.1-mod-03-inout.html"><a href="3.1-mod-03-inout.html#importing-data-from-saved-workspaces"><i class="fa fa-check"></i><b>3.1.3</b> Importing data from saved workspaces</a></li>
+<li class="chapter" data-level="3.1.4" data-path="3.1-mod-03-inout.html"><a href="3.1-mod-03-inout.html#importing-data-special-cases"><i class="fa fa-check"></i><b>3.1.4</b> Importing data: special cases:</a></li>
+<li class="chapter" data-level="3.1.5" data-path="3.1-mod-03-inout.html"><a href="3.1-mod-03-inout.html#export-data-from-r"><i class="fa fa-check"></i><b>3.1.5</b> Export data from R</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="3.2-making-values-in-r.html"><a href="3.2-making-values-in-r.html"><i class="fa fa-check"></i><b>3.2</b> Making values in R</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="3.2-making-values-in-r.html"><a href="3.2-making-values-in-r.html#producing-arbitrary-values-with-c"><i class="fa fa-check"></i><b>3.2.1</b> Producing arbitrary values with <code>c()</code></a></li>
+<li class="chapter" data-level="3.2.2" data-path="3.2-making-values-in-r.html"><a href="3.2-making-values-in-r.html#generating-regular-values"><i class="fa fa-check"></i><b>3.2.2</b> Generating regular values</a></li>
+<li class="chapter" data-level="3.2.3" data-path="3.2-making-values-in-r.html"><a href="3.2-making-values-in-r.html#generating-random-values"><i class="fa fa-check"></i><b>3.2.3</b> Generating random values</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="3.3-selecting-data-with.html"><a href="3.3-selecting-data-with.html"><i class="fa fa-check"></i><b>3.3</b> Selecting data with <code>[]</code></a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="3.3-selecting-data-with.html"><a href="3.3-selecting-data-with.html#mod-03-brackets"><i class="fa fa-check"></i><b>3.3.1</b> Basics of brackets</a></li>
+<li class="chapter" data-level="3.3.2" data-path="3.3-selecting-data-with.html"><a href="3.3-selecting-data-with.html#extracting-and-selecting-data-with-logical-tests"><i class="fa fa-check"></i><b>3.3.2</b> Extracting and selecting data with logical tests</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="3.4-managing-dates-and-characters.html"><a href="3.4-managing-dates-and-characters.html"><i class="fa fa-check"></i><b>3.4</b> Managing dates and characters</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="3.4-managing-dates-and-characters.html"><a href="3.4-managing-dates-and-characters.html#temporal-data-and-dates"><i class="fa fa-check"></i><b>3.4.1</b> Temporal data and dates</a></li>
+<li class="chapter" data-level="3.4.2" data-path="3.4-managing-dates-and-characters.html"><a href="3.4-managing-dates-and-characters.html#character-data-text"><i class="fa fa-check"></i><b>3.4.2</b> Character data (text)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="3.5-mod-03-dataframe.html"><a href="3.5-mod-03-dataframe.html"><i class="fa fa-check"></i><b>3.5</b> Data frame management</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="3.5-mod-03-dataframe.html"><a href="3.5-mod-03-dataframe.html#data-frame-structure"><i class="fa fa-check"></i><b>3.5.1</b> Data frame structure</a></li>
+<li class="chapter" data-level="3.5.2" data-path="3.5-mod-03-dataframe.html"><a href="3.5-mod-03-dataframe.html#common-data-frame-operations"><i class="fa fa-check"></i><b>3.5.2</b> Common data frame operations</a></li>
+<li class="chapter" data-level="3.5.3" data-path="3.5-mod-03-dataframe.html"><a href="3.5-mod-03-dataframe.html#other-data-frame-operations"><i class="fa fa-check"></i><b>3.5.3</b> Other data frame operations</a></li>
+<li class="chapter" data-level="3.5.4" data-path="3.5-mod-03-dataframe.html"><a href="3.5-mod-03-dataframe.html#mod-03-reshape"><i class="fa fa-check"></i><b>3.5.4</b> Reshaping data frames</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="4-mod-04.html"><a href="4-mod-04.html"><i class="fa fa-check"></i><b>4</b> Exploratory data analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="4.1-descriptive-and-summary-statistics.html"><a href="4.1-descriptive-and-summary-statistics.html"><i class="fa fa-check"></i><b>4.1</b> Descriptive and summary statistics</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="4.1-descriptive-and-summary-statistics.html"><a href="4.1-descriptive-and-summary-statistics.html#basic-summary-statistics"><i class="fa fa-check"></i><b>4.1.1</b> Basic summary statistics</a></li>
+<li class="chapter" data-level="4.1.2" data-path="4.1-descriptive-and-summary-statistics.html"><a href="4.1-descriptive-and-summary-statistics.html#summarizing-data-with-the-apply-family"><i class="fa fa-check"></i><b>4.1.2</b> Summarizing data with the <code>apply()</code> family</a></li>
+<li class="chapter" data-level="4.1.3" data-path="4.1-descriptive-and-summary-statistics.html"><a href="4.1-descriptive-and-summary-statistics.html#mod-04-tabagg"><i class="fa fa-check"></i><b>4.1.3</b> Tabulation and aggregation</a></li>
+<li class="chapter" data-level="4.1.4" data-path="4.1-descriptive-and-summary-statistics.html"><a href="4.1-descriptive-and-summary-statistics.html#aggregation-aka-pivot-tables"><i class="fa fa-check"></i><b>4.1.4</b> Aggregation (aka: pivot tables)</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html"><i class="fa fa-check"></i><b>4.2</b> Visualizing data distributions</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html#boxplots-aka-box-and-whisker-plots"><i class="fa fa-check"></i><b>4.2.1</b> Boxplots (aka: box-and-whisker plots)</a></li>
+<li class="chapter" data-level="4.2.2" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html#histograms"><i class="fa fa-check"></i><b>4.2.2</b> Histograms</a></li>
+<li class="chapter" data-level="4.2.3" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html#kernel-density-plots"><i class="fa fa-check"></i><b>4.2.3</b> Kernel density plots</a></li>
+<li class="chapter" data-level="4.2.4" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html#empirical-cumulative-distribution-plots-ecdf"><i class="fa fa-check"></i><b>4.2.4</b> Empirical cumulative distribution plots (ECDF)</a></li>
+<li class="chapter" data-level="4.2.5" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html#quantile-quantile-qq-plots"><i class="fa fa-check"></i><b>4.2.5</b> Quantile-quantile (QQ) plots</a></li>
+<li class="chapter" data-level="4.2.6" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html#how-should-i-plot-my-data"><i class="fa fa-check"></i><b>4.2.6</b> How should I plot my data?</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="4.3-mod-04-dists1.html"><a href="4.3-mod-04-dists1.html"><i class="fa fa-check"></i><b>4.3</b> Statistical distributions</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="4.3-mod-04-dists1.html"><a href="4.3-mod-04-dists1.html#probability-distributions"><i class="fa fa-check"></i><b>4.3.1</b> Probability distributions</a></li>
+<li class="chapter" data-level="4.3.2" data-path="4.3-mod-04-dists1.html"><a href="4.3-mod-04-dists1.html#probability-distributions-in-r"><i class="fa fa-check"></i><b>4.3.2</b> Probability distributions in R</a></li>
+<li class="chapter" data-level="4.3.3" data-path="4.3-mod-04-dists1.html"><a href="4.3-mod-04-dists1.html#discrete-distributions"><i class="fa fa-check"></i><b>4.3.3</b> Discrete distributions</a></li>
+<li class="chapter" data-level="4.3.4" data-path="4.3-mod-04-dists1.html"><a href="4.3-mod-04-dists1.html#continuous-distributions"><i class="fa fa-check"></i><b>4.3.4</b> Continuous distributions</a></li>
+<li class="chapter" data-level="4.3.5" data-path="4.3-mod-04-dists1.html"><a href="4.3-mod-04-dists1.html#distributions-summary"><i class="fa fa-check"></i><b>4.3.5</b> Distributions summary</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="4.4-mod-04-dists2.html"><a href="4.4-mod-04-dists2.html"><i class="fa fa-check"></i><b>4.4</b> Fitting and testing distributions</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="4.4-mod-04-dists2.html"><a href="4.4-mod-04-dists2.html#estimating-distributional-parameters"><i class="fa fa-check"></i><b>4.4.1</b> Estimating distributional parameters</a></li>
+<li class="chapter" data-level="4.4.2" data-path="4.4-mod-04-dists2.html"><a href="4.4-mod-04-dists2.html#graphical-methods-for-examining-distributions"><i class="fa fa-check"></i><b>4.4.2</b> Graphical methods for examining distributions</a></li>
+<li class="chapter" data-level="4.4.3" data-path="4.4-mod-04-dists2.html"><a href="4.4-mod-04-dists2.html#formal-tests-for-distributions"><i class="fa fa-check"></i><b>4.4.3</b> Formal tests for distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="4.5-mod-04-trans.html"><a href="4.5-mod-04-trans.html"><i class="fa fa-check"></i><b>4.5</b> Data transformations</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="4.5-mod-04-trans.html"><a href="4.5-mod-04-trans.html#why-transform"><i class="fa fa-check"></i><b>4.5.1</b> Why transform?</a></li>
+<li class="chapter" data-level="4.5.2" data-path="4.5-mod-04-trans.html"><a href="4.5-mod-04-trans.html#transforms-vs.-link-functions"><i class="fa fa-check"></i><b>4.5.2</b> Transforms vs. link functions</a></li>
+<li class="chapter" data-level="4.5.3" data-path="4.5-mod-04-trans.html"><a href="4.5-mod-04-trans.html#log-transformation"><i class="fa fa-check"></i><b>4.5.3</b> Log transformation</a></li>
+<li class="chapter" data-level="4.5.4" data-path="4.5-mod-04-trans.html"><a href="4.5-mod-04-trans.html#rank-transformation"><i class="fa fa-check"></i><b>4.5.4</b> Rank transformation</a></li>
+<li class="chapter" data-level="4.5.5" data-path="4.5-mod-04-trans.html"><a href="4.5-mod-04-trans.html#other-transforms-less-common"><i class="fa fa-check"></i><b>4.5.5</b> Other transforms (less common)</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="4.6-multivariate-data-exploration.html"><a href="4.6-multivariate-data-exploration.html"><i class="fa fa-check"></i><b>4.6</b> Multivariate data exploration</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="4.6-multivariate-data-exploration.html"><a href="4.6-multivariate-data-exploration.html#scatterplots-for-two-variables"><i class="fa fa-check"></i><b>4.6.1</b> Scatterplots for two variables</a></li>
+<li class="chapter" data-level="4.6.2" data-path="4.6-multivariate-data-exploration.html"><a href="4.6-multivariate-data-exploration.html#mod-04-smat"><i class="fa fa-check"></i><b>4.6.2</b> Scatterplot matrices for many variables</a></li>
+<li class="chapter" data-level="4.6.3" data-path="4.6-multivariate-data-exploration.html"><a href="4.6-multivariate-data-exploration.html#lattice-plots-for-hierarchical-data"><i class="fa fa-check"></i><b>4.6.3</b> Lattice plots for hierarchical data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="4.7-ordination-brief-introduction.html"><a href="4.7-ordination-brief-introduction.html"><i class="fa fa-check"></i><b>4.7</b> Ordination (brief introduction)</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="4.7-ordination-brief-introduction.html"><a href="4.7-ordination-brief-introduction.html#principal-components-analysis-pca"><i class="fa fa-check"></i><b>4.7.1</b> Principal components analysis (PCA)</a></li>
+<li class="chapter" data-level="4.7.2" data-path="4.7-ordination-brief-introduction.html"><a href="4.7-ordination-brief-introduction.html#nonmetric-multidimensional-scaling-nmds"><i class="fa fa-check"></i><b>4.7.2</b> Nonmetric multidimensional scaling (NMDS)</a></li>
+<li class="chapter" data-level="4.7.3" data-path="4.7-ordination-brief-introduction.html"><a href="4.7-ordination-brief-introduction.html#plotting-ordinations"><i class="fa fa-check"></i><b>4.7.3</b> Plotting ordinations</a></li>
+<li class="chapter" data-level="4.7.4" data-path="4.7-ordination-brief-introduction.html"><a href="4.7-ordination-brief-introduction.html#ordination-wrap-up-for-now"><i class="fa fa-check"></i><b>4.7.4</b> Ordination wrap-up (for now)</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="4.8-mod-04-prob.html"><a href="4.8-mod-04-prob.html"><i class="fa fa-check"></i><b>4.8</b> Common statistical problems</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="4.8-mod-04-prob.html"><a href="4.8-mod-04-prob.html#outliers-and-erroneous-values"><i class="fa fa-check"></i><b>4.8.1</b> Outliers and erroneous values</a></li>
+<li class="chapter" data-level="4.8.2" data-path="4.8-mod-04-prob.html"><a href="4.8-mod-04-prob.html#autocorrelation"><i class="fa fa-check"></i><b>4.8.2</b> Autocorrelation</a></li>
+<li class="chapter" data-level="4.8.3" data-path="4.8-mod-04-prob.html"><a href="4.8-mod-04-prob.html#mod-04-multicol"><i class="fa fa-check"></i><b>4.8.3</b> Collinearity</a></li>
+<li class="chapter" data-level="4.8.4" data-path="4.8-mod-04-prob.html"><a href="4.8-mod-04-prob.html#missing-data"><i class="fa fa-check"></i><b>4.8.4</b> Missing data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="5-mod-05.html"><a href="5-mod-05.html"><i class="fa fa-check"></i><b>5</b> Generalized linear models (GLM)</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html"><i class="fa fa-check"></i><b>5.1</b> Prelude with linear models</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html#assumptions-of-linear-models"><i class="fa fa-check"></i><b>5.1.1</b> Assumptions of linear models</a></li>
+<li class="chapter" data-level="5.1.2" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html#linear-regression-in-r"><i class="fa fa-check"></i><b>5.1.2</b> Linear regression in R</a></li>
+<li class="chapter" data-level="5.1.3" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html#multiple-linear-regression"><i class="fa fa-check"></i><b>5.1.3</b> Multiple linear regression</a></li>
+<li class="chapter" data-level="5.1.4" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html#mod-05-anova"><i class="fa fa-check"></i><b>5.1.4</b> ANOVA and ANCOVA with <code>lm()</code></a></li>
+<li class="chapter" data-level="5.1.5" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html#variations-on-linear-models"><i class="fa fa-check"></i><b>5.1.5</b> Variations on linear models</a></li>
+<li class="chapter" data-level="5.1.6" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html#example-linear-regression-workflow"><i class="fa fa-check"></i><b>5.1.6</b> Example linear regression workflow</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html"><i class="fa fa-check"></i><b>5.2</b> GLM basics</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html#example-glms"><i class="fa fa-check"></i><b>5.2.1</b> Example GLMS</a></li>
+<li class="chapter" data-level="5.2.2" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html#glm-families"><i class="fa fa-check"></i><b>5.2.2</b> GLM families</a></li>
+<li class="chapter" data-level="5.2.3" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html#glm-link-functions"><i class="fa fa-check"></i><b>5.2.3</b> GLM link functions</a></li>
+<li class="chapter" data-level="5.2.4" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html#deviance-and-other-glm-diagnostics"><i class="fa fa-check"></i><b>5.2.4</b> Deviance and other GLM diagnostics</a></li>
+<li class="chapter" data-level="5.2.5" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html#to-pseudo-r2-or-not-to-pseudo-r2"><i class="fa fa-check"></i><b>5.2.5</b> To pseudo-<em>R</em><sup>2</sup> or not to pseudo-<em>R</em><sup>2</sup>?</a></li>
+<li class="chapter" data-level="5.2.6" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html#common-glms"><i class="fa fa-check"></i><b>5.2.6</b> Common GLMs</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="5.3-mod-05-loglin.html"><a href="5.3-mod-05-loglin.html"><i class="fa fa-check"></i><b>5.3</b> Log-linear models</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="5.3-mod-05-loglin.html"><a href="5.3-mod-05-loglin.html#mod-05-loglin-examp"><i class="fa fa-check"></i><b>5.3.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="5.3.2" data-path="5.3-mod-05-loglin.html"><a href="5.3-mod-05-loglin.html#example-with-real-data"><i class="fa fa-check"></i><b>5.3.2</b> Example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="5.4-mod-05-poisson.html"><a href="5.4-mod-05-poisson.html"><i class="fa fa-check"></i><b>5.4</b> Poisson GLM for counts</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="5.4-mod-05-poisson.html"><a href="5.4-mod-05-poisson.html#example-with-simulated-data"><i class="fa fa-check"></i><b>5.4.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="5.4.2" data-path="5.4-mod-05-poisson.html"><a href="5.4-mod-05-poisson.html#example-with-real-data-1"><i class="fa fa-check"></i><b>5.4.2</b> Example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="5.5-mod-05-quasi.html"><a href="5.5-mod-05-quasi.html"><i class="fa fa-check"></i><b>5.5</b> Quasi-Poisson and negative binomial GLM</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="5.5-mod-05-quasi.html"><a href="5.5-mod-05-quasi.html#example-with-simulated-data-1"><i class="fa fa-check"></i><b>5.5.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="5.5.2" data-path="5.5-mod-05-quasi.html"><a href="5.5-mod-05-quasi.html#example-with-real-data-2"><i class="fa fa-check"></i><b>5.5.2</b> Example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="5.6-mod-05-logistic.html"><a href="5.6-mod-05-logistic.html"><i class="fa fa-check"></i><b>5.6</b> Logistic regression for binary outcomes</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="5.6-mod-05-logistic.html"><a href="5.6-mod-05-logistic.html#example-with-simulated-data-2"><i class="fa fa-check"></i><b>5.6.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="5.6.2" data-path="5.6-mod-05-logistic.html"><a href="5.6-mod-05-logistic.html#example-with-real-data-3"><i class="fa fa-check"></i><b>5.6.2</b> Example with real data</a></li>
+<li class="chapter" data-level="5.6.3" data-path="5.6-mod-05-logistic.html"><a href="5.6-mod-05-logistic.html#mod-05-auc"><i class="fa fa-check"></i><b>5.6.3</b> Logistic GLM diagnostics: AUC and ROC</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="5.7-mod-05-binom.html"><a href="5.7-mod-05-binom.html"><i class="fa fa-check"></i><b>5.7</b> Binomial GLM for proportional data</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="5.7-mod-05-binom.html"><a href="5.7-mod-05-binom.html#binomial-glm"><i class="fa fa-check"></i><b>5.7.1</b> Binomial GLM</a></li>
+<li class="chapter" data-level="5.7.2" data-path="5.7-mod-05-binom.html"><a href="5.7-mod-05-binom.html#example-with-simulated-data-3"><i class="fa fa-check"></i><b>5.7.2</b> Example with simulated data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="5.8-mod-05-gamma.html"><a href="5.8-mod-05-gamma.html"><i class="fa fa-check"></i><b>5.8</b> Gamma models for overdispersed data</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="5.8-mod-05-gamma.html"><a href="5.8-mod-05-gamma.html#example-with-simulated-data-4"><i class="fa fa-check"></i><b>5.8.1</b> Example with simulated data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="5.9-mod-05-beyond.html"><a href="5.9-mod-05-beyond.html"><i class="fa fa-check"></i><b>5.9</b> Beyond GLM: Overview of GAM and GEE</a>
+<ul>
+<li class="chapter" data-level="5.9.1" data-path="5.9-mod-05-beyond.html"><a href="5.9-mod-05-beyond.html#mod-05-gam"><i class="fa fa-check"></i><b>5.9.1</b> Generalized additive models (GAM)</a></li>
+<li class="chapter" data-level="5.9.2" data-path="5.9-mod-05-beyond.html"><a href="5.9-mod-05-beyond.html#mod-05-gee"><i class="fa fa-check"></i><b>5.9.2</b> Generalized estimating equations (GEE)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="6-mod-06.html"><a href="6-mod-06.html"><i class="fa fa-check"></i><b>6</b> Nonlinear models</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="6.1-background.html"><a href="6.1-background.html"><i class="fa fa-check"></i><b>6.1</b> Background</a></li>
+<li class="chapter" data-level="6.2" data-path="6.2-mod-06-intro.html"><a href="6.2-mod-06-intro.html"><i class="fa fa-check"></i><b>6.2</b> Nonlinear least squares (NLS)</a></li>
+<li class="chapter" data-level="6.3" data-path="6.3-mod-06-micmen.html"><a href="6.3-mod-06-micmen.html"><i class="fa fa-check"></i><b>6.3</b> Michaelis-Menten curves</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="6.3-mod-06-micmen.html"><a href="6.3-mod-06-micmen.html#mod-06-micmen-sim"><i class="fa fa-check"></i><b>6.3.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="6.3.2" data-path="6.3-mod-06-micmen.html"><a href="6.3-mod-06-micmen.html#example-with-real-data-4"><i class="fa fa-check"></i><b>6.3.2</b> Example with real data</a></li>
+<li class="chapter" data-level="6.3.3" data-path="6.3-mod-06-micmen.html"><a href="6.3-mod-06-micmen.html#alternative-strategies-for-the-analysis"><i class="fa fa-check"></i><b>6.3.3</b> Alternative strategies for the analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="6.4-mod-06-grow.html"><a href="6.4-mod-06-grow.html"><i class="fa fa-check"></i><b>6.4</b> Biological growth curves</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="6.4-mod-06-grow.html"><a href="6.4-mod-06-grow.html#gompertz-and-von-bertalanffy-curves"><i class="fa fa-check"></i><b>6.4.1</b> Gompertz and von Bertalanffy curves</a></li>
+<li class="chapter" data-level="6.4.2" data-path="6.4-mod-06-grow.html"><a href="6.4-mod-06-grow.html#example-with-real-data-5"><i class="fa fa-check"></i><b>6.4.2</b> Example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="6.5-dose-response-curves.html"><a href="6.5-dose-response-curves.html"><i class="fa fa-check"></i><b>6.5</b> Dose response curves</a></li>
+<li class="chapter" data-level="6.6" data-path="6.6-alternatives-to-nls.html"><a href="6.6-alternatives-to-nls.html"><i class="fa fa-check"></i><b>6.6</b> Alternatives to NLS</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="6.6-alternatives-to-nls.html"><a href="6.6-alternatives-to-nls.html#generalized-nonlinear-models"><i class="fa fa-check"></i><b>6.6.1</b> Generalized nonlinear models</a></li>
+<li class="chapter" data-level="6.6.2" data-path="6.6-alternatives-to-nls.html"><a href="6.6-alternatives-to-nls.html#quantile-regression"><i class="fa fa-check"></i><b>6.6.2</b> Quantile regression</a></li>
+<li class="chapter" data-level="6.6.3" data-path="6.6-alternatives-to-nls.html"><a href="6.6-alternatives-to-nls.html#mod-06-gam"><i class="fa fa-check"></i><b>6.6.3</b> Generalized additive models (GAM)</a></li>
+<li class="chapter" data-level="6.6.4" data-path="6.6-alternatives-to-nls.html"><a href="6.6-alternatives-to-nls.html#classification-and-regression-trees-cart"><i class="fa fa-check"></i><b>6.6.4</b> Classification and regression trees (CART)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="7-mod-07.html"><a href="7-mod-07.html"><i class="fa fa-check"></i><b>7</b> Mixed models</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="7.1-prelude-glm.html"><a href="7.1-prelude-glm.html"><i class="fa fa-check"></i><b>7.1</b> Prelude (GLM)</a></li>
+<li class="chapter" data-level="7.2" data-path="7.2-mod-07-lmm.html"><a href="7.2-mod-07-lmm.html"><i class="fa fa-check"></i><b>7.2</b> Linear mixed models (LMM)</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="7.2-mod-07-lmm.html"><a href="7.2-mod-07-lmm.html#formal-definition-and-example"><i class="fa fa-check"></i><b>7.2.1</b> Formal definition and example</a></li>
+<li class="chapter" data-level="7.2.2" data-path="7.2-mod-07-lmm.html"><a href="7.2-mod-07-lmm.html#example-with-simulated-data-5"><i class="fa fa-check"></i><b>7.2.2</b> Example with simulated data</a></li>
+<li class="chapter" data-level="7.2.3" data-path="7.2-mod-07-lmm.html"><a href="7.2-mod-07-lmm.html#p-values-in-lmm"><i class="fa fa-check"></i><b>7.2.3</b> <em>P</em>-values in LMM</a></li>
+<li class="chapter" data-level="7.2.4" data-path="7.2-mod-07-lmm.html"><a href="7.2-mod-07-lmm.html#specifying-random-effects"><i class="fa fa-check"></i><b>7.2.4</b> Specifying random effects</a></li>
+<li class="chapter" data-level="7.2.5" data-path="7.2-mod-07-lmm.html"><a href="7.2-mod-07-lmm.html#lmm-example-with-real-data"><i class="fa fa-check"></i><b>7.2.5</b> LMM example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="7.3-mod-07-glmm.html"><a href="7.3-mod-07-glmm.html"><i class="fa fa-check"></i><b>7.3</b> Generalized linear mixed models (GLMM)</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="7.3-mod-07-glmm.html"><a href="7.3-mod-07-glmm.html#definition-1"><i class="fa fa-check"></i><b>7.3.1</b> Definition</a></li>
+<li class="chapter" data-level="7.3.2" data-path="7.3-mod-07-glmm.html"><a href="7.3-mod-07-glmm.html#glmm-on-simulated-data"><i class="fa fa-check"></i><b>7.3.2</b> GLMM on simulated data</a></li>
+<li class="chapter" data-level="7.3.3" data-path="7.3-mod-07-glmm.html"><a href="7.3-mod-07-glmm.html#glmm-on-real-data"><i class="fa fa-check"></i><b>7.3.3</b> GLMM on real data</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="7.4-mod-07-nlme.html"><a href="7.4-mod-07-nlme.html"><i class="fa fa-check"></i><b>7.4</b> Nonlinear mixed models (NLME)</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="7.4-mod-07-nlme.html"><a href="7.4-mod-07-nlme.html#definition-and-background"><i class="fa fa-check"></i><b>7.4.1</b> Definition and background</a></li>
+<li class="chapter" data-level="7.4.2" data-path="7.4-mod-07-nlme.html"><a href="7.4-mod-07-nlme.html#nlme-on-simulated-data"><i class="fa fa-check"></i><b>7.4.2</b> NLME on simulated data</a></li>
+<li class="chapter" data-level="7.4.3" data-path="7.4-mod-07-nlme.html"><a href="7.4-mod-07-nlme.html#nlme-on-real-data"><i class="fa fa-check"></i><b>7.4.3</b> NLME on real data</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="7.5-mod-07-gamm.html"><a href="7.5-mod-07-gamm.html"><i class="fa fa-check"></i><b>7.5</b> (Generalized) additive mixed models (AMM/GAMM)</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="7.5-mod-07-gamm.html"><a href="7.5-mod-07-gamm.html#example-gamm-with-real-data"><i class="fa fa-check"></i><b>7.5.1</b> Example GAMM with real data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="8-mod-08.html"><a href="8-mod-08.html"><i class="fa fa-check"></i><b>8</b> Multivariate data analysis</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="8.1-multivariate-data.html"><a href="8.1-multivariate-data.html"><i class="fa fa-check"></i><b>8.1</b> Multivariate data</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="8.1-multivariate-data.html"><a href="8.1-multivariate-data.html#univariate-vs.-multivariate-data"><i class="fa fa-check"></i><b>8.1.1</b> Univariate vs. multivariate data</a></li>
+<li class="chapter" data-level="8.1.2" data-path="8.1-multivariate-data.html"><a href="8.1-multivariate-data.html#components-of-multivariate-data"><i class="fa fa-check"></i><b>8.1.2</b> Components of multivariate data</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="8.2-mod-08-dist.html"><a href="8.2-mod-08-dist.html"><i class="fa fa-check"></i><b>8.2</b> Distance metrics: biological (dis)similarity</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="8.2-mod-08-dist.html"><a href="8.2-mod-08-dist.html#euclidean-distance"><i class="fa fa-check"></i><b>8.2.1</b> Euclidean distance</a></li>
+<li class="chapter" data-level="8.2.2" data-path="8.2-mod-08-dist.html"><a href="8.2-mod-08-dist.html#bray-curtis-and-other-distance-metrics"><i class="fa fa-check"></i><b>8.2.2</b> Bray-Curtis and other distance metrics</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="8.3-clustering.html"><a href="8.3-clustering.html"><i class="fa fa-check"></i><b>8.3</b> Clustering</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="8.3-clustering.html"><a href="8.3-clustering.html#k-means-clustering"><i class="fa fa-check"></i><b>8.3.1</b> <em>K</em>-means clustering</a></li>
+<li class="chapter" data-level="8.3.2" data-path="8.3-clustering.html"><a href="8.3-clustering.html#hierarchical-agglomerative-clustering"><i class="fa fa-check"></i><b>8.3.2</b> Hierarchical agglomerative clustering</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="8.4-mod-08-sims.html"><a href="8.4-mod-08-sims.html"><i class="fa fa-check"></i><b>8.4</b> Analyzing dissimilarity</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="8.4-mod-08-sims.html"><a href="8.4-mod-08-sims.html#mantel-tests-distance-vs.-distance"><i class="fa fa-check"></i><b>8.4.1</b> Mantel tests: distance vs. distance</a></li>
+<li class="chapter" data-level="8.4.2" data-path="8.4-mod-08-sims.html"><a href="8.4-mod-08-sims.html#comparing-dissimilarity-between-groups"><i class="fa fa-check"></i><b>8.4.2</b> Comparing dissimilarity between groups</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="8.5-mod-08-ord.html"><a href="8.5-mod-08-ord.html"><i class="fa fa-check"></i><b>8.5</b> Ordination</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="8.5-mod-08-ord.html"><a href="8.5-mod-08-ord.html#principal-components-analysis-pca-1"><i class="fa fa-check"></i><b>8.5.1</b> Principal components analysis (PCA)</a></li>
+<li class="chapter" data-level="8.5.2" data-path="8.5-mod-08-ord.html"><a href="8.5-mod-08-ord.html#nmds-and-other-ordination-methods"><i class="fa fa-check"></i><b>8.5.2</b> NMDS and other ordination methods</a></li>
+<li class="chapter" data-level="8.5.3" data-path="8.5-mod-08-ord.html"><a href="8.5-mod-08-ord.html#other-ordination-techniques"><i class="fa fa-check"></i><b>8.5.3</b> Other ordination techniques</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="9-mod-09.html"><a href="9-mod-09.html"><i class="fa fa-check"></i><b>9</b> Planning your analysis (what test?)</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="9.1-how-to-use-this-guide.html"><a href="9.1-how-to-use-this-guide.html"><i class="fa fa-check"></i><b>9.1</b> How to use this guide</a></li>
+<li class="chapter" data-level="9.2" data-path="9.2-what-question-are-you-trying-to-answer.html"><a href="9.2-what-question-are-you-trying-to-answer.html"><i class="fa fa-check"></i><b>9.2</b> What question are you trying to answer?</a></li>
+<li class="chapter" data-level="9.3" data-path="9.3-testing-for-a-difference-in-mean-or-location.html"><a href="9.3-testing-for-a-difference-in-mean-or-location.html"><i class="fa fa-check"></i><b>9.3</b> Testing for a difference in mean or location</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="9.3-testing-for-a-difference-in-mean-or-location.html"><a href="9.3-testing-for-a-difference-in-mean-or-location.html#additional-considerations"><i class="fa fa-check"></i><b>9.3.1</b> Additional considerations</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="9.4-testing-for-a-continuous-relationship-between-two-or-more-variables.html"><a href="9.4-testing-for-a-continuous-relationship-between-two-or-more-variables.html"><i class="fa fa-check"></i><b>9.4</b> Testing for a continuous relationship between two or more variables</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="9.4-testing-for-a-continuous-relationship-between-two-or-more-variables.html"><a href="9.4-testing-for-a-continuous-relationship-between-two-or-more-variables.html#additional-considerations-1"><i class="fa fa-check"></i><b>9.4.1</b> Additional considerations</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="9.5-classifying-observations.html"><a href="9.5-classifying-observations.html"><i class="fa fa-check"></i><b>9.5</b> Classifying observations</a></li>
+<li class="chapter" data-level="9.6" data-path="9.6-conclusions.html"><a href="9.6-conclusions.html"><i class="fa fa-check"></i><b>9.6</b> Conclusions</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="literature-cited.html"><a href="literature-cited.html"><i class="fa fa-check"></i>Literature Cited</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Applied Biological Data Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="mod-05-logistic" class="section level2" number="5.6">
+<h2><span class="header-section-number">5.6</span> Logistic regression for binary outcomes</h2>
+<p>This section explores GLMs for <strong>binary outcomes</strong>. Binary outcomes are results that take one of two values: survival vs. non-survival, presence vs. absence, reproduction vs. not-reproducing, and so on. These data are usually coded as 1 and 0: 1 when the event occurs, and 0 when the event does not. No other values are allowed. The standard technique for modeling binary outcomes is <strong>logistic regression</strong>. This name refers to a GLM with a binomial family and logit link function.</p>
+<p><strong>Logistic regression</strong> is a technique for modeling the probability of a binary outcome: survival vs. death, reproductive vs. not reproductive, present vs. absent, etc. The response variable <em>Y</em> takes value 1 when the event occurs, and value 0 when the event does not occur. For each observation <em>i</em>, success occurs as the outcome of a Bernoulli trial with probability <em>p</em><sub>i</sub>. The logit of <em>p</em><sub>i</sub> (i.e., the logarithm of the odds that <em>Y</em> = 1) is modeled as a linear function of the predictor variables.</p>
+<p><span class="math display">\[Y_i \sim Bernoulli\left(p_i\right)\]</span>
+<span class="math display">\[logit\left(p_i\right)=\log{\left(\frac{p_i}{1-p_i}\right)}=\beta_0+\beta_1X_i\]</span></p>
+<p>The inverse link function is the <strong>logistic function</strong>, which is also where the name “logistic regression” comes from:</p>
+<p><span class="math display">\[logistic\left(x\right)=\frac{e^x}{1+e^x}\]</span></p>
+<p>The linear predictor in logistic regression predicts the “log-odds” of an event occurring. The unit of the log-odds scale is the <strong>logistic unit</strong>, or <strong>logit</strong>. The logit link function is useful because it allows the outcome of a linear function–which can take on any real value–to be mapped smoothly to the natural domain of probabilities, the open interval (0, 1). A key consequence of this link function is that increasing the value of one of the predictor variables by 1 will scale the log-odds by a constant. That constant is the coefficient estimated for the predictor.</p>
+<p>The logistic regression model was developed in the 1940s, decades before the GLM was first proposed. Part of the development of the idea of the GLM was recognizing that many previously known models were actually special cases of a more general model. In GLM terms, we say that logistic regression is a GLM with a binomial family and logit link function.</p>
+<div id="example-with-simulated-data-2" class="section level3" number="5.6.1">
+<h3><span class="header-section-number">5.6.1</span> Example with simulated data</h3>
+<p>As with the other GLM applications, we’ll start by simulating a suitable dataset and analyzing it. The code below will execute the simulation. Remember to set the random number seed for reproducibility.</p>
+<div class="sourceCode" id="cb1266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1266-1"><a href="5.6-mod-05-logistic.html#cb1266-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb1266-2"><a href="5.6-mod-05-logistic.html#cb1266-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">30</span></span>
+<span id="cb1266-3"><a href="5.6-mod-05-logistic.html#cb1266-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">12</span>), <span class="dv">1</span>)</span>
+<span id="cb1266-4"><a href="5.6-mod-05-logistic.html#cb1266-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1266-5"><a href="5.6-mod-05-logistic.html#cb1266-5" aria-hidden="true" tabindex="-1"></a><span class="co"># coefficients</span></span>
+<span id="cb1266-6"><a href="5.6-mod-05-logistic.html#cb1266-6" aria-hidden="true" tabindex="-1"></a>beta0 <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">4</span></span>
+<span id="cb1266-7"><a href="5.6-mod-05-logistic.html#cb1266-7" aria-hidden="true" tabindex="-1"></a>beta1 <span class="ot">&lt;-</span> <span class="fl">0.8</span></span>
+<span id="cb1266-8"><a href="5.6-mod-05-logistic.html#cb1266-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1266-9"><a href="5.6-mod-05-logistic.html#cb1266-9" aria-hidden="true" tabindex="-1"></a><span class="co"># linear predictor</span></span>
+<span id="cb1266-10"><a href="5.6-mod-05-logistic.html#cb1266-10" aria-hidden="true" tabindex="-1"></a>eta <span class="ot">&lt;-</span> beta0 <span class="sc">+</span> beta1 <span class="sc">*</span> x</span>
+<span id="cb1266-11"><a href="5.6-mod-05-logistic.html#cb1266-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1266-12"><a href="5.6-mod-05-logistic.html#cb1266-12" aria-hidden="true" tabindex="-1"></a><span class="co"># logistic function (inverse link)</span></span>
+<span id="cb1266-13"><a href="5.6-mod-05-logistic.html#cb1266-13" aria-hidden="true" tabindex="-1"></a>prob <span class="ot">&lt;-</span> <span class="fu">plogis</span>(eta)</span>
+<span id="cb1266-14"><a href="5.6-mod-05-logistic.html#cb1266-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1266-15"><a href="5.6-mod-05-logistic.html#cb1266-15" aria-hidden="true" tabindex="-1"></a><span class="co"># draw y values (stochastic part)</span></span>
+<span id="cb1266-16"><a href="5.6-mod-05-logistic.html#cb1266-16" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, prob)</span>
+<span id="cb1266-17"><a href="5.6-mod-05-logistic.html#cb1266-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1266-18"><a href="5.6-mod-05-logistic.html#cb1266-18" aria-hidden="true" tabindex="-1"></a><span class="co"># assemble dataset</span></span>
+<span id="cb1266-19"><a href="5.6-mod-05-logistic.html#cb1266-19" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x=</span>x, <span class="at">y=</span>y)</span>
+<span id="cb1266-20"><a href="5.6-mod-05-logistic.html#cb1266-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1266-21"><a href="5.6-mod-05-logistic.html#cb1266-21" aria-hidden="true" tabindex="-1"></a><span class="co"># take a look at the data:</span></span>
+<span id="cb1266-22"><a href="5.6-mod-05-logistic.html#cb1266-22" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat)</span></code></pre></div>
+<pre><code>##      x y
+## 1  3.5 1
+## 2  9.5 1
+## 3  4.9 1
+## 4 10.6 1
+## 5 11.3 1
+## 6  0.5 0</code></pre>
+<p>Unlike other sorts of regression problems, plotting <em>Y</em> vs. <em>X</em> isn’t very illuminating:</p>
+<div class="sourceCode" id="cb1268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1268-1"><a href="5.6-mod-05-logistic.html#cb1268-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-525-1.png" width="480" /></p>
+<p>If you have a lot of duplicate coordinates, it can be hard to get a sense of how many 0s and 1s are in the dataset. The scatterplot above is also a little silly because most of the <em>Y</em>-axis range is not occupied. We can use function <code>jitter()</code> to add some random noise to the <em>Y</em>-values; this will help us see what is going on.</p>
+<div class="sourceCode" id="cb1269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1269-1"><a href="5.6-mod-05-logistic.html#cb1269-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, <span class="fu">jitter</span>(y))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-526-1.png" width="480" /></p>
+<p>Another way to explore binary data is with a boxplot. A boxplot can show whether <em>X</em> tends to be smaller or greater when <em>Y</em> = 1; this is sort of the reverse of the question we are really asking, but it helps us make sense of the data as we explore.</p>
+<div class="sourceCode" id="cb1270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1270-1"><a href="5.6-mod-05-logistic.html#cb1270-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(x<span class="sc">~</span>y)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-527-1.png" width="480" /></p>
+<p>The boxplot agrees with the scatterplot: <em>Y</em> seems more likely to occur at greater values of <em>X</em>. Making the boxplot horizontal makes the agreement more clear:</p>
+<div class="sourceCode" id="cb1271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1271-1"><a href="5.6-mod-05-logistic.html#cb1271-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(x<span class="sc">~</span>y, <span class="at">horizontal=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-528-1.png" width="480" /></p>
+<p>Logistic regression is fit using the <code>glm()</code> function. By definition, logistic regression is a GLM with a binomial family and logit link function. You don’t need to specify the link function in R, as the binomial family uses the logit link function by default.</p>
+<div class="sourceCode" id="cb1272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1272-1"><a href="5.6-mod-05-logistic.html#cb1272-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(y<span class="sc">~</span>x, <span class="at">data=</span>dat, <span class="at">family=</span>binomial)</span>
+<span id="cb1272-2"><a href="5.6-mod-05-logistic.html#cb1272-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = y ~ x, family = binomial, data = dat)
+## 
+## Deviance Residuals: 
+##      Min        1Q    Median        3Q       Max  
+## -2.25927   0.02705   0.06648   0.29492   1.30865  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)  
+## (Intercept)  -3.7713     1.8349  -2.055   0.0399 *
+## x             0.9909     0.4001   2.477   0.0133 *
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 32.596  on 29  degrees of freedom
+## Residual deviance: 13.193  on 28  degrees of freedom
+## AIC: 17.193
+## 
+## Number of Fisher Scoring iterations: 7</code></pre>
+<p>The parameter estimates are pretty close to the correct values. We can calculate the pseudo-<em>R</em><sup>2</sup> as usual:</p>
+<div class="sourceCode" id="cb1274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1274-1"><a href="5.6-mod-05-logistic.html#cb1274-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">-</span>mod1<span class="sc">$</span>deviance<span class="sc">/</span>mod1<span class="sc">$</span>null.deviance</span></code></pre></div>
+<pre><code>## [1] 0.5952722</code></pre>
+<p>The pseudo-<em>R</em><sup>2</sup> is pretty good for only having 30 observations. But, you should probably consider using AUC instead of pseudo-<em>R</em><sup>2</sup> (see below). The next step is to generate and plot the model predictions. For logistic regression models, predictions should be calculated on the link scale and back-transformed to get probabilities.</p>
+<div class="sourceCode" id="cb1276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1276-1"><a href="5.6-mod-05-logistic.html#cb1276-1" aria-hidden="true" tabindex="-1"></a><span class="co"># values for prediction</span></span>
+<span id="cb1276-2"><a href="5.6-mod-05-logistic.html#cb1276-2" aria-hidden="true" tabindex="-1"></a>use.n <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb1276-3"><a href="5.6-mod-05-logistic.html#cb1276-3" aria-hidden="true" tabindex="-1"></a>px <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(dat<span class="sc">$</span>x), <span class="fu">max</span>(dat<span class="sc">$</span>x), <span class="at">length=</span>use.n)</span>
+<span id="cb1276-4"><a href="5.6-mod-05-logistic.html#cb1276-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1276-5"><a href="5.6-mod-05-logistic.html#cb1276-5" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate predictions and 95% CI (link scale)</span></span>
+<span id="cb1276-6"><a href="5.6-mod-05-logistic.html#cb1276-6" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod1, <span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">x=</span>px),</span>
+<span id="cb1276-7"><a href="5.6-mod-05-logistic.html#cb1276-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">type=</span><span class="st">&quot;link&quot;</span>, <span class="at">se.fit=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1276-8"><a href="5.6-mod-05-logistic.html#cb1276-8" aria-hidden="true" tabindex="-1"></a>mn <span class="ot">&lt;-</span> pred<span class="sc">$</span>fit</span>
+<span id="cb1276-9"><a href="5.6-mod-05-logistic.html#cb1276-9" aria-hidden="true" tabindex="-1"></a>lo <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.025</span>, mn, pred<span class="sc">$</span>se.fit)</span>
+<span id="cb1276-10"><a href="5.6-mod-05-logistic.html#cb1276-10" aria-hidden="true" tabindex="-1"></a>up <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>, mn, pred<span class="sc">$</span>se.fit)</span>
+<span id="cb1276-11"><a href="5.6-mod-05-logistic.html#cb1276-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1276-12"><a href="5.6-mod-05-logistic.html#cb1276-12" aria-hidden="true" tabindex="-1"></a><span class="co"># inverse link function to get probabilities</span></span>
+<span id="cb1276-13"><a href="5.6-mod-05-logistic.html#cb1276-13" aria-hidden="true" tabindex="-1"></a>mn <span class="ot">&lt;-</span> mod1<span class="sc">$</span>family<span class="sc">$</span><span class="fu">linkinv</span>(mn)</span>
+<span id="cb1276-14"><a href="5.6-mod-05-logistic.html#cb1276-14" aria-hidden="true" tabindex="-1"></a>lo <span class="ot">&lt;-</span> mod1<span class="sc">$</span>family<span class="sc">$</span><span class="fu">linkinv</span>(lo)</span>
+<span id="cb1276-15"><a href="5.6-mod-05-logistic.html#cb1276-15" aria-hidden="true" tabindex="-1"></a>up <span class="ot">&lt;-</span> mod1<span class="sc">$</span>family<span class="sc">$</span><span class="fu">linkinv</span>(up)</span></code></pre></div>
+<p>Now make the plot. The argument <code>xpd=NA</code> to <code>points()</code> makes sure that all points are plotted, even those that fall outside of the plot area. This is needed because <code>plot()</code> defines the plot area using the maximum <em>Y</em> value (1), but some of the jittered <em>Y</em> values will be &lt;0 or &gt; 1 and thus won’t get plotted. We’ll use a polygon instead of the usual lines to show the 95% CI of the predicted probability.</p>
+<div class="sourceCode" id="cb1277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1277-1"><a href="5.6-mod-05-logistic.html#cb1277-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="fl">5.1</span>, <span class="fl">5.1</span>, <span class="fl">1.1</span>, <span class="fl">1.1</span>), </span>
+<span id="cb1277-2"><a href="5.6-mod-05-logistic.html#cb1277-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">bty=</span><span class="st">&quot;n&quot;</span>, <span class="at">las=</span><span class="dv">1</span>, <span class="at">lend=</span><span class="dv">1</span>, <span class="at">cex.axis=</span><span class="fl">1.3</span>,</span>
+<span id="cb1277-3"><a href="5.6-mod-05-logistic.html#cb1277-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex.lab=</span><span class="fl">1.3</span>)</span>
+<span id="cb1277-4"><a href="5.6-mod-05-logistic.html#cb1277-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dat<span class="sc">$</span>x, dat<span class="sc">$</span>y, <span class="at">type=</span><span class="st">&quot;n&quot;</span>, <span class="at">xlab=</span><span class="st">&quot;X&quot;</span>, </span>
+<span id="cb1277-5"><a href="5.6-mod-05-logistic.html#cb1277-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">&quot;p(Y)&quot;</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">12</span>))</span>
+<span id="cb1277-6"><a href="5.6-mod-05-logistic.html#cb1277-6" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x=</span><span class="fu">c</span>(px, <span class="fu">rev</span>(px)), </span>
+<span id="cb1277-7"><a href="5.6-mod-05-logistic.html#cb1277-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">y=</span><span class="fu">c</span>(lo, <span class="fu">rev</span>(up)), <span class="co"># REVerse either upper or lower</span></span>
+<span id="cb1277-8"><a href="5.6-mod-05-logistic.html#cb1277-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">border=</span><span class="cn">NA</span>, <span class="at">col=</span><span class="st">&quot;grey80&quot;</span>)</span>
+<span id="cb1277-9"><a href="5.6-mod-05-logistic.html#cb1277-9" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, mn, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>)</span>
+<span id="cb1277-10"><a href="5.6-mod-05-logistic.html#cb1277-10" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(dat<span class="sc">$</span>x, <span class="fu">jitter</span>(dat<span class="sc">$</span>y, <span class="at">amount=</span><span class="fl">0.05</span>),</span>
+<span id="cb1277-11"><a href="5.6-mod-05-logistic.html#cb1277-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">cex=</span><span class="fl">1.1</span>, <span class="at">xpd=</span><span class="cn">NA</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-532-1.png" width="576" /></p>
+</div>
+<div id="example-with-real-data-3" class="section level3" number="5.6.2">
+<h3><span class="header-section-number">5.6.2</span> Example with real data</h3>
+<p><span class="citation">Bubrig et al. (<a href="#ref-bubrig2020" role="doc-biblioref">2020</a>)</span> studied the influence of bacteria on the emergence of nematodes (<em>Caenorhabditis elegans</em>) from their dormant state. <em>C</em>. <em>elegans</em> sometimes enter a dormant state called a <strong>dauer</strong> that permits larvae to survive long periods of adverse conditions and to disperse long distances by passive transportation. The figure below shows the place of the dauer state in the normal <em>C</em>. <em>elegans</em> life cycle <span class="citation">(<a href="#ref-bubrig2020" role="doc-biblioref">Bubrig et al. 2020</a>)</span>. Previous work had shown that successful colonization of new habitats by <em>C</em>. <em>elegans</em> is heavily influenced by the nearby bacterial community. The authors investigated whether the bacterial community could affect the emergence of individual worms from their dormant state.</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/05_10.jpg" /></p>
+<p>In their experiment, they inoculated plates with one of three strains of <em>C</em>. <em>elegans</em> and one of five species of bacteria (or no bacteria as a control). After some time, the plates were treated with a chemical known to kill worms not in the dauer stage. The researchers then surveyed the plates and recorded each dead worm (which had emerged) as 1 and each worm still in dauer state (i.e., not emerged) as 0.</p>
+<p>Download the dataset <a href="https://greenquanteco.github.io/bubrig_2020_data.csv">bubrig_2020_data.csv</a> and put it in your R working directory.</p>
+<div class="sourceCode" id="cb1278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1278-1"><a href="5.6-mod-05-logistic.html#cb1278-1" aria-hidden="true" tabindex="-1"></a>in.name <span class="ot">&lt;-</span> <span class="st">&quot;bubrig_2020_data.csv&quot;</span></span>
+<span id="cb1278-2"><a href="5.6-mod-05-logistic.html#cb1278-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(in.name, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1278-3"><a href="5.6-mod-05-logistic.html#cb1278-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat)</span></code></pre></div>
+<pre><code>##   trial repl strain   treat     dose y   categ
+## 1     1    1     N2 Control 418.3225 1 Control
+## 2     1    1     N2 Control 418.3225 1 Control
+## 3     1    2     N2 Control 418.3225 1 Control
+## 4     1    3     N2 Control 418.3225 1 Control
+## 5     1    3     N2 Control 418.3225 1 Control
+## 6     1    3     N2 Control 418.3225 1 Control</code></pre>
+<p>We suspect that the response variable <code>y</code> is related to the predictors <code>strain</code> (of worm) and <code>treat</code> (“treatment” of bacteria). Both of these predictor variables are factors, so scatterplots won’t be very helpful. Instead, we can try some methods for visualizing categorical data. The function <code>mosaicplot()</code> produces a plot that partitions the observations by different combinations of factors<a href="literature-cited.html#fn61" class="footnote-ref" id="fnref61"><sup>61</sup></a>:</p>
+<div class="sourceCode" id="cb1280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1280-1"><a href="5.6-mod-05-logistic.html#cb1280-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaicplot</span>(strain<span class="sc">~</span>y, <span class="at">data=</span>dat, <span class="at">color=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-534-1.png" width="864" /></p>
+<div class="sourceCode" id="cb1281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1281-1"><a href="5.6-mod-05-logistic.html#cb1281-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaicplot</span>(treat<span class="sc">~</span>y, <span class="at">data=</span>dat, <span class="at">color=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-534-2.png" width="864" /></p>
+<p>Observations can be split by an arbitrary number of factors:</p>
+<div class="sourceCode" id="cb1282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1282-1"><a href="5.6-mod-05-logistic.html#cb1282-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaicplot</span>(strain<span class="sc">~</span>treat<span class="sc">+</span>y, <span class="at">data=</span>dat, <span class="at">color=</span><span class="cn">TRUE</span>) </span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-535-1.png" width="864" /></p>
+<div class="sourceCode" id="cb1283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1283-1"><a href="5.6-mod-05-logistic.html#cb1283-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaicplot</span>(treat<span class="sc">~</span>strain<span class="sc">+</span>y, <span class="at">data=</span>dat, <span class="at">color=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-535-2.png" width="864" /></p>
+<p>As you might have guessed, <strong>mosaic plots</strong> are a graphical way of representing a <strong>contingency table</strong>. Mosaic plots are great tools for data exploration, but don’t often make it into publications because they use a great deal of space and ink relative to the amount of information they convey. The equivalent contingency tables can be seen with the commands below:</p>
+<div class="sourceCode" id="cb1284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1284-1"><a href="5.6-mod-05-logistic.html#cb1284-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ftable</span>(y<span class="sc">~</span>strain, <span class="at">data=</span>dat)</span></code></pre></div>
+<pre><code>##        y    0    1
+## strain            
+## CB4856   3925 2527
+## JU1395   3007 3890
+## N2       3755 1967</code></pre>
+<div class="sourceCode" id="cb1286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1286-1"><a href="5.6-mod-05-logistic.html#cb1286-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ftable</span>(y<span class="sc">~</span>treat, <span class="at">data=</span>dat)</span></code></pre></div>
+<pre><code>##             y    0    1
+## treat                  
+## Control       1662 1051
+## EColi         1539 1254
+## Providencia   1533 1408
+## Pseudomonas   1735 1260
+## Raoultella    1973 1639
+## Serratia      2245 1772</code></pre>
+<div class="sourceCode" id="cb1288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1288-1"><a href="5.6-mod-05-logistic.html#cb1288-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ftable</span>(y<span class="sc">~</span>strain<span class="sc">+</span>treat, <span class="at">data=</span>dat)</span></code></pre></div>
+<pre><code>##                    y   0   1
+## strain treat                
+## CB4856 Control       681 330
+##        EColi         548 406
+##        Providencia   571 324
+##        Pseudomonas   559 337
+##        Raoultella    752 506
+##        Serratia      814 624
+## JU1395 Control       518 530
+##        EColi         490 541
+##        Providencia   375 750
+##        Pseudomonas   519 593
+##        Raoultella    594 780
+##        Serratia      511 696
+## N2     Control       463 191
+##        EColi         501 307
+##        Providencia   587 334
+##        Pseudomonas   657 330
+##        Raoultella    627 353
+##        Serratia      920 452</code></pre>
+<p>Because we have a binary response variable, our first option should be logistic regression. Notice that we still call this model logistic “regression” even though there are no continuous predictors. Another name might be a “Binomial ANOVA”, in the same way that a regular ANOVA is just a special case of linear models. Just as we did in the Poisson regression examples, we will fit several models with different predictors and compare their efficacy using information theoretic methods.</p>
+<p>For this example, we’re going to define model formulas ahead of time and fit the models in a loop. This is because the code for each model differs only in one part, the formula. Having the formulas in a separate vector and the models in a list will also make it easier to construct the AIC table for model selection. To match the original analysis done by <span class="citation">Bubrig et al. (<a href="#ref-bubrig2020" role="doc-biblioref">2020</a>)</span>, we should treat strain <code>N2</code> as the baseline. To do this, we need to re-specify the factor strain.</p>
+<div class="sourceCode" id="cb1290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1290-1"><a href="5.6-mod-05-logistic.html#cb1290-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert to factor if not already</span></span>
+<span id="cb1290-2"><a href="5.6-mod-05-logistic.html#cb1290-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(dat<span class="sc">$</span>strain)</span></code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<div class="sourceCode" id="cb1292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1292-1"><a href="5.6-mod-05-logistic.html#cb1292-1" aria-hidden="true" tabindex="-1"></a><span class="co"># if &quot;character&quot;, run next line:</span></span>
+<span id="cb1292-2"><a href="5.6-mod-05-logistic.html#cb1292-2" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>strain <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(dat<span class="sc">$</span>strain)</span>
+<span id="cb1292-3"><a href="5.6-mod-05-logistic.html#cb1292-3" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>strain <span class="ot">&lt;-</span> <span class="fu">relevel</span>(dat<span class="sc">$</span>strain, <span class="at">ref=</span><span class="st">&quot;N2&quot;</span>)</span></code></pre></div>
+<p>Now we define the model formulas and fit the models.</p>
+<div class="sourceCode" id="cb1293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1293-1"><a href="5.6-mod-05-logistic.html#cb1293-1" aria-hidden="true" tabindex="-1"></a><span class="co"># define some model formulas</span></span>
+<span id="cb1293-2"><a href="5.6-mod-05-logistic.html#cb1293-2" aria-hidden="true" tabindex="-1"></a>forms <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;y~strain&quot;</span>, <span class="st">&quot;y~treat&quot;</span>, </span>
+<span id="cb1293-3"><a href="5.6-mod-05-logistic.html#cb1293-3" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;y~strain+treat&quot;</span>, <span class="st">&quot;y~strain*treat&quot;</span>)</span>
+<span id="cb1293-4"><a href="5.6-mod-05-logistic.html#cb1293-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1293-5"><a href="5.6-mod-05-logistic.html#cb1293-5" aria-hidden="true" tabindex="-1"></a><span class="co"># make a list to hold models</span></span>
+<span id="cb1293-6"><a href="5.6-mod-05-logistic.html#cb1293-6" aria-hidden="true" tabindex="-1"></a>mlist <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">&quot;list&quot;</span>, <span class="fu">length</span>(forms))</span>
+<span id="cb1293-7"><a href="5.6-mod-05-logistic.html#cb1293-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1293-8"><a href="5.6-mod-05-logistic.html#cb1293-8" aria-hidden="true" tabindex="-1"></a><span class="co"># fit models in a loop</span></span>
+<span id="cb1293-9"><a href="5.6-mod-05-logistic.html#cb1293-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(forms)){</span>
+<span id="cb1293-10"><a href="5.6-mod-05-logistic.html#cb1293-10" aria-hidden="true" tabindex="-1"></a>    mlist[[i]] <span class="ot">&lt;-</span> <span class="fu">glm</span>(forms[i], <span class="at">data=</span>dat, <span class="at">family=</span>binomial)</span>
+<span id="cb1293-11"><a href="5.6-mod-05-logistic.html#cb1293-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Constructing the AIC table is made easy; all we have to do is pull AIC values from the list. Compare this to the method in the <a href="5.5-mod-05-quasi.html#mod-05-quasi">previous section</a>, where we had to type out each model’s name.</p>
+<div class="sourceCode" id="cb1294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1294-1"><a href="5.6-mod-05-logistic.html#cb1294-1" aria-hidden="true" tabindex="-1"></a><span class="co"># construct AIC table</span></span>
+<span id="cb1294-2"><a href="5.6-mod-05-logistic.html#cb1294-2" aria-hidden="true" tabindex="-1"></a>aicdf <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">mod=</span><span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(forms),</span>
+<span id="cb1294-3"><a href="5.6-mod-05-logistic.html#cb1294-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">form=</span>forms,</span>
+<span id="cb1294-4"><a href="5.6-mod-05-logistic.html#cb1294-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">aic=</span><span class="fu">sapply</span>(mlist, AIC))</span>
+<span id="cb1294-5"><a href="5.6-mod-05-logistic.html#cb1294-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1294-6"><a href="5.6-mod-05-logistic.html#cb1294-6" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate AIC weights                 </span></span>
+<span id="cb1294-7"><a href="5.6-mod-05-logistic.html#cb1294-7" aria-hidden="true" tabindex="-1"></a>aicdf <span class="ot">&lt;-</span> aicdf[<span class="fu">order</span>(aicdf<span class="sc">$</span>aic),]</span>
+<span id="cb1294-8"><a href="5.6-mod-05-logistic.html#cb1294-8" aria-hidden="true" tabindex="-1"></a>aicdf<span class="sc">$</span>delta <span class="ot">&lt;-</span> aicdf<span class="sc">$</span>aic <span class="sc">-</span> <span class="fu">min</span>(aicdf<span class="sc">$</span>aic)</span>
+<span id="cb1294-9"><a href="5.6-mod-05-logistic.html#cb1294-9" aria-hidden="true" tabindex="-1"></a>aicdf<span class="sc">$</span>wt <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">0.5</span><span class="sc">*</span>aicdf<span class="sc">$</span>delta)</span>
+<span id="cb1294-10"><a href="5.6-mod-05-logistic.html#cb1294-10" aria-hidden="true" tabindex="-1"></a>aicdf<span class="sc">$</span>wt <span class="ot">&lt;-</span> aicdf<span class="sc">$</span>wt<span class="sc">/</span><span class="fu">sum</span>(aicdf<span class="sc">$</span>wt)</span>
+<span id="cb1294-11"><a href="5.6-mod-05-logistic.html#cb1294-11" aria-hidden="true" tabindex="-1"></a>aicdf <span class="ot">&lt;-</span> aicdf[<span class="fu">order</span>(<span class="sc">-</span>aicdf<span class="sc">$</span>wt),]</span>
+<span id="cb1294-12"><a href="5.6-mod-05-logistic.html#cb1294-12" aria-hidden="true" tabindex="-1"></a>aicdf<span class="sc">$</span>cumsum <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(aicdf<span class="sc">$</span>wt)</span>
+<span id="cb1294-13"><a href="5.6-mod-05-logistic.html#cb1294-13" aria-hidden="true" tabindex="-1"></a>aicdf</span></code></pre></div>
+<pre><code>##   mod           form      aic     delta            wt cumsum
+## 4   4 y~strain*treat 25356.38   0.00000  1.000000e+00      1
+## 3   3 y~strain+treat 25400.32  43.93681  2.879002e-10      1
+## 1   1       y~strain 25457.15 100.76847  1.313424e-22      1
+## 2   2        y~treat 26114.37 757.98983 2.538633e-165      1</code></pre>
+<p>The AIC table suggests that the model with an interaction is by far the most likely to be the best-fitting model of these four. In a publication, the AIC weight for model 4 should be reported as <strong>&gt; 0.9999</strong> and the other models as <strong>&lt;0.0001</strong>, not the values shown here (the printed AIC = 1 for model 4 cannot be correct if any other model has a weight &gt; 0; there is an R precision issue here). Let’s check the summary table and see if that is reasonable. We should also compare the summary table to the mosaic plots. The command below shows another advantage of keeping models in a list: we can call models by their position in the ordered AIC table.</p>
+<div class="sourceCode" id="cb1296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1296-1"><a href="5.6-mod-05-logistic.html#cb1296-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mlist[[aicdf<span class="sc">$</span>mod[<span class="dv">1</span>]]])</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = forms[i], family = binomial, data = dat)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -1.482  -1.014  -0.894   1.168   1.569  
+## 
+## Coefficients:
+##                               Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)                   -0.88545    0.08600 -10.296  &lt; 2e-16 ***
+## strainCB4856                   0.16098    0.10906   1.476 0.139917    
+## strainJU1395                   0.90836    0.10589   8.578  &lt; 2e-16 ***
+## treatEColi                     0.39570    0.11247   3.518 0.000434 ***
+## treatProvidencia               0.32157    0.10997   2.924 0.003453 ** 
+## treatPseudomonas               0.19686    0.10931   1.801 0.071700 .  
+## treatRaoultella                0.31098    0.10873   2.860 0.004237 ** 
+## treatSerratia                  0.17476    0.10342   1.690 0.091047 .  
+## strainCB4856:treatEColi        0.02885    0.14641   0.197 0.843775    
+## strainJU1395:treatEColi       -0.31958    0.14267  -2.240 0.025092 *  
+## strainCB4856:treatProvidencia -0.16375    0.14639  -1.119 0.263322    
+## strainJU1395:treatProvidencia  0.34868    0.14110   2.471 0.013471 *  
+## strainCB4856:treatPseudomonas  0.02154    0.14561   0.148 0.882395    
+## strainJU1395:treatPseudomonas -0.08647    0.13921  -0.621 0.534473    
+## strainCB4856:treatRaoultella   0.01729    0.14010   0.123 0.901753    
+## strainJU1395:treatRaoultella  -0.06146    0.13640  -0.451 0.652285    
+## strainCB4856:treatSerratia     0.28390    0.13426   2.115 0.034464 *  
+## strainJU1395:treatSerratia     0.11132    0.13381   0.832 0.405476    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 26159  on 19070  degrees of freedom
+## Residual deviance: 25320  on 19053  degrees of freedom
+## AIC: 25356
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<p>In a typical ANOVA, the coefficients for each factor represent the difference in means from the baseline. In this logistic regression model, the coefficients represent differences in the log of the odds ratio. Recall that the link scale for logistic regression is the log of the odds ratio. The odds ratio of an event with probability <em>p</em> is <span class="math inline">\(p/(1-p)\)</span>. In practical terms, this describes the relative likelihood of an event occurring. For example, if the odds ratio for treatment <em>A</em> vs. <em>control</em> is 1.8, then the event is 1.8 times more likely to occur in treatment group <em>A</em>. Alternatively, being in treatment <em>A</em> increases the probability of the event by a factor of 1.8. The SE of the coefficient can be used to estimate a 95% CI of the odds ratio.</p>
+<div class="sourceCode" id="cb1298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1298-1"><a href="5.6-mod-05-logistic.html#cb1298-1" aria-hidden="true" tabindex="-1"></a>coefs <span class="ot">&lt;-</span> <span class="fu">summary</span>(mlist[[<span class="dv">4</span>]])<span class="sc">$</span>coefficients</span>
+<span id="cb1298-2"><a href="5.6-mod-05-logistic.html#cb1298-2" aria-hidden="true" tabindex="-1"></a>coefs</span></code></pre></div>
+<pre><code>##                                  Estimate Std. Error     z value     Pr(&gt;|z|)
+## (Intercept)                   -0.88545363 0.08599663 -10.2963755 7.316629e-25
+## strainCB4856                   0.16098397 0.10906031   1.4761005 1.399169e-01
+## strainJU1395                   0.90835539 0.10589011   8.5782836 9.629926e-18
+## treatEColi                     0.39569527 0.11246670   3.5183329 4.342673e-04
+## treatProvidencia               0.32156980 0.10996822   2.9242066 3.453355e-03
+## treatPseudomonas               0.19686226 0.10930596   1.8010204 7.169966e-02
+## treatRaoultella                0.31097514 0.10873444   2.8599508 4.237067e-03
+## treatSerratia                  0.17476214 0.10341550   1.6899028 9.104656e-02
+## strainCB4856:treatEColi        0.02885225 0.14640819   0.1970672 8.437750e-01
+## strainJU1395:treatEColi       -0.31958315 0.14267199  -2.2399852 2.509188e-02
+## strainCB4856:treatProvidencia -0.16374584 0.14638809  -1.1185735 2.633221e-01
+## strainJU1395:treatProvidencia  0.34867562 0.14110387   2.4710563 1.347146e-02
+## strainCB4856:treatPseudomonas  0.02154085 0.14561178   0.1479334 8.823953e-01
+## strainJU1395:treatPseudomonas -0.08647351 0.13920564  -0.6211926 5.344729e-01
+## strainCB4856:treatRaoultella   0.01729485 0.14009989   0.1234466 9.017535e-01
+## strainJU1395:treatRaoultella  -0.06146231 0.13640390  -0.4505905 6.522847e-01
+## strainCB4856:treatSerratia     0.28389752 0.13425558   2.1146050 3.446363e-02
+## strainJU1395:treatSerratia     0.11131617 0.13381251   0.8318816 4.054758e-01</code></pre>
+<p>In our model, we have an interaction, so interpreting the coefficients is tricky. The interaction term between strain and treatment means that the effects of strain and the effects of treatment should not be interpreted by themselves. Let’s start with the coefficients in a simpler version of the model, the one without the interaction:</p>
+<p>Let’s interpret the terms from top to bottom. The <code>Intercept</code> term describes the expectation for an observation with all factors at their baseline values (strain = <code>N2</code>, treatment = <code>control</code>). We can translate this to a probability using the inverse logit function:</p>
+<div class="sourceCode" id="cb1300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1300-1"><a href="5.6-mod-05-logistic.html#cb1300-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plogis</span>(coefs[<span class="dv">1</span>,<span class="dv">1</span>])</span></code></pre></div>
+<pre><code>## [1] 0.2920489</code></pre>
+<p>So, an N2 worm in the control treatment has a 0.29 probability of emerging from dauer.</p>
+<p>The next two coefficients, <code>strainCB4856</code> and <code>strainJU1395</code>, describe the odds ratios of animals from the other worm strains, in the control group. The odds ratios for emerging from dauer while being in one of those strains instead of the baseline strain are obtained by exponentiating the estimates.</p>
+<div class="sourceCode" id="cb1302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1302-1"><a href="5.6-mod-05-logistic.html#cb1302-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(coefs[<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>,<span class="dv">1</span>])</span></code></pre></div>
+<pre><code>## strainCB4856 strainJU1395 
+##     1.174666     2.480240</code></pre>
+<p>This means that a CB4856 worm in the control treatment would be 1.17 times more likely to emerge than an N2 worm in the control group, and a JU1395 worm in the control treatment would be 2.48 times as likely to emerge as an N2 worm in the control group. The 95% CI for those odds ratios are:</p>
+<div class="sourceCode" id="cb1304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1304-1"><a href="5.6-mod-05-logistic.html#cb1304-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(coefs[<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>,<span class="dv">1</span>]<span class="sc">-</span><span class="fl">1.96</span><span class="sc">*</span>coefs[<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>,<span class="dv">2</span>])</span></code></pre></div>
+<pre><code>## strainCB4856 strainJU1395 
+##    0.9485942    2.0153861</code></pre>
+<div class="sourceCode" id="cb1306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1306-1"><a href="5.6-mod-05-logistic.html#cb1306-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(coefs[<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>,<span class="dv">1</span>]<span class="sc">+</span><span class="fl">1.96</span><span class="sc">*</span>coefs[<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>,<span class="dv">2</span>])</span></code></pre></div>
+<pre><code>## strainCB4856 strainJU1395 
+##     1.454616     3.052314</code></pre>
+<p>So, within the control treatment, CB4856 worms are 1.17 times more likely to emerge, and we are 95% confident that the odds ratio is in the interval [0.948, 1.455].</p>
+<p>The next set of coefficients, <code>treatEColi</code>, <code>treatProvidencia</code>, <code>treatPseudomonas</code>, <code>treatRaoultella</code>, and <code>treatSerratia</code>, are the effects of the bacterial treatments for worms in the control strain <code>N2</code>. So, N2 worms exposed to <em>E</em>. <em>coli</em> are 1.485 times as likely to emerge as control worms, with a 95% CI of [1.19, 1.85].</p>
+<div class="sourceCode" id="cb1308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1308-1"><a href="5.6-mod-05-logistic.html#cb1308-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(coefs[<span class="dv">4</span>,<span class="dv">1</span>])</span></code></pre></div>
+<pre><code>## [1] 1.485417</code></pre>
+<div class="sourceCode" id="cb1310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1310-1"><a href="5.6-mod-05-logistic.html#cb1310-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(coefs[<span class="dv">4</span>,<span class="dv">1</span>]<span class="sc">-</span><span class="fl">1.96</span><span class="sc">*</span>coefs[<span class="dv">4</span>,<span class="dv">2</span>])</span></code></pre></div>
+<pre><code>## [1] 1.191557</code></pre>
+<div class="sourceCode" id="cb1312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1312-1"><a href="5.6-mod-05-logistic.html#cb1312-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(coefs[<span class="dv">4</span>,<span class="dv">1</span>]<span class="sc">+</span><span class="fl">1.96</span><span class="sc">*</span>coefs[<span class="dv">4</span>,<span class="dv">2</span>])</span></code></pre></div>
+<pre><code>## [1] 1.851748</code></pre>
+<p>Now that we understand what the main effects represent, we need to understand what the main effects are not. The coefficients for the main effects (i.e., effects that are not part of the interaction) are the effects of changing one factor with the other factor held at its baseline. The main effects coefficients are <strong><em>NOT</em></strong> the overall effect of any factor. Talking about the “overall effect of a factor” or “independent effect of a factor” doesn’t even make sense in the presence of an interaction. This is because the effect of each factor affects the effects of the other. <em>This is the definition of an interaction</em>. In our example, the coefficient <code>0.16098397</code> estimated for strainCB4856 applies only for worms in the baseline strain, not for worms in other strains.</p>
+<p>The interaction coefficients describe the changes in odds ratio for observations when both the strain and treatment factors are different from their baselines. For example, <code>strainCB4856:treatEColi</code> is the effect of worm strain CB4856 and treatment <em>E</em>. <em>coli</em> relative to worm strain N2 and the control treatment: 1.02 times, 95% CI [0.77, 1.37].</p>
+<div class="sourceCode" id="cb1314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1314-1"><a href="5.6-mod-05-logistic.html#cb1314-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(coefs[<span class="dv">9</span>,<span class="dv">1</span>])</span></code></pre></div>
+<pre><code>## [1] 1.029273</code></pre>
+<div class="sourceCode" id="cb1316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1316-1"><a href="5.6-mod-05-logistic.html#cb1316-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(coefs[<span class="dv">9</span>,<span class="dv">1</span>]<span class="sc">-</span><span class="fl">1.96</span><span class="sc">*</span>coefs[<span class="dv">9</span>,<span class="dv">2</span>])</span></code></pre></div>
+<pre><code>## [1] 0.7725119</code></pre>
+<div class="sourceCode" id="cb1318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1318-1"><a href="5.6-mod-05-logistic.html#cb1318-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(coefs[<span class="dv">9</span>,<span class="dv">1</span>]<span class="sc">+</span><span class="fl">1.96</span><span class="sc">*</span>coefs[<span class="dv">9</span>,<span class="dv">2</span>])</span></code></pre></div>
+<pre><code>## [1] 1.371373</code></pre>
+<p>We can use R to construct a table of the odds ratios for each treatment; this table can be presented as a result or used to build a figure.</p>
+<div class="sourceCode" id="cb1320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1320-1"><a href="5.6-mod-05-logistic.html#cb1320-1" aria-hidden="true" tabindex="-1"></a>coefs <span class="ot">&lt;-</span> <span class="fu">summary</span>(mlist[[<span class="dv">4</span>]])<span class="sc">$</span>coefficients</span>
+<span id="cb1320-2"><a href="5.6-mod-05-logistic.html#cb1320-2" aria-hidden="true" tabindex="-1"></a>coefs <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(coefs)</span>
+<span id="cb1320-3"><a href="5.6-mod-05-logistic.html#cb1320-3" aria-hidden="true" tabindex="-1"></a>coefs <span class="ot">&lt;-</span> coefs[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>)]</span>
+<span id="cb1320-4"><a href="5.6-mod-05-logistic.html#cb1320-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(coefs) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;est&quot;</span>, <span class="st">&quot;se&quot;</span>, <span class="st">&quot;p&quot;</span>)</span>
+<span id="cb1320-5"><a href="5.6-mod-05-logistic.html#cb1320-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1320-6"><a href="5.6-mod-05-logistic.html#cb1320-6" aria-hidden="true" tabindex="-1"></a>coefs<span class="sc">$</span>strain <span class="ot">&lt;-</span> <span class="st">&quot;N2&quot;</span></span>
+<span id="cb1320-7"><a href="5.6-mod-05-logistic.html#cb1320-7" aria-hidden="true" tabindex="-1"></a>coefs<span class="sc">$</span>strain[<span class="fu">grep</span>(<span class="st">&quot;CB4856&quot;</span>, <span class="fu">rownames</span>(coefs))] <span class="ot">&lt;-</span> <span class="st">&quot;CB4856&quot;</span></span>
+<span id="cb1320-8"><a href="5.6-mod-05-logistic.html#cb1320-8" aria-hidden="true" tabindex="-1"></a>coefs<span class="sc">$</span>strain[<span class="fu">grep</span>(<span class="st">&quot;JU1395&quot;</span>, <span class="fu">rownames</span>(coefs))] <span class="ot">&lt;-</span> <span class="st">&quot;JU1395&quot;</span></span>
+<span id="cb1320-9"><a href="5.6-mod-05-logistic.html#cb1320-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1320-10"><a href="5.6-mod-05-logistic.html#cb1320-10" aria-hidden="true" tabindex="-1"></a>treats <span class="ot">&lt;-</span> mlist[[<span class="dv">4</span>]]<span class="sc">$</span>xlevels<span class="sc">$</span>treat</span>
+<span id="cb1320-11"><a href="5.6-mod-05-logistic.html#cb1320-11" aria-hidden="true" tabindex="-1"></a>coefs<span class="sc">$</span>trt <span class="ot">&lt;-</span> <span class="st">&quot;Control&quot;</span></span>
+<span id="cb1320-12"><a href="5.6-mod-05-logistic.html#cb1320-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(treats)){</span>
+<span id="cb1320-13"><a href="5.6-mod-05-logistic.html#cb1320-13" aria-hidden="true" tabindex="-1"></a>    flag <span class="ot">&lt;-</span> <span class="fu">grep</span>(treats[i], <span class="fu">rownames</span>(coefs))</span>
+<span id="cb1320-14"><a href="5.6-mod-05-logistic.html#cb1320-14" aria-hidden="true" tabindex="-1"></a>    coefs<span class="sc">$</span>trt[flag] <span class="ot">&lt;-</span> treats[i]</span>
+<span id="cb1320-15"><a href="5.6-mod-05-logistic.html#cb1320-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1320-16"><a href="5.6-mod-05-logistic.html#cb1320-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1320-17"><a href="5.6-mod-05-logistic.html#cb1320-17" aria-hidden="true" tabindex="-1"></a><span class="co"># reorder using order from original factors</span></span>
+<span id="cb1320-18"><a href="5.6-mod-05-logistic.html#cb1320-18" aria-hidden="true" tabindex="-1"></a>coefs<span class="sc">$</span>strain <span class="ot">&lt;-</span> <span class="fu">factor</span>(coefs<span class="sc">$</span>strain, <span class="at">levels=</span>mlist[[<span class="dv">4</span>]]<span class="sc">$</span>xlevels<span class="sc">$</span>strain)</span>
+<span id="cb1320-19"><a href="5.6-mod-05-logistic.html#cb1320-19" aria-hidden="true" tabindex="-1"></a>coefs<span class="sc">$</span>trt <span class="ot">&lt;-</span> <span class="fu">factor</span>(coefs<span class="sc">$</span>trt, <span class="at">levels=</span>treats)</span>
+<span id="cb1320-20"><a href="5.6-mod-05-logistic.html#cb1320-20" aria-hidden="true" tabindex="-1"></a>coefs <span class="ot">&lt;-</span> coefs[<span class="fu">order</span>(coefs<span class="sc">$</span>strain, coefs<span class="sc">$</span>trt),]</span>
+<span id="cb1320-21"><a href="5.6-mod-05-logistic.html#cb1320-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1320-22"><a href="5.6-mod-05-logistic.html#cb1320-22" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate odds ratios</span></span>
+<span id="cb1320-23"><a href="5.6-mod-05-logistic.html#cb1320-23" aria-hidden="true" tabindex="-1"></a>coefs<span class="sc">$</span>or <span class="ot">&lt;-</span> <span class="fu">exp</span>(coefs<span class="sc">$</span>est)</span>
+<span id="cb1320-24"><a href="5.6-mod-05-logistic.html#cb1320-24" aria-hidden="true" tabindex="-1"></a>coefs<span class="sc">$</span>lo <span class="ot">&lt;-</span> coefs<span class="sc">$</span>or <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span>coefs<span class="sc">$</span>se</span>
+<span id="cb1320-25"><a href="5.6-mod-05-logistic.html#cb1320-25" aria-hidden="true" tabindex="-1"></a>coefs<span class="sc">$</span>up <span class="ot">&lt;-</span> coefs<span class="sc">$</span>or <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span>coefs<span class="sc">$</span>se</span>
+<span id="cb1320-26"><a href="5.6-mod-05-logistic.html#cb1320-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1320-27"><a href="5.6-mod-05-logistic.html#cb1320-27" aria-hidden="true" tabindex="-1"></a><span class="co"># significant?</span></span>
+<span id="cb1320-28"><a href="5.6-mod-05-logistic.html#cb1320-28" aria-hidden="true" tabindex="-1"></a>coefs<span class="sc">$</span>sig <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(coefs<span class="sc">$</span>p <span class="sc">&lt;</span> <span class="fl">0.05</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb1320-29"><a href="5.6-mod-05-logistic.html#cb1320-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1320-30"><a href="5.6-mod-05-logistic.html#cb1320-30" aria-hidden="true" tabindex="-1"></a><span class="co"># clean up</span></span>
+<span id="cb1320-31"><a href="5.6-mod-05-logistic.html#cb1320-31" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> coefs</span>
+<span id="cb1320-32"><a href="5.6-mod-05-logistic.html#cb1320-32" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(res) <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb1320-33"><a href="5.6-mod-05-logistic.html#cb1320-33" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> res[,<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)]</span>
+<span id="cb1320-34"><a href="5.6-mod-05-logistic.html#cb1320-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1320-35"><a href="5.6-mod-05-logistic.html#cb1320-35" aria-hidden="true" tabindex="-1"></a><span class="co"># by definition:</span></span>
+<span id="cb1320-36"><a href="5.6-mod-05-logistic.html#cb1320-36" aria-hidden="true" tabindex="-1"></a>res<span class="sc">$</span>or[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb1320-37"><a href="5.6-mod-05-logistic.html#cb1320-37" aria-hidden="true" tabindex="-1"></a>res<span class="sc">$</span>lo[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb1320-38"><a href="5.6-mod-05-logistic.html#cb1320-38" aria-hidden="true" tabindex="-1"></a>res<span class="sc">$</span>up[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb1320-39"><a href="5.6-mod-05-logistic.html#cb1320-39" aria-hidden="true" tabindex="-1"></a>res<span class="sc">$</span>sig[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb1320-40"><a href="5.6-mod-05-logistic.html#cb1320-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1320-41"><a href="5.6-mod-05-logistic.html#cb1320-41" aria-hidden="true" tabindex="-1"></a><span class="co"># admire your handiwork:</span></span>
+<span id="cb1320-42"><a href="5.6-mod-05-logistic.html#cb1320-42" aria-hidden="true" tabindex="-1"></a>res</span></code></pre></div>
+<pre><code>##    strain         trt        or        lo       up sig
+## 1      N2     Control 1.0000000 1.0000000 1.000000  NA
+## 2      N2       EColi 1.4854166 1.2649819 1.705851   1
+## 3      N2 Providencia 1.3792913 1.1637536 1.594829   1
+## 4      N2 Pseudomonas 1.2175763 1.0033366 1.431816   0
+## 5      N2  Raoultella 1.3647553 1.1516358 1.577875   1
+## 6      N2    Serratia 1.1909629 0.9882685 1.393657   0
+## 7  CB4856     Control 1.1746661 0.9609079 1.388424   0
+## 8  CB4856       EColi 1.0292725 0.7423125 1.316233   0
+## 9  CB4856 Providencia 0.8489578 0.5620371 1.135878   0
+## 10 CB4856 Pseudomonas 1.0217745 0.7363754 1.307174   0
+## 11 CB4856  Raoultella 1.0174453 0.7428495 1.292041   0
+## 12 CB4856    Serratia 1.3282968 1.0651559 1.591438   1
+## 13 JU1395     Control 2.4802402 2.2726955 2.687785   1
+## 14 JU1395       EColi 0.7264518 0.4468147 1.006089   1
+## 15 JU1395 Providencia 1.4171894 1.1406258 1.693753   1
+## 16 JU1395 Pseudomonas 0.9171598 0.6443168 1.190003   0
+## 17 JU1395  Raoultella 0.9403884 0.6730367 1.207740   0
+## 18 JU1395    Serratia 1.1177482 0.8554757 1.380021   0</code></pre>
+<p>We can use the table <code>res</code> to make a nice figure that distills the entire model down to the effect sizes (i.e., odds ratios):</p>
+<div class="sourceCode" id="cb1322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1322-1"><a href="5.6-mod-05-logistic.html#cb1322-1" aria-hidden="true" tabindex="-1"></a>use.y <span class="ot">&lt;-</span> <span class="fu">length</span>(treats)<span class="sc">:</span><span class="dv">1</span></span>
+<span id="cb1322-2"><a href="5.6-mod-05-logistic.html#cb1322-2" aria-hidden="true" tabindex="-1"></a>strains <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">unique</span>(res<span class="sc">$</span>strain))</span>
+<span id="cb1322-3"><a href="5.6-mod-05-logistic.html#cb1322-3" aria-hidden="true" tabindex="-1"></a>res<span class="sc">$</span>col <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(res<span class="sc">$</span>sig <span class="sc">==</span> <span class="dv">1</span>, <span class="st">&quot;black&quot;</span>, <span class="st">&quot;white&quot;</span>)</span>
+<span id="cb1322-4"><a href="5.6-mod-05-logistic.html#cb1322-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1322-5"><a href="5.6-mod-05-logistic.html#cb1322-5" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">1</span>,<span class="dv">1</span>), <span class="at">bty=</span><span class="st">&quot;n&quot;</span>, </span>
+<span id="cb1322-6"><a href="5.6-mod-05-logistic.html#cb1322-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">las=</span><span class="dv">1</span>, <span class="at">lend=</span><span class="dv">1</span>, <span class="at">cex.lab=</span><span class="fl">1.2</span>, <span class="at">cex.axis=</span><span class="fl">1.3</span>)</span>
+<span id="cb1322-7"><a href="5.6-mod-05-logistic.html#cb1322-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(strains)){</span>
+<span id="cb1322-8"><a href="5.6-mod-05-logistic.html#cb1322-8" aria-hidden="true" tabindex="-1"></a>    flag <span class="ot">&lt;-</span> <span class="fu">which</span>(res<span class="sc">$</span>strain <span class="sc">==</span> strains[i])</span>
+<span id="cb1322-9"><a href="5.6-mod-05-logistic.html#cb1322-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(res<span class="sc">$</span>or[flag], use.y, <span class="at">type=</span><span class="st">&quot;n&quot;</span>,</span>
+<span id="cb1322-10"><a href="5.6-mod-05-logistic.html#cb1322-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">xlab=</span><span class="st">&quot;Odds ratio&quot;</span>, <span class="at">yaxt=</span><span class="st">&quot;n&quot;</span>,</span>
+<span id="cb1322-11"><a href="5.6-mod-05-logistic.html#cb1322-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">3</span>), <span class="at">ylab=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb1322-12"><a href="5.6-mod-05-logistic.html#cb1322-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">axis</span>(<span class="at">side=</span><span class="dv">2</span>, <span class="at">at=</span>use.y, <span class="at">labels=</span>treats)</span>
+<span id="cb1322-13"><a href="5.6-mod-05-logistic.html#cb1322-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">segments</span>(res<span class="sc">$</span>lo[flag], use.y,</span>
+<span id="cb1322-14"><a href="5.6-mod-05-logistic.html#cb1322-14" aria-hidden="true" tabindex="-1"></a>             res<span class="sc">$</span>up[flag], use.y, <span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb1322-15"><a href="5.6-mod-05-logistic.html#cb1322-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">title</span>(<span class="at">main=</span><span class="fu">paste</span>(<span class="st">&quot;Strain&quot;</span>, strains[i]), <span class="at">adj=</span><span class="dv">0</span>)</span>
+<span id="cb1322-16"><a href="5.6-mod-05-logistic.html#cb1322-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">segments</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="fu">length</span>(treats), <span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb1322-17"><a href="5.6-mod-05-logistic.html#cb1322-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">points</span>(res<span class="sc">$</span>or[flag], use.y, <span class="at">cex=</span><span class="fl">1.5</span>,</span>
+<span id="cb1322-18"><a href="5.6-mod-05-logistic.html#cb1322-18" aria-hidden="true" tabindex="-1"></a>           <span class="at">pch=</span><span class="dv">21</span>, <span class="at">bg=</span>res<span class="sc">$</span>col[flag])</span>
+<span id="cb1322-19"><a href="5.6-mod-05-logistic.html#cb1322-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1322-20"><a href="5.6-mod-05-logistic.html#cb1322-20" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;bottomright&quot;</span>, </span>
+<span id="cb1322-21"><a href="5.6-mod-05-logistic.html#cb1322-21" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;Significant&quot;</span>, <span class="st">&quot;Nonsignificant&quot;</span>),</span>
+<span id="cb1322-22"><a href="5.6-mod-05-logistic.html#cb1322-22" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch=</span><span class="dv">21</span>, <span class="at">pt.bg=</span><span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;white&quot;</span>),</span>
+<span id="cb1322-23"><a href="5.6-mod-05-logistic.html#cb1322-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">pt.cex=</span><span class="fl">1.5</span>, <span class="at">bty=</span><span class="st">&quot;n&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-548-1.png" width="576" /></p>
+<p>Or even better, combine the three strains onto a single panel. You can adjust the <em>Y</em> coordinate offsets (<code>res$yoff</code>) and other inputs to fine-tune the plot.</p>
+<div class="sourceCode" id="cb1323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1323-1"><a href="5.6-mod-05-logistic.html#cb1323-1" aria-hidden="true" tabindex="-1"></a>shps <span class="ot">&lt;-</span> <span class="dv">21</span><span class="sc">:</span><span class="dv">23</span></span>
+<span id="cb1323-2"><a href="5.6-mod-05-logistic.html#cb1323-2" aria-hidden="true" tabindex="-1"></a>matchx <span class="ot">&lt;-</span> <span class="fu">match</span>(res<span class="sc">$</span>strain, <span class="fu">unique</span>(res<span class="sc">$</span>strain))</span>
+<span id="cb1323-3"><a href="5.6-mod-05-logistic.html#cb1323-3" aria-hidden="true" tabindex="-1"></a>res<span class="sc">$</span>shape <span class="ot">&lt;-</span> shps[matchx]</span>
+<span id="cb1323-4"><a href="5.6-mod-05-logistic.html#cb1323-4" aria-hidden="true" tabindex="-1"></a>res<span class="sc">$</span>yoff <span class="ot">&lt;-</span> matchx<span class="dv">-1</span></span>
+<span id="cb1323-5"><a href="5.6-mod-05-logistic.html#cb1323-5" aria-hidden="true" tabindex="-1"></a>res<span class="sc">$</span>y <span class="ot">&lt;-</span> use.y[<span class="fu">match</span>(res<span class="sc">$</span>trt, <span class="fu">unique</span>(res<span class="sc">$</span>trt))]</span>
+<span id="cb1323-6"><a href="5.6-mod-05-logistic.html#cb1323-6" aria-hidden="true" tabindex="-1"></a>res<span class="sc">$</span>y <span class="ot">&lt;-</span> res<span class="sc">$</span>y <span class="sc">+</span> res<span class="sc">$</span>yoff<span class="sc">/</span><span class="dv">10</span></span>
+<span id="cb1323-7"><a href="5.6-mod-05-logistic.html#cb1323-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1323-8"><a href="5.6-mod-05-logistic.html#cb1323-8" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">1</span>,<span class="dv">1</span>), <span class="at">bty=</span><span class="st">&quot;n&quot;</span>, </span>
+<span id="cb1323-9"><a href="5.6-mod-05-logistic.html#cb1323-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">las=</span><span class="dv">1</span>, <span class="at">lend=</span><span class="dv">1</span>, <span class="at">cex.lab=</span><span class="fl">1.2</span>, <span class="at">cex.axis=</span><span class="fl">1.3</span>)</span>
+<span id="cb1323-10"><a href="5.6-mod-05-logistic.html#cb1323-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(res<span class="sc">$</span>or, res<span class="sc">$</span>y, <span class="at">type=</span><span class="st">&quot;n&quot;</span>,</span>
+<span id="cb1323-11"><a href="5.6-mod-05-logistic.html#cb1323-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch=</span>res<span class="sc">$</span>shape, <span class="at">cex=</span><span class="fl">1.3</span>,</span>
+<span id="cb1323-12"><a href="5.6-mod-05-logistic.html#cb1323-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">bg=</span><span class="fu">ifelse</span>(res<span class="sc">$</span>sig <span class="sc">==</span> <span class="dv">1</span>, <span class="st">&quot;black&quot;</span>, <span class="st">&quot;white&quot;</span>),</span>
+<span id="cb1323-13"><a href="5.6-mod-05-logistic.html#cb1323-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab=</span><span class="st">&quot;Odds ratio&quot;</span>, <span class="at">yaxt=</span><span class="st">&quot;n&quot;</span>,</span>
+<span id="cb1323-14"><a href="5.6-mod-05-logistic.html#cb1323-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">3</span>), <span class="at">ylab=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb1323-15"><a href="5.6-mod-05-logistic.html#cb1323-15" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">6</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb1323-16"><a href="5.6-mod-05-logistic.html#cb1323-16" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(res<span class="sc">$</span>lo, res<span class="sc">$</span>y, res<span class="sc">$</span>up, res<span class="sc">$</span>y, <span class="at">lwd=</span><span class="dv">3</span>)</span>
+<span id="cb1323-17"><a href="5.6-mod-05-logistic.html#cb1323-17" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(res<span class="sc">$</span>or, res<span class="sc">$</span>y,</span>
+<span id="cb1323-18"><a href="5.6-mod-05-logistic.html#cb1323-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch=</span>res<span class="sc">$</span>shape, <span class="at">cex=</span><span class="fl">1.3</span>,</span>
+<span id="cb1323-19"><a href="5.6-mod-05-logistic.html#cb1323-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">bg=</span><span class="fu">ifelse</span>(res<span class="sc">$</span>sig <span class="sc">==</span> <span class="dv">1</span>, <span class="st">&quot;black&quot;</span>, <span class="st">&quot;white&quot;</span>))</span>
+<span id="cb1323-20"><a href="5.6-mod-05-logistic.html#cb1323-20" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="at">side=</span><span class="dv">2</span>, <span class="at">at=</span>use.y, <span class="at">labels=</span><span class="fu">unique</span>(res<span class="sc">$</span>trt))</span>
+<span id="cb1323-21"><a href="5.6-mod-05-logistic.html#cb1323-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1323-22"><a href="5.6-mod-05-logistic.html#cb1323-22" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;bottomright&quot;</span>, </span>
+<span id="cb1323-23"><a href="5.6-mod-05-logistic.html#cb1323-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;Significant&quot;</span>, <span class="st">&quot;Nonsignificant&quot;</span>),</span>
+<span id="cb1323-24"><a href="5.6-mod-05-logistic.html#cb1323-24" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch=</span><span class="dv">21</span>, <span class="at">pt.bg=</span><span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;white&quot;</span>),</span>
+<span id="cb1323-25"><a href="5.6-mod-05-logistic.html#cb1323-25" aria-hidden="true" tabindex="-1"></a>       <span class="at">pt.cex=</span><span class="fl">1.5</span>, <span class="at">bty=</span><span class="st">&quot;n&quot;</span>)</span>
+<span id="cb1323-26"><a href="5.6-mod-05-logistic.html#cb1323-26" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;right&quot;</span>, <span class="at">legend=</span><span class="fu">unique</span>(res<span class="sc">$</span>strain),</span>
+<span id="cb1323-27"><a href="5.6-mod-05-logistic.html#cb1323-27" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch=</span>shps, <span class="at">bty=</span><span class="st">&quot;n&quot;</span>, <span class="at">pt.cex=</span><span class="fl">1.5</span>,</span>
+<span id="cb1323-28"><a href="5.6-mod-05-logistic.html#cb1323-28" aria-hidden="true" tabindex="-1"></a>       <span class="at">pt.bg=</span><span class="st">&quot;black&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-549-1.png" width="576" /></p>
+</div>
+<div id="mod-05-auc" class="section level3" number="5.6.3">
+<h3><span class="header-section-number">5.6.3</span> Logistic GLM diagnostics: AUC and ROC</h3>
+<p>Logistic regression is one way of solving what statisticians sometimes call a <strong>classification problem</strong>, where we want to use some set of predictor variables to classify observations into one category or another. The binary case is the simplest classification problem. The predictions of a logistic regression model will predict each observation to either be 0 or 1. We can use those predictions, and how often they are correct, to evaluate the efficacy of a logistic regression model.</p>
+<p>First let’s define a function to get the predictions for a logistic regression model for its input data, with user-specified “cut-off” value that determines how great the predicted probability needs to be before declaring the prediction a 1 instead of a 0. The default, 0.5, means that any observation with a predicted probability &gt;0.5 will be counted as 1.</p>
+<div class="sourceCode" id="cb1324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1324-1"><a href="5.6-mod-05-logistic.html#cb1324-1" aria-hidden="true" tabindex="-1"></a><span class="co"># function to get prediction:</span></span>
+<span id="cb1324-2"><a href="5.6-mod-05-logistic.html#cb1324-2" aria-hidden="true" tabindex="-1"></a>pred.fun <span class="ot">&lt;-</span> <span class="cf">function</span>(mod, data, <span class="at">res =</span> <span class="st">&quot;y&quot;</span>, </span>
+<span id="cb1324-3"><a href="5.6-mod-05-logistic.html#cb1324-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">pos =</span> <span class="dv">1</span>, <span class="at">neg =</span> <span class="dv">0</span>, <span class="at">cut =</span> <span class="fl">0.5</span>) {</span>
+<span id="cb1324-4"><a href="5.6-mod-05-logistic.html#cb1324-4" aria-hidden="true" tabindex="-1"></a>    probs <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod, <span class="at">newdata =</span> data, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb1324-5"><a href="5.6-mod-05-logistic.html#cb1324-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ifelse</span>(probs <span class="sc">&gt;</span> cut, pos, neg)</span>
+<span id="cb1324-6"><a href="5.6-mod-05-logistic.html#cb1324-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1324-7"><a href="5.6-mod-05-logistic.html#cb1324-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1324-8"><a href="5.6-mod-05-logistic.html#cb1324-8" aria-hidden="true" tabindex="-1"></a><span class="co"># test it out:</span></span>
+<span id="cb1324-9"><a href="5.6-mod-05-logistic.html#cb1324-9" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">pred.fun</span>(mlist[[<span class="dv">4</span>]])</span>
+<span id="cb1324-10"><a href="5.6-mod-05-logistic.html#cb1324-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ftable</span>(p1<span class="sc">~</span>dat<span class="sc">$</span>y) </span></code></pre></div>
+<pre><code>##       p1    0    1
+## dat$y             
+## 0        7680 3007
+## 1        4494 3890</code></pre>
+<p>This contingency table is called a <strong>confusion matrix</strong> and it summarizes how often the model is correct for a given cutoff value. Here, when the model predicts a success (y = 1), it is correct for 3890 out of (3890+3007) = 6897 observations. Confusion matrices are usually summarized by two measures, sensitivity and specificity.</p>
+<p><strong>Sensitivity</strong> measures what proportion of successes were correctly identified. This is also called the <strong>true positive rate</strong>. Sensitivity answer the question, “What proportion of observations predicted to have y = 1 were actually 1? Sensitivity is calculated as:</p>
+<p><span class="math display">\[Sensitivity=\frac{n(true\ positives)}{n(true\ positives)+n(false\ negatives)}\]</span></p>
+<p>In our example, the sensitivity is 3890 / (3890 + 4494) = 0.463.</p>
+<p><strong>Specificity</strong> measures what proportion of failures (y = 0) were correctly identified. It is also called the <strong>true negative rate</strong>. It is calculated as:</p>
+<p><span class="math display">\[Specificity=\frac{n(true\ negatives)}{n(true\ negatives)+n(false\ positives)}\]</span></p>
+<p>In our example, the specificity was 7680 / (7680 + 3007) = 0.718.</p>
+<p>The characteristics of the study system, the dataset, and the analysis can affect the sensitivity and the specificity of a model. If correctly identifying true positives is important (e.g., in disease screenings), then a model with greater sensitivity is preferred. If correctly identifying true negatives is important, then a model with greater specificity is preferred. The sensitivity and specificity can be varied by changing the threshold for 1 vs. 0.</p>
+<p>A <strong>receiver operating characteristic (ROC) curve</strong> shows how sensitivity and specificity covary at different cut-off thresholds. We can construct an ROC curve by summarizing the confusion matrix at different cut-offs. The code below shows how to do this manually, so you can see for yourself how AUC is calculated. Afterwards, we’ll use functions from an add-on package to save some work.</p>
+<div class="sourceCode" id="cb1326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1326-1"><a href="5.6-mod-05-logistic.html#cb1326-1" aria-hidden="true" tabindex="-1"></a><span class="co"># vector of cut offs to test</span></span>
+<span id="cb1326-2"><a href="5.6-mod-05-logistic.html#cb1326-2" aria-hidden="true" tabindex="-1"></a>co <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by=</span><span class="fl">0.01</span>)</span>
+<span id="cb1326-3"><a href="5.6-mod-05-logistic.html#cb1326-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1326-4"><a href="5.6-mod-05-logistic.html#cb1326-4" aria-hidden="true" tabindex="-1"></a><span class="co"># vectors to hold specificity and sensitivity</span></span>
+<span id="cb1326-5"><a href="5.6-mod-05-logistic.html#cb1326-5" aria-hidden="true" tabindex="-1"></a>sen <span class="ot">&lt;-</span> spe <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="fu">length</span>(co))</span>
+<span id="cb1326-6"><a href="5.6-mod-05-logistic.html#cb1326-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1326-7"><a href="5.6-mod-05-logistic.html#cb1326-7" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate sensitivity and specificity in a loop</span></span>
+<span id="cb1326-8"><a href="5.6-mod-05-logistic.html#cb1326-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(co)){</span>
+<span id="cb1326-9"><a href="5.6-mod-05-logistic.html#cb1326-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># predictions for current cutoff value</span></span>
+<span id="cb1326-10"><a href="5.6-mod-05-logistic.html#cb1326-10" aria-hidden="true" tabindex="-1"></a>    pred <span class="ot">&lt;-</span> <span class="fu">pred.fun</span>(mlist[[<span class="dv">4</span>]], <span class="at">cut=</span>co[i])</span>
+<span id="cb1326-11"><a href="5.6-mod-05-logistic.html#cb1326-11" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1326-12"><a href="5.6-mod-05-logistic.html#cb1326-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># rearrange to data frame</span></span>
+<span id="cb1326-13"><a href="5.6-mod-05-logistic.html#cb1326-13" aria-hidden="true" tabindex="-1"></a>    con.mat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">ftable</span>(dat<span class="sc">$</span>y<span class="sc">~</span>pred))</span>
+<span id="cb1326-14"><a href="5.6-mod-05-logistic.html#cb1326-14" aria-hidden="true" tabindex="-1"></a>    con.mat<span class="sc">$</span>pred <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(con.mat<span class="sc">$</span>pred))</span>
+<span id="cb1326-15"><a href="5.6-mod-05-logistic.html#cb1326-15" aria-hidden="true" tabindex="-1"></a>    con.mat<span class="sc">$</span>dat.y <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(con.mat<span class="sc">$</span>dat.y))</span>
+<span id="cb1326-16"><a href="5.6-mod-05-logistic.html#cb1326-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1326-17"><a href="5.6-mod-05-logistic.html#cb1326-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># special case: no predicted 1s</span></span>
+<span id="cb1326-18"><a href="5.6-mod-05-logistic.html#cb1326-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="sc">!</span> <span class="dv">1</span> <span class="sc">%in%</span> con.mat<span class="sc">$</span>pred){</span>
+<span id="cb1326-19"><a href="5.6-mod-05-logistic.html#cb1326-19" aria-hidden="true" tabindex="-1"></a>        add.df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">pred=</span><span class="dv">1</span>, <span class="at">dat.y=</span><span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, <span class="at">Freq=</span><span class="dv">0</span>)        </span>
+<span id="cb1326-20"><a href="5.6-mod-05-logistic.html#cb1326-20" aria-hidden="true" tabindex="-1"></a>        con.mat <span class="ot">&lt;-</span> <span class="fu">rbind</span>(con.mat, add.df)                         </span>
+<span id="cb1326-21"><a href="5.6-mod-05-logistic.html#cb1326-21" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1326-22"><a href="5.6-mod-05-logistic.html#cb1326-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1326-23"><a href="5.6-mod-05-logistic.html#cb1326-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># special case: no predicted 0s</span></span>
+<span id="cb1326-24"><a href="5.6-mod-05-logistic.html#cb1326-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="sc">!</span> <span class="dv">0</span> <span class="sc">%in%</span> con.mat<span class="sc">$</span>pred){</span>
+<span id="cb1326-25"><a href="5.6-mod-05-logistic.html#cb1326-25" aria-hidden="true" tabindex="-1"></a>        add.df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">pred=</span><span class="dv">0</span>, <span class="at">dat.y=</span><span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, <span class="at">Freq=</span><span class="dv">0</span>)        </span>
+<span id="cb1326-26"><a href="5.6-mod-05-logistic.html#cb1326-26" aria-hidden="true" tabindex="-1"></a>        con.mat <span class="ot">&lt;-</span> <span class="fu">rbind</span>(con.mat, add.df)                         </span>
+<span id="cb1326-27"><a href="5.6-mod-05-logistic.html#cb1326-27" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1326-28"><a href="5.6-mod-05-logistic.html#cb1326-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1326-29"><a href="5.6-mod-05-logistic.html#cb1326-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># sensitivity:</span></span>
+<span id="cb1326-30"><a href="5.6-mod-05-logistic.html#cb1326-30" aria-hidden="true" tabindex="-1"></a>    tp <span class="ot">&lt;-</span> <span class="fu">which</span>(con.mat<span class="sc">$</span>pred <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> con.mat<span class="sc">$</span>dat.y <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb1326-31"><a href="5.6-mod-05-logistic.html#cb1326-31" aria-hidden="true" tabindex="-1"></a>    fn <span class="ot">&lt;-</span> <span class="fu">which</span>(con.mat<span class="sc">$</span>pred <span class="sc">==</span> <span class="dv">0</span> <span class="sc">&amp;</span> con.mat<span class="sc">$</span>dat.y <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb1326-32"><a href="5.6-mod-05-logistic.html#cb1326-32" aria-hidden="true" tabindex="-1"></a>    sen[i] <span class="ot">&lt;-</span> con.mat<span class="sc">$</span>Freq[tp] <span class="sc">/</span> (</span>
+<span id="cb1326-33"><a href="5.6-mod-05-logistic.html#cb1326-33" aria-hidden="true" tabindex="-1"></a>                  con.mat<span class="sc">$</span>Freq[tp] <span class="sc">+</span> con.mat<span class="sc">$</span>Freq[fn])</span>
+<span id="cb1326-34"><a href="5.6-mod-05-logistic.html#cb1326-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1326-35"><a href="5.6-mod-05-logistic.html#cb1326-35" aria-hidden="true" tabindex="-1"></a>    <span class="co"># specificity:</span></span>
+<span id="cb1326-36"><a href="5.6-mod-05-logistic.html#cb1326-36" aria-hidden="true" tabindex="-1"></a>    tn <span class="ot">&lt;-</span> <span class="fu">which</span>(con.mat<span class="sc">$</span>pred <span class="sc">==</span> <span class="dv">0</span> <span class="sc">&amp;</span> con.mat<span class="sc">$</span>dat.y <span class="sc">==</span> <span class="dv">0</span>)</span>
+<span id="cb1326-37"><a href="5.6-mod-05-logistic.html#cb1326-37" aria-hidden="true" tabindex="-1"></a>    fp <span class="ot">&lt;-</span> <span class="fu">which</span>(con.mat<span class="sc">$</span>pred <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> con.mat<span class="sc">$</span>dat.y <span class="sc">==</span> <span class="dv">0</span>)</span>
+<span id="cb1326-38"><a href="5.6-mod-05-logistic.html#cb1326-38" aria-hidden="true" tabindex="-1"></a>    spe[i] <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">-</span>con.mat<span class="sc">$</span>Freq[tn] <span class="sc">/</span></span>
+<span id="cb1326-39"><a href="5.6-mod-05-logistic.html#cb1326-39" aria-hidden="true" tabindex="-1"></a>                  (con.mat<span class="sc">$</span>Freq[tn] <span class="sc">+</span> con.mat<span class="sc">$</span>Freq[fp])</span>
+<span id="cb1326-40"><a href="5.6-mod-05-logistic.html#cb1326-40" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1326-41"><a href="5.6-mod-05-logistic.html#cb1326-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1326-42"><a href="5.6-mod-05-logistic.html#cb1326-42" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe, sen, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>,</span>
+<span id="cb1326-43"><a href="5.6-mod-05-logistic.html#cb1326-43" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
+<span id="cb1326-44"><a href="5.6-mod-05-logistic.html#cb1326-44" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">&quot;False positive rate&quot;</span>,</span>
+<span id="cb1326-45"><a href="5.6-mod-05-logistic.html#cb1326-45" aria-hidden="true" tabindex="-1"></a>     <span class="at">yla=</span><span class="st">&quot;True positive rate&quot;</span>)</span>
+<span id="cb1326-46"><a href="5.6-mod-05-logistic.html#cb1326-46" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-551-1.png" width="576" /></p>
+<p>The diagonal red line shows the case of a model where predictions of 1 are just a likely to be true positives as false positives. Obviously, the curve for your model should fall above this line! The curve for a well-fitting model should increase quickly as false positive rate increases from 0, and reach a y value of 1 very quickly. A model that perfectly classifies observations should have an area under the curve (AUC) of 1 (can you see why?). A model that predicts an equal number of true positives and false positives has an AUC of 0.5. This represents a model that is no better than random chance at being correct, and is the “worst case scenario” for a classification model like logistic regression. We can approximate the AUC using rectangles:</p>
+<div class="sourceCode" id="cb1327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1327-1"><a href="5.6-mod-05-logistic.html#cb1327-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe, sen, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>,</span>
+<span id="cb1327-2"><a href="5.6-mod-05-logistic.html#cb1327-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
+<span id="cb1327-3"><a href="5.6-mod-05-logistic.html#cb1327-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">&quot;False positive rate&quot;</span>,</span>
+<span id="cb1327-4"><a href="5.6-mod-05-logistic.html#cb1327-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">yla=</span><span class="st">&quot;True positive rate&quot;</span>)</span>
+<span id="cb1327-5"><a href="5.6-mod-05-logistic.html#cb1327-5" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb1327-6"><a href="5.6-mod-05-logistic.html#cb1327-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1327-7"><a href="5.6-mod-05-logistic.html#cb1327-7" aria-hidden="true" tabindex="-1"></a><span class="co"># add to previous plot:</span></span>
+<span id="cb1327-8"><a href="5.6-mod-05-logistic.html#cb1327-8" aria-hidden="true" tabindex="-1"></a><span class="fu">rect</span>(spe[<span class="sc">-</span><span class="fu">length</span>(spe)], <span class="dv">0</span>,</span>
+<span id="cb1327-9"><a href="5.6-mod-05-logistic.html#cb1327-9" aria-hidden="true" tabindex="-1"></a>     spe[<span class="sc">-</span><span class="dv">1</span>], sen, <span class="at">border=</span><span class="st">&quot;black&quot;</span>,</span>
+<span id="cb1327-10"><a href="5.6-mod-05-logistic.html#cb1327-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">col=</span><span class="st">&quot;#0000FF20&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-552-1.png" width="576" /></p>
+<p>And the numerical integration (lazy way):</p>
+<div class="sourceCode" id="cb1328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1328-1"><a href="5.6-mod-05-logistic.html#cb1328-1" aria-hidden="true" tabindex="-1"></a>auc1 <span class="ot">&lt;-</span> <span class="fu">sum</span>((<span class="fu">diff</span>(spe)<span class="sc">*-</span><span class="dv">1</span>) <span class="sc">*</span> sen[<span class="sc">-</span><span class="dv">1</span>])</span>
+<span id="cb1328-2"><a href="5.6-mod-05-logistic.html#cb1328-2" aria-hidden="true" tabindex="-1"></a>auc2 <span class="ot">&lt;-</span> <span class="fu">sum</span>((<span class="fu">diff</span>(spe)<span class="sc">*-</span><span class="dv">1</span>) <span class="sc">*</span> sen[<span class="sc">-</span><span class="fu">length</span>(sen)])</span>
+<span id="cb1328-3"><a href="5.6-mod-05-logistic.html#cb1328-3" aria-hidden="true" tabindex="-1"></a>(auc1<span class="sc">+</span>auc2)<span class="sc">/</span><span class="dv">2</span></span></code></pre></div>
+<pre><code>## [1] 0.6172765</code></pre>
+<p>The AUC of 0.617 is not too bad, but not great either. Remember that 0.5 is model no better than a coin flip, and 1 is perfect.
+As much fun as it is to manually calculate ROC curves and definite integrals, we can get the ROC and AUC much more quickly using the functions in package <code>pROC</code>.</p>
+<div class="sourceCode" id="cb1330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1330-1"><a href="5.6-mod-05-logistic.html#cb1330-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pROC)</span></code></pre></div>
+<pre><code>## Type &#39;citation(&quot;pROC&quot;)&#39; for a citation.</code></pre>
+<pre><code>## 
+## Attaching package: &#39;pROC&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     cov, smooth, var</code></pre>
+<div class="sourceCode" id="cb1334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1334-1"><a href="5.6-mod-05-logistic.html#cb1334-1" aria-hidden="true" tabindex="-1"></a><span class="co"># generate predictions (probabilities)</span></span>
+<span id="cb1334-2"><a href="5.6-mod-05-logistic.html#cb1334-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(mlist[[<span class="dv">4</span>]], <span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span>
+<span id="cb1334-3"><a href="5.6-mod-05-logistic.html#cb1334-3" aria-hidden="true" tabindex="-1"></a>roc1 <span class="ot">&lt;-</span> <span class="fu">roc</span>(dat<span class="sc">$</span>y <span class="sc">~</span> p1, <span class="at">plot =</span> <span class="cn">TRUE</span>, <span class="at">print.auc =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## Setting levels: control = 0, case = 1</code></pre>
+<pre><code>## Setting direction: controls &lt; cases</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-554-1.png" width="480" /></p>
+<div class="sourceCode" id="cb1337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1337-1"><a href="5.6-mod-05-logistic.html#cb1337-1" aria-hidden="true" tabindex="-1"></a>roc1</span></code></pre></div>
+<pre><code>## 
+## Call:
+## roc.formula(formula = dat$y ~ p1, plot = TRUE, print.auc = TRUE)
+## 
+## Data: p1 in 10687 controls (dat$y 0) &lt; 8384 cases (dat$y 1).
+## Area under the curve: 0.6173</code></pre>
+<p>The AUC calculated by package <code>pROC</code> (0.6173) is close to the value we calculated by hand. If you don’t like the default figure produced by <code>roc()</code>, you can extract the sensitivity and sensitivity scores and make your own plot.</p>
+<div class="sourceCode" id="cb1339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1339-1"><a href="5.6-mod-05-logistic.html#cb1339-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1- to orient axis correct way:</span></span>
+<span id="cb1339-2"><a href="5.6-mod-05-logistic.html#cb1339-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">-</span>roc1<span class="sc">$</span>specificities</span>
+<span id="cb1339-3"><a href="5.6-mod-05-logistic.html#cb1339-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> roc1<span class="sc">$</span>sensitivities</span>
+<span id="cb1339-4"><a href="5.6-mod-05-logistic.html#cb1339-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x,y, <span class="at">type=</span><span class="st">&quot;l&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-555-1.png" width="480" /></p>
+</div>
+</div>
+<h3>Literature Cited</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-bubrig2020" class="csl-entry">
+Bubrig, L. T., J. M. Sutton, and J. L. Fierst. 2020. <a href="https://doi.org/10.1002/ece3.6646"><em><span>C</span>aenorhabditis elegans</em> dauers vary recovery in response to bacteria from natural habitat</a>. Ecology and Evolution 10:9886–9895.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="5.5-mod-05-quasi.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="5.7-mod-05-binom.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

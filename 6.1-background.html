@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis</title>
+  <title>6.1 Background | Applied Biological Data Analysis</title>
   <meta name="description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta property="og:title" content="6.1 Background | Applied Biological Data Analysis" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://greenquanteco.github.io/index.html" />
   <meta property="og:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta name="twitter:title" content="6.1 Background | Applied Biological Data Analysis" />
   
   <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="twitter:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="8.5-mod-08-ord.html"/>
-<link rel="next" href="9.1-how-to-use-this-guide.html"/>
+<link rel="prev" href="6-mod-06.html"/>
+<link rel="next" href="6.2-mod-06-intro.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -530,22 +530,24 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="mod-09" class="section level1" number="9">
-<h1><span class="header-section-number">Module 9</span> Planning your analysis (what test?)</h1>
-<p>One of the main questions that biologists have after collecting data is, “What statistical test do I use?” Ignoring the fact that they should have thought about that <strong><em>before collecting data</em></strong>, the answer to that question depends on the answers to two other questions:</p>
-<ol style="list-style-type: decimal">
-<li>What question are you trying to answer?</li>
-<li>What kind of data do you have?</li>
-</ol>
-<p>After <a href="4-mod-04.html#mod-04">exploring the data</a> and gaining an understanding of the patterns and <a href="4.8-mod-04-prob.html#mod-04-prob">problems</a> in a dataset, it is time to run the main analysis. This guide is designed to help you use what you learned in exploring the data to choose an appropriate analytical strategy.</p>
+<div id="background" class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> Background</h2>
+<p>So far we have learned about a wide variety of linear models, which predict some response variable <em>Y</em> as a linear function of one or more predictor variables <em>X</em>. A linear function is one that takes the form <span class="math inline">\(Y=mX+b\)</span>, where <em>m</em> and <em>b</em> are constants. The scalar <em>m</em> defines how much <em>Y</em> changes for every unit increase in <em>X</em> (i.e., if <em>X</em> increases by 1, then <em>Y</em> increases by <em>m</em>). In order for the relationship to be a straight line, the change in <em>Y</em> resulting from a change in <em>X</em> does not vary. In other words, the slope of the line (<span class="math inline">\(dY/dX\)</span>) is a constant. This is what “linear” means.</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/06_01.jpg" /></p>
+<p>Some relationships do not follow such a rule. Consider the relationship below. Is the slope constant?</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-568-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>As shown, the relationship between <em>Y</em> and <em>X</em> is nonlinear because the slope of the line is different at different <em>X</em>. However, we can linearize the relationship by taking the logarithm of <em>Y</em>. Compare the left panel below to the right panel. All that has changed is the <em>y</em>-axis scaling.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-569-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>Other relationships are not amenable to this kind of transformation. For example, the figure below shows <em>Y</em> varying as a <strong>Gompertz function</strong> of <em>X</em>. Unlike the log-linear model shown above, there is no transform that will linearize the Gompertz curve. So, if we wanted to analyze data that followed such a pattern, we would need a different set of tools.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-570-1.png" width="576" style="display: block; margin: auto;" /></p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="8.5-mod-08-ord.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="9.1-how-to-use-this-guide.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="6-mod-06.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="6.2-mod-06-intro.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

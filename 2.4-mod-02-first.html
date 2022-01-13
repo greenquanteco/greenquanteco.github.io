@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis</title>
+  <title>2.4 A first R session | Applied Biological Data Analysis</title>
   <meta name="description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta property="og:title" content="2.4 A first R session | Applied Biological Data Analysis" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://greenquanteco.github.io/index.html" />
   <meta property="og:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta name="twitter:title" content="2.4 A first R session | Applied Biological Data Analysis" />
   
   <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="twitter:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="8.5-mod-08-ord.html"/>
-<link rel="next" href="9.1-how-to-use-this-guide.html"/>
+<link rel="prev" href="2.3-using-r.html"/>
+<link rel="next" href="2.5-write-and-execute-commands-in-the-r-console.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -530,22 +530,271 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="mod-09" class="section level1" number="9">
-<h1><span class="header-section-number">Module 9</span> Planning your analysis (what test?)</h1>
-<p>One of the main questions that biologists have after collecting data is, “What statistical test do I use?” Ignoring the fact that they should have thought about that <strong><em>before collecting data</em></strong>, the answer to that question depends on the answers to two other questions:</p>
-<ol style="list-style-type: decimal">
-<li>What question are you trying to answer?</li>
-<li>What kind of data do you have?</li>
-</ol>
-<p>After <a href="4-mod-04.html#mod-04">exploring the data</a> and gaining an understanding of the patterns and <a href="4.8-mod-04-prob.html#mod-04-prob">problems</a> in a dataset, it is time to run the main analysis. This guide is designed to help you use what you learned in exploring the data to choose an appropriate analytical strategy.</p>
+<div id="mod-02-first" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> A first R session</h2>
+<p>One of the best ways to get a feel for R is to step through a typical R workflow. We are going to analyze a classic dataset from evolutionary biology that contains data on the body size and antler size of many species of deer (family Cervidae). The data were collected by Stephen Jay Gould <span class="citation">(<a href="#ref-gould1974" role="doc-biblioref">Gould 1974</a>)</span> to investigate the reason for the massive antler size in an extinct mammal, the Irish elk (<em>Megaloceros giganteus</em>), seen below<a href="literature-cited.html#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a>. Gould was interested in whether the massive antlers might have resulted from runaway sexual selection or were simply the result of allometric growth. The Irish elk lived across northern Eurasia during the Pleistocene epoch, until about 7700 years ago. Adults stood around 2.1 m high at the shoulder and males bore antlers that could reach up to 3.65 m (<span class="math inline">\(\approx\)</span> 12 ft) across. Body mass of adult males is estimated to have ranged from 450 to 700 kg (990 to 1540 lb). Irish elk were on average larger than the largest extant cervid, the moose (<em>Alces alces</em>).</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/02_04.jpg" /></p>
+<div id="import-data" class="section level3" number="2.4.1">
+<h3><span class="header-section-number">2.4.1</span> Import data</h3>
+<p>First, load the data into R. The data are contained in the text file <a href="https://greenquanteco.github.io/elk_data_2021-01-21.csv">elk_data_2021-01-21.csv</a>. Download this file and save it on your computer. If you want to save some time later, save the data file in your <strong>R home directory</strong>. This is the default folder where R and RStudio will look for files. The R home directory depends on your operating system:</p>
+<ul>
+<li><strong>Windows users:</strong> the home directory is your “Documents” folder. The address of this folder is “<strong>C:/Users/username/Documents</strong>”, where “<strong>username</strong>” is your Windows logon name. You can get to your Documents folder by opening Windows Explorer (<strong>Win-E</strong>) and double-clicking “<strong>Documents</strong>”.</li>
+<li><strong>Mac users:</strong> the home directory is your <strong>home folder</strong>. The address of this folder is “<strong>/Users/username</strong>” (where username is your username) or “<strong>~/</strong>”. You can open your home folder by pressing <strong>CMD-SHIFT-H</strong>, or by using the <strong>Go</strong> pulldown menu from the menu bar.
+<ul>
+<li>Note for Mac users: When you download a .csv file in MacOS, your computer might open it in a program called “Numbers”. This is a Mac-specific spreadsheet program. When you close the program it is possible to inadvertently save the data file as a new file in .numbers format, which is not readable by R. If you do this, your datafile will become “<strong>elk_data_2021-01-21.numbers</strong>”, and you will not be able to open it in R or RStudio. <strong><em>.numbers is a different file format than .csv</em></strong>. A .numbers file has the same file name, but it has a different file extension and so it is not the same as a .csv<a href="literature-cited.html#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a>.</li>
+</ul></li>
+</ul>
+<p>Once you save the data file on your computer, you can import it to RStudio in several ways. Notice that in both methods shown here, nothing is printed to the console after a successful import. Instead, the function reads the CSV file and saves the data to an object that we are calling <code>dat</code>.</p>
+<div id="method-1-import-in-rstudio-using-fileimport-dataset" class="section level4" number="2.4.1.1">
+<h4><span class="header-section-number">2.4.1.1</span> Method 1: Import in RStudio using File–Import Dataset</h4>
+<p>In RStudio, click on <strong>File–Import Dataset–From Text (base)</strong>.</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/02_05.jpg" /></p>
+<p>Navigate to the data file just as you would if opening a file in any other program. Click Open.</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/02_06.jpg" /></p>
+<p>In the dialog box that pops up, change the name of the incoming dataset to “dat”. This is what we will call the dataset when working with it in R. Make sure that the “Strings as factors” box is NOT checked.</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/02_07.jpg" /></p>
+<p>Click Import. RStudio will import the data for you and save it in the workspace as an object called “dat”. Notice that a command like <code>dat &lt;- read.csv("~/elk_data_2021-01-21.csv")</code> was run in the console. This command is what RStudio used internally to import the data. If you want to know more, look at method 2 below.</p>
+<p>After you click Import, RStudio will import the data and display it for you. The image below shows what that looks like. Notice that RStudio automatically generated the code to import the data and executed it (red arrow); that the dataset is listed in the “Environment” box in the top right (blue arrow), and the dataset is displayed in the top left (green arrow).</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/02_09.jpg" /></p>
+<p>Once the dataset is imported, you can view it in the console by typing its name and pressing ENTER. Each method above saved the dataset to an object named <code>dat</code>. Obviously, this is short for “data”<a href="literature-cited.html#fn20" class="footnote-ref" id="fnref20"><sup>20</sup></a>. However, we didn’t call our dataset “data” because <code>data()</code> is already the name of an R function and we don’t want to accidentally overwrite that function.</p>
+</div>
+<div id="method-2-import-from-command-line" class="section level4" number="2.4.1.2">
+<h4><span class="header-section-number">2.4.1.2</span> Method 2: Import from command line</h4>
+<p>You can also import files from the command line directly. This option is preferred by users who need to import files automatically, or who aren’t using RStudio. To use this method, you need to know the name of the folder where the data file is stored.
+If the data file is in your home directory (see previous section), the command is simple:</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="2.4-mod-02-first.html#cb40-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;elk_data_2021-01-21.csv&quot;</span>)</span></code></pre></div>
+<p>The command above will look in your home directory for a file with the filename you specify. The filename must match <strong><em>exactly</em></strong>, including capitalization. For convenience I usually split the command up into two, with one specifying the name and the other importing the file:</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="2.4-mod-02-first.html#cb41-1" aria-hidden="true" tabindex="-1"></a>dat.name <span class="ot">&lt;-</span> <span class="st">&quot;elk_data_2021-01-21.csv&quot;</span></span>
+<span id="cb41-2"><a href="2.4-mod-02-first.html#cb41-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(dat.name)</span></code></pre></div>
+<p>If the data file is NOT in your home directory, you need to tell R which folder to look in. In the example below, I put the file on my Windows desktop<a href="literature-cited.html#fn21" class="footnote-ref" id="fnref21"><sup>21</sup></a> (<strong>C:/Users/ngreen62/Desktop</strong>)<a href="literature-cited.html#fn22" class="footnote-ref" id="fnref22"><sup>22</sup></a>. This folder address is provided to R as a character string, and that string is combined with the file name using the <code>paste()</code> command.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="2.4-mod-02-first.html#cb42-1" aria-hidden="true" tabindex="-1"></a>use.fold <span class="ot">&lt;-</span> <span class="st">&quot;C:/Users/ngreen62/Desktop&quot;</span></span>
+<span id="cb42-2"><a href="2.4-mod-02-first.html#cb42-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">paste</span>(use.fold, dat.name, <span class="at">sep=</span><span class="st">&quot;/&quot;</span>))</span></code></pre></div>
+<p>Notice that the folder address above uses front-slashes (<code>/</code>). Windows uses back-slashes (“\”) in folder addresses, while R requires forward slashes (“/”). Mac and Linux already use front-slashes. If you are a Windows user, you will need to change the back-slashes to front-slashes in the folder address.</p>
+<p>Once you have imported the data, you can type the name of the dataset into the console and press ENTER to view it:</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="2.4-mod-02-first.html#cb43-1" aria-hidden="true" tabindex="-1"></a>dat</span></code></pre></div>
+<pre><code>##    height antler     species
+## 1    69.3   24.8     unknown
+## 2    69.3   34.5     unknown
+## 3    87.7   53.5     unknown
+## 4    99.8   58.3     unknown
+## 5    69.3   61.2     unknown
+## 6    84.1   67.3     unknown
+## 7    89.4   72.2     unknown
+## 8    91.9   81.5     unknown
+## 9   116.6   86.6     unknown
+## 10  104.7   91.4     unknown
+## 11  129.9   99.3     unknown
+## 12   94.6  101.5     unknown
+## 13  115.5  107.8     unknown
+## 14  138.4  115.7     unknown
+## 15  138.4  123.3     unknown
+## 16  127.5  128.5     unknown
+## 17  175.1  131.4       alces
+## 18  164.3  162.6     unknown
+## 19  204.5  197.5       alces
+## 20  183.6  239.1 megaloceros</code></pre>
+</div>
+</div>
+<div id="explore-and-visualize-data" class="section level3" number="2.4.2">
+<h3><span class="header-section-number">2.4.2</span> Explore and visualize data</h3>
+<p>Before we do anything, we should look at the dataset. We have two continuous variables, <code>height</code> and <code>antler</code>, so the natural way to examine their relationship is with a scatterplot. Scatterplots are made by the <code>plot()</code> function. By default, the first argument to <code>plot()</code> contains the <em>x</em> values, and the second contains the <em>y</em> values. The values are accessed from the data frame <code>dat</code> using the <code>$</code> operator. The command below also uses the arguments <code>xlab</code> and <code>ylab</code> to set <em>x</em>-axis and <em>y</em>-axis labels. Notice that R will set the limits of the graph according to the range of each variable; we’ll go over how to set those limits later on.</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="2.4-mod-02-first.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dat<span class="sc">$</span>height, dat<span class="sc">$</span>antler,</span>
+<span id="cb45-2"><a href="2.4-mod-02-first.html#cb45-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab=</span><span class="st">&quot;Shoulder height (cm)&quot;</span>,</span>
+<span id="cb45-3"><a href="2.4-mod-02-first.html#cb45-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab=</span><span class="st">&quot;Antler length (cm)&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>We might also be interested in how the data are distributed. This will be important later because the data need to meet particular assumptions for our statistical analysis. The simplest way to view a data distribution is with a histogram, <code>hist()</code>.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="2.4-mod-02-first.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(dat<span class="sc">$</span>antler, <span class="at">xlab=</span><span class="st">&quot;Antler length (cm)&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>We could also try a <strong>probability density function (PDF)</strong> plot, or plotting the <strong>empirical cumulative distribution function (ECDF)</strong>. Histograms, PDF plots, and ECDF plots are just different ways of <a href="4.2-mod-04-vis.html#mod-04-vis">displaying how the data are spread out</a>. In the figure below, we use the function <code>par()</code> to set some graphical parameters (including a 1 row <span class="math inline">\(\times\)</span> 3 column layout using argument <code>mfrow</code>). We also saved the text string “Antler length (cm)” as an object (<code>use.xlab</code>), and then used it in each of the plotting commands so we didn’t have to type the same thing over and over.</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="2.4-mod-02-first.html#cb47-1" aria-hidden="true" tabindex="-1"></a>use.xlab <span class="ot">&lt;-</span> <span class="st">&quot;Antler length (cm)&quot;</span></span>
+<span id="cb47-2"><a href="2.4-mod-02-first.html#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
+<span id="cb47-3"><a href="2.4-mod-02-first.html#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(dat<span class="sc">$</span>antler, <span class="at">xlab=</span>use.xlab)</span>
+<span id="cb47-4"><a href="2.4-mod-02-first.html#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(dat<span class="sc">$</span>antler, <span class="at">from=</span><span class="dv">0</span>), <span class="at">xlab=</span>use.xlab)</span>
+<span id="cb47-5"><a href="2.4-mod-02-first.html#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">ecdf</span>(dat<span class="sc">$</span>antler), <span class="at">xlab=</span>use.xlab)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-35-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>All three plots above show that the antler lengths probably follow a <a href="4.3-mod-04-dists1.html#mod-04-norm"><strong>normal distribution</strong></a>. Notice how the PDF plot (center) looks like a very smoothed version of the histogram. This is because it basically is. A histogram shows how many observations fall into discrete ranges, or bins. The PDF of a distribution shows how likely every possible value is relative to other values. That is, the PDF is basically the heights of a histogram with bin widths = 0. The rightmost plot, the ECDF, shows what percentage of observations in a distribution are equal to or less than each value (this is the “cumulative” part of ECDF). If we wanted, we could estimate the actual CDF of the distribution. The PDF and CDF are intimately related because the PDF is the derivative of the CDF (or, the CDF is the integral of the PDF). This is why the <em>y</em>-axis values on a PDF plot look so weird: they are the instantaneous rate of change in the CDF at each value.</p>
+<p>Don’t worry if that doesn’t make a lot of sense right now. We will explore data distributions some more <a href="4.2-mod-04-vis.html#mod-04-vis">later in the course</a>, both in practical terms and in the language of PDFs and CDFs.</p>
+</div>
+<div id="transform-data" class="section level3" number="2.4.3">
+<h3><span class="header-section-number">2.4.3</span> Transform data</h3>
+<p>The plots above show that the antler lengths probably follow a normal distribution, which is convenient for statistical analysis. In fact, many statistical methods were developed to work only with normally distributed data! But, there is a problem. The normal distribution can take on any real value. In statistical jargon, we say that the normal distribution is supported on the interval [<span class="math inline">\(-\infty\)</span>, <span class="math inline">\(+\infty\)</span>]. A normally distributed variable can thus take on negative values. Does this make sense for antler lengths? Or for any kind of length? Of course not.</p>
+<p>One way to avoid the awkwardness of a statistical model that predicts negative lengths is to log-transform the variables. This ensures that any value predicted by the model must be positive. We are actually going to log-transform both the response and predictor variable for reasons that will become clear in the next step. In R this can be done with the <code>log()</code> command:</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="2.4-mod-02-first.html#cb48-1" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>logy <span class="ot">&lt;-</span> <span class="fu">log</span>(dat<span class="sc">$</span>antler)</span>
+<span id="cb48-2"><a href="2.4-mod-02-first.html#cb48-2" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>logx <span class="ot">&lt;-</span> <span class="fu">log</span>(dat<span class="sc">$</span>height)</span></code></pre></div>
+<p>Notice that we used the natural logarithm (base <em>e</em>) rather than log<sub>10</sub>. This will matter later when we plot the model and its predictions.</p>
+</div>
+<div id="analyze-data" class="section level3" number="2.4.4">
+<h3><span class="header-section-number">2.4.4</span> Analyze data</h3>
+<p>Now that we have log-transformed data, we should plot them to help us decide on an appropriate statistical model. We can make a new version of the scatterplot from earlier. Notice that the axes are now on a different scale, the logarithm of the original values. So, the <em>x</em>-coordinates around 4.9 on the log scale correspond to shoulder heights of <span class="math inline">\(e^{4.9}\)</span>, or about 134.3 cm.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="2.4-mod-02-first.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>)) <span class="co"># reset plot layout</span></span>
+<span id="cb49-2"><a href="2.4-mod-02-first.html#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dat<span class="sc">$</span>logx, dat<span class="sc">$</span>logy,</span>
+<span id="cb49-3"><a href="2.4-mod-02-first.html#cb49-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab=</span><span class="st">&quot;Log Shoulder height (cm)&quot;</span>,</span>
+<span id="cb49-4"><a href="2.4-mod-02-first.html#cb49-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab=</span><span class="st">&quot;Log Antler length (cm)&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>It looks like antler length and shoulder height have a linear relationship on the log scale. That is exactly what we are going to fit, but we need to understand what this represents. The linear model we can fit with the log-transformed data is:</p>
+<p><span class="math display">\[\log{\left(Y\right)=\beta_0+\beta_1\log{\left(X\right)}+\varepsilon}\]</span></p>
+<p>In this equation:</p>
+<ul>
+<li><em>Y</em> is the response or dependent variable (antler length)</li>
+<li><em>X</em> is the explanatory or independent variable (shoulder height)</li>
+<li><span class="math inline">\(\beta_0\)</span> is the <em>y</em>-intercept (i.e., the value of <span class="math inline">\(log(Y)\)</span> when <span class="math inline">\(log(X) = 0\)</span>). Called “beta zero” or “beta naught”.</li>
+<li><span class="math inline">\(\beta_1\)</span> is the slope or regression coefficient (i.e., the change in <span class="math inline">\(log(Y)\)</span> per unit change in <span class="math inline">\(log(X)\)</span>). If <span class="math inline">\(log(X)\)</span> increases by 1, then <span class="math inline">\(log(Y)\)</span> increases by <span class="math inline">\(\beta_1\)</span>. Called “beta one”.</li>
+<li><span class="math inline">\(\varepsilon\)</span> is a random error term that describes residual variation not explained by the model. Called “epsilon”. In a linear regression model, residuals are identically and independently distributed (<em>i.i.d.</em>) according to a normal distribution with mean 0 and variance <span class="math inline">\(\sigma^2\)</span>. Almost all statistical models assume <em>i.i.d.</em> residuals, which means that errors all come from the same distribution, and are completely independent of each other.</li>
+</ul>
+<p>If we wanted to estimate actual antler lengths rather than the logarithm of antler lengths, we have to exponentiate both sides. Ignoring the residuals term for the moment, this gives us:</p>
+<p><span class="math display">\[Y=e^{\beta_0}X^{\beta_1}\]</span></p>
+<p>Which is more commonly written as a <strong>power law</strong>. Power laws are very common in anatomy and morphology. The equation below is the usual form of a power law, where the coefficient <em>a</em> = <span class="math inline">\(e^{\beta_0}\)</span>.</p>
+<p><span class="math display">\[Y=aX^b\]</span></p>
+<p>The linear model is fit using the <code>lm()</code> function. Notice that the model terms are specified as a “formula”. The response variable is on the left, then a <code>~</code>, then the predictor variable (or variables) on the right. The model is saved to an object called <code>mod1</code>, short for “model 1”.</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="2.4-mod-02-first.html#cb50-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(logy<span class="sc">~</span>logx, <span class="at">data=</span>dat)</span></code></pre></div>
+<p>We can view the results using the <code>summary()</code> command on the output:</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="2.4-mod-02-first.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = logy ~ logx, data = dat)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.55752 -0.12729  0.00769  0.15201  0.38060 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  -2.6476     0.7918  -3.344  0.00361 ** 
+## logx          1.5138     0.1675   9.037 4.14e-08 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.24 on 18 degrees of freedom
+## Multiple R-squared:  0.8194, Adjusted R-squared:  0.8094 
+## F-statistic: 81.67 on 1 and 18 DF,  p-value: 4.141e-08</code></pre>
+<p>This tells us that the intercept and slope are statistically significant (<em>P</em> &lt; 0.05 for both terms), and that the model explains about 81% of variation in antler length (adjusted <em>R</em><sup>2</sup> = 0.8094). That’s pretty good.</p>
+<p>What if we had not transformed the data? Then we would have had to fit the power law directly. This is possible in R using the <code>nls()</code> function (nonlinear least squares), but this route is usually harder than using <code>lm()</code> on transformed data. Here is the equivalent model fit using the nonlinear model function <code>nls()</code>:</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="2.4-mod-02-first.html#cb53-1" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">nls</span>(antler<span class="sc">~</span>a<span class="sc">*</span>height<span class="sc">^</span>b, <span class="at">data=</span>dat,</span>
+<span id="cb53-2"><a href="2.4-mod-02-first.html#cb53-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">start=</span><span class="fu">list</span>(<span class="at">a=</span><span class="fu">exp</span>(<span class="sc">-</span><span class="fl">2.6</span>), <span class="at">b=</span><span class="fl">1.51</span>))</span>
+<span id="cb53-3"><a href="2.4-mod-02-first.html#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod2)</span></code></pre></div>
+<pre><code>## 
+## Formula: antler ~ a * height^b
+## 
+## Parameters:
+##   Estimate Std. Error t value Pr(&gt;|t|)    
+## a  0.13219    0.09861   1.341    0.197    
+## b  1.38863    0.14929   9.302 2.69e-08 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 21.49 on 18 degrees of freedom
+## 
+## Number of iterations to convergence: 5 
+## Achieved convergence tolerance: 8.994e-07</code></pre>
+<p><a href="6-mod-06.html#mod-06">Fitting nonlinear models in R</a> can be tricky because you usually need to supply starting values for the algorithm to try. In the example above I used the estimates from the linearized version of the model as starting values. If the starting values are too far away from the “correct” values then the model may not converge, leaving you without a model fit. Even if the model does converge, there is no guarantee that the fitted parameters are correct because there might be multiple stable solutions. Furthermore, some of the common postprocessing done on fitted models such as multiple inference, model comparison, prediction, and error propagation are harder to do in R with nonlinear models (<code>nls()</code> outputs) than with linear models (<code>lm()</code> outputs). We’ll explore how to do this <a href="6.2-mod-06-intro.html#mod-06-intro">later in the course</a>, but for now we will stick with the linearized fit.</p>
+</div>
+<div id="write-out-results" class="section level3" number="2.4.5">
+<h3><span class="header-section-number">2.4.5</span> Write out results</h3>
+<p>Now that we have successfully fit a statistical model, we need to report our findings. Reporting model coefficients is easy enough: just put them into a table.</p>
+<p><strong>Table 1. Log-transformed antler length (cm) varied as a linear function of log-transformed shoulder height (cm). Model <em>R</em><sup>2</sup> = 0.8094. Parameters shown are estimate <span class="math inline">\(\pm\)</span> standard error (SE); <em>t</em> is <em>t</em>-statistic, and <em>P</em> is <em>P</em>-value.</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th align="right">Estimate <span class="math inline">\(\pm\)</span> SE</th>
+<th align="right"><em>t</em></th>
+<th align="right"><em>P</em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(Log\left(\beta_0\right)\)</span></td>
+<td align="right">-2.65 <span class="math inline">\(\pm\)</span> 0.79</td>
+<td align="right">-3.34</td>
+<td align="right">0.0036</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\beta_1\)</span></td>
+<td align="right">1.51 <span class="math inline">\(\pm\)</span> 0.17</td>
+<td align="right">9.04</td>
+<td align="right">&lt;0.0001</td>
+</tr>
+</tbody>
+</table>
+<p>We might also want to present the fitted model in context with the original data. In R this is done using <strong>predicted values</strong> and their associated uncertainties. Instead of presenting predicted values for the original data, it is common practice to present predicted values for a smooth set of predictor values within the domain of the original data. We can see the minimum and maximum values of the predictor with <code>range()</code>. Then, we use <code>seq()</code> to generate a regular sequence between those limits. Finally, calculate the predictions using <code>predict()</code>, with argument <code>se.fit</code> to get the uncertainty associated with the predictions.</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="2.4-mod-02-first.html#cb55-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb55-2"><a href="2.4-mod-02-first.html#cb55-2" aria-hidden="true" tabindex="-1"></a>new.x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from=</span><span class="fu">min</span>(dat<span class="sc">$</span>logx), <span class="at">to=</span><span class="fu">max</span>(dat<span class="sc">$</span>logx), <span class="at">length=</span>n)</span>
+<span id="cb55-3"><a href="2.4-mod-02-first.html#cb55-3" aria-hidden="true" tabindex="-1"></a>new.x2 <span class="ot">&lt;-</span> <span class="fu">exp</span>(new.x) <span class="co"># needed for plot later</span></span>
+<span id="cb55-4"><a href="2.4-mod-02-first.html#cb55-4" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod1,</span>
+<span id="cb55-5"><a href="2.4-mod-02-first.html#cb55-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">logx=</span>new.x),</span>
+<span id="cb55-6"><a href="2.4-mod-02-first.html#cb55-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">se.fit=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p>The last piece we will need is the 95% <strong>confidence limits</strong> of the predictions. We can calculate these from the predicted means and SE in object <code>pred</code>. Because the predictions are on the logarithmic scale, we will back-transform the predictions. We can get the back-transformed predictions by exponentiating the predicted mean, and by requesting quantiles from the lognormal distribution with function <code>qlnorm()</code>. To get the 95% CI, we request the 2.5% and 97.5% percentiles (i.e., 0.025 and 0.975 quantiles) because the interval between them covers 95% of the distribution.</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="2.4-mod-02-first.html#cb56-1" aria-hidden="true" tabindex="-1"></a>mn <span class="ot">&lt;-</span> <span class="fu">exp</span>(pred<span class="sc">$</span>fit)</span>
+<span id="cb56-2"><a href="2.4-mod-02-first.html#cb56-2" aria-hidden="true" tabindex="-1"></a>lo <span class="ot">&lt;-</span> <span class="fu">qlnorm</span>(<span class="fl">0.025</span>, pred<span class="sc">$</span>fit, pred<span class="sc">$</span>se.fit)</span>
+<span id="cb56-3"><a href="2.4-mod-02-first.html#cb56-3" aria-hidden="true" tabindex="-1"></a>hi <span class="ot">&lt;-</span> <span class="fu">qlnorm</span>(<span class="fl">0.975</span>, pred<span class="sc">$</span>fit, pred<span class="sc">$</span>se.fit)</span>
+<span id="cb56-4"><a href="2.4-mod-02-first.html#cb56-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-5"><a href="2.4-mod-02-first.html#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="co"># not run: alternative (sometimes more reliable)</span></span>
+<span id="cb56-6"><a href="2.4-mod-02-first.html#cb56-6" aria-hidden="true" tabindex="-1"></a><span class="co">#          way to get predicted mean/median</span></span>
+<span id="cb56-7"><a href="2.4-mod-02-first.html#cb56-7" aria-hidden="true" tabindex="-1"></a><span class="co"># mn &lt;- qlnorm(0.5, pred$fit, pred$se.fit)</span></span></code></pre></div>
+<p>Now we have all the pieces we need to put together a polished, manuscript-quality figure with the original data and the model predictions. We will use the <code>par()</code> command again to set some additional graphics options.</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="2.4-mod-02-first.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>),              <span class="co"># 1 x 1 layout</span></span>
+<span id="cb57-2"><a href="2.4-mod-02-first.html#cb57-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">mar=</span><span class="fu">c</span>(<span class="fl">4.1</span>, <span class="fl">4.1</span>, <span class="fl">1.1</span>, <span class="fl">1.1</span>), <span class="co"># margin sizes (clockwise from bottom)</span></span>
+<span id="cb57-3"><a href="2.4-mod-02-first.html#cb57-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">bty=</span><span class="st">&quot;n&quot;</span>,                   <span class="co"># no box around plot</span></span>
+<span id="cb57-4"><a href="2.4-mod-02-first.html#cb57-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">las=</span><span class="dv">1</span>,                     <span class="co"># axis labels in reading direction</span></span>
+<span id="cb57-5"><a href="2.4-mod-02-first.html#cb57-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">lend=</span><span class="dv">1</span>,                    <span class="co"># flat line ends</span></span>
+<span id="cb57-6"><a href="2.4-mod-02-first.html#cb57-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex.lab=</span><span class="fl">1.3</span>,               <span class="co"># axis title size</span></span>
+<span id="cb57-7"><a href="2.4-mod-02-first.html#cb57-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex.axis=</span><span class="fl">1.2</span>)              <span class="co"># axis label size</span></span>
+<span id="cb57-8"><a href="2.4-mod-02-first.html#cb57-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dat<span class="sc">$</span>height, dat<span class="sc">$</span>antler, <span class="at">type=</span><span class="st">&quot;n&quot;</span>,</span>
+<span id="cb57-9"><a href="2.4-mod-02-first.html#cb57-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">&quot;Shoulder height (cm)&quot;</span>,</span>
+<span id="cb57-10"><a href="2.4-mod-02-first.html#cb57-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">&quot;Antler length (cm)&quot;</span>,</span>
+<span id="cb57-11"><a href="2.4-mod-02-first.html#cb57-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">300</span>))</span>
+<span id="cb57-12"><a href="2.4-mod-02-first.html#cb57-12" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(new.x2, lo, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb57-13"><a href="2.4-mod-02-first.html#cb57-13" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(new.x2, hi, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb57-14"><a href="2.4-mod-02-first.html#cb57-14" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(new.x2, mn, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb57-15"><a href="2.4-mod-02-first.html#cb57-15" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(dat<span class="sc">$</span>height, dat<span class="sc">$</span>antler, <span class="at">cex=</span><span class="fl">1.3</span>, <span class="at">pch=</span><span class="dv">16</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-43-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>There are some other graphics options we could set, but we’ll save those for later in the course. This figure is clean and spare, with a very high data to ink ratio…just the sort of figure that we want to represent our work <span class="citation">(<a href="#ref-tufte2001visual" role="doc-biblioref">Tufte 2001</a>)</span>.</p>
+<p>Just for fun, let’s label the original object of our investigation, the Irish elk. We can add a text label and a pointer with the commands <code>text()</code> and <code>segments()</code>. This can require some fiddling to get the coordinates just right. First we’ll use function <code>locator()</code> to find some appropriate coordinates. To use <code>locator()</code>, first run that command in the console. Then, click the points on the graph where you want coordinates. Then, right-click and select “Stop”. The coordinates you clicked will be printed to the console.</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="2.4-mod-02-first.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># not run:</span></span>
+<span id="cb58-2"><a href="2.4-mod-02-first.html#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="co">#locator()</span></span>
+<span id="cb58-3"><a href="2.4-mod-02-first.html#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="co"># click on the figure where you want arrow ends to be</span></span>
+<span id="cb58-4"><a href="2.4-mod-02-first.html#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="co"># $x</span></span>
+<span id="cb58-5"><a href="2.4-mod-02-first.html#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 161.7056 177.5281</span></span>
+<span id="cb58-6"><a href="2.4-mod-02-first.html#cb58-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-7"><a href="2.4-mod-02-first.html#cb58-7" aria-hidden="true" tabindex="-1"></a><span class="co"># $y</span></span>
+<span id="cb58-8"><a href="2.4-mod-02-first.html#cb58-8" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 257.0432 244.5633</span></span></code></pre></div>
+<p>Then, use the coordinates you found and add the pointer and text. Of course you could do this in another program like Powerpoint, but keeping everything in R can streamline your workflow.</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="2.4-mod-02-first.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add pointer and genus name:</span></span>
+<span id="cb59-2"><a href="2.4-mod-02-first.html#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(<span class="fl">161.7</span>, <span class="fl">257.0</span>, <span class="dv">180</span>, <span class="dv">242</span>)</span>
+<span id="cb59-3"><a href="2.4-mod-02-first.html#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">160</span>, <span class="dv">260</span>, </span>
+<span id="cb59-4"><a href="2.4-mod-02-first.html#cb59-4" aria-hidden="true" tabindex="-1"></a>     <span class="fu">expression</span>(<span class="fu">italic</span>(Megaloceros)), </span>
+<span id="cb59-5"><a href="2.4-mod-02-first.html#cb59-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">adj=</span><span class="dv">1</span>,   <span class="co"># right-aligned at point</span></span>
+<span id="cb59-6"><a href="2.4-mod-02-first.html#cb59-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex=</span><span class="fl">1.3</span>) <span class="co"># text size</span></span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-46-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="save-your-work" class="section level3" number="2.4.6">
+<h3><span class="header-section-number">2.4.6</span> Save your work?</h3>
+<p>Now that we are done with the analysis, we can save our work. If you have the code in an R script, you can just save the script and rerun it whenever you want. The results and outputs will be exactly the same next time you open a new R console and run the script<a href="literature-cited.html#fn23" class="footnote-ref" id="fnref23"><sup>23</sup></a>. R scripts have the extension <strong>.r</strong> or <strong>.R</strong>.</p>
+<p>If you want to save the actual R workspace, you can do this in the console with the <code>save.image()</code> command. By default, this command saves the workspace in your home directory. R workspaces have the extension <strong>.RData</strong>.</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="2.4-mod-02-first.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save.image</span>(<span class="st">&quot;elk_analysis_2021-06-14.RData&quot;</span>)</span></code></pre></div>
+<p>The resulting file is the R workspace created by running the script. If you open it, a new R instance will open that contains the same objects and command history as the original. This is more useful in situations involving calculations that take a long time to run, or when the outputs are more complicated than simple text files or images. Notice that the workspace was saved with an informative name and a date. This is important because without the user-supplied name, R will save the workspace with a generic name…potentially overwriting a previously saved workspace!</p>
+</div>
+<div id="whats-next" class="section level3" number="2.4.7">
+<h3><span class="header-section-number">2.4.7</span> What’s next?</h3>
+<p>This section was designed to demonstrate a typical R workflow with straightforward examples and good coding practices. In the next section, we’ll take a closer look at how R works. Some the material in the upcoming sections was already demonstrated, but not explained, on this page.</p>
+</div>
+</div>
+<h3>Literature Cited</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-gould1974" class="csl-entry">
+Gould, S. J. 1974. <a href="https://doi.org/10.2307/2407322">The origin and function of ’bizarre’ structures: Antler size and skull size in the ’irish elk,’ <em><span>M</span>egaloceros giganteus</em></a>. Evolution 28:191–220.
+</div>
+<div id="ref-tufte2001visual" class="csl-entry">
+Tufte, E. 2001. The visual display of quantitative information. Cheshire: Graphic Press.–2001.–213 p.
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="8.5-mod-08-ord.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="9.1-how-to-use-this-guide.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="2.3-using-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="2.5-write-and-execute-commands-in-the-r-console.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

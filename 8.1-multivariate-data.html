@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis</title>
+  <title>8.1 Multivariate data | Applied Biological Data Analysis</title>
   <meta name="description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta property="og:title" content="8.1 Multivariate data | Applied Biological Data Analysis" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://greenquanteco.github.io/index.html" />
   <meta property="og:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta name="twitter:title" content="8.1 Multivariate data | Applied Biological Data Analysis" />
   
   <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="twitter:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="8.5-mod-08-ord.html"/>
-<link rel="next" href="9.1-how-to-use-this-guide.html"/>
+<link rel="prev" href="8-mod-08.html"/>
+<link rel="next" href="8.2-mod-08-dist.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -530,22 +530,54 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="mod-09" class="section level1" number="9">
-<h1><span class="header-section-number">Module 9</span> Planning your analysis (what test?)</h1>
-<p>One of the main questions that biologists have after collecting data is, “What statistical test do I use?” Ignoring the fact that they should have thought about that <strong><em>before collecting data</em></strong>, the answer to that question depends on the answers to two other questions:</p>
-<ol style="list-style-type: decimal">
-<li>What question are you trying to answer?</li>
-<li>What kind of data do you have?</li>
-</ol>
-<p>After <a href="4-mod-04.html#mod-04">exploring the data</a> and gaining an understanding of the patterns and <a href="4.8-mod-04-prob.html#mod-04-prob">problems</a> in a dataset, it is time to run the main analysis. This guide is designed to help you use what you learned in exploring the data to choose an appropriate analytical strategy.</p>
+<div id="multivariate-data" class="section level2" number="8.1">
+<h2><span class="header-section-number">8.1</span> Multivariate data</h2>
+<div id="univariate-vs.-multivariate-data" class="section level3" number="8.1.1">
+<h3><span class="header-section-number">8.1.1</span> Univariate vs. multivariate data</h3>
+<p>Things are not always one or two dimensional. Oftentimes in biology we need to consider many variables at once. This is the realm of <strong>multivariate statistics</strong>. The “multi” in “multivariate” refers to the fact that there are multiple variables or attributes of each sample that we want to understand simultaneously. The terminology can be confusing sometimes because other statistical methods have the word “multiple” in their names. For example, “multiple linear regression” is not considered a multivariate method because there is only one measurement from each sample (the response variable) that is being modeled.</p>
+<p>The figure below shows some differences between a univariate analysis and a multivariate one. In the univariate analysis, one and only one variable is the response variable and is assumed to be predicted by (aka: depend on) the others. Frequently, the observations are divided <em>a priori</em> into groups by a factor encoded by one of the predictor variables. This means that the goal of a univariate analysis is to explain patterns in one variable relative to other variables. In a univariate analysis, the emphasis is on discovering relationships between variables, and the observations are a means to that end.</p>
+<p>In a multivariate analysis, none of the variables are singled out and all are of interest for explaining differences or similarities between the observations. The observations may come from <em>a priori</em> groups defined in a separate matrix (see below), or the researcher may want to discover how the observations naturally separate into clusters based on the variables (i.e., <em>a posteriori</em> groups). Or, the researcher may want to know which variables, if any, drive most of the variation between observations. The key is that in a multivariate analysis the emphasis is often on discovering patterns between observations, and the variables are a means to that end.</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/08_01.jpg" alt="Illustration of univariate (top) and multivariate (bottom) data." /></p>
+</div>
+<div id="components-of-multivariate-data" class="section level3" number="8.1.2">
+<h3><span class="header-section-number">8.1.2</span> Components of multivariate data</h3>
+<p>When planning and executing a multivariate analysis it is very important to keep in mind which components of the dataset are which. These components are usually stored in matrices with a well-defined structure. The key concept is that of the <strong>sample unit</strong> or <strong>observation</strong>. These are individual observations about which many measurements or attributes are recorded. Sample units correspond to rows of the data matrix. Each sample unit has several <strong>attributes</strong> or <strong>variables</strong> associated with it. Variables correspond to columns of the data matrix. The figure below shows the layout of a typical multivariate dataset. The example has 12 observations and 6 variables . In some fields, samples are also called records and variables are called features.</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/08_02.jpg" alt="A typical data matrix for a multivariate analysis." /></p>
+<p>Complex datasets often contain data of different types, or sets of variables that capture information about different aspects of the system. For example, you might have variables that contain species abundances, optical densities, concentrations, femur lengths, treatment groups, and so on. When planning a multivariate analysis you need to consider whether and which variables should be grouped together. In an exploratory analysis, perhaps all of the variables are of interest and no subgroups are needed. In many situations, some of the variables will be the “response” variables. These contain the patterns that you are interested in explaining. Other variables might be considered “explanatory variables”. These are variables that may or may not help explain some of the patterns in the first set of variables. Other variables might contain information about the response variables. For all variables except the first set of “response” variables, the key is whether the values are associated with rows of the main data matrix shown above (i.e., with observations), or whether the values are associated with columns of the main data matrix (i.e., with other variables).</p>
+<p>The figure below shows the relationship between three interrelated matrices typical in community ecology. Similar matrices can be defined for other fields…just replace “Environmental variables” with another label that helps describe variation among the sample units.</p>
+<ul>
+<li>The data matrix <strong>A</strong> contains data on the abundance of 6 species at each of 12 sites.</li>
+<li>The explanatory matrix <strong>E</strong> contains 4 environmental variables (e.g., temperature, latitude, etc.) for each of the sites. These data describe relationships between observations in <strong>A</strong>.</li>
+<li>The trait matrix <strong>S</strong> contains data about traits (e.g., maximum size, longevity, etc.) of the species in the main matrix. These data describe relationships between variables in <strong>A</strong>.</li>
+</ul>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/08_03.jpg" alt="Relationships between data matrices in a multivariate community ecology analysis." /></p>
+<p>A biological system of interest might have relationships among all three of these matrices:</p>
+<ul>
+<li><strong>Patterns within A</strong>: Explaining groupings or trends among the sites in terms of the species present or absent at each site (or, the abundances of species at each site).</li>
+<li><strong>Patterns within E</strong>: Discovering groupings among the sites in terms of their environmental variables.</li>
+<li><strong>Relationships between A and E</strong>: Relating patterns in environmental variables to patterns in species abundances across sites.</li>
+<li><strong>Relating patterns between A and E in terms of S</strong>: Relating species traits to environmental conditions.</li>
+<li><strong>Patterns within S</strong>: Identifying clusters of similar species.</li>
+</ul>
+<p><span class="citation">McCune et al. (<a href="#ref-mccune2002analysis" role="doc-biblioref">2002</a>)</span> give a thorough treatment of the relationships between <strong>S</strong>, <strong>E</strong>, <strong>A</strong>, and other matrices derived from them. For this course, we will focus on analyzing <strong>A</strong> and sometimes <strong>E</strong>. There is a related set of terminology used to describe multivariate analyses in terms of what is being compared. Analyses that seek relationships among samples are said to be in <strong>Q mode</strong>; analyses that seek relationships among variables are in <strong>R mode</strong> <span class="citation">(<a href="#ref-legendre2012numerical" role="doc-biblioref">Legendre and Legendre 2012</a>)</span>. These terms appear to be particular to ecology, but offer a helpful way to distinguish between different multivariate analysis pathways.</p>
+</div>
+</div>
+<h3>Literature Cited</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-legendre2012numerical" class="csl-entry">
+Legendre, P., and L. Legendre. 2012. Numerical ecology. Elsevier, Amsterdam.
+</div>
+<div id="ref-mccune2002analysis" class="csl-entry">
+McCune, B., J. B. Grace, and D. L. Urban. 2002. Analysis of ecological communities. MjM software design Gleneden Beach, Oregon, USA.
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="8.5-mod-08-ord.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="9.1-how-to-use-this-guide.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="8-mod-08.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="8.2-mod-08-dist.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

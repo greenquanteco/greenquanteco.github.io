@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis</title>
+  <title>3.3 Selecting data with [] | Applied Biological Data Analysis</title>
   <meta name="description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta property="og:title" content="3.3 Selecting data with [] | Applied Biological Data Analysis" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://greenquanteco.github.io/index.html" />
   <meta property="og:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta name="twitter:title" content="3.3 Selecting data with [] | Applied Biological Data Analysis" />
   
   <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="twitter:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="8.5-mod-08-ord.html"/>
-<link rel="next" href="9.1-how-to-use-this-guide.html"/>
+<link rel="prev" href="3.2-making-values-in-r.html"/>
+<link rel="next" href="3.4-managing-dates-and-characters.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -530,22 +530,301 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="mod-09" class="section level1" number="9">
-<h1><span class="header-section-number">Module 9</span> Planning your analysis (what test?)</h1>
-<p>One of the main questions that biologists have after collecting data is, “What statistical test do I use?” Ignoring the fact that they should have thought about that <strong><em>before collecting data</em></strong>, the answer to that question depends on the answers to two other questions:</p>
-<ol style="list-style-type: decimal">
-<li>What question are you trying to answer?</li>
-<li>What kind of data do you have?</li>
-</ol>
-<p>After <a href="4-mod-04.html#mod-04">exploring the data</a> and gaining an understanding of the patterns and <a href="4.8-mod-04-prob.html#mod-04-prob">problems</a> in a dataset, it is time to run the main analysis. This guide is designed to help you use what you learned in exploring the data to choose an appropriate analytical strategy.</p>
+<div id="selecting-data-with" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Selecting data with <code>[]</code></h2>
+<p>One of the most common data manipulation tasks is selecting, or <strong>extracting</strong>, from your data. The most common way of selecting subsets of an object (aka: extracting) is the R <strong>bracket notation</strong>. This refers to the symbols used, <code>[]</code>. These are also sometimes called <strong>square brackets</strong>, to distinguish them from <strong>curly brackets</strong>, <code>{}</code>. The latter are more properly called <strong>braces</strong> and are used for an entirely different purpose in R.</p>
+<p>Brackets tell R that you want a part of an object. Which part is determined either by a name, or an <strong>index</strong> inside the brackets. Indices should usually be supplied as numbers, but other types can be used. For objects with more than 1 dimension, you need to supply as many indices, or vectors of indices, as the object has dimensions. Within brackets, vectors of indices are separated by commas.</p>
+<p>Brackets can also be used to exclude certain elements by using the negative sign, but this can be tricky. We’ll explore how negative indices work below.</p>
+<div id="mod-03-brackets" class="section level3" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Basics of brackets</h3>
+<div id="selecting-from-a-vector" class="section level4" number="3.3.1.1">
+<h4><span class="header-section-number">3.3.1.1</span> Selecting from a vector</h4>
+<p>Vectors have 1 dimension, so you must specify a single vector of indices. Notice that the brackets can be empty, in which case all elements can be returned. If the vector supplied is of length 0, then no elements will be returned. When a vector of indices with &gt; 0 elements is specified, R will return the elements of the vector in the order requested. For example, <code>a[c(1,3,5)]</code> and <code>a[c(3,5,1)]</code> will return the same values but in different orders.</p>
+<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="3.3-selecting-data-with.html#cb401-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">11</span><span class="sc">:</span><span class="dv">20</span></span>
+<span id="cb401-2"><a href="3.3-selecting-data-with.html#cb401-2" aria-hidden="true" tabindex="-1"></a><span class="co"># all elements returned</span></span>
+<span id="cb401-3"><a href="3.3-selecting-data-with.html#cb401-3" aria-hidden="true" tabindex="-1"></a>a[]        </span></code></pre></div>
+<pre><code>##  [1] 11 12 13 14 15 16 17 18 19 20</code></pre>
+<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="3.3-selecting-data-with.html#cb403-1" aria-hidden="true" tabindex="-1"></a><span class="co"># second element</span></span>
+<span id="cb403-2"><a href="3.3-selecting-data-with.html#cb403-2" aria-hidden="true" tabindex="-1"></a>a[<span class="dv">2</span>]</span></code></pre></div>
+<pre><code>## [1] 12</code></pre>
+<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="3.3-selecting-data-with.html#cb405-1" aria-hidden="true" tabindex="-1"></a><span class="co"># elements 3, 4, 5, 6, and 7</span></span>
+<span id="cb405-2"><a href="3.3-selecting-data-with.html#cb405-2" aria-hidden="true" tabindex="-1"></a>a[<span class="dv">3</span><span class="sc">:</span><span class="dv">7</span>]</span></code></pre></div>
+<pre><code>## [1] 13 14 15 16 17</code></pre>
+<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="3.3-selecting-data-with.html#cb407-1" aria-hidden="true" tabindex="-1"></a><span class="co"># error (not run)</span></span>
+<span id="cb407-2"><a href="3.3-selecting-data-with.html#cb407-2" aria-hidden="true" tabindex="-1"></a><span class="co"># a[3:7,2]    </span></span>
+<span id="cb407-3"><a href="3.3-selecting-data-with.html#cb407-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb407-4"><a href="3.3-selecting-data-with.html#cb407-4" aria-hidden="true" tabindex="-1"></a><span class="co"># correct version of previous command</span></span>
+<span id="cb407-5"><a href="3.3-selecting-data-with.html#cb407-5" aria-hidden="true" tabindex="-1"></a>a[<span class="fu">c</span>(<span class="dv">3</span><span class="sc">:</span><span class="dv">7</span>,<span class="dv">2</span>)]</span></code></pre></div>
+<pre><code>## [1] 13 14 15 16 17 12</code></pre>
+<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="3.3-selecting-data-with.html#cb409-1" aria-hidden="true" tabindex="-1"></a><span class="co"># notice different ordering from previous command</span></span>
+<span id="cb409-2"><a href="3.3-selecting-data-with.html#cb409-2" aria-hidden="true" tabindex="-1"></a>a[<span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">7</span>)]   </span></code></pre></div>
+<pre><code>## [1] 12 13 14 15 16 17</code></pre>
+</div>
+<div id="selecting-from-a-matrix" class="section level4" number="3.3.1.2">
+<h4><span class="header-section-number">3.3.1.2</span> Selecting from a matrix</h4>
+<p>Matrices have 2 dimensions, so you must specify two dimension’s worth of indices. If you want all of one dimension (e.g., rows 1 to 3 and all columns), you can leave the spot for the index blank. Separate the dimensions using a comma. Positive indices select elements; negative elements remove elements.</p>
+<p>I’ll reiterate this because it is a common mistake: you must specify all dimensions using a comma. Failing to do so will result in an error (bad) or unexpected results (worse).</p>
+<p><strong>Remember: in R, indices start at 1. In some languages such as Python indices start at 0.</strong></p>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="3.3-selecting-data-with.html#cb411-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">nrow=</span><span class="dv">3</span>, <span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb411-2"><a href="3.3-selecting-data-with.html#cb411-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb411-3"><a href="3.3-selecting-data-with.html#cb411-3" aria-hidden="true" tabindex="-1"></a><span class="co"># value in row 1, column 2</span></span>
+<span id="cb411-4"><a href="3.3-selecting-data-with.html#cb411-4" aria-hidden="true" tabindex="-1"></a>a[<span class="dv">1</span>,<span class="dv">2</span>]</span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="3.3-selecting-data-with.html#cb413-1" aria-hidden="true" tabindex="-1"></a><span class="co"># values in rows 1-3 and columns 1-2</span></span>
+<span id="cb413-2"><a href="3.3-selecting-data-with.html#cb413-2" aria-hidden="true" tabindex="-1"></a>a[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    1    2
+## [2,]    5    6
+## [3,]    9   10</code></pre>
+<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="3.3-selecting-data-with.html#cb415-1" aria-hidden="true" tabindex="-1"></a><span class="co"># rows 1 and 2, all columns</span></span>
+<span id="cb415-2"><a href="3.3-selecting-data-with.html#cb415-2" aria-hidden="true" tabindex="-1"></a>a[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,]</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]    1    2    3    4
+## [2,]    5    6    7    8</code></pre>
+<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="3.3-selecting-data-with.html#cb417-1" aria-hidden="true" tabindex="-1"></a><span class="co"># columns 1 and 2, all rows</span></span>
+<span id="cb417-2"><a href="3.3-selecting-data-with.html#cb417-2" aria-hidden="true" tabindex="-1"></a>a[,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    1    2
+## [2,]    5    6
+## [3,]    9   10</code></pre>
+<p>Negative indices remove elements, or return all positive indices.</p>
+<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="3.3-selecting-data-with.html#cb419-1" aria-hidden="true" tabindex="-1"></a><span class="co"># rows except for row 1</span></span>
+<span id="cb419-2"><a href="3.3-selecting-data-with.html#cb419-2" aria-hidden="true" tabindex="-1"></a>a[<span class="sc">-</span><span class="dv">1</span>,]</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]    5    6    7    8
+## [2,]    9   10   11   12</code></pre>
+<p>Removing multiple elements with <code>-</code> can be a bit tricky. All elements of the vector of things to remove must be negative. In the first example below, R returns an error because you request elements -1, 0, 1, and 2. Element -1 does not exist, and you don’t want elements 1 and 2!</p>
+<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="3.3-selecting-data-with.html#cb421-1" aria-hidden="true" tabindex="-1"></a><span class="co"># rows except for row 1 and 2</span></span>
+<span id="cb421-2"><a href="3.3-selecting-data-with.html#cb421-2" aria-hidden="true" tabindex="-1"></a><span class="do">## returns error (not run)</span></span>
+<span id="cb421-3"><a href="3.3-selecting-data-with.html#cb421-3" aria-hidden="true" tabindex="-1"></a>a[<span class="sc">-</span><span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,]</span></code></pre></div>
+<p>There are several correct ways to get rows other than 1 and 2. Notice that all of them result in indices with a 1-, a -2, and no positive values. The first option is probably the best for most situations.</p>
+<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="3.3-selecting-data-with.html#cb422-1" aria-hidden="true" tabindex="-1"></a>a[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),]</span></code></pre></div>
+<pre><code>## [1]  9 10 11 12</code></pre>
+<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="3.3-selecting-data-with.html#cb424-1" aria-hidden="true" tabindex="-1"></a>a[<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span><span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,]</span></code></pre></div>
+<pre><code>## [1]  9 10 11 12</code></pre>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="3.3-selecting-data-with.html#cb426-1" aria-hidden="true" tabindex="-1"></a>a[<span class="sc">-</span><span class="dv">2</span><span class="sc">:</span><span class="dv">0</span>,]</span></code></pre></div>
+<pre><code>## [1]  9 10 11 12</code></pre>
+<p>Notice that all three of these lines return a vector, not a matrix. This is because a single row or column of a matrix simplifies to a vector. If you want to keep your result in matrix format, you can specify this using the argument <code>drop=FALSE</code> after the last dimension and a comma:</p>
+<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="3.3-selecting-data-with.html#cb428-1" aria-hidden="true" tabindex="-1"></a>a[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),,drop<span class="ot">=</span><span class="cn">FALSE</span>]</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]    9   10   11   12</code></pre>
+</div>
+<div id="selecting-from-a-data-frame" class="section level4" number="3.3.1.3">
+<h4><span class="header-section-number">3.3.1.3</span> Selecting from a data frame</h4>
+<p>Selecting from a data frame using brackets is largely the same as selecting from a matrix. Just keep in mind that the result might come back as a vector (if you select rows in a single column) or a data frame (any other situation).</p>
+<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="3.3-selecting-data-with.html#cb430-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> iris[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,]</span>
+<span id="cb430-2"><a href="3.3-selecting-data-with.html#cb430-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb430-3"><a href="3.3-selecting-data-with.html#cb430-3" aria-hidden="true" tabindex="-1"></a><span class="co"># returns a vector</span></span>
+<span id="cb430-4"><a href="3.3-selecting-data-with.html#cb430-4" aria-hidden="true" tabindex="-1"></a>a[,<span class="dv">1</span>]</span></code></pre></div>
+<pre><code>## [1] 5.1 4.9 4.7 4.6 5.0</code></pre>
+<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="3.3-selecting-data-with.html#cb432-1" aria-hidden="true" tabindex="-1"></a><span class="co"># returns a data frame</span></span>
+<span id="cb432-2"><a href="3.3-selecting-data-with.html#cb432-2" aria-hidden="true" tabindex="-1"></a>a[<span class="dv">1</span>,]</span></code></pre></div>
+<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa</code></pre>
+<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="3.3-selecting-data-with.html#cb434-1" aria-hidden="true" tabindex="-1"></a><span class="co"># returns a data frame</span></span>
+<span id="cb434-2"><a href="3.3-selecting-data-with.html#cb434-2" aria-hidden="true" tabindex="-1"></a>a[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,]</span></code></pre></div>
+<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa</code></pre>
+<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="3.3-selecting-data-with.html#cb436-1" aria-hidden="true" tabindex="-1"></a><span class="co"># returns a data frame</span></span>
+<span id="cb436-2"><a href="3.3-selecting-data-with.html#cb436-2" aria-hidden="true" tabindex="-1"></a>a[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
+<pre><code>##   Sepal.Length Sepal.Width Petal.Length
+## 1          5.1         3.5          1.4
+## 2          4.9         3.0          1.4
+## 3          4.7         3.2          1.3</code></pre>
+</div>
+<div id="selecting-from-arrays" class="section level4" number="3.3.1.4">
+<h4><span class="header-section-number">3.3.1.4</span> Selecting from arrays</h4>
+<p>Coming soon.</p>
+</div>
+<div id="selecting-from-lists" class="section level4" number="3.3.1.5">
+<h4><span class="header-section-number">3.3.1.5</span> Selecting from lists</h4>
+<p>One of the most important kinds of R object is the <strong>list</strong>. A list can be thought of like a series of containers or buckets. Each bucket can contain completely unrelated things, or even other series of buckets. Each bucket is called an <strong>element</strong> of the list. Because of this flexibility, lists are extremely versatile and useful in R programming. Many function outputs are really lists (e.g., the outputs of <code>lm()</code> or <code>t.test()</code>).</p>
+<p>Single elements of a list can be accessed with <strong>double brackets</strong> <code>[[]]</code>. Elements can be selected by name or by index. Elements that have a name can be selected by name using the <code>$</code> symbol instead of by double brackets.</p>
+<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="3.3-selecting-data-with.html#cb438-1" aria-hidden="true" tabindex="-1"></a><span class="co"># make a list &quot;a&quot;</span></span>
+<span id="cb438-2"><a href="3.3-selecting-data-with.html#cb438-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">10</span>)</span>
+<span id="cb438-3"><a href="3.3-selecting-data-with.html#cb438-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="st">&quot;zebra&quot;</span></span>
+<span id="cb438-4"><a href="3.3-selecting-data-with.html#cb438-4" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">nrow=</span><span class="dv">3</span>)</span>
+<span id="cb438-5"><a href="3.3-selecting-data-with.html#cb438-5" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">e1=</span>x, <span class="at">e2=</span>y, <span class="at">e3=</span>z)</span>
+<span id="cb438-6"><a href="3.3-selecting-data-with.html#cb438-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb438-7"><a href="3.3-selecting-data-with.html#cb438-7" aria-hidden="true" tabindex="-1"></a>a[[<span class="dv">1</span>]]</span></code></pre></div>
+<pre><code>##  [1] 0.48455613 0.46315243 0.42924154 0.26881092 0.13951478 0.03108833
+##  [7] 0.37119592 0.28906588 0.14279648 0.64557472</code></pre>
+<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="3.3-selecting-data-with.html#cb440-1" aria-hidden="true" tabindex="-1"></a>a[[<span class="dv">2</span>]]</span></code></pre></div>
+<pre><code>## [1] &quot;zebra&quot;</code></pre>
+<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb442-1"><a href="3.3-selecting-data-with.html#cb442-1" aria-hidden="true" tabindex="-1"></a>a[[<span class="st">&quot;e1&quot;</span>]]</span></code></pre></div>
+<pre><code>##  [1] 0.48455613 0.46315243 0.42924154 0.26881092 0.13951478 0.03108833
+##  [7] 0.37119592 0.28906588 0.14279648 0.64557472</code></pre>
+<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="3.3-selecting-data-with.html#cb444-1" aria-hidden="true" tabindex="-1"></a>a<span class="sc">$</span>e1</span></code></pre></div>
+<pre><code>##  [1] 0.48455613 0.46315243 0.42924154 0.26881092 0.13951478 0.03108833
+##  [7] 0.37119592 0.28906588 0.14279648 0.64557472</code></pre>
+<p>Multiple elements of a list can be selected using <strong>single brackets</strong>. Doing so will return a new list containing the requested elements, <strong>not</strong> the requested elements themselves. This can be a little confusing. Compare the following two commands and notice that the first returns the 10 random numbers in the first element of <code>a</code>, while the second returns a list with 1 element, and that element is the numbers 1 through 10.</p>
+<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="3.3-selecting-data-with.html#cb446-1" aria-hidden="true" tabindex="-1"></a>a[[<span class="dv">1</span>]]</span></code></pre></div>
+<pre><code>##  [1] 0.48455613 0.46315243 0.42924154 0.26881092 0.13951478 0.03108833
+##  [7] 0.37119592 0.28906588 0.14279648 0.64557472</code></pre>
+<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb448-1"><a href="3.3-selecting-data-with.html#cb448-1" aria-hidden="true" tabindex="-1"></a>a[<span class="dv">1</span>]</span></code></pre></div>
+<pre><code>## $e1
+##  [1] 0.48455613 0.46315243 0.42924154 0.26881092 0.13951478 0.03108833
+##  [7] 0.37119592 0.28906588 0.14279648 0.64557472</code></pre>
+<p>Next, observe what happens when we select more than one element of the list <code>a</code>. The output is a list.</p>
+<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb450-1"><a href="3.3-selecting-data-with.html#cb450-1" aria-hidden="true" tabindex="-1"></a>a[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span></code></pre></div>
+<pre><code>## $e1
+##  [1] 0.48455613 0.46315243 0.42924154 0.26881092 0.13951478 0.03108833
+##  [7] 0.37119592 0.28906588 0.14279648 0.64557472
+## 
+## $e2
+## [1] &quot;zebra&quot;</code></pre>
+<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="3.3-selecting-data-with.html#cb452-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(a[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])</span></code></pre></div>
+<pre><code>## [1] &quot;list&quot;</code></pre>
+<p>The reason for this syntax is that the single brackets notation allows you to extract multiple elements of the list at once to quickly make a new list.</p>
+<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb454-1"><a href="3.3-selecting-data-with.html#cb454-1" aria-hidden="true" tabindex="-1"></a>a2 <span class="ot">&lt;-</span> a[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span>
+<span id="cb454-2"><a href="3.3-selecting-data-with.html#cb454-2" aria-hidden="true" tabindex="-1"></a>a2</span></code></pre></div>
+<pre><code>## $e1
+##  [1] 0.48455613 0.46315243 0.42924154 0.26881092 0.13951478 0.03108833
+##  [7] 0.37119592 0.28906588 0.14279648 0.64557472
+## 
+## $e2
+## [1] &quot;zebra&quot;</code></pre>
+</div>
+</div>
+<div id="extracting-and-selecting-data-with-logical-tests" class="section level3" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> Extracting and selecting data with logical tests</h3>
+<p>Selecting data from a data frame is one of the most common data manipulations. R offers several ways to accomplish this. One of the most fundamental is the function <code>which()</code>, returns the indices in a vector where a logical condition is <code>TRUE</code>. This means that you can select any piece of a dataset that can be identified logically. Consider the example below, which extracts the rows of the <code>iris</code> dataset where the variable <code>Species</code> matches the character string <code>"setosa"</code>.</p>
+<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb456-1"><a href="3.3-selecting-data-with.html#cb456-1" aria-hidden="true" tabindex="-1"></a>iris[<span class="fu">which</span>(iris<span class="sc">$</span>Species <span class="sc">==</span> <span class="st">&quot;setosa&quot;</span>),]</span></code></pre></div>
+<pre><code>##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1           5.1         3.5          1.4         0.2  setosa
+## 2           4.9         3.0          1.4         0.2  setosa
+## 3           4.7         3.2          1.3         0.2  setosa
+## 4           4.6         3.1          1.5         0.2  setosa
+## 5           5.0         3.6          1.4         0.2  setosa
+## 6           5.4         3.9          1.7         0.4  setosa
+## 7           4.6         3.4          1.4         0.3  setosa
+## 8           5.0         3.4          1.5         0.2  setosa
+## 9           4.4         2.9          1.4         0.2  setosa
+## 10          4.9         3.1          1.5         0.1  setosa
+## 11          5.4         3.7          1.5         0.2  setosa
+## 12          4.8         3.4          1.6         0.2  setosa
+## 13          4.8         3.0          1.4         0.1  setosa
+## 14          4.3         3.0          1.1         0.1  setosa
+## 15          5.8         4.0          1.2         0.2  setosa
+## 16          5.7         4.4          1.5         0.4  setosa
+## 17          5.4         3.9          1.3         0.4  setosa
+## 18          5.1         3.5          1.4         0.3  setosa
+## 19          5.7         3.8          1.7         0.3  setosa
+## 20          5.1         3.8          1.5         0.3  setosa
+## 21          5.4         3.4          1.7         0.2  setosa
+## 22          5.1         3.7          1.5         0.4  setosa
+## 23          4.6         3.6          1.0         0.2  setosa
+## 24          5.1         3.3          1.7         0.5  setosa
+## 25          4.8         3.4          1.9         0.2  setosa
+## 26          5.0         3.0          1.6         0.2  setosa
+## 27          5.0         3.4          1.6         0.4  setosa
+## 28          5.2         3.5          1.5         0.2  setosa
+## 29          5.2         3.4          1.4         0.2  setosa
+## 30          4.7         3.2          1.6         0.2  setosa
+## 31          4.8         3.1          1.6         0.2  setosa
+## 32          5.4         3.4          1.5         0.4  setosa
+## 33          5.2         4.1          1.5         0.1  setosa
+## 34          5.5         4.2          1.4         0.2  setosa
+## 35          4.9         3.1          1.5         0.2  setosa
+## 36          5.0         3.2          1.2         0.2  setosa
+## 37          5.5         3.5          1.3         0.2  setosa
+## 38          4.9         3.6          1.4         0.1  setosa
+## 39          4.4         3.0          1.3         0.2  setosa
+## 40          5.1         3.4          1.5         0.2  setosa
+## 41          5.0         3.5          1.3         0.3  setosa
+## 42          4.5         2.3          1.3         0.3  setosa
+## 43          4.4         3.2          1.3         0.2  setosa
+## 44          5.0         3.5          1.6         0.6  setosa
+## 45          5.1         3.8          1.9         0.4  setosa
+## 46          4.8         3.0          1.4         0.3  setosa
+## 47          5.1         3.8          1.6         0.2  setosa
+## 48          4.6         3.2          1.4         0.2  setosa
+## 49          5.3         3.7          1.5         0.2  setosa
+## 50          5.0         3.3          1.4         0.2  setosa</code></pre>
+<p>In most situations, <code>which()</code> can be omitted because it is implicit in the command. However, not using it can sometimes produce strange results. Because of this, I always use <code>which()</code> in my code. Including <code>which()</code> can also make your code a little clearer to someone who is not familiar with R. For example, the two commands below are exactly equivalent:</p>
+<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb458-1"><a href="3.3-selecting-data-with.html#cb458-1" aria-hidden="true" tabindex="-1"></a><span class="co"># not run:</span></span>
+<span id="cb458-2"><a href="3.3-selecting-data-with.html#cb458-2" aria-hidden="true" tabindex="-1"></a>iris[<span class="fu">which</span>(iris<span class="sc">$</span>Species <span class="sc">==</span> <span class="st">&quot;setosa&quot;</span>),]</span>
+<span id="cb458-3"><a href="3.3-selecting-data-with.html#cb458-3" aria-hidden="true" tabindex="-1"></a>iris[iris<span class="sc">$</span>Species <span class="sc">==</span> <span class="st">&quot;setosa&quot;</span>,]</span></code></pre></div>
+<p>What <code>which()</code> is really doing in the commands above is returning a vector of numbers. That vector is then used by the containing brackets <code>[]</code> to determine which pieces of the data frame to pull. The numbers returned by <code>which()</code> are the indices at which a logical vector is TRUE. Compare the results of the two commands below, which were used in the commands above to select from <code>iris</code>:</p>
+<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="3.3-selecting-data-with.html#cb459-1" aria-hidden="true" tabindex="-1"></a><span class="co"># logical vector:</span></span>
+<span id="cb459-2"><a href="3.3-selecting-data-with.html#cb459-2" aria-hidden="true" tabindex="-1"></a>iris<span class="sc">$</span>Species <span class="sc">==</span> <span class="st">&quot;setosa&quot;</span></span></code></pre></div>
+<pre><code>##   [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+##  [13]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+##  [25]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+##  [37]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+##  [49]  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [61] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [73] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [85] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [97] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [109] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [121] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [133] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [145] FALSE FALSE FALSE FALSE FALSE FALSE</code></pre>
+<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="3.3-selecting-data-with.html#cb461-1" aria-hidden="true" tabindex="-1"></a><span class="co"># which identifies which elements of vector are TRUE:</span></span>
+<span id="cb461-2"><a href="3.3-selecting-data-with.html#cb461-2" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(iris<span class="sc">$</span>Species <span class="sc">==</span> <span class="st">&quot;setosa&quot;</span>)</span></code></pre></div>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+## [26] 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50</code></pre>
+<p>Multiple conditions can be used to select data using the <code>&amp;</code> (and) and <code>|</code> (or) operators.</p>
+<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="3.3-selecting-data-with.html#cb463-1" aria-hidden="true" tabindex="-1"></a><span class="co"># not run (long output):</span></span>
+<span id="cb463-2"><a href="3.3-selecting-data-with.html#cb463-2" aria-hidden="true" tabindex="-1"></a>iris[<span class="fu">which</span>(iris<span class="sc">$</span>Species <span class="sc">==</span> <span class="st">&quot;versicolor&quot;</span> <span class="sc">&amp;</span> iris<span class="sc">$</span>Petal.Length <span class="sc">&lt;=</span> <span class="dv">4</span>),]</span>
+<span id="cb463-3"><a href="3.3-selecting-data-with.html#cb463-3" aria-hidden="true" tabindex="-1"></a>iris[<span class="fu">which</span>(iris<span class="sc">$</span>Species <span class="sc">==</span> <span class="st">&quot;versicolor&quot;</span> <span class="sc">|</span> iris<span class="sc">$</span>Petal.Length <span class="sc">&lt;=</span> <span class="fl">1.6</span>),]</span></code></pre></div>
+<p>The examples above could also be accomplished in several lines; in fact, splitting the selection criteria up can make for cleaner code. The commands below also show how splitting the selection commands up can help you abide by the “single point of definition” principle.</p>
+<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb464-1"><a href="3.3-selecting-data-with.html#cb464-1" aria-hidden="true" tabindex="-1"></a><span class="co"># not run (long output):</span></span>
+<span id="cb464-2"><a href="3.3-selecting-data-with.html#cb464-2" aria-hidden="true" tabindex="-1"></a>flag1 <span class="ot">&lt;-</span> iris<span class="sc">$</span>Species <span class="sc">==</span> <span class="st">&quot;versicolor&quot;</span></span>
+<span id="cb464-3"><a href="3.3-selecting-data-with.html#cb464-3" aria-hidden="true" tabindex="-1"></a>flag2 <span class="ot">&lt;-</span> iris<span class="sc">$</span>Petal.Length <span class="sc">&lt;=</span> <span class="dv">4</span></span>
+<span id="cb464-4"><a href="3.3-selecting-data-with.html#cb464-4" aria-hidden="true" tabindex="-1"></a>iris[flag1 <span class="sc">&amp;</span> flag2,]</span>
+<span id="cb464-5"><a href="3.3-selecting-data-with.html#cb464-5" aria-hidden="true" tabindex="-1"></a>iris[flag1 <span class="sc">|</span> flag2,]</span></code></pre></div>
+<p>More than 2 conditions can be combined just as easily:</p>
+<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb465-1"><a href="3.3-selecting-data-with.html#cb465-1" aria-hidden="true" tabindex="-1"></a>flag1 <span class="ot">&lt;-</span> iris<span class="sc">$</span>Species <span class="sc">==</span> <span class="st">&quot;versicolor&quot;</span></span>
+<span id="cb465-2"><a href="3.3-selecting-data-with.html#cb465-2" aria-hidden="true" tabindex="-1"></a>flag2 <span class="ot">&lt;-</span> iris<span class="sc">$</span>Petal.Length <span class="sc">&lt;=</span> <span class="dv">4</span></span>
+<span id="cb465-3"><a href="3.3-selecting-data-with.html#cb465-3" aria-hidden="true" tabindex="-1"></a>flag3 <span class="ot">&lt;-</span> iris<span class="sc">$</span>Petal.Length <span class="sc">&gt;</span> <span class="fl">0.5</span></span>
+<span id="cb465-4"><a href="3.3-selecting-data-with.html#cb465-4" aria-hidden="true" tabindex="-1"></a>iris[flag1 <span class="sc">&amp;</span> flag2 <span class="sc">&amp;</span> flag3,]</span></code></pre></div>
+<pre><code>##    Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
+## 54          5.5         2.3          4.0         1.3 versicolor
+## 58          4.9         2.4          3.3         1.0 versicolor
+## 60          5.2         2.7          3.9         1.4 versicolor
+## 61          5.0         2.0          3.5         1.0 versicolor
+## 63          6.0         2.2          4.0         1.0 versicolor
+## 65          5.6         2.9          3.6         1.3 versicolor
+## 70          5.6         2.5          3.9         1.1 versicolor
+## 72          6.1         2.8          4.0         1.3 versicolor
+## 80          5.7         2.6          3.5         1.0 versicolor
+## 81          5.5         2.4          3.8         1.1 versicolor
+## 82          5.5         2.4          3.7         1.0 versicolor
+## 83          5.8         2.7          3.9         1.2 versicolor
+## 90          5.5         2.5          4.0         1.3 versicolor
+## 93          5.8         2.6          4.0         1.2 versicolor
+## 94          5.0         2.3          3.3         1.0 versicolor
+## 99          5.1         2.5          3.0         1.1 versicolor</code></pre>
+<p>Selections can return 0 matches. This often manifests as a data frame or matrix with 0 rows.</p>
+<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb467-1"><a href="3.3-selecting-data-with.html#cb467-1" aria-hidden="true" tabindex="-1"></a>flag1 <span class="ot">&lt;-</span> iris<span class="sc">$</span>Species <span class="sc">==</span> <span class="st">&quot;versicolor&quot;</span></span>
+<span id="cb467-2"><a href="3.3-selecting-data-with.html#cb467-2" aria-hidden="true" tabindex="-1"></a>flag2 <span class="ot">&lt;-</span> iris<span class="sc">$</span>Petal.Length <span class="sc">&lt;=</span> <span class="dv">1</span></span>
+<span id="cb467-3"><a href="3.3-selecting-data-with.html#cb467-3" aria-hidden="true" tabindex="-1"></a>iris[flag1 <span class="sc">&amp;</span> flag2,]</span></code></pre></div>
+<pre><code>## [1] Sepal.Length Sepal.Width  Petal.Length Petal.Width  Species     
+## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
+<p>A related function is the binary operator<a href="literature-cited.html#fn27" class="footnote-ref" id="fnref27"><sup>27</sup></a> <code>%in%</code>. For a command like <code>A &amp;in% B</code>, R returns a vector of logical values for each element in A, indicating whether those values occur in B.</p>
+<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb469-1"><a href="3.3-selecting-data-with.html#cb469-1" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>, <span class="st">&quot;e&quot;</span>)</span>
+<span id="cb469-2"><a href="3.3-selecting-data-with.html#cb469-2" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>, <span class="st">&quot;e&quot;</span>, <span class="st">&quot;f&quot;</span>)</span>
+<span id="cb469-3"><a href="3.3-selecting-data-with.html#cb469-3" aria-hidden="true" tabindex="-1"></a>A <span class="sc">%in%</span> B</span></code></pre></div>
+<pre><code>## [1] FALSE FALSE  TRUE  TRUE  TRUE</code></pre>
+<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb471-1"><a href="3.3-selecting-data-with.html#cb471-1" aria-hidden="true" tabindex="-1"></a>B <span class="sc">%in%</span> A</span></code></pre></div>
+<pre><code>## [1]  TRUE  TRUE  TRUE FALSE</code></pre>
+<p>One example of how this might be useful is if you want to select observations from a dataset containing one of several values. The example below illustrates this with <code>iris</code>:</p>
+<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb473-1"><a href="3.3-selecting-data-with.html#cb473-1" aria-hidden="true" tabindex="-1"></a><span class="co"># not run (long output):</span></span>
+<span id="cb473-2"><a href="3.3-selecting-data-with.html#cb473-2" aria-hidden="true" tabindex="-1"></a>iris[iris<span class="sc">$</span>Species <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;setosa&quot;</span>, <span class="st">&quot;versicolor&quot;</span>),]</span></code></pre></div>
+<p>We’ll go over some more complicated selection methods in a future section, but what you’ve seen so far can be very powerful.</p>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="8.5-mod-08-ord.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="9.1-how-to-use-this-guide.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="3.2-making-values-in-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="3.4-managing-dates-and-characters.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

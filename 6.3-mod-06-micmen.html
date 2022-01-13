@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6.3 Michaelis-Menten curves | Applied Biological Data Analysis</title>
+  <meta name="description" content="Helping biologists to become more informed users of R and statistical methods." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="6.3 Michaelis-Menten curves | Applied Biological Data Analysis" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://greenquanteco.github.io/index.html" />
+  <meta property="og:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
+  <meta property="og:description" content="Helping biologists to become more informed users of R and statistical methods." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="6.3 Michaelis-Menten curves | Applied Biological Data Analysis" />
+  
+  <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
+  <meta name="twitter:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
+
+<meta name="author" content="Nick Green, Kennesaw State University" />
+
+
+<meta name="date" content="2022-01-12" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="6.2-mod-06-intro.html"/>
+<link rel="next" href="6.4-mod-06-grow.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="license-and-permissions.html"><a href="license-and-permissions.html"><i class="fa fa-check"></i>License and permissions</a></li>
+<li class="chapter" data-level="" data-path="course-description.html"><a href="course-description.html"><i class="fa fa-check"></i>Course description</a></li>
+<li class="chapter" data-level="" data-path="course-objectives.html"><a href="course-objectives.html"><i class="fa fa-check"></i>Course objectives</a></li>
+<li class="chapter" data-level="" data-path="course-requirements.html"><a href="course-requirements.html"><i class="fa fa-check"></i>Course requirements</a></li>
+<li class="chapter" data-level="" data-path="recommended-reading.html"><a href="recommended-reading.html"><i class="fa fa-check"></i>Recommended reading</a></li>
+<li class="chapter" data-level="" data-path="course-organization.html"><a href="course-organization.html"><i class="fa fa-check"></i>Course organization</a></li>
+<li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the author</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="1-mod-01.html"><a href="1-mod-01.html"><i class="fa fa-check"></i><b>1</b> Statistics in modern biology</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="1.1-overview.html"><a href="1.1-overview.html"><i class="fa fa-check"></i><b>1.1</b> Overview</a></li>
+<li class="chapter" data-level="1.2" data-path="1.2-statistics-in-modern-biology.html"><a href="1.2-statistics-in-modern-biology.html"><i class="fa fa-check"></i><b>1.2</b> Statistics in modern biology</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="1.2-statistics-in-modern-biology.html"><a href="1.2-statistics-in-modern-biology.html#the-scientific-method"><i class="fa fa-check"></i><b>1.2.1</b> The scientific method</a></li>
+<li class="chapter" data-level="1.2.2" data-path="1.2-statistics-in-modern-biology.html"><a href="1.2-statistics-in-modern-biology.html#example-data-analysis"><i class="fa fa-check"></i><b>1.2.2</b> Example data analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="1.3-misuses-of-statistics.html"><a href="1.3-misuses-of-statistics.html"><i class="fa fa-check"></i><b>1.3</b> Misuses of statistics</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="1.3-misuses-of-statistics.html"><a href="1.3-misuses-of-statistics.html#proving-the-trivial-and-meaningless-hypotheses"><i class="fa fa-check"></i><b>1.3.1</b> “Proving” the trivial and meaningless hypotheses</a></li>
+<li class="chapter" data-level="1.3.2" data-path="1.3-misuses-of-statistics.html"><a href="1.3-misuses-of-statistics.html#inappropriate-methods"><i class="fa fa-check"></i><b>1.3.2</b> Inappropriate methods</a></li>
+<li class="chapter" data-level="1.3.3" data-path="1.3-misuses-of-statistics.html"><a href="1.3-misuses-of-statistics.html#p-hacking-and-data-dredging"><i class="fa fa-check"></i><b>1.3.3</b> <em>P</em>-hacking and data dredging</a></li>
+<li class="chapter" data-level="1.3.4" data-path="1.3-misuses-of-statistics.html"><a href="1.3-misuses-of-statistics.html#inadequate-sample-sizes-and-pseudoreplication"><i class="fa fa-check"></i><b>1.3.4</b> Inadequate sample sizes and pseudoreplication</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><i class="fa fa-check"></i><b>1.4</b> <em>P</em>-values and null hypothesis significance testing (NHST)</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#definition"><i class="fa fa-check"></i><b>1.4.1</b> Definition</a></li>
+<li class="chapter" data-level="1.4.2" data-path="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#history-and-status-of-p-values"><i class="fa fa-check"></i><b>1.4.2</b> History and status of <em>P</em>-values</a></li>
+<li class="chapter" data-level="1.4.3" data-path="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#where-p-values-come-from"><i class="fa fa-check"></i><b>1.4.3</b> Where <em>P</em>-values come from</a></li>
+<li class="chapter" data-level="1.4.4" data-path="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#what-p-values-mean-and-do-not-mean"><i class="fa fa-check"></i><b>1.4.4</b> What <em>P</em>-values mean and do not mean</a></li>
+<li class="chapter" data-level="1.4.5" data-path="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#do-you-need-a-p-value"><i class="fa fa-check"></i><b>1.4.5</b> Do you need a <em>P</em>-value?</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="1.5-alternatives-to-nhst.html"><a href="1.5-alternatives-to-nhst.html"><i class="fa fa-check"></i><b>1.5</b> Alternatives to NHST</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="1.5-alternatives-to-nhst.html"><a href="1.5-alternatives-to-nhst.html#bayesian-inference"><i class="fa fa-check"></i><b>1.5.1</b> Bayesian inference</a></li>
+<li class="chapter" data-level="1.5.2" data-path="1.5-alternatives-to-nhst.html"><a href="1.5-alternatives-to-nhst.html#information-theoretic-methods"><i class="fa fa-check"></i><b>1.5.2</b> Information-theoretic methods</a></li>
+<li class="chapter" data-level="1.5.3" data-path="1.5-alternatives-to-nhst.html"><a href="1.5-alternatives-to-nhst.html#machine-learning"><i class="fa fa-check"></i><b>1.5.3</b> Machine learning</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="2-mod-02.html"><a href="2-mod-02.html"><i class="fa fa-check"></i><b>2</b> Introduction to R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="2.1-getting-started-with-r.html"><a href="2.1-getting-started-with-r.html"><i class="fa fa-check"></i><b>2.1</b> Getting started with R</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="2.1-getting-started-with-r.html"><a href="2.1-getting-started-with-r.html#what-is-r"><i class="fa fa-check"></i><b>2.1.1</b> What is R?</a></li>
+<li class="chapter" data-level="2.1.2" data-path="2.1-getting-started-with-r.html"><a href="2.1-getting-started-with-r.html#advantages-of-r"><i class="fa fa-check"></i><b>2.1.2</b> Advantages of R</a></li>
+<li class="chapter" data-level="2.1.3" data-path="2.1-getting-started-with-r.html"><a href="2.1-getting-started-with-r.html#disadvantages-of-r"><i class="fa fa-check"></i><b>2.1.3</b> Disadvantages of R</a></li>
+<li class="chapter" data-level="2.1.4" data-path="2.1-getting-started-with-r.html"><a href="2.1-getting-started-with-r.html#base-r-and-vs.-tidyverse"><i class="fa fa-check"></i><b>2.1.4</b> Base R and (vs.?) <code>tidyverse</code></a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="2.2-download-and-install-r-and-rstudio.html"><a href="2.2-download-and-install-r-and-rstudio.html"><i class="fa fa-check"></i><b>2.2</b> Download and install R (and RStudio)</a></li>
+<li class="chapter" data-level="2.3" data-path="2.3-using-r.html"><a href="2.3-using-r.html"><i class="fa fa-check"></i><b>2.3</b> Using R</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="2.3-using-r.html"><a href="2.3-using-r.html#using-the-base-r-gui"><i class="fa fa-check"></i><b>2.3.1</b> Using the base R GUI</a></li>
+<li class="chapter" data-level="2.3.2" data-path="2.3-using-r.html"><a href="2.3-using-r.html#using-r-in-rstudio"><i class="fa fa-check"></i><b>2.3.2</b> Using R in RStudio</a></li>
+<li class="chapter" data-level="2.3.3" data-path="2.3-using-r.html"><a href="2.3-using-r.html#using-r-with-other-programs"><i class="fa fa-check"></i><b>2.3.3</b> Using R with other programs</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html"><i class="fa fa-check"></i><b>2.4</b> A first R session</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#import-data"><i class="fa fa-check"></i><b>2.4.1</b> Import data</a></li>
+<li class="chapter" data-level="2.4.2" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#explore-and-visualize-data"><i class="fa fa-check"></i><b>2.4.2</b> Explore and visualize data</a></li>
+<li class="chapter" data-level="2.4.3" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#transform-data"><i class="fa fa-check"></i><b>2.4.3</b> Transform data</a></li>
+<li class="chapter" data-level="2.4.4" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#analyze-data"><i class="fa fa-check"></i><b>2.4.4</b> Analyze data</a></li>
+<li class="chapter" data-level="2.4.5" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#write-out-results"><i class="fa fa-check"></i><b>2.4.5</b> Write out results</a></li>
+<li class="chapter" data-level="2.4.6" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#save-your-work"><i class="fa fa-check"></i><b>2.4.6</b> Save your work?</a></li>
+<li class="chapter" data-level="2.4.7" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#whats-next"><i class="fa fa-check"></i><b>2.4.7</b> What’s next?</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="2.5-write-and-execute-commands-in-the-r-console.html"><a href="2.5-write-and-execute-commands-in-the-r-console.html"><i class="fa fa-check"></i><b>2.5</b> Write and execute commands in the R console</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="2.5-write-and-execute-commands-in-the-r-console.html"><a href="2.5-write-and-execute-commands-in-the-r-console.html#r-commandsbasics"><i class="fa fa-check"></i><b>2.5.1</b> R commands–basics</a></li>
+<li class="chapter" data-level="2.5.2" data-path="2.5-write-and-execute-commands-in-the-r-console.html"><a href="2.5-write-and-execute-commands-in-the-r-console.html#elements-of-r-code"><i class="fa fa-check"></i><b>2.5.2</b> Elements of R code</a></li>
+<li class="chapter" data-level="2.5.3" data-path="2.5-write-and-execute-commands-in-the-r-console.html"><a href="2.5-write-and-execute-commands-in-the-r-console.html#the-r-workspace"><i class="fa fa-check"></i><b>2.5.3</b> The R workspace</a></li>
+<li class="chapter" data-level="2.5.4" data-path="2.5-write-and-execute-commands-in-the-r-console.html"><a href="2.5-write-and-execute-commands-in-the-r-console.html#r-code-basics-assignment-and-operators"><i class="fa fa-check"></i><b>2.5.4</b> R code basics: assignment and operators</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="2.6-mod-02-struct.html"><a href="2.6-mod-02-struct.html"><i class="fa fa-check"></i><b>2.6</b> Basic R data structures</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="2.6-mod-02-struct.html"><a href="2.6-mod-02-struct.html#vectors"><i class="fa fa-check"></i><b>2.6.1</b> Vectors</a></li>
+<li class="chapter" data-level="2.6.2" data-path="2.6-mod-02-struct.html"><a href="2.6-mod-02-struct.html#data-frames"><i class="fa fa-check"></i><b>2.6.2</b> Data frames</a></li>
+<li class="chapter" data-level="2.6.3" data-path="2.6-mod-02-struct.html"><a href="2.6-mod-02-struct.html#matrices-and-arrays"><i class="fa fa-check"></i><b>2.6.3</b> Matrices and arrays</a></li>
+<li class="chapter" data-level="2.6.4" data-path="2.6-mod-02-struct.html"><a href="2.6-mod-02-struct.html#lists"><i class="fa fa-check"></i><b>2.6.4</b> Lists</a></li>
+<li class="chapter" data-level="2.6.5" data-path="2.6-mod-02-struct.html"><a href="2.6-mod-02-struct.html#s4-objects"><i class="fa fa-check"></i><b>2.6.5</b> S4 objects</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="2.7-r-data-types.html"><a href="2.7-r-data-types.html"><i class="fa fa-check"></i><b>2.7</b> R data types</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="2.7-r-data-types.html"><a href="2.7-r-data-types.html#character-type"><i class="fa fa-check"></i><b>2.7.1</b> Character type</a></li>
+<li class="chapter" data-level="2.7.2" data-path="2.7-r-data-types.html"><a href="2.7-r-data-types.html#numeric-type"><i class="fa fa-check"></i><b>2.7.2</b> Numeric type</a></li>
+<li class="chapter" data-level="2.7.3" data-path="2.7-r-data-types.html"><a href="2.7-r-data-types.html#integer-type"><i class="fa fa-check"></i><b>2.7.3</b> Integer type</a></li>
+<li class="chapter" data-level="2.7.4" data-path="2.7-r-data-types.html"><a href="2.7-r-data-types.html#logical-type"><i class="fa fa-check"></i><b>2.7.4</b> Logical type</a></li>
+<li class="chapter" data-level="2.7.5" data-path="2.7-r-data-types.html"><a href="2.7-r-data-types.html#special-values"><i class="fa fa-check"></i><b>2.7.5</b> Special values</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="2.8-manage-r-code-as-scripts-.r-files.html"><a href="2.8-manage-r-code-as-scripts-.r-files.html"><i class="fa fa-check"></i><b>2.8</b> Manage R code as scripts (.r files)</a></li>
+<li class="chapter" data-level="2.9" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html"><i class="fa fa-check"></i><b>2.9</b> Manage and use R packages</a>
+<ul>
+<li class="chapter" data-level="2.9.1" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#your-r-library"><i class="fa fa-check"></i><b>2.9.1</b> Your R library</a></li>
+<li class="chapter" data-level="2.9.2" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#installing-packages-using-the-r-gui"><i class="fa fa-check"></i><b>2.9.2</b> Installing packages using the R GUI</a></li>
+<li class="chapter" data-level="2.9.3" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#installing-packages-in-rstudio"><i class="fa fa-check"></i><b>2.9.3</b> Installing packages in RStudio</a></li>
+<li class="chapter" data-level="2.9.4" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#installing-packages-using-the-r-console"><i class="fa fa-check"></i><b>2.9.4</b> Installing packages using the R console</a></li>
+<li class="chapter" data-level="2.9.5" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#working-with-packages-in-r"><i class="fa fa-check"></i><b>2.9.5</b> Working with packages in R</a></li>
+<li class="chapter" data-level="2.9.6" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#package-dependencies"><i class="fa fa-check"></i><b>2.9.6</b> Package dependencies</a></li>
+<li class="chapter" data-level="2.9.7" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#citing-packages"><i class="fa fa-check"></i><b>2.9.7</b> Citing packages</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html"><i class="fa fa-check"></i><b>2.10</b> R documentation</a>
+<ul>
+<li class="chapter" data-level="2.10.1" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html#documentation-help-files"><i class="fa fa-check"></i><b>2.10.1</b> Documentation (help) files</a></li>
+<li class="chapter" data-level="2.10.2" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html#r-vignettes"><i class="fa fa-check"></i><b>2.10.2</b> R vignettes</a></li>
+<li class="chapter" data-level="2.10.3" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html#official-r-project-resources"><i class="fa fa-check"></i><b>2.10.3</b> Official R Project resources</a></li>
+<li class="chapter" data-level="2.10.4" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html#unofficial-online-resources"><i class="fa fa-check"></i><b>2.10.4</b> Unofficial online resources</a></li>
+<li class="chapter" data-level="2.10.5" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html#r-books"><i class="fa fa-check"></i><b>2.10.5</b> R books</a></li>
+<li class="chapter" data-level="2.10.6" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html#two-reminders"><i class="fa fa-check"></i><b>2.10.6</b> Two reminders</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="3-mod-03.html"><a href="3-mod-03.html"><i class="fa fa-check"></i><b>3</b> Data manipulation with R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="3.1-mod-03-inout.html"><a href="3.1-mod-03-inout.html"><i class="fa fa-check"></i><b>3.1</b> Data import and export</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="3.1-mod-03-inout.html"><a href="3.1-mod-03-inout.html#importing-data-preliminaries"><i class="fa fa-check"></i><b>3.1.1</b> Importing data: preliminaries</a></li>
+<li class="chapter" data-level="3.1.2" data-path="3.1-mod-03-inout.html"><a href="3.1-mod-03-inout.html#importing-data-from-text-files-with-read.csv-and-read.table"><i class="fa fa-check"></i><b>3.1.2</b> Importing data from text files with <code>read.csv()</code> and <code>read.table()</code></a></li>
+<li class="chapter" data-level="3.1.3" data-path="3.1-mod-03-inout.html"><a href="3.1-mod-03-inout.html#importing-data-from-saved-workspaces"><i class="fa fa-check"></i><b>3.1.3</b> Importing data from saved workspaces</a></li>
+<li class="chapter" data-level="3.1.4" data-path="3.1-mod-03-inout.html"><a href="3.1-mod-03-inout.html#importing-data-special-cases"><i class="fa fa-check"></i><b>3.1.4</b> Importing data: special cases:</a></li>
+<li class="chapter" data-level="3.1.5" data-path="3.1-mod-03-inout.html"><a href="3.1-mod-03-inout.html#export-data-from-r"><i class="fa fa-check"></i><b>3.1.5</b> Export data from R</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="3.2-making-values-in-r.html"><a href="3.2-making-values-in-r.html"><i class="fa fa-check"></i><b>3.2</b> Making values in R</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="3.2-making-values-in-r.html"><a href="3.2-making-values-in-r.html#producing-arbitrary-values-with-c"><i class="fa fa-check"></i><b>3.2.1</b> Producing arbitrary values with <code>c()</code></a></li>
+<li class="chapter" data-level="3.2.2" data-path="3.2-making-values-in-r.html"><a href="3.2-making-values-in-r.html#generating-regular-values"><i class="fa fa-check"></i><b>3.2.2</b> Generating regular values</a></li>
+<li class="chapter" data-level="3.2.3" data-path="3.2-making-values-in-r.html"><a href="3.2-making-values-in-r.html#generating-random-values"><i class="fa fa-check"></i><b>3.2.3</b> Generating random values</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="3.3-selecting-data-with.html"><a href="3.3-selecting-data-with.html"><i class="fa fa-check"></i><b>3.3</b> Selecting data with <code>[]</code></a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="3.3-selecting-data-with.html"><a href="3.3-selecting-data-with.html#mod-03-brackets"><i class="fa fa-check"></i><b>3.3.1</b> Basics of brackets</a></li>
+<li class="chapter" data-level="3.3.2" data-path="3.3-selecting-data-with.html"><a href="3.3-selecting-data-with.html#extracting-and-selecting-data-with-logical-tests"><i class="fa fa-check"></i><b>3.3.2</b> Extracting and selecting data with logical tests</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="3.4-managing-dates-and-characters.html"><a href="3.4-managing-dates-and-characters.html"><i class="fa fa-check"></i><b>3.4</b> Managing dates and characters</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="3.4-managing-dates-and-characters.html"><a href="3.4-managing-dates-and-characters.html#temporal-data-and-dates"><i class="fa fa-check"></i><b>3.4.1</b> Temporal data and dates</a></li>
+<li class="chapter" data-level="3.4.2" data-path="3.4-managing-dates-and-characters.html"><a href="3.4-managing-dates-and-characters.html#character-data-text"><i class="fa fa-check"></i><b>3.4.2</b> Character data (text)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="3.5-mod-03-dataframe.html"><a href="3.5-mod-03-dataframe.html"><i class="fa fa-check"></i><b>3.5</b> Data frame management</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="3.5-mod-03-dataframe.html"><a href="3.5-mod-03-dataframe.html#data-frame-structure"><i class="fa fa-check"></i><b>3.5.1</b> Data frame structure</a></li>
+<li class="chapter" data-level="3.5.2" data-path="3.5-mod-03-dataframe.html"><a href="3.5-mod-03-dataframe.html#common-data-frame-operations"><i class="fa fa-check"></i><b>3.5.2</b> Common data frame operations</a></li>
+<li class="chapter" data-level="3.5.3" data-path="3.5-mod-03-dataframe.html"><a href="3.5-mod-03-dataframe.html#other-data-frame-operations"><i class="fa fa-check"></i><b>3.5.3</b> Other data frame operations</a></li>
+<li class="chapter" data-level="3.5.4" data-path="3.5-mod-03-dataframe.html"><a href="3.5-mod-03-dataframe.html#mod-03-reshape"><i class="fa fa-check"></i><b>3.5.4</b> Reshaping data frames</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="4-mod-04.html"><a href="4-mod-04.html"><i class="fa fa-check"></i><b>4</b> Exploratory data analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="4.1-descriptive-and-summary-statistics.html"><a href="4.1-descriptive-and-summary-statistics.html"><i class="fa fa-check"></i><b>4.1</b> Descriptive and summary statistics</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="4.1-descriptive-and-summary-statistics.html"><a href="4.1-descriptive-and-summary-statistics.html#basic-summary-statistics"><i class="fa fa-check"></i><b>4.1.1</b> Basic summary statistics</a></li>
+<li class="chapter" data-level="4.1.2" data-path="4.1-descriptive-and-summary-statistics.html"><a href="4.1-descriptive-and-summary-statistics.html#summarizing-data-with-the-apply-family"><i class="fa fa-check"></i><b>4.1.2</b> Summarizing data with the <code>apply()</code> family</a></li>
+<li class="chapter" data-level="4.1.3" data-path="4.1-descriptive-and-summary-statistics.html"><a href="4.1-descriptive-and-summary-statistics.html#mod-04-tabagg"><i class="fa fa-check"></i><b>4.1.3</b> Tabulation and aggregation</a></li>
+<li class="chapter" data-level="4.1.4" data-path="4.1-descriptive-and-summary-statistics.html"><a href="4.1-descriptive-and-summary-statistics.html#aggregation-aka-pivot-tables"><i class="fa fa-check"></i><b>4.1.4</b> Aggregation (aka: pivot tables)</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html"><i class="fa fa-check"></i><b>4.2</b> Visualizing data distributions</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html#boxplots-aka-box-and-whisker-plots"><i class="fa fa-check"></i><b>4.2.1</b> Boxplots (aka: box-and-whisker plots)</a></li>
+<li class="chapter" data-level="4.2.2" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html#histograms"><i class="fa fa-check"></i><b>4.2.2</b> Histograms</a></li>
+<li class="chapter" data-level="4.2.3" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html#kernel-density-plots"><i class="fa fa-check"></i><b>4.2.3</b> Kernel density plots</a></li>
+<li class="chapter" data-level="4.2.4" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html#empirical-cumulative-distribution-plots-ecdf"><i class="fa fa-check"></i><b>4.2.4</b> Empirical cumulative distribution plots (ECDF)</a></li>
+<li class="chapter" data-level="4.2.5" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html#quantile-quantile-qq-plots"><i class="fa fa-check"></i><b>4.2.5</b> Quantile-quantile (QQ) plots</a></li>
+<li class="chapter" data-level="4.2.6" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html#how-should-i-plot-my-data"><i class="fa fa-check"></i><b>4.2.6</b> How should I plot my data?</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="4.3-mod-04-dists1.html"><a href="4.3-mod-04-dists1.html"><i class="fa fa-check"></i><b>4.3</b> Statistical distributions</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="4.3-mod-04-dists1.html"><a href="4.3-mod-04-dists1.html#probability-distributions"><i class="fa fa-check"></i><b>4.3.1</b> Probability distributions</a></li>
+<li class="chapter" data-level="4.3.2" data-path="4.3-mod-04-dists1.html"><a href="4.3-mod-04-dists1.html#probability-distributions-in-r"><i class="fa fa-check"></i><b>4.3.2</b> Probability distributions in R</a></li>
+<li class="chapter" data-level="4.3.3" data-path="4.3-mod-04-dists1.html"><a href="4.3-mod-04-dists1.html#discrete-distributions"><i class="fa fa-check"></i><b>4.3.3</b> Discrete distributions</a></li>
+<li class="chapter" data-level="4.3.4" data-path="4.3-mod-04-dists1.html"><a href="4.3-mod-04-dists1.html#continuous-distributions"><i class="fa fa-check"></i><b>4.3.4</b> Continuous distributions</a></li>
+<li class="chapter" data-level="4.3.5" data-path="4.3-mod-04-dists1.html"><a href="4.3-mod-04-dists1.html#distributions-summary"><i class="fa fa-check"></i><b>4.3.5</b> Distributions summary</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="4.4-mod-04-dists2.html"><a href="4.4-mod-04-dists2.html"><i class="fa fa-check"></i><b>4.4</b> Fitting and testing distributions</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="4.4-mod-04-dists2.html"><a href="4.4-mod-04-dists2.html#estimating-distributional-parameters"><i class="fa fa-check"></i><b>4.4.1</b> Estimating distributional parameters</a></li>
+<li class="chapter" data-level="4.4.2" data-path="4.4-mod-04-dists2.html"><a href="4.4-mod-04-dists2.html#graphical-methods-for-examining-distributions"><i class="fa fa-check"></i><b>4.4.2</b> Graphical methods for examining distributions</a></li>
+<li class="chapter" data-level="4.4.3" data-path="4.4-mod-04-dists2.html"><a href="4.4-mod-04-dists2.html#formal-tests-for-distributions"><i class="fa fa-check"></i><b>4.4.3</b> Formal tests for distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="4.5-mod-04-trans.html"><a href="4.5-mod-04-trans.html"><i class="fa fa-check"></i><b>4.5</b> Data transformations</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="4.5-mod-04-trans.html"><a href="4.5-mod-04-trans.html#why-transform"><i class="fa fa-check"></i><b>4.5.1</b> Why transform?</a></li>
+<li class="chapter" data-level="4.5.2" data-path="4.5-mod-04-trans.html"><a href="4.5-mod-04-trans.html#transforms-vs.-link-functions"><i class="fa fa-check"></i><b>4.5.2</b> Transforms vs. link functions</a></li>
+<li class="chapter" data-level="4.5.3" data-path="4.5-mod-04-trans.html"><a href="4.5-mod-04-trans.html#log-transformation"><i class="fa fa-check"></i><b>4.5.3</b> Log transformation</a></li>
+<li class="chapter" data-level="4.5.4" data-path="4.5-mod-04-trans.html"><a href="4.5-mod-04-trans.html#rank-transformation"><i class="fa fa-check"></i><b>4.5.4</b> Rank transformation</a></li>
+<li class="chapter" data-level="4.5.5" data-path="4.5-mod-04-trans.html"><a href="4.5-mod-04-trans.html#other-transforms-less-common"><i class="fa fa-check"></i><b>4.5.5</b> Other transforms (less common)</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="4.6-multivariate-data-exploration.html"><a href="4.6-multivariate-data-exploration.html"><i class="fa fa-check"></i><b>4.6</b> Multivariate data exploration</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="4.6-multivariate-data-exploration.html"><a href="4.6-multivariate-data-exploration.html#scatterplots-for-two-variables"><i class="fa fa-check"></i><b>4.6.1</b> Scatterplots for two variables</a></li>
+<li class="chapter" data-level="4.6.2" data-path="4.6-multivariate-data-exploration.html"><a href="4.6-multivariate-data-exploration.html#mod-04-smat"><i class="fa fa-check"></i><b>4.6.2</b> Scatterplot matrices for many variables</a></li>
+<li class="chapter" data-level="4.6.3" data-path="4.6-multivariate-data-exploration.html"><a href="4.6-multivariate-data-exploration.html#lattice-plots-for-hierarchical-data"><i class="fa fa-check"></i><b>4.6.3</b> Lattice plots for hierarchical data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="4.7-ordination-brief-introduction.html"><a href="4.7-ordination-brief-introduction.html"><i class="fa fa-check"></i><b>4.7</b> Ordination (brief introduction)</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="4.7-ordination-brief-introduction.html"><a href="4.7-ordination-brief-introduction.html#principal-components-analysis-pca"><i class="fa fa-check"></i><b>4.7.1</b> Principal components analysis (PCA)</a></li>
+<li class="chapter" data-level="4.7.2" data-path="4.7-ordination-brief-introduction.html"><a href="4.7-ordination-brief-introduction.html#nonmetric-multidimensional-scaling-nmds"><i class="fa fa-check"></i><b>4.7.2</b> Nonmetric multidimensional scaling (NMDS)</a></li>
+<li class="chapter" data-level="4.7.3" data-path="4.7-ordination-brief-introduction.html"><a href="4.7-ordination-brief-introduction.html#plotting-ordinations"><i class="fa fa-check"></i><b>4.7.3</b> Plotting ordinations</a></li>
+<li class="chapter" data-level="4.7.4" data-path="4.7-ordination-brief-introduction.html"><a href="4.7-ordination-brief-introduction.html#ordination-wrap-up-for-now"><i class="fa fa-check"></i><b>4.7.4</b> Ordination wrap-up (for now)</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="4.8-mod-04-prob.html"><a href="4.8-mod-04-prob.html"><i class="fa fa-check"></i><b>4.8</b> Common statistical problems</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="4.8-mod-04-prob.html"><a href="4.8-mod-04-prob.html#outliers-and-erroneous-values"><i class="fa fa-check"></i><b>4.8.1</b> Outliers and erroneous values</a></li>
+<li class="chapter" data-level="4.8.2" data-path="4.8-mod-04-prob.html"><a href="4.8-mod-04-prob.html#autocorrelation"><i class="fa fa-check"></i><b>4.8.2</b> Autocorrelation</a></li>
+<li class="chapter" data-level="4.8.3" data-path="4.8-mod-04-prob.html"><a href="4.8-mod-04-prob.html#mod-04-multicol"><i class="fa fa-check"></i><b>4.8.3</b> Collinearity</a></li>
+<li class="chapter" data-level="4.8.4" data-path="4.8-mod-04-prob.html"><a href="4.8-mod-04-prob.html#missing-data"><i class="fa fa-check"></i><b>4.8.4</b> Missing data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="5-mod-05.html"><a href="5-mod-05.html"><i class="fa fa-check"></i><b>5</b> Generalized linear models (GLM)</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html"><i class="fa fa-check"></i><b>5.1</b> Prelude with linear models</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html#assumptions-of-linear-models"><i class="fa fa-check"></i><b>5.1.1</b> Assumptions of linear models</a></li>
+<li class="chapter" data-level="5.1.2" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html#linear-regression-in-r"><i class="fa fa-check"></i><b>5.1.2</b> Linear regression in R</a></li>
+<li class="chapter" data-level="5.1.3" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html#multiple-linear-regression"><i class="fa fa-check"></i><b>5.1.3</b> Multiple linear regression</a></li>
+<li class="chapter" data-level="5.1.4" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html#mod-05-anova"><i class="fa fa-check"></i><b>5.1.4</b> ANOVA and ANCOVA with <code>lm()</code></a></li>
+<li class="chapter" data-level="5.1.5" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html#variations-on-linear-models"><i class="fa fa-check"></i><b>5.1.5</b> Variations on linear models</a></li>
+<li class="chapter" data-level="5.1.6" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html#example-linear-regression-workflow"><i class="fa fa-check"></i><b>5.1.6</b> Example linear regression workflow</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html"><i class="fa fa-check"></i><b>5.2</b> GLM basics</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html#example-glms"><i class="fa fa-check"></i><b>5.2.1</b> Example GLMS</a></li>
+<li class="chapter" data-level="5.2.2" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html#glm-families"><i class="fa fa-check"></i><b>5.2.2</b> GLM families</a></li>
+<li class="chapter" data-level="5.2.3" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html#glm-link-functions"><i class="fa fa-check"></i><b>5.2.3</b> GLM link functions</a></li>
+<li class="chapter" data-level="5.2.4" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html#deviance-and-other-glm-diagnostics"><i class="fa fa-check"></i><b>5.2.4</b> Deviance and other GLM diagnostics</a></li>
+<li class="chapter" data-level="5.2.5" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html#to-pseudo-r2-or-not-to-pseudo-r2"><i class="fa fa-check"></i><b>5.2.5</b> To pseudo-<em>R</em><sup>2</sup> or not to pseudo-<em>R</em><sup>2</sup>?</a></li>
+<li class="chapter" data-level="5.2.6" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html#common-glms"><i class="fa fa-check"></i><b>5.2.6</b> Common GLMs</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="5.3-mod-05-loglin.html"><a href="5.3-mod-05-loglin.html"><i class="fa fa-check"></i><b>5.3</b> Log-linear models</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="5.3-mod-05-loglin.html"><a href="5.3-mod-05-loglin.html#mod-05-loglin-examp"><i class="fa fa-check"></i><b>5.3.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="5.3.2" data-path="5.3-mod-05-loglin.html"><a href="5.3-mod-05-loglin.html#example-with-real-data"><i class="fa fa-check"></i><b>5.3.2</b> Example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="5.4-mod-05-poisson.html"><a href="5.4-mod-05-poisson.html"><i class="fa fa-check"></i><b>5.4</b> Poisson GLM for counts</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="5.4-mod-05-poisson.html"><a href="5.4-mod-05-poisson.html#example-with-simulated-data"><i class="fa fa-check"></i><b>5.4.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="5.4.2" data-path="5.4-mod-05-poisson.html"><a href="5.4-mod-05-poisson.html#example-with-real-data-1"><i class="fa fa-check"></i><b>5.4.2</b> Example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="5.5-mod-05-quasi.html"><a href="5.5-mod-05-quasi.html"><i class="fa fa-check"></i><b>5.5</b> Quasi-Poisson and negative binomial GLM</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="5.5-mod-05-quasi.html"><a href="5.5-mod-05-quasi.html#example-with-simulated-data-1"><i class="fa fa-check"></i><b>5.5.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="5.5.2" data-path="5.5-mod-05-quasi.html"><a href="5.5-mod-05-quasi.html#example-with-real-data-2"><i class="fa fa-check"></i><b>5.5.2</b> Example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="5.6-mod-05-logistic.html"><a href="5.6-mod-05-logistic.html"><i class="fa fa-check"></i><b>5.6</b> Logistic regression for binary outcomes</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="5.6-mod-05-logistic.html"><a href="5.6-mod-05-logistic.html#example-with-simulated-data-2"><i class="fa fa-check"></i><b>5.6.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="5.6.2" data-path="5.6-mod-05-logistic.html"><a href="5.6-mod-05-logistic.html#example-with-real-data-3"><i class="fa fa-check"></i><b>5.6.2</b> Example with real data</a></li>
+<li class="chapter" data-level="5.6.3" data-path="5.6-mod-05-logistic.html"><a href="5.6-mod-05-logistic.html#mod-05-auc"><i class="fa fa-check"></i><b>5.6.3</b> Logistic GLM diagnostics: AUC and ROC</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="5.7-mod-05-binom.html"><a href="5.7-mod-05-binom.html"><i class="fa fa-check"></i><b>5.7</b> Binomial GLM for proportional data</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="5.7-mod-05-binom.html"><a href="5.7-mod-05-binom.html#binomial-glm"><i class="fa fa-check"></i><b>5.7.1</b> Binomial GLM</a></li>
+<li class="chapter" data-level="5.7.2" data-path="5.7-mod-05-binom.html"><a href="5.7-mod-05-binom.html#example-with-simulated-data-3"><i class="fa fa-check"></i><b>5.7.2</b> Example with simulated data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="5.8-mod-05-gamma.html"><a href="5.8-mod-05-gamma.html"><i class="fa fa-check"></i><b>5.8</b> Gamma models for overdispersed data</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="5.8-mod-05-gamma.html"><a href="5.8-mod-05-gamma.html#example-with-simulated-data-4"><i class="fa fa-check"></i><b>5.8.1</b> Example with simulated data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="5.9-mod-05-beyond.html"><a href="5.9-mod-05-beyond.html"><i class="fa fa-check"></i><b>5.9</b> Beyond GLM: Overview of GAM and GEE</a>
+<ul>
+<li class="chapter" data-level="5.9.1" data-path="5.9-mod-05-beyond.html"><a href="5.9-mod-05-beyond.html#mod-05-gam"><i class="fa fa-check"></i><b>5.9.1</b> Generalized additive models (GAM)</a></li>
+<li class="chapter" data-level="5.9.2" data-path="5.9-mod-05-beyond.html"><a href="5.9-mod-05-beyond.html#mod-05-gee"><i class="fa fa-check"></i><b>5.9.2</b> Generalized estimating equations (GEE)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="6-mod-06.html"><a href="6-mod-06.html"><i class="fa fa-check"></i><b>6</b> Nonlinear models</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="6.1-background.html"><a href="6.1-background.html"><i class="fa fa-check"></i><b>6.1</b> Background</a></li>
+<li class="chapter" data-level="6.2" data-path="6.2-mod-06-intro.html"><a href="6.2-mod-06-intro.html"><i class="fa fa-check"></i><b>6.2</b> Nonlinear least squares (NLS)</a></li>
+<li class="chapter" data-level="6.3" data-path="6.3-mod-06-micmen.html"><a href="6.3-mod-06-micmen.html"><i class="fa fa-check"></i><b>6.3</b> Michaelis-Menten curves</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="6.3-mod-06-micmen.html"><a href="6.3-mod-06-micmen.html#mod-06-micmen-sim"><i class="fa fa-check"></i><b>6.3.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="6.3.2" data-path="6.3-mod-06-micmen.html"><a href="6.3-mod-06-micmen.html#example-with-real-data-4"><i class="fa fa-check"></i><b>6.3.2</b> Example with real data</a></li>
+<li class="chapter" data-level="6.3.3" data-path="6.3-mod-06-micmen.html"><a href="6.3-mod-06-micmen.html#alternative-strategies-for-the-analysis"><i class="fa fa-check"></i><b>6.3.3</b> Alternative strategies for the analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="6.4-mod-06-grow.html"><a href="6.4-mod-06-grow.html"><i class="fa fa-check"></i><b>6.4</b> Biological growth curves</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="6.4-mod-06-grow.html"><a href="6.4-mod-06-grow.html#gompertz-and-von-bertalanffy-curves"><i class="fa fa-check"></i><b>6.4.1</b> Gompertz and von Bertalanffy curves</a></li>
+<li class="chapter" data-level="6.4.2" data-path="6.4-mod-06-grow.html"><a href="6.4-mod-06-grow.html#example-with-real-data-5"><i class="fa fa-check"></i><b>6.4.2</b> Example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="6.5-dose-response-curves.html"><a href="6.5-dose-response-curves.html"><i class="fa fa-check"></i><b>6.5</b> Dose response curves</a></li>
+<li class="chapter" data-level="6.6" data-path="6.6-alternatives-to-nls.html"><a href="6.6-alternatives-to-nls.html"><i class="fa fa-check"></i><b>6.6</b> Alternatives to NLS</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="6.6-alternatives-to-nls.html"><a href="6.6-alternatives-to-nls.html#generalized-nonlinear-models"><i class="fa fa-check"></i><b>6.6.1</b> Generalized nonlinear models</a></li>
+<li class="chapter" data-level="6.6.2" data-path="6.6-alternatives-to-nls.html"><a href="6.6-alternatives-to-nls.html#quantile-regression"><i class="fa fa-check"></i><b>6.6.2</b> Quantile regression</a></li>
+<li class="chapter" data-level="6.6.3" data-path="6.6-alternatives-to-nls.html"><a href="6.6-alternatives-to-nls.html#mod-06-gam"><i class="fa fa-check"></i><b>6.6.3</b> Generalized additive models (GAM)</a></li>
+<li class="chapter" data-level="6.6.4" data-path="6.6-alternatives-to-nls.html"><a href="6.6-alternatives-to-nls.html#classification-and-regression-trees-cart"><i class="fa fa-check"></i><b>6.6.4</b> Classification and regression trees (CART)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="7-mod-07.html"><a href="7-mod-07.html"><i class="fa fa-check"></i><b>7</b> Mixed models</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="7.1-prelude-glm.html"><a href="7.1-prelude-glm.html"><i class="fa fa-check"></i><b>7.1</b> Prelude (GLM)</a></li>
+<li class="chapter" data-level="7.2" data-path="7.2-mod-07-lmm.html"><a href="7.2-mod-07-lmm.html"><i class="fa fa-check"></i><b>7.2</b> Linear mixed models (LMM)</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="7.2-mod-07-lmm.html"><a href="7.2-mod-07-lmm.html#formal-definition-and-example"><i class="fa fa-check"></i><b>7.2.1</b> Formal definition and example</a></li>
+<li class="chapter" data-level="7.2.2" data-path="7.2-mod-07-lmm.html"><a href="7.2-mod-07-lmm.html#example-with-simulated-data-5"><i class="fa fa-check"></i><b>7.2.2</b> Example with simulated data</a></li>
+<li class="chapter" data-level="7.2.3" data-path="7.2-mod-07-lmm.html"><a href="7.2-mod-07-lmm.html#p-values-in-lmm"><i class="fa fa-check"></i><b>7.2.3</b> <em>P</em>-values in LMM</a></li>
+<li class="chapter" data-level="7.2.4" data-path="7.2-mod-07-lmm.html"><a href="7.2-mod-07-lmm.html#specifying-random-effects"><i class="fa fa-check"></i><b>7.2.4</b> Specifying random effects</a></li>
+<li class="chapter" data-level="7.2.5" data-path="7.2-mod-07-lmm.html"><a href="7.2-mod-07-lmm.html#lmm-example-with-real-data"><i class="fa fa-check"></i><b>7.2.5</b> LMM example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="7.3-mod-07-glmm.html"><a href="7.3-mod-07-glmm.html"><i class="fa fa-check"></i><b>7.3</b> Generalized linear mixed models (GLMM)</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="7.3-mod-07-glmm.html"><a href="7.3-mod-07-glmm.html#definition-1"><i class="fa fa-check"></i><b>7.3.1</b> Definition</a></li>
+<li class="chapter" data-level="7.3.2" data-path="7.3-mod-07-glmm.html"><a href="7.3-mod-07-glmm.html#glmm-on-simulated-data"><i class="fa fa-check"></i><b>7.3.2</b> GLMM on simulated data</a></li>
+<li class="chapter" data-level="7.3.3" data-path="7.3-mod-07-glmm.html"><a href="7.3-mod-07-glmm.html#glmm-on-real-data"><i class="fa fa-check"></i><b>7.3.3</b> GLMM on real data</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="7.4-mod-07-nlme.html"><a href="7.4-mod-07-nlme.html"><i class="fa fa-check"></i><b>7.4</b> Nonlinear mixed models (NLME)</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="7.4-mod-07-nlme.html"><a href="7.4-mod-07-nlme.html#definition-and-background"><i class="fa fa-check"></i><b>7.4.1</b> Definition and background</a></li>
+<li class="chapter" data-level="7.4.2" data-path="7.4-mod-07-nlme.html"><a href="7.4-mod-07-nlme.html#nlme-on-simulated-data"><i class="fa fa-check"></i><b>7.4.2</b> NLME on simulated data</a></li>
+<li class="chapter" data-level="7.4.3" data-path="7.4-mod-07-nlme.html"><a href="7.4-mod-07-nlme.html#nlme-on-real-data"><i class="fa fa-check"></i><b>7.4.3</b> NLME on real data</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="7.5-mod-07-gamm.html"><a href="7.5-mod-07-gamm.html"><i class="fa fa-check"></i><b>7.5</b> (Generalized) additive mixed models (AMM/GAMM)</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="7.5-mod-07-gamm.html"><a href="7.5-mod-07-gamm.html#example-gamm-with-real-data"><i class="fa fa-check"></i><b>7.5.1</b> Example GAMM with real data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="8-mod-08.html"><a href="8-mod-08.html"><i class="fa fa-check"></i><b>8</b> Multivariate data analysis</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="8.1-multivariate-data.html"><a href="8.1-multivariate-data.html"><i class="fa fa-check"></i><b>8.1</b> Multivariate data</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="8.1-multivariate-data.html"><a href="8.1-multivariate-data.html#univariate-vs.-multivariate-data"><i class="fa fa-check"></i><b>8.1.1</b> Univariate vs. multivariate data</a></li>
+<li class="chapter" data-level="8.1.2" data-path="8.1-multivariate-data.html"><a href="8.1-multivariate-data.html#components-of-multivariate-data"><i class="fa fa-check"></i><b>8.1.2</b> Components of multivariate data</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="8.2-mod-08-dist.html"><a href="8.2-mod-08-dist.html"><i class="fa fa-check"></i><b>8.2</b> Distance metrics: biological (dis)similarity</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="8.2-mod-08-dist.html"><a href="8.2-mod-08-dist.html#euclidean-distance"><i class="fa fa-check"></i><b>8.2.1</b> Euclidean distance</a></li>
+<li class="chapter" data-level="8.2.2" data-path="8.2-mod-08-dist.html"><a href="8.2-mod-08-dist.html#bray-curtis-and-other-distance-metrics"><i class="fa fa-check"></i><b>8.2.2</b> Bray-Curtis and other distance metrics</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="8.3-clustering.html"><a href="8.3-clustering.html"><i class="fa fa-check"></i><b>8.3</b> Clustering</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="8.3-clustering.html"><a href="8.3-clustering.html#k-means-clustering"><i class="fa fa-check"></i><b>8.3.1</b> <em>K</em>-means clustering</a></li>
+<li class="chapter" data-level="8.3.2" data-path="8.3-clustering.html"><a href="8.3-clustering.html#hierarchical-agglomerative-clustering"><i class="fa fa-check"></i><b>8.3.2</b> Hierarchical agglomerative clustering</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="8.4-mod-08-sims.html"><a href="8.4-mod-08-sims.html"><i class="fa fa-check"></i><b>8.4</b> Analyzing dissimilarity</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="8.4-mod-08-sims.html"><a href="8.4-mod-08-sims.html#mantel-tests-distance-vs.-distance"><i class="fa fa-check"></i><b>8.4.1</b> Mantel tests: distance vs. distance</a></li>
+<li class="chapter" data-level="8.4.2" data-path="8.4-mod-08-sims.html"><a href="8.4-mod-08-sims.html#comparing-dissimilarity-between-groups"><i class="fa fa-check"></i><b>8.4.2</b> Comparing dissimilarity between groups</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="8.5-mod-08-ord.html"><a href="8.5-mod-08-ord.html"><i class="fa fa-check"></i><b>8.5</b> Ordination</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="8.5-mod-08-ord.html"><a href="8.5-mod-08-ord.html#principal-components-analysis-pca-1"><i class="fa fa-check"></i><b>8.5.1</b> Principal components analysis (PCA)</a></li>
+<li class="chapter" data-level="8.5.2" data-path="8.5-mod-08-ord.html"><a href="8.5-mod-08-ord.html#nmds-and-other-ordination-methods"><i class="fa fa-check"></i><b>8.5.2</b> NMDS and other ordination methods</a></li>
+<li class="chapter" data-level="8.5.3" data-path="8.5-mod-08-ord.html"><a href="8.5-mod-08-ord.html#other-ordination-techniques"><i class="fa fa-check"></i><b>8.5.3</b> Other ordination techniques</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="9-mod-09.html"><a href="9-mod-09.html"><i class="fa fa-check"></i><b>9</b> Planning your analysis (what test?)</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="9.1-how-to-use-this-guide.html"><a href="9.1-how-to-use-this-guide.html"><i class="fa fa-check"></i><b>9.1</b> How to use this guide</a></li>
+<li class="chapter" data-level="9.2" data-path="9.2-what-question-are-you-trying-to-answer.html"><a href="9.2-what-question-are-you-trying-to-answer.html"><i class="fa fa-check"></i><b>9.2</b> What question are you trying to answer?</a></li>
+<li class="chapter" data-level="9.3" data-path="9.3-testing-for-a-difference-in-mean-or-location.html"><a href="9.3-testing-for-a-difference-in-mean-or-location.html"><i class="fa fa-check"></i><b>9.3</b> Testing for a difference in mean or location</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="9.3-testing-for-a-difference-in-mean-or-location.html"><a href="9.3-testing-for-a-difference-in-mean-or-location.html#additional-considerations"><i class="fa fa-check"></i><b>9.3.1</b> Additional considerations</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="9.4-testing-for-a-continuous-relationship-between-two-or-more-variables.html"><a href="9.4-testing-for-a-continuous-relationship-between-two-or-more-variables.html"><i class="fa fa-check"></i><b>9.4</b> Testing for a continuous relationship between two or more variables</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="9.4-testing-for-a-continuous-relationship-between-two-or-more-variables.html"><a href="9.4-testing-for-a-continuous-relationship-between-two-or-more-variables.html#additional-considerations-1"><i class="fa fa-check"></i><b>9.4.1</b> Additional considerations</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="9.5-classifying-observations.html"><a href="9.5-classifying-observations.html"><i class="fa fa-check"></i><b>9.5</b> Classifying observations</a></li>
+<li class="chapter" data-level="9.6" data-path="9.6-conclusions.html"><a href="9.6-conclusions.html"><i class="fa fa-check"></i><b>9.6</b> Conclusions</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="literature-cited.html"><a href="literature-cited.html"><i class="fa fa-check"></i>Literature Cited</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Applied Biological Data Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="mod-06-micmen" class="section level2" number="6.3">
+<h2><span class="header-section-number">6.3</span> Michaelis-Menten curves</h2>
+<p>The <strong>Michaelis-Menten model</strong> is a nonlinear model that is usually used to describe processes that grow and approach an asymptote. One of the classic use cases is modeling the relationship between biochemical reaction rates and substrate concentrations. The Michaelis-Menten equation takes the general form</p>
+<p><span class="math display">\[Y=\frac{aX}{b+X}\]</span></p>
+<p>where <em>a</em> and <em>b</em> are constants.</p>
+<ul>
+<li><strong><em>a</em></strong> defines the <strong>asymptote</strong>: the maximum <em>Y</em> value that is approached but never reached.</li>
+<li><strong><em>b</em></strong> is the <strong>Michaelis constant</strong>. It represents the <em>X</em> value at which <span class="math inline">\(Y = a/2\)</span>. Interestingly, for any proportion of the form <span class="math inline">\(c/(c+1)\)</span>, where <em>c</em> is a positive integer, the <em>X</em> value where <span class="math inline">\(Y = (c/(c+1))a\)</span> is <span class="math inline">\(cb\)</span>. For example, the <em>X</em> value when <span class="math inline">\(Y = (3/4)a\)</span> is <span class="math inline">\(3b\)</span>.</li>
+</ul>
+<p>The Michaelis-Menten curve goes by many names. In enzyme kinetics and biochemistry, it is called the Michaelis-Menten curve. Biologists also sometimes call it the <strong>Monod function</strong>, the <strong>Holling type II</strong> functional response, or the <strong>Beverton-Holt model</strong> (the latter name is probably the most common). This diversity of application speaks to the generality of this function. The original definition predicted a reaction rate. However, Michaelis-Menten curves can also be used to model other phenomena. For example, <span class="citation">Kunz et al. (<a href="#ref-kunz2019" role="doc-biblioref">2019</a>)</span> and <span class="citation">Green et al. (<a href="#ref-green2020" role="doc-biblioref">2020</a>)</span> used Michaelis-Menten curves to model the effectiveness of biodiversity monitoring programs.</p>
+<div id="mod-06-micmen-sim" class="section level3" number="6.3.1">
+<h3><span class="header-section-number">6.3.1</span> Example with simulated data</h3>
+<p>For our simulated example, we will use parameters from the R help page for <code>SSmicmen()</code>, one of the utility functions for working with Michaelis-Menten models.</p>
+<div class="sourceCode" id="cb1359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1359-1"><a href="6.3-mod-06-micmen.html#cb1359-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb1359-2"><a href="6.3-mod-06-micmen.html#cb1359-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1359-3"><a href="6.3-mod-06-micmen.html#cb1359-3" aria-hidden="true" tabindex="-1"></a><span class="co"># x values: concentrations in [0.02, 1.28] ppm</span></span>
+<span id="cb1359-4"><a href="6.3-mod-06-micmen.html#cb1359-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">2</span><span class="sc">^</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>)<span class="sc">/</span><span class="dv">100</span>, <span class="at">each=</span><span class="dv">3</span>)</span>
+<span id="cb1359-5"><a href="6.3-mod-06-micmen.html#cb1359-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1359-6"><a href="6.3-mod-06-micmen.html#cb1359-6" aria-hidden="true" tabindex="-1"></a><span class="co"># define model parameters</span></span>
+<span id="cb1359-7"><a href="6.3-mod-06-micmen.html#cb1359-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Vm = a = asymptote</span></span>
+<span id="cb1359-8"><a href="6.3-mod-06-micmen.html#cb1359-8" aria-hidden="true" tabindex="-1"></a><span class="do">## K  = b = Michaelis constant</span></span>
+<span id="cb1359-9"><a href="6.3-mod-06-micmen.html#cb1359-9" aria-hidden="true" tabindex="-1"></a>Vm <span class="ot">&lt;-</span> <span class="dv">210</span></span>
+<span id="cb1359-10"><a href="6.3-mod-06-micmen.html#cb1359-10" aria-hidden="true" tabindex="-1"></a>K <span class="ot">&lt;-</span> <span class="fl">0.06</span></span>
+<span id="cb1359-11"><a href="6.3-mod-06-micmen.html#cb1359-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1359-12"><a href="6.3-mod-06-micmen.html#cb1359-12" aria-hidden="true" tabindex="-1"></a><span class="co"># expected values</span></span>
+<span id="cb1359-13"><a href="6.3-mod-06-micmen.html#cb1359-13" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> (Vm<span class="sc">*</span>x)<span class="sc">/</span>(K<span class="sc">+</span>x)</span>
+<span id="cb1359-14"><a href="6.3-mod-06-micmen.html#cb1359-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1359-15"><a href="6.3-mod-06-micmen.html#cb1359-15" aria-hidden="true" tabindex="-1"></a><span class="co"># add residual variation</span></span>
+<span id="cb1359-16"><a href="6.3-mod-06-micmen.html#cb1359-16" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> y <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(x), <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb1359-17"><a href="6.3-mod-06-micmen.html#cb1359-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1359-18"><a href="6.3-mod-06-micmen.html#cb1359-18" aria-hidden="true" tabindex="-1"></a><span class="co"># plot data</span></span>
+<span id="cb1359-19"><a href="6.3-mod-06-micmen.html#cb1359-19" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x,y, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">max</span>(y)),</span>
+<span id="cb1359-20"><a href="6.3-mod-06-micmen.html#cb1359-20" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">&quot;Substrate conc. (ppm)&quot;</span>, </span>
+<span id="cb1359-21"><a href="6.3-mod-06-micmen.html#cb1359-21" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">&quot;Reaction rate&quot;</span>,</span>
+<span id="cb1359-22"><a href="6.3-mod-06-micmen.html#cb1359-22" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch=</span><span class="dv">16</span>, <span class="at">cex=</span><span class="fl">1.2</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-571-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>The R function that fits nonlinear least squares model is <code>nls()</code>. Like <code>lm()</code> and <code>glm()</code>, <code>nls()</code> has a formula interface to specifying models and produces an object that contains many of the diagnostics you need to evaluate your model. Unlike <code>lm()</code> and <code>glm()</code>, <code>nls()</code> usually needs to be supplied starting values for model parameters. These values are used as starting points for the numerical optimization algorithm. There are two basic ways to supply starting values. For some models you can use a “self-starting” model that will guess at good starting values. The other way is for you to guess.</p>
+<p>The command below shows how to use the “self-start” Michaelis-Menten model. The righthand side of the formula is the function <code>SSmicmen()</code> (“self-starting Michaelis-Menten”) instead of the model equation. The arguments to a self-start function are usually the predictor variable followed by the names you want to use for the terms in the model. The order of those names matters, because R will use them in the order you provide them. Below we use the default names <code>Vm</code> and <code>K</code>, which R interprets as the asymptote (“Vmax” or “V-max”) and Michaelis constant, respectively. When using the Michaelis-Menten model for something other than enzyme kinetics, I prefer to use <code>a</code> and <code>b</code> instead of <code>Vm</code> and <code>K</code>.</p>
+<div class="sourceCode" id="cb1360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1360-1"><a href="6.3-mod-06-micmen.html#cb1360-1" aria-hidden="true" tabindex="-1"></a><span class="co"># method 1: fit with self-start models</span></span>
+<span id="cb1360-2"><a href="6.3-mod-06-micmen.html#cb1360-2" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">nls</span>(y<span class="sc">~</span><span class="fu">SSmicmen</span>(x, Vm, K))</span>
+<span id="cb1360-3"><a href="6.3-mod-06-micmen.html#cb1360-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1360-4"><a href="6.3-mod-06-micmen.html#cb1360-4" aria-hidden="true" tabindex="-1"></a><span class="co"># same but with different parameter names:</span></span>
+<span id="cb1360-5"><a href="6.3-mod-06-micmen.html#cb1360-5" aria-hidden="true" tabindex="-1"></a>mod1.v2 <span class="ot">&lt;-</span> <span class="fu">nls</span>(y<span class="sc">~</span><span class="fu">SSmicmen</span>(x, a, b))</span>
+<span id="cb1360-6"><a href="6.3-mod-06-micmen.html#cb1360-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1.v2)</span></code></pre></div>
+<pre><code>## 
+## Formula: y ~ SSmicmen(x, a, b)
+## 
+## Parameters:
+##    Estimate Std. Error t value Pr(&gt;|t|)    
+## a 2.080e+02  4.499e+00   46.23  &lt; 2e-16 ***
+## b 5.640e-02  4.995e-03   11.29 7.21e-10 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 10 on 19 degrees of freedom
+## 
+## Number of iterations to convergence: 0 
+## Achieved convergence tolerance: 2.333e-07</code></pre>
+<p>If you are fitting a curve for which there is no self-start method, or the self-start method doesn’t work, or if you enjoy reading error messages, you will need to supply starting values. Coming up with good starting values is part art, part science, and part random guessing. For many models you can often estimate some values by thinking about what they represent. For our Michaelis-Menten example, we can see that the curve stops increasing once it gets up to about <em>Y</em> = 200 or so. Thus, 200 might be a good guess for the asymptote (Vm in our code). Likewise, we can see that <em>Y</em> reaches half of its asymptotic value at around <em>X</em> = 0.05. So, 0.05 is probably a decent guess for the Michaelis constant <em>K</em>.</p>
+<p>For models with more parameters, you can often guess at 1 or 2 parameters based on the scatterplot, then pick a few representative points and solve for other parameters. For example, if we had guessed that <em>Vm</em> might be 200, we could pick some points from our data and solve for <em>K</em>, conditional on <em>Vm</em> = 200. Below we calculate <code>test.k</code>, which contains estimates of <em>K</em> conditional on <em>Vm</em> = 200. The mean or median of that vector is a good guess for a starting value of <em>K</em>.</p>
+<div class="sourceCode" id="cb1362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1362-1"><a href="6.3-mod-06-micmen.html#cb1362-1" aria-hidden="true" tabindex="-1"></a>test.vm <span class="ot">&lt;-</span> <span class="dv">200</span></span>
+<span id="cb1362-2"><a href="6.3-mod-06-micmen.html#cb1362-2" aria-hidden="true" tabindex="-1"></a>test.k <span class="ot">&lt;-</span> (test.vm<span class="sc">*</span>x)<span class="sc">/</span>y<span class="sc">-</span>x</span>
+<span id="cb1362-3"><a href="6.3-mod-06-micmen.html#cb1362-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(test.k)</span></code></pre></div>
+<pre><code>## [1] 0.042005</code></pre>
+<p>Use these estimates as starting values to <code>nls()</code>. Notice that because we are not using a self-starting model, we must define the model equation manually. The variable names that you use in the formula must match the variable names in the list of starting values <strong><em>exactly</em></strong>.</p>
+<div class="sourceCode" id="cb1364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1364-1"><a href="6.3-mod-06-micmen.html#cb1364-1" aria-hidden="true" tabindex="-1"></a><span class="co"># method 2: eyeball some starting values</span></span>
+<span id="cb1364-2"><a href="6.3-mod-06-micmen.html#cb1364-2" aria-hidden="true" tabindex="-1"></a>start.list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">Vm=</span><span class="dv">200</span>, <span class="at">K=</span><span class="fl">0.042</span>)</span>
+<span id="cb1364-3"><a href="6.3-mod-06-micmen.html#cb1364-3" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">nls</span>(y<span class="sc">~</span>(Vm<span class="sc">*</span>x)<span class="sc">/</span>(K<span class="sc">+</span>x),</span>
+<span id="cb1364-4"><a href="6.3-mod-06-micmen.html#cb1364-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">start=</span>start.list)</span>
+<span id="cb1364-5"><a href="6.3-mod-06-micmen.html#cb1364-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod2)</span></code></pre></div>
+<pre><code>## 
+## Formula: y ~ (Vm * x)/(K + x)
+## 
+## Parameters:
+##     Estimate Std. Error t value Pr(&gt;|t|)    
+## Vm 2.080e+02  4.499e+00   46.23  &lt; 2e-16 ***
+## K  5.640e-02  4.995e-03   11.29 7.21e-10 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 10 on 19 degrees of freedom
+## 
+## Number of iterations to convergence: 4 
+## Achieved convergence tolerance: 2.899e-07</code></pre>
+<p>Both methods estimated parameters that were close to the true values. The coefficients table can be presented in much the same way that the coefficients table for a linear regression or GLM is presented.
+Unlike linear models, there is no straightforward way to calculate an <em>R</em><sup>2</sup> value for nonlinear models. This is because of two key differences between nonlinear models and linear models:</p>
+<ul>
+<li>Nonlinear models do not have an intercept term, which is implicit in the <em>R</em><sup>2</sup> calculation in linear models.</li>
+<li>In linear models, the equation <span class="math inline">\({SS}_{total} = {SS}_{model} + {SS}_{residuals}\)</span> is always true, which implies that <span class="math inline">\({SS}_{model} \le {SS}_{total}\)</span>. For nonlinear models, it is not. This means that the usual <em>R</em><sup>2</sup> equation, <span class="math inline">\({SS}_{model} / {SS}_{total}\)</span>, is not guaranteed to be between 0 and 1.</li>
+</ul>
+<p>Nevertheless, there are measures of model performance that we can use to approximate an <em>R</em><sup>2</sup> value. One way is to calculate a pseudo-<em>R</em><sup>2</sup> similar to that we calculated for GLM:</p>
+<p><span class="math display">\[pseudo-R^{2}=1-\frac{{SS}_{residual}}{{SS}_{total}}\]</span></p>
+<p>This method is recommended by <span class="citation">Schabenberger and Pierce (<a href="#ref-schabenberger2001contemporary" role="doc-biblioref">2001</a>)</span> and popular on Stack Overflow, but it can be misleading when model fit is poor <span class="citation">(<a href="#ref-spiess2010" role="doc-biblioref">Spiess and Neumeyer 2010</a>)</span>. The pseudo-<em>R</em><sup>2</sup> should only ever be considered a rough guide to model fit. Unlike a true <em>R</em><sup>2</sup>, which expresses the total variance explained by a model because of the way it is defined to be in the interval [0, 1], the pseudo-<em>R</em><sup>2</sup> is not restricted to [0, 1] and thus is not the same as variance explained. Better fitting models will usually have greater pseudo-<em>R</em><sup>2</sup> than worse fitting models, but this statistic does not represent “variance explained” or anything similar.</p>
+<p>There is no base function for pseudo-<em>R</em><sup>2</sup>, but it is easy to calculate. The function below takes in the model object <code>mod</code> and the original response variable <code>Y</code>, and returns the pseudo-<em>R</em><sup>2</sup>.</p>
+<div class="sourceCode" id="cb1366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1366-1"><a href="6.3-mod-06-micmen.html#cb1366-1" aria-hidden="true" tabindex="-1"></a>pseudoR2 <span class="ot">&lt;-</span> <span class="cf">function</span>(mod, Y){</span>
+<span id="cb1366-2"><a href="6.3-mod-06-micmen.html#cb1366-2" aria-hidden="true" tabindex="-1"></a>    ss.tot <span class="ot">&lt;-</span> <span class="fu">sum</span>((<span class="fu">fitted</span>(mod)<span class="sc">-</span><span class="fu">mean</span>(Y))<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb1366-3"><a href="6.3-mod-06-micmen.html#cb1366-3" aria-hidden="true" tabindex="-1"></a>    ss.res <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">residuals</span>(mod)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb1366-4"><a href="6.3-mod-06-micmen.html#cb1366-4" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span><span class="sc">-</span>(ss.res<span class="sc">/</span>ss.tot)</span>
+<span id="cb1366-5"><a href="6.3-mod-06-micmen.html#cb1366-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1366-6"><a href="6.3-mod-06-micmen.html#cb1366-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1366-7"><a href="6.3-mod-06-micmen.html#cb1366-7" aria-hidden="true" tabindex="-1"></a><span class="co"># test the function:</span></span>
+<span id="cb1366-8"><a href="6.3-mod-06-micmen.html#cb1366-8" aria-hidden="true" tabindex="-1"></a><span class="fu">pseudoR2</span>(mod2, y)</span></code></pre></div>
+<pre><code>## [1] 0.9651684</code></pre>
+<p>The package <code>rcompanion</code> <span class="citation">(<a href="#ref-mangiafico2021" role="doc-biblioref">Mangiafico 2021</a>)</span> has a function called <code>nagelkerke()</code> that will calculate and present several alternative pseudo-<em>R</em><sup>2</sup> values, including the version above. To use it, you need to specify a <strong>null model</strong> that includes no predictor variables. Null models usually just use the mean value of <em>Y</em> as the predictor of <em>Y</em>.</p>
+<div class="sourceCode" id="cb1368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1368-1"><a href="6.3-mod-06-micmen.html#cb1368-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rcompanion)</span>
+<span id="cb1368-2"><a href="6.3-mod-06-micmen.html#cb1368-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1368-3"><a href="6.3-mod-06-micmen.html#cb1368-3" aria-hidden="true" tabindex="-1"></a><span class="co"># function that uses mean (m) to predict y</span></span>
+<span id="cb1368-4"><a href="6.3-mod-06-micmen.html#cb1368-4" aria-hidden="true" tabindex="-1"></a><span class="co"># x is included because it is the predictor in mod2</span></span>
+<span id="cb1368-5"><a href="6.3-mod-06-micmen.html#cb1368-5" aria-hidden="true" tabindex="-1"></a>null.fun <span class="ot">&lt;-</span> <span class="cf">function</span>(x, m){m}</span>
+<span id="cb1368-6"><a href="6.3-mod-06-micmen.html#cb1368-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1368-7"><a href="6.3-mod-06-micmen.html#cb1368-7" aria-hidden="true" tabindex="-1"></a><span class="co"># fit null model using nls().</span></span>
+<span id="cb1368-8"><a href="6.3-mod-06-micmen.html#cb1368-8" aria-hidden="true" tabindex="-1"></a><span class="co"># notice that m is initialized</span></span>
+<span id="cb1368-9"><a href="6.3-mod-06-micmen.html#cb1368-9" aria-hidden="true" tabindex="-1"></a><span class="co"># as the mean of y</span></span>
+<span id="cb1368-10"><a href="6.3-mod-06-micmen.html#cb1368-10" aria-hidden="true" tabindex="-1"></a>null.mod <span class="ot">&lt;-</span> <span class="fu">nls</span>(y<span class="sc">~</span><span class="fu">null.fun</span>(x, m), </span>
+<span id="cb1368-11"><a href="6.3-mod-06-micmen.html#cb1368-11" aria-hidden="true" tabindex="-1"></a>                <span class="at">start=</span><span class="fu">list</span>(<span class="at">m=</span><span class="fu">mean</span>(y)))</span>
+<span id="cb1368-12"><a href="6.3-mod-06-micmen.html#cb1368-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1368-13"><a href="6.3-mod-06-micmen.html#cb1368-13" aria-hidden="true" tabindex="-1"></a><span class="co"># get the pseudo R-squared values (and other stuff)</span></span>
+<span id="cb1368-14"><a href="6.3-mod-06-micmen.html#cb1368-14" aria-hidden="true" tabindex="-1"></a><span class="fu">nagelkerke</span>(mod2, <span class="at">null=</span>null.mod)</span></code></pre></div>
+<pre><code>## $Models
+##                                                                                                                           
+## Model: &quot;nls, y ~ (Vm * x)/(K + x), start.list, default, list(50, 1e-05, 0.0009765625, FALSE, FALSE, 0, FALSE), FALSE&quot;     
+## Null:  &quot;nls, y ~ null.fun(x, m), list(m = mean(y)), default, list(50, 1e-05, 0.0009765625, FALSE, FALSE, 0, FALSE), FALSE&quot;
+## 
+## $Pseudo.R.squared.for.model.vs.null
+##                              Pseudo.R.squared
+## McFadden                             0.315231
+## Cox and Snell (ML)                   0.965975
+## Nagelkerke (Cragg and Uhler)         0.965996
+## 
+## $Likelihood.ratio.test
+##  Df.diff LogLik.diff  Chisq    p.value
+##       -1     -35.497 70.994 3.5836e-17
+## 
+## $Number.of.observations
+##          
+## Model: 21
+## Null:  21
+## 
+## $Messages
+## [1] &quot;Note: For models fit with REML, these statistics are based on refitting with ML&quot;
+## 
+## $Warnings
+## [1] &quot;None&quot;</code></pre>
+<p>Once you have your fitted model, it’s time to present the model predictions alongside the original data. This process is a little more complicated for <code>nls()</code> outputs than for <code>lm()</code> or <code>glm()</code>. Part of the problem is that calculating confidence intervals for NLS predictions is not straightforward: just like the parameters cannot be calculated directly, the uncertainty also cannot be calculated directly. Instead, we have to <strong>approximate</strong> the CI. The base R <code>predict()</code> method for <code>nls()</code> outputs does not do this<a href="literature-cited.html#fn62" class="footnote-ref" id="fnref62"><sup>62</sup></a>. The package <code>propagate</code> <span class="citation">(<a href="#ref-spiess2018" role="doc-biblioref">Spiess 2018</a>)</span> has function <code>predictNLS()</code> to approximate CI for NLS models. This function uses Monte Carlo sampling (i.e., random simulations) to estimate CI, so it can take a while to run.</p>
+<div class="sourceCode" id="cb1370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1370-1"><a href="6.3-mod-06-micmen.html#cb1370-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(propagate)</span>
+<span id="cb1370-2"><a href="6.3-mod-06-micmen.html#cb1370-2" aria-hidden="true" tabindex="-1"></a>L <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb1370-3"><a href="6.3-mod-06-micmen.html#cb1370-3" aria-hidden="true" tabindex="-1"></a>px <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(x), <span class="fu">max</span>(x), <span class="at">length=</span>L)</span>
+<span id="cb1370-4"><a href="6.3-mod-06-micmen.html#cb1370-4" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">predictNLS</span>(mod2,</span>
+<span id="cb1370-5"><a href="6.3-mod-06-micmen.html#cb1370-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">x=</span>px),</span>
+<span id="cb1370-6"><a href="6.3-mod-06-micmen.html#cb1370-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">interval=</span><span class="st">&quot;confidence&quot;</span>)</span>
+<span id="cb1370-7"><a href="6.3-mod-06-micmen.html#cb1370-7" aria-hidden="true" tabindex="-1"></a><span class="co"># we just need this part:</span></span>
+<span id="cb1370-8"><a href="6.3-mod-06-micmen.html#cb1370-8" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> pred<span class="sc">$</span>summary</span>
+<span id="cb1370-9"><a href="6.3-mod-06-micmen.html#cb1370-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1370-10"><a href="6.3-mod-06-micmen.html#cb1370-10" aria-hidden="true" tabindex="-1"></a><span class="co"># look at result</span></span>
+<span id="cb1370-11"><a href="6.3-mod-06-micmen.html#cb1370-11" aria-hidden="true" tabindex="-1"></a><span class="co"># (rounded to fit better on the screen)</span></span>
+<span id="cb1370-12"><a href="6.3-mod-06-micmen.html#cb1370-12" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">round</span>(pred, <span class="dv">2</span>))</span></code></pre></div>
+<pre><code>##   Prop.Mean.1 Prop.Mean.2 Prop.sd.1 Prop.sd.2 Prop.2.5% Prop.97.5% Sim.Mean
+## 1       54.46       54.63      2.81      2.82     48.73      60.53    54.66
+## 2      125.81      125.90      3.02      3.02    119.57     132.22   125.91
+## 3      151.89      151.92      2.52      2.53    146.63     157.21   151.93
+## 4      165.41      165.41      2.44      2.44    160.30     170.53   165.41
+## 5      173.68      173.67      2.55      2.55    168.34     179.00   173.67
+## 6      179.26      179.25      2.70      2.70    173.60     184.90   179.25
+##   Sim.sd Sim.Median Sim.MAD Sim.2.5% Sim.97.5%
+## 1   3.03      54.46    2.86    49.27     61.21
+## 2   3.21     125.82    3.08   119.83    132.54
+## 3   2.68     151.89    2.57   146.71    157.32
+## 4   2.59     165.41    2.49   160.32    170.56
+## 5   2.69     173.68    2.60   168.33    179.00
+## 6   2.86     179.26    2.75   173.55    184.86</code></pre>
+<p>The result contains several predicted means, SD, and quantiles for the response variable at every value of the input <em>X</em> values. The different versions are calculated using first- or second-order Taylor series (<code>.1</code> and <code>.2</code>), or Monte Carlo simulation (<code>Sim.</code>). The first-order Taylor series approximation is also called the <strong>Delta method</strong>. For each method you can use the mean and SD, or the mean and 95% confidence limits, or use the mean and SD to calculate your own confidence limits. For most models there isn’t much difference between the Taylor series approximations and the Monte Carlo estimates, so use whichever you prefer. In the example below we’ll plot the Taylor series and Monte Carlo CI to compare; in your work you only need to present one (and identify which one you used!).</p>
+<div class="sourceCode" id="cb1372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1372-1"><a href="6.3-mod-06-micmen.html#cb1372-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1st order Taylor series</span></span>
+<span id="cb1372-2"><a href="6.3-mod-06-micmen.html#cb1372-2" aria-hidden="true" tabindex="-1"></a>mn1 <span class="ot">&lt;-</span> pred<span class="sc">$</span>Prop.Mean<span class="fl">.1</span></span>
+<span id="cb1372-3"><a href="6.3-mod-06-micmen.html#cb1372-3" aria-hidden="true" tabindex="-1"></a>lo1 <span class="ot">&lt;-</span> pred<span class="sc">$</span><span class="st">&#39;Prop.2.5%&#39;</span></span>
+<span id="cb1372-4"><a href="6.3-mod-06-micmen.html#cb1372-4" aria-hidden="true" tabindex="-1"></a>up1 <span class="ot">&lt;-</span> pred<span class="sc">$</span><span class="st">&#39;Prop.97.5%&#39;</span></span>
+<span id="cb1372-5"><a href="6.3-mod-06-micmen.html#cb1372-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1372-6"><a href="6.3-mod-06-micmen.html#cb1372-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Monte Carlo</span></span>
+<span id="cb1372-7"><a href="6.3-mod-06-micmen.html#cb1372-7" aria-hidden="true" tabindex="-1"></a>mn2 <span class="ot">&lt;-</span> pred<span class="sc">$</span>Sim.Mean</span>
+<span id="cb1372-8"><a href="6.3-mod-06-micmen.html#cb1372-8" aria-hidden="true" tabindex="-1"></a>lo2 <span class="ot">&lt;-</span> pred<span class="sc">$</span><span class="st">&#39;Sim.2.5%&#39;</span></span>
+<span id="cb1372-9"><a href="6.3-mod-06-micmen.html#cb1372-9" aria-hidden="true" tabindex="-1"></a>up2 <span class="ot">&lt;-</span> pred<span class="sc">$</span><span class="st">&#39;Sim.97.5%&#39;</span></span>
+<span id="cb1372-10"><a href="6.3-mod-06-micmen.html#cb1372-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1372-11"><a href="6.3-mod-06-micmen.html#cb1372-11" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">bty=</span><span class="st">&quot;n&quot;</span>, <span class="at">lend=</span><span class="dv">1</span>, <span class="at">las=</span><span class="dv">1</span>,</span>
+<span id="cb1372-12"><a href="6.3-mod-06-micmen.html#cb1372-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex.axis=</span><span class="fl">1.3</span>, <span class="at">cex.lab=</span><span class="fl">1.3</span>)</span>
+<span id="cb1372-13"><a href="6.3-mod-06-micmen.html#cb1372-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x,y, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">max</span>(y)),</span>
+<span id="cb1372-14"><a href="6.3-mod-06-micmen.html#cb1372-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">&quot;Substrate conc. (ppm)&quot;</span>, </span>
+<span id="cb1372-15"><a href="6.3-mod-06-micmen.html#cb1372-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">&quot;Reaction rate&quot;</span>,</span>
+<span id="cb1372-16"><a href="6.3-mod-06-micmen.html#cb1372-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch=</span><span class="dv">16</span>, <span class="at">cex=</span><span class="fl">1.2</span>,</span>
+<span id="cb1372-17"><a href="6.3-mod-06-micmen.html#cb1372-17" aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="st">&quot;Taylor series CI&quot;</span>)</span>
+<span id="cb1372-18"><a href="6.3-mod-06-micmen.html#cb1372-18" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, lo1, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb1372-19"><a href="6.3-mod-06-micmen.html#cb1372-19" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, up1, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb1372-20"><a href="6.3-mod-06-micmen.html#cb1372-20" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, mn1, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>)</span>
+<span id="cb1372-21"><a href="6.3-mod-06-micmen.html#cb1372-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1372-22"><a href="6.3-mod-06-micmen.html#cb1372-22" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x,y, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">max</span>(y)),</span>
+<span id="cb1372-23"><a href="6.3-mod-06-micmen.html#cb1372-23" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">&quot;Substrate conc. (ppm)&quot;</span>, </span>
+<span id="cb1372-24"><a href="6.3-mod-06-micmen.html#cb1372-24" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">&quot;Reaction rate&quot;</span>,</span>
+<span id="cb1372-25"><a href="6.3-mod-06-micmen.html#cb1372-25" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch=</span><span class="dv">16</span>, <span class="at">cex=</span><span class="fl">1.2</span>,</span>
+<span id="cb1372-26"><a href="6.3-mod-06-micmen.html#cb1372-26" aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="st">&quot;Monte Carlo CI&quot;</span>)</span>
+<span id="cb1372-27"><a href="6.3-mod-06-micmen.html#cb1372-27" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, lo2, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb1372-28"><a href="6.3-mod-06-micmen.html#cb1372-28" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, up2, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb1372-29"><a href="6.3-mod-06-micmen.html#cb1372-29" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, mn2, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-578-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>In our simulated example, the Taylor series approximation and Monte Carlo simulations produced nearly identical predictions and CI.</p>
+</div>
+<div id="example-with-real-data-4" class="section level3" number="6.3.2">
+<h3><span class="header-section-number">6.3.2</span> Example with real data</h3>
+<p><span class="citation">Leonard and Wood (<a href="#ref-leonard2013acute" role="doc-biblioref">2013</a>)</span> studied the bioaccumulation of nickel (Ni) by four species of invertebrates in different environmental conditions. Invertebrates were held for 14 days in aquaria at varying aqueous Ni concentrations in either hard water (140 mg/L CaCO<sub>3</sub>) or soft water (40 mg/L CaCO<sub>3</sub>), after which whole-body Ni residues were measured.</p>
+<center>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/06_02.jpg" alt="A midge, Chironomus riparius (Foucault et al. 2018)" /></p>
+</center>
+<p>The authors used Michaelis-Menten models to measure the uptake of Ni from the water as a function of Ni concentration. We will focus on part of their dataset, accumulation of Ni by midge <em>Chironomus riparius</em>. Data were extracted from the paper based on parameter estimates in their Table 4 and data in Figure 6. The variables in this dataset are:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Units</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ni</td>
+<td><span class="math inline">\(\mu\)</span> mol/L</td>
+<td>Concentration of Ni in water</td>
+</tr>
+<tr class="even">
+<td>res</td>
+<td><span class="math inline">\(\mu\)</span> mol/kg</td>
+<td>Concentration of Ni in body tissues</td>
+</tr>
+<tr class="odd">
+<td>water</td>
+<td>N/A</td>
+<td>Water treatment: hard or soft (CaCO<sub>3</sub> conc.)</td>
+</tr>
+</tbody>
+</table>
+<p>Download the dataset <a href="https://greenquanteco.github.io/leonard_2013_data.csv">leonard_2013_data.csv</a> and put it in your R home directory.</p>
+<div class="sourceCode" id="cb1373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1373-1"><a href="6.3-mod-06-micmen.html#cb1373-1" aria-hidden="true" tabindex="-1"></a>in.name <span class="ot">&lt;-</span> <span class="st">&quot;leonard_2013_data.csv&quot;</span></span>
+<span id="cb1373-2"><a href="6.3-mod-06-micmen.html#cb1373-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(in.name, <span class="at">header=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p>Part of the original experiment was to see whether water hardness affected uptake of Ni. This is recorded in the factor water in the dataset. Plot the data and color the points by water treatment to see if there are any patterns.</p>
+<div class="sourceCode" id="cb1374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1374-1"><a href="6.3-mod-06-micmen.html#cb1374-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dat<span class="sc">$</span>ni, dat<span class="sc">$</span>res,</span>
+<span id="cb1374-2"><a href="6.3-mod-06-micmen.html#cb1374-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">col=</span><span class="fu">ifelse</span>(dat<span class="sc">$</span>water<span class="sc">==</span><span class="st">&quot;soft&quot;</span>, <span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>))</span>
+<span id="cb1374-3"><a href="6.3-mod-06-micmen.html#cb1374-3" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>,</span>
+<span id="cb1374-4"><a href="6.3-mod-06-micmen.html#cb1374-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;Soft&quot;</span>, <span class="st">&quot;Hard&quot;</span>),</span>
+<span id="cb1374-5"><a href="6.3-mod-06-micmen.html#cb1374-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>),</span>
+<span id="cb1374-6"><a href="6.3-mod-06-micmen.html#cb1374-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-580-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>The figure suggests that Ni accumulates more slowly in hard water than in soft water, and that less Ni is taken up in hard water. The data seem to follow a curve that approaches an asymptote, around 60000 <span class="math inline">\(\mu\)</span> mol/kg for soft water and 20000 <span class="math inline">\(\mu\)</span> mol/kg for hard water. The biological interpretation is that organisms can accumulate Ni from their environment, but eventually the rate of uptake will slow as the organism’s cells and tissues become saturated (or, because they reach an equilibrium with their environment). High levels of Ni accumulation can directly cause mortality, further limiting uptake. We might suspect that a Michaelis-Menten model is appropriate because it (1) has an asymptote term to capture the maximum accumulation; and (2) describes processes where a rate or first derivative slows as the system saturates. Because the dynamics appear so different for the hard water and soft water treatments, we will fit a separate model for each group.</p>
+<div class="sourceCode" id="cb1375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1375-1"><a href="6.3-mod-06-micmen.html#cb1375-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fit models using nls() and SSmicmen()</span></span>
+<span id="cb1375-2"><a href="6.3-mod-06-micmen.html#cb1375-2" aria-hidden="true" tabindex="-1"></a>flag1 <span class="ot">&lt;-</span> <span class="fu">which</span>(dat<span class="sc">$</span>water <span class="sc">==</span> <span class="st">&quot;soft&quot;</span>)</span>
+<span id="cb1375-3"><a href="6.3-mod-06-micmen.html#cb1375-3" aria-hidden="true" tabindex="-1"></a>flag2 <span class="ot">&lt;-</span> <span class="fu">which</span>(dat<span class="sc">$</span>water <span class="sc">==</span> <span class="st">&quot;hard&quot;</span>)</span>
+<span id="cb1375-4"><a href="6.3-mod-06-micmen.html#cb1375-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1375-5"><a href="6.3-mod-06-micmen.html#cb1375-5" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">nls</span>(res<span class="sc">~</span><span class="fu">SSmicmen</span>(ni, a, b),</span>
+<span id="cb1375-6"><a href="6.3-mod-06-micmen.html#cb1375-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">data=</span>dat[flag1,])</span>
+<span id="cb1375-7"><a href="6.3-mod-06-micmen.html#cb1375-7" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">nls</span>(res<span class="sc">~</span><span class="fu">SSmicmen</span>(ni, a, b),</span>
+<span id="cb1375-8"><a href="6.3-mod-06-micmen.html#cb1375-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">data=</span>dat[flag2,])</span></code></pre></div>
+<p>How good are the models? We can calculate the pseudo-<em>R</em><sup>2</sup> values using the function <code>pseudoR2()</code> defined above. Both models look pretty good:</p>
+<div class="sourceCode" id="cb1376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1376-1"><a href="6.3-mod-06-micmen.html#cb1376-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pseudoR2</span>(mod1, dat<span class="sc">$</span>res[flag1])</span></code></pre></div>
+<pre><code>## [1] 0.9754908</code></pre>
+<div class="sourceCode" id="cb1378"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1378-1"><a href="6.3-mod-06-micmen.html#cb1378-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pseudoR2</span>(mod2, dat<span class="sc">$</span>res[flag2])</span></code></pre></div>
+<pre><code>## [1] 0.9125796</code></pre>
+<p>Finally, let’s produce the usual predicted values and 95% CI for each group.</p>
+<div class="sourceCode" id="cb1380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1380-1"><a href="6.3-mod-06-micmen.html#cb1380-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(propagate)</span>
+<span id="cb1380-2"><a href="6.3-mod-06-micmen.html#cb1380-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1380-3"><a href="6.3-mod-06-micmen.html#cb1380-3" aria-hidden="true" tabindex="-1"></a><span class="co"># values for prediction</span></span>
+<span id="cb1380-4"><a href="6.3-mod-06-micmen.html#cb1380-4" aria-hidden="true" tabindex="-1"></a>L <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb1380-5"><a href="6.3-mod-06-micmen.html#cb1380-5" aria-hidden="true" tabindex="-1"></a>px <span class="ot">&lt;-</span> dat<span class="sc">$</span>ni[<span class="fu">which</span>(dat<span class="sc">$</span>ni <span class="sc">&gt;</span> <span class="dv">0</span>)]</span>
+<span id="cb1380-6"><a href="6.3-mod-06-micmen.html#cb1380-6" aria-hidden="true" tabindex="-1"></a>px <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(px), <span class="fu">max</span>(px), <span class="at">length=</span>L)</span>
+<span id="cb1380-7"><a href="6.3-mod-06-micmen.html#cb1380-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1380-8"><a href="6.3-mod-06-micmen.html#cb1380-8" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate predictions and CI</span></span>
+<span id="cb1380-9"><a href="6.3-mod-06-micmen.html#cb1380-9" aria-hidden="true" tabindex="-1"></a>pred1 <span class="ot">&lt;-</span> <span class="fu">predictNLS</span>(mod1,</span>
+<span id="cb1380-10"><a href="6.3-mod-06-micmen.html#cb1380-10" aria-hidden="true" tabindex="-1"></a>                    <span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">ni=</span>px),</span>
+<span id="cb1380-11"><a href="6.3-mod-06-micmen.html#cb1380-11" aria-hidden="true" tabindex="-1"></a>                    <span class="at">interval=</span><span class="st">&quot;confidence&quot;</span>)</span>
+<span id="cb1380-12"><a href="6.3-mod-06-micmen.html#cb1380-12" aria-hidden="true" tabindex="-1"></a>pred2 <span class="ot">&lt;-</span> <span class="fu">predictNLS</span>(mod2,</span>
+<span id="cb1380-13"><a href="6.3-mod-06-micmen.html#cb1380-13" aria-hidden="true" tabindex="-1"></a>                    <span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">ni=</span>px),</span>
+<span id="cb1380-14"><a href="6.3-mod-06-micmen.html#cb1380-14" aria-hidden="true" tabindex="-1"></a>                    <span class="at">interval=</span><span class="st">&quot;confidence&quot;</span>)</span>
+<span id="cb1380-15"><a href="6.3-mod-06-micmen.html#cb1380-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1380-16"><a href="6.3-mod-06-micmen.html#cb1380-16" aria-hidden="true" tabindex="-1"></a><span class="co"># just need this part</span></span>
+<span id="cb1380-17"><a href="6.3-mod-06-micmen.html#cb1380-17" aria-hidden="true" tabindex="-1"></a>pred1 <span class="ot">&lt;-</span> pred1<span class="sc">$</span>summary</span>
+<span id="cb1380-18"><a href="6.3-mod-06-micmen.html#cb1380-18" aria-hidden="true" tabindex="-1"></a>pred2 <span class="ot">&lt;-</span> pred2<span class="sc">$</span>summary</span></code></pre></div>
+<p>Which predictions should we use? It usually doesn’t matter whether you use the 1st order Taylor series, 2nd order Taylor series, or Monte Carlo values, but sometimes it does. We can examine histograms of the differences between the predictions to get a sense of which methods agree with each other.</p>
+<div class="sourceCode" id="cb1381"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1381-1"><a href="6.3-mod-06-micmen.html#cb1381-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
+<span id="cb1381-2"><a href="6.3-mod-06-micmen.html#cb1381-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(pred1<span class="sc">$</span>Prop.Mean<span class="fl">.1</span> <span class="sc">-</span> pred1<span class="sc">$</span>Prop.Mean<span class="fl">.2</span>,<span class="at">main=</span><span class="st">&quot;1st - 2nd Taylor&quot;</span>)</span>
+<span id="cb1381-3"><a href="6.3-mod-06-micmen.html#cb1381-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(pred1<span class="sc">$</span>Prop.Mean<span class="fl">.1</span> <span class="sc">-</span> pred1<span class="sc">$</span>Sim.Mean,<span class="at">main=</span><span class="st">&quot;1st Taylor - Monte Carlo&quot;</span>)</span>
+<span id="cb1381-4"><a href="6.3-mod-06-micmen.html#cb1381-4" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(pred1<span class="sc">$</span>Prop.Mean<span class="fl">.2</span> <span class="sc">-</span> pred1<span class="sc">$</span>Sim.Mean,<span class="at">main=</span><span class="st">&quot;2nd Taylor - Monte Carlo&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-584-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>Take a look at the <em>x</em>-axis scales: the differences between the 1st order Taylor series and Monte Carlo predictions are quite small relative to some of the differences between either of those and the 2nd order Taylor series estimates. This suggests that we should use one of the two methods that closely agree with each other. Another way to compare the predictions is to plot them against each other, with a line that shows where predictions are equal.</p>
+<div class="sourceCode" id="cb1382"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1382-1"><a href="6.3-mod-06-micmen.html#cb1382-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
+<span id="cb1382-2"><a href="6.3-mod-06-micmen.html#cb1382-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pred1<span class="sc">$</span>Prop.Mean<span class="fl">.1</span>, pred1<span class="sc">$</span>Prop.Mean<span class="fl">.2</span>)</span>
+<span id="cb1382-3"><a href="6.3-mod-06-micmen.html#cb1382-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a=</span><span class="dv">0</span>, <span class="at">b=</span><span class="dv">1</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb1382-4"><a href="6.3-mod-06-micmen.html#cb1382-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pred1<span class="sc">$</span>Prop.Mean<span class="fl">.1</span>, pred1<span class="sc">$</span>Sim.Mean)</span>
+<span id="cb1382-5"><a href="6.3-mod-06-micmen.html#cb1382-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a=</span><span class="dv">0</span>, <span class="at">b=</span><span class="dv">1</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb1382-6"><a href="6.3-mod-06-micmen.html#cb1382-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pred1<span class="sc">$</span>Prop.Mean<span class="fl">.2</span>, pred1<span class="sc">$</span>Sim.Mean)</span>
+<span id="cb1382-7"><a href="6.3-mod-06-micmen.html#cb1382-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a=</span><span class="dv">0</span>, <span class="at">b=</span><span class="dv">1</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-585-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>The second set of figures shows a serious problem with the 2nd order approximation: it predicts negative concentrations! Because of this, let’s ignore the 2nd order approximation and stick with the Monte Carlo predictions.</p>
+<div class="sourceCode" id="cb1383"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1383-1"><a href="6.3-mod-06-micmen.html#cb1383-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extract predictions and CI</span></span>
+<span id="cb1383-2"><a href="6.3-mod-06-micmen.html#cb1383-2" aria-hidden="true" tabindex="-1"></a>mn1 <span class="ot">&lt;-</span> pred1<span class="sc">$</span>Sim.Mean</span>
+<span id="cb1383-3"><a href="6.3-mod-06-micmen.html#cb1383-3" aria-hidden="true" tabindex="-1"></a>lo1 <span class="ot">&lt;-</span> pred1<span class="sc">$</span><span class="st">&#39;Sim.2.5%&#39;</span></span>
+<span id="cb1383-4"><a href="6.3-mod-06-micmen.html#cb1383-4" aria-hidden="true" tabindex="-1"></a>up1 <span class="ot">&lt;-</span> pred1<span class="sc">$</span><span class="st">&#39;Sim.97.5%&#39;</span></span>
+<span id="cb1383-5"><a href="6.3-mod-06-micmen.html#cb1383-5" aria-hidden="true" tabindex="-1"></a>mn2 <span class="ot">&lt;-</span> pred2<span class="sc">$</span>Sim.Mean</span>
+<span id="cb1383-6"><a href="6.3-mod-06-micmen.html#cb1383-6" aria-hidden="true" tabindex="-1"></a>lo2 <span class="ot">&lt;-</span> pred2<span class="sc">$</span><span class="st">&#39;Sim.2.5%&#39;</span></span>
+<span id="cb1383-7"><a href="6.3-mod-06-micmen.html#cb1383-7" aria-hidden="true" tabindex="-1"></a>up2 <span class="ot">&lt;-</span> pred2<span class="sc">$</span><span class="st">&#39;Sim.97.5%&#39;</span></span>
+<span id="cb1383-8"><a href="6.3-mod-06-micmen.html#cb1383-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1383-9"><a href="6.3-mod-06-micmen.html#cb1383-9" aria-hidden="true" tabindex="-1"></a><span class="co"># fancy plot options</span></span>
+<span id="cb1383-10"><a href="6.3-mod-06-micmen.html#cb1383-10" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="fl">5.1</span>, <span class="fl">7.1</span>, <span class="fl">1.1</span>, <span class="fl">1.1</span>),</span>
+<span id="cb1383-11"><a href="6.3-mod-06-micmen.html#cb1383-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">las=</span><span class="dv">1</span>, <span class="at">lend=</span><span class="dv">1</span>, <span class="at">bty=</span><span class="st">&quot;n&quot;</span>, </span>
+<span id="cb1383-12"><a href="6.3-mod-06-micmen.html#cb1383-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex.axis=</span><span class="fl">1.3</span>, <span class="at">cex.lab=</span><span class="fl">1.3</span>)</span>
+<span id="cb1383-13"><a href="6.3-mod-06-micmen.html#cb1383-13" aria-hidden="true" tabindex="-1"></a><span class="co"># make the plot</span></span>
+<span id="cb1383-14"><a href="6.3-mod-06-micmen.html#cb1383-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dat<span class="sc">$</span>ni, dat<span class="sc">$</span>res,</span>
+<span id="cb1383-15"><a href="6.3-mod-06-micmen.html#cb1383-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">col=</span><span class="fu">ifelse</span>(dat<span class="sc">$</span>water<span class="sc">==</span><span class="st">&quot;soft&quot;</span>, <span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>),</span>
+<span id="cb1383-16"><a href="6.3-mod-06-micmen.html#cb1383-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch=</span><span class="dv">16</span>, <span class="at">cex=</span><span class="fl">1.2</span>,</span>
+<span id="cb1383-17"><a href="6.3-mod-06-micmen.html#cb1383-17" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="fu">expression</span>(Ni<span class="sc">~</span>concentration<span class="sc">~</span>(mu<span class="sc">*</span>g<span class="sc">/</span>L)),</span>
+<span id="cb1383-18"><a href="6.3-mod-06-micmen.html#cb1383-18" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb1383-19"><a href="6.3-mod-06-micmen.html#cb1383-19" aria-hidden="true" tabindex="-1"></a><span class="co"># custom y axis (need to move outwards)</span></span>
+<span id="cb1383-20"><a href="6.3-mod-06-micmen.html#cb1383-20" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="at">ylab=</span><span class="fu">expression</span>(Ni<span class="sc">~</span>body<span class="sc">~</span>residue<span class="sc">~</span>(mu<span class="sc">*</span>g<span class="sc">/</span>kg)), <span class="at">line=</span><span class="dv">5</span>)</span>
+<span id="cb1383-21"><a href="6.3-mod-06-micmen.html#cb1383-21" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, lo1, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb1383-22"><a href="6.3-mod-06-micmen.html#cb1383-22" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, up1, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb1383-23"><a href="6.3-mod-06-micmen.html#cb1383-23" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, mn1, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>)</span>
+<span id="cb1383-24"><a href="6.3-mod-06-micmen.html#cb1383-24" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, lo2, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb1383-25"><a href="6.3-mod-06-micmen.html#cb1383-25" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, up2, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb1383-26"><a href="6.3-mod-06-micmen.html#cb1383-26" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, mn2, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>)</span>
+<span id="cb1383-27"><a href="6.3-mod-06-micmen.html#cb1383-27" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>,</span>
+<span id="cb1383-28"><a href="6.3-mod-06-micmen.html#cb1383-28" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;Soft water&quot;</span>, <span class="st">&quot;Hard water&quot;</span>),</span>
+<span id="cb1383-29"><a href="6.3-mod-06-micmen.html#cb1383-29" aria-hidden="true" tabindex="-1"></a>       <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>),</span>
+<span id="cb1383-30"><a href="6.3-mod-06-micmen.html#cb1383-30" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch=</span><span class="dv">16</span>, <span class="at">bty=</span><span class="st">&quot;n&quot;</span>, <span class="at">cex=</span><span class="fl">1.2</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-586-1.png" width="576" style="display: block; margin: auto;" /></p>
+</div>
+<div id="alternative-strategies-for-the-analysis" class="section level3" number="6.3.3">
+<h3><span class="header-section-number">6.3.3</span> Alternative strategies for the analysis</h3>
+<p>In the example above, we fit two separate models to understand the effect of a continuous predictor in two groups: hard water and soft water. It is also possible to estimate the effects in a single model in nls(). This produces a NLS model analogous to ANCOVA: the response variable can vary between groups, and/or the response to the continuous predictor can vary between groups. The models are little more complicated than the analogous LM. We can define models where either the asymptote (<em>a</em>), the Michaelis constant (<em>b</em>), or both <em>a</em> and <em>b</em> vary by group. The deterministic parts of these models can be written compactly as:</p>
+<table>
+<colgroup>
+<col width="44%" />
+<col width="55%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Model</th>
+<th align="center">Deterministic part</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Asymptote by group</td>
+<td align="center"><span class="math inline">\(\eta=\frac{a_{water}X}{b+X}\)</span></td>
+</tr>
+<tr class="even">
+<td>Michaelis constant by group</td>
+<td align="center"><span class="math inline">\(\eta=\frac{aX}{b_{water}+X}\)</span></td>
+</tr>
+<tr class="odd">
+<td>Asymptote and Michaelis constant by group</td>
+<td align="center"><span class="math inline">\(\eta=\frac{a_{water}X}{b_{water}+X}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>These models can’t be coded directly in <code>nls()</code>. Instead, we need to rewrite the model first to include some vectors of 1/0 to isolate the observations in each treatment. The equations below show what that looks like.</p>
+<table>
+<colgroup>
+<col width="44%" />
+<col width="55%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Model</th>
+<th align="center">Deterministic part</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Asymptote by group</td>
+<td align="center"><span class="math inline">\(\eta=\frac{{\psi_{hard}a}_{hard}X}{b+X}+\frac{{\psi_{soft}a}_{soft}X}{b+X}\)</span></td>
+</tr>
+<tr class="even">
+<td>Michaelis constant by group</td>
+<td align="center"><span class="math inline">\(\eta=\frac{\psi_{hard}aX}{b_{hard}+X}+\frac{\psi_{soft}aX}{b_{soft}+X}\)</span></td>
+</tr>
+<tr class="odd">
+<td>Asymptote and Michaelis constant by group</td>
+<td align="center"><span class="math inline">\(\eta=\frac{{\psi_{hard}a}_{hard}X}{b_{hard}+X}+\frac{{\psi_{soft}a}_{soft}X}{b_{soft}+X}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>In these equations the coefficient <span class="math inline">\(\psi_{hard}\)</span> takes value 1 for observations from the hard water group and value 0 for observations in the soft water group (<span class="math inline">\(\psi\)</span> is the Greek letter “psi” and is often used for probabilities or binary variables). The coefficient <span class="math inline">\(\psi_{soft}\)</span> does exactly the opposite: takes value 1 for observations from the soft water group and value 0 for observations in the hard water group. This form means that the parameters specific to hard water cannot affect observations from soft water and vice versa. These sorts of parameters are called <strong>dummy variables</strong><a href="literature-cited.html#fn63" class="footnote-ref" id="fnref63"><sup>63</sup></a>.</p>
+<p>We can code each of these models in <code>nls()</code>. For starting values we can use the parameter estimates from the models fitted to each group separately (<code>mod1</code> and <code>mod2</code>).</p>
+<div class="sourceCode" id="cb1384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1384-1"><a href="6.3-mod-06-micmen.html#cb1384-1" aria-hidden="true" tabindex="-1"></a>flag3 <span class="ot">&lt;-</span> <span class="fu">which</span>(dat<span class="sc">$</span>ni <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb1384-2"><a href="6.3-mod-06-micmen.html#cb1384-2" aria-hidden="true" tabindex="-1"></a>dat2 <span class="ot">&lt;-</span> dat[flag3,]</span>
+<span id="cb1384-3"><a href="6.3-mod-06-micmen.html#cb1384-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1384-4"><a href="6.3-mod-06-micmen.html#cb1384-4" aria-hidden="true" tabindex="-1"></a>dat2<span class="sc">$</span>psi.hard <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dat2<span class="sc">$</span>water <span class="sc">==</span> <span class="st">&quot;hard&quot;</span>)</span>
+<span id="cb1384-5"><a href="6.3-mod-06-micmen.html#cb1384-5" aria-hidden="true" tabindex="-1"></a>dat2<span class="sc">$</span>psi.soft <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dat2<span class="sc">$</span>water <span class="sc">==</span> <span class="st">&quot;soft&quot;</span>)</span>
+<span id="cb1384-6"><a href="6.3-mod-06-micmen.html#cb1384-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1384-7"><a href="6.3-mod-06-micmen.html#cb1384-7" aria-hidden="true" tabindex="-1"></a><span class="co"># asymptote by group:</span></span>
+<span id="cb1384-8"><a href="6.3-mod-06-micmen.html#cb1384-8" aria-hidden="true" tabindex="-1"></a>mod3 <span class="ot">&lt;-</span> <span class="fu">nls</span>(res<span class="sc">~</span></span>
+<span id="cb1384-9"><a href="6.3-mod-06-micmen.html#cb1384-9" aria-hidden="true" tabindex="-1"></a>            (psi.hard)<span class="sc">*</span>((a.hard<span class="sc">*</span>ni)<span class="sc">/</span>(b<span class="sc">+</span>ni))<span class="sc">+</span></span>
+<span id="cb1384-10"><a href="6.3-mod-06-micmen.html#cb1384-10" aria-hidden="true" tabindex="-1"></a>            (psi.soft)<span class="sc">*</span>((a.soft<span class="sc">*</span>ni)<span class="sc">/</span>(b<span class="sc">+</span>ni)),</span>
+<span id="cb1384-11"><a href="6.3-mod-06-micmen.html#cb1384-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">data=</span>dat2, </span>
+<span id="cb1384-12"><a href="6.3-mod-06-micmen.html#cb1384-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">start=</span><span class="fu">list</span>(<span class="at">a.hard=</span><span class="dv">25038</span>, <span class="at">a.soft=</span><span class="dv">71997</span>, <span class="at">b=</span><span class="dv">2000</span>))</span>
+<span id="cb1384-13"><a href="6.3-mod-06-micmen.html#cb1384-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Michaelis constant by group:</span></span>
+<span id="cb1384-14"><a href="6.3-mod-06-micmen.html#cb1384-14" aria-hidden="true" tabindex="-1"></a>mod4 <span class="ot">&lt;-</span> <span class="fu">nls</span>(res<span class="sc">~</span></span>
+<span id="cb1384-15"><a href="6.3-mod-06-micmen.html#cb1384-15" aria-hidden="true" tabindex="-1"></a>            (psi.hard)<span class="sc">*</span>((a<span class="sc">*</span>ni)<span class="sc">/</span>(b.hard<span class="sc">+</span>ni))<span class="sc">+</span></span>
+<span id="cb1384-16"><a href="6.3-mod-06-micmen.html#cb1384-16" aria-hidden="true" tabindex="-1"></a>            (psi.soft)<span class="sc">*</span>((a<span class="sc">*</span>ni)<span class="sc">/</span>(b.soft<span class="sc">+</span>ni)),</span>
+<span id="cb1384-17"><a href="6.3-mod-06-micmen.html#cb1384-17" aria-hidden="true" tabindex="-1"></a>            <span class="at">data=</span>dat2, </span>
+<span id="cb1384-18"><a href="6.3-mod-06-micmen.html#cb1384-18" aria-hidden="true" tabindex="-1"></a>            <span class="at">start=</span><span class="fu">list</span>(<span class="at">a=</span><span class="dv">48500</span>, <span class="at">b.hard=</span><span class="dv">1928</span>, <span class="at">b.soft=</span><span class="dv">4310</span>))</span>
+<span id="cb1384-19"><a href="6.3-mod-06-micmen.html#cb1384-19" aria-hidden="true" tabindex="-1"></a><span class="co"># both parameters by group</span></span>
+<span id="cb1384-20"><a href="6.3-mod-06-micmen.html#cb1384-20" aria-hidden="true" tabindex="-1"></a>mod5 <span class="ot">&lt;-</span> <span class="fu">nls</span>(res<span class="sc">~</span></span>
+<span id="cb1384-21"><a href="6.3-mod-06-micmen.html#cb1384-21" aria-hidden="true" tabindex="-1"></a>            (psi.hard)<span class="sc">*</span>((a.hard<span class="sc">*</span>ni)<span class="sc">/</span>(b.hard<span class="sc">+</span>ni))<span class="sc">+</span></span>
+<span id="cb1384-22"><a href="6.3-mod-06-micmen.html#cb1384-22" aria-hidden="true" tabindex="-1"></a>            (psi.soft)<span class="sc">*</span>((a.soft<span class="sc">*</span>ni)<span class="sc">/</span>(b.soft<span class="sc">+</span>ni)),</span>
+<span id="cb1384-23"><a href="6.3-mod-06-micmen.html#cb1384-23" aria-hidden="true" tabindex="-1"></a>            <span class="at">data=</span>dat2, </span>
+<span id="cb1384-24"><a href="6.3-mod-06-micmen.html#cb1384-24" aria-hidden="true" tabindex="-1"></a>            <span class="at">start=</span><span class="fu">list</span>(<span class="at">a.hard=</span><span class="dv">20000</span>, <span class="at">a.soft=</span><span class="dv">50000</span>,</span>
+<span id="cb1384-25"><a href="6.3-mod-06-micmen.html#cb1384-25" aria-hidden="true" tabindex="-1"></a>                       <span class="at">b.hard=</span><span class="dv">1000</span>, <span class="at">b.soft=</span><span class="dv">4300</span>))</span></code></pre></div>
+<p>For complex models like model 5, you may get the dreaded <code>singular gradient</code> error in <code>nls()</code>, which means that R can’t find a solution from the starting values you provided. You might be able to get the model to work by changing the starting values, but probably not. We’ll come back to model 5 later and explore an alternative way to fit it.</p>
+<p>We can use AIC to compare the fits of the models that did work:</p>
+<div class="sourceCode" id="cb1385"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1385-1"><a href="6.3-mod-06-micmen.html#cb1385-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(mod3, mod4, mod5)</span></code></pre></div>
+<pre><code>##      df      AIC
+## mod3  4 1256.312
+## mod4  4 1293.576
+## mod5  5 1250.118</code></pre>
+<p>We can also use package <code>propagate</code> to calculate fitted values and 95% CI.</p>
+<div class="sourceCode" id="cb1387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1387-1"><a href="6.3-mod-06-micmen.html#cb1387-1" aria-hidden="true" tabindex="-1"></a>px <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(dat2<span class="sc">$</span>ni), <span class="fu">max</span>(dat2<span class="sc">$</span>ni), <span class="at">length=</span><span class="dv">20</span>)</span>
+<span id="cb1387-2"><a href="6.3-mod-06-micmen.html#cb1387-2" aria-hidden="true" tabindex="-1"></a>dx <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">ni=</span>px, <span class="at">psi.hard=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>))</span>
+<span id="cb1387-3"><a href="6.3-mod-06-micmen.html#cb1387-3" aria-hidden="true" tabindex="-1"></a>dx<span class="sc">$</span>psi.soft <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(dx<span class="sc">$</span>psi.hard<span class="sc">==</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb1387-4"><a href="6.3-mod-06-micmen.html#cb1387-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1387-5"><a href="6.3-mod-06-micmen.html#cb1387-5" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">predictNLS</span>(mod5,</span>
+<span id="cb1387-6"><a href="6.3-mod-06-micmen.html#cb1387-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">newdata=</span><span class="fu">data.frame</span>(dx),</span>
+<span id="cb1387-7"><a href="6.3-mod-06-micmen.html#cb1387-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">interval=</span><span class="st">&quot;confidence&quot;</span>)</span>
+<span id="cb1387-8"><a href="6.3-mod-06-micmen.html#cb1387-8" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> pred<span class="sc">$</span>summary</span></code></pre></div>
+<p>Extract the values you need for a plot:</p>
+<div class="sourceCode" id="cb1388"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1388-1"><a href="6.3-mod-06-micmen.html#cb1388-1" aria-hidden="true" tabindex="-1"></a>flag.soft <span class="ot">&lt;-</span> <span class="fu">which</span>(dx<span class="sc">$</span>psi.soft <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb1388-2"><a href="6.3-mod-06-micmen.html#cb1388-2" aria-hidden="true" tabindex="-1"></a>flag.hard <span class="ot">&lt;-</span> <span class="fu">which</span>(dx<span class="sc">$</span>psi.hard <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb1388-3"><a href="6.3-mod-06-micmen.html#cb1388-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1388-4"><a href="6.3-mod-06-micmen.html#cb1388-4" aria-hidden="true" tabindex="-1"></a>mn.soft <span class="ot">&lt;-</span> pred<span class="sc">$</span>Sim.Mean[flag.soft]</span>
+<span id="cb1388-5"><a href="6.3-mod-06-micmen.html#cb1388-5" aria-hidden="true" tabindex="-1"></a>lo.soft <span class="ot">&lt;-</span> pred<span class="sc">$</span><span class="st">&#39;Sim.2.5%&#39;</span>[flag.soft]</span>
+<span id="cb1388-6"><a href="6.3-mod-06-micmen.html#cb1388-6" aria-hidden="true" tabindex="-1"></a>up.soft <span class="ot">&lt;-</span> pred<span class="sc">$</span><span class="st">&#39;Sim.97.5%&#39;</span>[flag.soft]</span>
+<span id="cb1388-7"><a href="6.3-mod-06-micmen.html#cb1388-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1388-8"><a href="6.3-mod-06-micmen.html#cb1388-8" aria-hidden="true" tabindex="-1"></a>mn.hard <span class="ot">&lt;-</span> pred<span class="sc">$</span>Sim.Mean[flag.hard]</span>
+<span id="cb1388-9"><a href="6.3-mod-06-micmen.html#cb1388-9" aria-hidden="true" tabindex="-1"></a>lo.hard <span class="ot">&lt;-</span> pred<span class="sc">$</span><span class="st">&#39;Sim.2.5%&#39;</span>[flag.hard]</span>
+<span id="cb1388-10"><a href="6.3-mod-06-micmen.html#cb1388-10" aria-hidden="true" tabindex="-1"></a>up.hard <span class="ot">&lt;-</span> pred<span class="sc">$</span><span class="st">&#39;Sim.97.5%&#39;</span>[flag.hard]</span></code></pre></div>
+<p>Now make a fancy plot:</p>
+<div class="sourceCode" id="cb1389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1389-1"><a href="6.3-mod-06-micmen.html#cb1389-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fancy plot options</span></span>
+<span id="cb1389-2"><a href="6.3-mod-06-micmen.html#cb1389-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="fl">5.1</span>, <span class="fl">7.1</span>, <span class="fl">1.1</span>, <span class="fl">1.1</span>),</span>
+<span id="cb1389-3"><a href="6.3-mod-06-micmen.html#cb1389-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">las=</span><span class="dv">1</span>, <span class="at">lend=</span><span class="dv">1</span>, <span class="at">bty=</span><span class="st">&quot;n&quot;</span>, </span>
+<span id="cb1389-4"><a href="6.3-mod-06-micmen.html#cb1389-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex.axis=</span><span class="fl">1.3</span>, <span class="at">cex.lab=</span><span class="fl">1.3</span>)</span>
+<span id="cb1389-5"><a href="6.3-mod-06-micmen.html#cb1389-5" aria-hidden="true" tabindex="-1"></a><span class="co"># make the plot</span></span>
+<span id="cb1389-6"><a href="6.3-mod-06-micmen.html#cb1389-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dat2<span class="sc">$</span>ni, dat2<span class="sc">$</span>res,</span>
+<span id="cb1389-7"><a href="6.3-mod-06-micmen.html#cb1389-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">col=</span><span class="fu">ifelse</span>(dat2<span class="sc">$</span>water<span class="sc">==</span><span class="st">&quot;soft&quot;</span>, <span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>),</span>
+<span id="cb1389-8"><a href="6.3-mod-06-micmen.html#cb1389-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch=</span><span class="dv">16</span>, <span class="at">cex=</span><span class="fl">1.2</span>,</span>
+<span id="cb1389-9"><a href="6.3-mod-06-micmen.html#cb1389-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="fu">expression</span>(Ni<span class="sc">~</span>concentration<span class="sc">~</span>(mu<span class="sc">*</span>g<span class="sc">/</span>L)),</span>
+<span id="cb1389-10"><a href="6.3-mod-06-micmen.html#cb1389-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb1389-11"><a href="6.3-mod-06-micmen.html#cb1389-11" aria-hidden="true" tabindex="-1"></a><span class="co"># custom y axis (need to move outwards)</span></span>
+<span id="cb1389-12"><a href="6.3-mod-06-micmen.html#cb1389-12" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="at">ylab=</span><span class="fu">expression</span>(Ni<span class="sc">~</span>body<span class="sc">~</span>residue<span class="sc">~</span>(mu<span class="sc">*</span>g<span class="sc">/</span>kg)), <span class="at">line=</span><span class="dv">5</span>)</span>
+<span id="cb1389-13"><a href="6.3-mod-06-micmen.html#cb1389-13" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, lo.soft, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb1389-14"><a href="6.3-mod-06-micmen.html#cb1389-14" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, up.soft, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb1389-15"><a href="6.3-mod-06-micmen.html#cb1389-15" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, mn.soft, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>)</span>
+<span id="cb1389-16"><a href="6.3-mod-06-micmen.html#cb1389-16" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, lo.hard, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb1389-17"><a href="6.3-mod-06-micmen.html#cb1389-17" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, up.hard, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb1389-18"><a href="6.3-mod-06-micmen.html#cb1389-18" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, mn.hard, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>)</span>
+<span id="cb1389-19"><a href="6.3-mod-06-micmen.html#cb1389-19" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>,</span>
+<span id="cb1389-20"><a href="6.3-mod-06-micmen.html#cb1389-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;Soft water&quot;</span>, <span class="st">&quot;Hard water&quot;</span>),</span>
+<span id="cb1389-21"><a href="6.3-mod-06-micmen.html#cb1389-21" aria-hidden="true" tabindex="-1"></a>       <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>),</span>
+<span id="cb1389-22"><a href="6.3-mod-06-micmen.html#cb1389-22" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch=</span><span class="dv">16</span>, <span class="at">bty=</span><span class="st">&quot;n&quot;</span>, <span class="at">cex=</span><span class="fl">1.2</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-591-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>Complicated nonlinear models like model 5 are difficult to fit using the optimization algorithms in R. There is an alternative set of techniques called Markov chain Monte Carlo (MCMC) that can be used for fitting complex models. MCMC uses long chains of random samples to try lots of different possible values for each parameter, and adjusts parameters at each iteration (step in the chain) depending on how well or poorly the model fits with the current parameters. A more in-depth explanation of MCMC was provided in Module 1.</p>
+<p>In the next example we will use MCMC to refit model 5. This also turns your analysis into a Bayesian analysis instead of a frequentist analysis. For MCMC we will need the program JAGS as well as the R packages <code>rjags</code> and <code>R2jags</code>.</p>
+<div class="sourceCode" id="cb1390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1390-1"><a href="6.3-mod-06-micmen.html#cb1390-1" aria-hidden="true" tabindex="-1"></a>mod.name <span class="ot">&lt;-</span> <span class="st">&quot;mod05.txt&quot;</span></span>
+<span id="cb1390-2"><a href="6.3-mod-06-micmen.html#cb1390-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sink</span>(mod.name)</span>
+<span id="cb1390-3"><a href="6.3-mod-06-micmen.html#cb1390-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span></span>
+<span id="cb1390-4"><a href="6.3-mod-06-micmen.html#cb1390-4" aria-hidden="true" tabindex="-1"></a><span class="st">    model{</span></span>
+<span id="cb1390-5"><a href="6.3-mod-06-micmen.html#cb1390-5" aria-hidden="true" tabindex="-1"></a><span class="st">        # priors</span></span>
+<span id="cb1390-6"><a href="6.3-mod-06-micmen.html#cb1390-6" aria-hidden="true" tabindex="-1"></a><span class="st">        ## element 1 = soft</span></span>
+<span id="cb1390-7"><a href="6.3-mod-06-micmen.html#cb1390-7" aria-hidden="true" tabindex="-1"></a><span class="st">        ## element 2 = hard</span></span>
+<span id="cb1390-8"><a href="6.3-mod-06-micmen.html#cb1390-8" aria-hidden="true" tabindex="-1"></a><span class="st">        ### asymptote         </span></span>
+<span id="cb1390-9"><a href="6.3-mod-06-micmen.html#cb1390-9" aria-hidden="true" tabindex="-1"></a><span class="st">        for(i in 1:2){a.water[i]~dunif(1e3, 1e5)}</span></span>
+<span id="cb1390-10"><a href="6.3-mod-06-micmen.html#cb1390-10" aria-hidden="true" tabindex="-1"></a><span class="st">        ### Michaelis constant</span></span>
+<span id="cb1390-11"><a href="6.3-mod-06-micmen.html#cb1390-11" aria-hidden="true" tabindex="-1"></a><span class="st">        for(i in 1:2){b.water[i]~dunif(1e2, 1e4)}</span></span>
+<span id="cb1390-12"><a href="6.3-mod-06-micmen.html#cb1390-12" aria-hidden="true" tabindex="-1"></a><span class="st">        ## residual SD -&gt; precision (tau)</span></span>
+<span id="cb1390-13"><a href="6.3-mod-06-micmen.html#cb1390-13" aria-hidden="true" tabindex="-1"></a><span class="st">        sigma ~ dunif(0, 1e4)</span></span>
+<span id="cb1390-14"><a href="6.3-mod-06-micmen.html#cb1390-14" aria-hidden="true" tabindex="-1"></a><span class="st">        tau.y &lt;- 1 / (sigma * sigma)</span></span>
+<span id="cb1390-15"><a href="6.3-mod-06-micmen.html#cb1390-15" aria-hidden="true" tabindex="-1"></a><span class="st">        # likelihood</span></span>
+<span id="cb1390-16"><a href="6.3-mod-06-micmen.html#cb1390-16" aria-hidden="true" tabindex="-1"></a><span class="st">        for(i in 1:N){</span></span>
+<span id="cb1390-17"><a href="6.3-mod-06-micmen.html#cb1390-17" aria-hidden="true" tabindex="-1"></a><span class="st">            y[i] ~ dnorm(eta[i], tau.y)</span></span>
+<span id="cb1390-18"><a href="6.3-mod-06-micmen.html#cb1390-18" aria-hidden="true" tabindex="-1"></a><span class="st">            eta[i] &lt;- (a.water[water[i]] *</span></span>
+<span id="cb1390-19"><a href="6.3-mod-06-micmen.html#cb1390-19" aria-hidden="true" tabindex="-1"></a><span class="st">                x[i])/(b.water[water[i]]+x[i])</span></span>
+<span id="cb1390-20"><a href="6.3-mod-06-micmen.html#cb1390-20" aria-hidden="true" tabindex="-1"></a><span class="st">        }# i for N</span></span>
+<span id="cb1390-21"><a href="6.3-mod-06-micmen.html#cb1390-21" aria-hidden="true" tabindex="-1"></a><span class="st">    }#model</span></span>
+<span id="cb1390-22"><a href="6.3-mod-06-micmen.html#cb1390-22" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span>, <span class="at">fill=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1390-23"><a href="6.3-mod-06-micmen.html#cb1390-23" aria-hidden="true" tabindex="-1"></a><span class="fu">sink</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1391-1"><a href="6.3-mod-06-micmen.html#cb1391-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(R2jags)</span>
+<span id="cb1391-2"><a href="6.3-mod-06-micmen.html#cb1391-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rjags)</span>
+<span id="cb1391-3"><a href="6.3-mod-06-micmen.html#cb1391-3" aria-hidden="true" tabindex="-1"></a><span class="co"># define initial values for MCMC chains</span></span>
+<span id="cb1391-4"><a href="6.3-mod-06-micmen.html#cb1391-4" aria-hidden="true" tabindex="-1"></a>init.fun <span class="ot">&lt;-</span> <span class="cf">function</span>(nc){</span>
+<span id="cb1391-5"><a href="6.3-mod-06-micmen.html#cb1391-5" aria-hidden="true" tabindex="-1"></a>    res <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">&quot;list&quot;</span>, <span class="at">length=</span>nc)</span>
+<span id="cb1391-6"><a href="6.3-mod-06-micmen.html#cb1391-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nc){</span>
+<span id="cb1391-7"><a href="6.3-mod-06-micmen.html#cb1391-7" aria-hidden="true" tabindex="-1"></a>        res[[i]] <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb1391-8"><a href="6.3-mod-06-micmen.html#cb1391-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">a.water=</span><span class="fu">runif</span>(<span class="dv">2</span>, <span class="fl">1e3</span>, <span class="fl">1e5</span>),</span>
+<span id="cb1391-9"><a href="6.3-mod-06-micmen.html#cb1391-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">b.water=</span><span class="fu">runif</span>(<span class="dv">2</span>, <span class="fl">1e2</span>, <span class="fl">1e4</span>),</span>
+<span id="cb1391-10"><a href="6.3-mod-06-micmen.html#cb1391-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">sigma=</span><span class="fu">runif</span>(<span class="dv">1</span>, <span class="fl">0.1</span>, <span class="fl">1e4</span>))</span>
+<span id="cb1391-11"><a href="6.3-mod-06-micmen.html#cb1391-11" aria-hidden="true" tabindex="-1"></a>    }<span class="co">#i</span></span>
+<span id="cb1391-12"><a href="6.3-mod-06-micmen.html#cb1391-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(res)</span>
+<span id="cb1391-13"><a href="6.3-mod-06-micmen.html#cb1391-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1391-14"><a href="6.3-mod-06-micmen.html#cb1391-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1391-15"><a href="6.3-mod-06-micmen.html#cb1391-15" aria-hidden="true" tabindex="-1"></a>nchains <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb1391-16"><a href="6.3-mod-06-micmen.html#cb1391-16" aria-hidden="true" tabindex="-1"></a>inits <span class="ot">&lt;-</span> <span class="fu">init.fun</span>(nchains)</span>
+<span id="cb1391-17"><a href="6.3-mod-06-micmen.html#cb1391-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1391-18"><a href="6.3-mod-06-micmen.html#cb1391-18" aria-hidden="true" tabindex="-1"></a><span class="co"># parameters to monitor</span></span>
+<span id="cb1391-19"><a href="6.3-mod-06-micmen.html#cb1391-19" aria-hidden="true" tabindex="-1"></a>params <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;a.water&quot;</span>, <span class="st">&quot;b.water&quot;</span>, <span class="st">&quot;sigma&quot;</span>)</span>
+<span id="cb1391-20"><a href="6.3-mod-06-micmen.html#cb1391-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1391-21"><a href="6.3-mod-06-micmen.html#cb1391-21" aria-hidden="true" tabindex="-1"></a><span class="co"># MCMC parameters</span></span>
+<span id="cb1391-22"><a href="6.3-mod-06-micmen.html#cb1391-22" aria-hidden="true" tabindex="-1"></a>n.iter <span class="ot">&lt;-</span> <span class="fl">5e4</span></span>
+<span id="cb1391-23"><a href="6.3-mod-06-micmen.html#cb1391-23" aria-hidden="true" tabindex="-1"></a>n.burnin <span class="ot">&lt;-</span> <span class="fl">1e4</span></span>
+<span id="cb1391-24"><a href="6.3-mod-06-micmen.html#cb1391-24" aria-hidden="true" tabindex="-1"></a>n.thin <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb1391-25"><a href="6.3-mod-06-micmen.html#cb1391-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1391-26"><a href="6.3-mod-06-micmen.html#cb1391-26" aria-hidden="true" tabindex="-1"></a><span class="co"># package data for JAGS</span></span>
+<span id="cb1391-27"><a href="6.3-mod-06-micmen.html#cb1391-27" aria-hidden="true" tabindex="-1"></a>in.data <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">y=</span>dat2<span class="sc">$</span>res,</span>
+<span id="cb1391-28"><a href="6.3-mod-06-micmen.html#cb1391-28" aria-hidden="true" tabindex="-1"></a>                <span class="at">x=</span>dat2<span class="sc">$</span>ni,</span>
+<span id="cb1391-29"><a href="6.3-mod-06-micmen.html#cb1391-29" aria-hidden="true" tabindex="-1"></a>                <span class="at">N=</span><span class="fu">nrow</span>(dat2),</span>
+<span id="cb1391-30"><a href="6.3-mod-06-micmen.html#cb1391-30" aria-hidden="true" tabindex="-1"></a>                <span class="at">water=</span>dat2<span class="sc">$</span>psi.hard<span class="sc">+</span><span class="dv">1</span>)</span>
+<span id="cb1391-31"><a href="6.3-mod-06-micmen.html#cb1391-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1391-32"><a href="6.3-mod-06-micmen.html#cb1391-32" aria-hidden="true" tabindex="-1"></a>model05 <span class="ot">&lt;-</span> <span class="fu">jags</span>(<span class="at">data=</span>in.data, <span class="at">inits=</span>inits,</span>
+<span id="cb1391-33"><a href="6.3-mod-06-micmen.html#cb1391-33" aria-hidden="true" tabindex="-1"></a>                <span class="at">parameters.to.save=</span>params,</span>
+<span id="cb1391-34"><a href="6.3-mod-06-micmen.html#cb1391-34" aria-hidden="true" tabindex="-1"></a>                <span class="at">model.file=</span>mod.name,</span>
+<span id="cb1391-35"><a href="6.3-mod-06-micmen.html#cb1391-35" aria-hidden="true" tabindex="-1"></a>                <span class="at">n.chains=</span>nchains, <span class="at">n.iter=</span>n.iter,</span>
+<span id="cb1391-36"><a href="6.3-mod-06-micmen.html#cb1391-36" aria-hidden="true" tabindex="-1"></a>                <span class="at">n.burnin=</span>n.burnin, <span class="at">n.thin=</span>n.thin)<span class="co">#jags</span></span></code></pre></div>
+<pre><code>## Compiling model graph
+##    Resolving undeclared variables
+##    Allocating nodes
+## Graph information:
+##    Observed stochastic nodes: 66
+##    Unobserved stochastic nodes: 5
+##    Total graph size: 284
+## 
+## Initializing model
+## 
+## 
+  |                                                        
+  |                                                  |   0%
+  |                                                        
+  |+++++                                             |  10%
+  |                                                        
+  |++++++++++                                        |  20%
+  |                                                        
+  |+++++++++++++++                                   |  30%
+  |                                                        
+  |++++++++++++++++++++                              |  40%
+  |                                                        
+  |+++++++++++++++++++++++++                         |  50%
+  |                                                        
+  |++++++++++++++++++++++++++++++                    |  60%
+  |                                                        
+  |+++++++++++++++++++++++++++++++++++               |  70%
+  |                                                        
+  |++++++++++++++++++++++++++++++++++++++++          |  80%
+  |                                                        
+  |+++++++++++++++++++++++++++++++++++++++++++++     |  90%
+  |                                                        
+  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100%
+## 
+  |                                                        
+  |                                                  |   0%
+  |                                                        
+  |*                                                 |   2%
+  |                                                        
+  |**                                                |   5%
+  |                                                        
+  |****                                              |   8%
+  |                                                        
+  |*****                                             |  10%
+  |                                                        
+  |******                                            |  12%
+  |                                                        
+  |********                                          |  15%
+  |                                                        
+  |*********                                         |  18%
+  |                                                        
+  |**********                                        |  20%
+  |                                                        
+  |***********                                       |  22%
+  |                                                        
+  |************                                      |  25%
+  |                                                        
+  |**************                                    |  28%
+  |                                                        
+  |***************                                   |  30%
+  |                                                        
+  |****************                                  |  32%
+  |                                                        
+  |******************                                |  35%
+  |                                                        
+  |*******************                               |  38%
+  |                                                        
+  |********************                              |  40%
+  |                                                        
+  |*********************                             |  42%
+  |                                                        
+  |**********************                            |  45%
+  |                                                        
+  |************************                          |  48%
+  |                                                        
+  |*************************                         |  50%
+  |                                                        
+  |**************************                        |  52%
+  |                                                        
+  |****************************                      |  55%
+  |                                                        
+  |*****************************                     |  58%
+  |                                                        
+  |******************************                    |  60%
+  |                                                        
+  |*******************************                   |  62%
+  |                                                        
+  |********************************                  |  65%
+  |                                                        
+  |**********************************                |  68%
+  |                                                        
+  |***********************************               |  70%
+  |                                                        
+  |************************************              |  72%
+  |                                                        
+  |**************************************            |  75%
+  |                                                        
+  |***************************************           |  78%
+  |                                                        
+  |****************************************          |  80%
+  |                                                        
+  |*****************************************         |  82%
+  |                                                        
+  |******************************************        |  85%
+  |                                                        
+  |********************************************      |  88%
+  |                                                        
+  |*********************************************     |  90%
+  |                                                        
+  |**********************************************    |  92%
+  |                                                        
+  |************************************************  |  95%
+  |                                                        
+  |************************************************* |  98%
+  |                                                        
+  |**************************************************| 100%</code></pre>
+<p>The most important part of the output is here:</p>
+<div class="sourceCode" id="cb1393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1393-1"><a href="6.3-mod-06-micmen.html#cb1393-1" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> model05<span class="sc">$</span>BUGSoutput<span class="sc">$</span>summary</span>
+<span id="cb1393-2"><a href="6.3-mod-06-micmen.html#cb1393-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1393-3"><a href="6.3-mod-06-micmen.html#cb1393-3" aria-hidden="true" tabindex="-1"></a><span class="co"># rounded to fit better on screen:</span></span>
+<span id="cb1393-4"><a href="6.3-mod-06-micmen.html#cb1393-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(out, <span class="dv">1</span>))</span></code></pre></div>
+<pre><code>##               mean     sd    2.5%     25%     50%     75%   97.5% Rhat n.eff
+## a.water[1] 72696.1 3204.7 66797.5 70527.3 72560.4 74638.8 79153.5    1  1200
+## a.water[2] 25692.2 1840.1 22460.4 24394.4 25641.5 26795.7 29748.8    1  1200
+## b.water[1]  4450.3  536.4  3527.9  4067.7  4424.8  4771.7  5598.3    1  1200
+## b.water[2]  2190.3  593.7  1282.1  1770.2  2124.9  2507.9  3634.0    1  1200
+## deviance    1245.8    3.4  1241.1  1243.2  1245.1  1247.6  1253.7    1  1200
+## sigma       3067.9  289.0  2550.6  2867.5  3046.8  3243.5  3666.6    1  1200</code></pre>
+<p>The parameter estimates (mean) are close to their true values. The next few columns show SD and various quantiles of the posterior distribution of each parameter. The Gelman-Rubin statistic, <span class="math inline">\(\hat{R}\)</span> (“R-hat”) are &lt;1.01 for each parameter, suggesting that the MCMC chains converged.
+Using JAGS can be overkill sometimes, but might be the only way to get a model to fit (and there is no guarantee that JAGS can fit a model!). This method has the advantage of fitting the model directly, without adding in dummy variables for each treatment.
+We can use the MCMC samples saved in the model object to generate model predictions. The intervals produced for this plot are not true confidence intervals (CI), but their Bayesian analogue, credible intervals (CRI).</p>
+<div class="sourceCode" id="cb1395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1395-1"><a href="6.3-mod-06-micmen.html#cb1395-1" aria-hidden="true" tabindex="-1"></a><span class="co"># MCMC samples</span></span>
+<span id="cb1395-2"><a href="6.3-mod-06-micmen.html#cb1395-2" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> model05<span class="sc">$</span>BUGSoutput<span class="sc">$</span>sims.list</span>
+<span id="cb1395-3"><a href="6.3-mod-06-micmen.html#cb1395-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1395-4"><a href="6.3-mod-06-micmen.html#cb1395-4" aria-hidden="true" tabindex="-1"></a><span class="co"># make data frame for prediction:</span></span>
+<span id="cb1395-5"><a href="6.3-mod-06-micmen.html#cb1395-5" aria-hidden="true" tabindex="-1"></a>px <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(dat2<span class="sc">$</span>ni), <span class="fu">max</span>(dat2<span class="sc">$</span>ni), <span class="at">length=</span><span class="dv">20</span>)</span>
+<span id="cb1395-6"><a href="6.3-mod-06-micmen.html#cb1395-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1395-7"><a href="6.3-mod-06-micmen.html#cb1395-7" aria-hidden="true" tabindex="-1"></a><span class="co"># water: 1 = soft, 2 = hard</span></span>
+<span id="cb1395-8"><a href="6.3-mod-06-micmen.html#cb1395-8" aria-hidden="true" tabindex="-1"></a>dx <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">ni=</span>px, <span class="at">water=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span>
+<span id="cb1395-9"><a href="6.3-mod-06-micmen.html#cb1395-9" aria-hidden="true" tabindex="-1"></a>dx<span class="sc">$</span>lo <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb1395-10"><a href="6.3-mod-06-micmen.html#cb1395-10" aria-hidden="true" tabindex="-1"></a>dx<span class="sc">$</span>up <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb1395-11"><a href="6.3-mod-06-micmen.html#cb1395-11" aria-hidden="true" tabindex="-1"></a>dx<span class="sc">$</span>mn <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb1395-12"><a href="6.3-mod-06-micmen.html#cb1395-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1395-13"><a href="6.3-mod-06-micmen.html#cb1395-13" aria-hidden="true" tabindex="-1"></a>mx.mn <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="cn">NA</span>, <span class="at">nrow=</span><span class="fu">nrow</span>(dx), <span class="at">ncol=</span><span class="fu">nrow</span>(z[[<span class="dv">1</span>]]))</span>
+<span id="cb1395-14"><a href="6.3-mod-06-micmen.html#cb1395-14" aria-hidden="true" tabindex="-1"></a>mx.lo <span class="ot">&lt;-</span> mx.mn</span>
+<span id="cb1395-15"><a href="6.3-mod-06-micmen.html#cb1395-15" aria-hidden="true" tabindex="-1"></a>mx.up <span class="ot">&lt;-</span> mx.mn</span>
+<span id="cb1395-16"><a href="6.3-mod-06-micmen.html#cb1395-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1395-17"><a href="6.3-mod-06-micmen.html#cb1395-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(mx.mn)){</span>
+<span id="cb1395-18"><a href="6.3-mod-06-micmen.html#cb1395-18" aria-hidden="true" tabindex="-1"></a>    eta <span class="ot">&lt;-</span> (z<span class="sc">$</span>a.water[i,dx<span class="sc">$</span>water]<span class="sc">*</span>dx<span class="sc">$</span>ni)<span class="sc">/</span>(</span>
+<span id="cb1395-19"><a href="6.3-mod-06-micmen.html#cb1395-19" aria-hidden="true" tabindex="-1"></a>            z<span class="sc">$</span>b.water[i,dx<span class="sc">$</span>water]<span class="sc">+</span>dx<span class="sc">$</span>ni)</span>
+<span id="cb1395-20"><a href="6.3-mod-06-micmen.html#cb1395-20" aria-hidden="true" tabindex="-1"></a>    mx.mn[,i] <span class="ot">&lt;-</span> eta</span>
+<span id="cb1395-21"><a href="6.3-mod-06-micmen.html#cb1395-21" aria-hidden="true" tabindex="-1"></a>    mx.lo[,i] <span class="ot">&lt;-</span> <span class="fu">pmax</span>(<span class="dv">0</span>, eta<span class="sc">-</span><span class="fu">mean</span>(z<span class="sc">$</span>sigma[,<span class="dv">1</span>]))</span>
+<span id="cb1395-22"><a href="6.3-mod-06-micmen.html#cb1395-22" aria-hidden="true" tabindex="-1"></a>    mx.up[,i] <span class="ot">&lt;-</span> eta<span class="sc">+</span><span class="fu">mean</span>(z<span class="sc">$</span>sigma[,<span class="dv">1</span>])</span>
+<span id="cb1395-23"><a href="6.3-mod-06-micmen.html#cb1395-23" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1395-24"><a href="6.3-mod-06-micmen.html#cb1395-24" aria-hidden="true" tabindex="-1"></a>dx<span class="sc">$</span>lo <span class="ot">&lt;-</span> <span class="fu">apply</span>(mx.lo, <span class="dv">1</span>, median)</span>
+<span id="cb1395-25"><a href="6.3-mod-06-micmen.html#cb1395-25" aria-hidden="true" tabindex="-1"></a>dx<span class="sc">$</span>up <span class="ot">&lt;-</span> <span class="fu">apply</span>(mx.up, <span class="dv">1</span>, median)</span>
+<span id="cb1395-26"><a href="6.3-mod-06-micmen.html#cb1395-26" aria-hidden="true" tabindex="-1"></a>dx<span class="sc">$</span>mn <span class="ot">&lt;-</span> <span class="fu">apply</span>(mx.mn, <span class="dv">1</span>, median)</span>
+<span id="cb1395-27"><a href="6.3-mod-06-micmen.html#cb1395-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1395-28"><a href="6.3-mod-06-micmen.html#cb1395-28" aria-hidden="true" tabindex="-1"></a><span class="co"># make the plot</span></span>
+<span id="cb1395-29"><a href="6.3-mod-06-micmen.html#cb1395-29" aria-hidden="true" tabindex="-1"></a>flag.soft <span class="ot">&lt;-</span> <span class="fu">which</span>(dx<span class="sc">$</span>water <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb1395-30"><a href="6.3-mod-06-micmen.html#cb1395-30" aria-hidden="true" tabindex="-1"></a>flag.hard <span class="ot">&lt;-</span> <span class="fu">which</span>(dx<span class="sc">$</span>water <span class="sc">==</span> <span class="dv">2</span>)</span>
+<span id="cb1395-31"><a href="6.3-mod-06-micmen.html#cb1395-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1395-32"><a href="6.3-mod-06-micmen.html#cb1395-32" aria-hidden="true" tabindex="-1"></a><span class="co"># fancy plot options</span></span>
+<span id="cb1395-33"><a href="6.3-mod-06-micmen.html#cb1395-33" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="fl">5.1</span>, <span class="fl">7.1</span>, <span class="fl">1.1</span>, <span class="fl">1.1</span>),</span>
+<span id="cb1395-34"><a href="6.3-mod-06-micmen.html#cb1395-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">las=</span><span class="dv">1</span>, <span class="at">lend=</span><span class="dv">1</span>, <span class="at">bty=</span><span class="st">&quot;n&quot;</span>, </span>
+<span id="cb1395-35"><a href="6.3-mod-06-micmen.html#cb1395-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex.axis=</span><span class="fl">1.3</span>, <span class="at">cex.lab=</span><span class="fl">1.3</span>)</span>
+<span id="cb1395-36"><a href="6.3-mod-06-micmen.html#cb1395-36" aria-hidden="true" tabindex="-1"></a><span class="co"># make the plot</span></span>
+<span id="cb1395-37"><a href="6.3-mod-06-micmen.html#cb1395-37" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dat2<span class="sc">$</span>ni, dat2<span class="sc">$</span>res,</span>
+<span id="cb1395-38"><a href="6.3-mod-06-micmen.html#cb1395-38" aria-hidden="true" tabindex="-1"></a>     <span class="at">col=</span><span class="fu">ifelse</span>(dat2<span class="sc">$</span>water<span class="sc">==</span><span class="st">&quot;soft&quot;</span>, <span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>),</span>
+<span id="cb1395-39"><a href="6.3-mod-06-micmen.html#cb1395-39" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch=</span><span class="dv">16</span>, <span class="at">cex=</span><span class="fl">1.2</span>,</span>
+<span id="cb1395-40"><a href="6.3-mod-06-micmen.html#cb1395-40" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="fu">expression</span>(Ni<span class="sc">~</span>concentration<span class="sc">~</span>(mu<span class="sc">*</span>g<span class="sc">/</span>L)),</span>
+<span id="cb1395-41"><a href="6.3-mod-06-micmen.html#cb1395-41" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb1395-42"><a href="6.3-mod-06-micmen.html#cb1395-42" aria-hidden="true" tabindex="-1"></a><span class="co"># custom y axis (need to move outwards)</span></span>
+<span id="cb1395-43"><a href="6.3-mod-06-micmen.html#cb1395-43" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="at">ylab=</span><span class="fu">expression</span>(Ni<span class="sc">~</span>body<span class="sc">~</span>residue<span class="sc">~</span>(mu<span class="sc">*</span>g<span class="sc">/</span>kg)), <span class="at">line=</span><span class="dv">5</span>)</span>
+<span id="cb1395-44"><a href="6.3-mod-06-micmen.html#cb1395-44" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, dx<span class="sc">$</span>lo[flag.soft], <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb1395-45"><a href="6.3-mod-06-micmen.html#cb1395-45" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, dx<span class="sc">$</span>up[flag.soft], <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb1395-46"><a href="6.3-mod-06-micmen.html#cb1395-46" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, dx<span class="sc">$</span>mn[flag.soft], <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>)</span>
+<span id="cb1395-47"><a href="6.3-mod-06-micmen.html#cb1395-47" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, dx<span class="sc">$</span>lo[flag.hard], <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb1395-48"><a href="6.3-mod-06-micmen.html#cb1395-48" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, dx<span class="sc">$</span>up[flag.hard], <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb1395-49"><a href="6.3-mod-06-micmen.html#cb1395-49" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, dx<span class="sc">$</span>mn[flag.hard], <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>)</span>
+<span id="cb1395-50"><a href="6.3-mod-06-micmen.html#cb1395-50" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>,</span>
+<span id="cb1395-51"><a href="6.3-mod-06-micmen.html#cb1395-51" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;Soft water&quot;</span>, <span class="st">&quot;Hard water&quot;</span>),</span>
+<span id="cb1395-52"><a href="6.3-mod-06-micmen.html#cb1395-52" aria-hidden="true" tabindex="-1"></a>       <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>),</span>
+<span id="cb1395-53"><a href="6.3-mod-06-micmen.html#cb1395-53" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch=</span><span class="dv">16</span>, <span class="at">bty=</span><span class="st">&quot;n&quot;</span>, <span class="at">cex=</span><span class="fl">1.2</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-596-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>In this case, we got a model fit similar to what <code>nls()</code> produced, and similar predicted values. For this case, JAGS and MCMC are probably more trouble than they are worth. If you are having trouble getting <code>nls()</code> to fit a model, MCMC may be a more effective alternative…if the model can be fit and if the pattern is really there.</p>
+</div>
+</div>
+<h3>Literature Cited</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-green2020" class="csl-entry">
+Green, N. S., M. L. Wildhaber, J. L. Albers, T. W. Pettit, and M. J. Hooper. 2020. <a href="https://doi.org/10.1002/ieam.4324">Efficient mammal biodiversity surveys for ecological restoration monitoring</a>. Integrated Environmental Assessment and Management.
+</div>
+<div id="ref-kunz2019" class="csl-entry">
+Kunz, B. K., J. H. Waddle, and N. S. Green. 2019. <a href="https://doi.org/10.1002/ieam.4202">Amphibian monitoring in hardwood forests: Optimizing methods for contaminant-based compensatory restorations</a>. Integrated environmental assessment and management.
+</div>
+<div id="ref-leonard2013acute" class="csl-entry">
+Leonard, E. M., and C. M. Wood. 2013. <a href="https://doi.org/10.1016/j.cbpc.2013.03.008">Acute toxicity, critical body residues, <span>M</span>ichaelis–<span>M</span>enten analysis of bioaccumulation, and ionoregulatory disturbance in response to waterborne nickel in four invertebrates: <em><span>C</span>hironomus riparius</em>, <em><span>L</span>ymnaea stagnalis</em>, <em><span>L</span>umbriculus variegatus</em> and <em><span>D</span>aphnia pulex</em></a>. Comparative Biochemistry and Physiology Part C: Toxicology &amp; Pharmacology 158:10–21.
+</div>
+<div id="ref-mangiafico2021" class="csl-entry">
+Mangiafico, S. 2021. <a href="https://CRAN.R-project.org/package=rcompanion"><span class="nocase">r</span>companion: Functions to support extension education program evaluation</a>.
+</div>
+<div id="ref-schabenberger2001contemporary" class="csl-entry">
+Schabenberger, O., and F. J. Pierce. 2001. Contemporary statistical models for the plant and soil sciences. CRC press, Boca Raton, Florida, USA.
+</div>
+<div id="ref-spiess2018" class="csl-entry">
+Spiess, A.-N. 2018. <a href="https://CRAN.R-project.org/package=propagate"><span class="nocase">p</span>ropagate: Propagation of uncertainty</a>.
+</div>
+<div id="ref-spiess2010" class="csl-entry">
+Spiess, A.-N., and N. Neumeyer. 2010. <a href="https://doi.org/10.1186/1471-2210-10-6">An evaluation of <span class="math inline">\(R^2\)</span> as an inadequate measure for nonlinear models in pharmacological and biochemical research: A <span>M</span>onte <span>C</span>arlo approach</a>. BMC Pharmacology 10.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="6.2-mod-06-intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="6.4-mod-06-grow.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

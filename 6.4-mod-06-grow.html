@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis</title>
+  <title>6.4 Biological growth curves | Applied Biological Data Analysis</title>
   <meta name="description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta property="og:title" content="6.4 Biological growth curves | Applied Biological Data Analysis" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://greenquanteco.github.io/index.html" />
   <meta property="og:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta name="twitter:title" content="6.4 Biological growth curves | Applied Biological Data Analysis" />
   
   <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="twitter:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="8.5-mod-08-ord.html"/>
-<link rel="next" href="9.1-how-to-use-this-guide.html"/>
+<link rel="prev" href="6.3-mod-06-micmen.html"/>
+<link rel="next" href="6.5-dose-response-curves.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -530,22 +530,213 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="mod-09" class="section level1" number="9">
-<h1><span class="header-section-number">Module 9</span> Planning your analysis (what test?)</h1>
-<p>One of the main questions that biologists have after collecting data is, “What statistical test do I use?” Ignoring the fact that they should have thought about that <strong><em>before collecting data</em></strong>, the answer to that question depends on the answers to two other questions:</p>
-<ol style="list-style-type: decimal">
-<li>What question are you trying to answer?</li>
-<li>What kind of data do you have?</li>
-</ol>
-<p>After <a href="4-mod-04.html#mod-04">exploring the data</a> and gaining an understanding of the patterns and <a href="4.8-mod-04-prob.html#mod-04-prob">problems</a> in a dataset, it is time to run the main analysis. This guide is designed to help you use what you learned in exploring the data to choose an appropriate analytical strategy.</p>
+<div id="mod-06-grow" class="section level2" number="6.4">
+<h2><span class="header-section-number">6.4</span> Biological growth curves</h2>
+<p>This section explores several common biological growth curves. Living organisms often grow in nonlinear ways. For example, humans grow much faster during their first two years of life than during the rest of their lives. Biologists have developed many mathematical models to describe these patterns of growth. What is common to many of these models is that the rate of growth at any given time is proportional to the organism’s size at that time. Consequently, biological growth models often include at least one <strong>exponential</strong> term. For mathematical convenience, that exponential term is usually of the form <span class="math inline">\(e^x\)</span>, where <em>e</em> is Euler’s constant (<span class="math inline">\(\approx\)</span> 2.718282), also known as the base of the natural logarithm.</p>
+<div id="gompertz-and-von-bertalanffy-curves" class="section level3" number="6.4.1">
+<h3><span class="header-section-number">6.4.1</span> Gompertz and von Bertalanffy curves</h3>
+<p>We will practice fitting two common growth curves, the <strong>Gompertz curve</strong> and the <strong>von Bertalanffy curve</strong>. Both are very commonly used in biology to model the growth of individual organisms. The Gompertz curve is also used to model population growth. Both models are special cases of the <a href="https://en.wikipedia.org/wiki/Generalised_logistic_function">generalized logistic function</a>.</p>
+<p>The Gompertz curve is written in several ways. You can use whichever form you want, but you need to be explicit about what you did. Most people use the second of the two forms presented below.</p>
+<p><strong>Gompertz model form 1 (<span class="citation">Bolker (<a href="#ref-bolker2008ecological" role="doc-biblioref">2008</a>)</span>; page 96)</strong></p>
+<p><span class="math display">\[f\left(x\right)=e^{-ae^{-bx}}\]</span></p>
+<ul>
+<li><strong><em>a</em></strong>: Displacement along <em>x</em>-axis (equivalent to <em>b</em> in form 2)</li>
+<li><strong><em>b</em></strong>: Growth rate (similar to <em>c</em> in form 2)</li>
+</ul>
+<p>The figure below shows the effects of varying the parameters in form 1 of the Gompertz model. Notice that the asymptote is fixed at 1. Because of this, form 2 is more commonly used.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-597-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p><strong>Gompertz model form 2 (more common)</strong></p>
+<p><span class="math display">\[f\left(x\right)={ae}^{-e^{b-ct}}\]</span></p>
+<ul>
+<li><strong><em>a</em></strong>: Asymptote (maximum value)</li>
+<li><strong><em>b</em></strong>: Displacement along <em>x</em>-axis (shifts left or right)</li>
+<li><strong><em>c</em></strong>: Growth rate (similar to <em>b</em> in form 1)</li>
+</ul>
+<p>The figure below shows the effects of varying the parameters in the second form of the Gompertz model:</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-598-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p><strong>von Betalanffy model</strong></p>
+<p>Like the Gompertz curve, the von Bertalanffy growth curve describes size increasing and approaching an asymptote. The von Bertalanffy model is commonly written as:</p>
+<p><span class="math display">\[f\left(x\right)=L_\infty\left(1-e^{-k\left(x-t_0\right)}\right)\]</span></p>
+<ul>
+<li><strong><em><span class="math inline">\(L_{\infty}\)</span></em></strong>: Asymptotic length as <em>x</em> approaches <span class="math inline">\(\infty\)</span></li>
+<li><strong><em>k</em></strong>: Growth rate</li>
+<li><strong><em><span class="math inline">\(t_0\)</span></em></strong>: Theoretical time at which <span class="math inline">\(f(x)=0\)</span>. I.e., displacement along <em>x</em>-axis. Should be negative.</li>
+</ul>
+<p>The von Bertalanffy model is commonly used in fisheries to describe fish growth, but in principle it could be used for any situation where its parameters make sense. The same function is also sometimes called the <strong>monomolecular curve</strong>. Like the Gompertz curve, the von Bertalanffy model has several forms. The form given above is the most common. The figure below shows the effects of varying the parameters in the von Bertalanffy model:</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-599-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>It should be noted that both the Gompertz and von Bertalanffy curves can also be used to model decreasing phenomena, but this is not commonly done.</p>
+</div>
+<div id="example-with-real-data-5" class="section level3" number="6.4.2">
+<h3><span class="header-section-number">6.4.2</span> Example with real data</h3>
+<p><span class="citation">Woodward et al. (<a href="#ref-woodward2015" role="doc-biblioref">2015</a>)</span> studied the life history dynamics of the Cretaceous hadrosaurid dinosaur <em>Maiasaura peeblesorum</em> (shown below). They used microscopic growth rings in the tibias of museum specimens to estimate age at death and the sizes of several bones to estimate total body length and mass. We will use their age and mass data to fit growth curves for this species.</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/06_03.jpg" alt="A mounted Maiasaura skeleton." /></p>
+<p>The data are stored in the file <a href="https://greenquanteco.github.io/woodward2015data.csv">woodward2015data.csv</a>. Download the dataset and put it in your R home directory.</p>
+<div class="sourceCode" id="cb1396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1396-1"><a href="6.4-mod-06-grow.html#cb1396-1" aria-hidden="true" tabindex="-1"></a>in.name <span class="ot">&lt;-</span> <span class="st">&quot;woodward2015data.csv&quot;</span></span>
+<span id="cb1396-2"><a href="6.4-mod-06-grow.html#cb1396-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(in.name, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1396-3"><a href="6.4-mod-06-grow.html#cb1396-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dat<span class="sc">$</span>age, dat<span class="sc">$</span>mass)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-600-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>Use <code>nls()</code> to fit the two growth curves. There is a self-starting Gompertz model available, so we’ll use that. There is no self-start von Bertalanffy model, so we’ll have to guess at the parameters. Based on the plot above, we might guess that the asymptote <span class="math inline">\(L_\infty\)</span> is about 4000, and that <span class="math inline">\(t_0\)</span> is about -1. Using those rough estimates, we can rearrange the von Bertalanffy model and solve for the missing term <em>k</em> as:</p>
+<p><span class="math display">\[\hat{k}=\frac{-\log{\left(1-\frac{f\left(x\right)}{L_\infty}\right)}}{x-t_0}\]</span></p>
+<p>Or in R:</p>
+<div class="sourceCode" id="cb1397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1397-1"><a href="6.4-mod-06-grow.html#cb1397-1" aria-hidden="true" tabindex="-1"></a>est.k <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>(<span class="fu">log</span>(<span class="dv">1</span><span class="sc">-</span>dat<span class="sc">$</span>mass<span class="sc">/</span><span class="dv">4000</span>))<span class="sc">/</span>(dat<span class="sc">$</span>age<span class="sc">-</span> <span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb1397-2"><a href="6.4-mod-06-grow.html#cb1397-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(est.k)</span></code></pre></div>
+<pre><code>## [1] 0.09268849</code></pre>
+<p>The mean of the estimated <em>k</em> (<span class="math inline">\(\hat{k}\)</span>, or “k-hat”) is about 0.09. So, we’ll use that for our starting guess. Now we can fit both the Gompertz and von Bertalanffy models:</p>
+<div class="sourceCode" id="cb1399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1399-1"><a href="6.4-mod-06-grow.html#cb1399-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">nls</span>(mass<span class="sc">~</span><span class="fu">SSgompertz</span>(age, A, B, C), <span class="at">data=</span>dat)</span>
+<span id="cb1399-2"><a href="6.4-mod-06-grow.html#cb1399-2" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">nls</span>(mass<span class="sc">~</span>Linf<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span><span class="fu">exp</span>(<span class="sc">-</span>k<span class="sc">*</span>(age<span class="sc">-</span>t0))),</span>
+<span id="cb1399-3"><a href="6.4-mod-06-grow.html#cb1399-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">data=</span>dat,</span>
+<span id="cb1399-4"><a href="6.4-mod-06-grow.html#cb1399-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">start=</span><span class="fu">list</span>(<span class="at">Linf=</span><span class="fl">4e3</span>, <span class="at">k=</span><span class="fl">0.09</span>, <span class="at">t0=</span><span class="sc">-</span><span class="dv">1</span>))</span>
+<span id="cb1399-5"><a href="6.4-mod-06-grow.html#cb1399-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code></pre></div>
+<pre><code>## 
+## Formula: mass ~ SSgompertz(age, A, B, C)
+## 
+## Parameters:
+##    Estimate Std. Error t value Pr(&gt;|t|)    
+## A 3.145e+03  1.718e+02   18.31  &lt; 2e-16 ***
+## B 3.076e+00  2.858e-01   10.76 3.64e-12 ***
+## C 6.514e-01  3.081e-02   21.14  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 208.4 on 32 degrees of freedom
+## 
+## Number of iterations to convergence: 5 
+## Achieved convergence tolerance: 1.862e-06</code></pre>
+<div class="sourceCode" id="cb1401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1401-1"><a href="6.4-mod-06-grow.html#cb1401-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod2)</span></code></pre></div>
+<pre><code>## 
+## Formula: mass ~ Linf * (1 - exp(-k * (age - t0)))
+## 
+## Parameters:
+##       Estimate Std. Error t value Pr(&gt;|t|)    
+## Linf 3.966e+03  3.902e+02  10.165 1.52e-11 ***
+## k    1.572e-01  2.656e-02   5.917 1.38e-06 ***
+## t0   2.315e-01  1.288e-01   1.797   0.0817 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 212.7 on 32 degrees of freedom
+## 
+## Number of iterations to convergence: 7 
+## Achieved convergence tolerance: 1.781e-06</code></pre>
+<p>Both models were able to fit all of their parameters, although the <span class="math inline">\(t_0\)</span> term in the von Bertalanffy model was nonsignificant (i.e., not different from 0). This might indicate that we should go with the Gompertz model. The pseudo-<em>R</em><sup>2</sup> values are similar and don’t strongly suggest choosing one model over another:</p>
+<div class="sourceCode" id="cb1403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1403-1"><a href="6.4-mod-06-grow.html#cb1403-1" aria-hidden="true" tabindex="-1"></a>pseudoR2 <span class="ot">&lt;-</span> <span class="cf">function</span>(mod, Y){</span>
+<span id="cb1403-2"><a href="6.4-mod-06-grow.html#cb1403-2" aria-hidden="true" tabindex="-1"></a>    ss.tot <span class="ot">&lt;-</span> <span class="fu">sum</span>((<span class="fu">fitted</span>(mod)<span class="sc">-</span><span class="fu">mean</span>(Y))<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb1403-3"><a href="6.4-mod-06-grow.html#cb1403-3" aria-hidden="true" tabindex="-1"></a>    ss.res <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">residuals</span>(mod)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb1403-4"><a href="6.4-mod-06-grow.html#cb1403-4" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span><span class="sc">-</span>(ss.res<span class="sc">/</span>ss.tot)</span>
+<span id="cb1403-5"><a href="6.4-mod-06-grow.html#cb1403-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1403-6"><a href="6.4-mod-06-grow.html#cb1403-6" aria-hidden="true" tabindex="-1"></a><span class="fu">pseudoR2</span>(mod1, dat<span class="sc">$</span>mass)</span></code></pre></div>
+<pre><code>## [1] 0.946444</code></pre>
+<div class="sourceCode" id="cb1405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1405-1"><a href="6.4-mod-06-grow.html#cb1405-1" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 0.946444</span></span>
+<span id="cb1405-2"><a href="6.4-mod-06-grow.html#cb1405-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pseudoR2</span>(mod2, dat<span class="sc">$</span>mass)</span></code></pre></div>
+<pre><code>## [1] 0.9459103</code></pre>
+<div class="sourceCode" id="cb1407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1407-1"><a href="6.4-mod-06-grow.html#cb1407-1" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 0.9459103</span></span></code></pre></div>
+<p>The AICs of the models suggest that the Gompertz model is slightly better, but not significantly so. The difference in AIC is &lt;2, suggesting that the models are equivalent in their support. This means that we would be justified choosing either one, or not choosing and presenting both.</p>
+<div class="sourceCode" id="cb1408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1408-1"><a href="6.4-mod-06-grow.html#cb1408-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(mod1, mod2)</span></code></pre></div>
+<pre><code>##      df      AIC
+## mod1  4 477.9660
+## mod2  4 479.3922</code></pre>
+<div class="sourceCode" id="cb1410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1410-1"><a href="6.4-mod-06-grow.html#cb1410-1" aria-hidden="true" tabindex="-1"></a><span class="co">#      df      AIC</span></span>
+<span id="cb1410-2"><a href="6.4-mod-06-grow.html#cb1410-2" aria-hidden="true" tabindex="-1"></a><span class="co"># mod1  4 477.9660</span></span>
+<span id="cb1410-3"><a href="6.4-mod-06-grow.html#cb1410-3" aria-hidden="true" tabindex="-1"></a><span class="co"># mod2  4 479.3922</span></span>
+<span id="cb1410-4"><a href="6.4-mod-06-grow.html#cb1410-4" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(mod2) <span class="sc">-</span> <span class="fu">AIC</span>(mod1)</span></code></pre></div>
+<pre><code>## [1] 1.426267</code></pre>
+<p>Another way to determine which model fits better is to compare their ability to predict out-of-sample data. That is, data that were not used to fit the model. The most common strategy for this is called “cross-validation”. There are many kinds of cross-validation. What they all have in common is that the model is fit to some of the data, and then its predictive accuracy is checked using the held-out data. One popular strategy is <em>k</em>-fold cross-validation, the data are divided into <em>k</em> subsets, or “folds”. Then, the model is fit <em>k</em> times: each time to all of the data except those in one fold. The predictive accuracy of these models is then calculated for the data in the fold that was left out. The better the model is at predicting out-of-sample data, the smaller the average error should be.</p>
+<p>Let’s try another method called “leave-one-out” cross-validation. In this strategy, the model is fit to all observations except 1 at a time. Then, the root mean squared error (RMSE) is calculated for both models.</p>
+<div class="sourceCode" id="cb1412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1412-1"><a href="6.4-mod-06-grow.html#cb1412-1" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="fu">nrow</span>(dat)</span>
+<span id="cb1412-2"><a href="6.4-mod-06-grow.html#cb1412-2" aria-hidden="true" tabindex="-1"></a>err1 <span class="ot">&lt;-</span> <span class="fu">numeric</span>(N)</span>
+<span id="cb1412-3"><a href="6.4-mod-06-grow.html#cb1412-3" aria-hidden="true" tabindex="-1"></a>err2 <span class="ot">&lt;-</span> err1</span>
+<span id="cb1412-4"><a href="6.4-mod-06-grow.html#cb1412-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1412-5"><a href="6.4-mod-06-grow.html#cb1412-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N){</span>
+<span id="cb1412-6"><a href="6.4-mod-06-grow.html#cb1412-6" aria-hidden="true" tabindex="-1"></a>    mod1i <span class="ot">&lt;-</span> <span class="fu">nls</span>(mass<span class="sc">~</span><span class="fu">SSgompertz</span>(age, A, B, C), <span class="at">data=</span>dat[<span class="sc">-</span>i,])</span>
+<span id="cb1412-7"><a href="6.4-mod-06-grow.html#cb1412-7" aria-hidden="true" tabindex="-1"></a>    mod2i <span class="ot">&lt;-</span> <span class="fu">nls</span>(mass<span class="sc">~</span>Linf<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span><span class="fu">exp</span>(<span class="sc">-</span>k<span class="sc">*</span>(age<span class="sc">-</span>t0))),</span>
+<span id="cb1412-8"><a href="6.4-mod-06-grow.html#cb1412-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">data=</span>dat[<span class="sc">-</span>i,],</span>
+<span id="cb1412-9"><a href="6.4-mod-06-grow.html#cb1412-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">start=</span><span class="fu">list</span>(<span class="at">Linf=</span><span class="fl">4e3</span>, <span class="at">k=</span><span class="fl">0.09</span>, <span class="at">t0=</span><span class="sc">-</span><span class="dv">1</span>))</span>
+<span id="cb1412-10"><a href="6.4-mod-06-grow.html#cb1412-10" aria-hidden="true" tabindex="-1"></a>    px <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">age=</span>dat<span class="sc">$</span>age[i])</span>
+<span id="cb1412-11"><a href="6.4-mod-06-grow.html#cb1412-11" aria-hidden="true" tabindex="-1"></a>    err1[i] <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod1i,</span>
+<span id="cb1412-12"><a href="6.4-mod-06-grow.html#cb1412-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">newdata=</span><span class="fu">data.frame</span>(px)) <span class="sc">-</span> dat<span class="sc">$</span>age[i]</span>
+<span id="cb1412-13"><a href="6.4-mod-06-grow.html#cb1412-13" aria-hidden="true" tabindex="-1"></a>    err2[i] <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod2i,</span>
+<span id="cb1412-14"><a href="6.4-mod-06-grow.html#cb1412-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">newdata=</span><span class="fu">data.frame</span>(px)) <span class="sc">-</span> dat<span class="sc">$</span>age[i]</span>
+<span id="cb1412-15"><a href="6.4-mod-06-grow.html#cb1412-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1412-16"><a href="6.4-mod-06-grow.html#cb1412-16" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">mean</span>(err1<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
+<pre><code>## [1] 1599.034</code></pre>
+<div class="sourceCode" id="cb1414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1414-1"><a href="6.4-mod-06-grow.html#cb1414-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">mean</span>(err2<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
+<pre><code>## [1] 1634.066</code></pre>
+<p>Again, the Gompertz curve looks slightly better than the von Bertalanffy, but not by much. For our example let’s go ahead and plot both models.</p>
+<div class="sourceCode" id="cb1416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1416-1"><a href="6.4-mod-06-grow.html#cb1416-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(propagate)</span>
+<span id="cb1416-2"><a href="6.4-mod-06-grow.html#cb1416-2" aria-hidden="true" tabindex="-1"></a>px <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(dat<span class="sc">$</span>age), <span class="fu">max</span>(dat<span class="sc">$</span>age), <span class="at">length=</span><span class="dv">25</span>)</span>
+<span id="cb1416-3"><a href="6.4-mod-06-grow.html#cb1416-3" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">predictNLS</span>(mod1,</span>
+<span id="cb1416-4"><a href="6.4-mod-06-grow.html#cb1416-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">age=</span>px),</span>
+<span id="cb1416-5"><a href="6.4-mod-06-grow.html#cb1416-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">interval=</span><span class="st">&quot;confidence&quot;</span>)</span>
+<span id="cb1416-6"><a href="6.4-mod-06-grow.html#cb1416-6" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> pred<span class="sc">$</span>summary</span>
+<span id="cb1416-7"><a href="6.4-mod-06-grow.html#cb1416-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1416-8"><a href="6.4-mod-06-grow.html#cb1416-8" aria-hidden="true" tabindex="-1"></a>mn1 <span class="ot">&lt;-</span> pred<span class="sc">$</span>Sim.Mean</span>
+<span id="cb1416-9"><a href="6.4-mod-06-grow.html#cb1416-9" aria-hidden="true" tabindex="-1"></a>lo1 <span class="ot">&lt;-</span> pred<span class="sc">$</span><span class="st">&#39;Sim.2.5%&#39;</span></span>
+<span id="cb1416-10"><a href="6.4-mod-06-grow.html#cb1416-10" aria-hidden="true" tabindex="-1"></a>up1 <span class="ot">&lt;-</span> pred<span class="sc">$</span><span class="st">&#39;Sim.97.5%&#39;</span></span>
+<span id="cb1416-11"><a href="6.4-mod-06-grow.html#cb1416-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1416-12"><a href="6.4-mod-06-grow.html#cb1416-12" aria-hidden="true" tabindex="-1"></a>pred2 <span class="ot">&lt;-</span> <span class="fu">predictNLS</span>(mod2,</span>
+<span id="cb1416-13"><a href="6.4-mod-06-grow.html#cb1416-13" aria-hidden="true" tabindex="-1"></a>                   <span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">age=</span>px),</span>
+<span id="cb1416-14"><a href="6.4-mod-06-grow.html#cb1416-14" aria-hidden="true" tabindex="-1"></a>                   <span class="at">interval=</span><span class="st">&quot;confidence&quot;</span>)</span>
+<span id="cb1416-15"><a href="6.4-mod-06-grow.html#cb1416-15" aria-hidden="true" tabindex="-1"></a>pred2 <span class="ot">&lt;-</span> pred2<span class="sc">$</span>summary</span>
+<span id="cb1416-16"><a href="6.4-mod-06-grow.html#cb1416-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1416-17"><a href="6.4-mod-06-grow.html#cb1416-17" aria-hidden="true" tabindex="-1"></a>mn2 <span class="ot">&lt;-</span> pred2<span class="sc">$</span>Sim.Mean</span>
+<span id="cb1416-18"><a href="6.4-mod-06-grow.html#cb1416-18" aria-hidden="true" tabindex="-1"></a>lo2 <span class="ot">&lt;-</span> pred2<span class="sc">$</span><span class="st">&#39;Sim.2.5%&#39;</span></span>
+<span id="cb1416-19"><a href="6.4-mod-06-grow.html#cb1416-19" aria-hidden="true" tabindex="-1"></a>up2 <span class="ot">&lt;-</span> pred2<span class="sc">$</span><span class="st">&#39;Sim.97.5%&#39;</span></span></code></pre></div>
+<p>Now make the plot:</p>
+<div class="sourceCode" id="cb1417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1417-1"><a href="6.4-mod-06-grow.html#cb1417-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="fl">5.1</span>, <span class="fl">7.1</span>, <span class="fl">1.1</span>, <span class="fl">1.1</span>),</span>
+<span id="cb1417-2"><a href="6.4-mod-06-grow.html#cb1417-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">las=</span><span class="dv">1</span>, <span class="at">lend=</span><span class="dv">1</span>, <span class="at">bty=</span><span class="st">&quot;n&quot;</span>, </span>
+<span id="cb1417-3"><a href="6.4-mod-06-grow.html#cb1417-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex.axis=</span><span class="fl">1.3</span>, <span class="at">cex.lab=</span><span class="fl">1.3</span>)</span>
+<span id="cb1417-4"><a href="6.4-mod-06-grow.html#cb1417-4" aria-hidden="true" tabindex="-1"></a><span class="co"># make the plot</span></span>
+<span id="cb1417-5"><a href="6.4-mod-06-grow.html#cb1417-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dat<span class="sc">$</span>age, dat<span class="sc">$</span>mass,</span>
+<span id="cb1417-6"><a href="6.4-mod-06-grow.html#cb1417-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch=</span><span class="dv">16</span>, <span class="at">cex=</span><span class="fl">1.2</span>,</span>
+<span id="cb1417-7"><a href="6.4-mod-06-grow.html#cb1417-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">&quot;Age (years)&quot;</span>,</span>
+<span id="cb1417-8"><a href="6.4-mod-06-grow.html#cb1417-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">&quot;&quot;</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">3400</span>))</span>
+<span id="cb1417-9"><a href="6.4-mod-06-grow.html#cb1417-9" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="at">ylab=</span><span class="st">&quot;Mass (kg)&quot;</span>, <span class="at">line=</span><span class="dv">5</span>)</span>
+<span id="cb1417-10"><a href="6.4-mod-06-grow.html#cb1417-10" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x=</span><span class="fu">c</span>(px, <span class="fu">rev</span>(px)), <span class="at">y=</span><span class="fu">c</span>(lo1, <span class="fu">rev</span>(up1)),</span>
+<span id="cb1417-11"><a href="6.4-mod-06-grow.html#cb1417-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">border=</span><span class="cn">NA</span>, <span class="at">col=</span><span class="st">&quot;#FF000030&quot;</span>)</span>
+<span id="cb1417-12"><a href="6.4-mod-06-grow.html#cb1417-12" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x=</span><span class="fu">c</span>(px, <span class="fu">rev</span>(px)), <span class="at">y=</span><span class="fu">c</span>(lo2, <span class="fu">rev</span>(up2)),</span>
+<span id="cb1417-13"><a href="6.4-mod-06-grow.html#cb1417-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">border=</span><span class="cn">NA</span>, <span class="at">col=</span><span class="st">&quot;#0000FF30&quot;</span>)</span>
+<span id="cb1417-14"><a href="6.4-mod-06-grow.html#cb1417-14" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, mn1, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb1417-15"><a href="6.4-mod-06-grow.html#cb1417-15" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, mn2, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb1417-16"><a href="6.4-mod-06-grow.html#cb1417-16" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;bottomright&quot;</span>,</span>
+<span id="cb1417-17"><a href="6.4-mod-06-grow.html#cb1417-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;Gompertz&quot;</span>, <span class="st">&quot;von Bertalanffy&quot;</span>),</span>
+<span id="cb1417-18"><a href="6.4-mod-06-grow.html#cb1417-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">lwd=</span><span class="dv">4</span>, <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>),</span>
+<span id="cb1417-19"><a href="6.4-mod-06-grow.html#cb1417-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">bty=</span><span class="st">&quot;n&quot;</span>, <span class="at">cex=</span><span class="fl">1.3</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-607-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>The plot reveals a problem with the von Bertalanffy: it predicts negative masses! This is probably because the model had a non-significant <span class="math inline">\(t_0\)</span> with a point estimate that was non-negative. The <span class="math inline">\(t_0\)</span> term is the age when the response variable is 0, and must be positive to ensure that only positive sizes are predicted.</p>
+<p>It might be worth asking how fast the animals grew, and how that growth rate changed over the course of their lives. Technically, the growth rate would be the first derivative of the fitted function. However, getting a first derivative might be difficult or impossible for many NLS models. Instead, we can calculate the values empirically. Over a period of 12 years (the domain of our fitted function), daily time steps offer a reasonable approximation of the instantaneous rate of change (daily time steps are more biologically interpretable than a literally instantaneous rate, as well).</p>
+<div class="sourceCode" id="cb1418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1418-1"><a href="6.4-mod-06-grow.html#cb1418-1" aria-hidden="true" tabindex="-1"></a><span class="co"># daily x values as fractional years</span></span>
+<span id="cb1418-2"><a href="6.4-mod-06-grow.html#cb1418-2" aria-hidden="true" tabindex="-1"></a>xday <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span>(<span class="dv">12</span><span class="sc">*</span><span class="fl">365.25</span>) <span class="co"># Julian year length</span></span>
+<span id="cb1418-3"><a href="6.4-mod-06-grow.html#cb1418-3" aria-hidden="true" tabindex="-1"></a>xday <span class="ot">&lt;-</span> xday <span class="sc">/</span> <span class="fl">365.25</span></span>
+<span id="cb1418-4"><a href="6.4-mod-06-grow.html#cb1418-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1418-5"><a href="6.4-mod-06-grow.html#cb1418-5" aria-hidden="true" tabindex="-1"></a><span class="co"># predicted daily mass</span></span>
+<span id="cb1418-6"><a href="6.4-mod-06-grow.html#cb1418-6" aria-hidden="true" tabindex="-1"></a>yday <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod1, <span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">age=</span>xday))</span>
+<span id="cb1418-7"><a href="6.4-mod-06-grow.html#cb1418-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1418-8"><a href="6.4-mod-06-grow.html#cb1418-8" aria-hidden="true" tabindex="-1"></a>ydiff <span class="ot">&lt;-</span> <span class="fu">diff</span>(yday)</span>
+<span id="cb1418-9"><a href="6.4-mod-06-grow.html#cb1418-9" aria-hidden="true" tabindex="-1"></a>xdiff <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(ydiff)<span class="sc">/</span><span class="fl">365.25</span></span>
+<span id="cb1418-10"><a href="6.4-mod-06-grow.html#cb1418-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1418-11"><a href="6.4-mod-06-grow.html#cb1418-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xdiff, ydiff, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>,</span>
+<span id="cb1418-12"><a href="6.4-mod-06-grow.html#cb1418-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">&quot;Age (years)&quot;</span>,</span>
+<span id="cb1418-13"><a href="6.4-mod-06-grow.html#cb1418-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">&quot;Daily mass gain (kg)&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-608-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>The figure shows that daily growth peaked during the 3rd year of life (age 2 to age 3), when animals gained an average of 1.5 kg per day. Interestingly, this the age at which the authors of the original study hypothesized the animals reached sexual maturity <span class="citation">(<a href="#ref-woodward2015" role="doc-biblioref">Woodward et al. 2015</a>)</span>.</p>
+</div>
+</div>
+<h3>Literature Cited</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-bolker2008ecological" class="csl-entry">
+Bolker, B. M. 2008. Ecological models and data in <span>R</span>. Princeton University Press, Princeton, New Jersey, USA.
+</div>
+<div id="ref-woodward2015" class="csl-entry">
+Woodward, H. N., E. A. F. Fowler, J. O. Farlow, and J. R. Horner. 2015. <a href="https://doi.org/10.1017/pab.2015.19"><em><span>M</span>aiasaura</em>, a model organism for extinct vertebrate population biology: A large sample statistical assessment of growth dynamics and survivorship</a>. Paleobiology 41:503–527.
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="8.5-mod-08-ord.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="9.1-how-to-use-this-guide.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="6.3-mod-06-micmen.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="6.5-dose-response-curves.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

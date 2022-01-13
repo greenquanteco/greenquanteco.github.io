@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis</title>
+  <title>5.9 Beyond GLM: Overview of GAM and GEE | Applied Biological Data Analysis</title>
   <meta name="description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta property="og:title" content="5.9 Beyond GLM: Overview of GAM and GEE | Applied Biological Data Analysis" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://greenquanteco.github.io/index.html" />
   <meta property="og:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta name="twitter:title" content="5.9 Beyond GLM: Overview of GAM and GEE | Applied Biological Data Analysis" />
   
   <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="twitter:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="8.5-mod-08-ord.html"/>
-<link rel="next" href="9.1-how-to-use-this-guide.html"/>
+<link rel="prev" href="5.8-mod-05-gamma.html"/>
+<link rel="next" href="6-mod-06.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -530,22 +530,51 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="mod-09" class="section level1" number="9">
-<h1><span class="header-section-number">Module 9</span> Planning your analysis (what test?)</h1>
-<p>One of the main questions that biologists have after collecting data is, “What statistical test do I use?” Ignoring the fact that they should have thought about that <strong><em>before collecting data</em></strong>, the answer to that question depends on the answers to two other questions:</p>
-<ol style="list-style-type: decimal">
-<li>What question are you trying to answer?</li>
-<li>What kind of data do you have?</li>
-</ol>
-<p>After <a href="4-mod-04.html#mod-04">exploring the data</a> and gaining an understanding of the patterns and <a href="4.8-mod-04-prob.html#mod-04-prob">problems</a> in a dataset, it is time to run the main analysis. This guide is designed to help you use what you learned in exploring the data to choose an appropriate analytical strategy.</p>
+<div id="mod-05-beyond" class="section level2" number="5.9">
+<h2><span class="header-section-number">5.9</span> Beyond GLM: Overview of GAM and GEE</h2>
+<p>In other sections we have explored the power and utility of GLMs for biological data. This page describes two methods that can be thought of as extensions of GLM: generalized additive models (GAM) and generalized estimating equations (GEE). GAM will get a more thorough treatment in their own section in the future.</p>
+<div id="mod-05-gam" class="section level3" number="5.9.1">
+<h3><span class="header-section-number">5.9.1</span> Generalized additive models (GAM)</h3>
+<p><strong>Generalized additive models (GAM)</strong> go one step further than GLMs by relaxing an additional assumption: the assumption of a linear relationship between the response variable on the link scale and the predictors. GAMs fit a curve to data that can vary in complexity. These curves are commonly called <strong>smoothers</strong>. However, the parameters of the curve are not tested individually in the way that the parameters in something like a quadratic model or non-linear model would be. Instead, the curve itself is treated as a regression coefficient. Compare the equation for the linear predictor of a GLM with <em>k</em> predictors</p>
+<p><span class="math display">\[g\left(E\left(Y\right)\right)=\beta_0+\beta_1X_1+\beta_1X_1+\ldots+\beta_kX_k\]</span></p>
+<p>to the equation of the predictor of a GAM with k predictors:</p>
+<p><span class="math display">\[g\left(E\left(Y\right)\right)=\beta_0+f_1\left(X_1\right)+f_2\left(X_2\right)+\ldots+f_k\left(X_k\right)\]</span></p>
+<p>Instead of each predictor being multiplied by a coefficient, a smoothing function of each predictor is estimated.</p>
+<p>When should you use GAM? The most common application is situations where the response is not linearly related to the predictors, or if the response curve takes on a complicated shape. As you might suspect, the smoothers fitted in a GAM can be vulnerable to overfitting just as can be polynomial models or multiple regression models. Researchers usually control for this overfitting of the smoothers by limiting the complexity of the curves; this parameter is usually called the number of “knots”.</p>
+<p>GAMs will get a more thorough treatment later in the context of nonlinear models. Some good references to get you started are <span class="citation">Wood (<a href="#ref-wood2017generalized" role="doc-biblioref">2017</a>)</span> and <span class="citation">Zuur et al. (<a href="#ref-zuur2007analysing" role="doc-biblioref">2007</a>)</span>. The best-known R package for fitting GAMs is mgcv (<a href="https://cran.r-project.org/web/packages/mgcv/index.html">CRAN page</a>, accessed 2021-09-17).</p>
+</div>
+<div id="mod-05-gee" class="section level3" number="5.9.2">
+<h3><span class="header-section-number">5.9.2</span> Generalized estimating equations (GEE)</h3>
+<p>All GLMs assume that observations are independent of each other. However, this cannot always be assumed in biological data. Observations may by correlated with each other across time and space, or within treatment or blocking groups. Such violations of the independence assumption can often be handled well by mixed models, which are described in their own pages elsewhere on this site. However, the technique of <strong>generalized estimating equations (GEE)</strong> is another way to analyze data with inherent correlations between observations. Some references to start with if you are interested are <span class="citation">Liang and Zeger (<a href="#ref-liang1986longitudinal" role="doc-biblioref">1986</a>)</span> and <span class="citation">Højsgaard et al. (<a href="#ref-hojsgaard2006" role="doc-biblioref">2006</a>)</span>. Two important packages used with GEE are <code>gee</code> <span class="citation">(<a href="#ref-geepackage" role="doc-biblioref">Carey 2019</a>)</span> and <code>geepack</code> <span class="citation">(<a href="#ref-hojsgaard2006" role="doc-biblioref">Højsgaard et al. 2006</a>)</span>.</p>
+
+</div>
+</div>
+<!-- </div> -->
+<h3>Literature Cited</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-geepackage" class="csl-entry">
+Carey, V. J. 2019. <a href="https://CRAN.R-project.org/package=gee"><span class="nocase">g</span>ee: Generalized estimation equation solver</a>.
+</div>
+<div id="ref-hojsgaard2006" class="csl-entry">
+Højsgaard, S., U. Halekoh, and J. Yan. 2006. <a href="https://doi.org/10.18637/jss.v015.i02">The <span>R</span> package geepack for generalized estimating equations</a>. Journal of statistical software 15:1–11.
+</div>
+<div id="ref-liang1986longitudinal" class="csl-entry">
+Liang, K.-Y., and S. L. Zeger. 1986. Longitudinal data analysis using generalized linear models. Biometrika 73:13–22.
+</div>
+<div id="ref-wood2017generalized" class="csl-entry">
+Wood, S. N. 2017. Generalized additive models: An introduction with <span>R</span>. 2nd edition. CRC press.
+</div>
+<div id="ref-zuur2007analysing" class="csl-entry">
+Zuur, A. F., E. N. Ieno, and G. M. Smith. 2007. Analysing ecological data. Springer Science+Business Media, New York.
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="8.5-mod-08-ord.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="9.1-how-to-use-this-guide.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="5.8-mod-05-gamma.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="6-mod-06.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

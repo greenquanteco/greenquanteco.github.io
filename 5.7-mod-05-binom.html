@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis</title>
+  <title>5.7 Binomial GLM for proportional data | Applied Biological Data Analysis</title>
   <meta name="description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta property="og:title" content="5.7 Binomial GLM for proportional data | Applied Biological Data Analysis" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://greenquanteco.github.io/index.html" />
   <meta property="og:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta name="twitter:title" content="5.7 Binomial GLM for proportional data | Applied Biological Data Analysis" />
   
   <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="twitter:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="8.5-mod-08-ord.html"/>
-<link rel="next" href="9.1-how-to-use-this-guide.html"/>
+<link rel="prev" href="5.6-mod-05-logistic.html"/>
+<link rel="next" href="5.8-mod-05-gamma.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -530,22 +530,140 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="mod-09" class="section level1" number="9">
-<h1><span class="header-section-number">Module 9</span> Planning your analysis (what test?)</h1>
-<p>One of the main questions that biologists have after collecting data is, “What statistical test do I use?” Ignoring the fact that they should have thought about that <strong><em>before collecting data</em></strong>, the answer to that question depends on the answers to two other questions:</p>
-<ol style="list-style-type: decimal">
-<li>What question are you trying to answer?</li>
-<li>What kind of data do you have?</li>
-</ol>
-<p>After <a href="4-mod-04.html#mod-04">exploring the data</a> and gaining an understanding of the patterns and <a href="4.8-mod-04-prob.html#mod-04-prob">problems</a> in a dataset, it is time to run the main analysis. This guide is designed to help you use what you learned in exploring the data to choose an appropriate analytical strategy.</p>
+<div id="mod-05-binom" class="section level2" number="5.7">
+<h2><span class="header-section-number">5.7</span> Binomial GLM for proportional data</h2>
+<p>This module explores GLMs for <strong>proportional data</strong>. Proportional data describe the number of times that some event occurs, relative to the total number of times it could occur. Many phenomena that biologists study are expressed as proportions: proportion of individuals surviving, proportion of individuals with trait <em>A</em>, proportion of area covered by species <em>X</em>, and so on. Analyzing proportions is a lot like <a href="5.6-mod-05-logistic.html#mod-05-logistic">analyzing binary outcomes</a>; i.e., logistic regression. In fact, they are both GLMs with a binomial family. All that differs is the <em>n</em> term. In logistic regression the interest is in predicting the outcomes of single trials, while in binomial regression the interest is in predicting the <strong>proportion</strong> of observations in a certain state. Any dataset suitable for logistic regression can be converted to a dataset suitable for binomial regression. How you should analyze your data depends on your question:</p>
+<ul>
+<li>If the question is about outcomes at the individual observation level, then use logistic regression.</li>
+<li>If the question is about rates or probabilities of an event occurring, then use binomial regression.</li>
+</ul>
+<p>One good clue is to consider the level at which predictor variables are measured. If many observations share the same value of a predictor variable (or the same values of many predictor variables), then binomial regression might be the right approach because the sample unit is really the group. For example, if you want to model nestling survival in birds, all of the chicks within a nest would have the same values of any predictor variable that applied to the nest. Thus, binomial regression would be appropriate. If, however, there were chick-level predictors, then logistic regression would be appropriate. Think about what level of organization your predictor and response variables occur at, and what question you are really asking.</p>
+<div id="binomial-glm" class="section level3" number="5.7.1">
+<h3><span class="header-section-number">5.7.1</span> Binomial GLM</h3>
+<p><strong>Binomial regression</strong> or <strong>binomial GLM</strong> is related to logistic regression. Both are models for binary outcomes. Binary outcomes are those resulting from <strong>trials</strong> in which some event can either occur or not. When the event occurs, the trial is counted as a <strong>success</strong>. For example, if you flip a fair coin one time, that is one trial. The coin will come up heads with probability 0.5. If you flip the coin 10 times and get heads 4 times, then your observation (10 coin flips) had 10 trials (each flip) and 4 successes (times that heads came up). In logistic regression, each observation represents the outcome of one and only one trial (i.e., <em>n</em> = 1). In binomial regression, each observation can represent the outcome of many trials. This means that logistic regression is a special case of binomial regression.</p>
+<p>Binary data can be represented in more than one way, so long as the number of trials and successes are known. Consider a study where researchers want to model the probability of a fish spawning in relation to environmental conditions. Their data will consist of the number of female fish in a population that spawn and the total number of female fish in the population.</p>
+<ul>
+<li>The number of <strong>trials (<em>n</em>)</strong> is the number of fish that could have spawned.</li>
+<li>The number of <strong>successes</strong> is the number of fish that spawned.</li>
+<li>The <strong>probability of success (<em>p</em>)</strong> is ratio of successes to trials; in this case, the number of spawning fish divided by the number of potential spawners.</li>
+</ul>
+<p>If the same number of fish were sampled in each stream reach, then the researchers could use the number fo spawning fish as their response variable (i.e., number of successes). If the number of fish varied between observations, then they should use the proportion of spawners (<em>p</em>) as their response variable. Both ways of expressing the data are correct, but one may be more useful.</p>
+<p>Binary data are usually modeled as coming from a <strong>binomial distribution</strong>. The binomial distribution describes the number of successes, or times an event occurs, in <em>n</em> trials with probability <em>p</em> in each trial. For example, if you flip a fair coin 10 times, the number of heads <span class="math inline">\(n_{heads}\)</span> will follow the distribution:</p>
+<p><span class="math display">\[n_{heads}\sim Binomial\left(10,\ 0.5\right) \]</span></p>
+<p>The distribution of outcomes is shown below:</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-556-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>Proportional data can be expressed in two ways: as the number of successes observed out of <em>n</em> trials, or as the proportion of successes (i.e., <em>p</em>). This proportion can be thought of as the <strong>probability</strong> that a success will occur. Both ways emphasize different components of the binomial distribution that generated the data.</p>
+<p>When analyzing proportional data, we have the option of using one of two equivalent representations of the model.</p>
+<p><strong>Form 1: Response variable as number of occurrences</strong></p>
+<p>The first form frames the model in terms of the number of successes:</p>
+<p><span class="math display">\[y_i \sim Binomial\left(n_i,\ p_i\right)\]</span></p>
+<p><span class="math display">\[logit\left(p_i\right)=\beta_0+\beta_1\]</span></p>
+<p>In these equations,</p>
+<ul>
+<li><span class="math inline">\(y_i\)</span> is the number of trials in observation <em>i</em> in which some event occurs.</li>
+<li><span class="math inline">\(n_i\)</span> is the number of trials included in observation <em>i</em>.</li>
+<li><span class="math inline">\(p_i\)</span> is the probability of some event occurring in observation <em>i</em>.</li>
+<li><span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> are the regression intercept and slope.</li>
+</ul>
+<p>The response variable <span class="math inline">\(y_i\)</span> in this form is a non-negative integer. For example, if a toxicity trial exposes midges to 6 different concentrations of a toxin, and 20 organisms are exposed per concentration, then the number of organisms in each group that dies would be the response variable.</p>
+<p><strong>Form 2: Response variable as proportion of successes</strong></p>
+<p>The second way a binomial GLM can be expressed is in terms of the proportion of trials in which an event occurs:</p>
+<p><span class="math display">\[y_i=\frac{z_i}{n_i}\]</span></p>
+<p><span class="math display">\[z_i \sim Binomial\left(n_i,\ p_i\right)\]</span></p>
+<p><span class="math display">\[logit\left(p_i\right)=\beta_0+\beta_1\]</span></p>
+<p>In this form:</p>
+<ul>
+<li><span class="math inline">\(y_i\)</span> is the proportion of trials in observation <em>i</em> in which some event occurs.</li>
+<li><span class="math inline">\(z_i\)</span> is the number of trials in observation <em>i</em> in which some event occurs.</li>
+<li><span class="math inline">\(n_i\)</span> is the number of trials included in observation <em>i</em>.</li>
+<li><span class="math inline">\(p_i\)</span> is the probability of some event occurring in observation <em>i</em>.</li>
+<li><span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> are the regression intercept and slope.</li>
+</ul>
+<p>The response variable <span class="math inline">\(y_i\)</span> in this form is a proportion in the interval [0, 1], and represents the probability <span class="math inline">\(p_i\)</span>. For example, if a toxicity trial exposes midges to 6 different concentrations of a toxin, and 20 organisms are exposed per concentration, then the proportion of organisms in each group that dies would be the response variable.</p>
+<p>You can think of your binomial regression model in either format. Notice that the deterministic part of the model is exactly the same in both forms of the binomial GLM, and the same as in logistic regression. The stochastic part is also the same in both forms of the binomial GLM. The stochastic part of logistic regression is <a href="5.6-mod-05-logistic.html#mod-05-logistic">usually written</a> with the Bernoulli distribution, but could be rewritten as <span class="math inline">\(y_i \sim Binomial\left(1,\ p_i\right)\)</span> to emphasize its status as a special case of binomial regression.</p>
+<p>If you have proportional data, the proportion version (form 2) is more straightforward to fit in R. The regression coefficients will be the same no matter which format you use. The examples below use the proportion format.</p>
+</div>
+<div id="example-with-simulated-data-3" class="section level3" number="5.7.2">
+<h3><span class="header-section-number">5.7.2</span> Example with simulated data</h3>
+<p>The example below shows how to simulate and fit a binomial GLM on proportions. First, let’s simulate the data.</p>
+<div class="sourceCode" id="cb1340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1340-1"><a href="5.7-mod-05-binom.html#cb1340-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb1340-2"><a href="5.7-mod-05-binom.html#cb1340-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb1340-3"><a href="5.7-mod-05-binom.html#cb1340-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb1340-4"><a href="5.7-mod-05-binom.html#cb1340-4" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="sc">+</span> <span class="sc">-</span><span class="fl">0.75</span><span class="sc">*</span>x <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb1340-5"><a href="5.7-mod-05-binom.html#cb1340-5" aria-hidden="true" tabindex="-1"></a><span class="co"># inverse logit</span></span>
+<span id="cb1340-6"><a href="5.7-mod-05-binom.html#cb1340-6" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">plogis</span>(z), <span class="dv">1</span>)</span>
+<span id="cb1340-7"><a href="5.7-mod-05-binom.html#cb1340-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1340-8"><a href="5.7-mod-05-binom.html#cb1340-8" aria-hidden="true" tabindex="-1"></a><span class="co"># weights = sample sizes</span></span>
+<span id="cb1340-9"><a href="5.7-mod-05-binom.html#cb1340-9" aria-hidden="true" tabindex="-1"></a><span class="co"># use same size for each observation for simplicity</span></span>
+<span id="cb1340-10"><a href="5.7-mod-05-binom.html#cb1340-10" aria-hidden="true" tabindex="-1"></a>wts <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">10</span>, n)</span>
+<span id="cb1340-11"><a href="5.7-mod-05-binom.html#cb1340-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1340-12"><a href="5.7-mod-05-binom.html#cb1340-12" aria-hidden="true" tabindex="-1"></a><span class="co"># plot of a proportion (y) vs. a predictor (x)</span></span>
+<span id="cb1340-13"><a href="5.7-mod-05-binom.html#cb1340-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-557-1.png" width="480" /></p>
+<p>We use GLM to fit the binomial model. The command below will specify a binomial GLM with the default logit link. In <a href="5.6-mod-05-logistic.html#mod-05-logistic">another context</a> this is how we fit a logistic regression. Adding the argument <code>weights</code>, which defines the sample sizes represented by each probability (<em>Y</em> value) converts the model to a binomial regression. For example, an observation with <em>Y</em> = 0.3 and <code>weights</code> = 10 represents a trial or group of observations with 3 successes in 10 trials. There are other ways of specifying these weights (see <code>?family</code>) but this is the simplest. Note that if you try to do this analysis without supplying weights, R will return a warning (because it expects 1s and 0s for logistic regression) and will not calculate the deviance correctly (because it doesn’t know how many trials each probability represents).</p>
+<div class="sourceCode" id="cb1341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1341-1"><a href="5.7-mod-05-binom.html#cb1341-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(y<span class="sc">~</span>x, <span class="at">family=</span>binomial, <span class="at">weights=</span>wts)</span>
+<span id="cb1341-2"><a href="5.7-mod-05-binom.html#cb1341-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = y ~ x, family = binomial, weights = wts)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.8868  -0.7281  -0.2132   0.7710   2.0987  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  2.52369    0.26503   9.522   &lt;2e-16 ***
+## x           -0.63974    0.05588 -11.449   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 288.207  on 49  degrees of freedom
+## Residual deviance:  57.294  on 48  degrees of freedom
+## AIC: 150.55
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<p>The parameter estimates are close to the true values and the pseudo-<em>R</em><sup>2</sup> is pretty good:</p>
+<div class="sourceCode" id="cb1343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1343-1"><a href="5.7-mod-05-binom.html#cb1343-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">-</span>mod1<span class="sc">$</span>deviance<span class="sc">/</span>mod1<span class="sc">$</span>null.deviance</span></code></pre></div>
+<pre><code>## [1] 0.8012043</code></pre>
+<p>Let’s generate predicted values and plot them in the usual way:</p>
+<div class="sourceCode" id="cb1345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1345-1"><a href="5.7-mod-05-binom.html#cb1345-1" aria-hidden="true" tabindex="-1"></a><span class="co"># values for prediction</span></span>
+<span id="cb1345-2"><a href="5.7-mod-05-binom.html#cb1345-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb1345-3"><a href="5.7-mod-05-binom.html#cb1345-3" aria-hidden="true" tabindex="-1"></a>px <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(x), <span class="fu">max</span>(x), <span class="at">length=</span>n)</span>
+<span id="cb1345-4"><a href="5.7-mod-05-binom.html#cb1345-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1345-5"><a href="5.7-mod-05-binom.html#cb1345-5" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate predictions on link scale</span></span>
+<span id="cb1345-6"><a href="5.7-mod-05-binom.html#cb1345-6" aria-hidden="true" tabindex="-1"></a>pred1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod1, </span>
+<span id="cb1345-7"><a href="5.7-mod-05-binom.html#cb1345-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">x=</span>px),</span>
+<span id="cb1345-8"><a href="5.7-mod-05-binom.html#cb1345-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">type=</span><span class="st">&quot;link&quot;</span>, <span class="at">se.fit=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1345-9"><a href="5.7-mod-05-binom.html#cb1345-9" aria-hidden="true" tabindex="-1"></a>mn1 <span class="ot">&lt;-</span> pred1<span class="sc">$</span>fit</span>
+<span id="cb1345-10"><a href="5.7-mod-05-binom.html#cb1345-10" aria-hidden="true" tabindex="-1"></a>lo1 <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.025</span>, mn1, pred1<span class="sc">$</span>se.fit)</span>
+<span id="cb1345-11"><a href="5.7-mod-05-binom.html#cb1345-11" aria-hidden="true" tabindex="-1"></a>up1 <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>, mn1, pred1<span class="sc">$</span>se.fit)</span>
+<span id="cb1345-12"><a href="5.7-mod-05-binom.html#cb1345-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1345-13"><a href="5.7-mod-05-binom.html#cb1345-13" aria-hidden="true" tabindex="-1"></a><span class="co"># backtransform with inverse link function</span></span>
+<span id="cb1345-14"><a href="5.7-mod-05-binom.html#cb1345-14" aria-hidden="true" tabindex="-1"></a>mn1 <span class="ot">&lt;-</span> mod1<span class="sc">$</span>family<span class="sc">$</span><span class="fu">linkinv</span>(mn1)</span>
+<span id="cb1345-15"><a href="5.7-mod-05-binom.html#cb1345-15" aria-hidden="true" tabindex="-1"></a>lo1 <span class="ot">&lt;-</span> mod1<span class="sc">$</span>family<span class="sc">$</span><span class="fu">linkinv</span>(lo1)</span>
+<span id="cb1345-16"><a href="5.7-mod-05-binom.html#cb1345-16" aria-hidden="true" tabindex="-1"></a>up1 <span class="ot">&lt;-</span> mod1<span class="sc">$</span>family<span class="sc">$</span><span class="fu">linkinv</span>(up1)</span>
+<span id="cb1345-17"><a href="5.7-mod-05-binom.html#cb1345-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1345-18"><a href="5.7-mod-05-binom.html#cb1345-18" aria-hidden="true" tabindex="-1"></a><span class="co"># make the plot:</span></span>
+<span id="cb1345-19"><a href="5.7-mod-05-binom.html#cb1345-19" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">xlab=</span><span class="st">&quot;X&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;Y&quot;</span>, <span class="at">type=</span><span class="st">&quot;n&quot;</span>,</span>
+<span id="cb1345-20"><a href="5.7-mod-05-binom.html#cb1345-20" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>))</span>
+<span id="cb1345-21"><a href="5.7-mod-05-binom.html#cb1345-21" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, lo1, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lty=</span><span class="dv">2</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb1345-22"><a href="5.7-mod-05-binom.html#cb1345-22" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, up1, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lty=</span><span class="dv">2</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb1345-23"><a href="5.7-mod-05-binom.html#cb1345-23" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, mn1, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb1345-24"><a href="5.7-mod-05-binom.html#cb1345-24" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(x,y)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-560-1.png" width="576" /></p>
+<p>Remember that logistic regression and binomial regression are <em>the same model</em>. Both address a binary outcome, but at different levels. Which of the two you should use depends on the nature of your question, the way in which data were collected, and the kind of prediction you are trying to make.</p>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="8.5-mod-08-ord.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="9.1-how-to-use-this-guide.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="5.6-mod-05-logistic.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="5.8-mod-05-gamma.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

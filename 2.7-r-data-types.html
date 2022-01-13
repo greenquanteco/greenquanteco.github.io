@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis</title>
+  <title>2.7 R data types | Applied Biological Data Analysis</title>
   <meta name="description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta property="og:title" content="2.7 R data types | Applied Biological Data Analysis" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://greenquanteco.github.io/index.html" />
   <meta property="og:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta name="twitter:title" content="2.7 R data types | Applied Biological Data Analysis" />
   
   <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="twitter:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="8.5-mod-08-ord.html"/>
-<link rel="next" href="9.1-how-to-use-this-guide.html"/>
+<link rel="prev" href="2.6-mod-02-struct.html"/>
+<link rel="next" href="2.8-manage-r-code-as-scripts-.r-files.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -530,22 +530,181 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="mod-09" class="section level1" number="9">
-<h1><span class="header-section-number">Module 9</span> Planning your analysis (what test?)</h1>
-<p>One of the main questions that biologists have after collecting data is, “What statistical test do I use?” Ignoring the fact that they should have thought about that <strong><em>before collecting data</em></strong>, the answer to that question depends on the answers to two other questions:</p>
-<ol style="list-style-type: decimal">
-<li>What question are you trying to answer?</li>
-<li>What kind of data do you have?</li>
-</ol>
-<p>After <a href="4-mod-04.html#mod-04">exploring the data</a> and gaining an understanding of the patterns and <a href="4.8-mod-04-prob.html#mod-04-prob">problems</a> in a dataset, it is time to run the main analysis. This guide is designed to help you use what you learned in exploring the data to choose an appropriate analytical strategy.</p>
+<div id="r-data-types" class="section level2" number="2.7">
+<h2><span class="header-section-number">2.7</span> R data types</h2>
+<p>In R, data are stored in objects with a well-defined structure. The structures of these objects can facilitate manipulating and retrieving your data. The structure of an R object is determined by its class. The format of data (i.e., the kinds of values contained in an object) is referred to as the data <strong>type</strong>. Most R users only encounter types when trying to understand error messages. This is because many R functions will return errors if their inputs are not of the correct type.</p>
+<div id="character-type" class="section level3" number="2.7.1">
+<h3><span class="header-section-number">2.7.1</span> Character type</h3>
+<p><strong>Character</strong> data are text strings. They are input and printed using quotation marks (<code>""</code>). Note that straight quotes are used. No other kind of quotation mark is valid in R code. If you paste in text from another program that has “curly quotes” (e.g., from Word), you will get an error.</p>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="2.7-r-data-types.html#cb222-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;aardvark&quot;</span>, <span class="st">&quot;bunny&quot;</span>, <span class="st">&quot;caterpillar&quot;</span>)</span>
+<span id="cb222-2"><a href="2.7-r-data-types.html#cb222-2" aria-hidden="true" tabindex="-1"></a>a</span></code></pre></div>
+<pre><code>## [1] &quot;aardvark&quot;    &quot;bunny&quot;       &quot;caterpillar&quot;</code></pre>
+<p>Notice that in the command above the values in <code>a</code> are defined in quotation marks. Without quotation marks, R would interpret those words as the names of objects. For example:</p>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="2.7-r-data-types.html#cb224-1" aria-hidden="true" tabindex="-1"></a>caterpillar <span class="ot">&lt;-</span> <span class="st">&quot;lion&quot;</span></span>
+<span id="cb224-2"><a href="2.7-r-data-types.html#cb224-2" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="st">&quot;aardvark&quot;</span>, <span class="st">&quot;bunny&quot;</span>, caterpillar)</span></code></pre></div>
+<pre><code>## [1] &quot;aardvark&quot; &quot;bunny&quot;    &quot;lion&quot;</code></pre>
+<p>There are some special character vectors pre-built into R that can be useful in programming: <code>letters</code> returns the lower case letters a-z, while <code>LETTERS</code> returns the upper-case letters A-Z.</p>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="2.7-r-data-types.html#cb226-1" aria-hidden="true" tabindex="-1"></a>letters</span>
+<span id="cb226-2"><a href="2.7-r-data-types.html#cb226-2" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;i&quot; &quot;j&quot; &quot;k&quot; &quot;l&quot; &quot;m&quot; &quot;n&quot; &quot;o&quot; &quot;p&quot; &quot;q&quot; &quot;r&quot; &quot;s&quot;</span></span>
+<span id="cb226-3"><a href="2.7-r-data-types.html#cb226-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [20] &quot;t&quot; &quot;u&quot; &quot;v&quot; &quot;w&quot; &quot;x&quot; &quot;y&quot; &quot;z&quot;</span></span>
+<span id="cb226-4"><a href="2.7-r-data-types.html#cb226-4" aria-hidden="true" tabindex="-1"></a>LETTERS</span>
+<span id="cb226-5"><a href="2.7-r-data-types.html#cb226-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot; &quot;E&quot; &quot;F&quot; &quot;G&quot; &quot;H&quot; &quot;I&quot; &quot;J&quot; &quot;K&quot; &quot;L&quot; &quot;M&quot; &quot;N&quot; &quot;O&quot; &quot;P&quot; &quot;Q&quot; &quot;R&quot; &quot;S&quot;</span></span>
+<span id="cb226-6"><a href="2.7-r-data-types.html#cb226-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [20] &quot;T&quot; &quot;U&quot; &quot;V&quot; &quot;W&quot; &quot;X&quot; &quot;Y&quot; &quot;Z&quot;</span></span>
+<span id="cb226-7"><a href="2.7-r-data-types.html#cb226-7" aria-hidden="true" tabindex="-1"></a>letters[<span class="dv">11</span><span class="sc">:</span><span class="dv">20</span>]</span>
+<span id="cb226-8"><a href="2.7-r-data-types.html#cb226-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] &quot;k&quot; &quot;l&quot; &quot;m&quot; &quot;n&quot; &quot;o&quot; &quot;p&quot; &quot;q&quot; &quot;r&quot; &quot;s&quot; &quot;t&quot;</span></span></code></pre></div>
+<p>Similarly, <code>month.name</code> and <code>month.abb</code> contain the names of the 12 months and their 3 letter abbreviations, respectively. The latter is very useful for making figure axes.</p>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="2.7-r-data-types.html#cb227-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="fu">runif</span>(<span class="dv">12</span>), <span class="at">xaxt=</span><span class="st">&quot;n&quot;</span>, <span class="at">xlab=</span> <span class="st">&quot;Month&quot;</span>)</span>
+<span id="cb227-2"><a href="2.7-r-data-types.html#cb227-2" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="at">side=</span><span class="dv">1</span>, <span class="at">at=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">labels=</span>month.abb)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-108-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>As an aside, the function <code>substr()</code> extracts parts of character strings (“substring”). One application is getting one letter abbreviations of the months for a figure axis. The example below selects from the month names starting and ending at character 1.</p>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="2.7-r-data-types.html#cb228-1" aria-hidden="true" tabindex="-1"></a>use.months <span class="ot">&lt;-</span> <span class="fu">substr</span>(month.name, <span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb228-2"><a href="2.7-r-data-types.html#cb228-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="fu">runif</span>(<span class="dv">12</span>), <span class="at">xaxt=</span><span class="st">&quot;n&quot;</span>, <span class="at">xlab=</span> <span class="st">&quot;Month&quot;</span>)</span>
+<span id="cb228-3"><a href="2.7-r-data-types.html#cb228-3" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="at">side=</span><span class="dv">1</span>, <span class="at">at=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">labels=</span>use.months)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-109-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="numeric-type" class="section level3" number="2.7.2">
+<h3><span class="header-section-number">2.7.2</span> Numeric type</h3>
+<p>Most data are stored as the <strong>numeric</strong> type. This includes <strong>floating point numbers</strong> (e.g., <code>3.14159</code> or <code>3.14e0</code>). Floating point numbers are referred to as type “double” in R (short for “<a href="https://en.wikipedia.org/wiki/Double-precision_floating-point_format">double-precision floating point</a>”).</p>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="2.7-r-data-types.html#cb229-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;double&quot;</code></pre>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="2.7-r-data-types.html#cb231-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(pi)</span></code></pre></div>
+<pre><code>## [1] &quot;double&quot;</code></pre>
+</div>
+<div id="integer-type" class="section level3" number="2.7.3">
+<h3><span class="header-section-number">2.7.3</span> Integer type</h3>
+<p><strong>Integers</strong> are numbers with no fractional components. Some numbers are stored as integers, but integers are not always interchangeable with floating point numbers. For example, some probability distribution functions return integer values rather than floating point values (e.g., binomial or Poisson). This can be problematic if very large numbers are expected because the maximum integer value in R is much smaller than the maximum floating-point value. Note that having the type <code>integer</code> in R and being an integer from a mathematical standpoint are not synonymous.</p>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="2.7-r-data-types.html#cb233-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="dv">7</span>)</span>
+<span id="cb233-2"><a href="2.7-r-data-types.html#cb233-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;double&quot;</span></span>
+<span id="cb233-3"><a href="2.7-r-data-types.html#cb233-3" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="fu">as.integer</span>(<span class="dv">7</span>))</span>
+<span id="cb233-4"><a href="2.7-r-data-types.html#cb233-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;integer&quot;</span></span>
+<span id="cb233-5"><a href="2.7-r-data-types.html#cb233-5" aria-hidden="true" tabindex="-1"></a><span class="fu">is.integer</span>(<span class="dv">7</span>)</span>
+<span id="cb233-6"><a href="2.7-r-data-types.html#cb233-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] FALSE</span></span>
+<span id="cb233-7"><a href="2.7-r-data-types.html#cb233-7" aria-hidden="true" tabindex="-1"></a><span class="fu">is.numeric</span>(<span class="dv">7</span>)</span>
+<span id="cb233-8"><a href="2.7-r-data-types.html#cb233-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] TRUE</span></span>
+<span id="cb233-9"><a href="2.7-r-data-types.html#cb233-9" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="fu">rbinom</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="fl">0.7</span>))</span>
+<span id="cb233-10"><a href="2.7-r-data-types.html#cb233-10" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;integer&quot;</span></span>
+<span id="cb233-11"><a href="2.7-r-data-types.html#cb233-11" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span> <span class="sc">%%</span> <span class="dv">1</span></span>
+<span id="cb233-12"><a href="2.7-r-data-types.html#cb233-12" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0</span></span></code></pre></div>
+<p>Integers are used as indices for subsetting and accessing other objects. A sequence of integers can be made using the colon operator as follows:</p>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="2.7-r-data-types.html#cb234-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span></code></pre></div>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<p>An important consequence of using integers as index values is that object dimensions are limited to the <strong>R integer limit</strong>. This is probably not a major concern for most users. Your machine will likely run out of memory before you could make such an object anyway. You can check the integer limit on your machine with this line:</p>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="2.7-r-data-types.html#cb236-1" aria-hidden="true" tabindex="-1"></a>.Machine<span class="sc">$</span>integer.max</span></code></pre></div>
+<pre><code>## [1] 2147483647</code></pre>
+<p>On my machine, this is about 2.14 × 10<sup>9</sup>. If you need data objects with dimensions larger than this, you may need to either use a specialized R package or rethink what you are doing.</p>
+</div>
+<div id="logical-type" class="section level3" number="2.7.4">
+<h3><span class="header-section-number">2.7.4</span> Logical type</h3>
+<p>The <strong>logical</strong> data type stores <code>TRUE</code> and <code>FALSE</code> values. Note that <code>TRUE</code> and <code>FALSE</code> are always written in capital letters. Logical values are produced by logical tests, such as the test for equality using <code>==</code>:</p>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="2.7-r-data-types.html#cb238-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">+</span><span class="dv">1</span> <span class="sc">==</span> <span class="dv">2</span>            </span>
+<span id="cb238-2"><a href="2.7-r-data-types.html#cb238-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] TRUE</span></span>
+<span id="cb238-3"><a href="2.7-r-data-types.html#cb238-3" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="dv">1</span><span class="sc">+</span><span class="dv">1</span> <span class="sc">==</span> <span class="dv">2</span>)    </span>
+<span id="cb238-4"><a href="2.7-r-data-types.html#cb238-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;logical&quot;</span></span>
+<span id="cb238-5"><a href="2.7-r-data-types.html#cb238-5" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="dv">1</span><span class="sc">+</span><span class="dv">1</span> <span class="sc">==</span> <span class="dv">3</span>)    </span>
+<span id="cb238-6"><a href="2.7-r-data-types.html#cb238-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;logical&quot;</span></span></code></pre></div>
+<p>Another useful test you can do is to test whether elements of one set are in another:</p>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="2.7-r-data-types.html#cb239-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">%in%</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
+<span id="cb239-2"><a href="2.7-r-data-types.html#cb239-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] TRUE</span></span>
+<span id="cb239-3"><a href="2.7-r-data-types.html#cb239-3" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">%in%</span> <span class="dv">6</span><span class="sc">:</span><span class="dv">10</span></span>
+<span id="cb239-4"><a href="2.7-r-data-types.html#cb239-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] FALSE</span></span>
+<span id="cb239-5"><a href="2.7-r-data-types.html#cb239-5" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span><span class="dv">10</span> <span class="sc">%in%</span> <span class="dv">5</span><span class="sc">:</span><span class="dv">15</span></span>
+<span id="cb239-6"><a href="2.7-r-data-types.html#cb239-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE</span></span></code></pre></div>
+<p>You can test with inequalities:</p>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="2.7-r-data-types.html#cb240-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">&gt;=</span> <span class="dv">1</span></span>
+<span id="cb240-2"><a href="2.7-r-data-types.html#cb240-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] TRUE</span></span>
+<span id="cb240-3"><a href="2.7-r-data-types.html#cb240-3" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">&lt;</span> <span class="dv">2</span></span>
+<span id="cb240-4"><a href="2.7-r-data-types.html#cb240-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] FALSE</span></span></code></pre></div>
+<p>Sometimes it can be useful to store logical values as 1 or 0. You can do this by multiplying a logical by 1.</p>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="2.7-r-data-types.html#cb241-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">+</span><span class="dv">1</span> <span class="sc">==</span> <span class="dv">2</span>)</span>
+<span id="cb241-2"><a href="2.7-r-data-types.html#cb241-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1</span></span>
+<span id="cb241-3"><a href="2.7-r-data-types.html#cb241-3" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">+</span><span class="dv">1</span> <span class="sc">==</span> <span class="dv">3</span>)</span>
+<span id="cb241-4"><a href="2.7-r-data-types.html#cb241-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0</span></span>
+<span id="cb241-5"><a href="2.7-r-data-types.html#cb241-5" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="dv">1</span><span class="sc">+</span><span class="dv">1</span> <span class="sc">==</span> <span class="dv">2</span>)</span>
+<span id="cb241-6"><a href="2.7-r-data-types.html#cb241-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;logical&quot;</span></span>
+<span id="cb241-7"><a href="2.7-r-data-types.html#cb241-7" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="dv">1</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">+</span><span class="dv">1</span> <span class="sc">==</span> <span class="dv">2</span>))</span>
+<span id="cb241-8"><a href="2.7-r-data-types.html#cb241-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;double&quot;</span></span></code></pre></div>
+<p>The <code>!</code> symbol <strong>negates</strong> or <strong>reverses</strong> logical values. It does not negate logical values stored as numbers.</p>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="2.7-r-data-types.html#cb242-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">+</span><span class="dv">2</span> <span class="sc">==</span> <span class="dv">4</span></span>
+<span id="cb242-2"><a href="2.7-r-data-types.html#cb242-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] TRUE</span></span>
+<span id="cb242-3"><a href="2.7-r-data-types.html#cb242-3" aria-hidden="true" tabindex="-1"></a><span class="sc">!</span> <span class="dv">2</span><span class="sc">+</span><span class="dv">2</span> <span class="sc">==</span> <span class="dv">4</span></span>
+<span id="cb242-4"><a href="2.7-r-data-types.html#cb242-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] FALSE</span></span>
+<span id="cb242-5"><a href="2.7-r-data-types.html#cb242-5" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span><span class="dv">10</span> <span class="sc">%in%</span> <span class="dv">5</span><span class="sc">:</span><span class="dv">15</span></span>
+<span id="cb242-6"><a href="2.7-r-data-types.html#cb242-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE</span></span>
+<span id="cb242-7"><a href="2.7-r-data-types.html#cb242-7" aria-hidden="true" tabindex="-1"></a><span class="sc">!</span><span class="dv">1</span><span class="sc">:</span><span class="dv">10</span> <span class="sc">%in%</span> <span class="dv">5</span><span class="sc">:</span><span class="dv">15</span></span>
+<span id="cb242-8"><a href="2.7-r-data-types.html#cb242-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1]  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE</span></span></code></pre></div>
+<p>The <code>any()</code> and <code>all()</code> functions test to see if any values in a set of logical values is true (<code>any()</code>) or if all of them are true (<code>all()</code>).</p>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="2.7-r-data-types.html#cb243-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span><span class="dv">5</span> <span class="sc">&lt;</span> <span class="dv">3</span></span>
+<span id="cb243-2"><a href="2.7-r-data-types.html#cb243-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1]  TRUE  TRUE FALSE FALSE FALSE</span></span>
+<span id="cb243-3"><a href="2.7-r-data-types.html#cb243-3" aria-hidden="true" tabindex="-1"></a><span class="fu">any</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span> <span class="sc">&lt;</span> <span class="dv">3</span>)</span>
+<span id="cb243-4"><a href="2.7-r-data-types.html#cb243-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] TRUE</span></span>
+<span id="cb243-5"><a href="2.7-r-data-types.html#cb243-5" aria-hidden="true" tabindex="-1"></a><span class="fu">all</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span> <span class="sc">&lt;</span> <span class="dv">3</span>)</span>
+<span id="cb243-6"><a href="2.7-r-data-types.html#cb243-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] FALSE</span></span></code></pre></div>
+</div>
+<div id="special-values" class="section level3" number="2.7.5">
+<h3><span class="header-section-number">2.7.5</span> Special values</h3>
+<p>Missing data in R are labeled as <code>NA</code>, or “Not Available”. This is R-speak for a blank or missing value. Some functions can ignore <code>NA</code>, some cannot. Some functions produce <code>NA</code> when you supply them with improper inputs. Note that this is a feature, not a bug. R is set up to produce <code>NA</code> by default in many cases to help you track down where the missing values are coming from. Function <code>is.na()</code> tests to see if a value is missing.</p>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="2.7-r-data-types.html#cb244-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb244-2"><a href="2.7-r-data-types.html#cb244-2" aria-hidden="true" tabindex="-1"></a>aa <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>,<span class="cn">NA</span>)</span>
+<span id="cb244-3"><a href="2.7-r-data-types.html#cb244-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb244-4"><a href="2.7-r-data-types.html#cb244-4" aria-hidden="true" tabindex="-1"></a>aa <span class="sc">+</span> <span class="dv">2</span></span>
+<span id="cb244-5"><a href="2.7-r-data-types.html#cb244-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [1]  3  4  5  6  7  8  9 10 NA</span></span>
+<span id="cb244-6"><a href="2.7-r-data-types.html#cb244-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb244-7"><a href="2.7-r-data-types.html#cb244-7" aria-hidden="true" tabindex="-1"></a><span class="co"># returns NA</span></span>
+<span id="cb244-8"><a href="2.7-r-data-types.html#cb244-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(aa)</span>
+<span id="cb244-9"><a href="2.7-r-data-types.html#cb244-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] NA</span></span>
+<span id="cb244-10"><a href="2.7-r-data-types.html#cb244-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb244-11"><a href="2.7-r-data-types.html#cb244-11" aria-hidden="true" tabindex="-1"></a><span class="co"># option to ignore NA values</span></span>
+<span id="cb244-12"><a href="2.7-r-data-types.html#cb244-12" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(aa,<span class="at">na.rm=</span><span class="cn">TRUE</span>)      </span>
+<span id="cb244-13"><a href="2.7-r-data-types.html#cb244-13" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 4.5</span></span>
+<span id="cb244-14"><a href="2.7-r-data-types.html#cb244-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb244-15"><a href="2.7-r-data-types.html#cb244-15" aria-hidden="true" tabindex="-1"></a><span class="co"># test for NA</span></span>
+<span id="cb244-16"><a href="2.7-r-data-types.html#cb244-16" aria-hidden="true" tabindex="-1"></a><span class="fu">is.na</span>(aa)               </span>
+<span id="cb244-17"><a href="2.7-r-data-types.html#cb244-17" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE</span></span>
+<span id="cb244-18"><a href="2.7-r-data-types.html#cb244-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb244-19"><a href="2.7-r-data-types.html#cb244-19" aria-hidden="true" tabindex="-1"></a><span class="co"># which elements are NA?</span></span>
+<span id="cb244-20"><a href="2.7-r-data-types.html#cb244-20" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(<span class="fu">is.na</span>(aa))        </span>
+<span id="cb244-21"><a href="2.7-r-data-types.html#cb244-21" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 9</span></span>
+<span id="cb244-22"><a href="2.7-r-data-types.html#cb244-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb244-23"><a href="2.7-r-data-types.html#cb244-23" aria-hidden="true" tabindex="-1"></a><span class="co"># remove NA elements</span></span>
+<span id="cb244-24"><a href="2.7-r-data-types.html#cb244-24" aria-hidden="true" tabindex="-1"></a>aa[<span class="sc">-</span><span class="fu">which</span>(<span class="fu">is.na</span>(aa))]   </span>
+<span id="cb244-25"><a href="2.7-r-data-types.html#cb244-25" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1 2 3 4 5 6 7 8</span></span>
+<span id="cb244-26"><a href="2.7-r-data-types.html#cb244-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb244-27"><a href="2.7-r-data-types.html#cb244-27" aria-hidden="true" tabindex="-1"></a><span class="co"># another way to remove NA elements</span></span>
+<span id="cb244-28"><a href="2.7-r-data-types.html#cb244-28" aria-hidden="true" tabindex="-1"></a>aa[<span class="fu">which</span>(<span class="sc">!</span><span class="fu">is.na</span>(aa))]   </span>
+<span id="cb244-29"><a href="2.7-r-data-types.html#cb244-29" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1 2 3 4 5 6 7 8</span></span>
+<span id="cb244-30"><a href="2.7-r-data-types.html#cb244-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb244-31"><a href="2.7-r-data-types.html#cb244-31" aria-hidden="true" tabindex="-1"></a><span class="co"># returns NA: Poisson distribution supported only on [0,+Inf]</span></span>
+<span id="cb244-32"><a href="2.7-r-data-types.html#cb244-32" aria-hidden="true" tabindex="-1"></a><span class="fu">rpois</span>(<span class="dv">10</span>,<span class="sc">-</span><span class="dv">2</span>) </span>
+<span id="cb244-33"><a href="2.7-r-data-types.html#cb244-33" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning in rpois(10, -2): NAs produced</span></span>
+<span id="cb244-34"><a href="2.7-r-data-types.html#cb244-34" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] NA NA NA NA NA NA NA NA NA NA</span></span></code></pre></div>
+<p>Positive and negative infinity (<span class="math inline">\(+\infty\)</span> and <span class="math inline">\(-\infty\)</span>) are labeled in R as <code>Inf</code> and <code>–Inf</code>. Dividing a non-zero number by 0 produces <code>Inf</code>. Taking the log of 0 produces <code>–Inf</code>. Trying to generate a value greater than R’s maximal value can produce <code>Inf</code>.</p>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="2.7-r-data-types.html#cb245-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span><span class="sc">/</span><span class="dv">0</span></span>
+<span id="cb245-2"><a href="2.7-r-data-types.html#cb245-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] Inf</span></span>
+<span id="cb245-3"><a href="2.7-r-data-types.html#cb245-3" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">0</span>)</span>
+<span id="cb245-4"><a href="2.7-r-data-types.html#cb245-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] -Inf</span></span>
+<span id="cb245-5"><a href="2.7-r-data-types.html#cb245-5" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span><span class="sc">^</span><span class="dv">10</span><span class="sc">^</span><span class="dv">10</span></span>
+<span id="cb245-6"><a href="2.7-r-data-types.html#cb245-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] Inf</span></span></code></pre></div>
+<p>Some values that are undefined are labeled <code>NaN</code> (not a number). This means that a value is undefined, not that it is missing (which would be <code>NA</code>) or infinite. Dividing 0 by 0, or taking the log of a negative number, produces <code>NaN</code>. The function <code>is.nan()</code> tests to see if a value is <code>NaN</code>.</p>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="2.7-r-data-types.html#cb246-1" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span><span class="sc">/</span><span class="dv">0</span></span>
+<span id="cb246-2"><a href="2.7-r-data-types.html#cb246-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] NaN</span></span>
+<span id="cb246-3"><a href="2.7-r-data-types.html#cb246-3" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb246-4"><a href="2.7-r-data-types.html#cb246-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning in log(-1): NaNs produced</span></span>
+<span id="cb246-5"><a href="2.7-r-data-types.html#cb246-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] NaN</span></span></code></pre></div>
+<p>Why are there so many special values? To help track down where erroneous values are coming from. If every undefined value returned the same symbol (or word, etc.), then it would be hard to know why a program was returning undefined values. Instead, the different results help point the way:</p>
+<ul>
+<li><code>Inf</code>: Positive non-zero number divided by 0</li>
+<li><code>-Inf</code>: Negative non-zero number divided by 0 <em>or</em> <code>log(0)</code>.</li>
+<li><code>NaN</code>: <code>0/0</code> or logarithm of a negative number</li>
+</ul>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="8.5-mod-08-ord.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="9.1-how-to-use-this-guide.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="2.6-mod-02-struct.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="2.8-manage-r-code-as-scripts-.r-files.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

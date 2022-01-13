@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis</title>
+  <title>8.4 Analyzing dissimilarity | Applied Biological Data Analysis</title>
   <meta name="description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta property="og:title" content="8.4 Analyzing dissimilarity | Applied Biological Data Analysis" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://greenquanteco.github.io/index.html" />
   <meta property="og:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta name="twitter:title" content="8.4 Analyzing dissimilarity | Applied Biological Data Analysis" />
   
   <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="twitter:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="8.5-mod-08-ord.html"/>
-<link rel="next" href="9.1-how-to-use-this-guide.html"/>
+<link rel="prev" href="8.3-clustering.html"/>
+<link rel="next" href="8.5-mod-08-ord.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -530,22 +530,332 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="mod-09" class="section level1" number="9">
-<h1><span class="header-section-number">Module 9</span> Planning your analysis (what test?)</h1>
-<p>One of the main questions that biologists have after collecting data is, “What statistical test do I use?” Ignoring the fact that they should have thought about that <strong><em>before collecting data</em></strong>, the answer to that question depends on the answers to two other questions:</p>
-<ol style="list-style-type: decimal">
-<li>What question are you trying to answer?</li>
-<li>What kind of data do you have?</li>
-</ol>
-<p>After <a href="4-mod-04.html#mod-04">exploring the data</a> and gaining an understanding of the patterns and <a href="4.8-mod-04-prob.html#mod-04-prob">problems</a> in a dataset, it is time to run the main analysis. This guide is designed to help you use what you learned in exploring the data to choose an appropriate analytical strategy.</p>
+<div id="mod-08-sims" class="section level2" number="8.4">
+<h2><span class="header-section-number">8.4</span> Analyzing dissimilarity</h2>
+<p>A metric like the Bray-Curtis or Euclidean metric can quantify how different samples are from each other in terms of many variables simultaneously. The natural next question to ask is, “So what?”. Just as we can compare means between groups, or measure whether two variables are correlated, we can compare distances between groups or test whether two sets of distances are correlated. This document demonstrates some ways to use distance metrics to generalize common univariate and bivariate tests to patterns in higher dimensions.</p>
+<div id="mantel-tests-distance-vs.-distance" class="section level3" number="8.4.1">
+<h3><span class="header-section-number">8.4.1</span> Mantel tests: distance vs. distance</h3>
+<p>One way to use distance metrics in a biological investigation is to calculate different distances between samples using different sets of variables, and then see if those distances are related. For example, an ecologist might calculate distances between sites using plant cover data, and a separate set of distances using soil chemistry data. She would then have one distance metric describing differences between the sites in terms of their plant cover, and a second distance metric describing differences between the sites in terms of their soil characteristics. A natural question to ask then is, “is distance in terms of plant cover related to distance in terms of soil chemistry?”. In other words, “do sites that are more similar in terms of their soil chemistry tend to be more similar in terms of their plant cover?”</p>
+<p>Answering these questions is tantamount to calculating a <strong>correlation coefficient between two vectors of distance metrics</strong>. This procedure is called a <strong>Mantel test</strong> <span class="citation">(<a href="#ref-mantel1967detection" role="doc-biblioref">Mantel 1967</a>)</span>. The Mantel correlation coefficient <em>r</em> answers the question, “How is variation in one set of variables related to variation in another set of variables?”.</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/08_13.jpg" /></p>
+<p>The example below uses the <code>iris</code> dataset to test whether variation in petal morphology is related to variation in sepal morphology. Note that while the Euclidean distance metric is used here because data are known to be multivariate normal, the Bray-Curtis or other metrics may be more appropriate in other situations.</p>
+<div class="sourceCode" id="cb1615"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1615-1"><a href="8.4-mod-08-sims.html#cb1615-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get sepal and petal variables from iris</span></span>
+<span id="cb1615-2"><a href="8.4-mod-08-sims.html#cb1615-2" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> iris[,<span class="fu">grep</span>(<span class="st">&quot;Sepal&quot;</span>, <span class="fu">names</span>(iris))]</span>
+<span id="cb1615-3"><a href="8.4-mod-08-sims.html#cb1615-3" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> iris[,<span class="fu">grep</span>(<span class="st">&quot;Petal&quot;</span>, <span class="fu">names</span>(iris))]</span>
+<span id="cb1615-4"><a href="8.4-mod-08-sims.html#cb1615-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1615-5"><a href="8.4-mod-08-sims.html#cb1615-5" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate distance metrics</span></span>
+<span id="cb1615-6"><a href="8.4-mod-08-sims.html#cb1615-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegan)</span>
+<span id="cb1615-7"><a href="8.4-mod-08-sims.html#cb1615-7" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="fu">vegdist</span>(x1, <span class="at">method=</span><span class="st">&quot;euclidean&quot;</span>)</span>
+<span id="cb1615-8"><a href="8.4-mod-08-sims.html#cb1615-8" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="fu">vegdist</span>(x2, <span class="at">method=</span><span class="st">&quot;euclidean&quot;</span>)</span>
+<span id="cb1615-9"><a href="8.4-mod-08-sims.html#cb1615-9" aria-hidden="true" tabindex="-1"></a>d3 <span class="ot">&lt;-</span> <span class="fu">vegdist</span>(x1) <span class="co"># vegdist() default metric = Bray-Curtis</span></span>
+<span id="cb1615-10"><a href="8.4-mod-08-sims.html#cb1615-10" aria-hidden="true" tabindex="-1"></a>d4 <span class="ot">&lt;-</span> <span class="fu">vegdist</span>(x2)</span>
+<span id="cb1615-11"><a href="8.4-mod-08-sims.html#cb1615-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1615-12"><a href="8.4-mod-08-sims.html#cb1615-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Mantel test on Euclidean distances</span></span>
+<span id="cb1615-13"><a href="8.4-mod-08-sims.html#cb1615-13" aria-hidden="true" tabindex="-1"></a><span class="fu">mantel</span>(d1, d2)</span></code></pre></div>
+<pre><code>## 
+## Mantel statistic based on Pearson&#39;s product-moment correlation 
+## 
+## Call:
+## mantel(xdis = d1, ydis = d2) 
+## 
+## Mantel statistic r: 0.7326 
+##       Significance: 0.001 
+## 
+## Upper quantiles of permutations (null model):
+##    90%    95%  97.5%    99% 
+## 0.0242 0.0330 0.0409 0.0490 
+## Permutation: free
+## Number of permutations: 999</code></pre>
+<p>The Mantel statistic <em>r</em> is exactly the same as the Pearson product moment correlation <em>r</em> between the two sets of distance metrics (verify this with the command <code>cor(d1, d2)</code>). The significance of the Mantel <em>r</em> is usually calculated by a permutation test instead of the more conventional methods . A <strong>permutation test</strong> for significance works by rearranging, or permuting, the observations many times and comparing a statistic (<em>r</em>) to the distribution of the statistic across the permutations. The <em>P</em>-value is calculated as the proportion of permutations that had a statistic with a magnitude at least as great as the original statistic. In the example above, <em>P</em> = 0.001 because at most 1 out of 999 permutations had an <em>r</em> <span class="math inline">\(\ge\)</span> 0.7326.</p>
+<p>The function below will replicate the permutation test done for the Mantel test above. This function is provided for didactic purposes only. You should use the methods built into R and <code>vegan</code> instead. But, studying the code below can help you understand how a permutation test works.</p>
+<div class="sourceCode" id="cb1617"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1617-1"><a href="8.4-mod-08-sims.html#cb1617-1" aria-hidden="true" tabindex="-1"></a>simple.ptest <span class="ot">&lt;-</span> <span class="cf">function</span>(dm1, dm2, <span class="at">n=</span><span class="dv">999</span>){</span>
+<span id="cb1617-2"><a href="8.4-mod-08-sims.html#cb1617-2" aria-hidden="true" tabindex="-1"></a>    r <span class="ot">&lt;-</span> <span class="fu">cor</span>(dm1, dm2)</span>
+<span id="cb1617-3"><a href="8.4-mod-08-sims.html#cb1617-3" aria-hidden="true" tabindex="-1"></a>    dn <span class="ot">&lt;-</span> <span class="fu">length</span>(dm1)</span>
+<span id="cb1617-4"><a href="8.4-mod-08-sims.html#cb1617-4" aria-hidden="true" tabindex="-1"></a>    rvec <span class="ot">&lt;-</span> <span class="fu">numeric</span>(dn)</span>
+<span id="cb1617-5"><a href="8.4-mod-08-sims.html#cb1617-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>dn){</span>
+<span id="cb1617-6"><a href="8.4-mod-08-sims.html#cb1617-6" aria-hidden="true" tabindex="-1"></a>        i1 <span class="ot">&lt;-</span> d1[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>dn, <span class="at">replace=</span><span class="cn">FALSE</span>)]</span>
+<span id="cb1617-7"><a href="8.4-mod-08-sims.html#cb1617-7" aria-hidden="true" tabindex="-1"></a>        i2 <span class="ot">&lt;-</span> d2[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>dn, <span class="at">replace=</span><span class="cn">FALSE</span>)]</span>
+<span id="cb1617-8"><a href="8.4-mod-08-sims.html#cb1617-8" aria-hidden="true" tabindex="-1"></a>        rvec[i] <span class="ot">&lt;-</span> <span class="fu">cor</span>(i1, i2)</span>
+<span id="cb1617-9"><a href="8.4-mod-08-sims.html#cb1617-9" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1617-10"><a href="8.4-mod-08-sims.html#cb1617-10" aria-hidden="true" tabindex="-1"></a>    res <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">which</span>(rvec <span class="sc">&gt;=</span> r))<span class="sc">/</span>dn</span>
+<span id="cb1617-11"><a href="8.4-mod-08-sims.html#cb1617-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(res)</span>
+<span id="cb1617-12"><a href="8.4-mod-08-sims.html#cb1617-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1617-13"><a href="8.4-mod-08-sims.html#cb1617-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1617-14"><a href="8.4-mod-08-sims.html#cb1617-14" aria-hidden="true" tabindex="-1"></a><span class="fu">simple.ptest</span>(d1, d2, <span class="dv">999</span>)</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<p>Mantel tests are usually reported by their numerical outputs, but you can plot the results if the test is central to your presentation. The simplest way is to plot the distance metrics on a scatterplot. The example below uses partial transparency to better show the overlapping points. A diagonal red line shows where the two dissimilarities are equal.</p>
+<div class="sourceCode" id="cb1619"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1619-1"><a href="8.4-mod-08-sims.html#cb1619-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(d1, d2, <span class="at">pch=</span><span class="dv">16</span>, <span class="at">col=</span><span class="st">&quot;#00000020&quot;</span>,</span>
+<span id="cb1619-2"><a href="8.4-mod-08-sims.html#cb1619-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab=</span><span class="st">&quot;Sepal dissimilarity (Eucl.)&quot;</span>,</span>
+<span id="cb1619-3"><a href="8.4-mod-08-sims.html#cb1619-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab=</span><span class="st">&quot;Petal dissimilarity (Eucl.)&quot;</span>)</span>
+<span id="cb1619-4"><a href="8.4-mod-08-sims.html#cb1619-4" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="fu">max</span>(d1), <span class="fu">max</span>(d2), </span>
+<span id="cb1619-5"><a href="8.4-mod-08-sims.html#cb1619-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-724-1.png" width="576" /></p>
+<p>The figure shows what the Mantel <em>r</em> statistic already indicated: that flowers with similar sepal morphology tend to have similar petal morphology.</p>
+<p>Just for fun, the figure below visualizes the Mantel correlation based on the Euclidean (left) and Bray-Curtis (right) distances.</p>
+<div class="sourceCode" id="cb1620"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1620-1"><a href="8.4-mod-08-sims.html#cb1620-1" aria-hidden="true" tabindex="-1"></a>d3 <span class="ot">&lt;-</span> <span class="fu">vegdist</span>(x1) <span class="co"># default Bray-Curtis</span></span>
+<span id="cb1620-2"><a href="8.4-mod-08-sims.html#cb1620-2" aria-hidden="true" tabindex="-1"></a>d4 <span class="ot">&lt;-</span> <span class="fu">vegdist</span>(x2)</span>
+<span id="cb1620-3"><a href="8.4-mod-08-sims.html#cb1620-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mantel</span>(d3, d4)</span></code></pre></div>
+<pre><code>## 
+## Mantel statistic based on Pearson&#39;s product-moment correlation 
+## 
+## Call:
+## mantel(xdis = d3, ydis = d4) 
+## 
+## Mantel statistic r: 0.6552 
+##       Significance: 0.001 
+## 
+## Upper quantiles of permutations (null model):
+##    90%    95%  97.5%    99% 
+## 0.0260 0.0365 0.0459 0.0578 
+## Permutation: free
+## Number of permutations: 999</code></pre>
+<div class="sourceCode" id="cb1622"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1622-1"><a href="8.4-mod-08-sims.html#cb1622-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="fl">5.1</span>, <span class="fl">5.1</span>, <span class="fl">1.1</span>, <span class="fl">1.1</span>),</span>
+<span id="cb1622-2"><a href="8.4-mod-08-sims.html#cb1622-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">bty=</span><span class="st">&quot;n&quot;</span>, <span class="at">lend=</span><span class="dv">1</span>, <span class="at">las=</span><span class="dv">1</span>,</span>
+<span id="cb1622-3"><a href="8.4-mod-08-sims.html#cb1622-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex.axis=</span><span class="fl">1.3</span>, <span class="at">cex.lab=</span><span class="fl">1.3</span>)</span>
+<span id="cb1622-4"><a href="8.4-mod-08-sims.html#cb1622-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(d1, d2, <span class="at">pch=</span><span class="dv">16</span>, <span class="at">col=</span><span class="st">&quot;#00000020&quot;</span>,</span>
+<span id="cb1622-5"><a href="8.4-mod-08-sims.html#cb1622-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab=</span><span class="st">&quot;Sepal dissimilarity (Euclidean)&quot;</span>,</span>
+<span id="cb1622-6"><a href="8.4-mod-08-sims.html#cb1622-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab=</span><span class="st">&quot;Petal dissimilarity (Euclidean)&quot;</span>)</span>
+<span id="cb1622-7"><a href="8.4-mod-08-sims.html#cb1622-7" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="fu">max</span>(d1), <span class="fu">max</span>(d2), </span>
+<span id="cb1622-8"><a href="8.4-mod-08-sims.html#cb1622-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb1622-9"><a href="8.4-mod-08-sims.html#cb1622-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1622-10"><a href="8.4-mod-08-sims.html#cb1622-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(d3, d4, <span class="at">pch=</span><span class="dv">16</span>, <span class="at">col=</span><span class="st">&quot;#00000020&quot;</span>,</span>
+<span id="cb1622-11"><a href="8.4-mod-08-sims.html#cb1622-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab=</span><span class="st">&quot;Sepal dissimilarity (Bray-Curtis)&quot;</span>,</span>
+<span id="cb1622-12"><a href="8.4-mod-08-sims.html#cb1622-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab=</span><span class="st">&quot;Petal dissimilarity (Bray-Curtis)&quot;</span>)</span>
+<span id="cb1622-13"><a href="8.4-mod-08-sims.html#cb1622-13" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="fu">max</span>(d3), <span class="fu">max</span>(d4), </span>
+<span id="cb1622-14"><a href="8.4-mod-08-sims.html#cb1622-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-725-1.png" width="864" /></p>
+<p>Interestingly, the Bray-Curtis distances seemed to fall into two clusters in terms of the petal dissimilarity. That probably has something to do with the difference between <em>I</em>. <em>setosa</em> and the other species, but I haven’t investigated it.</p>
+<p>The Mantel test can also be performed with correlation coefficients other than the linear correlation coefficient. This makes sense if the correlation appears nonlinear. For example, if one dissimilarity metric increases consistently with the other dissimilarity metric, but not in a straight line. The most common alternative is the Spearman’s rank correlation coefficient <span class="math inline">\(\rho\)</span> (“rho”).</p>
+<div class="sourceCode" id="cb1623"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1623-1"><a href="8.4-mod-08-sims.html#cb1623-1" aria-hidden="true" tabindex="-1"></a><span class="co"># euclidean distance metric</span></span>
+<span id="cb1623-2"><a href="8.4-mod-08-sims.html#cb1623-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mantel</span>(d1, d2, <span class="at">method=</span><span class="st">&quot;spearman&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+## Mantel statistic based on Spearman&#39;s rank correlation rho 
+## 
+## Call:
+## mantel(xdis = d1, ydis = d2, method = &quot;spearman&quot;) 
+## 
+## Mantel statistic r: 0.7258 
+##       Significance: 0.001 
+## 
+## Upper quantiles of permutations (null model):
+##    90%    95%  97.5%    99% 
+## 0.0197 0.0253 0.0298 0.0362 
+## Permutation: free
+## Number of permutations: 999</code></pre>
+<div class="sourceCode" id="cb1625"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1625-1"><a href="8.4-mod-08-sims.html#cb1625-1" aria-hidden="true" tabindex="-1"></a><span class="co"># bray-curtis metric</span></span>
+<span id="cb1625-2"><a href="8.4-mod-08-sims.html#cb1625-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mantel</span>(d3, d4, <span class="at">method=</span><span class="st">&quot;spearman&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+## Mantel statistic based on Spearman&#39;s rank correlation rho 
+## 
+## Call:
+## mantel(xdis = d3, ydis = d4, method = &quot;spearman&quot;) 
+## 
+## Mantel statistic r:  0.69 
+##       Significance: 0.001 
+## 
+## Upper quantiles of permutations (null model):
+##    90%    95%  97.5%    99% 
+## 0.0247 0.0331 0.0392 0.0540 
+## Permutation: free
+## Number of permutations: 999</code></pre>
+<p>Changing from a linear to nonlinear correlation coefficient slightly decreased the Mantel correlation for the Euclidean distances (0.7326 to 0.7258), and slightly increased the correlation for the Bray-Curtis distances (0.6552 to 0.69). Examine the figure above and see if you can work out why this is.</p>
+<p>The figure below shows the two sets of distances with two lines: a straight line to represent the linear correlation <em>r</em> and a spline curve to represent the nonlinear correlation <span class="math inline">\(\rho\)</span>.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-727-1.png" width="864" /></p>
+</div>
+<div id="comparing-dissimilarity-between-groups" class="section level3" number="8.4.2">
+<h3><span class="header-section-number">8.4.2</span> Comparing dissimilarity between groups</h3>
+<p>Just as the Mantel test generalizes the idea of correlation from “one variable vs. one variable” to “many variables vs. many variables”, other techniques generalize the idea of group differences from “difference in means between groups” to “differences in centroids between groups”. This section demonstrates three common tests for multivariate differences between groups.</p>
+<div id="analysis-of-similarity-anosim-distances-between-groups" class="section level4" number="8.4.2.1">
+<h4><span class="header-section-number">8.4.2.1</span> Analysis of similarity (ANOSIM): distances between groups</h4>
+<p>The <strong>analysis of similarities (ANOSIM)</strong> is a nonparametric, ANOVA-like test that tests whether similarity between groups is greater than or equal to the similarity within groups <span class="citation">(<a href="#ref-clarke1993" role="doc-biblioref">Clarke 1993</a>)</span>. This is analogous to how ANOVA tests whether the difference in means (i.e., variance) between groups is greater than or equal to the variance within groups. What makes the test nonparametric is that it operates on the rank-transformed distance matrix rather than on the actual distance metrics.</p>
+<p>The <code>vegan</code> function <code>anosim()</code> is used for ANOSIM. The function takes the original data matrix, a grouping variable, and can use any distance metric available in <code>vegan::vegdist()</code>. The example below uses the Euclidean metric because the data are known to be multivariate normal; you may need to use the Bray-Curtis or another metric with your own data.</p>
+<div class="sourceCode" id="cb1627"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1627-1"><a href="8.4-mod-08-sims.html#cb1627-1" aria-hidden="true" tabindex="-1"></a>a1 <span class="ot">&lt;-</span> <span class="fu">anosim</span>(iris[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>],</span>
+<span id="cb1627-2"><a href="8.4-mod-08-sims.html#cb1627-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">grouping=</span>iris<span class="sc">$</span>Species,</span>
+<span id="cb1627-3"><a href="8.4-mod-08-sims.html#cb1627-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">distance=</span><span class="st">&quot;euclidean&quot;</span>)</span>
+<span id="cb1627-4"><a href="8.4-mod-08-sims.html#cb1627-4" aria-hidden="true" tabindex="-1"></a>a1</span></code></pre></div>
+<pre><code>## 
+## Call:
+## anosim(x = iris[, 1:4], grouping = iris$Species, distance = &quot;euclidean&quot;) 
+## Dissimilarity: euclidean 
+## 
+## ANOSIM statistic R: 0.8794 
+##       Significance: 0.001 
+## 
+## Permutation: free
+## Number of permutations: 999</code></pre>
+<p>Like the Mantel test, ANOSIM estimates a <em>P</em>-value by permutation. In this case, the permutation is of group membership. The underlying idea is that if there are no differences between groups (i.e., if the null hypothesis were true), then group membership is irrelevant and changing group memberships should not affect any test statistics. The ANOSIM statistic <em>R</em> expresses the relationship between the difference in mean ranks between groups (<span class="math inline">\(mr_{between}\)</span>) and the within groups (<span class="math inline">\(mr_{within}\)</span>).</p>
+<p><span class="math display">\[R=\frac{mr_{between}-mr_{within}}{\frac{1}{4}n(n-1)}\]</span></p>
+<p>The denominator scales the difference in mean ranks from -1 to 1. <em>R</em> = 0 means that grouping is unrelated to differences in mean ranks; greater <em>R</em> values indicate that differences between groups are greater than differences within groups; smaller <em>R</em> values indicate the reverse. The <em>R</em> value in our test above suggests that about 87.9% of the variation in the rank order of the distance matrix can be attributed to differences between species of <em>Iris</em>.</p>
+</div>
+<div id="mod-08-manova" class="section level4" number="8.4.2.2">
+<h4><span class="header-section-number">8.4.2.2</span> MANOVA and PERMANOVA: distances between centroids</h4>
+<p><strong>Multivariate analysis of variance (MANOVA)</strong> is an extension of ANOVA with multiple response variables. The underlying theory and matrix algebra is very similar to ANOVA, and so many of the same assumptions apply (just in many dimensions instead of one). For that reason, MANOVA is often not appropriate for real biological data without careful experimental design and exploratory data analysis to confirm that the test’s assumptions are met.</p>
+<div class="sourceCode" id="cb1629"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1629-1"><a href="8.4-mod-08-sims.html#cb1629-1" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(iris[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>])</span>
+<span id="cb1629-2"><a href="8.4-mod-08-sims.html#cb1629-2" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">manova</span>(Y<span class="sc">~</span>iris<span class="sc">$</span>Species)</span>
+<span id="cb1629-3"><a href="8.4-mod-08-sims.html#cb1629-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1629-4"><a href="8.4-mod-08-sims.html#cb1629-4" aria-hidden="true" tabindex="-1"></a><span class="co"># (M)ANOVA table</span></span>
+<span id="cb1629-5"><a href="8.4-mod-08-sims.html#cb1629-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1, <span class="at">test=</span><span class="st">&quot;Pillai&quot;</span>)</span></code></pre></div>
+<pre><code>##               Df Pillai approx F num Df den Df    Pr(&gt;F)    
+## iris$Species   2 1.1919   53.466      8    290 &lt; 2.2e-16 ***
+## Residuals    147                                            
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode" id="cb1631"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1631-1"><a href="8.4-mod-08-sims.html#cb1631-1" aria-hidden="true" tabindex="-1"></a><span class="co"># coefficients for each response and level of predictor</span></span>
+<span id="cb1631-2"><a href="8.4-mod-08-sims.html#cb1631-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(mod1)</span></code></pre></div>
+<pre><code>##                        Sepal.Length Sepal.Width Petal.Length Petal.Width
+## (Intercept)                   5.006       3.428        1.462       0.246
+## iris$Speciesversicolor        0.930      -0.658        2.798       1.080
+## iris$Speciesvirginica         1.582      -0.454        4.090       1.780</code></pre>
+<p><strong>Permutational analysis of variance (PERMANOVA)</strong> is a nonparametric version of MANOVA <span class="citation">(<a href="#ref-anderson2001" role="doc-biblioref">Anderson 2001</a>)</span>. It is nonparametric because it uses permutation of group membership to determine statistical significance instead of calculating an <em>F</em> statistic based on probability theory. The most common R function for PERMANOVA is <code>adonis()</code> from the <code>vegan</code> package.</p>
+<div class="sourceCode" id="cb1633"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1633-1"><a href="8.4-mod-08-sims.html#cb1633-1" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">adonis</span>(iris[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]<span class="sc">~</span>iris<span class="sc">$</span>Species, <span class="at">method=</span><span class="st">&quot;euclidean&quot;</span>)</span>
+<span id="cb1633-2"><a href="8.4-mod-08-sims.html#cb1633-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1633-3"><a href="8.4-mod-08-sims.html#cb1633-3" aria-hidden="true" tabindex="-1"></a><span class="co"># (perm)anova table</span></span>
+<span id="cb1633-4"><a href="8.4-mod-08-sims.html#cb1633-4" aria-hidden="true" tabindex="-1"></a>mod2</span></code></pre></div>
+<pre><code>## 
+## Call:
+## adonis(formula = iris[, 1:4] ~ iris$Species, method = &quot;euclidean&quot;) 
+## 
+## Permutation: free
+## Number of permutations: 999
+## 
+## Terms added sequentially (first to last)
+## 
+##               Df SumsOfSqs MeanSqs F.Model      R2 Pr(&gt;F)    
+## iris$Species   2    592.07 296.037  487.33 0.86894  0.001 ***
+## Residuals    147     89.30   0.607         0.13106           
+## Total        149    681.37                 1.00000           
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode" id="cb1635"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1635-1"><a href="8.4-mod-08-sims.html#cb1635-1" aria-hidden="true" tabindex="-1"></a><span class="co"># coefficients for each response and level of predictor</span></span>
+<span id="cb1635-2"><a href="8.4-mod-08-sims.html#cb1635-2" aria-hidden="true" tabindex="-1"></a>mod2<span class="sc">$</span>coefficients</span></code></pre></div>
+<pre><code>##               Sepal.Length Sepal.Width Petal.Length Petal.Width
+## (Intercept)     5.84333333   3.0573333        3.758   1.1993333
+## iris$Species1  -0.83733333   0.3706667       -2.296  -0.9533333
+## iris$Species2   0.09266667  -0.2873333        0.502   0.1266667</code></pre>
+</div>
+<div id="mod-08-mrpp" class="section level4" number="8.4.2.3">
+<h4><span class="header-section-number">8.4.2.3</span> MRPP: differences in location</h4>
+<p><strong>Multiple response permutation procedures (MRPP)</strong> is a permutational test for location that is very similar to ANOSIM <span class="citation">(<a href="#ref-mccune2002analysis" role="doc-biblioref">McCune et al. 2002</a>)</span>. The practical difference between MRPP and ANOSIM is that MRPP is typically used on coordinates within an ordination space (usually NMDS), while ANOSIM is usually used with all variables (i.e., on the original data).</p>
+<p>In this example, we first fit an NMDS ordination to the <code>iris</code> data, then use MRPP to test whether the 3 species differ from each other. NMDS will be described in detail in its own page, but for now just understand that proximity in NMDS coordinates represents proximity in terms of the original variables. The question addressed by the MRPP is basically the same as asking whether the 3 clouds of points in the ordination space overlap or not.</p>
+<div class="sourceCode" id="cb1637"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1637-1"><a href="8.4-mod-08-sims.html#cb1637-1" aria-hidden="true" tabindex="-1"></a><span class="co"># NMDS ordination</span></span>
+<span id="cb1637-2"><a href="8.4-mod-08-sims.html#cb1637-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegan)</span>
+<span id="cb1637-3"><a href="8.4-mod-08-sims.html#cb1637-3" aria-hidden="true" tabindex="-1"></a>n1 <span class="ot">&lt;-</span> <span class="fu">metaMDS</span>(iris[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>])</span></code></pre></div>
+<pre><code>## Run 0 stress 0.03775523 
+## Run 1 stress 0.03775524 
+## ... Procrustes: rmse 9.172761e-06  max resid 5.394399e-05 
+## ... Similar to previous best
+## Run 2 stress 0.03775524 
+## ... Procrustes: rmse 8.541023e-06  max resid 7.918737e-05 
+## ... Similar to previous best
+## Run 3 stress 0.05313096 
+## Run 4 stress 0.04367533 
+## Run 5 stress 0.04355785 
+## Run 6 stress 0.03775522 
+## ... New best solution
+## ... Procrustes: rmse 7.683165e-06  max resid 7.674469e-05 
+## ... Similar to previous best
+## Run 7 stress 0.03775524 
+## ... Procrustes: rmse 6.562437e-06  max resid 2.98595e-05 
+## ... Similar to previous best
+## Run 8 stress 0.04367538 
+## Run 9 stress 0.0505973 
+## Run 10 stress 0.04804019 
+## Run 11 stress 0.05059737 
+## Run 12 stress 0.03775521 
+## ... New best solution
+## ... Procrustes: rmse 8.597169e-06  max resid 4.289104e-05 
+## ... Similar to previous best
+## Run 13 stress 0.03775522 
+## ... Procrustes: rmse 2.949822e-06  max resid 1.237819e-05 
+## ... Similar to previous best
+## Run 14 stress 0.03775523 
+## ... Procrustes: rmse 1.114005e-05  max resid 5.032798e-05 
+## ... Similar to previous best
+## Run 15 stress 0.06096633 
+## Run 16 stress 0.0436752 
+## Run 17 stress 0.03775525 
+## ... Procrustes: rmse 1.186399e-05  max resid 7.094844e-05 
+## ... Similar to previous best
+## Run 18 stress 0.04709617 
+## Run 19 stress 0.04367538 
+## Run 20 stress 0.04713709 
+## *** Solution reached</code></pre>
+<div class="sourceCode" id="cb1639"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1639-1"><a href="8.4-mod-08-sims.html#cb1639-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extract scores (coordinates)</span></span>
+<span id="cb1639-2"><a href="8.4-mod-08-sims.html#cb1639-2" aria-hidden="true" tabindex="-1"></a>nx <span class="ot">&lt;-</span> <span class="fu">scores</span>(n1)[,<span class="dv">1</span>]</span>
+<span id="cb1639-3"><a href="8.4-mod-08-sims.html#cb1639-3" aria-hidden="true" tabindex="-1"></a>ny <span class="ot">&lt;-</span> <span class="fu">scores</span>(n1)[,<span class="dv">2</span>]</span>
+<span id="cb1639-4"><a href="8.4-mod-08-sims.html#cb1639-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1639-5"><a href="8.4-mod-08-sims.html#cb1639-5" aria-hidden="true" tabindex="-1"></a><span class="co"># set up some colors for the plot</span></span>
+<span id="cb1639-6"><a href="8.4-mod-08-sims.html#cb1639-6" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> <span class="fu">rainbow</span>(<span class="dv">3</span>)</span>
+<span id="cb1639-7"><a href="8.4-mod-08-sims.html#cb1639-7" aria-hidden="true" tabindex="-1"></a>use.cols <span class="ot">&lt;-</span> cols[<span class="fu">as.numeric</span>(iris<span class="sc">$</span>Species)]</span>
+<span id="cb1639-8"><a href="8.4-mod-08-sims.html#cb1639-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1639-9"><a href="8.4-mod-08-sims.html#cb1639-9" aria-hidden="true" tabindex="-1"></a><span class="co"># make the plot</span></span>
+<span id="cb1639-10"><a href="8.4-mod-08-sims.html#cb1639-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nx, ny, <span class="at">pch=</span><span class="dv">16</span>, <span class="at">col=</span>use.cols, </span>
+<span id="cb1639-11"><a href="8.4-mod-08-sims.html#cb1639-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex=</span><span class="fl">1.5</span>,</span>
+<span id="cb1639-12"><a href="8.4-mod-08-sims.html#cb1639-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab=</span><span class="st">&quot;NMDS 1&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;NMDS 2&quot;</span>)</span>
+<span id="cb1639-13"><a href="8.4-mod-08-sims.html#cb1639-13" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="at">legend=</span><span class="fu">unique</span>(iris<span class="sc">$</span>Species),</span>
+<span id="cb1639-14"><a href="8.4-mod-08-sims.html#cb1639-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch=</span><span class="dv">16</span>, <span class="at">cex=</span><span class="fl">1.5</span>, <span class="at">col=</span>cols)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-731-1.png" width="672" /></p>
+<p>The figure suggests that there is good separation between at least <em>I</em>. <em>setosa</em> and the other species, and likely separation between <em>I</em>. <em>versicolor</em> and <em>I</em>. <em>virginica</em>. The MRPP will test whether or not the clouds of points overlap.</p>
+<div class="sourceCode" id="cb1640"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1640-1"><a href="8.4-mod-08-sims.html#cb1640-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mrpp</span>(<span class="fu">scores</span>(n1), iris<span class="sc">$</span>Species)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## mrpp(dat = scores(n1), grouping = iris$Species) 
+## 
+## Dissimilarity index: euclidean 
+## Weights for groups:  n 
+## 
+## Class means and counts:
+## 
+##       setosa  versicolor virginica
+## delta 0.09269 0.1086     0.1035   
+## n     50      50         50       
+## 
+## Chance corrected within-group agreement A: 0.6635 
+## Based on observed delta 0.1016 and expected delta 0.3018 
+## 
+## Significance of delta: 0.001 
+## Permutation: free
+## Number of permutations: 999</code></pre>
+<p>The test statistics are delta (<span class="math inline">\(\delta\)</span>), the weighted mean within-group distance; and <em>A</em>, the chance-corrected within-group agreement or agreement statistic.</p>
+<ul>
+<li>The <span class="math inline">\(\delta\)</span> value for each group with expresses how homogenous the group is.
+<ul>
+<li>When <span class="math inline">\(\delta\)</span> = 0, all members of a group are identical (i.e., have identical location in the NMDS space).</li>
+<li>The mean of the group-level <span class="math inline">\(\delta\)</span> is reported as the “observed delta”.</li>
+</ul></li>
+<li>The agreement statistic <em>A</em> scales <span class="math inline">\(\delta\)</span> to the within-group homogeneity expected by chance if group membership was unrelated to location (expected delta in the output above).
+<ul>
+<li>Greater values of <em>A</em> indicate higher agreement within groups.</li>
+<li><em>A</em> ranges from 0 (heterogeneity within groups equal to heterogeneity expected by chance) to 1 (items within groups identical).</li>
+<li>In practice, values of <em>A</em> &gt; 0.3 are rather high.</li>
+</ul></li>
+</ul>
+<p>The significance of the MRPP is calculated by permutation, just as in the Mantel test or ANOSIM. As with any statistical test, the <em>P</em>-value is sensitive to not only the effect size, but also the sample size. Large sample sizes can make tiny differences appear statistically significant, so it is up to you as a biologist to interpret the output of the test.</p>
+</div>
+</div>
+</div>
+<h3>Literature Cited</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-anderson2001" class="csl-entry">
+Anderson, M. J. 2001. <a href="https://doi.org/10.1111/j.1442-9993.2001.01070.pp.x">A new method for non-parametric multivariate analysis of variance</a>. Austral Ecology 26:32–46.
+</div>
+<div id="ref-clarke1993" class="csl-entry">
+Clarke, K. R. 1993. <a href="https://doi.org/10.1111/j.1442-9993.1993.tb00438.x">Non-parametric multivariate analyses of changes in community structure</a>. Australian journal of ecology 18:117–143.
+</div>
+<div id="ref-mantel1967detection" class="csl-entry">
+Mantel, N. 1967. <a href="https://cancerres.aacrjournals.org/content/27/2_Part_1/209">The detection of disease clustering and a generalized regression approach</a>. Cancer research 27:209–220.
+</div>
+<div id="ref-mccune2002analysis" class="csl-entry">
+McCune, B., J. B. Grace, and D. L. Urban. 2002. Analysis of ecological communities. MjM software design Gleneden Beach, Oregon, USA.
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="8.5-mod-08-ord.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="9.1-how-to-use-this-guide.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="8.3-clustering.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="8.5-mod-08-ord.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

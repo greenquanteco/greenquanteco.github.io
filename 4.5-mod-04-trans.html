@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4.5 Data transformations | Applied Biological Data Analysis</title>
+  <meta name="description" content="Helping biologists to become more informed users of R and statistical methods." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4.5 Data transformations | Applied Biological Data Analysis" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://greenquanteco.github.io/index.html" />
+  <meta property="og:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
+  <meta property="og:description" content="Helping biologists to become more informed users of R and statistical methods." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4.5 Data transformations | Applied Biological Data Analysis" />
+  
+  <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
+  <meta name="twitter:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
+
+<meta name="author" content="Nick Green, Kennesaw State University" />
+
+
+<meta name="date" content="2022-01-12" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="4.4-mod-04-dists2.html"/>
+<link rel="next" href="4.6-multivariate-data-exploration.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="license-and-permissions.html"><a href="license-and-permissions.html"><i class="fa fa-check"></i>License and permissions</a></li>
+<li class="chapter" data-level="" data-path="course-description.html"><a href="course-description.html"><i class="fa fa-check"></i>Course description</a></li>
+<li class="chapter" data-level="" data-path="course-objectives.html"><a href="course-objectives.html"><i class="fa fa-check"></i>Course objectives</a></li>
+<li class="chapter" data-level="" data-path="course-requirements.html"><a href="course-requirements.html"><i class="fa fa-check"></i>Course requirements</a></li>
+<li class="chapter" data-level="" data-path="recommended-reading.html"><a href="recommended-reading.html"><i class="fa fa-check"></i>Recommended reading</a></li>
+<li class="chapter" data-level="" data-path="course-organization.html"><a href="course-organization.html"><i class="fa fa-check"></i>Course organization</a></li>
+<li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the author</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="1-mod-01.html"><a href="1-mod-01.html"><i class="fa fa-check"></i><b>1</b> Statistics in modern biology</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="1.1-overview.html"><a href="1.1-overview.html"><i class="fa fa-check"></i><b>1.1</b> Overview</a></li>
+<li class="chapter" data-level="1.2" data-path="1.2-statistics-in-modern-biology.html"><a href="1.2-statistics-in-modern-biology.html"><i class="fa fa-check"></i><b>1.2</b> Statistics in modern biology</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="1.2-statistics-in-modern-biology.html"><a href="1.2-statistics-in-modern-biology.html#the-scientific-method"><i class="fa fa-check"></i><b>1.2.1</b> The scientific method</a></li>
+<li class="chapter" data-level="1.2.2" data-path="1.2-statistics-in-modern-biology.html"><a href="1.2-statistics-in-modern-biology.html#example-data-analysis"><i class="fa fa-check"></i><b>1.2.2</b> Example data analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="1.3-misuses-of-statistics.html"><a href="1.3-misuses-of-statistics.html"><i class="fa fa-check"></i><b>1.3</b> Misuses of statistics</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="1.3-misuses-of-statistics.html"><a href="1.3-misuses-of-statistics.html#proving-the-trivial-and-meaningless-hypotheses"><i class="fa fa-check"></i><b>1.3.1</b> “Proving” the trivial and meaningless hypotheses</a></li>
+<li class="chapter" data-level="1.3.2" data-path="1.3-misuses-of-statistics.html"><a href="1.3-misuses-of-statistics.html#inappropriate-methods"><i class="fa fa-check"></i><b>1.3.2</b> Inappropriate methods</a></li>
+<li class="chapter" data-level="1.3.3" data-path="1.3-misuses-of-statistics.html"><a href="1.3-misuses-of-statistics.html#p-hacking-and-data-dredging"><i class="fa fa-check"></i><b>1.3.3</b> <em>P</em>-hacking and data dredging</a></li>
+<li class="chapter" data-level="1.3.4" data-path="1.3-misuses-of-statistics.html"><a href="1.3-misuses-of-statistics.html#inadequate-sample-sizes-and-pseudoreplication"><i class="fa fa-check"></i><b>1.3.4</b> Inadequate sample sizes and pseudoreplication</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><i class="fa fa-check"></i><b>1.4</b> <em>P</em>-values and null hypothesis significance testing (NHST)</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#definition"><i class="fa fa-check"></i><b>1.4.1</b> Definition</a></li>
+<li class="chapter" data-level="1.4.2" data-path="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#history-and-status-of-p-values"><i class="fa fa-check"></i><b>1.4.2</b> History and status of <em>P</em>-values</a></li>
+<li class="chapter" data-level="1.4.3" data-path="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#where-p-values-come-from"><i class="fa fa-check"></i><b>1.4.3</b> Where <em>P</em>-values come from</a></li>
+<li class="chapter" data-level="1.4.4" data-path="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#what-p-values-mean-and-do-not-mean"><i class="fa fa-check"></i><b>1.4.4</b> What <em>P</em>-values mean and do not mean</a></li>
+<li class="chapter" data-level="1.4.5" data-path="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#do-you-need-a-p-value"><i class="fa fa-check"></i><b>1.4.5</b> Do you need a <em>P</em>-value?</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="1.5-alternatives-to-nhst.html"><a href="1.5-alternatives-to-nhst.html"><i class="fa fa-check"></i><b>1.5</b> Alternatives to NHST</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="1.5-alternatives-to-nhst.html"><a href="1.5-alternatives-to-nhst.html#bayesian-inference"><i class="fa fa-check"></i><b>1.5.1</b> Bayesian inference</a></li>
+<li class="chapter" data-level="1.5.2" data-path="1.5-alternatives-to-nhst.html"><a href="1.5-alternatives-to-nhst.html#information-theoretic-methods"><i class="fa fa-check"></i><b>1.5.2</b> Information-theoretic methods</a></li>
+<li class="chapter" data-level="1.5.3" data-path="1.5-alternatives-to-nhst.html"><a href="1.5-alternatives-to-nhst.html#machine-learning"><i class="fa fa-check"></i><b>1.5.3</b> Machine learning</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="2-mod-02.html"><a href="2-mod-02.html"><i class="fa fa-check"></i><b>2</b> Introduction to R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="2.1-getting-started-with-r.html"><a href="2.1-getting-started-with-r.html"><i class="fa fa-check"></i><b>2.1</b> Getting started with R</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="2.1-getting-started-with-r.html"><a href="2.1-getting-started-with-r.html#what-is-r"><i class="fa fa-check"></i><b>2.1.1</b> What is R?</a></li>
+<li class="chapter" data-level="2.1.2" data-path="2.1-getting-started-with-r.html"><a href="2.1-getting-started-with-r.html#advantages-of-r"><i class="fa fa-check"></i><b>2.1.2</b> Advantages of R</a></li>
+<li class="chapter" data-level="2.1.3" data-path="2.1-getting-started-with-r.html"><a href="2.1-getting-started-with-r.html#disadvantages-of-r"><i class="fa fa-check"></i><b>2.1.3</b> Disadvantages of R</a></li>
+<li class="chapter" data-level="2.1.4" data-path="2.1-getting-started-with-r.html"><a href="2.1-getting-started-with-r.html#base-r-and-vs.-tidyverse"><i class="fa fa-check"></i><b>2.1.4</b> Base R and (vs.?) <code>tidyverse</code></a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="2.2-download-and-install-r-and-rstudio.html"><a href="2.2-download-and-install-r-and-rstudio.html"><i class="fa fa-check"></i><b>2.2</b> Download and install R (and RStudio)</a></li>
+<li class="chapter" data-level="2.3" data-path="2.3-using-r.html"><a href="2.3-using-r.html"><i class="fa fa-check"></i><b>2.3</b> Using R</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="2.3-using-r.html"><a href="2.3-using-r.html#using-the-base-r-gui"><i class="fa fa-check"></i><b>2.3.1</b> Using the base R GUI</a></li>
+<li class="chapter" data-level="2.3.2" data-path="2.3-using-r.html"><a href="2.3-using-r.html#using-r-in-rstudio"><i class="fa fa-check"></i><b>2.3.2</b> Using R in RStudio</a></li>
+<li class="chapter" data-level="2.3.3" data-path="2.3-using-r.html"><a href="2.3-using-r.html#using-r-with-other-programs"><i class="fa fa-check"></i><b>2.3.3</b> Using R with other programs</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html"><i class="fa fa-check"></i><b>2.4</b> A first R session</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#import-data"><i class="fa fa-check"></i><b>2.4.1</b> Import data</a></li>
+<li class="chapter" data-level="2.4.2" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#explore-and-visualize-data"><i class="fa fa-check"></i><b>2.4.2</b> Explore and visualize data</a></li>
+<li class="chapter" data-level="2.4.3" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#transform-data"><i class="fa fa-check"></i><b>2.4.3</b> Transform data</a></li>
+<li class="chapter" data-level="2.4.4" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#analyze-data"><i class="fa fa-check"></i><b>2.4.4</b> Analyze data</a></li>
+<li class="chapter" data-level="2.4.5" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#write-out-results"><i class="fa fa-check"></i><b>2.4.5</b> Write out results</a></li>
+<li class="chapter" data-level="2.4.6" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#save-your-work"><i class="fa fa-check"></i><b>2.4.6</b> Save your work?</a></li>
+<li class="chapter" data-level="2.4.7" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#whats-next"><i class="fa fa-check"></i><b>2.4.7</b> What’s next?</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="2.5-write-and-execute-commands-in-the-r-console.html"><a href="2.5-write-and-execute-commands-in-the-r-console.html"><i class="fa fa-check"></i><b>2.5</b> Write and execute commands in the R console</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="2.5-write-and-execute-commands-in-the-r-console.html"><a href="2.5-write-and-execute-commands-in-the-r-console.html#r-commandsbasics"><i class="fa fa-check"></i><b>2.5.1</b> R commands–basics</a></li>
+<li class="chapter" data-level="2.5.2" data-path="2.5-write-and-execute-commands-in-the-r-console.html"><a href="2.5-write-and-execute-commands-in-the-r-console.html#elements-of-r-code"><i class="fa fa-check"></i><b>2.5.2</b> Elements of R code</a></li>
+<li class="chapter" data-level="2.5.3" data-path="2.5-write-and-execute-commands-in-the-r-console.html"><a href="2.5-write-and-execute-commands-in-the-r-console.html#the-r-workspace"><i class="fa fa-check"></i><b>2.5.3</b> The R workspace</a></li>
+<li class="chapter" data-level="2.5.4" data-path="2.5-write-and-execute-commands-in-the-r-console.html"><a href="2.5-write-and-execute-commands-in-the-r-console.html#r-code-basics-assignment-and-operators"><i class="fa fa-check"></i><b>2.5.4</b> R code basics: assignment and operators</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="2.6-mod-02-struct.html"><a href="2.6-mod-02-struct.html"><i class="fa fa-check"></i><b>2.6</b> Basic R data structures</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="2.6-mod-02-struct.html"><a href="2.6-mod-02-struct.html#vectors"><i class="fa fa-check"></i><b>2.6.1</b> Vectors</a></li>
+<li class="chapter" data-level="2.6.2" data-path="2.6-mod-02-struct.html"><a href="2.6-mod-02-struct.html#data-frames"><i class="fa fa-check"></i><b>2.6.2</b> Data frames</a></li>
+<li class="chapter" data-level="2.6.3" data-path="2.6-mod-02-struct.html"><a href="2.6-mod-02-struct.html#matrices-and-arrays"><i class="fa fa-check"></i><b>2.6.3</b> Matrices and arrays</a></li>
+<li class="chapter" data-level="2.6.4" data-path="2.6-mod-02-struct.html"><a href="2.6-mod-02-struct.html#lists"><i class="fa fa-check"></i><b>2.6.4</b> Lists</a></li>
+<li class="chapter" data-level="2.6.5" data-path="2.6-mod-02-struct.html"><a href="2.6-mod-02-struct.html#s4-objects"><i class="fa fa-check"></i><b>2.6.5</b> S4 objects</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="2.7-r-data-types.html"><a href="2.7-r-data-types.html"><i class="fa fa-check"></i><b>2.7</b> R data types</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="2.7-r-data-types.html"><a href="2.7-r-data-types.html#character-type"><i class="fa fa-check"></i><b>2.7.1</b> Character type</a></li>
+<li class="chapter" data-level="2.7.2" data-path="2.7-r-data-types.html"><a href="2.7-r-data-types.html#numeric-type"><i class="fa fa-check"></i><b>2.7.2</b> Numeric type</a></li>
+<li class="chapter" data-level="2.7.3" data-path="2.7-r-data-types.html"><a href="2.7-r-data-types.html#integer-type"><i class="fa fa-check"></i><b>2.7.3</b> Integer type</a></li>
+<li class="chapter" data-level="2.7.4" data-path="2.7-r-data-types.html"><a href="2.7-r-data-types.html#logical-type"><i class="fa fa-check"></i><b>2.7.4</b> Logical type</a></li>
+<li class="chapter" data-level="2.7.5" data-path="2.7-r-data-types.html"><a href="2.7-r-data-types.html#special-values"><i class="fa fa-check"></i><b>2.7.5</b> Special values</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="2.8-manage-r-code-as-scripts-.r-files.html"><a href="2.8-manage-r-code-as-scripts-.r-files.html"><i class="fa fa-check"></i><b>2.8</b> Manage R code as scripts (.r files)</a></li>
+<li class="chapter" data-level="2.9" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html"><i class="fa fa-check"></i><b>2.9</b> Manage and use R packages</a>
+<ul>
+<li class="chapter" data-level="2.9.1" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#your-r-library"><i class="fa fa-check"></i><b>2.9.1</b> Your R library</a></li>
+<li class="chapter" data-level="2.9.2" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#installing-packages-using-the-r-gui"><i class="fa fa-check"></i><b>2.9.2</b> Installing packages using the R GUI</a></li>
+<li class="chapter" data-level="2.9.3" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#installing-packages-in-rstudio"><i class="fa fa-check"></i><b>2.9.3</b> Installing packages in RStudio</a></li>
+<li class="chapter" data-level="2.9.4" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#installing-packages-using-the-r-console"><i class="fa fa-check"></i><b>2.9.4</b> Installing packages using the R console</a></li>
+<li class="chapter" data-level="2.9.5" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#working-with-packages-in-r"><i class="fa fa-check"></i><b>2.9.5</b> Working with packages in R</a></li>
+<li class="chapter" data-level="2.9.6" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#package-dependencies"><i class="fa fa-check"></i><b>2.9.6</b> Package dependencies</a></li>
+<li class="chapter" data-level="2.9.7" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#citing-packages"><i class="fa fa-check"></i><b>2.9.7</b> Citing packages</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html"><i class="fa fa-check"></i><b>2.10</b> R documentation</a>
+<ul>
+<li class="chapter" data-level="2.10.1" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html#documentation-help-files"><i class="fa fa-check"></i><b>2.10.1</b> Documentation (help) files</a></li>
+<li class="chapter" data-level="2.10.2" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html#r-vignettes"><i class="fa fa-check"></i><b>2.10.2</b> R vignettes</a></li>
+<li class="chapter" data-level="2.10.3" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html#official-r-project-resources"><i class="fa fa-check"></i><b>2.10.3</b> Official R Project resources</a></li>
+<li class="chapter" data-level="2.10.4" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html#unofficial-online-resources"><i class="fa fa-check"></i><b>2.10.4</b> Unofficial online resources</a></li>
+<li class="chapter" data-level="2.10.5" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html#r-books"><i class="fa fa-check"></i><b>2.10.5</b> R books</a></li>
+<li class="chapter" data-level="2.10.6" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html#two-reminders"><i class="fa fa-check"></i><b>2.10.6</b> Two reminders</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="3-mod-03.html"><a href="3-mod-03.html"><i class="fa fa-check"></i><b>3</b> Data manipulation with R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="3.1-mod-03-inout.html"><a href="3.1-mod-03-inout.html"><i class="fa fa-check"></i><b>3.1</b> Data import and export</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="3.1-mod-03-inout.html"><a href="3.1-mod-03-inout.html#importing-data-preliminaries"><i class="fa fa-check"></i><b>3.1.1</b> Importing data: preliminaries</a></li>
+<li class="chapter" data-level="3.1.2" data-path="3.1-mod-03-inout.html"><a href="3.1-mod-03-inout.html#importing-data-from-text-files-with-read.csv-and-read.table"><i class="fa fa-check"></i><b>3.1.2</b> Importing data from text files with <code>read.csv()</code> and <code>read.table()</code></a></li>
+<li class="chapter" data-level="3.1.3" data-path="3.1-mod-03-inout.html"><a href="3.1-mod-03-inout.html#importing-data-from-saved-workspaces"><i class="fa fa-check"></i><b>3.1.3</b> Importing data from saved workspaces</a></li>
+<li class="chapter" data-level="3.1.4" data-path="3.1-mod-03-inout.html"><a href="3.1-mod-03-inout.html#importing-data-special-cases"><i class="fa fa-check"></i><b>3.1.4</b> Importing data: special cases:</a></li>
+<li class="chapter" data-level="3.1.5" data-path="3.1-mod-03-inout.html"><a href="3.1-mod-03-inout.html#export-data-from-r"><i class="fa fa-check"></i><b>3.1.5</b> Export data from R</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="3.2-making-values-in-r.html"><a href="3.2-making-values-in-r.html"><i class="fa fa-check"></i><b>3.2</b> Making values in R</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="3.2-making-values-in-r.html"><a href="3.2-making-values-in-r.html#producing-arbitrary-values-with-c"><i class="fa fa-check"></i><b>3.2.1</b> Producing arbitrary values with <code>c()</code></a></li>
+<li class="chapter" data-level="3.2.2" data-path="3.2-making-values-in-r.html"><a href="3.2-making-values-in-r.html#generating-regular-values"><i class="fa fa-check"></i><b>3.2.2</b> Generating regular values</a></li>
+<li class="chapter" data-level="3.2.3" data-path="3.2-making-values-in-r.html"><a href="3.2-making-values-in-r.html#generating-random-values"><i class="fa fa-check"></i><b>3.2.3</b> Generating random values</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="3.3-selecting-data-with.html"><a href="3.3-selecting-data-with.html"><i class="fa fa-check"></i><b>3.3</b> Selecting data with <code>[]</code></a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="3.3-selecting-data-with.html"><a href="3.3-selecting-data-with.html#mod-03-brackets"><i class="fa fa-check"></i><b>3.3.1</b> Basics of brackets</a></li>
+<li class="chapter" data-level="3.3.2" data-path="3.3-selecting-data-with.html"><a href="3.3-selecting-data-with.html#extracting-and-selecting-data-with-logical-tests"><i class="fa fa-check"></i><b>3.3.2</b> Extracting and selecting data with logical tests</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="3.4-managing-dates-and-characters.html"><a href="3.4-managing-dates-and-characters.html"><i class="fa fa-check"></i><b>3.4</b> Managing dates and characters</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="3.4-managing-dates-and-characters.html"><a href="3.4-managing-dates-and-characters.html#temporal-data-and-dates"><i class="fa fa-check"></i><b>3.4.1</b> Temporal data and dates</a></li>
+<li class="chapter" data-level="3.4.2" data-path="3.4-managing-dates-and-characters.html"><a href="3.4-managing-dates-and-characters.html#character-data-text"><i class="fa fa-check"></i><b>3.4.2</b> Character data (text)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="3.5-mod-03-dataframe.html"><a href="3.5-mod-03-dataframe.html"><i class="fa fa-check"></i><b>3.5</b> Data frame management</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="3.5-mod-03-dataframe.html"><a href="3.5-mod-03-dataframe.html#data-frame-structure"><i class="fa fa-check"></i><b>3.5.1</b> Data frame structure</a></li>
+<li class="chapter" data-level="3.5.2" data-path="3.5-mod-03-dataframe.html"><a href="3.5-mod-03-dataframe.html#common-data-frame-operations"><i class="fa fa-check"></i><b>3.5.2</b> Common data frame operations</a></li>
+<li class="chapter" data-level="3.5.3" data-path="3.5-mod-03-dataframe.html"><a href="3.5-mod-03-dataframe.html#other-data-frame-operations"><i class="fa fa-check"></i><b>3.5.3</b> Other data frame operations</a></li>
+<li class="chapter" data-level="3.5.4" data-path="3.5-mod-03-dataframe.html"><a href="3.5-mod-03-dataframe.html#mod-03-reshape"><i class="fa fa-check"></i><b>3.5.4</b> Reshaping data frames</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="4-mod-04.html"><a href="4-mod-04.html"><i class="fa fa-check"></i><b>4</b> Exploratory data analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="4.1-descriptive-and-summary-statistics.html"><a href="4.1-descriptive-and-summary-statistics.html"><i class="fa fa-check"></i><b>4.1</b> Descriptive and summary statistics</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="4.1-descriptive-and-summary-statistics.html"><a href="4.1-descriptive-and-summary-statistics.html#basic-summary-statistics"><i class="fa fa-check"></i><b>4.1.1</b> Basic summary statistics</a></li>
+<li class="chapter" data-level="4.1.2" data-path="4.1-descriptive-and-summary-statistics.html"><a href="4.1-descriptive-and-summary-statistics.html#summarizing-data-with-the-apply-family"><i class="fa fa-check"></i><b>4.1.2</b> Summarizing data with the <code>apply()</code> family</a></li>
+<li class="chapter" data-level="4.1.3" data-path="4.1-descriptive-and-summary-statistics.html"><a href="4.1-descriptive-and-summary-statistics.html#mod-04-tabagg"><i class="fa fa-check"></i><b>4.1.3</b> Tabulation and aggregation</a></li>
+<li class="chapter" data-level="4.1.4" data-path="4.1-descriptive-and-summary-statistics.html"><a href="4.1-descriptive-and-summary-statistics.html#aggregation-aka-pivot-tables"><i class="fa fa-check"></i><b>4.1.4</b> Aggregation (aka: pivot tables)</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html"><i class="fa fa-check"></i><b>4.2</b> Visualizing data distributions</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html#boxplots-aka-box-and-whisker-plots"><i class="fa fa-check"></i><b>4.2.1</b> Boxplots (aka: box-and-whisker plots)</a></li>
+<li class="chapter" data-level="4.2.2" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html#histograms"><i class="fa fa-check"></i><b>4.2.2</b> Histograms</a></li>
+<li class="chapter" data-level="4.2.3" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html#kernel-density-plots"><i class="fa fa-check"></i><b>4.2.3</b> Kernel density plots</a></li>
+<li class="chapter" data-level="4.2.4" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html#empirical-cumulative-distribution-plots-ecdf"><i class="fa fa-check"></i><b>4.2.4</b> Empirical cumulative distribution plots (ECDF)</a></li>
+<li class="chapter" data-level="4.2.5" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html#quantile-quantile-qq-plots"><i class="fa fa-check"></i><b>4.2.5</b> Quantile-quantile (QQ) plots</a></li>
+<li class="chapter" data-level="4.2.6" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html#how-should-i-plot-my-data"><i class="fa fa-check"></i><b>4.2.6</b> How should I plot my data?</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="4.3-mod-04-dists1.html"><a href="4.3-mod-04-dists1.html"><i class="fa fa-check"></i><b>4.3</b> Statistical distributions</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="4.3-mod-04-dists1.html"><a href="4.3-mod-04-dists1.html#probability-distributions"><i class="fa fa-check"></i><b>4.3.1</b> Probability distributions</a></li>
+<li class="chapter" data-level="4.3.2" data-path="4.3-mod-04-dists1.html"><a href="4.3-mod-04-dists1.html#probability-distributions-in-r"><i class="fa fa-check"></i><b>4.3.2</b> Probability distributions in R</a></li>
+<li class="chapter" data-level="4.3.3" data-path="4.3-mod-04-dists1.html"><a href="4.3-mod-04-dists1.html#discrete-distributions"><i class="fa fa-check"></i><b>4.3.3</b> Discrete distributions</a></li>
+<li class="chapter" data-level="4.3.4" data-path="4.3-mod-04-dists1.html"><a href="4.3-mod-04-dists1.html#continuous-distributions"><i class="fa fa-check"></i><b>4.3.4</b> Continuous distributions</a></li>
+<li class="chapter" data-level="4.3.5" data-path="4.3-mod-04-dists1.html"><a href="4.3-mod-04-dists1.html#distributions-summary"><i class="fa fa-check"></i><b>4.3.5</b> Distributions summary</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="4.4-mod-04-dists2.html"><a href="4.4-mod-04-dists2.html"><i class="fa fa-check"></i><b>4.4</b> Fitting and testing distributions</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="4.4-mod-04-dists2.html"><a href="4.4-mod-04-dists2.html#estimating-distributional-parameters"><i class="fa fa-check"></i><b>4.4.1</b> Estimating distributional parameters</a></li>
+<li class="chapter" data-level="4.4.2" data-path="4.4-mod-04-dists2.html"><a href="4.4-mod-04-dists2.html#graphical-methods-for-examining-distributions"><i class="fa fa-check"></i><b>4.4.2</b> Graphical methods for examining distributions</a></li>
+<li class="chapter" data-level="4.4.3" data-path="4.4-mod-04-dists2.html"><a href="4.4-mod-04-dists2.html#formal-tests-for-distributions"><i class="fa fa-check"></i><b>4.4.3</b> Formal tests for distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="4.5-mod-04-trans.html"><a href="4.5-mod-04-trans.html"><i class="fa fa-check"></i><b>4.5</b> Data transformations</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="4.5-mod-04-trans.html"><a href="4.5-mod-04-trans.html#why-transform"><i class="fa fa-check"></i><b>4.5.1</b> Why transform?</a></li>
+<li class="chapter" data-level="4.5.2" data-path="4.5-mod-04-trans.html"><a href="4.5-mod-04-trans.html#transforms-vs.-link-functions"><i class="fa fa-check"></i><b>4.5.2</b> Transforms vs. link functions</a></li>
+<li class="chapter" data-level="4.5.3" data-path="4.5-mod-04-trans.html"><a href="4.5-mod-04-trans.html#log-transformation"><i class="fa fa-check"></i><b>4.5.3</b> Log transformation</a></li>
+<li class="chapter" data-level="4.5.4" data-path="4.5-mod-04-trans.html"><a href="4.5-mod-04-trans.html#rank-transformation"><i class="fa fa-check"></i><b>4.5.4</b> Rank transformation</a></li>
+<li class="chapter" data-level="4.5.5" data-path="4.5-mod-04-trans.html"><a href="4.5-mod-04-trans.html#other-transforms-less-common"><i class="fa fa-check"></i><b>4.5.5</b> Other transforms (less common)</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="4.6-multivariate-data-exploration.html"><a href="4.6-multivariate-data-exploration.html"><i class="fa fa-check"></i><b>4.6</b> Multivariate data exploration</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="4.6-multivariate-data-exploration.html"><a href="4.6-multivariate-data-exploration.html#scatterplots-for-two-variables"><i class="fa fa-check"></i><b>4.6.1</b> Scatterplots for two variables</a></li>
+<li class="chapter" data-level="4.6.2" data-path="4.6-multivariate-data-exploration.html"><a href="4.6-multivariate-data-exploration.html#mod-04-smat"><i class="fa fa-check"></i><b>4.6.2</b> Scatterplot matrices for many variables</a></li>
+<li class="chapter" data-level="4.6.3" data-path="4.6-multivariate-data-exploration.html"><a href="4.6-multivariate-data-exploration.html#lattice-plots-for-hierarchical-data"><i class="fa fa-check"></i><b>4.6.3</b> Lattice plots for hierarchical data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="4.7-ordination-brief-introduction.html"><a href="4.7-ordination-brief-introduction.html"><i class="fa fa-check"></i><b>4.7</b> Ordination (brief introduction)</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="4.7-ordination-brief-introduction.html"><a href="4.7-ordination-brief-introduction.html#principal-components-analysis-pca"><i class="fa fa-check"></i><b>4.7.1</b> Principal components analysis (PCA)</a></li>
+<li class="chapter" data-level="4.7.2" data-path="4.7-ordination-brief-introduction.html"><a href="4.7-ordination-brief-introduction.html#nonmetric-multidimensional-scaling-nmds"><i class="fa fa-check"></i><b>4.7.2</b> Nonmetric multidimensional scaling (NMDS)</a></li>
+<li class="chapter" data-level="4.7.3" data-path="4.7-ordination-brief-introduction.html"><a href="4.7-ordination-brief-introduction.html#plotting-ordinations"><i class="fa fa-check"></i><b>4.7.3</b> Plotting ordinations</a></li>
+<li class="chapter" data-level="4.7.4" data-path="4.7-ordination-brief-introduction.html"><a href="4.7-ordination-brief-introduction.html#ordination-wrap-up-for-now"><i class="fa fa-check"></i><b>4.7.4</b> Ordination wrap-up (for now)</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="4.8-mod-04-prob.html"><a href="4.8-mod-04-prob.html"><i class="fa fa-check"></i><b>4.8</b> Common statistical problems</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="4.8-mod-04-prob.html"><a href="4.8-mod-04-prob.html#outliers-and-erroneous-values"><i class="fa fa-check"></i><b>4.8.1</b> Outliers and erroneous values</a></li>
+<li class="chapter" data-level="4.8.2" data-path="4.8-mod-04-prob.html"><a href="4.8-mod-04-prob.html#autocorrelation"><i class="fa fa-check"></i><b>4.8.2</b> Autocorrelation</a></li>
+<li class="chapter" data-level="4.8.3" data-path="4.8-mod-04-prob.html"><a href="4.8-mod-04-prob.html#mod-04-multicol"><i class="fa fa-check"></i><b>4.8.3</b> Collinearity</a></li>
+<li class="chapter" data-level="4.8.4" data-path="4.8-mod-04-prob.html"><a href="4.8-mod-04-prob.html#missing-data"><i class="fa fa-check"></i><b>4.8.4</b> Missing data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="5-mod-05.html"><a href="5-mod-05.html"><i class="fa fa-check"></i><b>5</b> Generalized linear models (GLM)</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html"><i class="fa fa-check"></i><b>5.1</b> Prelude with linear models</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html#assumptions-of-linear-models"><i class="fa fa-check"></i><b>5.1.1</b> Assumptions of linear models</a></li>
+<li class="chapter" data-level="5.1.2" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html#linear-regression-in-r"><i class="fa fa-check"></i><b>5.1.2</b> Linear regression in R</a></li>
+<li class="chapter" data-level="5.1.3" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html#multiple-linear-regression"><i class="fa fa-check"></i><b>5.1.3</b> Multiple linear regression</a></li>
+<li class="chapter" data-level="5.1.4" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html#mod-05-anova"><i class="fa fa-check"></i><b>5.1.4</b> ANOVA and ANCOVA with <code>lm()</code></a></li>
+<li class="chapter" data-level="5.1.5" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html#variations-on-linear-models"><i class="fa fa-check"></i><b>5.1.5</b> Variations on linear models</a></li>
+<li class="chapter" data-level="5.1.6" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html#example-linear-regression-workflow"><i class="fa fa-check"></i><b>5.1.6</b> Example linear regression workflow</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html"><i class="fa fa-check"></i><b>5.2</b> GLM basics</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html#example-glms"><i class="fa fa-check"></i><b>5.2.1</b> Example GLMS</a></li>
+<li class="chapter" data-level="5.2.2" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html#glm-families"><i class="fa fa-check"></i><b>5.2.2</b> GLM families</a></li>
+<li class="chapter" data-level="5.2.3" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html#glm-link-functions"><i class="fa fa-check"></i><b>5.2.3</b> GLM link functions</a></li>
+<li class="chapter" data-level="5.2.4" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html#deviance-and-other-glm-diagnostics"><i class="fa fa-check"></i><b>5.2.4</b> Deviance and other GLM diagnostics</a></li>
+<li class="chapter" data-level="5.2.5" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html#to-pseudo-r2-or-not-to-pseudo-r2"><i class="fa fa-check"></i><b>5.2.5</b> To pseudo-<em>R</em><sup>2</sup> or not to pseudo-<em>R</em><sup>2</sup>?</a></li>
+<li class="chapter" data-level="5.2.6" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html#common-glms"><i class="fa fa-check"></i><b>5.2.6</b> Common GLMs</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="5.3-mod-05-loglin.html"><a href="5.3-mod-05-loglin.html"><i class="fa fa-check"></i><b>5.3</b> Log-linear models</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="5.3-mod-05-loglin.html"><a href="5.3-mod-05-loglin.html#mod-05-loglin-examp"><i class="fa fa-check"></i><b>5.3.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="5.3.2" data-path="5.3-mod-05-loglin.html"><a href="5.3-mod-05-loglin.html#example-with-real-data"><i class="fa fa-check"></i><b>5.3.2</b> Example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="5.4-mod-05-poisson.html"><a href="5.4-mod-05-poisson.html"><i class="fa fa-check"></i><b>5.4</b> Poisson GLM for counts</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="5.4-mod-05-poisson.html"><a href="5.4-mod-05-poisson.html#example-with-simulated-data"><i class="fa fa-check"></i><b>5.4.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="5.4.2" data-path="5.4-mod-05-poisson.html"><a href="5.4-mod-05-poisson.html#example-with-real-data-1"><i class="fa fa-check"></i><b>5.4.2</b> Example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="5.5-mod-05-quasi.html"><a href="5.5-mod-05-quasi.html"><i class="fa fa-check"></i><b>5.5</b> Quasi-Poisson and negative binomial GLM</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="5.5-mod-05-quasi.html"><a href="5.5-mod-05-quasi.html#example-with-simulated-data-1"><i class="fa fa-check"></i><b>5.5.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="5.5.2" data-path="5.5-mod-05-quasi.html"><a href="5.5-mod-05-quasi.html#example-with-real-data-2"><i class="fa fa-check"></i><b>5.5.2</b> Example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="5.6-mod-05-logistic.html"><a href="5.6-mod-05-logistic.html"><i class="fa fa-check"></i><b>5.6</b> Logistic regression for binary outcomes</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="5.6-mod-05-logistic.html"><a href="5.6-mod-05-logistic.html#example-with-simulated-data-2"><i class="fa fa-check"></i><b>5.6.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="5.6.2" data-path="5.6-mod-05-logistic.html"><a href="5.6-mod-05-logistic.html#example-with-real-data-3"><i class="fa fa-check"></i><b>5.6.2</b> Example with real data</a></li>
+<li class="chapter" data-level="5.6.3" data-path="5.6-mod-05-logistic.html"><a href="5.6-mod-05-logistic.html#mod-05-auc"><i class="fa fa-check"></i><b>5.6.3</b> Logistic GLM diagnostics: AUC and ROC</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="5.7-mod-05-binom.html"><a href="5.7-mod-05-binom.html"><i class="fa fa-check"></i><b>5.7</b> Binomial GLM for proportional data</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="5.7-mod-05-binom.html"><a href="5.7-mod-05-binom.html#binomial-glm"><i class="fa fa-check"></i><b>5.7.1</b> Binomial GLM</a></li>
+<li class="chapter" data-level="5.7.2" data-path="5.7-mod-05-binom.html"><a href="5.7-mod-05-binom.html#example-with-simulated-data-3"><i class="fa fa-check"></i><b>5.7.2</b> Example with simulated data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="5.8-mod-05-gamma.html"><a href="5.8-mod-05-gamma.html"><i class="fa fa-check"></i><b>5.8</b> Gamma models for overdispersed data</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="5.8-mod-05-gamma.html"><a href="5.8-mod-05-gamma.html#example-with-simulated-data-4"><i class="fa fa-check"></i><b>5.8.1</b> Example with simulated data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="5.9-mod-05-beyond.html"><a href="5.9-mod-05-beyond.html"><i class="fa fa-check"></i><b>5.9</b> Beyond GLM: Overview of GAM and GEE</a>
+<ul>
+<li class="chapter" data-level="5.9.1" data-path="5.9-mod-05-beyond.html"><a href="5.9-mod-05-beyond.html#mod-05-gam"><i class="fa fa-check"></i><b>5.9.1</b> Generalized additive models (GAM)</a></li>
+<li class="chapter" data-level="5.9.2" data-path="5.9-mod-05-beyond.html"><a href="5.9-mod-05-beyond.html#mod-05-gee"><i class="fa fa-check"></i><b>5.9.2</b> Generalized estimating equations (GEE)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="6-mod-06.html"><a href="6-mod-06.html"><i class="fa fa-check"></i><b>6</b> Nonlinear models</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="6.1-background.html"><a href="6.1-background.html"><i class="fa fa-check"></i><b>6.1</b> Background</a></li>
+<li class="chapter" data-level="6.2" data-path="6.2-mod-06-intro.html"><a href="6.2-mod-06-intro.html"><i class="fa fa-check"></i><b>6.2</b> Nonlinear least squares (NLS)</a></li>
+<li class="chapter" data-level="6.3" data-path="6.3-mod-06-micmen.html"><a href="6.3-mod-06-micmen.html"><i class="fa fa-check"></i><b>6.3</b> Michaelis-Menten curves</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="6.3-mod-06-micmen.html"><a href="6.3-mod-06-micmen.html#mod-06-micmen-sim"><i class="fa fa-check"></i><b>6.3.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="6.3.2" data-path="6.3-mod-06-micmen.html"><a href="6.3-mod-06-micmen.html#example-with-real-data-4"><i class="fa fa-check"></i><b>6.3.2</b> Example with real data</a></li>
+<li class="chapter" data-level="6.3.3" data-path="6.3-mod-06-micmen.html"><a href="6.3-mod-06-micmen.html#alternative-strategies-for-the-analysis"><i class="fa fa-check"></i><b>6.3.3</b> Alternative strategies for the analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="6.4-mod-06-grow.html"><a href="6.4-mod-06-grow.html"><i class="fa fa-check"></i><b>6.4</b> Biological growth curves</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="6.4-mod-06-grow.html"><a href="6.4-mod-06-grow.html#gompertz-and-von-bertalanffy-curves"><i class="fa fa-check"></i><b>6.4.1</b> Gompertz and von Bertalanffy curves</a></li>
+<li class="chapter" data-level="6.4.2" data-path="6.4-mod-06-grow.html"><a href="6.4-mod-06-grow.html#example-with-real-data-5"><i class="fa fa-check"></i><b>6.4.2</b> Example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="6.5-dose-response-curves.html"><a href="6.5-dose-response-curves.html"><i class="fa fa-check"></i><b>6.5</b> Dose response curves</a></li>
+<li class="chapter" data-level="6.6" data-path="6.6-alternatives-to-nls.html"><a href="6.6-alternatives-to-nls.html"><i class="fa fa-check"></i><b>6.6</b> Alternatives to NLS</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="6.6-alternatives-to-nls.html"><a href="6.6-alternatives-to-nls.html#generalized-nonlinear-models"><i class="fa fa-check"></i><b>6.6.1</b> Generalized nonlinear models</a></li>
+<li class="chapter" data-level="6.6.2" data-path="6.6-alternatives-to-nls.html"><a href="6.6-alternatives-to-nls.html#quantile-regression"><i class="fa fa-check"></i><b>6.6.2</b> Quantile regression</a></li>
+<li class="chapter" data-level="6.6.3" data-path="6.6-alternatives-to-nls.html"><a href="6.6-alternatives-to-nls.html#mod-06-gam"><i class="fa fa-check"></i><b>6.6.3</b> Generalized additive models (GAM)</a></li>
+<li class="chapter" data-level="6.6.4" data-path="6.6-alternatives-to-nls.html"><a href="6.6-alternatives-to-nls.html#classification-and-regression-trees-cart"><i class="fa fa-check"></i><b>6.6.4</b> Classification and regression trees (CART)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="7-mod-07.html"><a href="7-mod-07.html"><i class="fa fa-check"></i><b>7</b> Mixed models</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="7.1-prelude-glm.html"><a href="7.1-prelude-glm.html"><i class="fa fa-check"></i><b>7.1</b> Prelude (GLM)</a></li>
+<li class="chapter" data-level="7.2" data-path="7.2-mod-07-lmm.html"><a href="7.2-mod-07-lmm.html"><i class="fa fa-check"></i><b>7.2</b> Linear mixed models (LMM)</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="7.2-mod-07-lmm.html"><a href="7.2-mod-07-lmm.html#formal-definition-and-example"><i class="fa fa-check"></i><b>7.2.1</b> Formal definition and example</a></li>
+<li class="chapter" data-level="7.2.2" data-path="7.2-mod-07-lmm.html"><a href="7.2-mod-07-lmm.html#example-with-simulated-data-5"><i class="fa fa-check"></i><b>7.2.2</b> Example with simulated data</a></li>
+<li class="chapter" data-level="7.2.3" data-path="7.2-mod-07-lmm.html"><a href="7.2-mod-07-lmm.html#p-values-in-lmm"><i class="fa fa-check"></i><b>7.2.3</b> <em>P</em>-values in LMM</a></li>
+<li class="chapter" data-level="7.2.4" data-path="7.2-mod-07-lmm.html"><a href="7.2-mod-07-lmm.html#specifying-random-effects"><i class="fa fa-check"></i><b>7.2.4</b> Specifying random effects</a></li>
+<li class="chapter" data-level="7.2.5" data-path="7.2-mod-07-lmm.html"><a href="7.2-mod-07-lmm.html#lmm-example-with-real-data"><i class="fa fa-check"></i><b>7.2.5</b> LMM example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="7.3-mod-07-glmm.html"><a href="7.3-mod-07-glmm.html"><i class="fa fa-check"></i><b>7.3</b> Generalized linear mixed models (GLMM)</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="7.3-mod-07-glmm.html"><a href="7.3-mod-07-glmm.html#definition-1"><i class="fa fa-check"></i><b>7.3.1</b> Definition</a></li>
+<li class="chapter" data-level="7.3.2" data-path="7.3-mod-07-glmm.html"><a href="7.3-mod-07-glmm.html#glmm-on-simulated-data"><i class="fa fa-check"></i><b>7.3.2</b> GLMM on simulated data</a></li>
+<li class="chapter" data-level="7.3.3" data-path="7.3-mod-07-glmm.html"><a href="7.3-mod-07-glmm.html#glmm-on-real-data"><i class="fa fa-check"></i><b>7.3.3</b> GLMM on real data</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="7.4-mod-07-nlme.html"><a href="7.4-mod-07-nlme.html"><i class="fa fa-check"></i><b>7.4</b> Nonlinear mixed models (NLME)</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="7.4-mod-07-nlme.html"><a href="7.4-mod-07-nlme.html#definition-and-background"><i class="fa fa-check"></i><b>7.4.1</b> Definition and background</a></li>
+<li class="chapter" data-level="7.4.2" data-path="7.4-mod-07-nlme.html"><a href="7.4-mod-07-nlme.html#nlme-on-simulated-data"><i class="fa fa-check"></i><b>7.4.2</b> NLME on simulated data</a></li>
+<li class="chapter" data-level="7.4.3" data-path="7.4-mod-07-nlme.html"><a href="7.4-mod-07-nlme.html#nlme-on-real-data"><i class="fa fa-check"></i><b>7.4.3</b> NLME on real data</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="7.5-mod-07-gamm.html"><a href="7.5-mod-07-gamm.html"><i class="fa fa-check"></i><b>7.5</b> (Generalized) additive mixed models (AMM/GAMM)</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="7.5-mod-07-gamm.html"><a href="7.5-mod-07-gamm.html#example-gamm-with-real-data"><i class="fa fa-check"></i><b>7.5.1</b> Example GAMM with real data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="8-mod-08.html"><a href="8-mod-08.html"><i class="fa fa-check"></i><b>8</b> Multivariate data analysis</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="8.1-multivariate-data.html"><a href="8.1-multivariate-data.html"><i class="fa fa-check"></i><b>8.1</b> Multivariate data</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="8.1-multivariate-data.html"><a href="8.1-multivariate-data.html#univariate-vs.-multivariate-data"><i class="fa fa-check"></i><b>8.1.1</b> Univariate vs. multivariate data</a></li>
+<li class="chapter" data-level="8.1.2" data-path="8.1-multivariate-data.html"><a href="8.1-multivariate-data.html#components-of-multivariate-data"><i class="fa fa-check"></i><b>8.1.2</b> Components of multivariate data</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="8.2-mod-08-dist.html"><a href="8.2-mod-08-dist.html"><i class="fa fa-check"></i><b>8.2</b> Distance metrics: biological (dis)similarity</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="8.2-mod-08-dist.html"><a href="8.2-mod-08-dist.html#euclidean-distance"><i class="fa fa-check"></i><b>8.2.1</b> Euclidean distance</a></li>
+<li class="chapter" data-level="8.2.2" data-path="8.2-mod-08-dist.html"><a href="8.2-mod-08-dist.html#bray-curtis-and-other-distance-metrics"><i class="fa fa-check"></i><b>8.2.2</b> Bray-Curtis and other distance metrics</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="8.3-clustering.html"><a href="8.3-clustering.html"><i class="fa fa-check"></i><b>8.3</b> Clustering</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="8.3-clustering.html"><a href="8.3-clustering.html#k-means-clustering"><i class="fa fa-check"></i><b>8.3.1</b> <em>K</em>-means clustering</a></li>
+<li class="chapter" data-level="8.3.2" data-path="8.3-clustering.html"><a href="8.3-clustering.html#hierarchical-agglomerative-clustering"><i class="fa fa-check"></i><b>8.3.2</b> Hierarchical agglomerative clustering</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="8.4-mod-08-sims.html"><a href="8.4-mod-08-sims.html"><i class="fa fa-check"></i><b>8.4</b> Analyzing dissimilarity</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="8.4-mod-08-sims.html"><a href="8.4-mod-08-sims.html#mantel-tests-distance-vs.-distance"><i class="fa fa-check"></i><b>8.4.1</b> Mantel tests: distance vs. distance</a></li>
+<li class="chapter" data-level="8.4.2" data-path="8.4-mod-08-sims.html"><a href="8.4-mod-08-sims.html#comparing-dissimilarity-between-groups"><i class="fa fa-check"></i><b>8.4.2</b> Comparing dissimilarity between groups</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="8.5-mod-08-ord.html"><a href="8.5-mod-08-ord.html"><i class="fa fa-check"></i><b>8.5</b> Ordination</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="8.5-mod-08-ord.html"><a href="8.5-mod-08-ord.html#principal-components-analysis-pca-1"><i class="fa fa-check"></i><b>8.5.1</b> Principal components analysis (PCA)</a></li>
+<li class="chapter" data-level="8.5.2" data-path="8.5-mod-08-ord.html"><a href="8.5-mod-08-ord.html#nmds-and-other-ordination-methods"><i class="fa fa-check"></i><b>8.5.2</b> NMDS and other ordination methods</a></li>
+<li class="chapter" data-level="8.5.3" data-path="8.5-mod-08-ord.html"><a href="8.5-mod-08-ord.html#other-ordination-techniques"><i class="fa fa-check"></i><b>8.5.3</b> Other ordination techniques</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="9-mod-09.html"><a href="9-mod-09.html"><i class="fa fa-check"></i><b>9</b> Planning your analysis (what test?)</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="9.1-how-to-use-this-guide.html"><a href="9.1-how-to-use-this-guide.html"><i class="fa fa-check"></i><b>9.1</b> How to use this guide</a></li>
+<li class="chapter" data-level="9.2" data-path="9.2-what-question-are-you-trying-to-answer.html"><a href="9.2-what-question-are-you-trying-to-answer.html"><i class="fa fa-check"></i><b>9.2</b> What question are you trying to answer?</a></li>
+<li class="chapter" data-level="9.3" data-path="9.3-testing-for-a-difference-in-mean-or-location.html"><a href="9.3-testing-for-a-difference-in-mean-or-location.html"><i class="fa fa-check"></i><b>9.3</b> Testing for a difference in mean or location</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="9.3-testing-for-a-difference-in-mean-or-location.html"><a href="9.3-testing-for-a-difference-in-mean-or-location.html#additional-considerations"><i class="fa fa-check"></i><b>9.3.1</b> Additional considerations</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="9.4-testing-for-a-continuous-relationship-between-two-or-more-variables.html"><a href="9.4-testing-for-a-continuous-relationship-between-two-or-more-variables.html"><i class="fa fa-check"></i><b>9.4</b> Testing for a continuous relationship between two or more variables</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="9.4-testing-for-a-continuous-relationship-between-two-or-more-variables.html"><a href="9.4-testing-for-a-continuous-relationship-between-two-or-more-variables.html#additional-considerations-1"><i class="fa fa-check"></i><b>9.4.1</b> Additional considerations</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="9.5-classifying-observations.html"><a href="9.5-classifying-observations.html"><i class="fa fa-check"></i><b>9.5</b> Classifying observations</a></li>
+<li class="chapter" data-level="9.6" data-path="9.6-conclusions.html"><a href="9.6-conclusions.html"><i class="fa fa-check"></i><b>9.6</b> Conclusions</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="literature-cited.html"><a href="literature-cited.html"><i class="fa fa-check"></i>Literature Cited</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Applied Biological Data Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="mod-04-trans" class="section level2" number="4.5">
+<h2><span class="header-section-number">4.5</span> Data transformations</h2>
+<p>Data transformation is the proces of changing the values in your data according to a function. This is usually done to make the data better conform to the assumptions of a statistical test, or to make graphs easier to interpret. Transformation is done to make patterns easier to detect. In many fields transformations may be standard practice, and with good reason. Just make sure that you understand what the transform function is doing, and most importantly, why you are transforming your data.</p>
+<div id="why-transform" class="section level3" number="4.5.1">
+<h3><span class="header-section-number">4.5.1</span> Why transform?</h3>
+<p><strong>Data transformation</strong> is the process changing the values of your data according to a function. This is usually done so that the data better conform to the assumptions of a statistical test, or to make graphs of your data more interpretable. The functions that transform data are usually called “transforms”. There are many transforms out there, but only a few are very common in biology. All convert values on the <strong>original scale</strong> to values on the <strong>transformed scale</strong>. Variables often have different properties after a transformation, such as normality, or a different domain, or a different distribution shape. In general, a function for transforming data should be <strong>deterministic</strong> and <strong>invertible</strong>:</p>
+<ul>
+<li><strong>Deterministic:</strong> means that the function always returns the same transformed value for a given input.</li>
+<li><strong>Invertible:</strong> means that values on the transformed scale can be converted unambiguously to values on the original scale. In mathematics such functions are also called “bijections”.</li>
+</ul>
+<p>Data transformations are commonly used to make data fit certain distributions. For example, consider the figure below:</p>
+<div class="sourceCode" id="cb1005"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1005-1"><a href="4.5-mod-04-trans.html#cb1005-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">rlnorm</span>(<span class="dv">1000</span>, <span class="fl">1.5</span>, <span class="dv">2</span>)</span>
+<span id="cb1005-2"><a href="4.5-mod-04-trans.html#cb1005-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb1005-3"><a href="4.5-mod-04-trans.html#cb1005-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(a)</span>
+<span id="cb1005-4"><a href="4.5-mod-04-trans.html#cb1005-4" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">log</span>(a))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-374-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>The left panel shows data with mostly small values and a strong positive skew. The right panel shows the same data on the log scale. Notice how the log-transformed values look much more like a normal distribution. This is very important for many statistical methods, which require normality either in the values or in the residuals. The log-transformed plot also lets us see more details about the distribution that are obscured on the original scale.</p>
+</div>
+<div id="transforms-vs.-link-functions" class="section level3" number="4.5.2">
+<h3><span class="header-section-number">4.5.2</span> Transforms vs. link functions</h3>
+<p>In <a href="5.2-mod-05-basic.html#mod-05-basic">generalized linear models (GLM)</a> the response variable is modeled on a scale defined by a <strong>link function</strong>. That link function works a little like a transform, and is often confused with a transform, but it is not a transform. The figure below shows an example of this: the response variable on its original scale (right panel), a proportion, is analyzed on the logit scale (left panel). The ranks of observations do not change, but their values do. Additionally, putting the values on another scale can affect the variance of those values.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-375-1.png" width="768" /></p>
+<p><em>GLM link functions are not transforms because the variance is still modeled on the original scale</em>. However, when data are transformed and then analyzed, the variance is modeled on the transformed scale. The equations below show the differences between a Gaussian GLM with a link function and an ordinary linear model on transformed data. Notice the difference in how each model includes stochasticity.</p>
+<p><strong>Linear model (LM) with transformation</strong></p>
+<p><span class="math display">\[y_i = e^{z_i}\]</span></p>
+<p><span class="math display">\[ z_i \sim Normal\left(mu_i,\sigma^2 \right)\]</span></p>
+<p><span class="math display">\[mu_i = f\left(\theta \right)\]</span></p>
+<p><strong>Generalized linear model (GLM) with link function</strong></p>
+<p><span class="math display">\[ y_i \sim Normal\left(z_i,\sigma^2 \right) \]</span></p>
+<p><span class="math display">\[ z_i = e^{mu_i} \]</span></p>
+<p><span class="math display">\[mu_i = f\left(\theta \right)\]</span></p>
+<p>In the LM, the expected value <span class="math inline">\(mu_i\)</span> and its variance are both on the log scale. In the GLM, <span class="math inline">\(mu_i\)</span> is on the log scale but the variance in observed values is not. This difference can have important consequences on the estimates of a statistical model. See the example <a href="5.3-mod-05-loglin.html#mod-05-loglin-examp">here</a> for a worked example.</p>
+</div>
+<div id="log-transformation" class="section level3" number="4.5.3">
+<h3><span class="header-section-number">4.5.3</span> Log transformation</h3>
+<p>The <strong>log-transform</strong> is one of the most common transforms in biology. It is simply the <strong>logarithm of the values</strong><a href="literature-cited.html#fn39" class="footnote-ref" id="fnref39"><sup>39</sup></a>. Most biologists use either the natural logarithm (<strong>log<sub><em>e</em></sub></strong>, <strong>ln</strong> or just <strong>log</strong>) or the base-10 logarithm (log<sub>10</sub>). The choice of base is not that important, because any log-transform will accomplish the same effect. The default in math and statistics (and in R) is the natural logarithm. Log<sub>10</sub> is also very common in biology and engineering. It is sometimes called the “common log”, but most people just say “log 10” when referring to this function. Whatever base you use, just be consistent and make it clear to your audience what you did<a href="literature-cited.html#fn40" class="footnote-ref" id="fnref40"><sup>40</sup></a>. It is depressingly common to be unable to use values from old papers because they didn’t specify which base logarithm they used.</p>
+<p>There are usually two reasons to use a log-transform: normalization (i.e., variance stabilization) and positivity. As seen above, many variables that appear non-normal turn out to be normally distributed on a logarithmic scale. This often occurs when something about the values is multiplicative in nature. For example, body sizes, population sizes, and bank account balances are often log-normally distributed. This is because these quantities tend to grow at a rate that is proportional to their current size . Transforming to the logarithmic scale changes multiplicative changes to additive changes. The figure below shows how values separated by a factor of 2 on the linear scale map to values separated by 1 (i.e., 20) on the log2 scale. Values separated by a common <em>scaling</em> factor on the original scale are mapped to values separated by a common <em>additive</em> constant on the log scale<a href="literature-cited.html#fn41" class="footnote-ref" id="fnref41"><sup>41</sup></a>.</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/04_05.jpg" /></p>
+<p>As a side effect of this normalization, log-transformation allows researchers to work with variables that vary over several orders of magnitude. This is because scalar multiplication on the untransformed scale is the same as addition on the log-transformed scale<a href="literature-cited.html#fn42" class="footnote-ref" id="fnref42"><sup>42</sup></a>. The figure below shows how values ranging from 0.001 to 1000 (spanning 6 orders of magnitude) can be managed on the log-transformed scale.</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/04_06.jpg" /></p>
+<p>The second reason that the log-transform is commonly used is to ensure that values are always positive. One of the properties of the exponential function is that for any positive base, raising that base to a real power will always return a positive result. For this reason, it is common practice to analyze variables with a positive domain on the logarithmic scale. Such variables include lengths, masses, and counts, which must be positive or non-negative. Log transformation can ensure that your analysis does not predict impossibilities like negative masses.</p>
+<div id="log-transformation-in-r" class="section level4" number="4.5.3.1">
+<h4><span class="header-section-number">4.5.3.1</span> Log transformation in R</h4>
+<p>Values in a data frame can be log-transformed with the <code>log()</code> (natural log) or <code>log10()</code> (log<sub>10</sub>) function. Other bases can be used via arguments to the <code>log()</code> function (e.g., <code>log(8,base=2)</code>). It is usually a good idea to keep the transformed values in their own variable, rather than overwriting the original values. This way you can quickly access the original values without having to back-transform. It is often useful to have the original values around for making figures. Keeping the original values also means you don’t have to remember whether a variable or object contains the original or transformed values.</p>
+<div class="sourceCode" id="cb1006"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1006-1"><a href="4.5-mod-04-trans.html#cb1006-1" aria-hidden="true" tabindex="-1"></a><span class="co"># spare copy:</span></span>
+<span id="cb1006-2"><a href="4.5-mod-04-trans.html#cb1006-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> iris</span>
+<span id="cb1006-3"><a href="4.5-mod-04-trans.html#cb1006-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1006-4"><a href="4.5-mod-04-trans.html#cb1006-4" aria-hidden="true" tabindex="-1"></a><span class="co"># natural log transform:</span></span>
+<span id="cb1006-5"><a href="4.5-mod-04-trans.html#cb1006-5" aria-hidden="true" tabindex="-1"></a>x<span class="sc">$</span>log.petal.len <span class="ot">&lt;-</span> <span class="fu">log</span>(x<span class="sc">$</span>Petal.Length)</span>
+<span id="cb1006-6"><a href="4.5-mod-04-trans.html#cb1006-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1006-7"><a href="4.5-mod-04-trans.html#cb1006-7" aria-hidden="true" tabindex="-1"></a><span class="co"># log base 10 transform:</span></span>
+<span id="cb1006-8"><a href="4.5-mod-04-trans.html#cb1006-8" aria-hidden="true" tabindex="-1"></a>x<span class="sc">$</span>log.petal.wid <span class="ot">&lt;-</span> <span class="fu">log10</span>(x<span class="sc">$</span>Petal.Width)</span></code></pre></div>
+<p>You can also log-transform many variables at once using the function <code>apply()</code>. In a data frame this means <code>apply</code>-ing the <code>log()</code> function to multiple columns (margin 2).</p>
+<div class="sourceCode" id="cb1007"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1007-1"><a href="4.5-mod-04-trans.html#cb1007-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load the dataset from package MASS</span></span>
+<span id="cb1007-2"><a href="4.5-mod-04-trans.html#cb1007-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(crabs, <span class="at">package=</span><span class="st">&quot;MASS&quot;</span>)</span>
+<span id="cb1007-3"><a href="4.5-mod-04-trans.html#cb1007-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1007-4"><a href="4.5-mod-04-trans.html#cb1007-4" aria-hidden="true" tabindex="-1"></a><span class="co"># make a spare copy</span></span>
+<span id="cb1007-5"><a href="4.5-mod-04-trans.html#cb1007-5" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> crabs</span>
+<span id="cb1007-6"><a href="4.5-mod-04-trans.html#cb1007-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(x)</span></code></pre></div>
+<pre><code>##   sp sex index   FL  RW   CL   CW  BD
+## 1  B   M     1  8.1 6.7 16.1 19.0 7.0
+## 2  B   M     2  8.8 7.7 18.1 20.8 7.4
+## 3  B   M     3  9.2 7.8 19.0 22.4 7.7
+## 4  B   M     4  9.6 7.9 20.1 23.1 8.2
+## 5  B   M     5  9.8 8.0 20.3 23.0 8.2
+## 6  B   M     6 10.8 9.0 23.0 26.5 9.8</code></pre>
+<div class="sourceCode" id="cb1009"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1009-1"><a href="4.5-mod-04-trans.html#cb1009-1" aria-hidden="true" tabindex="-1"></a><span class="co"># overwrite (transform in place)</span></span>
+<span id="cb1009-2"><a href="4.5-mod-04-trans.html#cb1009-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (ok but can cause headaches later)</span></span>
+<span id="cb1009-3"><a href="4.5-mod-04-trans.html#cb1009-3" aria-hidden="true" tabindex="-1"></a>x[,<span class="dv">4</span><span class="sc">:</span><span class="dv">8</span>] <span class="ot">&lt;-</span> <span class="fu">apply</span>(x[,<span class="dv">4</span><span class="sc">:</span><span class="dv">8</span>], <span class="dv">2</span>, log)</span>
+<span id="cb1009-4"><a href="4.5-mod-04-trans.html#cb1009-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(x)</span></code></pre></div>
+<pre><code>##   sp sex index       FL       RW       CL       CW       BD
+## 1  B   M     1 2.091864 1.902108 2.778819 2.944439 1.945910
+## 2  B   M     2 2.174752 2.041220 2.895912 3.034953 2.001480
+## 3  B   M     3 2.219203 2.054124 2.944439 3.109061 2.041220
+## 4  B   M     4 2.261763 2.066863 3.000720 3.139833 2.104134
+## 5  B   M     5 2.282382 2.079442 3.010621 3.135494 2.104134
+## 6  B   M     6 2.379546 2.197225 3.135494 3.277145 2.282382</code></pre>
+<div class="sourceCode" id="cb1011"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1011-1"><a href="4.5-mod-04-trans.html#cb1011-1" aria-hidden="true" tabindex="-1"></a><span class="co"># better way:</span></span>
+<span id="cb1011-2"><a href="4.5-mod-04-trans.html#cb1011-2" aria-hidden="true" tabindex="-1"></a><span class="co"># make new variables and </span></span>
+<span id="cb1011-3"><a href="4.5-mod-04-trans.html#cb1011-3" aria-hidden="true" tabindex="-1"></a><span class="co"># add to original data frame (better)</span></span>
+<span id="cb1011-4"><a href="4.5-mod-04-trans.html#cb1011-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> crabs</span>
+<span id="cb1011-5"><a href="4.5-mod-04-trans.html#cb1011-5" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">apply</span>(x[,<span class="dv">4</span><span class="sc">:</span><span class="dv">8</span>], <span class="dv">2</span>, log)</span>
+<span id="cb1011-6"><a href="4.5-mod-04-trans.html#cb1011-6" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(z)</span>
+<span id="cb1011-7"><a href="4.5-mod-04-trans.html#cb1011-7" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(z) <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="fu">names</span>(z), <span class="st">&quot;log&quot;</span>, <span class="at">sep=</span><span class="st">&quot;.&quot;</span>)</span>
+<span id="cb1011-8"><a href="4.5-mod-04-trans.html#cb1011-8" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">cbind</span>(x,z)</span>
+<span id="cb1011-9"><a href="4.5-mod-04-trans.html#cb1011-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(x)</span></code></pre></div>
+<pre><code>##   sp sex index   FL  RW   CL   CW  BD   FL.log   RW.log   CL.log   CW.log
+## 1  B   M     1  8.1 6.7 16.1 19.0 7.0 2.091864 1.902108 2.778819 2.944439
+## 2  B   M     2  8.8 7.7 18.1 20.8 7.4 2.174752 2.041220 2.895912 3.034953
+## 3  B   M     3  9.2 7.8 19.0 22.4 7.7 2.219203 2.054124 2.944439 3.109061
+## 4  B   M     4  9.6 7.9 20.1 23.1 8.2 2.261763 2.066863 3.000720 3.139833
+## 5  B   M     5  9.8 8.0 20.3 23.0 8.2 2.282382 2.079442 3.010621 3.135494
+## 6  B   M     6 10.8 9.0 23.0 26.5 9.8 2.379546 2.197225 3.135494 3.277145
+##     BD.log
+## 1 1.945910
+## 2 2.001480
+## 3 2.041220
+## 4 2.104134
+## 5 2.104134
+## 6 2.282382</code></pre>
+</div>
+<div id="log-transforming-with-0-values" class="section level4" number="4.5.3.2">
+<h4><span class="header-section-number">4.5.3.2</span> Log transforming with 0 values</h4>
+<p>One problem that comes up with log-transformation is what to do with values of 0. The logarithm of 0 is undefined, and returns <span class="math inline">\(-\infty\)</span> in R. This is usually a problem with counts, rather than with measurements. The simplest solution is to add a small constant to the values before transforming. If the smallest nonzero value is 1, then it is easiest to just add 1 to the values:</p>
+<p><span class="math display">\[y_i=\log{\left(x_i+1\right)}\]</span></p>
+<p>Where <em>x<sub>i</sub></em> is the original value and <em>y<sub>i</sub></em> is the transformed value (i.e., <span class="math inline">\(f\left(x_i\right)\)</span>). Again, this works just fine if the smallest nonzero is about 1. Values between 0 and 1 can cause problems. Adding 1 to these values before log-transforming will tend to compress the lower end of the distribution and expand the upper end of the distribution. The R commands below show this:</p>
+<div class="sourceCode" id="cb1013"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1013-1"><a href="4.5-mod-04-trans.html#cb1013-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.003</span>, <span class="fl">0.03</span>, <span class="fl">0.3</span>, <span class="dv">1</span>, <span class="fl">1.3</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">99</span>)</span>
+<span id="cb1013-2"><a href="4.5-mod-04-trans.html#cb1013-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">log</span>(x<span class="sc">+</span><span class="dv">1</span>)</span>
+<span id="cb1013-3"><a href="4.5-mod-04-trans.html#cb1013-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x,y, <span class="at">cex=</span><span class="fl">1.3</span>, <span class="at">pch=</span><span class="dv">16</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-378-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>If the smallest nonzero value differs from 1 by more than an order of magnitude (i.e., <span class="math inline">\(\ge\)</span> 10 or <span class="math inline">\(\le\)</span> 0.1), then a slightly different procedure is called for. The transformation below generalizes the “log of <em>x</em>+1” method in such a way as to result in 0 for 0 values and somewhat preserve the original orders of magnitude <span class="citation">(<a href="#ref-mccune2002analysis" role="doc-biblioref">McCune et al. 2002</a>)</span>.</p>
+<p><span class="math display">\[y_i=\log{\left(x_i+d\right)}-c\]</span>
+In this equation:</p>
+<p><span class="math display">\[\begin{matrix}c=&amp;Trunc\left(\log{\left(min\left(x\right)\right)}\right)\\d=&amp;e^c\\min\left(x\right)=&amp;smallest\ nonzero\ x\\Trunc\left(x\right)=&amp;function\ that\ truncates\ x\ to\ an\ integer\\\end{matrix}\]</span></p>
+<p>This can be implemented in R using the following custom function:</p>
+<div class="sourceCode" id="cb1014"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1014-1"><a href="4.5-mod-04-trans.html#cb1014-1" aria-hidden="true" tabindex="-1"></a>mgtrans <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb1014-2"><a href="4.5-mod-04-trans.html#cb1014-2" aria-hidden="true" tabindex="-1"></a>    minx <span class="ot">&lt;-</span> <span class="fu">min</span>(x[x <span class="sc">&gt;</span> <span class="dv">0</span>])</span>
+<span id="cb1014-3"><a href="4.5-mod-04-trans.html#cb1014-3" aria-hidden="true" tabindex="-1"></a>    cons <span class="ot">&lt;-</span> <span class="fu">trunc</span>(<span class="fu">log</span>(minx))</span>
+<span id="cb1014-4"><a href="4.5-mod-04-trans.html#cb1014-4" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> <span class="fu">log</span>(x <span class="sc">+</span> <span class="fu">exp</span>(cons)) <span class="sc">-</span> cons</span>
+<span id="cb1014-5"><a href="4.5-mod-04-trans.html#cb1014-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(y)</span>
+<span id="cb1014-6"><a href="4.5-mod-04-trans.html#cb1014-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1014-7"><a href="4.5-mod-04-trans.html#cb1014-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1014-8"><a href="4.5-mod-04-trans.html#cb1014-8" aria-hidden="true" tabindex="-1"></a><span class="co"># example usage:</span></span>
+<span id="cb1014-9"><a href="4.5-mod-04-trans.html#cb1014-9" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">rlnorm</span>(<span class="dv">9</span>))</span>
+<span id="cb1014-10"><a href="4.5-mod-04-trans.html#cb1014-10" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(a)</span></code></pre></div>
+<pre><code>##  [1]         -Inf  1.025571370 -0.284773007 -1.220717712  0.181303480
+##  [6] -0.138891362  0.005764186  0.385280401 -0.370660032  0.644376549</code></pre>
+<div class="sourceCode" id="cb1016"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1016-1"><a href="4.5-mod-04-trans.html#cb1016-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mgtrans</span>(a)</span></code></pre></div>
+<pre><code>##  [1] 0.0000000 2.1494853 1.1133862 0.5888655 1.4489449 1.2136603 1.3174789
+##  [8] 1.6086268 1.0565297 1.8209591</code></pre>
+<div class="sourceCode" id="cb1018"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1018-1"><a href="4.5-mod-04-trans.html#cb1018-1" aria-hidden="true" tabindex="-1"></a><span class="co"># count the points:</span></span>
+<span id="cb1018-2"><a href="4.5-mod-04-trans.html#cb1018-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb1018-3"><a href="4.5-mod-04-trans.html#cb1018-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(a, <span class="fu">log</span>(a))     <span class="co"># missing one!</span></span>
+<span id="cb1018-4"><a href="4.5-mod-04-trans.html#cb1018-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(a, <span class="fu">mgtrans</span>(a))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-379-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>Note that if you use the McCune and Grace transform, you should keep the original values around for plotting because back-transforming can be tricky (if not impossible, if you don’t know <em>d</em> and <em>c</em>). If you are going to back-transform other values, such as model predictions, you will need to know <em>d</em> and <em>c</em>.</p>
+<p>The example below shows how the McCune and Grace transform can be advantageous. First, we create 1000 random values from a lognormal distribution. Then, randomly set 100 of the values to 0. Log-transforming the data to acheive normality comes at the cost of losing 10% of the values because <code>log(0)</code> is undefined (left panel). The <span class="math inline">\(log\left(x+1\right)\)</span> transform retains all of the values, but distorts the shape of the distribution (middle panel) because many values are between 0 and 1. The McCune and Grace method (right panel) achieves normality (mostly) <em>and</em> retains all values.</p>
+<div class="sourceCode" id="cb1019"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1019-1"><a href="4.5-mod-04-trans.html#cb1019-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb1019-2"><a href="4.5-mod-04-trans.html#cb1019-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fl">1e3</span></span>
+<span id="cb1019-3"><a href="4.5-mod-04-trans.html#cb1019-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rlnorm</span>(n, <span class="fl">0.5</span>, <span class="dv">1</span>)</span>
+<span id="cb1019-4"><a href="4.5-mod-04-trans.html#cb1019-4" aria-hidden="true" tabindex="-1"></a>x[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>n, <span class="dv">100</span>, <span class="at">replace=</span><span class="cn">FALSE</span>)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb1019-5"><a href="4.5-mod-04-trans.html#cb1019-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1019-6"><a href="4.5-mod-04-trans.html#cb1019-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1019-7"><a href="4.5-mod-04-trans.html#cb1019-7" aria-hidden="true" tabindex="-1"></a>t1 <span class="ot">&lt;-</span> <span class="fu">log</span>(x)</span>
+<span id="cb1019-8"><a href="4.5-mod-04-trans.html#cb1019-8" aria-hidden="true" tabindex="-1"></a>t2 <span class="ot">&lt;-</span> <span class="fu">log</span>(x<span class="sc">+</span><span class="dv">1</span>)</span>
+<span id="cb1019-9"><a href="4.5-mod-04-trans.html#cb1019-9" aria-hidden="true" tabindex="-1"></a>t3 <span class="ot">&lt;-</span> <span class="fu">mgtrans</span>(x)</span>
+<span id="cb1019-10"><a href="4.5-mod-04-trans.html#cb1019-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1019-11"><a href="4.5-mod-04-trans.html#cb1019-11" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">which</span>(<span class="fu">is.finite</span>(t1)))</span></code></pre></div>
+<pre><code>## [1] 900</code></pre>
+<div class="sourceCode" id="cb1021"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1021-1"><a href="4.5-mod-04-trans.html#cb1021-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>), <span class="at">cex.main=</span><span class="fl">1.2</span>)</span>
+<span id="cb1021-2"><a href="4.5-mod-04-trans.html#cb1021-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(t1, <span class="at">main=</span><span class="fu">expression</span>(Log<span class="sc">~</span>transform<span class="sc">~</span>(<span class="fu">italic</span>(n)<span class="sc">==</span><span class="dv">900</span>)))</span>
+<span id="cb1021-3"><a href="4.5-mod-04-trans.html#cb1021-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(t2, <span class="at">main=</span><span class="fu">expression</span>(Log<span class="sc">~</span>(<span class="fu">italic</span>(x)<span class="sc">+</span><span class="dv">1</span>)<span class="sc">~</span>transform<span class="sc">~</span>(<span class="fu">italic</span>(n)<span class="sc">==</span><span class="dv">1000</span>)))</span>
+<span id="cb1021-4"><a href="4.5-mod-04-trans.html#cb1021-4" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(t3, <span class="at">main=</span><span class="fu">expression</span>(McCune<span class="sc">-</span>Grace<span class="sc">~</span>transform<span class="sc">~</span>(<span class="fu">italic</span>(n)<span class="sc">==</span><span class="dv">1000</span>)))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-380-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>The spike in the right histogram comes from the fact that the McCune and Grace method maps values of 0 to 0.</p>
+</div>
+</div>
+<div id="rank-transformation" class="section level3" number="4.5.4">
+<h3><span class="header-section-number">4.5.4</span> Rank transformation</h3>
+<p>The <strong>rank transform</strong> is just what it sounds like: replacing original values with their ranks. In R the function <code>rank()</code> does just that. Smaller values having smaller ranks and greater values having greater ranks. The smallest value maps to value 1 and the largest value maps to the number of values. That is, for any vector x <code>rank(x)[x==min(x)]</code> = 1 and <code>rank(x)[x==max(x)]</code> = <code>length(x)</code>.</p>
+<div class="sourceCode" id="cb1022"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1022-1"><a href="4.5-mod-04-trans.html#cb1022-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="dv">5</span>, <span class="dv">1</span>)</span>
+<span id="cb1022-2"><a href="4.5-mod-04-trans.html#cb1022-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rank</span>(x)</span>
+<span id="cb1022-3"><a href="4.5-mod-04-trans.html#cb1022-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x,y)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-381-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>Notice how the transformed variables <code>y</code> are evenly spaced while the original values are not. This can be useful if values are very “clumped” or “spread out”. Rank transforms are commonly used in nonparametric procedures. Note that the <code>rank()</code> function may return fractional or repeated ranks if there are ties:</p>
+<div class="sourceCode" id="cb1023"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1023-1"><a href="4.5-mod-04-trans.html#cb1023-1" aria-hidden="true" tabindex="-1"></a><span class="co"># make some random values</span></span>
+<span id="cb1023-2"><a href="4.5-mod-04-trans.html#cb1023-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">10</span>)</span>
+<span id="cb1023-3"><a href="4.5-mod-04-trans.html#cb1023-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1023-4"><a href="4.5-mod-04-trans.html#cb1023-4" aria-hidden="true" tabindex="-1"></a><span class="co"># force a tie</span></span>
+<span id="cb1023-5"><a href="4.5-mod-04-trans.html#cb1023-5" aria-hidden="true" tabindex="-1"></a>x[<span class="dv">1</span>] <span class="ot">&lt;-</span> x[<span class="dv">2</span>]</span>
+<span id="cb1023-6"><a href="4.5-mod-04-trans.html#cb1023-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1023-7"><a href="4.5-mod-04-trans.html#cb1023-7" aria-hidden="true" tabindex="-1"></a><span class="co"># fractional ranks for ties:</span></span>
+<span id="cb1023-8"><a href="4.5-mod-04-trans.html#cb1023-8" aria-hidden="true" tabindex="-1"></a><span class="fu">rank</span>(x)</span></code></pre></div>
+<pre><code>##  [1]  1.5  1.5  4.0  6.0  7.0  9.0  5.0 10.0  8.0  3.0</code></pre>
+<div class="sourceCode" id="cb1025"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1025-1"><a href="4.5-mod-04-trans.html#cb1025-1" aria-hidden="true" tabindex="-1"></a><span class="co"># force a three-way tie:</span></span>
+<span id="cb1025-2"><a href="4.5-mod-04-trans.html#cb1025-2" aria-hidden="true" tabindex="-1"></a>x[<span class="dv">3</span>] <span class="ot">&lt;-</span> x[<span class="dv">2</span>]</span>
+<span id="cb1025-3"><a href="4.5-mod-04-trans.html#cb1025-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1025-4"><a href="4.5-mod-04-trans.html#cb1025-4" aria-hidden="true" tabindex="-1"></a><span class="co"># repeated ranks:</span></span>
+<span id="cb1025-5"><a href="4.5-mod-04-trans.html#cb1025-5" aria-hidden="true" tabindex="-1"></a><span class="fu">rank</span>(x)</span></code></pre></div>
+<pre><code>##  [1]  2  2  2  6  7  9  5 10  8  4</code></pre>
+</div>
+<div id="other-transforms-less-common" class="section level3" number="4.5.5">
+<h3><span class="header-section-number">4.5.5</span> Other transforms (less common)</h3>
+<div id="square-root-transformation" class="section level4" number="4.5.5.1">
+<h4><span class="header-section-number">4.5.5.1</span> Square-root transformation</h4>
+<p><strong>Square-root transforms</strong> map values to their square roots. This is sometimes used as a variance-stabilizing transformation, similar to the log transform. Square-root transforms are useful when a response variable is proportional to the square of the explanatory variable, or when the data show heteroscedasticity (non-constant variance). Counts are sometimes analyzed using a square-root transform. The square-root transform is a special case of the <strong>power transform</strong> (where values are raised to a power) and a special case of the Box-Cox transform (see below). The square-root function in R is <code>sqrt()</code>. There are several ways to accomplish a square-root transform in R:</p>
+<div class="sourceCode" id="cb1027"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1027-1"><a href="4.5-mod-04-trans.html#cb1027-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="dv">5</span>, <span class="dv">1</span>)</span>
+<span id="cb1027-2"><a href="4.5-mod-04-trans.html#cb1027-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(x)</span>
+<span id="cb1027-3"><a href="4.5-mod-04-trans.html#cb1027-3" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> x<span class="sc">^</span><span class="fl">0.5</span></span></code></pre></div>
+<p>Higher roots (cube root, fourth root, etc.) are sometimes used as transforms, but this is not very common.</p>
+<div class="sourceCode" id="cb1028"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1028-1"><a href="4.5-mod-04-trans.html#cb1028-1" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> x<span class="sc">^</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>) <span class="co"># cube root</span></span></code></pre></div>
+</div>
+<div id="logit-transformation" class="section level4" number="4.5.5.2">
+<h4><span class="header-section-number">4.5.5.2</span> Logit transformation</h4>
+<p>The <strong>logit transformation</strong> is used to map proportions to the real number line. Usually this changes values into something resembling a normal distribution. The logit is defined as the <em>logarithm of the odds ratio</em>. Its inverse (back-transformation function) is the <strong>logistic function</strong>. For any value <em>x</em> in the open interval<a href="literature-cited.html#fn43" class="footnote-ref" id="fnref43"><sup>43</sup></a> (0, 1), the logit is calculated as:</p>
+<p><span class="math display">\[logit\left(x\right)=\log{\left(\frac{x}{1-x}\right)}\]</span></p>
+<p>If <em>x</em> is a probability or proportion, then logit(<em>x</em>) is also the logarithm of the odds ratio. For this reason, the logit is also called the “log-odds”. The logit function is also the inverse of the logistic function. The logistic function of a variable <em>x</em> is:</p>
+<p><span class="math display">\[logistic\left(x\right)=\frac{e^x}{e^x+1}=\frac{1}{1+e^{-x}}\]</span></p>
+<p>The figure below shows the relationship between the logit and logistic functions:</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/04_07.jpg" /></p>
+<p>The logit transformation has the effect of stretching out the ends of a distribution, while keeping the relationship between the original and transformed values roughly linear near the middle of the distribution. The logit transformation can be accomplished in R using the function <code>qlogis()</code>; its inverse, the logistic function, is <code>plogis()</code>.</p>
+<div class="sourceCode" id="cb1029"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1029-1"><a href="4.5-mod-04-trans.html#cb1029-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">999</span><span class="sc">/</span><span class="dv">1000</span></span>
+<span id="cb1029-2"><a href="4.5-mod-04-trans.html#cb1029-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">qlogis</span>(x)</span>
+<span id="cb1029-3"><a href="4.5-mod-04-trans.html#cb1029-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1029-4"><a href="4.5-mod-04-trans.html#cb1029-4" aria-hidden="true" tabindex="-1"></a><span class="co"># compare:</span></span>
+<span id="cb1029-5"><a href="4.5-mod-04-trans.html#cb1029-5" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb1029-6"><a href="4.5-mod-04-trans.html#cb1029-6" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(x)</span>
+<span id="cb1029-7"><a href="4.5-mod-04-trans.html#cb1029-7" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(y)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-385-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>Why is this useful? The logistic function takes any real input and outputs a value between 0 and 1. This means that the logit function takes values between 0 and 1 and outputs a real number. The example below shows how this can be applied to analyze proportions:</p>
+<p>The first figure below shows how analyzing proportions with linear models leads to clearly inappropriate results. The predicted values of the model extend well outside the possible range of a probability.</p>
+<div class="sourceCode" id="cb1030"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1030-1"><a href="4.5-mod-04-trans.html#cb1030-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb1030-2"><a href="4.5-mod-04-trans.html#cb1030-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb1030-3"><a href="4.5-mod-04-trans.html#cb1030-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb1030-4"><a href="4.5-mod-04-trans.html#cb1030-4" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">3</span> <span class="sc">+</span> <span class="fl">0.75</span><span class="sc">*</span>x <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb1030-5"><a href="4.5-mod-04-trans.html#cb1030-5" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">plogis</span>(z)</span>
+<span id="cb1030-6"><a href="4.5-mod-04-trans.html#cb1030-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1030-7"><a href="4.5-mod-04-trans.html#cb1030-7" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y<span class="sc">~</span>x)</span>
+<span id="cb1030-8"><a href="4.5-mod-04-trans.html#cb1030-8" aria-hidden="true" tabindex="-1"></a>px <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(x), <span class="fu">max</span>(x), <span class="at">length=</span><span class="dv">100</span>)</span>
+<span id="cb1030-9"><a href="4.5-mod-04-trans.html#cb1030-9" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod1, <span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">x=</span>px), <span class="at">se.fit=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1030-10"><a href="4.5-mod-04-trans.html#cb1030-10" aria-hidden="true" tabindex="-1"></a>mn <span class="ot">&lt;-</span> pred<span class="sc">$</span>fit</span>
+<span id="cb1030-11"><a href="4.5-mod-04-trans.html#cb1030-11" aria-hidden="true" tabindex="-1"></a>lo <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.025</span>, mn, pred<span class="sc">$</span>se.fit) </span>
+<span id="cb1030-12"><a href="4.5-mod-04-trans.html#cb1030-12" aria-hidden="true" tabindex="-1"></a>up <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>, mn, pred<span class="sc">$</span>se.fit)</span>
+<span id="cb1030-13"><a href="4.5-mod-04-trans.html#cb1030-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1030-14"><a href="4.5-mod-04-trans.html#cb1030-14" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb1030-15"><a href="4.5-mod-04-trans.html#cb1030-15" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.3</span>))</span>
+<span id="cb1030-16"><a href="4.5-mod-04-trans.html#cb1030-16" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">1</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb1030-17"><a href="4.5-mod-04-trans.html#cb1030-17" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">0</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb1030-18"><a href="4.5-mod-04-trans.html#cb1030-18" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, mn, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb1030-19"><a href="4.5-mod-04-trans.html#cb1030-19" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, lo, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">lty=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb1030-20"><a href="4.5-mod-04-trans.html#cb1030-20" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, up, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">lty=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-386-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>The linear model predicts probabilities (<code>y</code>) less than 0 and greater than 1, so clearly it is inappropriate for analyzing probabilities. However, applying a logit transform to the data for analysis (and later back-transforming using the logistic function) can allow you to analyze proportions. Another (and sometimes better way) to accomplish this is to use a <a href="5.6-mod-05-logistic.html#mod-05-logistic">GLM with binomial family and logit link</a>.</p>
+<div class="sourceCode" id="cb1031"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1031-1"><a href="4.5-mod-04-trans.html#cb1031-1" aria-hidden="true" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> <span class="fu">qlogis</span>(y)</span>
+<span id="cb1031-2"><a href="4.5-mod-04-trans.html#cb1031-2" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y2<span class="sc">~</span>x)</span>
+<span id="cb1031-3"><a href="4.5-mod-04-trans.html#cb1031-3" aria-hidden="true" tabindex="-1"></a>pred2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod2, <span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">x=</span>px), <span class="at">se.fit=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1031-4"><a href="4.5-mod-04-trans.html#cb1031-4" aria-hidden="true" tabindex="-1"></a>mn2 <span class="ot">&lt;-</span> pred2<span class="sc">$</span>fit</span>
+<span id="cb1031-5"><a href="4.5-mod-04-trans.html#cb1031-5" aria-hidden="true" tabindex="-1"></a>lo2 <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.025</span>, mn2, pred2<span class="sc">$</span>se.fit) </span>
+<span id="cb1031-6"><a href="4.5-mod-04-trans.html#cb1031-6" aria-hidden="true" tabindex="-1"></a>up2 <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>, mn2, pred2<span class="sc">$</span>se.fit)</span>
+<span id="cb1031-7"><a href="4.5-mod-04-trans.html#cb1031-7" aria-hidden="true" tabindex="-1"></a><span class="co"># backtransform</span></span>
+<span id="cb1031-8"><a href="4.5-mod-04-trans.html#cb1031-8" aria-hidden="true" tabindex="-1"></a>mn2 <span class="ot">&lt;-</span> <span class="fu">plogis</span>(mn2)</span>
+<span id="cb1031-9"><a href="4.5-mod-04-trans.html#cb1031-9" aria-hidden="true" tabindex="-1"></a>lo2 <span class="ot">&lt;-</span> <span class="fu">plogis</span>(lo2)</span>
+<span id="cb1031-10"><a href="4.5-mod-04-trans.html#cb1031-10" aria-hidden="true" tabindex="-1"></a>up2 <span class="ot">&lt;-</span> <span class="fu">plogis</span>(up2)</span>
+<span id="cb1031-11"><a href="4.5-mod-04-trans.html#cb1031-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1031-12"><a href="4.5-mod-04-trans.html#cb1031-12" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb1031-13"><a href="4.5-mod-04-trans.html#cb1031-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.3</span>))</span>
+<span id="cb1031-14"><a href="4.5-mod-04-trans.html#cb1031-14" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">1</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb1031-15"><a href="4.5-mod-04-trans.html#cb1031-15" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">0</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb1031-16"><a href="4.5-mod-04-trans.html#cb1031-16" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, mn, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb1031-17"><a href="4.5-mod-04-trans.html#cb1031-17" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, lo, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">lty=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb1031-18"><a href="4.5-mod-04-trans.html#cb1031-18" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, up, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">lty=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb1031-19"><a href="4.5-mod-04-trans.html#cb1031-19" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, mn2, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb1031-20"><a href="4.5-mod-04-trans.html#cb1031-20" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, lo2, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">lty=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb1031-21"><a href="4.5-mod-04-trans.html#cb1031-21" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(px, up2, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">lty=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb1031-22"><a href="4.5-mod-04-trans.html#cb1031-22" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;bottomright&quot;</span>, </span>
+<span id="cb1031-23"><a href="4.5-mod-04-trans.html#cb1031-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;Linear&quot;</span>, <span class="st">&quot;Logit-transformed&quot;</span>),</span>
+<span id="cb1031-24"><a href="4.5-mod-04-trans.html#cb1031-24" aria-hidden="true" tabindex="-1"></a>       <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>), <span class="at">bg=</span><span class="st">&quot;white&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-387-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>The downside of the logit transform is that it is undefined at at 0 and 1 (it approaches <span class="math inline">\(-\infty\)</span> and <span class="math inline">\(+\infty\)</span> as the inputs approach 0 and 1). One workaround is to add a small constant to avoid taking log(0) or dividing by 0 <span class="citation">(<a href="#ref-mccune2002analysis" role="doc-biblioref">McCune et al. 2002</a>, <a href="#ref-warton2011" role="doc-biblioref">Warton and Hui 2011</a>)</span>. The latter reference suggests adding the minimum non-zero value. You could also censor the values to be arbitrarily close to 0 or 1: for example, set all values &lt;0.001 to 0.001 and all values &gt; 0.999 to 0.999. This practice is sometimes called “stabilizing the logit” <span class="citation">(<a href="#ref-kery2010" role="doc-biblioref">Kéry 2010</a>)</span>.</p>
+<div class="sourceCode" id="cb1032"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1032-1"><a href="4.5-mod-04-trans.html#cb1032-1" aria-hidden="true" tabindex="-1"></a><span class="co"># change some values in y to 1 and 0</span></span>
+<span id="cb1032-2"><a href="4.5-mod-04-trans.html#cb1032-2" aria-hidden="true" tabindex="-1"></a>y[<span class="fu">which.max</span>(y)] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb1032-3"><a href="4.5-mod-04-trans.html#cb1032-3" aria-hidden="true" tabindex="-1"></a>y[<span class="fu">which.min</span>(y)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb1032-4"><a href="4.5-mod-04-trans.html#cb1032-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1032-5"><a href="4.5-mod-04-trans.html#cb1032-5" aria-hidden="true" tabindex="-1"></a><span class="co"># logit transformed values include infinities!</span></span>
+<span id="cb1032-6"><a href="4.5-mod-04-trans.html#cb1032-6" aria-hidden="true" tabindex="-1"></a><span class="fu">qlogis</span>(y)</span></code></pre></div>
+<pre><code>##  [1] -2.5298619  3.7500756  0.2207000  2.4844936  5.3073196 -2.2318620
+##  [7]  0.6657197  4.5882685  2.0138961  1.2461916  4.8648903  0.9539238
+## [13]  2.0198681  0.9887879 -2.6085359  3.0539803 -1.3622593       -Inf
+## [19]  1.6283614  5.3667394  2.5484363  1.7931407  1.3371457  5.2369884
+## [25]  1.8344244  2.5672970  1.0519484  1.4131947  0.5373003 -2.1224186
+## [31]        Inf  2.2184900  2.7649033  3.0898599 -2.5994558  0.9631093
+## [37]  2.1861231 -1.7101479 -1.6322178 -2.3345978 -1.6254712  0.5573073
+## [43]  0.1559367  0.6886083  0.1934203 -2.4499857 -3.5614131  1.5004569
+## [49] -1.7144060  2.7456992</code></pre>
+<div class="sourceCode" id="cb1034"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1034-1"><a href="4.5-mod-04-trans.html#cb1034-1" aria-hidden="true" tabindex="-1"></a><span class="co"># stabilize logit by setting max to 0.999 and min to 0.001</span></span>
+<span id="cb1034-2"><a href="4.5-mod-04-trans.html#cb1034-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">pmin</span>(<span class="fl">0.999</span>, y)</span>
+<span id="cb1034-3"><a href="4.5-mod-04-trans.html#cb1034-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">pmax</span>(<span class="fl">0.001</span>, y)</span>
+<span id="cb1034-4"><a href="4.5-mod-04-trans.html#cb1034-4" aria-hidden="true" tabindex="-1"></a><span class="fu">qlogis</span>(y)</span></code></pre></div>
+<pre><code>##  [1] -2.5298619  3.7500756  0.2207000  2.4844936  5.3073196 -2.2318620
+##  [7]  0.6657197  4.5882685  2.0138961  1.2461916  4.8648903  0.9539238
+## [13]  2.0198681  0.9887879 -2.6085359  3.0539803 -1.3622593 -6.9067548
+## [19]  1.6283614  5.3667394  2.5484363  1.7931407  1.3371457  5.2369884
+## [25]  1.8344244  2.5672970  1.0519484  1.4131947  0.5373003 -2.1224186
+## [31]  6.9067548  2.2184900  2.7649033  3.0898599 -2.5994558  0.9631093
+## [37]  2.1861231 -1.7101479 -1.6322178 -2.3345978 -1.6254712  0.5573073
+## [43]  0.1559367  0.6886083  0.1934203 -2.4499857 -3.5614131  1.5004569
+## [49] -1.7144060  2.7456992</code></pre>
+<p>The probit function is similar to the logit function, is used in similar situations, and produces similar results, but uses the CDF of the standard normal distribution instead of the logit function. The probit function is given by:</p>
+<p><span class="math display">\[
+probit\left(x\right)=\left(\sqrt2\right){erf}^{-1}\left(2x-1\right)=\left(\sqrt2\right)\left(\frac{2}{\sqrt\pi}\right)\int_{0}^{2x-1}{e^{-t^2}dt}\]</span></p>
+<p>The R command for the probit function is just the function <code>qnorm()</code>. As you might suspect, the inverse function is <code>pnorm()</code>.</p>
+<div class="sourceCode" id="cb1036"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1036-1"><a href="4.5-mod-04-trans.html#cb1036-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">99</span><span class="sc">/</span><span class="dv">100</span></span>
+<span id="cb1036-2"><a href="4.5-mod-04-trans.html#cb1036-2" aria-hidden="true" tabindex="-1"></a>x.log <span class="ot">&lt;-</span> <span class="fu">qlogis</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">99</span><span class="sc">/</span><span class="dv">100</span>)</span>
+<span id="cb1036-3"><a href="4.5-mod-04-trans.html#cb1036-3" aria-hidden="true" tabindex="-1"></a>x.prb <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">99</span><span class="sc">/</span><span class="dv">100</span>)</span>
+<span id="cb1036-4"><a href="4.5-mod-04-trans.html#cb1036-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1036-5"><a href="4.5-mod-04-trans.html#cb1036-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, x.log, <span class="at">type=</span><span class="st">&quot;l&quot;</span>,</span>
+<span id="cb1036-6"><a href="4.5-mod-04-trans.html#cb1036-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">xlab=</span><span class="st">&quot;x&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;f(x)&quot;</span>)</span>
+<span id="cb1036-7"><a href="4.5-mod-04-trans.html#cb1036-7" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(x, x.prb, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>,</span>
+<span id="cb1036-8"><a href="4.5-mod-04-trans.html#cb1036-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb1036-9"><a href="4.5-mod-04-trans.html#cb1036-9" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>,</span>
+<span id="cb1036-10"><a href="4.5-mod-04-trans.html#cb1036-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;Logit(x)&quot;</span>, <span class="st">&quot;Probit(x)&quot;</span>),</span>
+<span id="cb1036-11"><a href="4.5-mod-04-trans.html#cb1036-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-389-1.png" width="576" style="display: block; margin: auto;" /></p>
+</div>
+<div id="arcsine-transformation" class="section level4" number="4.5.5.3">
+<h4><span class="header-section-number">4.5.5.3</span> Arcsine transformation</h4>
+<p>Another option for proportional data is to use the arcsine transform:</p>
+<p><span class="math display">\[y_i=\frac{2}{\pi}arcsin\left(\sqrt{x_i}\right)\]</span></p>
+<p>Some sources omit the coefficient <span class="math inline">\(2/\pi\)</span>; others do not. Including the <span class="math inline">\(2/\pi\)</span> ensures that the transformed values range from 0 to 1 <span class="citation">(<a href="#ref-mccune2002analysis" role="doc-biblioref">McCune et al. 2002</a>)</span>. It should be noted that the arcsine transformation should probably <em>not</em> be used when the data come from a binomial process. In those cases, logistic or binomial GLMs are likely to be more appropriate than an arcsine transformation. Simulation results have found that the arcsine transform should probably <strong><em>not</em></strong> be used for ecological data <span class="citation">(<a href="#ref-warton2011" role="doc-biblioref">Warton and Hui 2011</a>)</span>. I couldn’t find a reference on its acceptability in other areas of biology but I’d be surprised if it was appropriate given the arguments presented by <span class="citation">Warton and Hui (<a href="#ref-warton2011" role="doc-biblioref">2011</a>)</span>.</p>
+<p>If you insist on using the arcsine transform, you can do it in R using <code>asin()</code> function. In the examples below, <code>asin()</code> is embedded inside custom functions that perform the other parts of the arcsine transform.</p>
+<div class="sourceCode" id="cb1037"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1037-1"><a href="4.5-mod-04-trans.html#cb1037-1" aria-hidden="true" tabindex="-1"></a><span class="co"># unbounded version:</span></span>
+<span id="cb1037-2"><a href="4.5-mod-04-trans.html#cb1037-2" aria-hidden="true" tabindex="-1"></a>asin.trans1 <span class="ot">&lt;-</span> <span class="cf">function</span>(p) {<span class="fu">asin</span>(<span class="fu">sqrt</span>(p))}</span>
+<span id="cb1037-3"><a href="4.5-mod-04-trans.html#cb1037-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1037-4"><a href="4.5-mod-04-trans.html#cb1037-4" aria-hidden="true" tabindex="-1"></a><span class="co"># bounded version:</span></span>
+<span id="cb1037-5"><a href="4.5-mod-04-trans.html#cb1037-5" aria-hidden="true" tabindex="-1"></a>asin.trans2 <span class="ot">&lt;-</span> <span class="cf">function</span>(p) {<span class="dv">2</span><span class="sc">/</span>pi<span class="sc">*</span><span class="fu">asin</span>(<span class="fu">sqrt</span>(p))}</span>
+<span id="cb1037-6"><a href="4.5-mod-04-trans.html#cb1037-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1037-7"><a href="4.5-mod-04-trans.html#cb1037-7" aria-hidden="true" tabindex="-1"></a><span class="co"># example of use</span></span>
+<span id="cb1037-8"><a href="4.5-mod-04-trans.html#cb1037-8" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">100</span>)</span>
+<span id="cb1037-9"><a href="4.5-mod-04-trans.html#cb1037-9" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="fu">asin.trans1</span>(x)</span>
+<span id="cb1037-10"><a href="4.5-mod-04-trans.html#cb1037-10" aria-hidden="true" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> <span class="fu">asin.trans2</span>(x)</span>
+<span id="cb1037-11"><a href="4.5-mod-04-trans.html#cb1037-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1037-12"><a href="4.5-mod-04-trans.html#cb1037-12" aria-hidden="true" tabindex="-1"></a><span class="co"># compare with and without 2/pi coefficient:</span></span>
+<span id="cb1037-13"><a href="4.5-mod-04-trans.html#cb1037-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x,y1, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.6</span>))</span>
+<span id="cb1037-14"><a href="4.5-mod-04-trans.html#cb1037-14" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(x, y2, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb1037-15"><a href="4.5-mod-04-trans.html#cb1037-15" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>,</span>
+<span id="cb1037-16"><a href="4.5-mod-04-trans.html#cb1037-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;Unbounded version&quot;</span>, <span class="st">&quot;Bounded version&quot;</span>),</span>
+<span id="cb1037-17"><a href="4.5-mod-04-trans.html#cb1037-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch=</span><span class="dv">1</span>, <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>), </span>
+<span id="cb1037-18"><a href="4.5-mod-04-trans.html#cb1037-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">cex=</span><span class="fl">1.4</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-390-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>The plot below compares the arcsine to the logit transformation for proportional data.</p>
+<div class="sourceCode" id="cb1038"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1038-1"><a href="4.5-mod-04-trans.html#cb1038-1" aria-hidden="true" tabindex="-1"></a><span class="co"># compare to logit transform:</span></span>
+<span id="cb1038-2"><a href="4.5-mod-04-trans.html#cb1038-2" aria-hidden="true" tabindex="-1"></a>y3 <span class="ot">&lt;-</span> <span class="fu">qlogis</span>(x)</span>
+<span id="cb1038-3"><a href="4.5-mod-04-trans.html#cb1038-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x,y1, <span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>), <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span>
+<span id="cb1038-4"><a href="4.5-mod-04-trans.html#cb1038-4" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(x, y2, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb1038-5"><a href="4.5-mod-04-trans.html#cb1038-5" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(x, y3, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb1038-6"><a href="4.5-mod-04-trans.html#cb1038-6" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>, </span>
+<span id="cb1038-7"><a href="4.5-mod-04-trans.html#cb1038-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;Unbounded arcsine&quot;</span>,</span>
+<span id="cb1038-8"><a href="4.5-mod-04-trans.html#cb1038-8" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;Bounded arcsine&quot;</span>,</span>
+<span id="cb1038-9"><a href="4.5-mod-04-trans.html#cb1038-9" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;Logit&quot;</span>),</span>
+<span id="cb1038-10"><a href="4.5-mod-04-trans.html#cb1038-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch=</span><span class="dv">1</span>, <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>), <span class="at">cex=</span><span class="fl">1.4</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-391-1.png" width="576" style="display: block; margin: auto;" /></p>
+</div>
+<div id="box-cox-transformation" class="section level4" number="4.5.5.4">
+<h4><span class="header-section-number">4.5.5.4</span> Box-Cox transformation</h4>
+<p>The <strong>Box-Cox transformation</strong> is a kind of power transform that can achieve a normal distribution in a non-normally distributed response variable <span class="citation">(<a href="#ref-box1964" role="doc-biblioref">Box and Cox 1964</a>)</span>.</p>
+<p><span class="math display">\[y_i=\left\{\begin{matrix}log{\left(x_i\right)}&amp;if\ \lambda=0\\\left(x_i^\lambda-1\right)/\lambda&amp;otherwise\\\end{matrix}\right.\]</span></p>
+<p>Here the parameter <span class="math inline">\(\lambda\)</span> is some constant that must be optimized for a given variable. When <span class="math inline">\(\lambda\)</span> = 0, the transformation is defined as <span class="math inline">\(y_i=\log{\left(x_i\right)}\)</span>. Unlike the other transformations presented here, the Box-Cox transformation only makes sense in the context of a data model such as linear regression. The basic procedure is to first estimate the optimal <span class="math inline">\(\lambda\)</span> for a given model, then use that <span class="math inline">\(\lambda\)</span> to transform the data.</p>
+<p>The Box-Cox transformation is available in several packages, but not base R. Here is an example using the functions in package MASS:</p>
+<div class="sourceCode" id="cb1039"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1039-1"><a href="4.5-mod-04-trans.html#cb1039-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb1039-2"><a href="4.5-mod-04-trans.html#cb1039-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1039-3"><a href="4.5-mod-04-trans.html#cb1039-3" aria-hidden="true" tabindex="-1"></a><span class="co"># generate some data</span></span>
+<span id="cb1039-4"><a href="4.5-mod-04-trans.html#cb1039-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb1039-5"><a href="4.5-mod-04-trans.html#cb1039-5" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb1039-6"><a href="4.5-mod-04-trans.html#cb1039-6" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">1</span>, <span class="dv">5</span>)</span>
+<span id="cb1039-7"><a href="4.5-mod-04-trans.html#cb1039-7" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x<span class="sc">^</span><span class="dv">3</span> <span class="sc">+</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb1039-8"><a href="4.5-mod-04-trans.html#cb1039-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1039-9"><a href="4.5-mod-04-trans.html#cb1039-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x,y)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-392-1.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb1040"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1040-1"><a href="4.5-mod-04-trans.html#cb1040-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fit a linear model</span></span>
+<span id="cb1040-2"><a href="4.5-mod-04-trans.html#cb1040-2" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
+<span id="cb1040-3"><a href="4.5-mod-04-trans.html#cb1040-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1040-4"><a href="4.5-mod-04-trans.html#cb1040-4" aria-hidden="true" tabindex="-1"></a><span class="co"># run the box-cox transformation</span></span>
+<span id="cb1040-5"><a href="4.5-mod-04-trans.html#cb1040-5" aria-hidden="true" tabindex="-1"></a>bc <span class="ot">&lt;-</span> <span class="fu">boxcox</span>(m1)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-392-2.png" width="576" style="display: block; margin: auto;" /></p>
+<p>The figure below illustrates how the optimal <span class="math inline">\(\lambda\)</span> is determined:</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/04_08.jpg" /></p>
+<div class="sourceCode" id="cb1041"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1041-1"><a href="4.5-mod-04-trans.html#cb1041-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get optimal lambda:</span></span>
+<span id="cb1041-2"><a href="4.5-mod-04-trans.html#cb1041-2" aria-hidden="true" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> bc<span class="sc">$</span>x[<span class="fu">which.max</span>(bc<span class="sc">$</span>y)]</span>
+<span id="cb1041-3"><a href="4.5-mod-04-trans.html#cb1041-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1041-4"><a href="4.5-mod-04-trans.html#cb1041-4" aria-hidden="true" tabindex="-1"></a><span class="co"># boxcox transformation</span></span>
+<span id="cb1041-5"><a href="4.5-mod-04-trans.html#cb1041-5" aria-hidden="true" tabindex="-1"></a>bc.trans <span class="ot">&lt;-</span> <span class="cf">function</span>(x, lam){</span>
+<span id="cb1041-6"><a href="4.5-mod-04-trans.html#cb1041-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(lam <span class="sc">==</span> <span class="dv">0</span>){</span>
+<span id="cb1041-7"><a href="4.5-mod-04-trans.html#cb1041-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">log</span>(x)</span>
+<span id="cb1041-8"><a href="4.5-mod-04-trans.html#cb1041-8" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb1041-9"><a href="4.5-mod-04-trans.html#cb1041-9" aria-hidden="true" tabindex="-1"></a>        ((x<span class="sc">^</span>lam)<span class="sc">-</span><span class="dv">1</span>)<span class="sc">/</span>lam</span>
+<span id="cb1041-10"><a href="4.5-mod-04-trans.html#cb1041-10" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1041-11"><a href="4.5-mod-04-trans.html#cb1041-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1041-12"><a href="4.5-mod-04-trans.html#cb1041-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1041-13"><a href="4.5-mod-04-trans.html#cb1041-13" aria-hidden="true" tabindex="-1"></a>yt <span class="ot">&lt;-</span> <span class="fu">bc.trans</span>(y, lambda)</span>
+<span id="cb1041-14"><a href="4.5-mod-04-trans.html#cb1041-14" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(yt<span class="sc">~</span>x)</span>
+<span id="cb1041-15"><a href="4.5-mod-04-trans.html#cb1041-15" aria-hidden="true" tabindex="-1"></a><span class="co"># note difference in R-squared:</span></span>
+<span id="cb1041-16"><a href="4.5-mod-04-trans.html#cb1041-16" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m1)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y ~ x)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -12.037 -10.734  -1.496   6.798  22.138 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   -56.86      12.34  -4.606  0.00174 ** 
+## x              31.80       3.53   9.009 1.84e-05 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 12.49 on 8 degrees of freedom
+## Multiple R-squared:  0.9103, Adjusted R-squared:  0.8991 
+## F-statistic: 81.15 on 1 and 8 DF,  p-value: 1.84e-05</code></pre>
+<div class="sourceCode" id="cb1043"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1043-1"><a href="4.5-mod-04-trans.html#cb1043-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m2)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = yt ~ x)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.15135 -0.04794 -0.01449  0.06522  0.11884 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -1.08013    0.08491  -12.72 1.37e-06 ***
+## x            1.96623    0.02428   80.97 6.04e-13 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.08589 on 8 degrees of freedom
+## Multiple R-squared:  0.9988, Adjusted R-squared:  0.9986 
+## F-statistic:  6556 on 1 and 8 DF,  p-value: 6.035e-13</code></pre>
+</div>
+</div>
+</div>
+<h3>Literature Cited</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-box1964" class="csl-entry">
+Box, G. E. P., and D. R. Cox. 1964. <a href="https://doi.org/10.1111/j.2517-6161.1964.tb00553.x">An analysis of transformations</a>. Journal of the Royal Statistical Society: Series B (Methodological) 26:211–243.
+</div>
+<div id="ref-kery2010" class="csl-entry">
+Kéry, M. 2010. Introduction to <span>W</span>in<span>BUGS</span> for ecologists: <span>B</span>ayesian approach to regression, <span>ANOVA</span>, mixed models and related analyses. Academic Press.
+</div>
+<div id="ref-mccune2002analysis" class="csl-entry">
+McCune, B., J. B. Grace, and D. L. Urban. 2002. Analysis of ecological communities. MjM software design Gleneden Beach, Oregon, USA.
+</div>
+<div id="ref-warton2011" class="csl-entry">
+Warton, D. I., and F. K. C. Hui. 2011. <a href="https://doi.org/10.1890/10-0340.1">The arcsine is asinine: The analysis of proportions in ecology</a>. Ecology 92:3–10.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="4.4-mod-04-dists2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="4.6-multivariate-data-exploration.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

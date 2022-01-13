@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis</title>
+  <title>8.3 Clustering | Applied Biological Data Analysis</title>
   <meta name="description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta property="og:title" content="8.3 Clustering | Applied Biological Data Analysis" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://greenquanteco.github.io/index.html" />
   <meta property="og:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta name="twitter:title" content="8.3 Clustering | Applied Biological Data Analysis" />
   
   <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="twitter:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="8.5-mod-08-ord.html"/>
-<link rel="next" href="9.1-how-to-use-this-guide.html"/>
+<link rel="prev" href="8.2-mod-08-dist.html"/>
+<link rel="next" href="8.4-mod-08-sims.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -530,22 +530,254 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="mod-09" class="section level1" number="9">
-<h1><span class="header-section-number">Module 9</span> Planning your analysis (what test?)</h1>
-<p>One of the main questions that biologists have after collecting data is, “What statistical test do I use?” Ignoring the fact that they should have thought about that <strong><em>before collecting data</em></strong>, the answer to that question depends on the answers to two other questions:</p>
+<div id="clustering" class="section level2" number="8.3">
+<h2><span class="header-section-number">8.3</span> Clustering</h2>
+<p>Now that we have a way of quantifying multivariate differences between samples as distance, we can use those measures to explore patterns in data. One application of distance metrics is to use them to organize data into clusters or groups consisting of samples that are more similar to each other than they are to other samples. In other words, the <strong>within-group</strong> distances should be smaller than the <strong>between-group</strong> distances. The figure below illustrates this concept with an imaginary example. The clusters shown cleanly separate black, red, and blue points. For example, the average distance between the black points is smaller than the average distance between the black points and the red or blue points. Likewise, the average distance between the red points is smaller than the average distance between the red points and the black points or the blue points.</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/08_11.jpg" /></p>
+<p>There are many methods for clustering observations. Many methods are <strong>hierarchical</strong>, with groups being nested within other groups. Hierarchical methods are often the most useful for biologists, because so many of the phenomena we study have some hierarchical nature to them. Other methods are nonhierarchical. Both approaches work by minimizing within-group distances relative to between group distances. The difference is that hierarchical methods have the constraint that larger groups are formed from subgroups.</p>
+<p>Clustering methods also differ in their manner of group construction. Many methods are <strong>agglomerative</strong>, which means that groups are formed by combining samples. Other methods are <strong>divisive</strong>, which means that all samples start in a single group which is then broken up. Examples of each class of clustering method are shown below.</p>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Group nature</th>
+<th>Group formation</th>
+<th>Common methods</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Nonhierarchical</td>
+<td>Agglomerative</td>
+<td>??</td>
+</tr>
+<tr class="even">
+<td>Nonhierarchical</td>
+<td>Divisive</td>
+<td><em>K</em>-means clustering</td>
+</tr>
+<tr class="odd">
+<td>Hierarchical</td>
+<td>Agglomerative</td>
+<td>Ward clustering <span class="citation">(<a href="#ref-ward1963" role="doc-biblioref">Ward 1963</a>)</span></td>
+</tr>
+<tr class="even">
+<td>Hierarchical</td>
+<td>Divisive</td>
+<td>Association analysis <span class="citation">(<a href="#ref-ludwig1988statistical" role="doc-biblioref">Ludwig et al. 1988</a>, <a href="#ref-legendre2012numerical" role="doc-biblioref">Legendre and Legendre 2012</a>)</span>; TWINSPAN <span class="citation">(<a href="#ref-hill1979" role="doc-biblioref">Hill 1979</a>, <a href="#ref-rolecek2009" role="doc-biblioref">Roleček et al. 2009</a>)</span></td>
+</tr>
+</tbody>
+</table>
+<div id="k-means-clustering" class="section level3" number="8.3.1">
+<h3><span class="header-section-number">8.3.1</span> <em>K</em>-means clustering</h3>
+<p><em>K</em>-means clustering is a method for dividing a dataset with <em>n</em> observations, with <em>p</em> variables, into <em>k</em> categories such that each observation belongs to the cluster with the most similar mean . The “mean” for each category (i.e., group) is really a position in a <em>p</em>-dimensional hyperspace called a <strong>centroid</strong>. In this context, centroids are calculated as the point at the central coordinate of each dimension. The mean is most ofen used, but the median can be a useful alternative.</p>
+<p>There are several algorithms for <em>k</em>-means clustering. One of the most common works like this:</p>
 <ol style="list-style-type: decimal">
-<li>What question are you trying to answer?</li>
-<li>What kind of data do you have?</li>
+<li>Select the desired number of clusters <em>k</em>.</li>
+<li>Make an initial guess of the mean of each cluster. I.e., Start with a <em>k</em> random positions in the <em>p</em>-dimensional hyperspace. These positions are known as centroids.</li>
+<li>Calculate the Euclidean distance between each sample and each centroid.</li>
+<li>Assign each sample to the category corresponding to the nearest centroid.</li>
+<li>Update the centroids for each cluster by calculating the new centroid for the samples assigned to each cluster.</li>
+<li>Repeat steps 3, 4, and 5 until cluster assignments no longer change.</li>
 </ol>
-<p>After <a href="4-mod-04.html#mod-04">exploring the data</a> and gaining an understanding of the patterns and <a href="4.8-mod-04-prob.html#mod-04-prob">problems</a> in a dataset, it is time to run the main analysis. This guide is designed to help you use what you learned in exploring the data to choose an appropriate analytical strategy.</p>
+<p>This algorithm is not guaranteed to find the best possible solution, but it usually works. Distance metrics other than the Euclidean can be used, but Euclidean is most common. Transforming, scaling, and/or standardizing variables so that they are all on the same scale can improve the results.</p>
+<p>The figure below shows the effects of <em>k</em>-means clustering on a pretend dataset with 2 variables with <span class="math inline">\(k = 3\)</span>. The group assignments were determined because groups with those centroids had the smallest possible set of Euclidean distances between the points and the group centroids (right panel). Group centroids are added to the plot in yellow.</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/08_12.jpg" /></p>
+<p>How many clusters are appropriate? That’s a good question to ask, and sometimes a tricky question to answer. One common way to assess the optimal <em>k</em> is to try several <em>k</em> and calculate the within-cluster sum of squared errors (<em>WSS</em>) for all points. The optimal value of <em>k</em> is the value at which a plot of <em>WSS</em> vs. <em>k</em> starts to bend. The example below illustrates this method for the data above.</p>
+<div class="sourceCode" id="cb1604"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1604-1"><a href="8.3-clustering.html#cb1604-1" aria-hidden="true" tabindex="-1"></a><span class="co"># generate a random dataset with 3 clusters</span></span>
+<span id="cb1604-2"><a href="8.3-clustering.html#cb1604-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb1604-3"><a href="8.3-clustering.html#cb1604-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="dv">5</span>, <span class="dv">2</span>), <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">2</span>))</span>
+<span id="cb1604-4"><a href="8.3-clustering.html#cb1604-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">3</span>, <span class="dv">2</span>), <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">2</span>), <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">14</span>, <span class="dv">2</span>))</span>
+<span id="cb1604-5"><a href="8.3-clustering.html#cb1604-5" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(x,y)</span>
+<span id="cb1604-6"><a href="8.3-clustering.html#cb1604-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1604-7"><a href="8.3-clustering.html#cb1604-7" aria-hidden="true" tabindex="-1"></a><span class="co"># perform k-means clustering with k from 2 to 8</span></span>
+<span id="cb1604-8"><a href="8.3-clustering.html#cb1604-8" aria-hidden="true" tabindex="-1"></a>kvec <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">8</span></span>
+<span id="cb1604-9"><a href="8.3-clustering.html#cb1604-9" aria-hidden="true" tabindex="-1"></a>nk <span class="ot">&lt;-</span> <span class="fu">length</span>(kvec)</span>
+<span id="cb1604-10"><a href="8.3-clustering.html#cb1604-10" aria-hidden="true" tabindex="-1"></a>k.list <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">&quot;list&quot;</span>, nk)</span>
+<span id="cb1604-11"><a href="8.3-clustering.html#cb1604-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nk){</span>
+<span id="cb1604-12"><a href="8.3-clustering.html#cb1604-12" aria-hidden="true" tabindex="-1"></a>    k.list[[i]] <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(dat, kvec[i])</span>
+<span id="cb1604-13"><a href="8.3-clustering.html#cb1604-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1604-14"><a href="8.3-clustering.html#cb1604-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1604-15"><a href="8.3-clustering.html#cb1604-15" aria-hidden="true" tabindex="-1"></a><span class="co"># gather WSS for each k</span></span>
+<span id="cb1604-16"><a href="8.3-clustering.html#cb1604-16" aria-hidden="true" tabindex="-1"></a>wss <span class="ot">&lt;-</span> <span class="fu">sapply</span>(k.list, <span class="cf">function</span>(x){x<span class="sc">$</span>tot.withinss})</span>
+<span id="cb1604-17"><a href="8.3-clustering.html#cb1604-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1604-18"><a href="8.3-clustering.html#cb1604-18" aria-hidden="true" tabindex="-1"></a><span class="co"># plot WSS vs. k</span></span>
+<span id="cb1604-19"><a href="8.3-clustering.html#cb1604-19" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb1604-20"><a href="8.3-clustering.html#cb1604-20" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(kvec, wss, <span class="at">type=</span><span class="st">&quot;o&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">pch=</span><span class="fl">1.5</span>,</span>
+<span id="cb1604-21"><a href="8.3-clustering.html#cb1604-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab=</span><span class="st">&quot;Clusters (k)&quot;</span>,</span>
+<span id="cb1604-22"><a href="8.3-clustering.html#cb1604-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab=</span><span class="st">&quot;Total WSS&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-716-1.png" width="672" /></p>
+<p>Notice that total <em>WSS</em> drops off much more slowly above 3 clusters. That is, going from 3 to 4 clusters reduces <em>WSS</em> much less than going from 2 to 3 clusters. The result above could reasonably justify 3 or 4 clusters. The figure below shows how the data are divided into 3 and 4 clusters.</p>
+<div class="sourceCode" id="cb1605"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1605-1"><a href="8.3-clustering.html#cb1605-1" aria-hidden="true" tabindex="-1"></a><span class="co"># assemble values needed for plots</span></span>
+<span id="cb1605-2"><a href="8.3-clustering.html#cb1605-2" aria-hidden="true" tabindex="-1"></a><span class="do">## get clusters</span></span>
+<span id="cb1605-3"><a href="8.3-clustering.html#cb1605-3" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>k3 <span class="ot">&lt;-</span> k.list[[<span class="fu">which</span>(kvec <span class="sc">==</span> <span class="dv">3</span>)]]<span class="sc">$</span>cluster</span>
+<span id="cb1605-4"><a href="8.3-clustering.html#cb1605-4" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>k4 <span class="ot">&lt;-</span> k.list[[<span class="fu">which</span>(kvec <span class="sc">==</span> <span class="dv">4</span>)]]<span class="sc">$</span>cluster</span>
+<span id="cb1605-5"><a href="8.3-clustering.html#cb1605-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1605-6"><a href="8.3-clustering.html#cb1605-6" aria-hidden="true" tabindex="-1"></a><span class="do">## coordinates of group centroids</span></span>
+<span id="cb1605-7"><a href="8.3-clustering.html#cb1605-7" aria-hidden="true" tabindex="-1"></a>km3 <span class="ot">&lt;-</span> k.list[[<span class="fu">which</span>(kvec <span class="sc">==</span> <span class="dv">3</span>)]]</span>
+<span id="cb1605-8"><a href="8.3-clustering.html#cb1605-8" aria-hidden="true" tabindex="-1"></a>km4 <span class="ot">&lt;-</span> k.list[[<span class="fu">which</span>(kvec <span class="sc">==</span> <span class="dv">4</span>)]]</span>
+<span id="cb1605-9"><a href="8.3-clustering.html#cb1605-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1605-10"><a href="8.3-clustering.html#cb1605-10" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>cenx3 <span class="ot">&lt;-</span> km3<span class="sc">$</span>centers[dat<span class="sc">$</span>k3,<span class="dv">1</span>]</span>
+<span id="cb1605-11"><a href="8.3-clustering.html#cb1605-11" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>ceny3 <span class="ot">&lt;-</span> km3<span class="sc">$</span>centers[dat<span class="sc">$</span>k3,<span class="dv">2</span>]</span>
+<span id="cb1605-12"><a href="8.3-clustering.html#cb1605-12" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>cenx4 <span class="ot">&lt;-</span> km4<span class="sc">$</span>centers[dat<span class="sc">$</span>k4,<span class="dv">1</span>]</span>
+<span id="cb1605-13"><a href="8.3-clustering.html#cb1605-13" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>ceny4 <span class="ot">&lt;-</span> km4<span class="sc">$</span>centers[dat<span class="sc">$</span>k4,<span class="dv">2</span>]</span>
+<span id="cb1605-14"><a href="8.3-clustering.html#cb1605-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1605-15"><a href="8.3-clustering.html#cb1605-15" aria-hidden="true" tabindex="-1"></a><span class="do">## colors for each group</span></span>
+<span id="cb1605-16"><a href="8.3-clustering.html#cb1605-16" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>col3 <span class="ot">&lt;-</span> <span class="fu">rainbow</span>(<span class="dv">3</span>)[dat<span class="sc">$</span>k3]</span>
+<span id="cb1605-17"><a href="8.3-clustering.html#cb1605-17" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>col4 <span class="ot">&lt;-</span> <span class="fu">rainbow</span>(<span class="dv">4</span>)[dat<span class="sc">$</span>k4]</span>
+<span id="cb1605-18"><a href="8.3-clustering.html#cb1605-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1605-19"><a href="8.3-clustering.html#cb1605-19" aria-hidden="true" tabindex="-1"></a><span class="co"># make plot</span></span>
+<span id="cb1605-20"><a href="8.3-clustering.html#cb1605-20" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb1605-21"><a href="8.3-clustering.html#cb1605-21" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x,y, <span class="at">pch=</span><span class="dv">16</span>, <span class="at">col=</span>dat<span class="sc">$</span>col3, <span class="at">cex=</span><span class="fl">1.4</span>,</span>
+<span id="cb1605-22"><a href="8.3-clustering.html#cb1605-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab=</span><span class="st">&quot;Variable 1&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;Variable 2&quot;</span>,</span>
+<span id="cb1605-23"><a href="8.3-clustering.html#cb1605-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">main=</span><span class="fu">expression</span>(<span class="fu">italic</span>(k)<span class="sc">==</span><span class="dv">3</span>))</span>
+<span id="cb1605-24"><a href="8.3-clustering.html#cb1605-24" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(dat<span class="sc">$</span>cenx3, dat<span class="sc">$</span>ceny3, dat<span class="sc">$</span>x, dat<span class="sc">$</span>y,</span>
+<span id="cb1605-25"><a href="8.3-clustering.html#cb1605-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">col=</span>dat<span class="sc">$</span>col3, <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb1605-26"><a href="8.3-clustering.html#cb1605-26" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(dat<span class="sc">$</span>cenx3, dat<span class="sc">$</span>ceny3, <span class="at">pch=</span><span class="dv">21</span>, <span class="at">cex=</span><span class="dv">2</span>,</span>
+<span id="cb1605-27"><a href="8.3-clustering.html#cb1605-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">bg=</span><span class="st">&quot;yellow&quot;</span>, <span class="at">col=</span>dat<span class="sc">$</span>col3, <span class="at">lwd=</span><span class="dv">4</span>)</span>
+<span id="cb1605-28"><a href="8.3-clustering.html#cb1605-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1605-29"><a href="8.3-clustering.html#cb1605-29" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x,y, <span class="at">pch=</span><span class="dv">16</span>, <span class="at">col=</span>dat<span class="sc">$</span>col4, <span class="at">cex=</span><span class="fl">1.4</span>,</span>
+<span id="cb1605-30"><a href="8.3-clustering.html#cb1605-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab=</span><span class="st">&quot;Variable 1&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;Variable 2&quot;</span>,</span>
+<span id="cb1605-31"><a href="8.3-clustering.html#cb1605-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">main=</span><span class="fu">expression</span>(<span class="fu">italic</span>(k)<span class="sc">==</span><span class="dv">4</span>))</span>
+<span id="cb1605-32"><a href="8.3-clustering.html#cb1605-32" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(dat<span class="sc">$</span>cenx4, dat<span class="sc">$</span>ceny4, dat<span class="sc">$</span>x, dat<span class="sc">$</span>y,</span>
+<span id="cb1605-33"><a href="8.3-clustering.html#cb1605-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">col=</span>dat<span class="sc">$</span>col4, <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb1605-34"><a href="8.3-clustering.html#cb1605-34" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(dat<span class="sc">$</span>cenx4, dat<span class="sc">$</span>ceny4, <span class="at">pch=</span><span class="dv">21</span>, <span class="at">cex=</span><span class="dv">2</span>,</span>
+<span id="cb1605-35"><a href="8.3-clustering.html#cb1605-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">bg=</span><span class="st">&quot;yellow&quot;</span>, <span class="at">col=</span>dat<span class="sc">$</span>col4, <span class="at">lwd=</span><span class="dv">4</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-717-1.png" width="864" /></p>
+<p>Most of the group assignments stayed the same, but the algorithm split the blue group when <em>k</em> increased from 3 to 4. Accepting the 3 cluster or 4 cluster solution is as much of a biological decision as it is a statistical one. When you get to this point, you need to think about whether the groups make sense or not. Notice that <em>k</em>-means clustering does not necessarily result in groups of equal sizes. This may or may not be a problem depending on the structure of your dataset and the question you are trying to answer.</p>
+<p>Below is another example of <em>k</em>-means clustering applied to the taxonomy dataset from above. Examine the figure and ask yourself whether the groupings make sense from a biological perspective. Note that the code block below requires that you have the data file <code>tax_example_2021-10-27.csv</code> in your R home directory. Download it <a href="https://greenquanteco.github.io/tax_example_2021-10-27.csv">here</a>. Note that this is a completely made-up dataset, so you should not use it for anything important.</p>
+<div class="sourceCode" id="cb1606"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1606-1"><a href="8.3-clustering.html#cb1606-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb1606-2"><a href="8.3-clustering.html#cb1606-2" aria-hidden="true" tabindex="-1"></a>in.name <span class="ot">&lt;-</span> <span class="st">&quot;tax_example_2021-10-27.csv&quot;</span></span>
+<span id="cb1606-3"><a href="8.3-clustering.html#cb1606-3" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(in.name, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1606-4"><a href="8.3-clustering.html#cb1606-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(dat) <span class="ot">&lt;-</span> dat<span class="sc">$</span>organism</span>
+<span id="cb1606-5"><a href="8.3-clustering.html#cb1606-5" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>organism <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb1606-6"><a href="8.3-clustering.html#cb1606-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat)</span></code></pre></div>
+<pre><code>##          multicellular heterotrophic flowering vertebrate gills amnion
+## bacteria             0           0.5         0          0     0      0
+## maple                1           0.0         1          0     0      0
+## pine                 1           0.0         0          0     0      0
+## octopus              1           1.0         0          0     1      0
+## shark                1           1.0         0          1     1      0
+## mushroom             1           1.0         0          0     0      0
+##          endothermic tetrapod dna opisthokont protostome deuterostome
+## bacteria           0        0   1           0          0            0
+## maple              0        0   1           0          0            0
+## pine               0        0   1           0          0            0
+## octopus            0        0   1           1          1            0
+## shark              0        0   1           1          0            1
+## mushroom           0        0   1           1          0            0</code></pre>
+<div class="sourceCode" id="cb1608"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1608-1"><a href="8.3-clustering.html#cb1608-1" aria-hidden="true" tabindex="-1"></a>kvec <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">8</span></span>
+<span id="cb1608-2"><a href="8.3-clustering.html#cb1608-2" aria-hidden="true" tabindex="-1"></a>nk <span class="ot">&lt;-</span> <span class="fu">length</span>(kvec)</span>
+<span id="cb1608-3"><a href="8.3-clustering.html#cb1608-3" aria-hidden="true" tabindex="-1"></a>k.list <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">&quot;list&quot;</span>, nk)</span>
+<span id="cb1608-4"><a href="8.3-clustering.html#cb1608-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nk){</span>
+<span id="cb1608-5"><a href="8.3-clustering.html#cb1608-5" aria-hidden="true" tabindex="-1"></a>    k.list[[i]] <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(dat, kvec[i])</span>
+<span id="cb1608-6"><a href="8.3-clustering.html#cb1608-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1608-7"><a href="8.3-clustering.html#cb1608-7" aria-hidden="true" tabindex="-1"></a>wss <span class="ot">&lt;-</span> <span class="fu">sapply</span>(k.list, <span class="cf">function</span>(x){x<span class="sc">$</span>tot.withinss})</span>
+<span id="cb1608-8"><a href="8.3-clustering.html#cb1608-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1608-9"><a href="8.3-clustering.html#cb1608-9" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb1608-10"><a href="8.3-clustering.html#cb1608-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(kvec, wss, <span class="at">type=</span><span class="st">&quot;o&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">pch=</span><span class="fl">1.5</span>,</span>
+<span id="cb1608-11"><a href="8.3-clustering.html#cb1608-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab=</span><span class="st">&quot;Clusters (k)&quot;</span>,</span>
+<span id="cb1608-12"><a href="8.3-clustering.html#cb1608-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab=</span><span class="st">&quot;Total WSS&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-718-1.png" width="672" /></p>
+<p>Four clusters appears to be the “elbow” of the curve, but this varied from run to run (try changing the random number seed and seeing if you get different results). Let’s use <em>k</em> = 4.</p>
+<div class="sourceCode" id="cb1609"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1609-1"><a href="8.3-clustering.html#cb1609-1" aria-hidden="true" tabindex="-1"></a><span class="co"># assemble values needed for plots</span></span>
+<span id="cb1609-2"><a href="8.3-clustering.html#cb1609-2" aria-hidden="true" tabindex="-1"></a><span class="do">## get clusters</span></span>
+<span id="cb1609-3"><a href="8.3-clustering.html#cb1609-3" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>k4 <span class="ot">&lt;-</span> k.list[[<span class="fu">which</span>(kvec <span class="sc">==</span> <span class="dv">4</span>)]]<span class="sc">$</span>cluster</span>
+<span id="cb1609-4"><a href="8.3-clustering.html#cb1609-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1609-5"><a href="8.3-clustering.html#cb1609-5" aria-hidden="true" tabindex="-1"></a><span class="do">## coordinates of group centroids</span></span>
+<span id="cb1609-6"><a href="8.3-clustering.html#cb1609-6" aria-hidden="true" tabindex="-1"></a>km4 <span class="ot">&lt;-</span> k.list[[<span class="fu">which</span>(kvec <span class="sc">==</span> <span class="dv">4</span>)]]</span>
+<span id="cb1609-7"><a href="8.3-clustering.html#cb1609-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1609-8"><a href="8.3-clustering.html#cb1609-8" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>cenx4 <span class="ot">&lt;-</span> km4<span class="sc">$</span>centers[dat<span class="sc">$</span>k4,<span class="dv">1</span>]</span>
+<span id="cb1609-9"><a href="8.3-clustering.html#cb1609-9" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>ceny4 <span class="ot">&lt;-</span> km4<span class="sc">$</span>centers[dat<span class="sc">$</span>k4,<span class="dv">2</span>]</span>
+<span id="cb1609-10"><a href="8.3-clustering.html#cb1609-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1609-11"><a href="8.3-clustering.html#cb1609-11" aria-hidden="true" tabindex="-1"></a><span class="do">## colors for each group</span></span>
+<span id="cb1609-12"><a href="8.3-clustering.html#cb1609-12" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>col4 <span class="ot">&lt;-</span> <span class="fu">rainbow</span>(<span class="dv">4</span>)[dat<span class="sc">$</span>k4]</span>
+<span id="cb1609-13"><a href="8.3-clustering.html#cb1609-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1609-14"><a href="8.3-clustering.html#cb1609-14" aria-hidden="true" tabindex="-1"></a><span class="co"># use PCA to define a reduced dimensional space</span></span>
+<span id="cb1609-15"><a href="8.3-clustering.html#cb1609-15" aria-hidden="true" tabindex="-1"></a><span class="co"># (we&#39;ll cover PCA in detail later)</span></span>
+<span id="cb1609-16"><a href="8.3-clustering.html#cb1609-16" aria-hidden="true" tabindex="-1"></a>pr1 <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(dat[,<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>])</span>
+<span id="cb1609-17"><a href="8.3-clustering.html#cb1609-17" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>x <span class="ot">&lt;-</span> pr1<span class="sc">$</span>x[,<span class="dv">1</span>]</span>
+<span id="cb1609-18"><a href="8.3-clustering.html#cb1609-18" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>y <span class="ot">&lt;-</span> pr1<span class="sc">$</span>x[,<span class="dv">2</span>]</span>
+<span id="cb1609-19"><a href="8.3-clustering.html#cb1609-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1609-20"><a href="8.3-clustering.html#cb1609-20" aria-hidden="true" tabindex="-1"></a><span class="co"># make plot</span></span>
+<span id="cb1609-21"><a href="8.3-clustering.html#cb1609-21" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb1609-22"><a href="8.3-clustering.html#cb1609-22" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dat<span class="sc">$</span>x, dat<span class="sc">$</span>y, <span class="at">type=</span><span class="st">&quot;n&quot;</span>,</span>
+<span id="cb1609-23"><a href="8.3-clustering.html#cb1609-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab=</span><span class="st">&quot;PC 1(54%)&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;PC2 (19%)&quot;</span>)</span>
+<span id="cb1609-24"><a href="8.3-clustering.html#cb1609-24" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(dat<span class="sc">$</span>x, <span class="fu">jitter</span>(dat<span class="sc">$</span>y, <span class="at">amount=</span><span class="fl">0.1</span>),</span>
+<span id="cb1609-25"><a href="8.3-clustering.html#cb1609-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rownames</span>(dat), <span class="at">col=</span>dat<span class="sc">$</span>col4)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-719-1.png" width="672" /></p>
+<p>It’s a little hard to see some of the names, even with the jittering of the Y coordinates. How did the algorithm do? The groups appear to mostly make sense, but there are some oddities. For example:</p>
+<ul>
+<li>Elephants and penguins are more similar than either is to other mammals or birds, respectively (although they are in the same group).</li>
+<li>Salamanders and frogs were grouped with fish and echinoderms, despite being tetrapods.</li>
+<li>Mushrooms are clustered with the protostome invertebrates, despite being more closely related to yeast (which are grouped with the microbes and plants).</li>
+</ul>
+<p>So, the results of the <em>k</em>-means clustering are mostly okay, but there is definitely plenty of room for improvement.</p>
+</div>
+<div id="hierarchical-agglomerative-clustering" class="section level3" number="8.3.2">
+<h3><span class="header-section-number">8.3.2</span> Hierarchical agglomerative clustering</h3>
+<p>One key disadvantage of <em>k</em>-means clustering is that it is not hierarchical: all groups are assumed to be homogenous, with no within-group structure or subgroups. In biological systems this is rarely the case. Many biological phenomena can be understood as hierarchical: for example, phylogeny and taxonomy. Hierarchical clustering can help discover, or at take advantage of, these relationships within your data.</p>
+<p>There are many methods of hierarchical clustering, just as there were many methods of <em>k</em>-means clustering. One of the most common is <strong>Ward’s method</strong> <span class="citation">(<a href="#ref-ward1963" role="doc-biblioref">Ward 1963</a>)</span>, which has many variations. The basic procedure is:</p>
+<ol style="list-style-type: decimal">
+<li>Start with every sample separate (i.e., in its own cluster).</li>
+<li>Find a pair of clusters to combine that leads to the smallest increase in total within-cluster variance</li>
+<li>Repeat step 2 until a stopping point is reached (varies by method).</li>
+</ol>
+<p>The within-cluster variance is an example of an <strong>objective function</strong>, which measures how effectively a statistical model represents the data. Different versions of Ward’s method use different objective functions. The most common is the Euclidean distance between cluster centroids. Squared Euclidean distance and other metrics are also seen in the literature.</p>
+<p>The example below applies hierarchical clustering to the taxonomy dataset seen above. The base R function for hierarchical clustering is <code>hclust()</code>. The data are provided as a distance matrix rather than as raw values. We’ll use the <code>vegdist()</code> function from package <code>vegan</code> instead of the base R <code>dist()</code> function because it offers more distance metrics. Note that the code below assumes that you have the data file <code>tax_example_2021-10-27.csv</code> (<a href="https://greenquanteco.github.io/tax_example_2021-10-27.csv">here</a>) in your R home directory.</p>
+<div class="sourceCode" id="cb1610"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1610-1"><a href="8.3-clustering.html#cb1610-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb1610-2"><a href="8.3-clustering.html#cb1610-2" aria-hidden="true" tabindex="-1"></a>in.name <span class="ot">&lt;-</span> <span class="st">&quot;tax_example_2021-10-27.csv&quot;</span></span>
+<span id="cb1610-3"><a href="8.3-clustering.html#cb1610-3" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(in.name, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1610-4"><a href="8.3-clustering.html#cb1610-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(dat) <span class="ot">&lt;-</span> dat<span class="sc">$</span>organism</span>
+<span id="cb1610-5"><a href="8.3-clustering.html#cb1610-5" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>organism <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb1610-6"><a href="8.3-clustering.html#cb1610-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1610-7"><a href="8.3-clustering.html#cb1610-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegan)</span></code></pre></div>
+<pre><code>## Loading required package: permute</code></pre>
+<pre><code>## This is vegan 2.5-7</code></pre>
+<div class="sourceCode" id="cb1613"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1613-1"><a href="8.3-clustering.html#cb1613-1" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="fu">vegdist</span>(dat, <span class="at">method=</span><span class="st">&quot;euclidean&quot;</span>)</span>
+<span id="cb1613-2"><a href="8.3-clustering.html#cb1613-2" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="fu">vegdist</span>(dat) <span class="co"># default bray-curtis</span></span>
+<span id="cb1613-3"><a href="8.3-clustering.html#cb1613-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1613-4"><a href="8.3-clustering.html#cb1613-4" aria-hidden="true" tabindex="-1"></a>h1 <span class="ot">&lt;-</span> <span class="fu">hclust</span>(d1, <span class="at">method=</span><span class="st">&quot;ward.D&quot;</span>)</span>
+<span id="cb1613-5"><a href="8.3-clustering.html#cb1613-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(h1)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-720-1.png" width="672" /></p>
+<p>The results of hierarchical clustering are usually presented as a <strong>dendrogram</strong>. The word root <em>dendro</em>- means “tree”, which is a good way to think of a dendrogram. The branches show the relationship between the clusters. In the result above, pines and ferns form a cluster, as do maple and ivy. The “pine-fern” and “maple-ivy” clusters together form a bigger cluster.</p>
+<p>The clustering based on Bray-Curtis distances is slightly different:</p>
+<div class="sourceCode" id="cb1614"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1614-1"><a href="8.3-clustering.html#cb1614-1" aria-hidden="true" tabindex="-1"></a>h2 <span class="ot">&lt;-</span> <span class="fu">hclust</span>(d2, <span class="at">method=</span><span class="st">&quot;ward.D&quot;</span>)</span>
+<span id="cb1614-2"><a href="8.3-clustering.html#cb1614-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(h2)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-721-1.png" width="672" /></p>
+<p>The results using the Euclidean and Bray-Curtis distance metrics are similar, but both dendrograms make some “interesting” choices. For example, one would expect the most basal (toward the root of the tree) division between animals and non-animals, or between prokaryotes and eukaryotes. Is that the case?</p>
+<p>Not at all. The method clustered the taxa in a way that doesn’t match their real-life phylogenetic relationships. This is partly because of the characteristics that were used (a very vertebrate animal-centric set!). This also illustrates the difference between taxonomy, which seeks to combine organisms by shared characteristics; and phylogeny, which results from how lineages divide over time.</p>
+</div>
+</div>
+<h3>Literature Cited</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-hill1979" class="csl-entry">
+Hill, M. O. 1979. A <span>FORTRAN</span> program for arranging multivariate data in an ordered two-way table by classification of the individuals and attributes. <span>TWINSPAN</span>.
+</div>
+<div id="ref-legendre2012numerical" class="csl-entry">
+Legendre, P., and L. Legendre. 2012. Numerical ecology. Elsevier, Amsterdam.
+</div>
+<div id="ref-ludwig1988statistical" class="csl-entry">
+Ludwig, J. A., J. F. Reynolds, L. QUARTET, and J. Reynolds. 1988. Statistical ecology: A primer in methods and computing. John Wiley &amp; Sons.
+</div>
+<div id="ref-rolecek2009" class="csl-entry">
+Roleček, J., L. Tichý, D. Zelený, and M. Chytrý. 2009. <a href="https://doi.org/10.1111/j.1654-1103.2009.01062.x">Modified <span>TWINSPAN</span> classification in which the hierarchy respects cluster heterogeneity</a>. Journal of Vegetation Science 20:596–602.
+</div>
+<div id="ref-ward1963" class="csl-entry">
+Ward, J. H. 1963. <a href="https://doi.org/10.1080/01621459.1963.10500845">Hierarchical grouping to optimize an objective function</a>. Journal of the American Statistical Association 58:236–244.
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="8.5-mod-08-ord.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="9.1-how-to-use-this-guide.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="8.2-mod-08-dist.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="8.4-mod-08-sims.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

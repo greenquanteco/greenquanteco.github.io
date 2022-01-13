@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis</title>
+  <title>7.1 Prelude (GLM) | Applied Biological Data Analysis</title>
   <meta name="description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta property="og:title" content="7.1 Prelude (GLM) | Applied Biological Data Analysis" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://greenquanteco.github.io/index.html" />
   <meta property="og:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta name="twitter:title" content="7.1 Prelude (GLM) | Applied Biological Data Analysis" />
   
   <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="twitter:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="8.5-mod-08-ord.html"/>
-<link rel="next" href="9.1-how-to-use-this-guide.html"/>
+<link rel="prev" href="7-mod-07.html"/>
+<link rel="next" href="7.2-mod-07-lmm.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -530,22 +530,23 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="mod-09" class="section level1" number="9">
-<h1><span class="header-section-number">Module 9</span> Planning your analysis (what test?)</h1>
-<p>One of the main questions that biologists have after collecting data is, “What statistical test do I use?” Ignoring the fact that they should have thought about that <strong><em>before collecting data</em></strong>, the answer to that question depends on the answers to two other questions:</p>
-<ol style="list-style-type: decimal">
-<li>What question are you trying to answer?</li>
-<li>What kind of data do you have?</li>
-</ol>
-<p>After <a href="4-mod-04.html#mod-04">exploring the data</a> and gaining an understanding of the patterns and <a href="4.8-mod-04-prob.html#mod-04-prob">problems</a> in a dataset, it is time to run the main analysis. This guide is designed to help you use what you learned in exploring the data to choose an appropriate analytical strategy.</p>
+<div id="prelude-glm" class="section level2" number="7.1">
+<h2><span class="header-section-number">7.1</span> Prelude (GLM)</h2>
+<p>So far in this course we have explored ways to model data by breaking them down into a deterministic part (that defines the expected value) and a stochastic part (that defines the variability or uncertainty). This culminated in the generalized linear model (GLM), a powerful framework for analyzing biological data.</p>
+<p>Sometimes our data contain variability that we want to account for, without necessarily explaining. Some of this variability is described by <strong>random effects</strong>. Random effects describe variation due to unobserved or uncontrolled factors. As we will see below, random effects have a very different mathematical relationship to the data than the more familiar <strong>fixed effects</strong> such as intercept and slope. Models that contain both fixed and random effects are called <strong>mixed effects models</strong>, <strong>hierarchical models</strong>, or <strong>multi-level models</strong>. Just like GLMs, we will introduce mixed effects models as if they were extensions of ordinary linear models.</p>
+<p>In the <a href="5.2-mod-05-basic.html#mod-05-basic">previous module</a> we explored the generalized linear model (GLM), which unites many previously separate models into a single framework. A GLM is used to describe a system where there is a linear relationship between the predictor variables and some transformed version of the response variable, and a probability distribution that accounts for variability about the expected value of the response. This is a flexible generalization of the linear model. The linear model is presented below in the format of a GLM to illustrate the basic idea:</p>
+<p><span class="math display">\[Y~Normal\left(\mu,\sigma^2\right)\]</span>
+<span class="math display">\[\mu=\eta\]</span>
+<span class="math display">\[\eta=\beta_0+\beta_1X\]</span></p>
+<p>In a GLM there is a linear predictor <span class="math inline">\(\eta\)</span> (“eta”) that is a linear function of the predictor variable (or variables). The expected value of <em>Y</em>, <span class="math inline">\(\mu\)</span>, is related to <span class="math inline">\(\eta\)</span> by a deterministic and invertible function (in this case, identity). The actual values of <em>Y</em> come from a probability distribution defined by the expected value <span class="math inline">\(\mu\)</span> and potentially other parameters (<span class="math inline">\(\sigma^2\)</span>, in this case). The equation for the linear predictor is also called the <strong>deterministic part</strong> of the model, and the expression for the distribution of the response variable is called the <strong>stochastic part</strong> of the model. Understanding how to think about statistical models in the language of their deterministic and stochastic parts is the key to understanding mixed models.</p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="8.5-mod-08-ord.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="9.1-how-to-use-this-guide.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="7-mod-07.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="7.2-mod-07-lmm.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

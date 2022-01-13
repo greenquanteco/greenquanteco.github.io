@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4.4 Fitting and testing distributions | Applied Biological Data Analysis</title>
+  <meta name="description" content="Helping biologists to become more informed users of R and statistical methods." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4.4 Fitting and testing distributions | Applied Biological Data Analysis" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://greenquanteco.github.io/index.html" />
+  <meta property="og:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
+  <meta property="og:description" content="Helping biologists to become more informed users of R and statistical methods." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4.4 Fitting and testing distributions | Applied Biological Data Analysis" />
+  
+  <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
+  <meta name="twitter:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
+
+<meta name="author" content="Nick Green, Kennesaw State University" />
+
+
+<meta name="date" content="2022-01-12" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="4.3-mod-04-dists1.html"/>
+<link rel="next" href="4.5-mod-04-trans.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="license-and-permissions.html"><a href="license-and-permissions.html"><i class="fa fa-check"></i>License and permissions</a></li>
+<li class="chapter" data-level="" data-path="course-description.html"><a href="course-description.html"><i class="fa fa-check"></i>Course description</a></li>
+<li class="chapter" data-level="" data-path="course-objectives.html"><a href="course-objectives.html"><i class="fa fa-check"></i>Course objectives</a></li>
+<li class="chapter" data-level="" data-path="course-requirements.html"><a href="course-requirements.html"><i class="fa fa-check"></i>Course requirements</a></li>
+<li class="chapter" data-level="" data-path="recommended-reading.html"><a href="recommended-reading.html"><i class="fa fa-check"></i>Recommended reading</a></li>
+<li class="chapter" data-level="" data-path="course-organization.html"><a href="course-organization.html"><i class="fa fa-check"></i>Course organization</a></li>
+<li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the author</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="1-mod-01.html"><a href="1-mod-01.html"><i class="fa fa-check"></i><b>1</b> Statistics in modern biology</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="1.1-overview.html"><a href="1.1-overview.html"><i class="fa fa-check"></i><b>1.1</b> Overview</a></li>
+<li class="chapter" data-level="1.2" data-path="1.2-statistics-in-modern-biology.html"><a href="1.2-statistics-in-modern-biology.html"><i class="fa fa-check"></i><b>1.2</b> Statistics in modern biology</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="1.2-statistics-in-modern-biology.html"><a href="1.2-statistics-in-modern-biology.html#the-scientific-method"><i class="fa fa-check"></i><b>1.2.1</b> The scientific method</a></li>
+<li class="chapter" data-level="1.2.2" data-path="1.2-statistics-in-modern-biology.html"><a href="1.2-statistics-in-modern-biology.html#example-data-analysis"><i class="fa fa-check"></i><b>1.2.2</b> Example data analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="1.3-misuses-of-statistics.html"><a href="1.3-misuses-of-statistics.html"><i class="fa fa-check"></i><b>1.3</b> Misuses of statistics</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="1.3-misuses-of-statistics.html"><a href="1.3-misuses-of-statistics.html#proving-the-trivial-and-meaningless-hypotheses"><i class="fa fa-check"></i><b>1.3.1</b> “Proving” the trivial and meaningless hypotheses</a></li>
+<li class="chapter" data-level="1.3.2" data-path="1.3-misuses-of-statistics.html"><a href="1.3-misuses-of-statistics.html#inappropriate-methods"><i class="fa fa-check"></i><b>1.3.2</b> Inappropriate methods</a></li>
+<li class="chapter" data-level="1.3.3" data-path="1.3-misuses-of-statistics.html"><a href="1.3-misuses-of-statistics.html#p-hacking-and-data-dredging"><i class="fa fa-check"></i><b>1.3.3</b> <em>P</em>-hacking and data dredging</a></li>
+<li class="chapter" data-level="1.3.4" data-path="1.3-misuses-of-statistics.html"><a href="1.3-misuses-of-statistics.html#inadequate-sample-sizes-and-pseudoreplication"><i class="fa fa-check"></i><b>1.3.4</b> Inadequate sample sizes and pseudoreplication</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><i class="fa fa-check"></i><b>1.4</b> <em>P</em>-values and null hypothesis significance testing (NHST)</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#definition"><i class="fa fa-check"></i><b>1.4.1</b> Definition</a></li>
+<li class="chapter" data-level="1.4.2" data-path="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#history-and-status-of-p-values"><i class="fa fa-check"></i><b>1.4.2</b> History and status of <em>P</em>-values</a></li>
+<li class="chapter" data-level="1.4.3" data-path="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#where-p-values-come-from"><i class="fa fa-check"></i><b>1.4.3</b> Where <em>P</em>-values come from</a></li>
+<li class="chapter" data-level="1.4.4" data-path="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#what-p-values-mean-and-do-not-mean"><i class="fa fa-check"></i><b>1.4.4</b> What <em>P</em>-values mean and do not mean</a></li>
+<li class="chapter" data-level="1.4.5" data-path="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#do-you-need-a-p-value"><i class="fa fa-check"></i><b>1.4.5</b> Do you need a <em>P</em>-value?</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="1.5-alternatives-to-nhst.html"><a href="1.5-alternatives-to-nhst.html"><i class="fa fa-check"></i><b>1.5</b> Alternatives to NHST</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="1.5-alternatives-to-nhst.html"><a href="1.5-alternatives-to-nhst.html#bayesian-inference"><i class="fa fa-check"></i><b>1.5.1</b> Bayesian inference</a></li>
+<li class="chapter" data-level="1.5.2" data-path="1.5-alternatives-to-nhst.html"><a href="1.5-alternatives-to-nhst.html#information-theoretic-methods"><i class="fa fa-check"></i><b>1.5.2</b> Information-theoretic methods</a></li>
+<li class="chapter" data-level="1.5.3" data-path="1.5-alternatives-to-nhst.html"><a href="1.5-alternatives-to-nhst.html#machine-learning"><i class="fa fa-check"></i><b>1.5.3</b> Machine learning</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="2-mod-02.html"><a href="2-mod-02.html"><i class="fa fa-check"></i><b>2</b> Introduction to R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="2.1-getting-started-with-r.html"><a href="2.1-getting-started-with-r.html"><i class="fa fa-check"></i><b>2.1</b> Getting started with R</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="2.1-getting-started-with-r.html"><a href="2.1-getting-started-with-r.html#what-is-r"><i class="fa fa-check"></i><b>2.1.1</b> What is R?</a></li>
+<li class="chapter" data-level="2.1.2" data-path="2.1-getting-started-with-r.html"><a href="2.1-getting-started-with-r.html#advantages-of-r"><i class="fa fa-check"></i><b>2.1.2</b> Advantages of R</a></li>
+<li class="chapter" data-level="2.1.3" data-path="2.1-getting-started-with-r.html"><a href="2.1-getting-started-with-r.html#disadvantages-of-r"><i class="fa fa-check"></i><b>2.1.3</b> Disadvantages of R</a></li>
+<li class="chapter" data-level="2.1.4" data-path="2.1-getting-started-with-r.html"><a href="2.1-getting-started-with-r.html#base-r-and-vs.-tidyverse"><i class="fa fa-check"></i><b>2.1.4</b> Base R and (vs.?) <code>tidyverse</code></a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="2.2-download-and-install-r-and-rstudio.html"><a href="2.2-download-and-install-r-and-rstudio.html"><i class="fa fa-check"></i><b>2.2</b> Download and install R (and RStudio)</a></li>
+<li class="chapter" data-level="2.3" data-path="2.3-using-r.html"><a href="2.3-using-r.html"><i class="fa fa-check"></i><b>2.3</b> Using R</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="2.3-using-r.html"><a href="2.3-using-r.html#using-the-base-r-gui"><i class="fa fa-check"></i><b>2.3.1</b> Using the base R GUI</a></li>
+<li class="chapter" data-level="2.3.2" data-path="2.3-using-r.html"><a href="2.3-using-r.html#using-r-in-rstudio"><i class="fa fa-check"></i><b>2.3.2</b> Using R in RStudio</a></li>
+<li class="chapter" data-level="2.3.3" data-path="2.3-using-r.html"><a href="2.3-using-r.html#using-r-with-other-programs"><i class="fa fa-check"></i><b>2.3.3</b> Using R with other programs</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html"><i class="fa fa-check"></i><b>2.4</b> A first R session</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#import-data"><i class="fa fa-check"></i><b>2.4.1</b> Import data</a></li>
+<li class="chapter" data-level="2.4.2" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#explore-and-visualize-data"><i class="fa fa-check"></i><b>2.4.2</b> Explore and visualize data</a></li>
+<li class="chapter" data-level="2.4.3" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#transform-data"><i class="fa fa-check"></i><b>2.4.3</b> Transform data</a></li>
+<li class="chapter" data-level="2.4.4" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#analyze-data"><i class="fa fa-check"></i><b>2.4.4</b> Analyze data</a></li>
+<li class="chapter" data-level="2.4.5" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#write-out-results"><i class="fa fa-check"></i><b>2.4.5</b> Write out results</a></li>
+<li class="chapter" data-level="2.4.6" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#save-your-work"><i class="fa fa-check"></i><b>2.4.6</b> Save your work?</a></li>
+<li class="chapter" data-level="2.4.7" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#whats-next"><i class="fa fa-check"></i><b>2.4.7</b> What’s next?</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="2.5-write-and-execute-commands-in-the-r-console.html"><a href="2.5-write-and-execute-commands-in-the-r-console.html"><i class="fa fa-check"></i><b>2.5</b> Write and execute commands in the R console</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="2.5-write-and-execute-commands-in-the-r-console.html"><a href="2.5-write-and-execute-commands-in-the-r-console.html#r-commandsbasics"><i class="fa fa-check"></i><b>2.5.1</b> R commands–basics</a></li>
+<li class="chapter" data-level="2.5.2" data-path="2.5-write-and-execute-commands-in-the-r-console.html"><a href="2.5-write-and-execute-commands-in-the-r-console.html#elements-of-r-code"><i class="fa fa-check"></i><b>2.5.2</b> Elements of R code</a></li>
+<li class="chapter" data-level="2.5.3" data-path="2.5-write-and-execute-commands-in-the-r-console.html"><a href="2.5-write-and-execute-commands-in-the-r-console.html#the-r-workspace"><i class="fa fa-check"></i><b>2.5.3</b> The R workspace</a></li>
+<li class="chapter" data-level="2.5.4" data-path="2.5-write-and-execute-commands-in-the-r-console.html"><a href="2.5-write-and-execute-commands-in-the-r-console.html#r-code-basics-assignment-and-operators"><i class="fa fa-check"></i><b>2.5.4</b> R code basics: assignment and operators</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="2.6-mod-02-struct.html"><a href="2.6-mod-02-struct.html"><i class="fa fa-check"></i><b>2.6</b> Basic R data structures</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="2.6-mod-02-struct.html"><a href="2.6-mod-02-struct.html#vectors"><i class="fa fa-check"></i><b>2.6.1</b> Vectors</a></li>
+<li class="chapter" data-level="2.6.2" data-path="2.6-mod-02-struct.html"><a href="2.6-mod-02-struct.html#data-frames"><i class="fa fa-check"></i><b>2.6.2</b> Data frames</a></li>
+<li class="chapter" data-level="2.6.3" data-path="2.6-mod-02-struct.html"><a href="2.6-mod-02-struct.html#matrices-and-arrays"><i class="fa fa-check"></i><b>2.6.3</b> Matrices and arrays</a></li>
+<li class="chapter" data-level="2.6.4" data-path="2.6-mod-02-struct.html"><a href="2.6-mod-02-struct.html#lists"><i class="fa fa-check"></i><b>2.6.4</b> Lists</a></li>
+<li class="chapter" data-level="2.6.5" data-path="2.6-mod-02-struct.html"><a href="2.6-mod-02-struct.html#s4-objects"><i class="fa fa-check"></i><b>2.6.5</b> S4 objects</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="2.7-r-data-types.html"><a href="2.7-r-data-types.html"><i class="fa fa-check"></i><b>2.7</b> R data types</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="2.7-r-data-types.html"><a href="2.7-r-data-types.html#character-type"><i class="fa fa-check"></i><b>2.7.1</b> Character type</a></li>
+<li class="chapter" data-level="2.7.2" data-path="2.7-r-data-types.html"><a href="2.7-r-data-types.html#numeric-type"><i class="fa fa-check"></i><b>2.7.2</b> Numeric type</a></li>
+<li class="chapter" data-level="2.7.3" data-path="2.7-r-data-types.html"><a href="2.7-r-data-types.html#integer-type"><i class="fa fa-check"></i><b>2.7.3</b> Integer type</a></li>
+<li class="chapter" data-level="2.7.4" data-path="2.7-r-data-types.html"><a href="2.7-r-data-types.html#logical-type"><i class="fa fa-check"></i><b>2.7.4</b> Logical type</a></li>
+<li class="chapter" data-level="2.7.5" data-path="2.7-r-data-types.html"><a href="2.7-r-data-types.html#special-values"><i class="fa fa-check"></i><b>2.7.5</b> Special values</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="2.8-manage-r-code-as-scripts-.r-files.html"><a href="2.8-manage-r-code-as-scripts-.r-files.html"><i class="fa fa-check"></i><b>2.8</b> Manage R code as scripts (.r files)</a></li>
+<li class="chapter" data-level="2.9" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html"><i class="fa fa-check"></i><b>2.9</b> Manage and use R packages</a>
+<ul>
+<li class="chapter" data-level="2.9.1" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#your-r-library"><i class="fa fa-check"></i><b>2.9.1</b> Your R library</a></li>
+<li class="chapter" data-level="2.9.2" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#installing-packages-using-the-r-gui"><i class="fa fa-check"></i><b>2.9.2</b> Installing packages using the R GUI</a></li>
+<li class="chapter" data-level="2.9.3" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#installing-packages-in-rstudio"><i class="fa fa-check"></i><b>2.9.3</b> Installing packages in RStudio</a></li>
+<li class="chapter" data-level="2.9.4" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#installing-packages-using-the-r-console"><i class="fa fa-check"></i><b>2.9.4</b> Installing packages using the R console</a></li>
+<li class="chapter" data-level="2.9.5" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#working-with-packages-in-r"><i class="fa fa-check"></i><b>2.9.5</b> Working with packages in R</a></li>
+<li class="chapter" data-level="2.9.6" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#package-dependencies"><i class="fa fa-check"></i><b>2.9.6</b> Package dependencies</a></li>
+<li class="chapter" data-level="2.9.7" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#citing-packages"><i class="fa fa-check"></i><b>2.9.7</b> Citing packages</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html"><i class="fa fa-check"></i><b>2.10</b> R documentation</a>
+<ul>
+<li class="chapter" data-level="2.10.1" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html#documentation-help-files"><i class="fa fa-check"></i><b>2.10.1</b> Documentation (help) files</a></li>
+<li class="chapter" data-level="2.10.2" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html#r-vignettes"><i class="fa fa-check"></i><b>2.10.2</b> R vignettes</a></li>
+<li class="chapter" data-level="2.10.3" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html#official-r-project-resources"><i class="fa fa-check"></i><b>2.10.3</b> Official R Project resources</a></li>
+<li class="chapter" data-level="2.10.4" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html#unofficial-online-resources"><i class="fa fa-check"></i><b>2.10.4</b> Unofficial online resources</a></li>
+<li class="chapter" data-level="2.10.5" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html#r-books"><i class="fa fa-check"></i><b>2.10.5</b> R books</a></li>
+<li class="chapter" data-level="2.10.6" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html#two-reminders"><i class="fa fa-check"></i><b>2.10.6</b> Two reminders</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="3-mod-03.html"><a href="3-mod-03.html"><i class="fa fa-check"></i><b>3</b> Data manipulation with R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="3.1-mod-03-inout.html"><a href="3.1-mod-03-inout.html"><i class="fa fa-check"></i><b>3.1</b> Data import and export</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="3.1-mod-03-inout.html"><a href="3.1-mod-03-inout.html#importing-data-preliminaries"><i class="fa fa-check"></i><b>3.1.1</b> Importing data: preliminaries</a></li>
+<li class="chapter" data-level="3.1.2" data-path="3.1-mod-03-inout.html"><a href="3.1-mod-03-inout.html#importing-data-from-text-files-with-read.csv-and-read.table"><i class="fa fa-check"></i><b>3.1.2</b> Importing data from text files with <code>read.csv()</code> and <code>read.table()</code></a></li>
+<li class="chapter" data-level="3.1.3" data-path="3.1-mod-03-inout.html"><a href="3.1-mod-03-inout.html#importing-data-from-saved-workspaces"><i class="fa fa-check"></i><b>3.1.3</b> Importing data from saved workspaces</a></li>
+<li class="chapter" data-level="3.1.4" data-path="3.1-mod-03-inout.html"><a href="3.1-mod-03-inout.html#importing-data-special-cases"><i class="fa fa-check"></i><b>3.1.4</b> Importing data: special cases:</a></li>
+<li class="chapter" data-level="3.1.5" data-path="3.1-mod-03-inout.html"><a href="3.1-mod-03-inout.html#export-data-from-r"><i class="fa fa-check"></i><b>3.1.5</b> Export data from R</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="3.2-making-values-in-r.html"><a href="3.2-making-values-in-r.html"><i class="fa fa-check"></i><b>3.2</b> Making values in R</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="3.2-making-values-in-r.html"><a href="3.2-making-values-in-r.html#producing-arbitrary-values-with-c"><i class="fa fa-check"></i><b>3.2.1</b> Producing arbitrary values with <code>c()</code></a></li>
+<li class="chapter" data-level="3.2.2" data-path="3.2-making-values-in-r.html"><a href="3.2-making-values-in-r.html#generating-regular-values"><i class="fa fa-check"></i><b>3.2.2</b> Generating regular values</a></li>
+<li class="chapter" data-level="3.2.3" data-path="3.2-making-values-in-r.html"><a href="3.2-making-values-in-r.html#generating-random-values"><i class="fa fa-check"></i><b>3.2.3</b> Generating random values</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="3.3-selecting-data-with.html"><a href="3.3-selecting-data-with.html"><i class="fa fa-check"></i><b>3.3</b> Selecting data with <code>[]</code></a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="3.3-selecting-data-with.html"><a href="3.3-selecting-data-with.html#mod-03-brackets"><i class="fa fa-check"></i><b>3.3.1</b> Basics of brackets</a></li>
+<li class="chapter" data-level="3.3.2" data-path="3.3-selecting-data-with.html"><a href="3.3-selecting-data-with.html#extracting-and-selecting-data-with-logical-tests"><i class="fa fa-check"></i><b>3.3.2</b> Extracting and selecting data with logical tests</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="3.4-managing-dates-and-characters.html"><a href="3.4-managing-dates-and-characters.html"><i class="fa fa-check"></i><b>3.4</b> Managing dates and characters</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="3.4-managing-dates-and-characters.html"><a href="3.4-managing-dates-and-characters.html#temporal-data-and-dates"><i class="fa fa-check"></i><b>3.4.1</b> Temporal data and dates</a></li>
+<li class="chapter" data-level="3.4.2" data-path="3.4-managing-dates-and-characters.html"><a href="3.4-managing-dates-and-characters.html#character-data-text"><i class="fa fa-check"></i><b>3.4.2</b> Character data (text)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="3.5-mod-03-dataframe.html"><a href="3.5-mod-03-dataframe.html"><i class="fa fa-check"></i><b>3.5</b> Data frame management</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="3.5-mod-03-dataframe.html"><a href="3.5-mod-03-dataframe.html#data-frame-structure"><i class="fa fa-check"></i><b>3.5.1</b> Data frame structure</a></li>
+<li class="chapter" data-level="3.5.2" data-path="3.5-mod-03-dataframe.html"><a href="3.5-mod-03-dataframe.html#common-data-frame-operations"><i class="fa fa-check"></i><b>3.5.2</b> Common data frame operations</a></li>
+<li class="chapter" data-level="3.5.3" data-path="3.5-mod-03-dataframe.html"><a href="3.5-mod-03-dataframe.html#other-data-frame-operations"><i class="fa fa-check"></i><b>3.5.3</b> Other data frame operations</a></li>
+<li class="chapter" data-level="3.5.4" data-path="3.5-mod-03-dataframe.html"><a href="3.5-mod-03-dataframe.html#mod-03-reshape"><i class="fa fa-check"></i><b>3.5.4</b> Reshaping data frames</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="4-mod-04.html"><a href="4-mod-04.html"><i class="fa fa-check"></i><b>4</b> Exploratory data analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="4.1-descriptive-and-summary-statistics.html"><a href="4.1-descriptive-and-summary-statistics.html"><i class="fa fa-check"></i><b>4.1</b> Descriptive and summary statistics</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="4.1-descriptive-and-summary-statistics.html"><a href="4.1-descriptive-and-summary-statistics.html#basic-summary-statistics"><i class="fa fa-check"></i><b>4.1.1</b> Basic summary statistics</a></li>
+<li class="chapter" data-level="4.1.2" data-path="4.1-descriptive-and-summary-statistics.html"><a href="4.1-descriptive-and-summary-statistics.html#summarizing-data-with-the-apply-family"><i class="fa fa-check"></i><b>4.1.2</b> Summarizing data with the <code>apply()</code> family</a></li>
+<li class="chapter" data-level="4.1.3" data-path="4.1-descriptive-and-summary-statistics.html"><a href="4.1-descriptive-and-summary-statistics.html#mod-04-tabagg"><i class="fa fa-check"></i><b>4.1.3</b> Tabulation and aggregation</a></li>
+<li class="chapter" data-level="4.1.4" data-path="4.1-descriptive-and-summary-statistics.html"><a href="4.1-descriptive-and-summary-statistics.html#aggregation-aka-pivot-tables"><i class="fa fa-check"></i><b>4.1.4</b> Aggregation (aka: pivot tables)</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html"><i class="fa fa-check"></i><b>4.2</b> Visualizing data distributions</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html#boxplots-aka-box-and-whisker-plots"><i class="fa fa-check"></i><b>4.2.1</b> Boxplots (aka: box-and-whisker plots)</a></li>
+<li class="chapter" data-level="4.2.2" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html#histograms"><i class="fa fa-check"></i><b>4.2.2</b> Histograms</a></li>
+<li class="chapter" data-level="4.2.3" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html#kernel-density-plots"><i class="fa fa-check"></i><b>4.2.3</b> Kernel density plots</a></li>
+<li class="chapter" data-level="4.2.4" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html#empirical-cumulative-distribution-plots-ecdf"><i class="fa fa-check"></i><b>4.2.4</b> Empirical cumulative distribution plots (ECDF)</a></li>
+<li class="chapter" data-level="4.2.5" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html#quantile-quantile-qq-plots"><i class="fa fa-check"></i><b>4.2.5</b> Quantile-quantile (QQ) plots</a></li>
+<li class="chapter" data-level="4.2.6" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html#how-should-i-plot-my-data"><i class="fa fa-check"></i><b>4.2.6</b> How should I plot my data?</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="4.3-mod-04-dists1.html"><a href="4.3-mod-04-dists1.html"><i class="fa fa-check"></i><b>4.3</b> Statistical distributions</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="4.3-mod-04-dists1.html"><a href="4.3-mod-04-dists1.html#probability-distributions"><i class="fa fa-check"></i><b>4.3.1</b> Probability distributions</a></li>
+<li class="chapter" data-level="4.3.2" data-path="4.3-mod-04-dists1.html"><a href="4.3-mod-04-dists1.html#probability-distributions-in-r"><i class="fa fa-check"></i><b>4.3.2</b> Probability distributions in R</a></li>
+<li class="chapter" data-level="4.3.3" data-path="4.3-mod-04-dists1.html"><a href="4.3-mod-04-dists1.html#discrete-distributions"><i class="fa fa-check"></i><b>4.3.3</b> Discrete distributions</a></li>
+<li class="chapter" data-level="4.3.4" data-path="4.3-mod-04-dists1.html"><a href="4.3-mod-04-dists1.html#continuous-distributions"><i class="fa fa-check"></i><b>4.3.4</b> Continuous distributions</a></li>
+<li class="chapter" data-level="4.3.5" data-path="4.3-mod-04-dists1.html"><a href="4.3-mod-04-dists1.html#distributions-summary"><i class="fa fa-check"></i><b>4.3.5</b> Distributions summary</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="4.4-mod-04-dists2.html"><a href="4.4-mod-04-dists2.html"><i class="fa fa-check"></i><b>4.4</b> Fitting and testing distributions</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="4.4-mod-04-dists2.html"><a href="4.4-mod-04-dists2.html#estimating-distributional-parameters"><i class="fa fa-check"></i><b>4.4.1</b> Estimating distributional parameters</a></li>
+<li class="chapter" data-level="4.4.2" data-path="4.4-mod-04-dists2.html"><a href="4.4-mod-04-dists2.html#graphical-methods-for-examining-distributions"><i class="fa fa-check"></i><b>4.4.2</b> Graphical methods for examining distributions</a></li>
+<li class="chapter" data-level="4.4.3" data-path="4.4-mod-04-dists2.html"><a href="4.4-mod-04-dists2.html#formal-tests-for-distributions"><i class="fa fa-check"></i><b>4.4.3</b> Formal tests for distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="4.5-mod-04-trans.html"><a href="4.5-mod-04-trans.html"><i class="fa fa-check"></i><b>4.5</b> Data transformations</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="4.5-mod-04-trans.html"><a href="4.5-mod-04-trans.html#why-transform"><i class="fa fa-check"></i><b>4.5.1</b> Why transform?</a></li>
+<li class="chapter" data-level="4.5.2" data-path="4.5-mod-04-trans.html"><a href="4.5-mod-04-trans.html#transforms-vs.-link-functions"><i class="fa fa-check"></i><b>4.5.2</b> Transforms vs. link functions</a></li>
+<li class="chapter" data-level="4.5.3" data-path="4.5-mod-04-trans.html"><a href="4.5-mod-04-trans.html#log-transformation"><i class="fa fa-check"></i><b>4.5.3</b> Log transformation</a></li>
+<li class="chapter" data-level="4.5.4" data-path="4.5-mod-04-trans.html"><a href="4.5-mod-04-trans.html#rank-transformation"><i class="fa fa-check"></i><b>4.5.4</b> Rank transformation</a></li>
+<li class="chapter" data-level="4.5.5" data-path="4.5-mod-04-trans.html"><a href="4.5-mod-04-trans.html#other-transforms-less-common"><i class="fa fa-check"></i><b>4.5.5</b> Other transforms (less common)</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="4.6-multivariate-data-exploration.html"><a href="4.6-multivariate-data-exploration.html"><i class="fa fa-check"></i><b>4.6</b> Multivariate data exploration</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="4.6-multivariate-data-exploration.html"><a href="4.6-multivariate-data-exploration.html#scatterplots-for-two-variables"><i class="fa fa-check"></i><b>4.6.1</b> Scatterplots for two variables</a></li>
+<li class="chapter" data-level="4.6.2" data-path="4.6-multivariate-data-exploration.html"><a href="4.6-multivariate-data-exploration.html#mod-04-smat"><i class="fa fa-check"></i><b>4.6.2</b> Scatterplot matrices for many variables</a></li>
+<li class="chapter" data-level="4.6.3" data-path="4.6-multivariate-data-exploration.html"><a href="4.6-multivariate-data-exploration.html#lattice-plots-for-hierarchical-data"><i class="fa fa-check"></i><b>4.6.3</b> Lattice plots for hierarchical data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="4.7-ordination-brief-introduction.html"><a href="4.7-ordination-brief-introduction.html"><i class="fa fa-check"></i><b>4.7</b> Ordination (brief introduction)</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="4.7-ordination-brief-introduction.html"><a href="4.7-ordination-brief-introduction.html#principal-components-analysis-pca"><i class="fa fa-check"></i><b>4.7.1</b> Principal components analysis (PCA)</a></li>
+<li class="chapter" data-level="4.7.2" data-path="4.7-ordination-brief-introduction.html"><a href="4.7-ordination-brief-introduction.html#nonmetric-multidimensional-scaling-nmds"><i class="fa fa-check"></i><b>4.7.2</b> Nonmetric multidimensional scaling (NMDS)</a></li>
+<li class="chapter" data-level="4.7.3" data-path="4.7-ordination-brief-introduction.html"><a href="4.7-ordination-brief-introduction.html#plotting-ordinations"><i class="fa fa-check"></i><b>4.7.3</b> Plotting ordinations</a></li>
+<li class="chapter" data-level="4.7.4" data-path="4.7-ordination-brief-introduction.html"><a href="4.7-ordination-brief-introduction.html#ordination-wrap-up-for-now"><i class="fa fa-check"></i><b>4.7.4</b> Ordination wrap-up (for now)</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="4.8-mod-04-prob.html"><a href="4.8-mod-04-prob.html"><i class="fa fa-check"></i><b>4.8</b> Common statistical problems</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="4.8-mod-04-prob.html"><a href="4.8-mod-04-prob.html#outliers-and-erroneous-values"><i class="fa fa-check"></i><b>4.8.1</b> Outliers and erroneous values</a></li>
+<li class="chapter" data-level="4.8.2" data-path="4.8-mod-04-prob.html"><a href="4.8-mod-04-prob.html#autocorrelation"><i class="fa fa-check"></i><b>4.8.2</b> Autocorrelation</a></li>
+<li class="chapter" data-level="4.8.3" data-path="4.8-mod-04-prob.html"><a href="4.8-mod-04-prob.html#mod-04-multicol"><i class="fa fa-check"></i><b>4.8.3</b> Collinearity</a></li>
+<li class="chapter" data-level="4.8.4" data-path="4.8-mod-04-prob.html"><a href="4.8-mod-04-prob.html#missing-data"><i class="fa fa-check"></i><b>4.8.4</b> Missing data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="5-mod-05.html"><a href="5-mod-05.html"><i class="fa fa-check"></i><b>5</b> Generalized linear models (GLM)</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html"><i class="fa fa-check"></i><b>5.1</b> Prelude with linear models</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html#assumptions-of-linear-models"><i class="fa fa-check"></i><b>5.1.1</b> Assumptions of linear models</a></li>
+<li class="chapter" data-level="5.1.2" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html#linear-regression-in-r"><i class="fa fa-check"></i><b>5.1.2</b> Linear regression in R</a></li>
+<li class="chapter" data-level="5.1.3" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html#multiple-linear-regression"><i class="fa fa-check"></i><b>5.1.3</b> Multiple linear regression</a></li>
+<li class="chapter" data-level="5.1.4" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html#mod-05-anova"><i class="fa fa-check"></i><b>5.1.4</b> ANOVA and ANCOVA with <code>lm()</code></a></li>
+<li class="chapter" data-level="5.1.5" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html#variations-on-linear-models"><i class="fa fa-check"></i><b>5.1.5</b> Variations on linear models</a></li>
+<li class="chapter" data-level="5.1.6" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html#example-linear-regression-workflow"><i class="fa fa-check"></i><b>5.1.6</b> Example linear regression workflow</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html"><i class="fa fa-check"></i><b>5.2</b> GLM basics</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html#example-glms"><i class="fa fa-check"></i><b>5.2.1</b> Example GLMS</a></li>
+<li class="chapter" data-level="5.2.2" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html#glm-families"><i class="fa fa-check"></i><b>5.2.2</b> GLM families</a></li>
+<li class="chapter" data-level="5.2.3" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html#glm-link-functions"><i class="fa fa-check"></i><b>5.2.3</b> GLM link functions</a></li>
+<li class="chapter" data-level="5.2.4" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html#deviance-and-other-glm-diagnostics"><i class="fa fa-check"></i><b>5.2.4</b> Deviance and other GLM diagnostics</a></li>
+<li class="chapter" data-level="5.2.5" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html#to-pseudo-r2-or-not-to-pseudo-r2"><i class="fa fa-check"></i><b>5.2.5</b> To pseudo-<em>R</em><sup>2</sup> or not to pseudo-<em>R</em><sup>2</sup>?</a></li>
+<li class="chapter" data-level="5.2.6" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html#common-glms"><i class="fa fa-check"></i><b>5.2.6</b> Common GLMs</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="5.3-mod-05-loglin.html"><a href="5.3-mod-05-loglin.html"><i class="fa fa-check"></i><b>5.3</b> Log-linear models</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="5.3-mod-05-loglin.html"><a href="5.3-mod-05-loglin.html#mod-05-loglin-examp"><i class="fa fa-check"></i><b>5.3.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="5.3.2" data-path="5.3-mod-05-loglin.html"><a href="5.3-mod-05-loglin.html#example-with-real-data"><i class="fa fa-check"></i><b>5.3.2</b> Example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="5.4-mod-05-poisson.html"><a href="5.4-mod-05-poisson.html"><i class="fa fa-check"></i><b>5.4</b> Poisson GLM for counts</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="5.4-mod-05-poisson.html"><a href="5.4-mod-05-poisson.html#example-with-simulated-data"><i class="fa fa-check"></i><b>5.4.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="5.4.2" data-path="5.4-mod-05-poisson.html"><a href="5.4-mod-05-poisson.html#example-with-real-data-1"><i class="fa fa-check"></i><b>5.4.2</b> Example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="5.5-mod-05-quasi.html"><a href="5.5-mod-05-quasi.html"><i class="fa fa-check"></i><b>5.5</b> Quasi-Poisson and negative binomial GLM</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="5.5-mod-05-quasi.html"><a href="5.5-mod-05-quasi.html#example-with-simulated-data-1"><i class="fa fa-check"></i><b>5.5.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="5.5.2" data-path="5.5-mod-05-quasi.html"><a href="5.5-mod-05-quasi.html#example-with-real-data-2"><i class="fa fa-check"></i><b>5.5.2</b> Example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="5.6-mod-05-logistic.html"><a href="5.6-mod-05-logistic.html"><i class="fa fa-check"></i><b>5.6</b> Logistic regression for binary outcomes</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="5.6-mod-05-logistic.html"><a href="5.6-mod-05-logistic.html#example-with-simulated-data-2"><i class="fa fa-check"></i><b>5.6.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="5.6.2" data-path="5.6-mod-05-logistic.html"><a href="5.6-mod-05-logistic.html#example-with-real-data-3"><i class="fa fa-check"></i><b>5.6.2</b> Example with real data</a></li>
+<li class="chapter" data-level="5.6.3" data-path="5.6-mod-05-logistic.html"><a href="5.6-mod-05-logistic.html#mod-05-auc"><i class="fa fa-check"></i><b>5.6.3</b> Logistic GLM diagnostics: AUC and ROC</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="5.7-mod-05-binom.html"><a href="5.7-mod-05-binom.html"><i class="fa fa-check"></i><b>5.7</b> Binomial GLM for proportional data</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="5.7-mod-05-binom.html"><a href="5.7-mod-05-binom.html#binomial-glm"><i class="fa fa-check"></i><b>5.7.1</b> Binomial GLM</a></li>
+<li class="chapter" data-level="5.7.2" data-path="5.7-mod-05-binom.html"><a href="5.7-mod-05-binom.html#example-with-simulated-data-3"><i class="fa fa-check"></i><b>5.7.2</b> Example with simulated data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="5.8-mod-05-gamma.html"><a href="5.8-mod-05-gamma.html"><i class="fa fa-check"></i><b>5.8</b> Gamma models for overdispersed data</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="5.8-mod-05-gamma.html"><a href="5.8-mod-05-gamma.html#example-with-simulated-data-4"><i class="fa fa-check"></i><b>5.8.1</b> Example with simulated data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="5.9-mod-05-beyond.html"><a href="5.9-mod-05-beyond.html"><i class="fa fa-check"></i><b>5.9</b> Beyond GLM: Overview of GAM and GEE</a>
+<ul>
+<li class="chapter" data-level="5.9.1" data-path="5.9-mod-05-beyond.html"><a href="5.9-mod-05-beyond.html#mod-05-gam"><i class="fa fa-check"></i><b>5.9.1</b> Generalized additive models (GAM)</a></li>
+<li class="chapter" data-level="5.9.2" data-path="5.9-mod-05-beyond.html"><a href="5.9-mod-05-beyond.html#mod-05-gee"><i class="fa fa-check"></i><b>5.9.2</b> Generalized estimating equations (GEE)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="6-mod-06.html"><a href="6-mod-06.html"><i class="fa fa-check"></i><b>6</b> Nonlinear models</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="6.1-background.html"><a href="6.1-background.html"><i class="fa fa-check"></i><b>6.1</b> Background</a></li>
+<li class="chapter" data-level="6.2" data-path="6.2-mod-06-intro.html"><a href="6.2-mod-06-intro.html"><i class="fa fa-check"></i><b>6.2</b> Nonlinear least squares (NLS)</a></li>
+<li class="chapter" data-level="6.3" data-path="6.3-mod-06-micmen.html"><a href="6.3-mod-06-micmen.html"><i class="fa fa-check"></i><b>6.3</b> Michaelis-Menten curves</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="6.3-mod-06-micmen.html"><a href="6.3-mod-06-micmen.html#mod-06-micmen-sim"><i class="fa fa-check"></i><b>6.3.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="6.3.2" data-path="6.3-mod-06-micmen.html"><a href="6.3-mod-06-micmen.html#example-with-real-data-4"><i class="fa fa-check"></i><b>6.3.2</b> Example with real data</a></li>
+<li class="chapter" data-level="6.3.3" data-path="6.3-mod-06-micmen.html"><a href="6.3-mod-06-micmen.html#alternative-strategies-for-the-analysis"><i class="fa fa-check"></i><b>6.3.3</b> Alternative strategies for the analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="6.4-mod-06-grow.html"><a href="6.4-mod-06-grow.html"><i class="fa fa-check"></i><b>6.4</b> Biological growth curves</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="6.4-mod-06-grow.html"><a href="6.4-mod-06-grow.html#gompertz-and-von-bertalanffy-curves"><i class="fa fa-check"></i><b>6.4.1</b> Gompertz and von Bertalanffy curves</a></li>
+<li class="chapter" data-level="6.4.2" data-path="6.4-mod-06-grow.html"><a href="6.4-mod-06-grow.html#example-with-real-data-5"><i class="fa fa-check"></i><b>6.4.2</b> Example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="6.5-dose-response-curves.html"><a href="6.5-dose-response-curves.html"><i class="fa fa-check"></i><b>6.5</b> Dose response curves</a></li>
+<li class="chapter" data-level="6.6" data-path="6.6-alternatives-to-nls.html"><a href="6.6-alternatives-to-nls.html"><i class="fa fa-check"></i><b>6.6</b> Alternatives to NLS</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="6.6-alternatives-to-nls.html"><a href="6.6-alternatives-to-nls.html#generalized-nonlinear-models"><i class="fa fa-check"></i><b>6.6.1</b> Generalized nonlinear models</a></li>
+<li class="chapter" data-level="6.6.2" data-path="6.6-alternatives-to-nls.html"><a href="6.6-alternatives-to-nls.html#quantile-regression"><i class="fa fa-check"></i><b>6.6.2</b> Quantile regression</a></li>
+<li class="chapter" data-level="6.6.3" data-path="6.6-alternatives-to-nls.html"><a href="6.6-alternatives-to-nls.html#mod-06-gam"><i class="fa fa-check"></i><b>6.6.3</b> Generalized additive models (GAM)</a></li>
+<li class="chapter" data-level="6.6.4" data-path="6.6-alternatives-to-nls.html"><a href="6.6-alternatives-to-nls.html#classification-and-regression-trees-cart"><i class="fa fa-check"></i><b>6.6.4</b> Classification and regression trees (CART)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="7-mod-07.html"><a href="7-mod-07.html"><i class="fa fa-check"></i><b>7</b> Mixed models</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="7.1-prelude-glm.html"><a href="7.1-prelude-glm.html"><i class="fa fa-check"></i><b>7.1</b> Prelude (GLM)</a></li>
+<li class="chapter" data-level="7.2" data-path="7.2-mod-07-lmm.html"><a href="7.2-mod-07-lmm.html"><i class="fa fa-check"></i><b>7.2</b> Linear mixed models (LMM)</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="7.2-mod-07-lmm.html"><a href="7.2-mod-07-lmm.html#formal-definition-and-example"><i class="fa fa-check"></i><b>7.2.1</b> Formal definition and example</a></li>
+<li class="chapter" data-level="7.2.2" data-path="7.2-mod-07-lmm.html"><a href="7.2-mod-07-lmm.html#example-with-simulated-data-5"><i class="fa fa-check"></i><b>7.2.2</b> Example with simulated data</a></li>
+<li class="chapter" data-level="7.2.3" data-path="7.2-mod-07-lmm.html"><a href="7.2-mod-07-lmm.html#p-values-in-lmm"><i class="fa fa-check"></i><b>7.2.3</b> <em>P</em>-values in LMM</a></li>
+<li class="chapter" data-level="7.2.4" data-path="7.2-mod-07-lmm.html"><a href="7.2-mod-07-lmm.html#specifying-random-effects"><i class="fa fa-check"></i><b>7.2.4</b> Specifying random effects</a></li>
+<li class="chapter" data-level="7.2.5" data-path="7.2-mod-07-lmm.html"><a href="7.2-mod-07-lmm.html#lmm-example-with-real-data"><i class="fa fa-check"></i><b>7.2.5</b> LMM example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="7.3-mod-07-glmm.html"><a href="7.3-mod-07-glmm.html"><i class="fa fa-check"></i><b>7.3</b> Generalized linear mixed models (GLMM)</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="7.3-mod-07-glmm.html"><a href="7.3-mod-07-glmm.html#definition-1"><i class="fa fa-check"></i><b>7.3.1</b> Definition</a></li>
+<li class="chapter" data-level="7.3.2" data-path="7.3-mod-07-glmm.html"><a href="7.3-mod-07-glmm.html#glmm-on-simulated-data"><i class="fa fa-check"></i><b>7.3.2</b> GLMM on simulated data</a></li>
+<li class="chapter" data-level="7.3.3" data-path="7.3-mod-07-glmm.html"><a href="7.3-mod-07-glmm.html#glmm-on-real-data"><i class="fa fa-check"></i><b>7.3.3</b> GLMM on real data</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="7.4-mod-07-nlme.html"><a href="7.4-mod-07-nlme.html"><i class="fa fa-check"></i><b>7.4</b> Nonlinear mixed models (NLME)</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="7.4-mod-07-nlme.html"><a href="7.4-mod-07-nlme.html#definition-and-background"><i class="fa fa-check"></i><b>7.4.1</b> Definition and background</a></li>
+<li class="chapter" data-level="7.4.2" data-path="7.4-mod-07-nlme.html"><a href="7.4-mod-07-nlme.html#nlme-on-simulated-data"><i class="fa fa-check"></i><b>7.4.2</b> NLME on simulated data</a></li>
+<li class="chapter" data-level="7.4.3" data-path="7.4-mod-07-nlme.html"><a href="7.4-mod-07-nlme.html#nlme-on-real-data"><i class="fa fa-check"></i><b>7.4.3</b> NLME on real data</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="7.5-mod-07-gamm.html"><a href="7.5-mod-07-gamm.html"><i class="fa fa-check"></i><b>7.5</b> (Generalized) additive mixed models (AMM/GAMM)</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="7.5-mod-07-gamm.html"><a href="7.5-mod-07-gamm.html#example-gamm-with-real-data"><i class="fa fa-check"></i><b>7.5.1</b> Example GAMM with real data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="8-mod-08.html"><a href="8-mod-08.html"><i class="fa fa-check"></i><b>8</b> Multivariate data analysis</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="8.1-multivariate-data.html"><a href="8.1-multivariate-data.html"><i class="fa fa-check"></i><b>8.1</b> Multivariate data</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="8.1-multivariate-data.html"><a href="8.1-multivariate-data.html#univariate-vs.-multivariate-data"><i class="fa fa-check"></i><b>8.1.1</b> Univariate vs. multivariate data</a></li>
+<li class="chapter" data-level="8.1.2" data-path="8.1-multivariate-data.html"><a href="8.1-multivariate-data.html#components-of-multivariate-data"><i class="fa fa-check"></i><b>8.1.2</b> Components of multivariate data</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="8.2-mod-08-dist.html"><a href="8.2-mod-08-dist.html"><i class="fa fa-check"></i><b>8.2</b> Distance metrics: biological (dis)similarity</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="8.2-mod-08-dist.html"><a href="8.2-mod-08-dist.html#euclidean-distance"><i class="fa fa-check"></i><b>8.2.1</b> Euclidean distance</a></li>
+<li class="chapter" data-level="8.2.2" data-path="8.2-mod-08-dist.html"><a href="8.2-mod-08-dist.html#bray-curtis-and-other-distance-metrics"><i class="fa fa-check"></i><b>8.2.2</b> Bray-Curtis and other distance metrics</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="8.3-clustering.html"><a href="8.3-clustering.html"><i class="fa fa-check"></i><b>8.3</b> Clustering</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="8.3-clustering.html"><a href="8.3-clustering.html#k-means-clustering"><i class="fa fa-check"></i><b>8.3.1</b> <em>K</em>-means clustering</a></li>
+<li class="chapter" data-level="8.3.2" data-path="8.3-clustering.html"><a href="8.3-clustering.html#hierarchical-agglomerative-clustering"><i class="fa fa-check"></i><b>8.3.2</b> Hierarchical agglomerative clustering</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="8.4-mod-08-sims.html"><a href="8.4-mod-08-sims.html"><i class="fa fa-check"></i><b>8.4</b> Analyzing dissimilarity</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="8.4-mod-08-sims.html"><a href="8.4-mod-08-sims.html#mantel-tests-distance-vs.-distance"><i class="fa fa-check"></i><b>8.4.1</b> Mantel tests: distance vs. distance</a></li>
+<li class="chapter" data-level="8.4.2" data-path="8.4-mod-08-sims.html"><a href="8.4-mod-08-sims.html#comparing-dissimilarity-between-groups"><i class="fa fa-check"></i><b>8.4.2</b> Comparing dissimilarity between groups</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="8.5-mod-08-ord.html"><a href="8.5-mod-08-ord.html"><i class="fa fa-check"></i><b>8.5</b> Ordination</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="8.5-mod-08-ord.html"><a href="8.5-mod-08-ord.html#principal-components-analysis-pca-1"><i class="fa fa-check"></i><b>8.5.1</b> Principal components analysis (PCA)</a></li>
+<li class="chapter" data-level="8.5.2" data-path="8.5-mod-08-ord.html"><a href="8.5-mod-08-ord.html#nmds-and-other-ordination-methods"><i class="fa fa-check"></i><b>8.5.2</b> NMDS and other ordination methods</a></li>
+<li class="chapter" data-level="8.5.3" data-path="8.5-mod-08-ord.html"><a href="8.5-mod-08-ord.html#other-ordination-techniques"><i class="fa fa-check"></i><b>8.5.3</b> Other ordination techniques</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="9-mod-09.html"><a href="9-mod-09.html"><i class="fa fa-check"></i><b>9</b> Planning your analysis (what test?)</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="9.1-how-to-use-this-guide.html"><a href="9.1-how-to-use-this-guide.html"><i class="fa fa-check"></i><b>9.1</b> How to use this guide</a></li>
+<li class="chapter" data-level="9.2" data-path="9.2-what-question-are-you-trying-to-answer.html"><a href="9.2-what-question-are-you-trying-to-answer.html"><i class="fa fa-check"></i><b>9.2</b> What question are you trying to answer?</a></li>
+<li class="chapter" data-level="9.3" data-path="9.3-testing-for-a-difference-in-mean-or-location.html"><a href="9.3-testing-for-a-difference-in-mean-or-location.html"><i class="fa fa-check"></i><b>9.3</b> Testing for a difference in mean or location</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="9.3-testing-for-a-difference-in-mean-or-location.html"><a href="9.3-testing-for-a-difference-in-mean-or-location.html#additional-considerations"><i class="fa fa-check"></i><b>9.3.1</b> Additional considerations</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="9.4-testing-for-a-continuous-relationship-between-two-or-more-variables.html"><a href="9.4-testing-for-a-continuous-relationship-between-two-or-more-variables.html"><i class="fa fa-check"></i><b>9.4</b> Testing for a continuous relationship between two or more variables</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="9.4-testing-for-a-continuous-relationship-between-two-or-more-variables.html"><a href="9.4-testing-for-a-continuous-relationship-between-two-or-more-variables.html#additional-considerations-1"><i class="fa fa-check"></i><b>9.4.1</b> Additional considerations</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="9.5-classifying-observations.html"><a href="9.5-classifying-observations.html"><i class="fa fa-check"></i><b>9.5</b> Classifying observations</a></li>
+<li class="chapter" data-level="9.6" data-path="9.6-conclusions.html"><a href="9.6-conclusions.html"><i class="fa fa-check"></i><b>9.6</b> Conclusions</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="literature-cited.html"><a href="literature-cited.html"><i class="fa fa-check"></i>Literature Cited</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Applied Biological Data Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="mod-04-dists2" class="section level2" number="4.4">
+<h2><span class="header-section-number">4.4</span> Fitting and testing distributions</h2>
+<p>Deciding what probability distribution to use to analyze your data is an important step in biological data analysis. The next step is to see how well your data actually match a distribution. This page demonstrates ways to compare data to probability distributions. We will also explore some methods to explicitly test whether or not a set of values came from a particular distribution.</p>
+<div id="estimating-distributional-parameters" class="section level3" number="4.4.1">
+<h3><span class="header-section-number">4.4.1</span> Estimating distributional parameters</h3>
+<p>The function <code>fitdistr()</code> in package <code>MASS</code> estimates the <strong>parameters</strong> of a distribution most likely to produce random variables supplied as input. Simply put, if you have a variable <em>x</em> and want to know what parameters of some distribution are most likely to produce <em>x</em>, then <code>fitdistr()</code> will estimate this for you. The method of estimation is called <strong>maximum-likelihood</strong>, which we will explore in more detail later. Examples of distribution fitting are shown below. Note that for the beta distribution, starting values for the fitting function must be supplied. This is because for this distribution the parameter estimation process is stochastic and iterative and needs somewhere to start.</p>
+<p>The function <code>fitdistr()</code> is in the package <code>MASS</code>, which is short for “Modern Applied Statistics with S”. This widely used package implements many methods described in the textbook of the same name <span class="citation">(<a href="#ref-venables2002" role="doc-biblioref">Venables and Ripley 2002</a>)</span>. The titular language S was a precursor language to R.</p>
+<div class="sourceCode" id="cb960"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb960-1"><a href="4.4-mod-04-dists2.html#cb960-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb960-2"><a href="4.4-mod-04-dists2.html#cb960-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb960-3"><a href="4.4-mod-04-dists2.html#cb960-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb960-4"><a href="4.4-mod-04-dists2.html#cb960-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb960-5"><a href="4.4-mod-04-dists2.html#cb960-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb960-6"><a href="4.4-mod-04-dists2.html#cb960-6" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">12</span>, <span class="dv">2</span>)</span>
+<span id="cb960-7"><a href="4.4-mod-04-dists2.html#cb960-7" aria-hidden="true" tabindex="-1"></a><span class="fu">fitdistr</span>(x1, <span class="st">&quot;normal&quot;</span>)</span></code></pre></div>
+<pre><code>##       mean          sd    
+##   12.0688071    1.8331290 
+##  ( 0.2592436) ( 0.1833129)</code></pre>
+<div class="sourceCode" id="cb962"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb962-1"><a href="4.4-mod-04-dists2.html#cb962-1" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rpois</span>(n, <span class="dv">8</span>)</span>
+<span id="cb962-2"><a href="4.4-mod-04-dists2.html#cb962-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fitdistr</span>(x2, <span class="st">&quot;Poisson&quot;</span>)</span></code></pre></div>
+<pre><code>##     lambda  
+##   8.2200000 
+##  (0.4054627)</code></pre>
+<div class="sourceCode" id="cb964"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb964-1"><a href="4.4-mod-04-dists2.html#cb964-1" aria-hidden="true" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> <span class="fu">rgeom</span>(n, <span class="fl">0.7</span>)</span>
+<span id="cb964-2"><a href="4.4-mod-04-dists2.html#cb964-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fitdistr</span>(x3, <span class="st">&quot;geometric&quot;</span>)</span></code></pre></div>
+<pre><code>##       prob   
+##   0.90909091 
+##  (0.03876377)</code></pre>
+<div class="sourceCode" id="cb966"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb966-1"><a href="4.4-mod-04-dists2.html#cb966-1" aria-hidden="true" tabindex="-1"></a>x4 <span class="ot">&lt;-</span> <span class="fu">rbeta</span>(n, <span class="dv">2</span>, <span class="fl">0.5</span>)</span>
+<span id="cb966-2"><a href="4.4-mod-04-dists2.html#cb966-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fitdistr</span>(x4, <span class="st">&quot;beta&quot;</span>, <span class="at">start=</span><span class="fu">list</span>(<span class="at">shape1=</span><span class="dv">1</span>, <span class="at">shape2=</span><span class="dv">1</span>))</span></code></pre></div>
+<pre><code>## Warning in densfun(x, parm[1], parm[2], ...): NaNs produced
+
+## Warning in densfun(x, parm[1], parm[2], ...): NaNs produced
+
+## Warning in densfun(x, parm[1], parm[2], ...): NaNs produced</code></pre>
+<pre><code>##     shape1      shape2  
+##   2.1520168   0.5070293 
+##  (0.4828815) (0.0844015)</code></pre>
+<div class="sourceCode" id="cb969"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb969-1"><a href="4.4-mod-04-dists2.html#cb969-1" aria-hidden="true" tabindex="-1"></a>x5 <span class="ot">&lt;-</span> <span class="fu">rnbinom</span>(n, <span class="dv">4</span>, <span class="fl">0.2</span>)</span>
+<span id="cb969-2"><a href="4.4-mod-04-dists2.html#cb969-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fitdistr</span>(x5, <span class="st">&quot;negative binomial&quot;</span>)</span></code></pre></div>
+<pre><code>##      size         mu    
+##    3.674590   15.660000 
+##  ( 0.907684) ( 1.283731)</code></pre>
+<p>How did <code>fitdistr()</code> do? Most of the parameter estimates were pretty close to the true values. The estimates generally get closer as the sample size increases. Try increasing <code>n</code> to 500 and rerunning the code above.</p>
+</div>
+<div id="graphical-methods-for-examining-distributions" class="section level3" number="4.4.2">
+<h3><span class="header-section-number">4.4.2</span> Graphical methods for examining distributions</h3>
+<div id="comparing-distributions-with-pdf-or-pmf-plots" class="section level4" number="4.4.2.1">
+<h4><span class="header-section-number">4.4.2.1</span> Comparing distributions with PDF or PMF plots</h4>
+<p>We can compare the distributions implied by the estimated parameters to the actual data using the quantile or distribution functions. The basic idea is to plot the data distribution, and superimpose the equivalent plots of the hypothetical distributions.</p>
+<p>In the example below, we compare the probability mass function (PMF) of a a discrete distribution (e.g., counts) to the PMFs of two possible distributions that might match the data. Note that the PMF of a discrete distribution can be estimated as the proportion of observations that take on each value.</p>
+<div class="sourceCode" id="cb971"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb971-1"><a href="4.4-mod-04-dists2.html#cb971-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb971-2"><a href="4.4-mod-04-dists2.html#cb971-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb971-3"><a href="4.4-mod-04-dists2.html#cb971-3" aria-hidden="true" tabindex="-1"></a><span class="co"># the counts:</span></span>
+<span id="cb971-4"><a href="4.4-mod-04-dists2.html#cb971-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnbinom</span>(<span class="dv">100</span>, <span class="at">mu=</span><span class="dv">4</span>, <span class="at">size=</span><span class="dv">2</span>)</span>
+<span id="cb971-5"><a href="4.4-mod-04-dists2.html#cb971-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb971-6"><a href="4.4-mod-04-dists2.html#cb971-6" aria-hidden="true" tabindex="-1"></a><span class="co"># fit parameters for poisson and negative binomial</span></span>
+<span id="cb971-7"><a href="4.4-mod-04-dists2.html#cb971-7" aria-hidden="true" tabindex="-1"></a>f1 <span class="ot">&lt;-</span> <span class="fu">fitdistr</span>(x, <span class="st">&quot;Poisson&quot;</span>)</span>
+<span id="cb971-8"><a href="4.4-mod-04-dists2.html#cb971-8" aria-hidden="true" tabindex="-1"></a>f2 <span class="ot">&lt;-</span> <span class="fu">fitdistr</span>(x, <span class="st">&quot;negative binomial&quot;</span>)</span>
+<span id="cb971-9"><a href="4.4-mod-04-dists2.html#cb971-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb971-10"><a href="4.4-mod-04-dists2.html#cb971-10" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate PMFs of candidate distributions across</span></span>
+<span id="cb971-11"><a href="4.4-mod-04-dists2.html#cb971-11" aria-hidden="true" tabindex="-1"></a><span class="co"># range of data</span></span>
+<span id="cb971-12"><a href="4.4-mod-04-dists2.html#cb971-12" aria-hidden="true" tabindex="-1"></a>xx <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="fu">max</span>(x)</span>
+<span id="cb971-13"><a href="4.4-mod-04-dists2.html#cb971-13" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="fu">dpois</span>(xx, f1<span class="sc">$</span>estimate)</span>
+<span id="cb971-14"><a href="4.4-mod-04-dists2.html#cb971-14" aria-hidden="true" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> <span class="fu">dnbinom</span>(xx, <span class="at">size=</span>f2<span class="sc">$</span>estimate[<span class="st">&quot;size&quot;</span>],</span>
+<span id="cb971-15"><a href="4.4-mod-04-dists2.html#cb971-15" aria-hidden="true" tabindex="-1"></a>              <span class="at">mu=</span>f2<span class="sc">$</span>estimate[<span class="st">&quot;mu&quot;</span>])</span>
+<span id="cb971-16"><a href="4.4-mod-04-dists2.html#cb971-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb971-17"><a href="4.4-mod-04-dists2.html#cb971-17" aria-hidden="true" tabindex="-1"></a><span class="co"># empirical PMF of counts</span></span>
+<span id="cb971-18"><a href="4.4-mod-04-dists2.html#cb971-18" aria-hidden="true" tabindex="-1"></a>y3 <span class="ot">&lt;-</span> <span class="fu">table</span>(x)<span class="sc">/</span><span class="fu">length</span>(x)</span>
+<span id="cb971-19"><a href="4.4-mod-04-dists2.html#cb971-19" aria-hidden="true" tabindex="-1"></a>plot.x <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">names</span>(y3))</span>
+<span id="cb971-20"><a href="4.4-mod-04-dists2.html#cb971-20" aria-hidden="true" tabindex="-1"></a>plot.y <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(y3)</span>
+<span id="cb971-21"><a href="4.4-mod-04-dists2.html#cb971-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb971-22"><a href="4.4-mod-04-dists2.html#cb971-22" aria-hidden="true" tabindex="-1"></a><span class="co"># make plot</span></span>
+<span id="cb971-23"><a href="4.4-mod-04-dists2.html#cb971-23" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="fl">5.1</span>, <span class="fl">5.1</span>, <span class="fl">1.1</span>, <span class="fl">1.1</span>),</span>
+<span id="cb971-24"><a href="4.4-mod-04-dists2.html#cb971-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">las=</span><span class="dv">1</span>, <span class="at">lend=</span><span class="dv">1</span>, </span>
+<span id="cb971-25"><a href="4.4-mod-04-dists2.html#cb971-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex.axis=</span><span class="fl">1.2</span>, <span class="at">cex.lab=</span><span class="fl">1.2</span>, <span class="at">bty=</span><span class="st">&quot;n&quot;</span>)</span>
+<span id="cb971-26"><a href="4.4-mod-04-dists2.html#cb971-26" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(plot.x, plot.y, <span class="at">type=</span><span class="st">&quot;o&quot;</span>, </span>
+<span id="cb971-27"><a href="4.4-mod-04-dists2.html#cb971-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch=</span><span class="dv">16</span>, <span class="at">cex=</span><span class="fl">1.3</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.2</span>),</span>
+<span id="cb971-28"><a href="4.4-mod-04-dists2.html#cb971-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab=</span><span class="st">&quot;PMF&quot;</span>, <span class="at">xlab=</span><span class="st">&quot;X&quot;</span>)</span>
+<span id="cb971-29"><a href="4.4-mod-04-dists2.html#cb971-29" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(xx, y1, <span class="at">type=</span><span class="st">&quot;o&quot;</span>, <span class="at">pch=</span><span class="dv">16</span>, <span class="at">cex=</span><span class="fl">1.3</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb971-30"><a href="4.4-mod-04-dists2.html#cb971-30" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(xx, y2, <span class="at">type=</span><span class="st">&quot;o&quot;</span>, <span class="at">pch=</span><span class="dv">16</span>, <span class="at">cex=</span><span class="fl">1.3</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb971-31"><a href="4.4-mod-04-dists2.html#cb971-31" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;Poisson&quot;</span>, <span class="st">&quot;negative binomial&quot;</span>),</span>
+<span id="cb971-32"><a href="4.4-mod-04-dists2.html#cb971-32" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch=</span><span class="dv">16</span>, <span class="at">pt.cex=</span><span class="fl">1.3</span>,</span>
+<span id="cb971-33"><a href="4.4-mod-04-dists2.html#cb971-33" aria-hidden="true" tabindex="-1"></a>       <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>), <span class="at">bty=</span><span class="st">&quot;n&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-365-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>In this example, the data (black) seem to be better described by the negative binomial (blue) than by the Poisson (red).</p>
+<p>The example below shows the same procedure applied to a continuous distribution. The only difference is in how the probability density function (PDF) of the data is estimated (note PDF, not PMF). The PDF of a continuous distribution is estimated with function <code>density()</code>. It is a good idea to limit the estimation of density functions to the domain of the data. Keep in mind, however, that different distributions have different limits. If a suspected distribution is supported outside the possible range of the data, then it might not be the right one. The example below illustrates this: the data (<code>x</code>) are all positive, but one of the distributions tested (normal) will produce negative values using the estimated parameters (<code>f1</code>). That alone should lead the researcher in this situation to eliminate the normal as a possibility; the plot only confirms the unsuitability of the normal for modeling <code>x</code>.</p>
+<div class="sourceCode" id="cb972"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb972-1"><a href="4.4-mod-04-dists2.html#cb972-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb972-2"><a href="4.4-mod-04-dists2.html#cb972-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb972-3"><a href="4.4-mod-04-dists2.html#cb972-3" aria-hidden="true" tabindex="-1"></a><span class="co"># the data:</span></span>
+<span id="cb972-4"><a href="4.4-mod-04-dists2.html#cb972-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rgamma</span>(<span class="dv">200</span>, <span class="at">shape=</span><span class="dv">2</span>, <span class="at">scale=</span><span class="dv">20</span>)</span>
+<span id="cb972-5"><a href="4.4-mod-04-dists2.html#cb972-5" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(x)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-366-1.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb973"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb973-1"><a href="4.4-mod-04-dists2.html#cb973-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fit parameters for poisson and negative binomial</span></span>
+<span id="cb973-2"><a href="4.4-mod-04-dists2.html#cb973-2" aria-hidden="true" tabindex="-1"></a>f1 <span class="ot">&lt;-</span> <span class="fu">fitdistr</span>(x, <span class="st">&quot;normal&quot;</span>)</span>
+<span id="cb973-3"><a href="4.4-mod-04-dists2.html#cb973-3" aria-hidden="true" tabindex="-1"></a>f2 <span class="ot">&lt;-</span> <span class="fu">fitdistr</span>(x, <span class="st">&quot;lognormal&quot;</span>)</span>
+<span id="cb973-4"><a href="4.4-mod-04-dists2.html#cb973-4" aria-hidden="true" tabindex="-1"></a>f3 <span class="ot">&lt;-</span> <span class="fu">fitdistr</span>(x, <span class="st">&quot;gamma&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning in densfun(x, parm[1], parm[2], ...): NaNs produced</code></pre>
+<div class="sourceCode" id="cb975"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb975-1"><a href="4.4-mod-04-dists2.html#cb975-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate PMFs of candidate distributions across</span></span>
+<span id="cb975-2"><a href="4.4-mod-04-dists2.html#cb975-2" aria-hidden="true" tabindex="-1"></a><span class="co"># range of data</span></span>
+<span id="cb975-3"><a href="4.4-mod-04-dists2.html#cb975-3" aria-hidden="true" tabindex="-1"></a>xx <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(x), <span class="fu">max</span>(x), <span class="at">length=</span><span class="dv">1000</span>)</span>
+<span id="cb975-4"><a href="4.4-mod-04-dists2.html#cb975-4" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(xx, f1<span class="sc">$</span>estimate[<span class="dv">1</span>], f1<span class="sc">$</span>estimate[<span class="dv">2</span>])</span>
+<span id="cb975-5"><a href="4.4-mod-04-dists2.html#cb975-5" aria-hidden="true" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> <span class="fu">dlnorm</span>(xx, f2<span class="sc">$</span>estimate[<span class="dv">1</span>], f2<span class="sc">$</span>estimate[<span class="dv">2</span>])</span>
+<span id="cb975-6"><a href="4.4-mod-04-dists2.html#cb975-6" aria-hidden="true" tabindex="-1"></a>y3 <span class="ot">&lt;-</span> <span class="fu">dgamma</span>(xx, <span class="at">shape=</span>f3<span class="sc">$</span>estimate[<span class="dv">1</span>], <span class="at">rate=</span>f3<span class="sc">$</span>estimate[<span class="dv">2</span>])</span>
+<span id="cb975-7"><a href="4.4-mod-04-dists2.html#cb975-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb975-8"><a href="4.4-mod-04-dists2.html#cb975-8" aria-hidden="true" tabindex="-1"></a><span class="co"># empirical PDF of data</span></span>
+<span id="cb975-9"><a href="4.4-mod-04-dists2.html#cb975-9" aria-hidden="true" tabindex="-1"></a>dx <span class="ot">&lt;-</span> <span class="fu">density</span>(x, <span class="at">from=</span><span class="fu">min</span>(x), <span class="at">to=</span><span class="fu">max</span>(x))</span>
+<span id="cb975-10"><a href="4.4-mod-04-dists2.html#cb975-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb975-11"><a href="4.4-mod-04-dists2.html#cb975-11" aria-hidden="true" tabindex="-1"></a><span class="co"># make plot</span></span>
+<span id="cb975-12"><a href="4.4-mod-04-dists2.html#cb975-12" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="fl">5.1</span>, <span class="fl">5.1</span>, <span class="fl">1.1</span>, <span class="fl">1.1</span>),</span>
+<span id="cb975-13"><a href="4.4-mod-04-dists2.html#cb975-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">las=</span><span class="dv">1</span>, <span class="at">lend=</span><span class="dv">1</span>, </span>
+<span id="cb975-14"><a href="4.4-mod-04-dists2.html#cb975-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex.axis=</span><span class="fl">1.2</span>, <span class="at">cex.lab=</span><span class="fl">1.2</span>, <span class="at">bty=</span><span class="st">&quot;n&quot;</span>)</span>
+<span id="cb975-15"><a href="4.4-mod-04-dists2.html#cb975-15" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dx<span class="sc">$</span>x, dx<span class="sc">$</span>y,</span>
+<span id="cb975-16"><a href="4.4-mod-04-dists2.html#cb975-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.025</span>),</span>
+<span id="cb975-17"><a href="4.4-mod-04-dists2.html#cb975-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab=</span><span class="st">&quot;&quot;</span>, <span class="at">xlab=</span><span class="st">&quot;X&quot;</span>)</span>
+<span id="cb975-18"><a href="4.4-mod-04-dists2.html#cb975-18" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="at">ylab=</span><span class="st">&quot;PDF&quot;</span>, <span class="at">line=</span><span class="dv">4</span>)</span>
+<span id="cb975-19"><a href="4.4-mod-04-dists2.html#cb975-19" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(xx, y1, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb975-20"><a href="4.4-mod-04-dists2.html#cb975-20" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(xx, y2, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb975-21"><a href="4.4-mod-04-dists2.html#cb975-21" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(xx, y3, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&quot;green&quot;</span>)</span>
+<span id="cb975-22"><a href="4.4-mod-04-dists2.html#cb975-22" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, </span>
+<span id="cb975-23"><a href="4.4-mod-04-dists2.html#cb975-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;normal&quot;</span>, <span class="st">&quot;lognormal&quot;</span>, <span class="st">&quot;gamma&quot;</span>),</span>
+<span id="cb975-24"><a href="4.4-mod-04-dists2.html#cb975-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;green&quot;</span>),</span>
+<span id="cb975-25"><a href="4.4-mod-04-dists2.html#cb975-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex=</span><span class="fl">1.3</span>, <span class="at">bty=</span><span class="st">&quot;n&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-366-2.png" width="576" style="display: block; margin: auto;" /></p>
+<p>The plot suggests that the data are better described by a gamma distribution than by a normal or lognormal. This is because the curve for the data is most closely matched by the curve for the gamma. Try adjusting the sample size in the example above (e.g., <code>n &lt;- 50</code>) and see if the correct distribution always matches the data.</p>
+</div>
+<div id="comparing-distributions-using-cdf-and-ecdf" class="section level4" number="4.4.2.2">
+<h4><span class="header-section-number">4.4.2.2</span> Comparing distributions using CDF and ECDF</h4>
+<p>Another way to compare data to distributions is with the cumulative distribution function (CDF). The basic idea is the same as using density functions: compare the empirical CDF (ECDF) of the data to the CDFs potential distributions and judge which one best matches the data.</p>
+<p>The example below shows how to use ECDF and CDF to compare a continuous distribution to various target distributions.</p>
+<div class="sourceCode" id="cb976"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb976-1"><a href="4.4-mod-04-dists2.html#cb976-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb976-2"><a href="4.4-mod-04-dists2.html#cb976-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb976-3"><a href="4.4-mod-04-dists2.html#cb976-3" aria-hidden="true" tabindex="-1"></a><span class="co"># make the data:</span></span>
+<span id="cb976-4"><a href="4.4-mod-04-dists2.html#cb976-4" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb976-5"><a href="4.4-mod-04-dists2.html#cb976-5" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rlnorm</span>(<span class="dv">100</span>, <span class="at">meanlog=</span><span class="fu">log</span>(<span class="dv">4</span>), <span class="at">sdlog=</span><span class="fu">log</span>(<span class="dv">3</span>))</span>
+<span id="cb976-6"><a href="4.4-mod-04-dists2.html#cb976-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb976-7"><a href="4.4-mod-04-dists2.html#cb976-7" aria-hidden="true" tabindex="-1"></a><span class="co"># fit some distributions</span></span>
+<span id="cb976-8"><a href="4.4-mod-04-dists2.html#cb976-8" aria-hidden="true" tabindex="-1"></a>f1 <span class="ot">&lt;-</span> <span class="fu">fitdistr</span>(x, <span class="st">&quot;normal&quot;</span>)</span>
+<span id="cb976-9"><a href="4.4-mod-04-dists2.html#cb976-9" aria-hidden="true" tabindex="-1"></a>f2 <span class="ot">&lt;-</span> <span class="fu">fitdistr</span>(x, <span class="st">&quot;lognormal&quot;</span>)</span>
+<span id="cb976-10"><a href="4.4-mod-04-dists2.html#cb976-10" aria-hidden="true" tabindex="-1"></a>f3 <span class="ot">&lt;-</span> <span class="fu">fitdistr</span>(x, <span class="st">&quot;gamma&quot;</span>)</span>
+<span id="cb976-11"><a href="4.4-mod-04-dists2.html#cb976-11" aria-hidden="true" tabindex="-1"></a>f4 <span class="ot">&lt;-</span> <span class="fu">fitdistr</span>(x, <span class="st">&quot;exponential&quot;</span>)</span>
+<span id="cb976-12"><a href="4.4-mod-04-dists2.html#cb976-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb976-13"><a href="4.4-mod-04-dists2.html#cb976-13" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate density functions over domain of x</span></span>
+<span id="cb976-14"><a href="4.4-mod-04-dists2.html#cb976-14" aria-hidden="true" tabindex="-1"></a>xx <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(x), <span class="fu">max</span>(x), <span class="at">length=</span><span class="dv">100</span>)</span>
+<span id="cb976-15"><a href="4.4-mod-04-dists2.html#cb976-15" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(xx, f1<span class="sc">$</span>estimate[<span class="st">&quot;mean&quot;</span>], f1<span class="sc">$</span>estimate[<span class="st">&quot;sd&quot;</span>])</span>
+<span id="cb976-16"><a href="4.4-mod-04-dists2.html#cb976-16" aria-hidden="true" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> <span class="fu">plnorm</span>(xx, f2<span class="sc">$</span>estimate[<span class="st">&quot;meanlog&quot;</span>], f2<span class="sc">$</span>estimate[<span class="st">&quot;sdlog&quot;</span>])</span>
+<span id="cb976-17"><a href="4.4-mod-04-dists2.html#cb976-17" aria-hidden="true" tabindex="-1"></a>y3 <span class="ot">&lt;-</span> <span class="fu">pgamma</span>(xx,</span>
+<span id="cb976-18"><a href="4.4-mod-04-dists2.html#cb976-18" aria-hidden="true" tabindex="-1"></a>             <span class="at">shape=</span>f3<span class="sc">$</span>estimate[<span class="st">&quot;shape&quot;</span>], </span>
+<span id="cb976-19"><a href="4.4-mod-04-dists2.html#cb976-19" aria-hidden="true" tabindex="-1"></a>             <span class="at">rate=</span>f3<span class="sc">$</span>estimate[<span class="st">&quot;rate&quot;</span>])</span>
+<span id="cb976-20"><a href="4.4-mod-04-dists2.html#cb976-20" aria-hidden="true" tabindex="-1"></a>y4 <span class="ot">&lt;-</span> <span class="fu">pexp</span>(xx, <span class="at">rate=</span>f4<span class="sc">$</span>estimate[<span class="st">&quot;rate&quot;</span>])</span>
+<span id="cb976-21"><a href="4.4-mod-04-dists2.html#cb976-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb976-22"><a href="4.4-mod-04-dists2.html#cb976-22" aria-hidden="true" tabindex="-1"></a><span class="co"># ecdf of data</span></span>
+<span id="cb976-23"><a href="4.4-mod-04-dists2.html#cb976-23" aria-hidden="true" tabindex="-1"></a>y5 <span class="ot">&lt;-</span> <span class="fu">ecdf</span>(x)(xx)</span>
+<span id="cb976-24"><a href="4.4-mod-04-dists2.html#cb976-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb976-25"><a href="4.4-mod-04-dists2.html#cb976-25" aria-hidden="true" tabindex="-1"></a><span class="co"># fancy plot</span></span>
+<span id="cb976-26"><a href="4.4-mod-04-dists2.html#cb976-26" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="fu">rainbow</span>(<span class="dv">4</span>))</span>
+<span id="cb976-27"><a href="4.4-mod-04-dists2.html#cb976-27" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="fl">5.1</span>, <span class="fl">5.1</span>, <span class="fl">1.1</span>, <span class="fl">1.1</span>),</span>
+<span id="cb976-28"><a href="4.4-mod-04-dists2.html#cb976-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">las=</span><span class="dv">1</span>, <span class="at">lend=</span><span class="dv">1</span>, </span>
+<span id="cb976-29"><a href="4.4-mod-04-dists2.html#cb976-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex.axis=</span><span class="fl">1.2</span>, <span class="at">cex.lab=</span><span class="fl">1.2</span>, <span class="at">bty=</span><span class="st">&quot;n&quot;</span>)</span>
+<span id="cb976-30"><a href="4.4-mod-04-dists2.html#cb976-30" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xx, y5, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">xlab=</span><span class="st">&quot;X&quot;</span>,</span>
+<span id="cb976-31"><a href="4.4-mod-04-dists2.html#cb976-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab=</span><span class="st">&quot;(E)CDF&quot;</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">col=</span>cols[<span class="dv">1</span>])</span>
+<span id="cb976-32"><a href="4.4-mod-04-dists2.html#cb976-32" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(xx, y1, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span>cols[<span class="dv">2</span>])</span>
+<span id="cb976-33"><a href="4.4-mod-04-dists2.html#cb976-33" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(xx, y2, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span>cols[<span class="dv">3</span>])</span>
+<span id="cb976-34"><a href="4.4-mod-04-dists2.html#cb976-34" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(xx, y3, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span>cols[<span class="dv">4</span>])</span>
+<span id="cb976-35"><a href="4.4-mod-04-dists2.html#cb976-35" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(xx, y4, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span>cols[<span class="dv">5</span>])</span>
+<span id="cb976-36"><a href="4.4-mod-04-dists2.html#cb976-36" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;bottomright&quot;</span>, </span>
+<span id="cb976-37"><a href="4.4-mod-04-dists2.html#cb976-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;ECDF(data)&quot;</span>, <span class="st">&quot;Normal&quot;</span>, <span class="st">&quot;Lognormal&quot;</span>, <span class="st">&quot;Gamma&quot;</span>, <span class="st">&quot;Exponential&quot;</span>), </span>
+<span id="cb976-38"><a href="4.4-mod-04-dists2.html#cb976-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span>cols, <span class="at">bty=</span><span class="st">&quot;n&quot;</span>, <span class="at">cex=</span><span class="fl">1.3</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-367-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>In this example, the ECDF of the original data (black) appears to best match the lognormal (green)—as well it should, because the data came from a lognormal distribution. The normal (red) is clearly inappropriate because it diverges from the actual data over most of the range of the data. The gamma and exponential are each better than the normal, but not as close to the data as the lognormal.</p>
+</div>
+<div id="comparing-distributions-using-qq-plots" class="section level4" number="4.4.2.3">
+<h4><span class="header-section-number">4.4.2.3</span> Comparing distributions using QQ plots</h4>
+<p>Finally, you can use <strong>quantile-quantile (QQ) plots</strong> to compare data to different distributions that you suspect they may follow. The example below uses a QQ plot instead of ECDF as seen above.</p>
+<div class="sourceCode" id="cb977"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb977-1"><a href="4.4-mod-04-dists2.html#cb977-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb977-2"><a href="4.4-mod-04-dists2.html#cb977-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb977-3"><a href="4.4-mod-04-dists2.html#cb977-3" aria-hidden="true" tabindex="-1"></a><span class="co"># true distribution: lognormal</span></span>
+<span id="cb977-4"><a href="4.4-mod-04-dists2.html#cb977-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb977-5"><a href="4.4-mod-04-dists2.html#cb977-5" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rlnorm</span>(n, <span class="at">meanlog=</span><span class="fu">log</span>(<span class="dv">4</span>), <span class="at">sdlog=</span><span class="fu">log</span>(<span class="dv">3</span>))</span>
+<span id="cb977-6"><a href="4.4-mod-04-dists2.html#cb977-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb977-7"><a href="4.4-mod-04-dists2.html#cb977-7" aria-hidden="true" tabindex="-1"></a><span class="co"># estimate distributional parameters</span></span>
+<span id="cb977-8"><a href="4.4-mod-04-dists2.html#cb977-8" aria-hidden="true" tabindex="-1"></a>f1 <span class="ot">&lt;-</span> <span class="fu">fitdistr</span>(x, <span class="st">&quot;normal&quot;</span>)</span>
+<span id="cb977-9"><a href="4.4-mod-04-dists2.html#cb977-9" aria-hidden="true" tabindex="-1"></a>f2 <span class="ot">&lt;-</span> <span class="fu">fitdistr</span>(x, <span class="st">&quot;lognormal&quot;</span>)</span>
+<span id="cb977-10"><a href="4.4-mod-04-dists2.html#cb977-10" aria-hidden="true" tabindex="-1"></a>f3 <span class="ot">&lt;-</span> <span class="fu">fitdistr</span>(x, <span class="st">&quot;gamma&quot;</span>)</span>
+<span id="cb977-11"><a href="4.4-mod-04-dists2.html#cb977-11" aria-hidden="true" tabindex="-1"></a>f4 <span class="ot">&lt;-</span> <span class="fu">fitdistr</span>(x, <span class="st">&quot;exponential&quot;</span>)</span>
+<span id="cb977-12"><a href="4.4-mod-04-dists2.html#cb977-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb977-13"><a href="4.4-mod-04-dists2.html#cb977-13" aria-hidden="true" tabindex="-1"></a><span class="co"># quantiles of reference distribution</span></span>
+<span id="cb977-14"><a href="4.4-mod-04-dists2.html#cb977-14" aria-hidden="true" tabindex="-1"></a>qx <span class="ot">&lt;-</span> <span class="fu">ppoints</span>(n)</span>
+<span id="cb977-15"><a href="4.4-mod-04-dists2.html#cb977-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb977-16"><a href="4.4-mod-04-dists2.html#cb977-16" aria-hidden="true" tabindex="-1"></a><span class="co"># define functions to draw from each reference distribution</span></span>
+<span id="cb977-17"><a href="4.4-mod-04-dists2.html#cb977-17" aria-hidden="true" tabindex="-1"></a>dfun1 <span class="ot">&lt;-</span> <span class="cf">function</span>(p){<span class="fu">qnorm</span>(p, f1<span class="sc">$</span>estimate[<span class="dv">1</span>], f1<span class="sc">$</span>estimate[<span class="dv">2</span>])}</span>
+<span id="cb977-18"><a href="4.4-mod-04-dists2.html#cb977-18" aria-hidden="true" tabindex="-1"></a>dfun2 <span class="ot">&lt;-</span> <span class="cf">function</span>(p){<span class="fu">qlnorm</span>(p, f2<span class="sc">$</span>estimate[<span class="dv">1</span>], f2<span class="sc">$</span>estimate[<span class="dv">2</span>])}</span>
+<span id="cb977-19"><a href="4.4-mod-04-dists2.html#cb977-19" aria-hidden="true" tabindex="-1"></a>dfun3 <span class="ot">&lt;-</span> <span class="cf">function</span>(p){<span class="fu">qgamma</span>(p, <span class="at">shape=</span>f3<span class="sc">$</span>estimate[<span class="dv">1</span>],</span>
+<span id="cb977-20"><a href="4.4-mod-04-dists2.html#cb977-20" aria-hidden="true" tabindex="-1"></a>                            <span class="at">rate=</span>f3<span class="sc">$</span>estimate[<span class="dv">2</span>])}</span>
+<span id="cb977-21"><a href="4.4-mod-04-dists2.html#cb977-21" aria-hidden="true" tabindex="-1"></a>dfun4 <span class="ot">&lt;-</span> <span class="cf">function</span>(p){<span class="fu">qexp</span>(p, f4<span class="sc">$</span>estimate)}</span>
+<span id="cb977-22"><a href="4.4-mod-04-dists2.html#cb977-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb977-23"><a href="4.4-mod-04-dists2.html#cb977-23" aria-hidden="true" tabindex="-1"></a><span class="co"># get values at each reference quantile</span></span>
+<span id="cb977-24"><a href="4.4-mod-04-dists2.html#cb977-24" aria-hidden="true" tabindex="-1"></a>qy1 <span class="ot">&lt;-</span> <span class="fu">dfun1</span>(qx)</span>
+<span id="cb977-25"><a href="4.4-mod-04-dists2.html#cb977-25" aria-hidden="true" tabindex="-1"></a>qy2 <span class="ot">&lt;-</span> <span class="fu">dfun2</span>(qx)</span>
+<span id="cb977-26"><a href="4.4-mod-04-dists2.html#cb977-26" aria-hidden="true" tabindex="-1"></a>qy3 <span class="ot">&lt;-</span> <span class="fu">dfun3</span>(qx)</span>
+<span id="cb977-27"><a href="4.4-mod-04-dists2.html#cb977-27" aria-hidden="true" tabindex="-1"></a>qy4 <span class="ot">&lt;-</span> <span class="fu">dfun4</span>(qx)</span>
+<span id="cb977-28"><a href="4.4-mod-04-dists2.html#cb977-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb977-29"><a href="4.4-mod-04-dists2.html#cb977-29" aria-hidden="true" tabindex="-1"></a><span class="co"># make plot</span></span>
+<span id="cb977-30"><a href="4.4-mod-04-dists2.html#cb977-30" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="fl">5.1</span>, <span class="fl">5.1</span>, <span class="fl">1.1</span>, <span class="fl">1.1</span>),</span>
+<span id="cb977-31"><a href="4.4-mod-04-dists2.html#cb977-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">las=</span><span class="dv">1</span>, <span class="at">lend=</span><span class="dv">1</span>, </span>
+<span id="cb977-32"><a href="4.4-mod-04-dists2.html#cb977-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex.axis=</span><span class="fl">1.2</span>, <span class="at">cex.lab=</span><span class="fl">1.2</span>, <span class="at">bty=</span><span class="st">&quot;n&quot;</span>)</span>
+<span id="cb977-33"><a href="4.4-mod-04-dists2.html#cb977-33" aria-hidden="true" tabindex="-1"></a><span class="fu">qqplot</span>(qy1, x, <span class="at">main=</span><span class="st">&quot;Normal&quot;</span>)</span>
+<span id="cb977-34"><a href="4.4-mod-04-dists2.html#cb977-34" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(x, <span class="at">distribution=</span>dfun1, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb977-35"><a href="4.4-mod-04-dists2.html#cb977-35" aria-hidden="true" tabindex="-1"></a><span class="fu">qqplot</span>(qy2, x, <span class="at">main=</span><span class="st">&quot;Lognormal&quot;</span>)</span>
+<span id="cb977-36"><a href="4.4-mod-04-dists2.html#cb977-36" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(x, <span class="at">distribution=</span>dfun2, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb977-37"><a href="4.4-mod-04-dists2.html#cb977-37" aria-hidden="true" tabindex="-1"></a><span class="fu">qqplot</span>(qy3, x, <span class="at">main=</span><span class="st">&quot;Gamma&quot;</span>)</span>
+<span id="cb977-38"><a href="4.4-mod-04-dists2.html#cb977-38" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(x, <span class="at">distribution=</span>dfun3, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb977-39"><a href="4.4-mod-04-dists2.html#cb977-39" aria-hidden="true" tabindex="-1"></a><span class="fu">qqplot</span>(qy4, x, <span class="at">main=</span><span class="st">&quot;Exponential&quot;</span>)</span>
+<span id="cb977-40"><a href="4.4-mod-04-dists2.html#cb977-40" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(x, <span class="at">distribution=</span>dfun4, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-368-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>The figure shows that the normal is clearly inappropriate because the points do not fall on the line. The gamma and exponential are okay over most of the domain of x, but depart for large values. The lognormal plot (top right) shows the best match between the data and the reference distribution.</p>
+<p>It is important to keep in mind that the comparisons we’ve made here are of idealized cases. Real data are often much messier and noisier than the distributions used in these examples. Sometimes real data are best characterized by mixture distributions for which there are no straightforward ways to estimate parameters. Still, the steps outlined above for estimating distributional parameters and comparing to idealized distributions are important first steps in data analysis.</p>
+</div>
+</div>
+<div id="formal-tests-for-distributions" class="section level3" number="4.4.3">
+<h3><span class="header-section-number">4.4.3</span> Formal tests for distributions</h3>
+<div id="tests-for-normality" class="section level4" number="4.4.3.1">
+<h4><span class="header-section-number">4.4.3.1</span> Tests for normality</h4>
+<p>The normal distribution is so important for so many statistical methods that people have developed tests to formally determine whether data come from a normal distribution. The most common test for normality is the <strong>Shapiro-Wilk test</strong>. The Shapiro-Wilk test tests the null hypothesis that a sample <em>x</em><sub>1</sub>, …, <em>x</em><sub><em>n</em></sub> comes from a normally distributed population. The test statistic <em>W</em> is calculated as:</p>
+<p><span class="math display">\[W=\frac{\left(\sum_{i=1}^{n}{a_ix_{(i)}}\right)^2}{\sum_{i=1}^{n}\left(x_i-\bar{x}\right)^2}\]</span></p>
+<p>where <span class="math inline">\(\bar{x}\)</span> is the sample mean, <em>x</em><sub>(<em>i</em>)</sub> is the <em>i</em><sup>th</sup> order statistic, and <em>a<sub>i</sub></em> is a coefficient related to expected values of <em>i.i.d.</em> normal variables. When the null hypothesis of a Shapiro-Wilk test is rejected, then there is evidence that the data are not normally distributed. The code below shows some examples of the Shapiro-Wilk test in R.</p>
+<div class="sourceCode" id="cb978"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb978-1"><a href="4.4-mod-04-dists2.html#cb978-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb978-2"><a href="4.4-mod-04-dists2.html#cb978-2" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">20</span>)</span>
+<span id="cb978-3"><a href="4.4-mod-04-dists2.html#cb978-3" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(x1)</span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  x1
+## W = 0.96858, p-value = 0.7247</code></pre>
+<div class="sourceCode" id="cb980"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb980-1"><a href="4.4-mod-04-dists2.html#cb980-1" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="dv">20</span>, <span class="dv">10</span>)</span>
+<span id="cb980-2"><a href="4.4-mod-04-dists2.html#cb980-2" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(x2)</span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  x2
+## W = 0.90741, p-value = 0.0569</code></pre>
+<div class="sourceCode" id="cb982"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb982-1"><a href="4.4-mod-04-dists2.html#cb982-1" aria-hidden="true" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">20</span>)</span>
+<span id="cb982-2"><a href="4.4-mod-04-dists2.html#cb982-2" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(x3)</span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  x3
+## W = 0.9316, p-value = 0.1658</code></pre>
+<div class="sourceCode" id="cb984"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb984-1"><a href="4.4-mod-04-dists2.html#cb984-1" aria-hidden="true" tabindex="-1"></a>x4 <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">100</span>)</span>
+<span id="cb984-2"><a href="4.4-mod-04-dists2.html#cb984-2" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(x4)</span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  x4
+## W = 0.96392, p-value = 0.007723</code></pre>
+<p>Interestingly, the Shapiro-Wilk test turns out to be very powerful. That is, it can detect very small differences from the null hypothesis (i.e., normality) if the sample size is large enough. So, if you have data that you suspect are normal, but the Shapiro-Wilk test says otherwise, you need to visually inspect the data to determine how serious the departure from normality is. Another situation where the Shapiro-Wilk test does not perform well is when data with many repeated values. Consider the following example:</p>
+<div class="sourceCode" id="cb986"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb986-1"><a href="4.4-mod-04-dists2.html#cb986-1" aria-hidden="true" tabindex="-1"></a><span class="co"># repeat each value 3 times</span></span>
+<span id="cb986-2"><a href="4.4-mod-04-dists2.html#cb986-2" aria-hidden="true" tabindex="-1"></a>x6 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="dv">10</span>, <span class="dv">3</span>), <span class="at">each=</span><span class="dv">3</span>) </span>
+<span id="cb986-3"><a href="4.4-mod-04-dists2.html#cb986-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb986-4"><a href="4.4-mod-04-dists2.html#cb986-4" aria-hidden="true" tabindex="-1"></a><span class="co"># P &lt; 0.05, so test says nonnormal</span></span>
+<span id="cb986-5"><a href="4.4-mod-04-dists2.html#cb986-5" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(x6) </span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  x6
+## W = 0.97026, p-value = 0.1502</code></pre>
+<div class="sourceCode" id="cb988"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb988-1"><a href="4.4-mod-04-dists2.html#cb988-1" aria-hidden="true" tabindex="-1"></a><span class="co"># density plot look normal!</span></span>
+<span id="cb988-2"><a href="4.4-mod-04-dists2.html#cb988-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb988-3"><a href="4.4-mod-04-dists2.html#cb988-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(x6))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-370-1.png" width="480" style="display: block; margin: auto;" /></p>
+</div>
+<div id="kolmogorov-smirnov-tests" class="section level4" number="4.4.3.2">
+<h4><span class="header-section-number">4.4.3.2</span> Kolmogorov-Smirnov tests</h4>
+<p>The <strong>Kolmogorov-Smirnov (KS) test</strong> is a non-parametric test that compares a dataset to a distribution. Unlike the Shapiro-Wilk test, which only tests for normality, the KS test can compare data to any distribution. The KS test is useful because it is sensitive to differences in both location (i.e., mean) and shape. The example below illustrates the use of the KS test and plots the distributions.</p>
+<div class="sourceCode" id="cb989"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb989-1"><a href="4.4-mod-04-dists2.html#cb989-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fl">1e2</span></span>
+<span id="cb989-2"><a href="4.4-mod-04-dists2.html#cb989-2" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">10</span>, <span class="dv">2</span>)</span>
+<span id="cb989-3"><a href="4.4-mod-04-dists2.html#cb989-3" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">10</span>, <span class="dv">2</span>)</span>
+<span id="cb989-4"><a href="4.4-mod-04-dists2.html#cb989-4" aria-hidden="true" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">14</span>, <span class="dv">2</span>)</span>
+<span id="cb989-5"><a href="4.4-mod-04-dists2.html#cb989-5" aria-hidden="true" tabindex="-1"></a>x4 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">14</span>, <span class="dv">20</span>)</span>
+<span id="cb989-6"><a href="4.4-mod-04-dists2.html#cb989-6" aria-hidden="true" tabindex="-1"></a>x5 <span class="ot">&lt;-</span> <span class="fu">rpois</span>(n, <span class="dv">14</span>)</span>
+<span id="cb989-7"><a href="4.4-mod-04-dists2.html#cb989-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb989-8"><a href="4.4-mod-04-dists2.html#cb989-8" aria-hidden="true" tabindex="-1"></a><span class="co"># run KS tests:</span></span>
+<span id="cb989-9"><a href="4.4-mod-04-dists2.html#cb989-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ks.test</span>(x1, x2)</span></code></pre></div>
+<pre><code>## 
+##  Two-sample Kolmogorov-Smirnov test
+## 
+## data:  x1 and x2
+## D = 0.12, p-value = 0.4676
+## alternative hypothesis: two-sided</code></pre>
+<div class="sourceCode" id="cb991"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb991-1"><a href="4.4-mod-04-dists2.html#cb991-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ks.test</span>(x1, x3)</span></code></pre></div>
+<pre><code>## 
+##  Two-sample Kolmogorov-Smirnov test
+## 
+## data:  x1 and x3
+## D = 0.64, p-value &lt; 2.2e-16
+## alternative hypothesis: two-sided</code></pre>
+<div class="sourceCode" id="cb993"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb993-1"><a href="4.4-mod-04-dists2.html#cb993-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ks.test</span>(x3, x4)</span></code></pre></div>
+<pre><code>## 
+##  Two-sample Kolmogorov-Smirnov test
+## 
+## data:  x3 and x4
+## D = 0.41, p-value = 1.001e-07
+## alternative hypothesis: two-sided</code></pre>
+<div class="sourceCode" id="cb995"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb995-1"><a href="4.4-mod-04-dists2.html#cb995-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ks.test</span>(x3, x5)</span></code></pre></div>
+<pre><code>## Warning in ks.test(x3, x5): p-value will be approximate in the presence of ties</code></pre>
+<pre><code>## 
+##  Two-sample Kolmogorov-Smirnov test
+## 
+## data:  x3 and x5
+## D = 0.24, p-value = 0.006302
+## alternative hypothesis: two-sided</code></pre>
+<div class="sourceCode" id="cb998"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb998-1"><a href="4.4-mod-04-dists2.html#cb998-1" aria-hidden="true" tabindex="-1"></a><span class="co"># make a plot</span></span>
+<span id="cb998-2"><a href="4.4-mod-04-dists2.html#cb998-2" aria-hidden="true" tabindex="-1"></a>xx <span class="ot">&lt;-</span> <span class="dv">5</span><span class="sc">:</span><span class="dv">25</span></span>
+<span id="cb998-3"><a href="4.4-mod-04-dists2.html#cb998-3" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="fu">ecdf</span>(x1)(xx)</span>
+<span id="cb998-4"><a href="4.4-mod-04-dists2.html#cb998-4" aria-hidden="true" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> <span class="fu">ecdf</span>(x2)(xx)</span>
+<span id="cb998-5"><a href="4.4-mod-04-dists2.html#cb998-5" aria-hidden="true" tabindex="-1"></a>y3 <span class="ot">&lt;-</span> <span class="fu">ecdf</span>(x3)(xx)</span>
+<span id="cb998-6"><a href="4.4-mod-04-dists2.html#cb998-6" aria-hidden="true" tabindex="-1"></a>y4 <span class="ot">&lt;-</span> <span class="fu">ecdf</span>(x4)(xx)</span>
+<span id="cb998-7"><a href="4.4-mod-04-dists2.html#cb998-7" aria-hidden="true" tabindex="-1"></a>y5 <span class="ot">&lt;-</span> <span class="fu">ecdf</span>(x5)(xx)</span>
+<span id="cb998-8"><a href="4.4-mod-04-dists2.html#cb998-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb998-9"><a href="4.4-mod-04-dists2.html#cb998-9" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> <span class="fu">rainbow</span>(<span class="dv">5</span>)</span>
+<span id="cb998-10"><a href="4.4-mod-04-dists2.html#cb998-10" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="fl">5.1</span>, <span class="fl">5.1</span>, <span class="fl">1.1</span>, <span class="fl">1.1</span>),</span>
+<span id="cb998-11"><a href="4.4-mod-04-dists2.html#cb998-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">bty=</span><span class="st">&quot;n&quot;</span>, <span class="at">las=</span><span class="dv">1</span>, <span class="at">lend=</span><span class="dv">1</span>,</span>
+<span id="cb998-12"><a href="4.4-mod-04-dists2.html#cb998-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex.axis=</span><span class="fl">1.2</span>, <span class="at">cex.lab=</span><span class="fl">1.2</span>)</span>
+<span id="cb998-13"><a href="4.4-mod-04-dists2.html#cb998-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xx, y1, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>,</span>
+<span id="cb998-14"><a href="4.4-mod-04-dists2.html#cb998-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">&quot;X&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;ECDF&quot;</span>, <span class="at">col=</span>cols[<span class="dv">1</span>])</span>
+<span id="cb998-15"><a href="4.4-mod-04-dists2.html#cb998-15" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(xx, y2, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span>cols[<span class="dv">2</span>])</span>
+<span id="cb998-16"><a href="4.4-mod-04-dists2.html#cb998-16" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(xx, y3, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span>cols[<span class="dv">3</span>])</span>
+<span id="cb998-17"><a href="4.4-mod-04-dists2.html#cb998-17" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(xx, y4, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span>cols[<span class="dv">4</span>])</span>
+<span id="cb998-18"><a href="4.4-mod-04-dists2.html#cb998-18" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(xx, y5, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span>cols[<span class="dv">5</span>])</span>
+<span id="cb998-19"><a href="4.4-mod-04-dists2.html#cb998-19" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;bottomright&quot;</span>, </span>
+<span id="cb998-20"><a href="4.4-mod-04-dists2.html#cb998-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;N(10,2)&quot;</span>, <span class="st">&quot;N(10,2)&quot;</span>, </span>
+<span id="cb998-21"><a href="4.4-mod-04-dists2.html#cb998-21" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;N(14,2)&quot;</span>, <span class="st">&quot;N(14,20)&quot;</span>, <span class="st">&quot;Pois(14)&quot;</span>),</span>
+<span id="cb998-22"><a href="4.4-mod-04-dists2.html#cb998-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span>cols, <span class="at">bty=</span><span class="st">&quot;n&quot;</span>, <span class="at">cex=</span><span class="fl">1.3</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-371-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>The KS test results show that distributions <code>x1</code> and <code>x2</code> are not different (<em>P</em> &gt; 0.05). This makes sense because they are both normal distributions with the same mean and SD. Distributions <code>x1</code> and <code>x3</code> are different (<em>P</em> &lt; 0.05) because they have different means (10 vs. 14). Distributions <code>x3</code> and <code>x4</code> were different (<em>P</em> &lt; 0.05) because they had different SD (2 vs. 20). Finally, distributions <code>x3</code> and <code>x5</code> were different (<em>P</em> &lt; 0.05) because they were different distributions with different shapes (normal vs. Poisson).</p>
+<p>The KS test can be useful when you want to see how well your data matches up with their theoretical distribution. Consider the example of a lognormally distributed response below. If we suspect that the data come from a lognormal distribution or a gamma distribution, we can use the function <code>fitdistr()</code> to estimate the parameters of a lognormal and a gamma distribution that are most likely to produce those data. Then, we use a KS test to compare the data to the idealized candidates.</p>
+<div class="sourceCode" id="cb999"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb999-1"><a href="4.4-mod-04-dists2.html#cb999-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb999-2"><a href="4.4-mod-04-dists2.html#cb999-2" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rlnorm</span>(<span class="dv">100</span>, <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb999-3"><a href="4.4-mod-04-dists2.html#cb999-3" aria-hidden="true" tabindex="-1"></a><span class="co"># estimate moments</span></span>
+<span id="cb999-4"><a href="4.4-mod-04-dists2.html#cb999-4" aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">fitdistr</span>(x1, <span class="st">&quot;lognormal&quot;</span>)</span>
+<span id="cb999-5"><a href="4.4-mod-04-dists2.html#cb999-5" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">fitdistr</span>(x1, <span class="st">&quot;gamma&quot;</span>)</span></code></pre></div>
+<p>Notice that the parameters from <code>fitdistr()</code> are supplied as arguments to <code>ks.test()</code>, following the name of the distribution we want to compare to. If parameters are not supplied, then R will perform the KS test using the default parameter values (<code>meanlog=0</code> and <code>sdlog=1</code> for <code>plnorm()</code>; none for <code>pgamma()</code>), which is not what we want.</p>
+<div class="sourceCode" id="cb1000"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1000-1"><a href="4.4-mod-04-dists2.html#cb1000-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ks.test</span>(x1, <span class="st">&quot;plnorm&quot;</span>, fit1<span class="sc">$</span>estimate[<span class="dv">1</span>], fit1<span class="sc">$</span>estimate[<span class="dv">2</span>])</span></code></pre></div>
+<pre><code>## 
+##  One-sample Kolmogorov-Smirnov test
+## 
+## data:  x1
+## D = 0.058719, p-value = 0.8808
+## alternative hypothesis: two-sided</code></pre>
+<div class="sourceCode" id="cb1002"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1002-1"><a href="4.4-mod-04-dists2.html#cb1002-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ks.test</span>(x1, <span class="st">&quot;pgamma&quot;</span>, <span class="at">shape=</span>fit2<span class="sc">$</span>estimate[<span class="dv">1</span>],</span>
+<span id="cb1002-2"><a href="4.4-mod-04-dists2.html#cb1002-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">rate=</span>fit2<span class="sc">$</span>estimate[<span class="dv">2</span>])</span></code></pre></div>
+<pre><code>## 
+##  One-sample Kolmogorov-Smirnov test
+## 
+## data:  x1
+## D = 0.16211, p-value = 0.01043
+## alternative hypothesis: two-sided</code></pre>
+<div class="sourceCode" id="cb1004"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1004-1"><a href="4.4-mod-04-dists2.html#cb1004-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot x1 and its theoretical distribution</span></span>
+<span id="cb1004-2"><a href="4.4-mod-04-dists2.html#cb1004-2" aria-hidden="true" tabindex="-1"></a>xx <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(x1), <span class="fu">max</span>(x1), <span class="at">length=</span><span class="dv">500</span>)</span>
+<span id="cb1004-3"><a href="4.4-mod-04-dists2.html#cb1004-3" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="fu">ecdf</span>(x1)(xx)</span>
+<span id="cb1004-4"><a href="4.4-mod-04-dists2.html#cb1004-4" aria-hidden="true" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> <span class="fu">plnorm</span>(xx, fit1<span class="sc">$</span>estimate[<span class="dv">1</span>], fit1<span class="sc">$</span>estimate[<span class="dv">2</span>])</span>
+<span id="cb1004-5"><a href="4.4-mod-04-dists2.html#cb1004-5" aria-hidden="true" tabindex="-1"></a>y3 <span class="ot">&lt;-</span> <span class="fu">pgamma</span>(xx, <span class="at">shape=</span>fit2<span class="sc">$</span>estimate[<span class="dv">1</span>], <span class="at">rate=</span>fit2<span class="sc">$</span>estimate[<span class="dv">2</span>])</span>
+<span id="cb1004-6"><a href="4.4-mod-04-dists2.html#cb1004-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1004-7"><a href="4.4-mod-04-dists2.html#cb1004-7" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="fl">5.1</span>, <span class="fl">5.1</span>, <span class="fl">1.1</span>, <span class="fl">1.1</span>), <span class="at">bty=</span><span class="st">&quot;n&quot;</span>, </span>
+<span id="cb1004-8"><a href="4.4-mod-04-dists2.html#cb1004-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">las=</span><span class="dv">1</span>, <span class="at">lend=</span><span class="dv">1</span>, <span class="at">cex.axis=</span><span class="fl">1.2</span>, <span class="at">cex.lab=</span><span class="fl">1.2</span>)</span>
+<span id="cb1004-9"><a href="4.4-mod-04-dists2.html#cb1004-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">log</span>(xx), y1, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">xlab=</span><span class="st">&quot;log(X)&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;ECDF&quot;</span>)</span>
+<span id="cb1004-10"><a href="4.4-mod-04-dists2.html#cb1004-10" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">log</span>(xx), y2, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb1004-11"><a href="4.4-mod-04-dists2.html#cb1004-11" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">log</span>(xx), y3, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb1004-12"><a href="4.4-mod-04-dists2.html#cb1004-12" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>,</span>
+<span id="cb1004-13"><a href="4.4-mod-04-dists2.html#cb1004-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;Data&quot;</span>, <span class="st">&quot;Lognormal&quot;</span>, <span class="st">&quot;Gamma&quot;</span>),</span>
+<span id="cb1004-14"><a href="4.4-mod-04-dists2.html#cb1004-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">lwd=</span><span class="dv">3</span>,</span>
+<span id="cb1004-15"><a href="4.4-mod-04-dists2.html#cb1004-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>),</span>
+<span id="cb1004-16"><a href="4.4-mod-04-dists2.html#cb1004-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">bty=</span><span class="st">&quot;n&quot;</span>,</span>
+<span id="cb1004-17"><a href="4.4-mod-04-dists2.html#cb1004-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">cex=</span><span class="fl">1.3</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-373-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>While neither the lognormal distribution nor the gamma distribution are awful at representing the data, the KS test suggests that the simulated data <code>x1</code> come from a lognormal distribution, not a gamma distribution. This is because the KS test was non-significant when comparing the data to the lognormal, and significant (<em>P</em> &lt; 0.05) when comparing the data to the gamma distribution. The test comparing the data to the gamma distribution was, however, close to non-significant (<em>P</em> <span class="math inline">\(\approx\)</span> 0.01). See what happens if you change the random number seed and re-run the random generation and the test.</p>
+</div>
+</div>
+</div>
+<h3>Literature Cited</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-venables2002" class="csl-entry">
+Venables, W. N., and B. D. Ripley. 2002. <a href="https://www.stats.ox.ac.uk/pub/MASS4/">Modern applied statistics with <span>S</span></a>. Fourth. Springer, New York.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="4.3-mod-04-dists1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="4.5-mod-04-trans.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

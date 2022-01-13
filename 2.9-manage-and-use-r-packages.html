@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis</title>
+  <title>2.9 Manage and use R packages | Applied Biological Data Analysis</title>
   <meta name="description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta property="og:title" content="2.9 Manage and use R packages | Applied Biological Data Analysis" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://greenquanteco.github.io/index.html" />
   <meta property="og:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta name="twitter:title" content="2.9 Manage and use R packages | Applied Biological Data Analysis" />
   
   <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="twitter:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="8.5-mod-08-ord.html"/>
-<link rel="next" href="9.1-how-to-use-this-guide.html"/>
+<link rel="prev" href="2.8-manage-r-code-as-scripts-.r-files.html"/>
+<link rel="next" href="2.10-r-documentation.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -530,22 +530,192 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="mod-09" class="section level1" number="9">
-<h1><span class="header-section-number">Module 9</span> Planning your analysis (what test?)</h1>
-<p>One of the main questions that biologists have after collecting data is, “What statistical test do I use?” Ignoring the fact that they should have thought about that <strong><em>before collecting data</em></strong>, the answer to that question depends on the answers to two other questions:</p>
+<div id="manage-and-use-r-packages" class="section level2" number="2.9">
+<h2><span class="header-section-number">2.9</span> Manage and use R packages</h2>
+<p>“Packages” are modules that can be added to R to extend its capabilities. Most packages are written by R users and researchers who need functions that are not provided with the base R installation. These add-ons are one of the greatest strengths of R compared to other software packages. Commercial and proprietary statistics programs (like SAS) are upgraded only by a single group of developers, if at all. In contrast, new functions and capabilities are added to R by the user community every day.
+Some packages are widely used and cited, others less so. Do your homework before depending on a package. Is the package included or recommended with the base R installation? Is the package associated with any peer-reviewed publications? Does the package author appear to have the credentials that would qualify them to produce a package? Do other packages depend on this package? All of these are good signs that a package is reliable.
+Most packages are stored on The Comprehensive R Archive Network, or <a href="https://cran.r-project.org/">CRAN</a>. Other repositories exist, such as the Geological Survey R Archive Network, or <a href="https://owi.usgs.gov/R/gran.html">GRAN</a>. R-Forge, BioConductor, and GitHub also host some R packages. R-Forge and BioConductor can usually be accessed from the R command line just like CRAN. Installing packages from GitHub may require a different procedure. Most R packages are written in the R language itself, so even if you can’t find a way to install a package you can usually just copy and run its source code.</p>
+<div id="your-r-library" class="section level3" number="2.9.1">
+<h3><span class="header-section-number">2.9.1</span> Your R library</h3>
+<p>When you install R packages, the files are downloaded and stored on your machine for R to access when needed. R will probably create a folder in your R home directory for this purpose. The first time you install a package in R you will be asked if R can create a personal library in which to store the package. Package installations are specific to the version of R that you used for the installation, and specific to your operating system login. This means that if someone else logs in to your machine and wants to use a package, they will have to install the package for themselves. This also means that if you update your R installation to a new version, you may need to install packages again because some packages are version-specific.</p>
+</div>
+<div id="installing-packages-using-the-r-gui" class="section level3" number="2.9.2">
+<h3><span class="header-section-number">2.9.2</span> Installing packages using the R GUI</h3>
+<p>In the R GUI, go to Packages – Install package(s)…. You will be prompted to select a CRAN mirror (i.e., server from which to download). Pick any mirror you like. Then, scroll to and select your package. If the install fails, try a different mirror by going to Packages – Set CRAN mirror…, and then retrying the installation.</p>
+</div>
+<div id="installing-packages-in-rstudio" class="section level3" number="2.9.3">
+<h3><span class="header-section-number">2.9.3</span> Installing packages in RStudio</h3>
+<p>You can install a package in RStudio by going to Tools–Install Packages… and searching for the name of the package you want.</p>
+</div>
+<div id="installing-packages-using-the-r-console" class="section level3" number="2.9.4">
+<h3><span class="header-section-number">2.9.4</span> Installing packages using the R console</h3>
+<p>In the R console, you can install packages using function <code>install.packages()</code> as shown below. You will still be asked to select your CRAN mirror (most packages are hosted on CRAN).</p>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="2.9-manage-and-use-r-packages.html#cb247-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;vegan&quot;</span>)</span></code></pre></div>
+</div>
+<div id="working-with-packages-in-r" class="section level3" number="2.9.5">
+<h3><span class="header-section-number">2.9.5</span> Working with packages in R</h3>
+<p>From R, you can access the packages you have installed by <strong>loading</strong> them. In most situations you must load a package before you use it. The usual way is to use the <code>library()</code> function. Once a package is loaded, you can use its functions and datasets. The function <code>require()</code> does the same thing as <code>library()</code>, but it is designed for use inside other functions. Most of the time you should use <code>library()</code>. The command below will load the package <code>vegan</code> so its functions and datasets become available:</p>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="2.9-manage-and-use-r-packages.html#cb248-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegan)</span></code></pre></div>
+<p>Notice that the package name does not have to be in quotation marks within the <code>library()</code> function.</p>
+<p>You can see what packages are currently attached with <code>search()</code> or <code>sessionInfo()</code>. Packages can be unloaded detaching them from the workspace: <code>detach(package:x)</code>, where <code>x</code> is the name of the package you want to detach. In the example below, the first command loads the <code>MASS</code> package. Then, we can see that is loaded in the workspace with <code>search()</code>. The next command unloads <code>MASS</code>, then verifies that MASS was unloaded from the workspace with another <code>search()</code> command.</p>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="2.9-manage-and-use-r-packages.html#cb249-1" aria-hidden="true" tabindex="-1"></a><span class="fu">search</span>()</span>
+<span id="cb249-2"><a href="2.9-manage-and-use-r-packages.html#cb249-2" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] &quot;.GlobalEnv&quot;        &quot;package:bookdown&quot;  &quot;package:stats&quot;    </span></span>
+<span id="cb249-3"><a href="2.9-manage-and-use-r-packages.html#cb249-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  [4] &quot;package:graphics&quot;  &quot;package:grDevices&quot; &quot;package:utils&quot;    </span></span>
+<span id="cb249-4"><a href="2.9-manage-and-use-r-packages.html#cb249-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  [7] &quot;package:datasets&quot;  &quot;package:methods&quot;   &quot;Autoloads&quot;        </span></span>
+<span id="cb249-5"><a href="2.9-manage-and-use-r-packages.html#cb249-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [10] &quot;package:base&quot;</span></span>
+<span id="cb249-6"><a href="2.9-manage-and-use-r-packages.html#cb249-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb249-7"><a href="2.9-manage-and-use-r-packages.html#cb249-7" aria-hidden="true" tabindex="-1"></a><span class="fu">search</span>()</span>
+<span id="cb249-8"><a href="2.9-manage-and-use-r-packages.html#cb249-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] &quot;.GlobalEnv&quot;        &quot;package:MASS&quot;      &quot;package:bookdown&quot; </span></span>
+<span id="cb249-9"><a href="2.9-manage-and-use-r-packages.html#cb249-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  [4] &quot;package:stats&quot;     &quot;package:graphics&quot;  &quot;package:grDevices&quot;</span></span>
+<span id="cb249-10"><a href="2.9-manage-and-use-r-packages.html#cb249-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  [7] &quot;package:utils&quot;     &quot;package:datasets&quot;  &quot;package:methods&quot;  </span></span>
+<span id="cb249-11"><a href="2.9-manage-and-use-r-packages.html#cb249-11" aria-hidden="true" tabindex="-1"></a><span class="do">## [10] &quot;Autoloads&quot;         &quot;package:base&quot;</span></span>
+<span id="cb249-12"><a href="2.9-manage-and-use-r-packages.html#cb249-12" aria-hidden="true" tabindex="-1"></a><span class="fu">detach</span>(package<span class="sc">:</span>MASS)</span>
+<span id="cb249-13"><a href="2.9-manage-and-use-r-packages.html#cb249-13" aria-hidden="true" tabindex="-1"></a><span class="fu">search</span>()</span>
+<span id="cb249-14"><a href="2.9-manage-and-use-r-packages.html#cb249-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] &quot;.GlobalEnv&quot;        &quot;package:bookdown&quot;  &quot;package:stats&quot;    </span></span>
+<span id="cb249-15"><a href="2.9-manage-and-use-r-packages.html#cb249-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  [4] &quot;package:graphics&quot;  &quot;package:grDevices&quot; &quot;package:utils&quot;    </span></span>
+<span id="cb249-16"><a href="2.9-manage-and-use-r-packages.html#cb249-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  [7] &quot;package:datasets&quot;  &quot;package:methods&quot;   &quot;Autoloads&quot;        </span></span>
+<span id="cb249-17"><a href="2.9-manage-and-use-r-packages.html#cb249-17" aria-hidden="true" tabindex="-1"></a><span class="do">## [10] &quot;package:base&quot;</span></span></code></pre></div>
+<p>There is rarely any need to unload a package from the workspace unless there are naming conflicts. The most common situation is when two attached packages have functions with the same name. In this situation, R will use the most recently loaded package’s function. This phenomenon is called <strong>masking</strong>. When there is a name conflict, you can use the double colon operator <code>::</code> to specify which package’s function you want to use.</p>
+<p>Using <code>::</code> can also access a function without loading the entire package into the workspace. If both packages are already loaded into your workspace, then <code>::</code> will simply select which package’s function to use. Note that a package must be installed on your machine before you can use its functions.</p>
+<p>The example below shows how <code>::</code> can be used to access the <code>rtriangle()</code> and <code>fitdistr()</code> functions without loading their packages.</p>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="2.9-manage-and-use-r-packages.html#cb250-1" aria-hidden="true" tabindex="-1"></a>base<span class="sc">::</span><span class="fu">log</span>(<span class="dv">10</span>)</span>
+<span id="cb250-2"><a href="2.9-manage-and-use-r-packages.html#cb250-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 2.302585</span></span>
+<span id="cb250-3"><a href="2.9-manage-and-use-r-packages.html#cb250-3" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">10</span>)</span>
+<span id="cb250-4"><a href="2.9-manage-and-use-r-packages.html#cb250-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 2.302585</span></span>
+<span id="cb250-5"><a href="2.9-manage-and-use-r-packages.html#cb250-5" aria-hidden="true" tabindex="-1"></a>triangle<span class="sc">::</span><span class="fu">rtriangle</span>(<span class="dv">10</span>, <span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">5</span>)</span>
+<span id="cb250-6"><a href="2.9-manage-and-use-r-packages.html#cb250-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] 5.583211 7.399238 3.611716 4.125111 7.219196 6.284387 3.942722 2.244024</span></span>
+<span id="cb250-7"><a href="2.9-manage-and-use-r-packages.html#cb250-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  [9] 3.248832 3.791035</span></span>
+<span id="cb250-8"><a href="2.9-manage-and-use-r-packages.html#cb250-8" aria-hidden="true" tabindex="-1"></a>MASS<span class="sc">::</span><span class="fu">fitdistr</span>(<span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">50</span>, <span class="dv">10</span>), <span class="st">&quot;normal&quot;</span>)</span>
+<span id="cb250-9"><a href="2.9-manage-and-use-r-packages.html#cb250-9" aria-hidden="true" tabindex="-1"></a><span class="do">##       mean          sd    </span></span>
+<span id="cb250-10"><a href="2.9-manage-and-use-r-packages.html#cb250-10" aria-hidden="true" tabindex="-1"></a><span class="do">##   49.1385032   10.3490806 </span></span>
+<span id="cb250-11"><a href="2.9-manage-and-use-r-packages.html#cb250-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  ( 1.0349081) ( 0.7317905)</span></span>
+<span id="cb250-12"><a href="2.9-manage-and-use-r-packages.html#cb250-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb250-13"><a href="2.9-manage-and-use-r-packages.html#cb250-13" aria-hidden="true" tabindex="-1"></a><span class="co"># neither package (triangle or MASS) is attached:</span></span>
+<span id="cb250-14"><a href="2.9-manage-and-use-r-packages.html#cb250-14" aria-hidden="true" tabindex="-1"></a><span class="fu">search</span>()</span>
+<span id="cb250-15"><a href="2.9-manage-and-use-r-packages.html#cb250-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] &quot;.GlobalEnv&quot;        &quot;package:bookdown&quot;  &quot;package:stats&quot;    </span></span>
+<span id="cb250-16"><a href="2.9-manage-and-use-r-packages.html#cb250-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  [4] &quot;package:graphics&quot;  &quot;package:grDevices&quot; &quot;package:utils&quot;    </span></span>
+<span id="cb250-17"><a href="2.9-manage-and-use-r-packages.html#cb250-17" aria-hidden="true" tabindex="-1"></a><span class="do">##  [7] &quot;package:datasets&quot;  &quot;package:methods&quot;   &quot;Autoloads&quot;        </span></span>
+<span id="cb250-18"><a href="2.9-manage-and-use-r-packages.html#cb250-18" aria-hidden="true" tabindex="-1"></a><span class="do">## [10] &quot;package:base&quot;</span></span>
+<span id="cb250-19"><a href="2.9-manage-and-use-r-packages.html#cb250-19" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span>
+<span id="cb250-20"><a href="2.9-manage-and-use-r-packages.html#cb250-20" aria-hidden="true" tabindex="-1"></a><span class="do">## R version 4.1.1 (2021-08-10)</span></span>
+<span id="cb250-21"><a href="2.9-manage-and-use-r-packages.html#cb250-21" aria-hidden="true" tabindex="-1"></a><span class="do">## Platform: x86_64-w64-mingw32/x64 (64-bit)</span></span>
+<span id="cb250-22"><a href="2.9-manage-and-use-r-packages.html#cb250-22" aria-hidden="true" tabindex="-1"></a><span class="do">## Running under: Windows 10 x64 (build 19043)</span></span>
+<span id="cb250-23"><a href="2.9-manage-and-use-r-packages.html#cb250-23" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb250-24"><a href="2.9-manage-and-use-r-packages.html#cb250-24" aria-hidden="true" tabindex="-1"></a><span class="do">## Matrix products: default</span></span>
+<span id="cb250-25"><a href="2.9-manage-and-use-r-packages.html#cb250-25" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb250-26"><a href="2.9-manage-and-use-r-packages.html#cb250-26" aria-hidden="true" tabindex="-1"></a><span class="do">## locale:</span></span>
+<span id="cb250-27"><a href="2.9-manage-and-use-r-packages.html#cb250-27" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] LC_COLLATE=English_United States.1252 </span></span>
+<span id="cb250-28"><a href="2.9-manage-and-use-r-packages.html#cb250-28" aria-hidden="true" tabindex="-1"></a><span class="do">## [2] LC_CTYPE=English_United States.1252   </span></span>
+<span id="cb250-29"><a href="2.9-manage-and-use-r-packages.html#cb250-29" aria-hidden="true" tabindex="-1"></a><span class="do">## [3] LC_MONETARY=English_United States.1252</span></span>
+<span id="cb250-30"><a href="2.9-manage-and-use-r-packages.html#cb250-30" aria-hidden="true" tabindex="-1"></a><span class="do">## [4] LC_NUMERIC=C                          </span></span>
+<span id="cb250-31"><a href="2.9-manage-and-use-r-packages.html#cb250-31" aria-hidden="true" tabindex="-1"></a><span class="do">## [5] LC_TIME=English_United States.1252    </span></span>
+<span id="cb250-32"><a href="2.9-manage-and-use-r-packages.html#cb250-32" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb250-33"><a href="2.9-manage-and-use-r-packages.html#cb250-33" aria-hidden="true" tabindex="-1"></a><span class="do">## attached base packages:</span></span>
+<span id="cb250-34"><a href="2.9-manage-and-use-r-packages.html#cb250-34" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
+<span id="cb250-35"><a href="2.9-manage-and-use-r-packages.html#cb250-35" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb250-36"><a href="2.9-manage-and-use-r-packages.html#cb250-36" aria-hidden="true" tabindex="-1"></a><span class="do">## other attached packages:</span></span>
+<span id="cb250-37"><a href="2.9-manage-and-use-r-packages.html#cb250-37" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] bookdown_0.24</span></span>
+<span id="cb250-38"><a href="2.9-manage-and-use-r-packages.html#cb250-38" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb250-39"><a href="2.9-manage-and-use-r-packages.html#cb250-39" aria-hidden="true" tabindex="-1"></a><span class="do">## loaded via a namespace (and not attached):</span></span>
+<span id="cb250-40"><a href="2.9-manage-and-use-r-packages.html#cb250-40" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] rstudioapi_0.13  knitr_1.36       magrittr_2.0.1   R2jags_0.7-1    </span></span>
+<span id="cb250-41"><a href="2.9-manage-and-use-r-packages.html#cb250-41" aria-hidden="true" tabindex="-1"></a><span class="do">##  [5] MASS_7.3-54      triangle_0.12    lattice_0.20-44  rlang_0.4.12    </span></span>
+<span id="cb250-42"><a href="2.9-manage-and-use-r-packages.html#cb250-42" aria-hidden="true" tabindex="-1"></a><span class="do">##  [9] fastmap_1.1.0    stringr_1.4.0    highr_0.9        tools_4.1.1     </span></span>
+<span id="cb250-43"><a href="2.9-manage-and-use-r-packages.html#cb250-43" aria-hidden="true" tabindex="-1"></a><span class="do">## [13] parallel_4.1.1   grid_4.1.1       xfun_0.27        coda_0.19-4     </span></span>
+<span id="cb250-44"><a href="2.9-manage-and-use-r-packages.html#cb250-44" aria-hidden="true" tabindex="-1"></a><span class="do">## [17] jquerylib_0.1.4  htmltools_0.5.2  R2WinBUGS_2.1-21 yaml_2.2.1      </span></span>
+<span id="cb250-45"><a href="2.9-manage-and-use-r-packages.html#cb250-45" aria-hidden="true" tabindex="-1"></a><span class="do">## [21] abind_1.4-5      digest_0.6.28    evaluate_0.14    rmarkdown_2.11  </span></span>
+<span id="cb250-46"><a href="2.9-manage-and-use-r-packages.html#cb250-46" aria-hidden="true" tabindex="-1"></a><span class="do">## [25] stringi_1.7.5    compiler_4.1.1   rjags_4-12       boot_1.3-28</span></span></code></pre></div>
+</div>
+<div id="package-dependencies" class="section level3" number="2.9.6">
+<h3><span class="header-section-number">2.9.6</span> Package dependencies</h3>
+<p>Many R packages are built taking advantage of other R packages. The packages that a package depends on are called its <strong>dependencies</strong> or <strong>depends</strong>. Some packages have no dependencies (other than R itself), while others have many. Something to think about when deciding whether to use a package are the number and nature of its dependencies. If you use a package that depends on many other packages, then you are relying on the authors of those packages to maintain and update their code to work with new versions of R and new versions of packages. And, relying upon the authors of all of those packages’ dependencies. And so on. You can see the dependencies of a package by checking out its page on CRAN. For example, the <code>triangle</code> package <span class="citation">(<a href="#ref-carnell2019" role="doc-biblioref">Carnell 2019</a>)</span> is <a href="https://cran.r-project.org/package=triangle">here</a>. You can see the current version, what packages it depends on (“Depends”), and what packages depend on it (“Reverse depends”).</p>
+<p>The point here is that you don’t want your code to break because one of the packages you use hasn’t been updated. This can get very frustrating if, for example, several packages you use all depend on each other, or even different versions of each other! Most R package authors and/or maintainers are pretty good about keeping their packages up to date, but some are not. If you really need a function from a package that is no longer maintained, or incompatible with your current version of R, you have three options:</p>
 <ol style="list-style-type: decimal">
-<li>What question are you trying to answer?</li>
-<li>What kind of data do you have?</li>
+<li>Download and use the older version of R that is compatible with the package. This is not recommended because you will lose the benefit of recent bug fixes and modifications to R. This option is also not recommended because by rolling back to an older version of R, you will likely need to roll back to older versions of other packages.</li>
+<li>Find another, current package that does what you need to do. This can be a quite a headache if you have a large codebase or a very specialized function.</li>
+<li>Access the source code to the package you need, and “borrow” the functions or code you need.</li>
 </ol>
-<p>After <a href="4-mod-04.html#mod-04">exploring the data</a> and gaining an understanding of the patterns and <a href="4.8-mod-04-prob.html#mod-04-prob">problems</a> in a dataset, it is time to run the main analysis. This guide is designed to help you use what you learned in exploring the data to choose an appropriate analytical strategy.</p>
+<p>Sometimes, if you only need 1 or 2 functions from a package, or you need to modify a function from a package to suit your needs. In these cases, you can “borrow” directly from the package source code. For most packages, the CRAN page will have a link to an online code repository (usually Github) and/or the <strong>package source</strong> as a “tarball” (“.tar.gz” file). The latter is a compressed version of the package source code.</p>
+<p>Because most R packages are written in R itself, you can usually find and adapt the code you need. This is almost always permitted by the license of the package because most packages are released under some version of the GNU Public License (GPL). If you do borrow code from a package, it is considered good form to attribute the package authors in some way (e.g., “we adapted code from the package “triangle” version 0.12 (Carnell 2019)”).</p>
+</div>
+<div id="citing-packages" class="section level3" number="2.9.7">
+<h3><span class="header-section-number">2.9.7</span> Citing packages</h3>
+<p>Just like any software, you need to cite a package if you use it. This is both to give appropriate credit to the package authors, and to allow others to understand what you did. The appropriate citation for a package can be accessed from the console with the <code>citation()</code> command.</p>
+<p>Citation for R itself:</p>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="2.9-manage-and-use-r-packages.html#cb251-1" aria-hidden="true" tabindex="-1"></a><span class="fu">citation</span>()</span></code></pre></div>
+<pre><code>## 
+## To cite R in publications use:
+## 
+##   R Core Team (2021). R: A language and environment for statistical
+##   computing. R Foundation for Statistical Computing, Vienna, Austria.
+##   URL https://www.R-project.org/.
+## 
+## A BibTeX entry for LaTeX users is
+## 
+##   @Manual{,
+##     title = {R: A Language and Environment for Statistical Computing},
+##     author = {{R Core Team}},
+##     organization = {R Foundation for Statistical Computing},
+##     address = {Vienna, Austria},
+##     year = {2021},
+##     url = {https://www.R-project.org/},
+##   }
+## 
+## We have invested a lot of time and effort in creating R, please cite it
+## when using it for data analysis. See also &#39;citation(&quot;pkgname&quot;)&#39; for
+## citing R packages.</code></pre>
+<p>Citation for a package (note the quotation marks):</p>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="2.9-manage-and-use-r-packages.html#cb253-1" aria-hidden="true" tabindex="-1"></a><span class="fu">citation</span>(<span class="st">&quot;MASS&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+## To cite the MASS package in publications use:
+## 
+##   Venables, W. N. &amp; Ripley, B. D. (2002) Modern Applied Statistics with
+##   S. Fourth Edition. Springer, New York. ISBN 0-387-95457-0
+## 
+## A BibTeX entry for LaTeX users is
+## 
+##   @Book{,
+##     title = {Modern Applied Statistics with S},
+##     author = {W. N. Venables and B. D. Ripley},
+##     publisher = {Springer},
+##     edition = {Fourth},
+##     address = {New York},
+##     year = {2002},
+##     note = {ISBN 0-387-95457-0},
+##     url = {https://www.stats.ox.ac.uk/pub/MASS4/},
+##   }</code></pre>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="2.9-manage-and-use-r-packages.html#cb255-1" aria-hidden="true" tabindex="-1"></a><span class="fu">citation</span>(<span class="st">&quot;triangle&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+## To cite package &#39;triangle&#39; in publications use:
+## 
+##   Rob Carnell (2019). triangle: Provides the Standard Distribution
+##   Functions for the Triangle Distribution. R package version 0.12.
+##   https://CRAN.R-project.org/package=triangle
+## 
+## A BibTeX entry for LaTeX users is
+## 
+##   @Manual{,
+##     title = {triangle: Provides the Standard Distribution Functions for the Triangle
+## Distribution},
+##     author = {Rob Carnell},
+##     year = {2019},
+##     note = {R package version 0.12},
+##     url = {https://CRAN.R-project.org/package=triangle},
+##   }</code></pre>
+</div>
+</div>
+<h3>Literature Cited</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-carnell2019" class="csl-entry">
+Carnell, R. 2019. <a href="https://CRAN.R-project.org/package=triangle">Triangle: Provides the standard distribution functions for the triangle distribution</a>.
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="8.5-mod-08-ord.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="9.1-how-to-use-this-guide.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="2.8-manage-r-code-as-scripts-.r-files.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="2.10-r-documentation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

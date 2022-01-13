@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3.1 Data import and export | Applied Biological Data Analysis</title>
+  <meta name="description" content="Helping biologists to become more informed users of R and statistical methods." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3.1 Data import and export | Applied Biological Data Analysis" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://greenquanteco.github.io/index.html" />
+  <meta property="og:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
+  <meta property="og:description" content="Helping biologists to become more informed users of R and statistical methods." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3.1 Data import and export | Applied Biological Data Analysis" />
+  
+  <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
+  <meta name="twitter:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
+
+<meta name="author" content="Nick Green, Kennesaw State University" />
+
+
+<meta name="date" content="2022-01-12" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="3-mod-03.html"/>
+<link rel="next" href="3.2-making-values-in-r.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="license-and-permissions.html"><a href="license-and-permissions.html"><i class="fa fa-check"></i>License and permissions</a></li>
+<li class="chapter" data-level="" data-path="course-description.html"><a href="course-description.html"><i class="fa fa-check"></i>Course description</a></li>
+<li class="chapter" data-level="" data-path="course-objectives.html"><a href="course-objectives.html"><i class="fa fa-check"></i>Course objectives</a></li>
+<li class="chapter" data-level="" data-path="course-requirements.html"><a href="course-requirements.html"><i class="fa fa-check"></i>Course requirements</a></li>
+<li class="chapter" data-level="" data-path="recommended-reading.html"><a href="recommended-reading.html"><i class="fa fa-check"></i>Recommended reading</a></li>
+<li class="chapter" data-level="" data-path="course-organization.html"><a href="course-organization.html"><i class="fa fa-check"></i>Course organization</a></li>
+<li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the author</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="1-mod-01.html"><a href="1-mod-01.html"><i class="fa fa-check"></i><b>1</b> Statistics in modern biology</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="1.1-overview.html"><a href="1.1-overview.html"><i class="fa fa-check"></i><b>1.1</b> Overview</a></li>
+<li class="chapter" data-level="1.2" data-path="1.2-statistics-in-modern-biology.html"><a href="1.2-statistics-in-modern-biology.html"><i class="fa fa-check"></i><b>1.2</b> Statistics in modern biology</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="1.2-statistics-in-modern-biology.html"><a href="1.2-statistics-in-modern-biology.html#the-scientific-method"><i class="fa fa-check"></i><b>1.2.1</b> The scientific method</a></li>
+<li class="chapter" data-level="1.2.2" data-path="1.2-statistics-in-modern-biology.html"><a href="1.2-statistics-in-modern-biology.html#example-data-analysis"><i class="fa fa-check"></i><b>1.2.2</b> Example data analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="1.3-misuses-of-statistics.html"><a href="1.3-misuses-of-statistics.html"><i class="fa fa-check"></i><b>1.3</b> Misuses of statistics</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="1.3-misuses-of-statistics.html"><a href="1.3-misuses-of-statistics.html#proving-the-trivial-and-meaningless-hypotheses"><i class="fa fa-check"></i><b>1.3.1</b> “Proving” the trivial and meaningless hypotheses</a></li>
+<li class="chapter" data-level="1.3.2" data-path="1.3-misuses-of-statistics.html"><a href="1.3-misuses-of-statistics.html#inappropriate-methods"><i class="fa fa-check"></i><b>1.3.2</b> Inappropriate methods</a></li>
+<li class="chapter" data-level="1.3.3" data-path="1.3-misuses-of-statistics.html"><a href="1.3-misuses-of-statistics.html#p-hacking-and-data-dredging"><i class="fa fa-check"></i><b>1.3.3</b> <em>P</em>-hacking and data dredging</a></li>
+<li class="chapter" data-level="1.3.4" data-path="1.3-misuses-of-statistics.html"><a href="1.3-misuses-of-statistics.html#inadequate-sample-sizes-and-pseudoreplication"><i class="fa fa-check"></i><b>1.3.4</b> Inadequate sample sizes and pseudoreplication</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><i class="fa fa-check"></i><b>1.4</b> <em>P</em>-values and null hypothesis significance testing (NHST)</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#definition"><i class="fa fa-check"></i><b>1.4.1</b> Definition</a></li>
+<li class="chapter" data-level="1.4.2" data-path="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#history-and-status-of-p-values"><i class="fa fa-check"></i><b>1.4.2</b> History and status of <em>P</em>-values</a></li>
+<li class="chapter" data-level="1.4.3" data-path="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#where-p-values-come-from"><i class="fa fa-check"></i><b>1.4.3</b> Where <em>P</em>-values come from</a></li>
+<li class="chapter" data-level="1.4.4" data-path="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#what-p-values-mean-and-do-not-mean"><i class="fa fa-check"></i><b>1.4.4</b> What <em>P</em>-values mean and do not mean</a></li>
+<li class="chapter" data-level="1.4.5" data-path="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#do-you-need-a-p-value"><i class="fa fa-check"></i><b>1.4.5</b> Do you need a <em>P</em>-value?</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="1.5-alternatives-to-nhst.html"><a href="1.5-alternatives-to-nhst.html"><i class="fa fa-check"></i><b>1.5</b> Alternatives to NHST</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="1.5-alternatives-to-nhst.html"><a href="1.5-alternatives-to-nhst.html#bayesian-inference"><i class="fa fa-check"></i><b>1.5.1</b> Bayesian inference</a></li>
+<li class="chapter" data-level="1.5.2" data-path="1.5-alternatives-to-nhst.html"><a href="1.5-alternatives-to-nhst.html#information-theoretic-methods"><i class="fa fa-check"></i><b>1.5.2</b> Information-theoretic methods</a></li>
+<li class="chapter" data-level="1.5.3" data-path="1.5-alternatives-to-nhst.html"><a href="1.5-alternatives-to-nhst.html#machine-learning"><i class="fa fa-check"></i><b>1.5.3</b> Machine learning</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="2-mod-02.html"><a href="2-mod-02.html"><i class="fa fa-check"></i><b>2</b> Introduction to R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="2.1-getting-started-with-r.html"><a href="2.1-getting-started-with-r.html"><i class="fa fa-check"></i><b>2.1</b> Getting started with R</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="2.1-getting-started-with-r.html"><a href="2.1-getting-started-with-r.html#what-is-r"><i class="fa fa-check"></i><b>2.1.1</b> What is R?</a></li>
+<li class="chapter" data-level="2.1.2" data-path="2.1-getting-started-with-r.html"><a href="2.1-getting-started-with-r.html#advantages-of-r"><i class="fa fa-check"></i><b>2.1.2</b> Advantages of R</a></li>
+<li class="chapter" data-level="2.1.3" data-path="2.1-getting-started-with-r.html"><a href="2.1-getting-started-with-r.html#disadvantages-of-r"><i class="fa fa-check"></i><b>2.1.3</b> Disadvantages of R</a></li>
+<li class="chapter" data-level="2.1.4" data-path="2.1-getting-started-with-r.html"><a href="2.1-getting-started-with-r.html#base-r-and-vs.-tidyverse"><i class="fa fa-check"></i><b>2.1.4</b> Base R and (vs.?) <code>tidyverse</code></a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="2.2-download-and-install-r-and-rstudio.html"><a href="2.2-download-and-install-r-and-rstudio.html"><i class="fa fa-check"></i><b>2.2</b> Download and install R (and RStudio)</a></li>
+<li class="chapter" data-level="2.3" data-path="2.3-using-r.html"><a href="2.3-using-r.html"><i class="fa fa-check"></i><b>2.3</b> Using R</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="2.3-using-r.html"><a href="2.3-using-r.html#using-the-base-r-gui"><i class="fa fa-check"></i><b>2.3.1</b> Using the base R GUI</a></li>
+<li class="chapter" data-level="2.3.2" data-path="2.3-using-r.html"><a href="2.3-using-r.html#using-r-in-rstudio"><i class="fa fa-check"></i><b>2.3.2</b> Using R in RStudio</a></li>
+<li class="chapter" data-level="2.3.3" data-path="2.3-using-r.html"><a href="2.3-using-r.html#using-r-with-other-programs"><i class="fa fa-check"></i><b>2.3.3</b> Using R with other programs</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html"><i class="fa fa-check"></i><b>2.4</b> A first R session</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#import-data"><i class="fa fa-check"></i><b>2.4.1</b> Import data</a></li>
+<li class="chapter" data-level="2.4.2" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#explore-and-visualize-data"><i class="fa fa-check"></i><b>2.4.2</b> Explore and visualize data</a></li>
+<li class="chapter" data-level="2.4.3" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#transform-data"><i class="fa fa-check"></i><b>2.4.3</b> Transform data</a></li>
+<li class="chapter" data-level="2.4.4" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#analyze-data"><i class="fa fa-check"></i><b>2.4.4</b> Analyze data</a></li>
+<li class="chapter" data-level="2.4.5" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#write-out-results"><i class="fa fa-check"></i><b>2.4.5</b> Write out results</a></li>
+<li class="chapter" data-level="2.4.6" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#save-your-work"><i class="fa fa-check"></i><b>2.4.6</b> Save your work?</a></li>
+<li class="chapter" data-level="2.4.7" data-path="2.4-mod-02-first.html"><a href="2.4-mod-02-first.html#whats-next"><i class="fa fa-check"></i><b>2.4.7</b> What’s next?</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="2.5-write-and-execute-commands-in-the-r-console.html"><a href="2.5-write-and-execute-commands-in-the-r-console.html"><i class="fa fa-check"></i><b>2.5</b> Write and execute commands in the R console</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="2.5-write-and-execute-commands-in-the-r-console.html"><a href="2.5-write-and-execute-commands-in-the-r-console.html#r-commandsbasics"><i class="fa fa-check"></i><b>2.5.1</b> R commands–basics</a></li>
+<li class="chapter" data-level="2.5.2" data-path="2.5-write-and-execute-commands-in-the-r-console.html"><a href="2.5-write-and-execute-commands-in-the-r-console.html#elements-of-r-code"><i class="fa fa-check"></i><b>2.5.2</b> Elements of R code</a></li>
+<li class="chapter" data-level="2.5.3" data-path="2.5-write-and-execute-commands-in-the-r-console.html"><a href="2.5-write-and-execute-commands-in-the-r-console.html#the-r-workspace"><i class="fa fa-check"></i><b>2.5.3</b> The R workspace</a></li>
+<li class="chapter" data-level="2.5.4" data-path="2.5-write-and-execute-commands-in-the-r-console.html"><a href="2.5-write-and-execute-commands-in-the-r-console.html#r-code-basics-assignment-and-operators"><i class="fa fa-check"></i><b>2.5.4</b> R code basics: assignment and operators</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="2.6-mod-02-struct.html"><a href="2.6-mod-02-struct.html"><i class="fa fa-check"></i><b>2.6</b> Basic R data structures</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="2.6-mod-02-struct.html"><a href="2.6-mod-02-struct.html#vectors"><i class="fa fa-check"></i><b>2.6.1</b> Vectors</a></li>
+<li class="chapter" data-level="2.6.2" data-path="2.6-mod-02-struct.html"><a href="2.6-mod-02-struct.html#data-frames"><i class="fa fa-check"></i><b>2.6.2</b> Data frames</a></li>
+<li class="chapter" data-level="2.6.3" data-path="2.6-mod-02-struct.html"><a href="2.6-mod-02-struct.html#matrices-and-arrays"><i class="fa fa-check"></i><b>2.6.3</b> Matrices and arrays</a></li>
+<li class="chapter" data-level="2.6.4" data-path="2.6-mod-02-struct.html"><a href="2.6-mod-02-struct.html#lists"><i class="fa fa-check"></i><b>2.6.4</b> Lists</a></li>
+<li class="chapter" data-level="2.6.5" data-path="2.6-mod-02-struct.html"><a href="2.6-mod-02-struct.html#s4-objects"><i class="fa fa-check"></i><b>2.6.5</b> S4 objects</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="2.7-r-data-types.html"><a href="2.7-r-data-types.html"><i class="fa fa-check"></i><b>2.7</b> R data types</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="2.7-r-data-types.html"><a href="2.7-r-data-types.html#character-type"><i class="fa fa-check"></i><b>2.7.1</b> Character type</a></li>
+<li class="chapter" data-level="2.7.2" data-path="2.7-r-data-types.html"><a href="2.7-r-data-types.html#numeric-type"><i class="fa fa-check"></i><b>2.7.2</b> Numeric type</a></li>
+<li class="chapter" data-level="2.7.3" data-path="2.7-r-data-types.html"><a href="2.7-r-data-types.html#integer-type"><i class="fa fa-check"></i><b>2.7.3</b> Integer type</a></li>
+<li class="chapter" data-level="2.7.4" data-path="2.7-r-data-types.html"><a href="2.7-r-data-types.html#logical-type"><i class="fa fa-check"></i><b>2.7.4</b> Logical type</a></li>
+<li class="chapter" data-level="2.7.5" data-path="2.7-r-data-types.html"><a href="2.7-r-data-types.html#special-values"><i class="fa fa-check"></i><b>2.7.5</b> Special values</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="2.8-manage-r-code-as-scripts-.r-files.html"><a href="2.8-manage-r-code-as-scripts-.r-files.html"><i class="fa fa-check"></i><b>2.8</b> Manage R code as scripts (.r files)</a></li>
+<li class="chapter" data-level="2.9" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html"><i class="fa fa-check"></i><b>2.9</b> Manage and use R packages</a>
+<ul>
+<li class="chapter" data-level="2.9.1" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#your-r-library"><i class="fa fa-check"></i><b>2.9.1</b> Your R library</a></li>
+<li class="chapter" data-level="2.9.2" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#installing-packages-using-the-r-gui"><i class="fa fa-check"></i><b>2.9.2</b> Installing packages using the R GUI</a></li>
+<li class="chapter" data-level="2.9.3" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#installing-packages-in-rstudio"><i class="fa fa-check"></i><b>2.9.3</b> Installing packages in RStudio</a></li>
+<li class="chapter" data-level="2.9.4" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#installing-packages-using-the-r-console"><i class="fa fa-check"></i><b>2.9.4</b> Installing packages using the R console</a></li>
+<li class="chapter" data-level="2.9.5" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#working-with-packages-in-r"><i class="fa fa-check"></i><b>2.9.5</b> Working with packages in R</a></li>
+<li class="chapter" data-level="2.9.6" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#package-dependencies"><i class="fa fa-check"></i><b>2.9.6</b> Package dependencies</a></li>
+<li class="chapter" data-level="2.9.7" data-path="2.9-manage-and-use-r-packages.html"><a href="2.9-manage-and-use-r-packages.html#citing-packages"><i class="fa fa-check"></i><b>2.9.7</b> Citing packages</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html"><i class="fa fa-check"></i><b>2.10</b> R documentation</a>
+<ul>
+<li class="chapter" data-level="2.10.1" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html#documentation-help-files"><i class="fa fa-check"></i><b>2.10.1</b> Documentation (help) files</a></li>
+<li class="chapter" data-level="2.10.2" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html#r-vignettes"><i class="fa fa-check"></i><b>2.10.2</b> R vignettes</a></li>
+<li class="chapter" data-level="2.10.3" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html#official-r-project-resources"><i class="fa fa-check"></i><b>2.10.3</b> Official R Project resources</a></li>
+<li class="chapter" data-level="2.10.4" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html#unofficial-online-resources"><i class="fa fa-check"></i><b>2.10.4</b> Unofficial online resources</a></li>
+<li class="chapter" data-level="2.10.5" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html#r-books"><i class="fa fa-check"></i><b>2.10.5</b> R books</a></li>
+<li class="chapter" data-level="2.10.6" data-path="2.10-r-documentation.html"><a href="2.10-r-documentation.html#two-reminders"><i class="fa fa-check"></i><b>2.10.6</b> Two reminders</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="3-mod-03.html"><a href="3-mod-03.html"><i class="fa fa-check"></i><b>3</b> Data manipulation with R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="3.1-mod-03-inout.html"><a href="3.1-mod-03-inout.html"><i class="fa fa-check"></i><b>3.1</b> Data import and export</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="3.1-mod-03-inout.html"><a href="3.1-mod-03-inout.html#importing-data-preliminaries"><i class="fa fa-check"></i><b>3.1.1</b> Importing data: preliminaries</a></li>
+<li class="chapter" data-level="3.1.2" data-path="3.1-mod-03-inout.html"><a href="3.1-mod-03-inout.html#importing-data-from-text-files-with-read.csv-and-read.table"><i class="fa fa-check"></i><b>3.1.2</b> Importing data from text files with <code>read.csv()</code> and <code>read.table()</code></a></li>
+<li class="chapter" data-level="3.1.3" data-path="3.1-mod-03-inout.html"><a href="3.1-mod-03-inout.html#importing-data-from-saved-workspaces"><i class="fa fa-check"></i><b>3.1.3</b> Importing data from saved workspaces</a></li>
+<li class="chapter" data-level="3.1.4" data-path="3.1-mod-03-inout.html"><a href="3.1-mod-03-inout.html#importing-data-special-cases"><i class="fa fa-check"></i><b>3.1.4</b> Importing data: special cases:</a></li>
+<li class="chapter" data-level="3.1.5" data-path="3.1-mod-03-inout.html"><a href="3.1-mod-03-inout.html#export-data-from-r"><i class="fa fa-check"></i><b>3.1.5</b> Export data from R</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="3.2-making-values-in-r.html"><a href="3.2-making-values-in-r.html"><i class="fa fa-check"></i><b>3.2</b> Making values in R</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="3.2-making-values-in-r.html"><a href="3.2-making-values-in-r.html#producing-arbitrary-values-with-c"><i class="fa fa-check"></i><b>3.2.1</b> Producing arbitrary values with <code>c()</code></a></li>
+<li class="chapter" data-level="3.2.2" data-path="3.2-making-values-in-r.html"><a href="3.2-making-values-in-r.html#generating-regular-values"><i class="fa fa-check"></i><b>3.2.2</b> Generating regular values</a></li>
+<li class="chapter" data-level="3.2.3" data-path="3.2-making-values-in-r.html"><a href="3.2-making-values-in-r.html#generating-random-values"><i class="fa fa-check"></i><b>3.2.3</b> Generating random values</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="3.3-selecting-data-with.html"><a href="3.3-selecting-data-with.html"><i class="fa fa-check"></i><b>3.3</b> Selecting data with <code>[]</code></a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="3.3-selecting-data-with.html"><a href="3.3-selecting-data-with.html#mod-03-brackets"><i class="fa fa-check"></i><b>3.3.1</b> Basics of brackets</a></li>
+<li class="chapter" data-level="3.3.2" data-path="3.3-selecting-data-with.html"><a href="3.3-selecting-data-with.html#extracting-and-selecting-data-with-logical-tests"><i class="fa fa-check"></i><b>3.3.2</b> Extracting and selecting data with logical tests</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="3.4-managing-dates-and-characters.html"><a href="3.4-managing-dates-and-characters.html"><i class="fa fa-check"></i><b>3.4</b> Managing dates and characters</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="3.4-managing-dates-and-characters.html"><a href="3.4-managing-dates-and-characters.html#temporal-data-and-dates"><i class="fa fa-check"></i><b>3.4.1</b> Temporal data and dates</a></li>
+<li class="chapter" data-level="3.4.2" data-path="3.4-managing-dates-and-characters.html"><a href="3.4-managing-dates-and-characters.html#character-data-text"><i class="fa fa-check"></i><b>3.4.2</b> Character data (text)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="3.5-mod-03-dataframe.html"><a href="3.5-mod-03-dataframe.html"><i class="fa fa-check"></i><b>3.5</b> Data frame management</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="3.5-mod-03-dataframe.html"><a href="3.5-mod-03-dataframe.html#data-frame-structure"><i class="fa fa-check"></i><b>3.5.1</b> Data frame structure</a></li>
+<li class="chapter" data-level="3.5.2" data-path="3.5-mod-03-dataframe.html"><a href="3.5-mod-03-dataframe.html#common-data-frame-operations"><i class="fa fa-check"></i><b>3.5.2</b> Common data frame operations</a></li>
+<li class="chapter" data-level="3.5.3" data-path="3.5-mod-03-dataframe.html"><a href="3.5-mod-03-dataframe.html#other-data-frame-operations"><i class="fa fa-check"></i><b>3.5.3</b> Other data frame operations</a></li>
+<li class="chapter" data-level="3.5.4" data-path="3.5-mod-03-dataframe.html"><a href="3.5-mod-03-dataframe.html#mod-03-reshape"><i class="fa fa-check"></i><b>3.5.4</b> Reshaping data frames</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="4-mod-04.html"><a href="4-mod-04.html"><i class="fa fa-check"></i><b>4</b> Exploratory data analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="4.1-descriptive-and-summary-statistics.html"><a href="4.1-descriptive-and-summary-statistics.html"><i class="fa fa-check"></i><b>4.1</b> Descriptive and summary statistics</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="4.1-descriptive-and-summary-statistics.html"><a href="4.1-descriptive-and-summary-statistics.html#basic-summary-statistics"><i class="fa fa-check"></i><b>4.1.1</b> Basic summary statistics</a></li>
+<li class="chapter" data-level="4.1.2" data-path="4.1-descriptive-and-summary-statistics.html"><a href="4.1-descriptive-and-summary-statistics.html#summarizing-data-with-the-apply-family"><i class="fa fa-check"></i><b>4.1.2</b> Summarizing data with the <code>apply()</code> family</a></li>
+<li class="chapter" data-level="4.1.3" data-path="4.1-descriptive-and-summary-statistics.html"><a href="4.1-descriptive-and-summary-statistics.html#mod-04-tabagg"><i class="fa fa-check"></i><b>4.1.3</b> Tabulation and aggregation</a></li>
+<li class="chapter" data-level="4.1.4" data-path="4.1-descriptive-and-summary-statistics.html"><a href="4.1-descriptive-and-summary-statistics.html#aggregation-aka-pivot-tables"><i class="fa fa-check"></i><b>4.1.4</b> Aggregation (aka: pivot tables)</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html"><i class="fa fa-check"></i><b>4.2</b> Visualizing data distributions</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html#boxplots-aka-box-and-whisker-plots"><i class="fa fa-check"></i><b>4.2.1</b> Boxplots (aka: box-and-whisker plots)</a></li>
+<li class="chapter" data-level="4.2.2" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html#histograms"><i class="fa fa-check"></i><b>4.2.2</b> Histograms</a></li>
+<li class="chapter" data-level="4.2.3" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html#kernel-density-plots"><i class="fa fa-check"></i><b>4.2.3</b> Kernel density plots</a></li>
+<li class="chapter" data-level="4.2.4" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html#empirical-cumulative-distribution-plots-ecdf"><i class="fa fa-check"></i><b>4.2.4</b> Empirical cumulative distribution plots (ECDF)</a></li>
+<li class="chapter" data-level="4.2.5" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html#quantile-quantile-qq-plots"><i class="fa fa-check"></i><b>4.2.5</b> Quantile-quantile (QQ) plots</a></li>
+<li class="chapter" data-level="4.2.6" data-path="4.2-mod-04-vis.html"><a href="4.2-mod-04-vis.html#how-should-i-plot-my-data"><i class="fa fa-check"></i><b>4.2.6</b> How should I plot my data?</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="4.3-mod-04-dists1.html"><a href="4.3-mod-04-dists1.html"><i class="fa fa-check"></i><b>4.3</b> Statistical distributions</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="4.3-mod-04-dists1.html"><a href="4.3-mod-04-dists1.html#probability-distributions"><i class="fa fa-check"></i><b>4.3.1</b> Probability distributions</a></li>
+<li class="chapter" data-level="4.3.2" data-path="4.3-mod-04-dists1.html"><a href="4.3-mod-04-dists1.html#probability-distributions-in-r"><i class="fa fa-check"></i><b>4.3.2</b> Probability distributions in R</a></li>
+<li class="chapter" data-level="4.3.3" data-path="4.3-mod-04-dists1.html"><a href="4.3-mod-04-dists1.html#discrete-distributions"><i class="fa fa-check"></i><b>4.3.3</b> Discrete distributions</a></li>
+<li class="chapter" data-level="4.3.4" data-path="4.3-mod-04-dists1.html"><a href="4.3-mod-04-dists1.html#continuous-distributions"><i class="fa fa-check"></i><b>4.3.4</b> Continuous distributions</a></li>
+<li class="chapter" data-level="4.3.5" data-path="4.3-mod-04-dists1.html"><a href="4.3-mod-04-dists1.html#distributions-summary"><i class="fa fa-check"></i><b>4.3.5</b> Distributions summary</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="4.4-mod-04-dists2.html"><a href="4.4-mod-04-dists2.html"><i class="fa fa-check"></i><b>4.4</b> Fitting and testing distributions</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="4.4-mod-04-dists2.html"><a href="4.4-mod-04-dists2.html#estimating-distributional-parameters"><i class="fa fa-check"></i><b>4.4.1</b> Estimating distributional parameters</a></li>
+<li class="chapter" data-level="4.4.2" data-path="4.4-mod-04-dists2.html"><a href="4.4-mod-04-dists2.html#graphical-methods-for-examining-distributions"><i class="fa fa-check"></i><b>4.4.2</b> Graphical methods for examining distributions</a></li>
+<li class="chapter" data-level="4.4.3" data-path="4.4-mod-04-dists2.html"><a href="4.4-mod-04-dists2.html#formal-tests-for-distributions"><i class="fa fa-check"></i><b>4.4.3</b> Formal tests for distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="4.5-mod-04-trans.html"><a href="4.5-mod-04-trans.html"><i class="fa fa-check"></i><b>4.5</b> Data transformations</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="4.5-mod-04-trans.html"><a href="4.5-mod-04-trans.html#why-transform"><i class="fa fa-check"></i><b>4.5.1</b> Why transform?</a></li>
+<li class="chapter" data-level="4.5.2" data-path="4.5-mod-04-trans.html"><a href="4.5-mod-04-trans.html#transforms-vs.-link-functions"><i class="fa fa-check"></i><b>4.5.2</b> Transforms vs. link functions</a></li>
+<li class="chapter" data-level="4.5.3" data-path="4.5-mod-04-trans.html"><a href="4.5-mod-04-trans.html#log-transformation"><i class="fa fa-check"></i><b>4.5.3</b> Log transformation</a></li>
+<li class="chapter" data-level="4.5.4" data-path="4.5-mod-04-trans.html"><a href="4.5-mod-04-trans.html#rank-transformation"><i class="fa fa-check"></i><b>4.5.4</b> Rank transformation</a></li>
+<li class="chapter" data-level="4.5.5" data-path="4.5-mod-04-trans.html"><a href="4.5-mod-04-trans.html#other-transforms-less-common"><i class="fa fa-check"></i><b>4.5.5</b> Other transforms (less common)</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="4.6-multivariate-data-exploration.html"><a href="4.6-multivariate-data-exploration.html"><i class="fa fa-check"></i><b>4.6</b> Multivariate data exploration</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="4.6-multivariate-data-exploration.html"><a href="4.6-multivariate-data-exploration.html#scatterplots-for-two-variables"><i class="fa fa-check"></i><b>4.6.1</b> Scatterplots for two variables</a></li>
+<li class="chapter" data-level="4.6.2" data-path="4.6-multivariate-data-exploration.html"><a href="4.6-multivariate-data-exploration.html#mod-04-smat"><i class="fa fa-check"></i><b>4.6.2</b> Scatterplot matrices for many variables</a></li>
+<li class="chapter" data-level="4.6.3" data-path="4.6-multivariate-data-exploration.html"><a href="4.6-multivariate-data-exploration.html#lattice-plots-for-hierarchical-data"><i class="fa fa-check"></i><b>4.6.3</b> Lattice plots for hierarchical data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="4.7-ordination-brief-introduction.html"><a href="4.7-ordination-brief-introduction.html"><i class="fa fa-check"></i><b>4.7</b> Ordination (brief introduction)</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="4.7-ordination-brief-introduction.html"><a href="4.7-ordination-brief-introduction.html#principal-components-analysis-pca"><i class="fa fa-check"></i><b>4.7.1</b> Principal components analysis (PCA)</a></li>
+<li class="chapter" data-level="4.7.2" data-path="4.7-ordination-brief-introduction.html"><a href="4.7-ordination-brief-introduction.html#nonmetric-multidimensional-scaling-nmds"><i class="fa fa-check"></i><b>4.7.2</b> Nonmetric multidimensional scaling (NMDS)</a></li>
+<li class="chapter" data-level="4.7.3" data-path="4.7-ordination-brief-introduction.html"><a href="4.7-ordination-brief-introduction.html#plotting-ordinations"><i class="fa fa-check"></i><b>4.7.3</b> Plotting ordinations</a></li>
+<li class="chapter" data-level="4.7.4" data-path="4.7-ordination-brief-introduction.html"><a href="4.7-ordination-brief-introduction.html#ordination-wrap-up-for-now"><i class="fa fa-check"></i><b>4.7.4</b> Ordination wrap-up (for now)</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="4.8-mod-04-prob.html"><a href="4.8-mod-04-prob.html"><i class="fa fa-check"></i><b>4.8</b> Common statistical problems</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="4.8-mod-04-prob.html"><a href="4.8-mod-04-prob.html#outliers-and-erroneous-values"><i class="fa fa-check"></i><b>4.8.1</b> Outliers and erroneous values</a></li>
+<li class="chapter" data-level="4.8.2" data-path="4.8-mod-04-prob.html"><a href="4.8-mod-04-prob.html#autocorrelation"><i class="fa fa-check"></i><b>4.8.2</b> Autocorrelation</a></li>
+<li class="chapter" data-level="4.8.3" data-path="4.8-mod-04-prob.html"><a href="4.8-mod-04-prob.html#mod-04-multicol"><i class="fa fa-check"></i><b>4.8.3</b> Collinearity</a></li>
+<li class="chapter" data-level="4.8.4" data-path="4.8-mod-04-prob.html"><a href="4.8-mod-04-prob.html#missing-data"><i class="fa fa-check"></i><b>4.8.4</b> Missing data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="5-mod-05.html"><a href="5-mod-05.html"><i class="fa fa-check"></i><b>5</b> Generalized linear models (GLM)</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html"><i class="fa fa-check"></i><b>5.1</b> Prelude with linear models</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html#assumptions-of-linear-models"><i class="fa fa-check"></i><b>5.1.1</b> Assumptions of linear models</a></li>
+<li class="chapter" data-level="5.1.2" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html#linear-regression-in-r"><i class="fa fa-check"></i><b>5.1.2</b> Linear regression in R</a></li>
+<li class="chapter" data-level="5.1.3" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html#multiple-linear-regression"><i class="fa fa-check"></i><b>5.1.3</b> Multiple linear regression</a></li>
+<li class="chapter" data-level="5.1.4" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html#mod-05-anova"><i class="fa fa-check"></i><b>5.1.4</b> ANOVA and ANCOVA with <code>lm()</code></a></li>
+<li class="chapter" data-level="5.1.5" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html#variations-on-linear-models"><i class="fa fa-check"></i><b>5.1.5</b> Variations on linear models</a></li>
+<li class="chapter" data-level="5.1.6" data-path="5.1-mod-05-lm.html"><a href="5.1-mod-05-lm.html#example-linear-regression-workflow"><i class="fa fa-check"></i><b>5.1.6</b> Example linear regression workflow</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html"><i class="fa fa-check"></i><b>5.2</b> GLM basics</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html#example-glms"><i class="fa fa-check"></i><b>5.2.1</b> Example GLMS</a></li>
+<li class="chapter" data-level="5.2.2" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html#glm-families"><i class="fa fa-check"></i><b>5.2.2</b> GLM families</a></li>
+<li class="chapter" data-level="5.2.3" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html#glm-link-functions"><i class="fa fa-check"></i><b>5.2.3</b> GLM link functions</a></li>
+<li class="chapter" data-level="5.2.4" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html#deviance-and-other-glm-diagnostics"><i class="fa fa-check"></i><b>5.2.4</b> Deviance and other GLM diagnostics</a></li>
+<li class="chapter" data-level="5.2.5" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html#to-pseudo-r2-or-not-to-pseudo-r2"><i class="fa fa-check"></i><b>5.2.5</b> To pseudo-<em>R</em><sup>2</sup> or not to pseudo-<em>R</em><sup>2</sup>?</a></li>
+<li class="chapter" data-level="5.2.6" data-path="5.2-mod-05-basic.html"><a href="5.2-mod-05-basic.html#common-glms"><i class="fa fa-check"></i><b>5.2.6</b> Common GLMs</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="5.3-mod-05-loglin.html"><a href="5.3-mod-05-loglin.html"><i class="fa fa-check"></i><b>5.3</b> Log-linear models</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="5.3-mod-05-loglin.html"><a href="5.3-mod-05-loglin.html#mod-05-loglin-examp"><i class="fa fa-check"></i><b>5.3.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="5.3.2" data-path="5.3-mod-05-loglin.html"><a href="5.3-mod-05-loglin.html#example-with-real-data"><i class="fa fa-check"></i><b>5.3.2</b> Example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="5.4-mod-05-poisson.html"><a href="5.4-mod-05-poisson.html"><i class="fa fa-check"></i><b>5.4</b> Poisson GLM for counts</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="5.4-mod-05-poisson.html"><a href="5.4-mod-05-poisson.html#example-with-simulated-data"><i class="fa fa-check"></i><b>5.4.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="5.4.2" data-path="5.4-mod-05-poisson.html"><a href="5.4-mod-05-poisson.html#example-with-real-data-1"><i class="fa fa-check"></i><b>5.4.2</b> Example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="5.5-mod-05-quasi.html"><a href="5.5-mod-05-quasi.html"><i class="fa fa-check"></i><b>5.5</b> Quasi-Poisson and negative binomial GLM</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="5.5-mod-05-quasi.html"><a href="5.5-mod-05-quasi.html#example-with-simulated-data-1"><i class="fa fa-check"></i><b>5.5.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="5.5.2" data-path="5.5-mod-05-quasi.html"><a href="5.5-mod-05-quasi.html#example-with-real-data-2"><i class="fa fa-check"></i><b>5.5.2</b> Example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="5.6-mod-05-logistic.html"><a href="5.6-mod-05-logistic.html"><i class="fa fa-check"></i><b>5.6</b> Logistic regression for binary outcomes</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="5.6-mod-05-logistic.html"><a href="5.6-mod-05-logistic.html#example-with-simulated-data-2"><i class="fa fa-check"></i><b>5.6.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="5.6.2" data-path="5.6-mod-05-logistic.html"><a href="5.6-mod-05-logistic.html#example-with-real-data-3"><i class="fa fa-check"></i><b>5.6.2</b> Example with real data</a></li>
+<li class="chapter" data-level="5.6.3" data-path="5.6-mod-05-logistic.html"><a href="5.6-mod-05-logistic.html#mod-05-auc"><i class="fa fa-check"></i><b>5.6.3</b> Logistic GLM diagnostics: AUC and ROC</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="5.7-mod-05-binom.html"><a href="5.7-mod-05-binom.html"><i class="fa fa-check"></i><b>5.7</b> Binomial GLM for proportional data</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="5.7-mod-05-binom.html"><a href="5.7-mod-05-binom.html#binomial-glm"><i class="fa fa-check"></i><b>5.7.1</b> Binomial GLM</a></li>
+<li class="chapter" data-level="5.7.2" data-path="5.7-mod-05-binom.html"><a href="5.7-mod-05-binom.html#example-with-simulated-data-3"><i class="fa fa-check"></i><b>5.7.2</b> Example with simulated data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="5.8-mod-05-gamma.html"><a href="5.8-mod-05-gamma.html"><i class="fa fa-check"></i><b>5.8</b> Gamma models for overdispersed data</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="5.8-mod-05-gamma.html"><a href="5.8-mod-05-gamma.html#example-with-simulated-data-4"><i class="fa fa-check"></i><b>5.8.1</b> Example with simulated data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="5.9-mod-05-beyond.html"><a href="5.9-mod-05-beyond.html"><i class="fa fa-check"></i><b>5.9</b> Beyond GLM: Overview of GAM and GEE</a>
+<ul>
+<li class="chapter" data-level="5.9.1" data-path="5.9-mod-05-beyond.html"><a href="5.9-mod-05-beyond.html#mod-05-gam"><i class="fa fa-check"></i><b>5.9.1</b> Generalized additive models (GAM)</a></li>
+<li class="chapter" data-level="5.9.2" data-path="5.9-mod-05-beyond.html"><a href="5.9-mod-05-beyond.html#mod-05-gee"><i class="fa fa-check"></i><b>5.9.2</b> Generalized estimating equations (GEE)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="6-mod-06.html"><a href="6-mod-06.html"><i class="fa fa-check"></i><b>6</b> Nonlinear models</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="6.1-background.html"><a href="6.1-background.html"><i class="fa fa-check"></i><b>6.1</b> Background</a></li>
+<li class="chapter" data-level="6.2" data-path="6.2-mod-06-intro.html"><a href="6.2-mod-06-intro.html"><i class="fa fa-check"></i><b>6.2</b> Nonlinear least squares (NLS)</a></li>
+<li class="chapter" data-level="6.3" data-path="6.3-mod-06-micmen.html"><a href="6.3-mod-06-micmen.html"><i class="fa fa-check"></i><b>6.3</b> Michaelis-Menten curves</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="6.3-mod-06-micmen.html"><a href="6.3-mod-06-micmen.html#mod-06-micmen-sim"><i class="fa fa-check"></i><b>6.3.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="6.3.2" data-path="6.3-mod-06-micmen.html"><a href="6.3-mod-06-micmen.html#example-with-real-data-4"><i class="fa fa-check"></i><b>6.3.2</b> Example with real data</a></li>
+<li class="chapter" data-level="6.3.3" data-path="6.3-mod-06-micmen.html"><a href="6.3-mod-06-micmen.html#alternative-strategies-for-the-analysis"><i class="fa fa-check"></i><b>6.3.3</b> Alternative strategies for the analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="6.4-mod-06-grow.html"><a href="6.4-mod-06-grow.html"><i class="fa fa-check"></i><b>6.4</b> Biological growth curves</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="6.4-mod-06-grow.html"><a href="6.4-mod-06-grow.html#gompertz-and-von-bertalanffy-curves"><i class="fa fa-check"></i><b>6.4.1</b> Gompertz and von Bertalanffy curves</a></li>
+<li class="chapter" data-level="6.4.2" data-path="6.4-mod-06-grow.html"><a href="6.4-mod-06-grow.html#example-with-real-data-5"><i class="fa fa-check"></i><b>6.4.2</b> Example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="6.5-dose-response-curves.html"><a href="6.5-dose-response-curves.html"><i class="fa fa-check"></i><b>6.5</b> Dose response curves</a></li>
+<li class="chapter" data-level="6.6" data-path="6.6-alternatives-to-nls.html"><a href="6.6-alternatives-to-nls.html"><i class="fa fa-check"></i><b>6.6</b> Alternatives to NLS</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="6.6-alternatives-to-nls.html"><a href="6.6-alternatives-to-nls.html#generalized-nonlinear-models"><i class="fa fa-check"></i><b>6.6.1</b> Generalized nonlinear models</a></li>
+<li class="chapter" data-level="6.6.2" data-path="6.6-alternatives-to-nls.html"><a href="6.6-alternatives-to-nls.html#quantile-regression"><i class="fa fa-check"></i><b>6.6.2</b> Quantile regression</a></li>
+<li class="chapter" data-level="6.6.3" data-path="6.6-alternatives-to-nls.html"><a href="6.6-alternatives-to-nls.html#mod-06-gam"><i class="fa fa-check"></i><b>6.6.3</b> Generalized additive models (GAM)</a></li>
+<li class="chapter" data-level="6.6.4" data-path="6.6-alternatives-to-nls.html"><a href="6.6-alternatives-to-nls.html#classification-and-regression-trees-cart"><i class="fa fa-check"></i><b>6.6.4</b> Classification and regression trees (CART)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="7-mod-07.html"><a href="7-mod-07.html"><i class="fa fa-check"></i><b>7</b> Mixed models</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="7.1-prelude-glm.html"><a href="7.1-prelude-glm.html"><i class="fa fa-check"></i><b>7.1</b> Prelude (GLM)</a></li>
+<li class="chapter" data-level="7.2" data-path="7.2-mod-07-lmm.html"><a href="7.2-mod-07-lmm.html"><i class="fa fa-check"></i><b>7.2</b> Linear mixed models (LMM)</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="7.2-mod-07-lmm.html"><a href="7.2-mod-07-lmm.html#formal-definition-and-example"><i class="fa fa-check"></i><b>7.2.1</b> Formal definition and example</a></li>
+<li class="chapter" data-level="7.2.2" data-path="7.2-mod-07-lmm.html"><a href="7.2-mod-07-lmm.html#example-with-simulated-data-5"><i class="fa fa-check"></i><b>7.2.2</b> Example with simulated data</a></li>
+<li class="chapter" data-level="7.2.3" data-path="7.2-mod-07-lmm.html"><a href="7.2-mod-07-lmm.html#p-values-in-lmm"><i class="fa fa-check"></i><b>7.2.3</b> <em>P</em>-values in LMM</a></li>
+<li class="chapter" data-level="7.2.4" data-path="7.2-mod-07-lmm.html"><a href="7.2-mod-07-lmm.html#specifying-random-effects"><i class="fa fa-check"></i><b>7.2.4</b> Specifying random effects</a></li>
+<li class="chapter" data-level="7.2.5" data-path="7.2-mod-07-lmm.html"><a href="7.2-mod-07-lmm.html#lmm-example-with-real-data"><i class="fa fa-check"></i><b>7.2.5</b> LMM example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="7.3-mod-07-glmm.html"><a href="7.3-mod-07-glmm.html"><i class="fa fa-check"></i><b>7.3</b> Generalized linear mixed models (GLMM)</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="7.3-mod-07-glmm.html"><a href="7.3-mod-07-glmm.html#definition-1"><i class="fa fa-check"></i><b>7.3.1</b> Definition</a></li>
+<li class="chapter" data-level="7.3.2" data-path="7.3-mod-07-glmm.html"><a href="7.3-mod-07-glmm.html#glmm-on-simulated-data"><i class="fa fa-check"></i><b>7.3.2</b> GLMM on simulated data</a></li>
+<li class="chapter" data-level="7.3.3" data-path="7.3-mod-07-glmm.html"><a href="7.3-mod-07-glmm.html#glmm-on-real-data"><i class="fa fa-check"></i><b>7.3.3</b> GLMM on real data</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="7.4-mod-07-nlme.html"><a href="7.4-mod-07-nlme.html"><i class="fa fa-check"></i><b>7.4</b> Nonlinear mixed models (NLME)</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="7.4-mod-07-nlme.html"><a href="7.4-mod-07-nlme.html#definition-and-background"><i class="fa fa-check"></i><b>7.4.1</b> Definition and background</a></li>
+<li class="chapter" data-level="7.4.2" data-path="7.4-mod-07-nlme.html"><a href="7.4-mod-07-nlme.html#nlme-on-simulated-data"><i class="fa fa-check"></i><b>7.4.2</b> NLME on simulated data</a></li>
+<li class="chapter" data-level="7.4.3" data-path="7.4-mod-07-nlme.html"><a href="7.4-mod-07-nlme.html#nlme-on-real-data"><i class="fa fa-check"></i><b>7.4.3</b> NLME on real data</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="7.5-mod-07-gamm.html"><a href="7.5-mod-07-gamm.html"><i class="fa fa-check"></i><b>7.5</b> (Generalized) additive mixed models (AMM/GAMM)</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="7.5-mod-07-gamm.html"><a href="7.5-mod-07-gamm.html#example-gamm-with-real-data"><i class="fa fa-check"></i><b>7.5.1</b> Example GAMM with real data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="8-mod-08.html"><a href="8-mod-08.html"><i class="fa fa-check"></i><b>8</b> Multivariate data analysis</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="8.1-multivariate-data.html"><a href="8.1-multivariate-data.html"><i class="fa fa-check"></i><b>8.1</b> Multivariate data</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="8.1-multivariate-data.html"><a href="8.1-multivariate-data.html#univariate-vs.-multivariate-data"><i class="fa fa-check"></i><b>8.1.1</b> Univariate vs. multivariate data</a></li>
+<li class="chapter" data-level="8.1.2" data-path="8.1-multivariate-data.html"><a href="8.1-multivariate-data.html#components-of-multivariate-data"><i class="fa fa-check"></i><b>8.1.2</b> Components of multivariate data</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="8.2-mod-08-dist.html"><a href="8.2-mod-08-dist.html"><i class="fa fa-check"></i><b>8.2</b> Distance metrics: biological (dis)similarity</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="8.2-mod-08-dist.html"><a href="8.2-mod-08-dist.html#euclidean-distance"><i class="fa fa-check"></i><b>8.2.1</b> Euclidean distance</a></li>
+<li class="chapter" data-level="8.2.2" data-path="8.2-mod-08-dist.html"><a href="8.2-mod-08-dist.html#bray-curtis-and-other-distance-metrics"><i class="fa fa-check"></i><b>8.2.2</b> Bray-Curtis and other distance metrics</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="8.3-clustering.html"><a href="8.3-clustering.html"><i class="fa fa-check"></i><b>8.3</b> Clustering</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="8.3-clustering.html"><a href="8.3-clustering.html#k-means-clustering"><i class="fa fa-check"></i><b>8.3.1</b> <em>K</em>-means clustering</a></li>
+<li class="chapter" data-level="8.3.2" data-path="8.3-clustering.html"><a href="8.3-clustering.html#hierarchical-agglomerative-clustering"><i class="fa fa-check"></i><b>8.3.2</b> Hierarchical agglomerative clustering</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="8.4-mod-08-sims.html"><a href="8.4-mod-08-sims.html"><i class="fa fa-check"></i><b>8.4</b> Analyzing dissimilarity</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="8.4-mod-08-sims.html"><a href="8.4-mod-08-sims.html#mantel-tests-distance-vs.-distance"><i class="fa fa-check"></i><b>8.4.1</b> Mantel tests: distance vs. distance</a></li>
+<li class="chapter" data-level="8.4.2" data-path="8.4-mod-08-sims.html"><a href="8.4-mod-08-sims.html#comparing-dissimilarity-between-groups"><i class="fa fa-check"></i><b>8.4.2</b> Comparing dissimilarity between groups</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="8.5-mod-08-ord.html"><a href="8.5-mod-08-ord.html"><i class="fa fa-check"></i><b>8.5</b> Ordination</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="8.5-mod-08-ord.html"><a href="8.5-mod-08-ord.html#principal-components-analysis-pca-1"><i class="fa fa-check"></i><b>8.5.1</b> Principal components analysis (PCA)</a></li>
+<li class="chapter" data-level="8.5.2" data-path="8.5-mod-08-ord.html"><a href="8.5-mod-08-ord.html#nmds-and-other-ordination-methods"><i class="fa fa-check"></i><b>8.5.2</b> NMDS and other ordination methods</a></li>
+<li class="chapter" data-level="8.5.3" data-path="8.5-mod-08-ord.html"><a href="8.5-mod-08-ord.html#other-ordination-techniques"><i class="fa fa-check"></i><b>8.5.3</b> Other ordination techniques</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="9-mod-09.html"><a href="9-mod-09.html"><i class="fa fa-check"></i><b>9</b> Planning your analysis (what test?)</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="9.1-how-to-use-this-guide.html"><a href="9.1-how-to-use-this-guide.html"><i class="fa fa-check"></i><b>9.1</b> How to use this guide</a></li>
+<li class="chapter" data-level="9.2" data-path="9.2-what-question-are-you-trying-to-answer.html"><a href="9.2-what-question-are-you-trying-to-answer.html"><i class="fa fa-check"></i><b>9.2</b> What question are you trying to answer?</a></li>
+<li class="chapter" data-level="9.3" data-path="9.3-testing-for-a-difference-in-mean-or-location.html"><a href="9.3-testing-for-a-difference-in-mean-or-location.html"><i class="fa fa-check"></i><b>9.3</b> Testing for a difference in mean or location</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="9.3-testing-for-a-difference-in-mean-or-location.html"><a href="9.3-testing-for-a-difference-in-mean-or-location.html#additional-considerations"><i class="fa fa-check"></i><b>9.3.1</b> Additional considerations</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="9.4-testing-for-a-continuous-relationship-between-two-or-more-variables.html"><a href="9.4-testing-for-a-continuous-relationship-between-two-or-more-variables.html"><i class="fa fa-check"></i><b>9.4</b> Testing for a continuous relationship between two or more variables</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="9.4-testing-for-a-continuous-relationship-between-two-or-more-variables.html"><a href="9.4-testing-for-a-continuous-relationship-between-two-or-more-variables.html#additional-considerations-1"><i class="fa fa-check"></i><b>9.4.1</b> Additional considerations</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="9.5-classifying-observations.html"><a href="9.5-classifying-observations.html"><i class="fa fa-check"></i><b>9.5</b> Classifying observations</a></li>
+<li class="chapter" data-level="9.6" data-path="9.6-conclusions.html"><a href="9.6-conclusions.html"><i class="fa fa-check"></i><b>9.6</b> Conclusions</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="literature-cited.html"><a href="literature-cited.html"><i class="fa fa-check"></i>Literature Cited</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Applied Biological Data Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="mod-03-inout" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Data import and export</h2>
+<p>Before you can use R to analyze your data, you need to get you data into R. Most of us store our data in an Excel spreadsheet or some kind of database. These are fine, but if you plan to have R in your workflow I strongly recommend you get in the habit of storing your data in plain text files. Plain text files store data separated (or “delimited”) by a particular character such as a comma or a tab. Unsurprisingly, these are called <strong>comma-delimited (.csv)</strong> or <strong>tab-delimited (.txt)</strong> text files. The reason for storing and importing your data this way is simple: plain text files are a stable, almost-universally supported file format that can be read and opened by many programs on any computer. Proprietary formats such as Excel spreadsheets (.xlsx or .xls) or the Mac “Numbers” program (.numbers) are not as widely supported and change more frequently than plain text formats. The fact that plain text formats are typically smaller than equivalent Excel files is a nice bonus.</p>
+<p>Reading your data in from text files has another benefit: repeatability. Chances are you will need to revisit or repeat your data analysis several times. If you program the importation of data in a few lines of R code, you can just run the code. If, however, you use one of the “point-and-click” methods available in RStudio or base R you will have to repeat those steps manually. This can get very aggravating and time consuming if you have multiple datasets to import. This page is designed to demystify the process of getting data into R and to demonstrate some good practices for data storage.</p>
+<p>Note that many of the code blocks below have <code># not run:</code> in them, and no output. These indicate that either single commands or the entire block was not actually evaluated when rendering the R Markdown. This was either because the code was designed to return an error (which would prevent R Markdown rendering), produce large outputs, or would clutter up the folder where I store the files for this website. These commands will work on your machine, and will demonstrate important R concepts, so try them out!</p>
+<div id="importing-data-preliminaries" class="section level3" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Importing data: preliminaries</h3>
+<p>Before you try to import your data into R, take a few minutes to set yourself up for success.</p>
+<div id="naming-data-files" class="section level4" number="3.1.1.1">
+<h4><span class="header-section-number">3.1.1.1</span> Naming data files</h4>
+<p>Good file names are essential for a working biologist. Chances are you will work on many projects over the course of your career, each with its own collection of data files. Even if you store each project’s data in a separate folder, it is a very good idea to give data files within those folders names that are descriptive. I have worked with many people who insist on using file names like “data.xlsx” and relying on their own memory or paper notes to tell them which file is which. Consider this list of particularly egregious file names:</p>
+<ul>
+<li>data.txt</li>
+<li>Data.txt</li>
+<li>data.set.csv</li>
+<li>analysis data.xlsx</li>
+<li>thesis data.xlsx</li>
+<li>DATA FINAL - copy.txt</li>
+<li>data current.revised.2019.txt.xlsx</li>
+<li>final thesis data revised revised final revised analysis.csv</li>
+</ul>
+<p>We are all guilty of this kind of bad naming from time to time. What do all of the above have in common? They are vague. The names contain no meaningful information about what the files actually contain. Some of them are ambiguous: different operating systems or programs might read “data.txt” and “Data.txt” as the same file, or as different files!</p>
+<p>Data file names should be <strong>short</strong>, <strong>simple</strong>, and <strong>descriptive</strong>. There are no hard and fast rules for naming data files so I’m not going to prescribe any. Instead, I’ll share some examples and explain why these names are helpful. As you go along and get getter at working with data you will probably develop your own habits, and that’s ok. Just try to follow the guiding principles of short, simple, and descriptive.</p>
+<p>Here are some example file names with explanations of their desirable properties:</p>
+<p><strong>sturgeon_growth_data_2017-02-21.txt</strong></p>
+<p>This name declares what the file contains (growth data for sturgeon), and the date it was created. Notice that the date is given as “YYYY-MM-DD”. This format is useful because it automatically sorts chronologically. This file name separates its words with underscores rather than spaces or periods. This can prevent some occasional issues with programs misreading file names (white space and periods can have specific meanings in some contexts).</p>
+<p><strong>dat_combine_2020-07-13.csv</strong></p>
+<p>This name signifies that the file contains a “combined” dataset, and includes the date of its creation. This would be kept in a folder with the files that were combined to make it. Within a project I usually use prefixes on file names to help identify them: “dat” for datasets with response and explanatory variables; “met” for “metadata”; “geo” or “loc” for geospatial datasets and GIS layers; and “key” for lookup tables that relate dat and met files. You might develop your own conventions for types of data that occur in your work.</p>
+<p><strong>dat_vegcover_nrda_releaseversion_2021-05-03.csv</strong></p>
+<p>This name is similar to the last name, but includes some additional signifiers for the project funder (NRDA) and the fact that this is the final released version.</p>
+</div>
+<div id="formatting-data-files" class="section level4" number="3.1.1.2">
+<h4><span class="header-section-number">3.1.1.2</span> Formatting data files</h4>
+<p>Recently <span class="citation">Broman and Woo (<a href="#ref-broman2018" role="doc-biblioref">2018</a>)</span> reviewed common good practices for storing data in spreadsheets. Their article is short and easy to read, and gave a few recommendations for data formatting:</p>
+<ul>
+<li>Be consistent</li>
+<li>Choose good names for things</li>
+<li>Write dates as YYYY-MM-DD</li>
+<li>No empty cells</li>
+<li>Put just one thing in a cell</li>
+<li>Make it a rectangle</li>
+<li>Create a data dictionary</li>
+<li>No calculations in the raw data files</li>
+<li>Do not use font color or highlighting as data</li>
+<li>Make backups</li>
+<li>Use data validation to avoid errors</li>
+<li>Save the data in plain text files</li>
+</ul>
+<p>Most people who work with data, myself included, probably agree with their recommendations. There is room for individual preferences in the exact implementation of each principle, but the general ideas are solid. You will save yourself a lot of headache if you follow their advice. I strongly suggest you read their paper.</p>
+<div id="variable-names" class="section level5" number="3.1.1.2.1">
+<h5><span class="header-section-number">3.1.1.2.1</span> Variable names</h5>
+<p>Variable names, like data file names, should be brief but informative. There are few restrictions on what variable names can be in R. For simplicity, I recommend you use only <strong>lowercase letters</strong>, <strong>numbers</strong>, <strong>underscores</strong> (<code>_</code>), and <strong>periods</strong> (<code>.</code>) in variable names. Other symbols are either inconvenient to type, or can cause issues being parsed by R. Some common pifalls include:</p>
+<p><strong><em>Leading numerals</em></strong> will cause an error if not enclosed in quotation marks:</p>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="3.1-mod-03-inout.html#cb263-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> iris[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,]</span>
+<span id="cb263-2"><a href="3.1-mod-03-inout.html#cb263-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(x)[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">&quot;3a&quot;</span></span>
+<span id="cb263-3"><a href="3.1-mod-03-inout.html#cb263-3" aria-hidden="true" tabindex="-1"></a>x<span class="sc">$</span>3a</span>
+<span id="cb263-4"><a href="3.1-mod-03-inout.html#cb263-4" aria-hidden="true" tabindex="-1"></a>x<span class="sc">$</span><span class="st">&#39;3a&#39;</span></span>
+<span id="cb263-5"><a href="3.1-mod-03-inout.html#cb263-5" aria-hidden="true" tabindex="-1"></a>x[,<span class="st">&quot;3a&quot;</span>]</span></code></pre></div>
+<p><strong><em>Numeral-only names</em></strong> will cause an error. They can also be mis-interpreted as column numbers. Don’t give your variables numeral-only names.</p>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="3.1-mod-03-inout.html#cb264-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> iris[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,]</span>
+<span id="cb264-2"><a href="3.1-mod-03-inout.html#cb264-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(x)[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">&quot;3&quot;</span></span>
+<span id="cb264-3"><a href="3.1-mod-03-inout.html#cb264-3" aria-hidden="true" tabindex="-1"></a>x<span class="sc">$</span><span class="dv">3</span>     <span class="co"># error</span></span>
+<span id="cb264-4"><a href="3.1-mod-03-inout.html#cb264-4" aria-hidden="true" tabindex="-1"></a>x<span class="sc">$</span><span class="st">&#39;3&#39;</span>   <span class="co"># works</span></span>
+<span id="cb264-5"><a href="3.1-mod-03-inout.html#cb264-5" aria-hidden="true" tabindex="-1"></a>x[,<span class="dv">3</span>]   <span class="co"># column number 3</span></span>
+<span id="cb264-6"><a href="3.1-mod-03-inout.html#cb264-6" aria-hidden="true" tabindex="-1"></a>x[,<span class="st">&quot;3&quot;</span>] <span class="co"># column named &quot;3&quot;</span></span></code></pre></div>
+<p><strong><em>Spaces</em></strong> in variable names will cause errors because R interprets a space as whitespace, not part of a name. If you insist on using spaces, enclose the variable name in quotation marks every time you use it. This is one of the few places where R cares about whitespace.</p>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="3.1-mod-03-inout.html#cb265-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> iris[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,]</span>
+<span id="cb265-2"><a href="3.1-mod-03-inout.html#cb265-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(x)[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">&quot;a b&quot;</span></span>
+<span id="cb265-3"><a href="3.1-mod-03-inout.html#cb265-3" aria-hidden="true" tabindex="-1"></a><span class="co"># not run (error):</span></span>
+<span id="cb265-4"><a href="3.1-mod-03-inout.html#cb265-4" aria-hidden="true" tabindex="-1"></a><span class="co"># x$a b</span></span>
+<span id="cb265-5"><a href="3.1-mod-03-inout.html#cb265-5" aria-hidden="true" tabindex="-1"></a>x<span class="sc">$</span><span class="st">&#39;a b&#39;</span></span></code></pre></div>
+<pre><code>## [1] 5.1 4.9 4.7 4.6 5.0</code></pre>
+<p><strong><em>Special characters</em></strong> in variable names can cause issues with parsing. Many symbols that you might think to use, such as hyphens (or dashes, <code>-</code>) or slashes <code>/</code> are also R operators. Again, try to avoid these issues by using letters, numbers, underscores, and periods.</p>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="3.1-mod-03-inout.html#cb267-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> iris[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,]</span>
+<span id="cb267-2"><a href="3.1-mod-03-inout.html#cb267-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(x)[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">&quot;a/b&quot;</span></span>
+<span id="cb267-3"><a href="3.1-mod-03-inout.html#cb267-3" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb267-4"><a href="3.1-mod-03-inout.html#cb267-4" aria-hidden="true" tabindex="-1"></a><span class="co"># not run (error):</span></span>
+<span id="cb267-5"><a href="3.1-mod-03-inout.html#cb267-5" aria-hidden="true" tabindex="-1"></a><span class="co">#x$a/b</span></span>
+<span id="cb267-6"><a href="3.1-mod-03-inout.html#cb267-6" aria-hidden="true" tabindex="-1"></a><span class="co"># works:</span></span>
+<span id="cb267-7"><a href="3.1-mod-03-inout.html#cb267-7" aria-hidden="true" tabindex="-1"></a>x<span class="sc">$</span><span class="st">&#39;a/b&#39;</span></span></code></pre></div>
+<pre><code>## [1] 5.1 4.9 4.7 4.6 5.0</code></pre>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="3.1-mod-03-inout.html#cb269-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(x)[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">&quot;surv%&quot;</span></span>
+<span id="cb269-2"><a href="3.1-mod-03-inout.html#cb269-2" aria-hidden="true" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code>##   surv% Sepal.Width Petal.Length Petal.Width Species
+## 1   5.1         3.5          1.4         0.2  setosa
+## 2   4.9         3.0          1.4         0.2  setosa
+## 3   4.7         3.2          1.3         0.2  setosa
+## 4   4.6         3.1          1.5         0.2  setosa
+## 5   5.0         3.6          1.4         0.2  setosa</code></pre>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="3.1-mod-03-inout.html#cb271-1" aria-hidden="true" tabindex="-1"></a><span class="co"># not run (error):</span></span>
+<span id="cb271-2"><a href="3.1-mod-03-inout.html#cb271-2" aria-hidden="true" tabindex="-1"></a><span class="co">#x$surv%</span></span>
+<span id="cb271-3"><a href="3.1-mod-03-inout.html#cb271-3" aria-hidden="true" tabindex="-1"></a>x<span class="sc">$</span><span class="st">&#39;surv%&#39;</span></span></code></pre></div>
+<pre><code>## [1] 5.1 4.9 4.7 4.6 5.0</code></pre>
+<p><strong><em>Uppercase letters</em></strong> in variable names work just fine, but they can be inconvenient. Because R is case sensitive, you need to type the variable exactly the same way each time. This can be tedious if you have several variables with similar names.</p>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="3.1-mod-03-inout.html#cb273-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> iris[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,]</span>
+<span id="cb273-2"><a href="3.1-mod-03-inout.html#cb273-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(x)[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">&quot;sep.len&quot;</span> <span class="co"># convenient</span></span>
+<span id="cb273-3"><a href="3.1-mod-03-inout.html#cb273-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(x)[<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="st">&quot;SEP.LEN&quot;</span> <span class="co"># slightly inconvenient</span></span>
+<span id="cb273-4"><a href="3.1-mod-03-inout.html#cb273-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(x)[<span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="st">&quot;Sep.Len&quot;</span> <span class="co"># more inconvenient</span></span>
+<span id="cb273-5"><a href="3.1-mod-03-inout.html#cb273-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(x)[<span class="dv">4</span>] <span class="ot">&lt;-</span> <span class="st">&quot;SeP.lEn&quot;</span> <span class="co"># just don&#39;t</span></span>
+<span id="cb273-6"><a href="3.1-mod-03-inout.html#cb273-6" aria-hidden="true" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code>##   sep.len SEP.LEN Sep.Len SeP.lEn Species
+## 1     5.1     3.5     1.4     0.2  setosa
+## 2     4.9     3.0     1.4     0.2  setosa
+## 3     4.7     3.2     1.3     0.2  setosa
+## 4     4.6     3.1     1.5     0.2  setosa
+## 5     5.0     3.6     1.4     0.2  setosa</code></pre>
+</div>
+<div id="data-values" class="section level5" number="3.1.1.2.2">
+<h5><span class="header-section-number">3.1.1.2.2</span> Data values</h5>
+<p>All data in R have a type: numeric, logical, character, etc. Within a vector, matrix, or array, all values must have the same type or they will be converted to character strings. Each variable in a data frame (the most common R data structure) is essentially a vector. This means that in your input file you should try to have one and only one type of data in each column. Otherwise, R will coerce the values into character strings, which may or may not be a problem. Putting only one type of value into each column will also help get your data into “wide” or “tidy” format (<span class="citation">Wickham (<a href="#ref-wickham2014" role="doc-biblioref">2014</a>)</span>).</p>
+<p>Entering data should also include some measure of <strong>quality assurance and quality control (QA/QC)</strong>. This basically means making sure that your data are entered correctly, and are formatted correctly. Correct entry can be accomplished by direct comparison to original datasheets or lab notebooks. Cross-checking is a valuable tool here: have two people enter the data and compare their files.</p>
+<p>Data formatting requires thinking about what kinds of data are being entered. For numbers, this means entering the correct values and an appropriate number of significant digits. For text values, this may mean spell-checking or settling on a standard set of possible values. The figure below shows some problems that a QA/QC step might fix:</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/03_01.jpg" /></p>
+</div>
+</div>
+</div>
+<div id="importing-data-from-text-files-with-read.csv-and-read.table" class="section level3" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> Importing data from text files with <code>read.csv()</code> and <code>read.table()</code></h3>
+<p>Plain text files are imported, or read, using functions that are named for that purpose. The function <code>read.table()</code> works on many types of text files, including tab-delimited and comma-delimited. The function <code>read.csv()</code> works on comma-delimited files only. The syntax for both is very similar.</p>
+<p>Put the files <a href="https://greenquanteco.github.io/elk_data_2021-01-21.txt">elk_data_2021-01-21.txt</a> and <a href="https://greenquanteco.github.io/elk_data_2021-01-21.csv">elk_data_2021-01-21.csv</a> in your R home directory. The R home directory depends on your operating system:</p>
+<ul>
+<li><em>Windows users:</em> the home directory is your <strong>Documents</strong> folder. The address of this folder is <code>C:/Users/username/Documents</code>, where <code>username</code> is your Windows logon name. You can get to your Documents folder by opening Windows Explorer (Win-E) and double-clicking “Documents”.</li>
+<li><em>Mac users:</em> the home directory is your <strong>home</strong> folder. The address of this folder is <code>/Users/username</code> (where <code>username</code> is your username) or <code>~/</code>. You can open your home folder by pressing CMD-SHIFT-H, or by using the Go pulldown menu from the menu bar.</li>
+</ul>
+<p>Import a tab-delimited file from your home directory:</p>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="3.1-mod-03-inout.html#cb275-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;elk_data_2021-01-21.txt&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p>Import a comma-delimited version from your home directory. Note how similar the syntax is.</p>
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="3.1-mod-03-inout.html#cb276-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;elk_data_2021-01-21.csv&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="cb276-2"><a href="3.1-mod-03-inout.html#cb276-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb276-3"><a href="3.1-mod-03-inout.html#cb276-3" aria-hidden="true" tabindex="-1"></a><span class="co"># alternative, using read.table():</span></span>
+<span id="cb276-4"><a href="3.1-mod-03-inout.html#cb276-4" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;elk_data_2021-01-21.csv&quot;</span>, </span>
+<span id="cb276-5"><a href="3.1-mod-03-inout.html#cb276-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">sep=</span><span class="st">&quot;,&quot;</span>)</span></code></pre></div>
+<p>The examples above required the name of the data file-—notice the file extensions!-—and an argument <code>header</code> which specifies that the first row of the data file contains column names. Try one of those commands without that argument and see what happens.</p>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="3.1-mod-03-inout.html#cb277-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;elk_data_2021-01-21.txt&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="cb277-2"><a href="3.1-mod-03-inout.html#cb277-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat)</span></code></pre></div>
+<pre><code>##   height antler species
+## 1   69.3   24.8 unknown
+## 2   69.3   34.5 unknown
+## 3   87.7   53.5 unknown
+## 4   99.8   58.3 unknown
+## 5   69.3   61.2 unknown
+## 6   84.1   67.3 unknown</code></pre>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="3.1-mod-03-inout.html#cb279-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;elk_data_2021-01-21.txt&quot;</span>)</span>
+<span id="cb279-2"><a href="3.1-mod-03-inout.html#cb279-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat)</span></code></pre></div>
+<pre><code>##       V1     V2      V3
+## 1 height antler species
+## 2   69.3   24.8 unknown
+## 3   69.3   34.5 unknown
+## 4   87.7   53.5 unknown
+## 5   99.8   58.3 unknown
+## 6   69.3   61.2 unknown</code></pre>
+<p>Without the <code>header</code> argument, the column names were read as the first row of the dataset and the columns of the data frame were given generic names <code>V1</code>, <code>V2</code>, and so on. As a side effect, the values in each of the columns are all of character type instead of numbers. This is because both <code>read.table()</code> and <code>read.csv()</code> import all values as character strings by default, and convert to other types only if possible. In this case, conversion is not possible because the strings <code>height</code>, <code>antler</code>, and <code>species</code> cannot be encoded as numbers, but the numbers form the original file can be encoded as character strings. Further, the values within a single column of a data frame are a vector, and all elements of a vector must have the same type. Thus, importing without the <code>header</code> argument will likely result in a data frame full of text representations of your data.</p>
+<p>Both <code>read.table()</code> and <code>read.csv()</code> will bring in data stored as a table, and produce a type of R object called a <strong>data frame</strong>. This data frame must be saved to an object to be used by R. If not saved, the data frame will be printed to the console. Compare the results of the two lines below on your machine.</p>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="3.1-mod-03-inout.html#cb281-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read.table</span>(<span class="st">&quot;elk data 2021-01-21.txt&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="cb281-2"><a href="3.1-mod-03-inout.html#cb281-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;elk data 2021-01-21.txt&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p>The first command read the file, and printed it to the console. The second command read the file and stored it in an object named <code>dat</code>. Nothing is returned to the console when this happens.</p>
+<div id="important-arguments-to-read.table-and-read.csv" class="section level4" number="3.1.2.1">
+<h4><span class="header-section-number">3.1.2.1</span> Important arguments to <code>read.table()</code> and <code>read.csv()</code></h4>
+<div id="file" class="section level5" number="3.1.2.1.1">
+<h5><span class="header-section-number">3.1.2.1.1</span> <code>file</code></h5>
+<p>The first argument to <code>read.table()</code> and <code>read.csv()</code> is <code>file</code>, which is the filename, including directory path, of the file to be imported. By default, R will look in your home directory for the file. If the file is stored in the home directory, then you can just supply the filename as a character string. Don’t forget the file extension! Most of the examples on this site will, for convenience, use data files stored in your home directory. In your own work you may want to use other folders.</p>
+<p>If you want to import a file from another folder, you need to supply the folder name as part of the argument <code>file</code>. My preferred way to do this is by specifying the folder and file name separately, and combining them with the <code>paste()</code> command. The function <code>paste()</code> concatenates, or sticks together, character strings. Separating the folder from the file name also makes your code more portable. For example, if you needed to run your code on another machine you would only need to update the directory. An example of how this might work is shown below:</p>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="3.1-mod-03-inout.html#cb282-1" aria-hidden="true" tabindex="-1"></a><span class="co"># not run:</span></span>
+<span id="cb282-2"><a href="3.1-mod-03-inout.html#cb282-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb282-3"><a href="3.1-mod-03-inout.html#cb282-3" aria-hidden="true" tabindex="-1"></a><span class="co"># directory that contains all data and folders</span></span>
+<span id="cb282-4"><a href="3.1-mod-03-inout.html#cb282-4" aria-hidden="true" tabindex="-1"></a>top.dir <span class="ot">&lt;-</span> <span class="st">&quot;C:/_data&quot;</span></span>
+<span id="cb282-5"><a href="3.1-mod-03-inout.html#cb282-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb282-6"><a href="3.1-mod-03-inout.html#cb282-6" aria-hidden="true" tabindex="-1"></a><span class="co"># project folder</span></span>
+<span id="cb282-7"><a href="3.1-mod-03-inout.html#cb282-7" aria-hidden="true" tabindex="-1"></a>proj.dir <span class="ot">&lt;-</span> <span class="fu">paste</span>(top.dir, <span class="st">&quot;ne stream/dat&quot;</span>, <span class="at">sep=</span><span class="st">&quot;/&quot;</span>)</span>
+<span id="cb282-8"><a href="3.1-mod-03-inout.html#cb282-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb282-9"><a href="3.1-mod-03-inout.html#cb282-9" aria-hidden="true" tabindex="-1"></a><span class="co"># folder that holds dataset</span></span>
+<span id="cb282-10"><a href="3.1-mod-03-inout.html#cb282-10" aria-hidden="true" tabindex="-1"></a>data.dir <span class="ot">&lt;-</span> proj.dir</span>
+<span id="cb282-11"><a href="3.1-mod-03-inout.html#cb282-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb282-12"><a href="3.1-mod-03-inout.html#cb282-12" aria-hidden="true" tabindex="-1"></a><span class="co"># name of dataset</span></span>
+<span id="cb282-13"><a href="3.1-mod-03-inout.html#cb282-13" aria-hidden="true" tabindex="-1"></a>data.name <span class="ot">&lt;-</span> <span class="st">&quot;dat_combine_2020-07-13.csv&quot;</span></span>
+<span id="cb282-14"><a href="3.1-mod-03-inout.html#cb282-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb282-15"><a href="3.1-mod-03-inout.html#cb282-15" aria-hidden="true" tabindex="-1"></a><span class="co"># import dataset</span></span>
+<span id="cb282-16"><a href="3.1-mod-03-inout.html#cb282-16" aria-hidden="true" tabindex="-1"></a>in.name <span class="ot">&lt;-</span> <span class="fu">paste</span>(data.dir, data.name, <span class="at">sep=</span><span class="st">&quot;/&quot;</span>)</span>
+<span id="cb282-17"><a href="3.1-mod-03-inout.html#cb282-17" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(in.name, <span class="at">header=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p>In the example above, moving to a new machine would only necessitate changing one line, the definition of <code>data.dir</code> (or <code>top.dir</code>, if you keep the same folder structure on multiple machines).</p>
+</div>
+<div id="header" class="section level5" number="3.1.2.1.2">
+<h5><span class="header-section-number">3.1.2.1.2</span> <code>header</code></h5>
+<p>We’ve already seen the importance of <code>header</code>. You’ll use <code>header=TRUE</code> in almost every import command you ever run. Occasionally you’ll run into datasets that do not come with a header row. Of course, you won’t store your data that way because it complicates data management.</p>
+</div>
+<div id="sep" class="section level5" number="3.1.2.1.3">
+<h5><span class="header-section-number">3.1.2.1.3</span> <code>sep</code></h5>
+<p>As seen in one of the examples above, the <code>sep</code> argument specifies what character <strong>sep</strong>arates values on each line of the data file. This argument has some useful default values. If you are using <code>read.table()</code> with a tab-delimited file, or <code>read.csv()</code> with a comma-delimited file, you don’t need to set <code>sep</code>.</p>
+<p>The default in <code>read.table()</code> reads any white space as a delimiter. This is fine if you have a tab-delimited file, but if the file contains a mix of spaces and tabs you might have some problems. For example, if entries are separated by tabs, but some values contain spaces. In those cases, specify the appropriate delimiter:</p>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="3.1-mod-03-inout.html#cb283-1" aria-hidden="true" tabindex="-1"></a><span class="co"># not run:</span></span>
+<span id="cb283-2"><a href="3.1-mod-03-inout.html#cb283-2" aria-hidden="true" tabindex="-1"></a>in.name <span class="ot">&lt;-</span> <span class="st">&quot;elk_data_2021-01-21.txt&quot;</span></span>
+<span id="cb283-3"><a href="3.1-mod-03-inout.html#cb283-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb283-4"><a href="3.1-mod-03-inout.html#cb283-4" aria-hidden="true" tabindex="-1"></a><span class="co"># tab-delimited (sep=&quot;\t&quot;):</span></span>
+<span id="cb283-5"><a href="3.1-mod-03-inout.html#cb283-5" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.table</span>(in.name, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">sep=</span><span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>)</span>
+<span id="cb283-6"><a href="3.1-mod-03-inout.html#cb283-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb283-7"><a href="3.1-mod-03-inout.html#cb283-7" aria-hidden="true" tabindex="-1"></a><span class="co"># space-delimited (sep=&quot; &quot;): </span></span>
+<span id="cb283-8"><a href="3.1-mod-03-inout.html#cb283-8" aria-hidden="true" tabindex="-1"></a><span class="co">#dat &lt;- read.table(in.name, header=TRUE, sep=&quot; &quot;)</span></span></code></pre></div>
+<p>The <code>sep</code> argument is usually necessary when using the “clipboard trick” (see below).</p>
+</div>
+<div id="row.names" class="section level5" number="3.1.2.1.4">
+<h5><span class="header-section-number">3.1.2.1.4</span> <code>row.names</code></h5>
+<p>When R imports a table of data, it will assign names to the rows. The default names are just the row numbers. Some data files will have their own row names. If you want to not import these names, you can set <code>row.names</code> argument to <code>FALSE</code> to get the default numbers. You can also specify names as a character vector.</p>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="3.1-mod-03-inout.html#cb284-1" aria-hidden="true" tabindex="-1"></a><span class="co"># not run:</span></span>
+<span id="cb284-2"><a href="3.1-mod-03-inout.html#cb284-2" aria-hidden="true" tabindex="-1"></a>use.rownames <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">&quot;row&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, <span class="at">sep=</span><span class="st">&quot;_&quot;</span>)</span>
+<span id="cb284-3"><a href="3.1-mod-03-inout.html#cb284-3" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.table</span>(in.name, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">row.names=</span>use.rownames)</span>
+<span id="cb284-4"><a href="3.1-mod-03-inout.html#cb284-4" aria-hidden="true" tabindex="-1"></a>dat</span></code></pre></div>
+</div>
+<div id="col.names" class="section level5" number="3.1.2.1.5">
+<h5><span class="header-section-number">3.1.2.1.5</span> <code>col.names</code></h5>
+<p>The argument <code>col.names</code> works in a similar manner to <code>row.names</code>, but for column names. If column names are not provided with argument header, R will assign the columns <code>V</code> followed by a column number (<code>V1</code>, <code>V2</code>, etc.). If you want to provide your own names, use <code>col.names</code>. Personally, I’ve never used this argument and instead prefer to either include column names in my data files or just assign names after importing.</p>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="3.1-mod-03-inout.html#cb285-1" aria-hidden="true" tabindex="-1"></a><span class="co"># not run:</span></span>
+<span id="cb285-2"><a href="3.1-mod-03-inout.html#cb285-2" aria-hidden="true" tabindex="-1"></a>use.colnames <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;ht&quot;</span>, <span class="st">&quot;an&quot;</span>, <span class="st">&quot;sp&quot;</span>)</span>
+<span id="cb285-3"><a href="3.1-mod-03-inout.html#cb285-3" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.table</span>(in.name, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">col.names=</span>use.colnames)</span>
+<span id="cb285-4"><a href="3.1-mod-03-inout.html#cb285-4" aria-hidden="true" tabindex="-1"></a>dat</span></code></pre></div>
+</div>
+<div id="skip" class="section level5" number="3.1.2.1.6">
+<h5><span class="header-section-number">3.1.2.1.6</span> <code>skip</code></h5>
+<p>Some data files will contain rows of text or other information before the tabular data starts. The argument <code>skip</code> allows you to skip these lines. Without <code>skip</code>, R will try to read those rows of text as if they were data and fail to import. Use the file <a href="https://greenquanteco.github.io/elk_data_2021-07-14.txt">elk_data_2021-07-14.txt</a>, which has some extra rows of text that would otherwise cause <code>read.table()</code> to fail.</p>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="3.1-mod-03-inout.html#cb286-1" aria-hidden="true" tabindex="-1"></a><span class="co"># not run:</span></span>
+<span id="cb286-2"><a href="3.1-mod-03-inout.html#cb286-2" aria-hidden="true" tabindex="-1"></a><span class="co"># alternate file with some header rows</span></span>
+<span id="cb286-3"><a href="3.1-mod-03-inout.html#cb286-3" aria-hidden="true" tabindex="-1"></a>in.name <span class="ot">&lt;-</span> <span class="st">&quot;elk_data_2021-07-14.txt&quot;</span></span>
+<span id="cb286-4"><a href="3.1-mod-03-inout.html#cb286-4" aria-hidden="true" tabindex="-1"></a><span class="co"># fails:</span></span>
+<span id="cb286-5"><a href="3.1-mod-03-inout.html#cb286-5" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.table</span>(in.name, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="cb286-6"><a href="3.1-mod-03-inout.html#cb286-6" aria-hidden="true" tabindex="-1"></a><span class="co"># works:</span></span>
+<span id="cb286-7"><a href="3.1-mod-03-inout.html#cb286-7" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.table</span>(in.name, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">skip=</span><span class="dv">2</span>)</span>
+<span id="cb286-8"><a href="3.1-mod-03-inout.html#cb286-8" aria-hidden="true" tabindex="-1"></a>dat</span></code></pre></div>
+<p>The error message when you tried to import the file without <code>skip=2</code> comes up a lot when trying to import data into R. What is happening is that R uses the number of elements in the first row to calculate the dimensions of the data frame that it makes upon import. In this case, it interpreted the 7 words in the first row of text, <code>Here is some text about the dataset</code>, as 7 column headings <code>Here</code>, <code>is</code>, <code>some</code>, <code>text</code>, <code>about</code>, <code>the</code>, and <code>dataset</code>. Then, when next line <code>that came from Gould (1974).</code> only had 5 elements (<code>that</code>, <code>came</code>, <code>from</code>, <code>Gould</code>, and <code>(1974)</code>), this caused an error.</p>
+<p>Why does this issue vex so many new R users (and experienced R users)? Often we will have incomplete records in a data set, where a row is missing values in one or more columns. Sometimes blank values are not read correctly. Consider the file <a href="https://greenquanteco.github.io/elk_data_blanks_2021-07-14.txt">elk_data_blanks_2021-07-14.txt</a>, which has a blank in line 13.</p>
+<p>When we try to import that file, we get a similar error:</p>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="3.1-mod-03-inout.html#cb287-1" aria-hidden="true" tabindex="-1"></a><span class="co"># not run:</span></span>
+<span id="cb287-2"><a href="3.1-mod-03-inout.html#cb287-2" aria-hidden="true" tabindex="-1"></a>in.name <span class="ot">&lt;-</span> <span class="st">&quot;elk_data_blanks_2021-07-14.txt&quot;</span></span>
+<span id="cb287-3"><a href="3.1-mod-03-inout.html#cb287-3" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.table</span>(in.name, <span class="at">header=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p>There are a few ways to deal with this error. The first is to go back to the original datafile and put R’s blank value, <code>NA</code>, in the blanks. You could also put in a value that is not likely to occur, such as -9999 in variables that must be positive. This would make your file more readable, but without locking you in to using R. Either solution will ensure that missing values are not interpreted as extra white space. This method can be very time consuming for very large datasets, even in Excel (or especially in Excel). The best time to fix this issue is at data entry. Recall that having no empty cells is one of the recommendations of <span class="citation">Broman and Woo (<a href="#ref-broman2018" role="doc-biblioref">2018</a>)</span>.</p>
+<p>Another way is to save the file as a comma-delimited file, because commas are less ambiguous than white space for defining missing values. This method usually works, but might still create problems if there are multiple blank values per record or blanks at the ends of rows. The third option is to use the <code>fill</code> argument in the R import functions (see below).</p>
+</div>
+<div id="fill" class="section level5" number="3.1.2.1.7">
+<h5><span class="header-section-number">3.1.2.1.7</span> <code>fill</code></h5>
+<p>As described above, missing values can cause problems when importing data into R. One way to deal with missing values that occur at the end of a line in the data file is to use the <code>fill</code> argument. Setting <code>fill=TRUE</code> will automatically pad the data frame with blanks so that every row has the same number of values.</p>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="3.1-mod-03-inout.html#cb288-1" aria-hidden="true" tabindex="-1"></a>in.name <span class="ot">&lt;-</span> <span class="st">&quot;elk_data_blanks_2021-07-14.txt&quot;</span></span>
+<span id="cb288-2"><a href="3.1-mod-03-inout.html#cb288-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.table</span>(in.name, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">fill=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p>As convenient as <code>fill=TRUE</code> can be, you need to be careful when using it. R may add the wrong number of values, or values of the wrong type. In the example above, the value of species in row 13 is a blank character string (<code>""</code>), not a missing value <code>NA</code>. This is an important difference because <code>""</code> and <code>NA</code> are treated very differently by many R functions. The commands below show that R interprets the padded entry <code>""</code> as a character string of length 0, not a missing value.</p>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="3.1-mod-03-inout.html#cb289-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(dat<span class="sc">$</span>species)</span></code></pre></div>
+<pre><code>## 
+##                   alces megaloceros     unknown 
+##           1           2           1          16</code></pre>
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="3.1-mod-03-inout.html#cb291-1" aria-hidden="true" tabindex="-1"></a><span class="fu">aggregate</span>(dat<span class="sc">$</span>antler, <span class="at">by=</span><span class="fu">list</span>(dat<span class="sc">$</span>species), mean)</span></code></pre></div>
+<pre><code>##       Group.1        x
+## 1             107.8000
+## 2       alces 164.4500
+## 3 megaloceros 239.1000
+## 4     unknown  85.1375</code></pre>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="3.1-mod-03-inout.html#cb293-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.na</span>(dat<span class="sc">$</span>species)</span></code></pre></div>
+<pre><code>##  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</code></pre>
+</div>
+<div id="stringsasfactors" class="section level5" number="3.1.2.1.8">
+<h5><span class="header-section-number">3.1.2.1.8</span> <code>stringsAsFactors</code></h5>
+<p>A <strong>factor</strong> is a variable in a dataset that defines group membership: control vs. treated, red vs. blue, gene 1 vs. gene 2 vs. gene 3, and so on. The different groups to which an observation can belong are called the <strong>levels</strong> of the factor. This is very useful for statistical modeling, but can be a pain in the neck when trying to work with data in R. Functions <code>read.table()</code> and <code>read.csv()</code> have an argument to automatically convert character strings to factors for convenience: <code>stringsAsFactors</code>. This is a logical switch that will interpret character strings as levels of a factor (<code>stringsAsFactors=TRUE</code>, the default) or as character strings (<code>stringsAsFactors=FALSE</code>).</p>
+<p>The reason that factors can cause headaches in R is because although they look like character strings, they are really numeric codes and the text you see is just a label. If you try to use a factor as if it was a character string, you can get strange errors. My advice is to always import data with <code>stringsAsFactors=FALSE</code> and only convert to factor later if needed. Most statistical functions will convert to factor for you automatically anyway. The only time when you may want to store data as a factor is when you a very large dataset with many levels of a factor; in those situations, factors will use memory more efficiently.</p>
+<p>If you get tired of typing <code>stringsAsFactors=TRUE</code> in your import commands, you can set an option at the beginning of your script that will change the default behavior of <code>read.table()</code> and <code>read.csv()</code>:</p>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="3.1-mod-03-inout.html#cb295-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">stringsAsFactors=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<p>I put this command at the start of every new R script as a matter of habit. Your mileage may vary.</p>
+</div>
+</div>
+</div>
+<div id="importing-data-from-saved-workspaces" class="section level3" number="3.1.3">
+<h3><span class="header-section-number">3.1.3</span> Importing data from saved workspaces</h3>
+<div id="importing-r-objects-with-readrds" class="section level4" number="3.1.3.1">
+<h4><span class="header-section-number">3.1.3.1</span> Importing R objects with <code>readRDS()</code></h4>
+<p>Some R objects are not easily represented by tables. For example, the outputs of statistical methods are usually <strong>lists</strong>. Such objects can be saved using function <code>saveRDS()</code> and read into R using <code>readRDS()</code>. The example below will save an R data object to file <code>rds_test.rds</code> in your R working directory.</p>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="3.1-mod-03-inout.html#cb296-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Petal.Width<span class="sc">~</span>Sepal.Width, <span class="at">data=</span>iris)</span>
+<span id="cb296-2"><a href="3.1-mod-03-inout.html#cb296-2" aria-hidden="true" tabindex="-1"></a>mod1</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Petal.Width ~ Sepal.Width, data = iris)
+## 
+## Coefficients:
+## (Intercept)  Sepal.Width  
+##      3.1569      -0.6403</code></pre>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="3.1-mod-03-inout.html#cb298-1" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(mod1, <span class="st">&quot;rds_test.rds&quot;</span>)</span>
+<span id="cb298-2"><a href="3.1-mod-03-inout.html#cb298-2" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;rds_test.rds&quot;</span>)</span>
+<span id="cb298-3"><a href="3.1-mod-03-inout.html#cb298-3" aria-hidden="true" tabindex="-1"></a>b</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Petal.Width ~ Sepal.Width, data = iris)
+## 
+## Coefficients:
+## (Intercept)  Sepal.Width  
+##      3.1569      -0.6403</code></pre>
+<p>There is a lazier way to accomplish this task using function <code>dput()</code>. This function saves a plain text representation of an object that can later be used to recreate the object (i.e., R code that can reproduce the object). The help file for <code>dput()</code> cautions that this is not a good method for transferring objects between R sessions and recommends using <code>saveRDS()</code> instead. That being said, I use this method all the time for simple objects and have never had a problem. The procedure is to copy the output of <code>dput()</code> into your R script, and later assign that text to another object. Use <code>dput()</code> at your own risk.</p>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="3.1-mod-03-inout.html#cb300-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> iris[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,]</span>
+<span id="cb300-2"><a href="3.1-mod-03-inout.html#cb300-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dput</span>(a)</span></code></pre></div>
+<pre><code>## structure(list(Sepal.Length = c(5.1, 4.9, 4.7, 4.6, 5, 5.4), 
+##     Sepal.Width = c(3.5, 3, 3.2, 3.1, 3.6, 3.9), Petal.Length = c(1.4, 
+##     1.4, 1.3, 1.5, 1.4, 1.7), Petal.Width = c(0.2, 0.2, 0.2, 
+##     0.2, 0.2, 0.4), Species = structure(c(1L, 1L, 1L, 1L, 1L, 
+##     1L), .Label = c(&quot;setosa&quot;, &quot;versicolor&quot;, &quot;virginica&quot;), class = &quot;factor&quot;)), row.names = c(NA, 
+## 6L), class = &quot;data.frame&quot;)</code></pre>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="3.1-mod-03-inout.html#cb302-1" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">dput</span>(a)</span></code></pre></div>
+<pre><code>## structure(list(Sepal.Length = c(5.1, 4.9, 4.7, 4.6, 5, 5.4), 
+##     Sepal.Width = c(3.5, 3, 3.2, 3.1, 3.6, 3.9), Petal.Length = c(1.4, 
+##     1.4, 1.3, 1.5, 1.4, 1.7), Petal.Width = c(0.2, 0.2, 0.2, 
+##     0.2, 0.2, 0.4), Species = structure(c(1L, 1L, 1L, 1L, 1L, 
+##     1L), .Label = c(&quot;setosa&quot;, &quot;versicolor&quot;, &quot;virginica&quot;), class = &quot;factor&quot;)), row.names = c(NA, 
+## 6L), class = &quot;data.frame&quot;)</code></pre>
+<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="3.1-mod-03-inout.html#cb304-1" aria-hidden="true" tabindex="-1"></a>b</span></code></pre></div>
+<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa
+## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
+</div>
+<div id="importing-r-workspaces-with-load" class="section level4" number="3.1.3.2">
+<h4><span class="header-section-number">3.1.3.2</span> Importing R workspaces with <code>load()</code></h4>
+<p>Everything you do in R takes place within the <strong>workspace</strong>. This can be thought of as a sandbox where all of your data and functions reside. If you want to save this entire environment and continue working later you can do this by saving the workspace (see below). Workspaces can be loaded using function <code>load()</code>. The example below loads workspace <code>example.RData</code> from your home directory. Notice that this command will load every object from the saved workspace into your current workspace. This might cause problems if the saved workspace and current workspace have objects with the same names.</p>
+<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="3.1-mod-03-inout.html#cb306-1" aria-hidden="true" tabindex="-1"></a><span class="co"># not run:</span></span>
+<span id="cb306-2"><a href="3.1-mod-03-inout.html#cb306-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;example.RData&quot;</span>)</span></code></pre></div>
+<p>When loading a workspace, it is sometimes more useful to import it into a new environment. This will let you import objects from that workspace without putting its objects into your current workspace. I use this method a lot for working with model outputs. The typical workflow is:</p>
+<ol style="list-style-type: decimal">
+<li>Run an analysis or set of simulations in multiple R instances and save the results of each in its own R workspace.</li>
+<li>After simulations are complete, import the results of each simulation from its individual workspace into a new environment.</li>
+<li>Copy the objects from the environment containing the loaded workspace to the main workspace.</li>
+<li>Delete the environment containing the loaded workspace.</li>
+<li>Repeat until all results are imported.</li>
+</ol>
+<p>Here is an example of importing individual objects from a workspace into a new environment, then copying that object into the current workspace:</p>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="3.1-mod-03-inout.html#cb307-1" aria-hidden="true" tabindex="-1"></a><span class="co"># not run:</span></span>
+<span id="cb307-2"><a href="3.1-mod-03-inout.html#cb307-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(a) <span class="co"># will return error if a does not already exist</span></span>
+<span id="cb307-3"><a href="3.1-mod-03-inout.html#cb307-3" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">new.env</span>()</span>
+<span id="cb307-4"><a href="3.1-mod-03-inout.html#cb307-4" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;example.RData&quot;</span>, <span class="at">env=</span>temp)</span>
+<span id="cb307-5"><a href="3.1-mod-03-inout.html#cb307-5" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> temp<span class="sc">$</span>a</span>
+<span id="cb307-6"><a href="3.1-mod-03-inout.html#cb307-6" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(temp)</span>
+<span id="cb307-7"><a href="3.1-mod-03-inout.html#cb307-7" aria-hidden="true" tabindex="-1"></a>a</span></code></pre></div>
+</div>
+</div>
+<div id="importing-data-special-cases" class="section level3" number="3.1.4">
+<h3><span class="header-section-number">3.1.4</span> Importing data: special cases:</h3>
+<div id="getting-data-from-the-clipboard" class="section level4" number="3.1.4.1">
+<h4><span class="header-section-number">3.1.4.1</span> Getting data from the clipboard</h4>
+<p>Sometimes it can be convenient to copy and paste data directly from a spreadsheet into R. This is fine for quick or one-off data imports, but not recommended for routine use because it is tedious to reproduce and error-prone. The procedure is as follows:</p>
+<ol style="list-style-type: decimal">
+<li>In the R console, type this command but do NOT run it: <code>a &lt;- read.table("clipboard", header=TRUE, sep="\t")</code></li>
+<li>In Excel, highlight your data and copy it to the clipboard using Ctrl-C.</li>
+<li>Click in the R console to move your focus there. In R, hit the ENTER key.</li>
+</ol>
+<p>The command you typed in step 1 will read the table from the clipboard. Note that if you try to copy/paste the <code>read.table("clipboard",…)</code> command into the R console, you will then have that command in your clipboard and not your data.</p>
+</div>
+<div id="entering-data-using-scan" class="section level4" number="3.1.4.2">
+<h4><span class="header-section-number">3.1.4.2</span> Entering data using <code>scan()</code></h4>
+<p>The <code>scan()</code> function lets you enter values one-by-one, separated by pressing ENTER. You can use this just like typing values into Excel. Or, you can copy and paste a single column of values from Excel. The latter case works because R interprets the values within a column as being separated by a line return (i.e., pressing ENTER).</p>
+<p>Type the name of an object to which data will be saved, the assignment operator <code>&lt;-</code>, <code>scan()</code>, then ENTER, then values (each followed by ENTER), then hit ENTER twice after the last value. This is obviously inefficient for large datasets, but it’s a nice trick to be aware of.</p>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="3.1-mod-03-inout.html#cb308-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">scan</span>()</span>
+<span id="cb308-2"><a href="3.1-mod-03-inout.html#cb308-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span></span>
+<span id="cb308-3"><a href="3.1-mod-03-inout.html#cb308-3" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span></span>
+<span id="cb308-4"><a href="3.1-mod-03-inout.html#cb308-4" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span></span>
+<span id="cb308-5"><a href="3.1-mod-03-inout.html#cb308-5" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span>
+<span id="cb308-6"><a href="3.1-mod-03-inout.html#cb308-6" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span></span>
+<span id="cb308-7"><a href="3.1-mod-03-inout.html#cb308-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb308-8"><a href="3.1-mod-03-inout.html#cb308-8" aria-hidden="true" tabindex="-1"></a>a</span></code></pre></div>
+<p>To enter values from a column in Excel, highlight and copy the column. Then go to R, enter the command below, and press ENTER. Then paste your values and press ENTER again.</p>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="3.1-mod-03-inout.html#cb309-1" aria-hidden="true" tabindex="-1"></a><span class="co"># not run:</span></span>
+<span id="cb309-2"><a href="3.1-mod-03-inout.html#cb309-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">scan</span>()</span>
+<span id="cb309-3"><a href="3.1-mod-03-inout.html#cb309-3" aria-hidden="true" tabindex="-1"></a><span class="co"># paste in values</span></span>
+<span id="cb309-4"><a href="3.1-mod-03-inout.html#cb309-4" aria-hidden="true" tabindex="-1"></a><span class="co"># press ENTER again</span></span>
+<span id="cb309-5"><a href="3.1-mod-03-inout.html#cb309-5" aria-hidden="true" tabindex="-1"></a>a</span></code></pre></div>
+</div>
+<div id="mod-03-c" class="section level4" number="3.1.4.3">
+<h4><span class="header-section-number">3.1.4.3</span> Entering data directly using <code>c()</code></h4>
+<p>Function <code>c()</code> combines its arguments as a vector. As with all functions, arguments must be separated by commas and can be on different lines.</p>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="3.1-mod-03-inout.html#cb310-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,<span class="dv">9</span><span class="sc">:</span><span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## [1] 1 2 3 9 8 7 6 5</code></pre>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="3.1-mod-03-inout.html#cb312-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,</span>
+<span id="cb312-2"><a href="3.1-mod-03-inout.html#cb312-2" aria-hidden="true" tabindex="-1"></a>      <span class="dv">3</span>,</span>
+<span id="cb312-3"><a href="3.1-mod-03-inout.html#cb312-3" aria-hidden="true" tabindex="-1"></a>       <span class="dv">5</span></span>
+<span id="cb312-4"><a href="3.1-mod-03-inout.html#cb312-4" aria-hidden="true" tabindex="-1"></a>       )</span></code></pre></div>
+<p>Like <code>scan()</code>, data can be entered directly into the console using <code>c()</code>. Also like <code>scan()</code>, this is horribly inefficient but can be useful for small numbers of values.</p>
+</div>
+</div>
+<div id="export-data-from-r" class="section level3" number="3.1.5">
+<h3><span class="header-section-number">3.1.5</span> Export data from R</h3>
+<div id="writing-out-tables-best-method" class="section level4" number="3.1.5.1">
+<h4><span class="header-section-number">3.1.5.1</span> Writing out tables (best method)</h4>
+<p>Everything you do in R takes place within the “workspace”. You can save entire workspaces, but in most situations it is more useful to write out data or results as delimited text files. “Delimited” means that individual data within the file are separated, or delimited, by a particular symbol. The most common formats are comma-delimited files (.csv) or tab-delimited files (.txt). Which format to use is largely a matter of personal preference. I’ve found that comma-delimited files are slightly less likely to have issues when opened in Excel.</p>
+<p>Tab-delimited files are written out using <code>write.table()</code>. In the example below, the first argument <code>dat</code> is the object from the R workspace that you want to write out. The argument <code>sep</code> works the same way as in <code>read.table()</code>. The example below will save a file called <code>mydata.txt</code> in your home directory (R’s working directory). Option <code>sep="\t"</code> can be provided to ensure that the file is written as a tab-delimited file and not a space-delimited file.</p>
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="3.1-mod-03-inout.html#cb313-1" aria-hidden="true" tabindex="-1"></a><span class="co"># not run:</span></span>
+<span id="cb313-2"><a href="3.1-mod-03-inout.html#cb313-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> iris[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,]</span>
+<span id="cb313-3"><a href="3.1-mod-03-inout.html#cb313-3" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(dat,<span class="st">&quot;mydata.txt&quot;</span>, <span class="at">sep=</span><span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>)</span></code></pre></div>
+<p>Comma-delimited files are written out by <code>write.csv()</code>. The syntax is similar to <code>write.table()</code>. Note that the file extension must be “.csv” instead of “.txt”. If you save a file with the wrong extension, then it may be unusable.</p>
+<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="3.1-mod-03-inout.html#cb314-1" aria-hidden="true" tabindex="-1"></a><span class="co"># not run:</span></span>
+<span id="cb314-2"><a href="3.1-mod-03-inout.html#cb314-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(dat,<span class="st">&quot;mydata.csv&quot;</span>)</span></code></pre></div>
+<p>Most of the time you will not be saving files to your home directory, but to another folder. The folder and the file name must both be specified to save somewhere else. It is usually a good idea to define the file name and file destination separately. This way if you re-use your code on another machine, or a different folder, you only need to update the folder address once.</p>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="3.1-mod-03-inout.html#cb315-1" aria-hidden="true" tabindex="-1"></a><span class="co"># not run:</span></span>
+<span id="cb315-2"><a href="3.1-mod-03-inout.html#cb315-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb315-3"><a href="3.1-mod-03-inout.html#cb315-3" aria-hidden="true" tabindex="-1"></a><span class="co"># do this:</span></span>
+<span id="cb315-4"><a href="3.1-mod-03-inout.html#cb315-4" aria-hidden="true" tabindex="-1"></a>out.dir <span class="ot">&lt;-</span> <span class="st">&quot;C:/_data&quot;</span></span>
+<span id="cb315-5"><a href="3.1-mod-03-inout.html#cb315-5" aria-hidden="true" tabindex="-1"></a>out.name <span class="ot">&lt;-</span> <span class="st">&quot;mydata.csv&quot;</span></span>
+<span id="cb315-6"><a href="3.1-mod-03-inout.html#cb315-6" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(dat, <span class="fu">paste</span>(out.dir, out.name, <span class="at">sep=</span><span class="st">&quot;/&quot;</span>))</span>
+<span id="cb315-7"><a href="3.1-mod-03-inout.html#cb315-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb315-8"><a href="3.1-mod-03-inout.html#cb315-8" aria-hidden="true" tabindex="-1"></a><span class="co"># or this:</span></span>
+<span id="cb315-9"><a href="3.1-mod-03-inout.html#cb315-9" aria-hidden="true" tabindex="-1"></a>out.dir <span class="ot">&lt;-</span> <span class="st">&quot;C:/_data&quot;</span></span>
+<span id="cb315-10"><a href="3.1-mod-03-inout.html#cb315-10" aria-hidden="true" tabindex="-1"></a>out.name <span class="ot">&lt;-</span> <span class="st">&quot;mydata.csv&quot;</span></span>
+<span id="cb315-11"><a href="3.1-mod-03-inout.html#cb315-11" aria-hidden="true" tabindex="-1"></a>out.file <span class="ot">&lt;-</span> <span class="fu">paste</span>(out.dir, out.name, <span class="at">sep=</span><span class="st">&quot;/&quot;</span>)</span>
+<span id="cb315-12"><a href="3.1-mod-03-inout.html#cb315-12" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(dat, out.file)</span>
+<span id="cb315-13"><a href="3.1-mod-03-inout.html#cb315-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb315-14"><a href="3.1-mod-03-inout.html#cb315-14" aria-hidden="true" tabindex="-1"></a><span class="co"># not this:</span></span>
+<span id="cb315-15"><a href="3.1-mod-03-inout.html#cb315-15" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(dat, <span class="st">&quot;C:/_data/mydata.csv&quot;</span>)</span></code></pre></div>
+<p>The latter example is problematic because the output file name contains both the destination folder and the filename itself. If you try to run your code on another machine, it will take longer to update the code with a new folder address. This method is also problematic because exporting multiple files will require typing the folder address multiple times. Consider this example:</p>
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="3.1-mod-03-inout.html#cb316-1" aria-hidden="true" tabindex="-1"></a><span class="co"># not run:</span></span>
+<span id="cb316-2"><a href="3.1-mod-03-inout.html#cb316-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb316-3"><a href="3.1-mod-03-inout.html#cb316-3" aria-hidden="true" tabindex="-1"></a>dat1 <span class="ot">&lt;-</span> iris[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,]</span>
+<span id="cb316-4"><a href="3.1-mod-03-inout.html#cb316-4" aria-hidden="true" tabindex="-1"></a>dat2 <span class="ot">&lt;-</span> iris[<span class="dv">7</span><span class="sc">:</span><span class="dv">12</span>,]</span>
+<span id="cb316-5"><a href="3.1-mod-03-inout.html#cb316-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb316-6"><a href="3.1-mod-03-inout.html#cb316-6" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(dat1, <span class="st">&quot;C:/_data/mydata1.csv&quot;</span>)</span>
+<span id="cb316-7"><a href="3.1-mod-03-inout.html#cb316-7" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(dat2, <span class="st">&quot;C:/_data/mydata2.csv&quot;</span>)</span></code></pre></div>
+<p>Running that code on a new machine, or modifying it for a new project in a different folder, requires changing the folder address twice. The better way is to define the folder name only once:</p>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="3.1-mod-03-inout.html#cb317-1" aria-hidden="true" tabindex="-1"></a><span class="co"># not run:</span></span>
+<span id="cb317-2"><a href="3.1-mod-03-inout.html#cb317-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb317-3"><a href="3.1-mod-03-inout.html#cb317-3" aria-hidden="true" tabindex="-1"></a>out.dir <span class="ot">&lt;-</span> <span class="st">&quot;C:/_data&quot;</span></span>
+<span id="cb317-4"><a href="3.1-mod-03-inout.html#cb317-4" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(dat1, <span class="fu">paste</span>(out.dir, <span class="st">&quot;mydata1.csv&quot;</span>, <span class="at">sep=</span><span class="st">&quot;/&quot;</span>))</span>
+<span id="cb317-5"><a href="3.1-mod-03-inout.html#cb317-5" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(dat2, <span class="fu">paste</span>(out.dir, <span class="st">&quot;mydata2.csv&quot;</span>, <span class="at">sep=</span><span class="st">&quot;/&quot;</span>))</span></code></pre></div>
+<p>See the difference? The revised code is much more portable and reusable. This illustrates a good practice for programming in general (not just R) called “Single Point of Definition”. Defining variables or objects once and only once makes your code more robust to changes and easier to maintain or reuse. The example below shows a more compact way to export the files <code>mydata1.csv</code> and <code>mydata2.csv</code>, with even fewer points of definition for file names:</p>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="3.1-mod-03-inout.html#cb318-1" aria-hidden="true" tabindex="-1"></a><span class="co"># not run:</span></span>
+<span id="cb318-2"><a href="3.1-mod-03-inout.html#cb318-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb318-3"><a href="3.1-mod-03-inout.html#cb318-3" aria-hidden="true" tabindex="-1"></a>out.dir <span class="ot">&lt;-</span> <span class="st">&quot;C:/_data&quot;</span></span>
+<span id="cb318-4"><a href="3.1-mod-03-inout.html#cb318-4" aria-hidden="true" tabindex="-1"></a>out.names <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;mydata&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="st">&quot;.csv&quot;</span>)</span>
+<span id="cb318-5"><a href="3.1-mod-03-inout.html#cb318-5" aria-hidden="true" tabindex="-1"></a>out.files <span class="ot">&lt;-</span> <span class="fu">paste</span>(out.dir, out.names, <span class="at">sep=</span><span class="st">&quot;/&quot;</span>)</span>
+<span id="cb318-6"><a href="3.1-mod-03-inout.html#cb318-6" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(dat1, out.files[<span class="dv">1</span>])</span>
+<span id="cb318-7"><a href="3.1-mod-03-inout.html#cb318-7" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(dat2, out.files[<span class="dv">2</span>])</span></code></pre></div>
+<p>One handy trick is to auto-generate an output filename that includes the current date. This can really help keep multiple versions of analyses or model runs organized. The <code>paste0()</code> command pastes its arguments together as they are, with no separator between them (equivalent to <code>paste(…,sep=""))</code>. Function <code>Sys.Date()</code> prints the current date (according to your machine) in YYYY-MM-DD format.</p>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="3.1-mod-03-inout.html#cb319-1" aria-hidden="true" tabindex="-1"></a><span class="co"># not run:</span></span>
+<span id="cb319-2"><a href="3.1-mod-03-inout.html#cb319-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb319-3"><a href="3.1-mod-03-inout.html#cb319-3" aria-hidden="true" tabindex="-1"></a>out.dir <span class="ot">&lt;-</span> <span class="st">&quot;C:/_data&quot;</span></span>
+<span id="cb319-4"><a href="3.1-mod-03-inout.html#cb319-4" aria-hidden="true" tabindex="-1"></a>out.name <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;mydata&quot;</span>, <span class="st">&quot;_&quot;</span>, <span class="fu">Sys.Date</span>(), <span class="st">&quot;.csv&quot;</span>)</span>
+<span id="cb319-5"><a href="3.1-mod-03-inout.html#cb319-5" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(dat, <span class="fu">paste</span>(out.dir, out.name, <span class="at">sep=</span><span class="st">&quot;/&quot;</span>))</span></code></pre></div>
+</div>
+<div id="writing-out-individul-r-objects" class="section level4" number="3.1.5.2">
+<h4><span class="header-section-number">3.1.5.2</span> Writing out individul R objects</h4>
+<p>Some data do not fit easily into tables. Individual R objects can be saved to an “.rds” file using the function <code>saveRDS()</code>. This function saves a single object that can later be loaded into another R session with function <code>readRDS()</code>.</p>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="3.1-mod-03-inout.html#cb320-1" aria-hidden="true" tabindex="-1"></a><span class="co"># not run:</span></span>
+<span id="cb320-2"><a href="3.1-mod-03-inout.html#cb320-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb320-3"><a href="3.1-mod-03-inout.html#cb320-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">t.test</span>(<span class="fu">rnorm</span>(<span class="dv">100</span>))</span>
+<span id="cb320-4"><a href="3.1-mod-03-inout.html#cb320-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb320-5"><a href="3.1-mod-03-inout.html#cb320-5" aria-hidden="true" tabindex="-1"></a><span class="co"># save to working directory:</span></span>
+<span id="cb320-6"><a href="3.1-mod-03-inout.html#cb320-6" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(x, <span class="st">&quot;zebra.rds&quot;</span>)</span>
+<span id="cb320-7"><a href="3.1-mod-03-inout.html#cb320-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb320-8"><a href="3.1-mod-03-inout.html#cb320-8" aria-hidden="true" tabindex="-1"></a><span class="co"># load the file:</span></span>
+<span id="cb320-9"><a href="3.1-mod-03-inout.html#cb320-9" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;zebra.rds&quot;</span>)</span></code></pre></div>
+</div>
+<div id="saving-entire-r-workspaces" class="section level4" number="3.1.5.3">
+<h4><span class="header-section-number">3.1.5.3</span> Saving entire R workspaces</h4>
+<p>Entire R workspaces or parts of workspaces can be saved using the function <code>save.image()</code>. The command by itself will save the entire current workspace with a generic name to the working directory. It is more useful to save the workspace under a particular name and/or only save specific objects.</p>
+<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="3.1-mod-03-inout.html#cb321-1" aria-hidden="true" tabindex="-1"></a><span class="co"># not run:</span></span>
+<span id="cb321-2"><a href="3.1-mod-03-inout.html#cb321-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb321-3"><a href="3.1-mod-03-inout.html#cb321-3" aria-hidden="true" tabindex="-1"></a><span class="co"># save entire workspace with generic name (avoid):</span></span>
+<span id="cb321-4"><a href="3.1-mod-03-inout.html#cb321-4" aria-hidden="true" tabindex="-1"></a><span class="fu">save.image</span>()</span>
+<span id="cb321-5"><a href="3.1-mod-03-inout.html#cb321-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb321-6"><a href="3.1-mod-03-inout.html#cb321-6" aria-hidden="true" tabindex="-1"></a><span class="co"># save entire workspace with specific name (better):</span></span>
+<span id="cb321-7"><a href="3.1-mod-03-inout.html#cb321-7" aria-hidden="true" tabindex="-1"></a><span class="fu">save.image</span>(<span class="at">file=</span><span class="st">&quot;test1.RData&quot;</span>)</span>
+<span id="cb321-8"><a href="3.1-mod-03-inout.html#cb321-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb321-9"><a href="3.1-mod-03-inout.html#cb321-9" aria-hidden="true" tabindex="-1"></a><span class="co"># save specific objects (best):</span></span>
+<span id="cb321-10"><a href="3.1-mod-03-inout.html#cb321-10" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)</span>
+<span id="cb321-11"><a href="3.1-mod-03-inout.html#cb321-11" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">t.test</span>(x)</span>
+<span id="cb321-12"><a href="3.1-mod-03-inout.html#cb321-12" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(<span class="at">list=</span><span class="fu">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;z&quot;</span>), <span class="at">file=</span><span class="st">&quot;testworkspace.RData&quot;</span>)</span></code></pre></div>
+</div>
+<div id="writing-text-to-a-file-special-cases" class="section level4" number="3.1.5.4">
+<h4><span class="header-section-number">3.1.5.4</span> Writing text to a file (special cases)</h4>
+<p>Sometimes you need to write out data that do not fit easily into tables. An example might be the results of a single <em>t</em>-test or ANOVA. This is also sometimes necessary when working with programs outside of R. For example, the programs OpenBUGS and JAGS require a text file that defines the model to be fit. This text file can be generated by R, which makes your workflow simpler because you don’t need to use a separate program to store the outputs.</p>
+<p>The function to write such files is <code>sink()</code>. Functions <code>print()</code> and <code>cat()</code> are also useful in conjunction with <code>sink()</code>.</p>
+<ul>
+<li><code>sink()</code> works in pairs. The first command defines a file to put text into. The second command finishes the file and writes it.</li>
+<li><code>print()</code> prints its arguments as-is. It should produce the same text as running its argument in the R console.</li>
+<li><code>cat()</code> stands for “concatenate and print”. Use this to combine expressions and then print them.</li>
+</ul>
+<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="3.1-mod-03-inout.html#cb322-1" aria-hidden="true" tabindex="-1"></a><span class="co"># not run:</span></span>
+<span id="cb322-2"><a href="3.1-mod-03-inout.html#cb322-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb322-3"><a href="3.1-mod-03-inout.html#cb322-3" aria-hidden="true" tabindex="-1"></a>my.result <span class="ot">&lt;-</span> <span class="fu">t.test</span>(<span class="fu">rnorm</span>(<span class="dv">50</span>))</span>
+<span id="cb322-4"><a href="3.1-mod-03-inout.html#cb322-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sink</span>(<span class="st">&quot;C:/_data/myresult.txt&quot;</span>)</span>
+<span id="cb322-5"><a href="3.1-mod-03-inout.html#cb322-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;t-test results:&quot;</span>,<span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>) <span class="co">#\n = new line</span></span>
+<span id="cb322-6"><a href="3.1-mod-03-inout.html#cb322-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(my.result)</span>
+<span id="cb322-7"><a href="3.1-mod-03-inout.html#cb322-7" aria-hidden="true" tabindex="-1"></a><span class="fu">sink</span>()</span></code></pre></div>
+</div>
+</div>
+</div>
+<h3>Literature Cited</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-broman2018" class="csl-entry">
+Broman, K. W., and K. H. Woo. 2018. <a href="https://doi.org/10.1080/00031305.2017.1375989">Data organization in spreadsheets</a>. The American Statistician 72:2–10.
+</div>
+<div id="ref-wickham2014" class="csl-entry">
+Wickham, H. 2014. <a href="https://doi.org/10.18637/jss.v059.i10">Tidy data</a>. Journal of Statistical Software 59.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="3-mod-03.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="3.2-making-values-in-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

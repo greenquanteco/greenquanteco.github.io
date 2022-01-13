@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis</title>
+  <title>6.2 Nonlinear least squares (NLS) | Applied Biological Data Analysis</title>
   <meta name="description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta property="og:title" content="6.2 Nonlinear least squares (NLS) | Applied Biological Data Analysis" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://greenquanteco.github.io/index.html" />
   <meta property="og:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta name="twitter:title" content="6.2 Nonlinear least squares (NLS) | Applied Biological Data Analysis" />
   
   <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="twitter:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="8.5-mod-08-ord.html"/>
-<link rel="next" href="9.1-how-to-use-this-guide.html"/>
+<link rel="prev" href="6.1-background.html"/>
+<link rel="next" href="6.3-mod-06-micmen.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -530,22 +530,57 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="mod-09" class="section level1" number="9">
-<h1><span class="header-section-number">Module 9</span> Planning your analysis (what test?)</h1>
-<p>One of the main questions that biologists have after collecting data is, “What statistical test do I use?” Ignoring the fact that they should have thought about that <strong><em>before collecting data</em></strong>, the answer to that question depends on the answers to two other questions:</p>
-<ol style="list-style-type: decimal">
-<li>What question are you trying to answer?</li>
-<li>What kind of data do you have?</li>
-</ol>
-<p>After <a href="4-mod-04.html#mod-04">exploring the data</a> and gaining an understanding of the patterns and <a href="4.8-mod-04-prob.html#mod-04-prob">problems</a> in a dataset, it is time to run the main analysis. This guide is designed to help you use what you learned in exploring the data to choose an appropriate analytical strategy.</p>
+<div id="mod-06-intro" class="section level2" number="6.2">
+<h2><span class="header-section-number">6.2</span> Nonlinear least squares (NLS)</h2>
+<p>The basic <strong>nonlinear least squares (NLS)</strong> model has some parts in common with the basic linear regression model (LM). In the state-space GLM notation, we can see that the relationship between the observed <em>Y</em> variables and the expected value <span class="math inline">\(\mu\)</span> is the same as in the LM. However, the relationship between the expected value and the predictor variables is not the same.</p>
+<table>
+<colgroup>
+<col width="28%" />
+<col width="35%" />
+<col width="35%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Component</th>
+<th align="center">Linear model (LM)</th>
+<th align="center">Nonlinear model (NLS)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Stochastic part</td>
+<td align="center"><span class="math inline">\(Y~Normal\left(\mu,\ \sigma^2\right)\)</span></td>
+<td align="center"><span class="math inline">\(Y~Normal\left(\mu,\ \sigma^2\right)\)</span></td>
+</tr>
+<tr class="even">
+<td>Link function</td>
+<td align="center"><span class="math inline">\(\mu=\eta\)</span></td>
+<td align="center"><span class="math inline">\(\mu=\eta\)</span></td>
+</tr>
+<tr class="odd">
+<td>Expected value</td>
+<td align="center"><span class="math inline">\(\eta=\beta_0+\beta_{1}X\)</span></td>
+<td align="center"><span class="math inline">\(\mu=f(X,\theta)\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>In the NLS model, as with LM, the response variable <em>Y</em> is drawn from a normal distribution with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>. Also like LM, the mean <span class="math inline">\(\mu\)</span> is identical to the predictor <span class="math inline">\(\eta\)</span>. Unlike LM, in NLS the expected value <span class="math inline">\(\eta\)</span> is not a linear function but instead a function <em>f</em> of the explanatory variable <em>X</em> and some vector of parameters <span class="math inline">\(\theta\)</span>. The function <span class="math inline">\(f\left(X,\ \theta\right)\)</span> can be any number of functions. If <span class="math inline">\(f\left(X,\ \theta\right)\)</span> is a linear function, then the NLS model becomes a linear model.</p>
+<p>The equations above show an important assumption of NLS: the errors are normally distributed with constant variance. In some cases, the function <span class="math inline">\(f\left(X,\ \theta\right)\)</span> can be transformed to make it linear. However, doing so will likely make the errors non-normal or heteroscedastic, which means that the LM on transformed data wouldn’t be appropriate anyway.</p>
+<p>There are several methods of fitting NLS models. Unlike LM, where it is relatively straightforward to solve some linear algebra problems and get stable parameter estimates, in NLS the parameters must be approximated by searching the parameter space (i.e., set of possible values) for <span class="math inline">\(\theta\)</span> that minimize the sum of squared residuals. The methods for computing these estimates are extremely complicated and sensitive to starting inputs, and we won’t go into them here. <span class="citation">Bolker (<a href="#ref-bolker2008ecological" role="doc-biblioref">2008</a>)</span> gives an overview of some of these methods.</p>
+</div>
+<h3>Literature Cited</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-bolker2008ecological" class="csl-entry">
+Bolker, B. M. 2008. Ecological models and data in <span>R</span>. Princeton University Press, Princeton, New Jersey, USA.
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="8.5-mod-08-ord.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="9.1-how-to-use-this-guide.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="6.1-background.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="6.3-mod-06-micmen.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

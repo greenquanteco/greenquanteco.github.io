@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis</title>
+  <title>7.5 (Generalized) additive mixed models (AMM/GAMM) | Applied Biological Data Analysis</title>
   <meta name="description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta property="og:title" content="7.5 (Generalized) additive mixed models (AMM/GAMM) | Applied Biological Data Analysis" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://greenquanteco.github.io/index.html" />
   <meta property="og:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta name="twitter:title" content="7.5 (Generalized) additive mixed models (AMM/GAMM) | Applied Biological Data Analysis" />
   
   <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="twitter:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="8.5-mod-08-ord.html"/>
-<link rel="next" href="9.1-how-to-use-this-guide.html"/>
+<link rel="prev" href="7.4-mod-07-nlme.html"/>
+<link rel="next" href="8-mod-08.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -530,22 +530,380 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="mod-09" class="section level1" number="9">
-<h1><span class="header-section-number">Module 9</span> Planning your analysis (what test?)</h1>
-<p>One of the main questions that biologists have after collecting data is, “What statistical test do I use?” Ignoring the fact that they should have thought about that <strong><em>before collecting data</em></strong>, the answer to that question depends on the answers to two other questions:</p>
-<ol style="list-style-type: decimal">
-<li>What question are you trying to answer?</li>
-<li>What kind of data do you have?</li>
-</ol>
-<p>After <a href="4-mod-04.html#mod-04">exploring the data</a> and gaining an understanding of the patterns and <a href="4.8-mod-04-prob.html#mod-04-prob">problems</a> in a dataset, it is time to run the main analysis. This guide is designed to help you use what you learned in exploring the data to choose an appropriate analytical strategy.</p>
+<div id="mod-07-gamm" class="section level2" number="7.5">
+<h2><span class="header-section-number">7.5</span> (Generalized) additive mixed models (AMM/GAMM)</h2>
+<p>The last category of mixed models that we will cover are <strong>generalized additive mixed models (GAMM)</strong>. GAMM extend <a href="6.6-alternatives-to-nls.html#mod-06-gam">generalized additive models (GAM)</a> by allowing for observations in different groups to have different intercepts or different smoothing functions. If that sounds complicated, that’s because it is.</p>
+<ul>
+<li><strong>Additive models (AM)</strong> are a generalization of linear models, where a <strong>smoother</strong> of arbitrary shape is fit instead of a straight line. Smoothers can describe nonlinear patterns (very common in biology), but the process of fitting smoothers is sensitive to many assumptions and methodological details.</li>
+<li><strong>Generalized additive models (GAM)</strong> generalize AM by relaxing the assumption of normal residuals and introducing a link function to additive models. This adds a layer of complexity to additive modeling<a href="literature-cited.html#fn77" class="footnote-ref" id="fnref77"><sup>77</sup></a>.</li>
+<li><strong>Generalized additive mixed models (GAMM)</strong> generalize GAM by allowing different groups of observations to have different smoothers, or different coefficients on those smoothers. This adds even more complexity to the model.</li>
+</ul>
+<p>Going from a linear model to a generalized linear model adds a layer of complication. Going from a fixed effects model to a mixed effects model adds more complication. And going from a linear model to an additive one compounds all of these complications. I’m not trying to warn you away from trying GAMM–just advising you to be prepared for frustration.</p>
+<div id="example-gamm-with-real-data" class="section level3" number="7.5.1">
+<h3><span class="header-section-number">7.5.1</span> Example GAMM with real data</h3>
+<p><span class="citation">Pethybridge et al. (<a href="#ref-pethybridge2018" role="doc-biblioref">2018</a>)</span> compiled data on stable isotope concentrations in 3 species of tuna throughout the Atlantic, Pacific, and Indian Oceans. They used these concentrations to estimate the trophic position of each species. The data were made available in a separate publication <span class="citation">(<a href="#ref-bodin2021" role="doc-biblioref">Bodin et al. 2021</a>)</span>. Download this <a href="https://greenquanteco.github.io/bodin_data_2021-10-22.csv">adapted version of the dataset</a> and save it to your R home directory (or other favorite folder). Import the data and take a look.</p>
+<div class="sourceCode" id="cb1564"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1564-1"><a href="7.5-mod-07-gamm.html#cb1564-1" aria-hidden="true" tabindex="-1"></a>in.name <span class="ot">&lt;-</span> <span class="st">&quot;bodin_data_2021-10-22.csv&quot;</span></span>
+<span id="cb1564-2"><a href="7.5-mod-07-gamm.html#cb1564-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(in.name, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1564-3"><a href="7.5-mod-07-gamm.html#cb1564-3" aria-hidden="true" tabindex="-1"></a><span class="co"># remove observations missing trophic position</span></span>
+<span id="cb1564-4"><a href="7.5-mod-07-gamm.html#cb1564-4" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> dat[<span class="sc">!</span><span class="fu">is.na</span>(dat<span class="sc">$</span>tp),]</span>
+<span id="cb1564-5"><a href="7.5-mod-07-gamm.html#cb1564-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1564-6"><a href="7.5-mod-07-gamm.html#cb1564-6" aria-hidden="true" tabindex="-1"></a><span class="co"># inspect dataset</span></span>
+<span id="cb1564-7"><a href="7.5-mod-07-gamm.html#cb1564-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat)</span></code></pre></div>
+<pre><code>##            species        common       date    lat    long ocean fork  d15n
+## 1 Thunnus alalunga Albacore tuna 2002-10-10 -16.64 -150.79    PO   91 15.17
+## 2 Thunnus alalunga Albacore tuna 2004-16-09 -25.85  153.98    PO   87  9.55
+## 3 Thunnus alalunga Albacore tuna 2004-16-09 -25.85  153.98    PO   99  9.48
+## 4 Thunnus alalunga Albacore tuna 2004-20-09 -28.17  155.82    PO   78 10.46
+## 5 Thunnus alalunga Albacore tuna 2004-23-09 -28.37  160.13    PO   76 12.23
+## 6 Thunnus alalunga Albacore tuna 2004-23-09 -28.37  160.13    PO   80 10.35
+##     tp
+## 1 7.32
+## 2 4.98
+## 3 4.95
+## 4 5.36
+## 5 6.10
+## 6 5.31</code></pre>
+<p>The dataset has the following variables:</p>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Units</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>species</code></td>
+<td>N/A</td>
+<td>Scientific name (binomen) of species.</td>
+</tr>
+<tr class="even">
+<td><code>common</code></td>
+<td>N/A</td>
+<td>Common name of species.</td>
+</tr>
+<tr class="odd">
+<td><code>date</code></td>
+<td>Days</td>
+<td>Date of observation in YYYY-MM-DD format.</td>
+</tr>
+<tr class="even">
+<td><code>lat</code></td>
+<td><span class="math inline">\(^\circ\)</span>N</td>
+<td>Latitude of observation. Positive values indicate <span class="math inline">\(^\circ\)</span>N; negative values indicate <span class="math inline">\(^\circ\)</span>S.</td>
+</tr>
+<tr class="odd">
+<td><code>long</code></td>
+<td><span class="math inline">\(^\circ\)</span>E</td>
+<td>Longitude of observation. Positive values indicate <span class="math inline">\(^\circ\)</span>E; negative values indicate <span class="math inline">\(^\circ\)</span>W.</td>
+</tr>
+<tr class="even">
+<td><code>ocean</code></td>
+<td>N/A</td>
+<td>Ocean where observation was taken. <code>AO</code> = Atlantic Ocean; <code>IO</code> = Indian Ocean; <code>PO</code> = Pacific Ocean.</td>
+</tr>
+<tr class="odd">
+<td><code>fork</code></td>
+<td>cm</td>
+<td>Fork length (FL) of individual fish (distance from tip of snout to middle caudal fin rays). Slightly less than total length (TL).</td>
+</tr>
+<tr class="even">
+<td><code>d15n</code></td>
+<td>Parts per thousand</td>
+<td>Ratio of <sup>15</sup>N to <sup>14</sup>N in sample (aka: <span class="math inline">\(\delta\)</span><sup>15</sup>N or “delta fifteen N”)</td>
+</tr>
+<tr class="odd">
+<td><code>tp</code></td>
+<td>Tropic levels</td>
+<td>Estimated trophic level of individual based on <span class="math inline">\(\delta\)</span><sup>15</sup>N in tissue samples.</td>
+</tr>
+</tbody>
+</table>
+<p>The researchers were interested in how the trophic level of tuna varied with body size and geography. The trophic level expresses how high in the food chain an animal is. Primary producers such as plants and phytoplankton have a trophic level of 1. Animals that consume primary producers have a trophic level of 2. For example, grasses have trophic level 1, zebras have trophic level 2, and lions have trophic level 3.</p>
+<p>The variables in play are animal size (fork length), latitude, longitude, ocean, and species. Fork length, latitude, and longitude can be modeled as continuous predictors. Ocean and species are factors. Ocean has 3 levels (Atlantic, Indian, and Pacific), as does species (<em>Thunnus albacares</em>, <em>T. obesus</em>, and <em>T. alalunga</em>). Which of these factors should be treated as fixed? Which as random? It depends on the researchers’ goals. If the objective is to predict the trophic position of particular species, or to predict the trophic position of species within particular oceans, then those factors should be fixed. If the sets of oceans and species in the dataset are just taken as representing other, unexamined oceans and/or species, then these factors should be treated as random. We will follow the example of the original authors and treat ocean as a random factor, with species as fixed.</p>
+<p>Now that we have decided on a mixed model approach, we need to decide whether to use linear models or additive models. A quick plot of the data, with species and ocean overlaid as shapes and colors, respectively, suggests that linear models are unlikely to describe the data very well. So, we can try an additive model.</p>
+<div class="sourceCode" id="cb1566"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1566-1"><a href="7.5-mod-07-gamm.html#cb1566-1" aria-hidden="true" tabindex="-1"></a><span class="co"># color by ocean</span></span>
+<span id="cb1566-2"><a href="7.5-mod-07-gamm.html#cb1566-2" aria-hidden="true" tabindex="-1"></a>ocs <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">unique</span>(dat<span class="sc">$</span>ocean))</span>
+<span id="cb1566-3"><a href="7.5-mod-07-gamm.html#cb1566-3" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> <span class="fu">rainbow</span>(<span class="fu">length</span>(ocs), <span class="at">alpha=</span><span class="fl">0.4</span>)</span>
+<span id="cb1566-4"><a href="7.5-mod-07-gamm.html#cb1566-4" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>col <span class="ot">&lt;-</span> cols[<span class="fu">match</span>(dat<span class="sc">$</span>ocean, ocs)]</span>
+<span id="cb1566-5"><a href="7.5-mod-07-gamm.html#cb1566-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1566-6"><a href="7.5-mod-07-gamm.html#cb1566-6" aria-hidden="true" tabindex="-1"></a><span class="co"># shape by species</span></span>
+<span id="cb1566-7"><a href="7.5-mod-07-gamm.html#cb1566-7" aria-hidden="true" tabindex="-1"></a>spps <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">unique</span>(dat<span class="sc">$</span>species))</span>
+<span id="cb1566-8"><a href="7.5-mod-07-gamm.html#cb1566-8" aria-hidden="true" tabindex="-1"></a>pchs <span class="ot">&lt;-</span> <span class="dv">15</span><span class="sc">:</span><span class="dv">17</span></span>
+<span id="cb1566-9"><a href="7.5-mod-07-gamm.html#cb1566-9" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>pch <span class="ot">&lt;-</span> pchs[<span class="fu">match</span>(dat<span class="sc">$</span>species, spps)]</span>
+<span id="cb1566-10"><a href="7.5-mod-07-gamm.html#cb1566-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1566-11"><a href="7.5-mod-07-gamm.html#cb1566-11" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>), <span class="at">cex.lab=</span><span class="fl">1.4</span>, <span class="at">cex.axis=</span><span class="fl">1.4</span>)</span>
+<span id="cb1566-12"><a href="7.5-mod-07-gamm.html#cb1566-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dat<span class="sc">$</span>lat, dat<span class="sc">$</span>tp, <span class="at">col=</span>dat<span class="sc">$</span>col, <span class="at">pch=</span>dat<span class="sc">$</span>pch)</span>
+<span id="cb1566-13"><a href="7.5-mod-07-gamm.html#cb1566-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dat<span class="sc">$</span>long, dat<span class="sc">$</span>tp, <span class="at">col=</span>dat<span class="sc">$</span>col, <span class="at">pch=</span>dat<span class="sc">$</span>pch)</span>
+<span id="cb1566-14"><a href="7.5-mod-07-gamm.html#cb1566-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dat<span class="sc">$</span>fork, dat<span class="sc">$</span>tp, <span class="at">col=</span>dat<span class="sc">$</span>col, <span class="at">pch=</span>dat<span class="sc">$</span>pch)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-707-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>Next, we need to consider what kind of additive model to use. The decision of whether to use an additive mixed model (AMM) or generalized additive mixed model (GAMM) hinges on the distribution of the response variable. Trophic positions cannot be negative (or &lt;1), so we might think of the values as coming from a lognormal distribution. This would be a GAMM with Gaussian family and log link function.</p>
+<p>The main R package for fitting GAMM is the same package for fitting GAM: <code>mgcv</code> <span class="citation">(<a href="#ref-wood2017generalized" role="doc-biblioref">Wood 2017</a>)</span>. It should be noted that there are several ways within <code>mgcv</code> to fit GAMM. We’ll use the function <code>gamm()</code>; function <code>gam()</code> can also be used by manipulating some of the arguments to the smoother functions <code>s()</code>.</p>
+<p>For this example we will fit 3 models, each with smoothers for a single continuous predictor. Each species will have its own smoother: this is what the <code>by=spp</code> argument in <code>s()</code> does. The random intercept of <code>ocean</code> is specified as a list.</p>
+<div class="sourceCode" id="cb1567"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1567-1"><a href="7.5-mod-07-gamm.html#cb1567-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mgcv)</span>
+<span id="cb1567-2"><a href="7.5-mod-07-gamm.html#cb1567-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1567-3"><a href="7.5-mod-07-gamm.html#cb1567-3" aria-hidden="true" tabindex="-1"></a><span class="co"># very important: make a factor version of species to be </span></span>
+<span id="cb1567-4"><a href="7.5-mod-07-gamm.html#cb1567-4" aria-hidden="true" tabindex="-1"></a><span class="co"># used by gamm()</span></span>
+<span id="cb1567-5"><a href="7.5-mod-07-gamm.html#cb1567-5" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>spp <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>species)</span>
+<span id="cb1567-6"><a href="7.5-mod-07-gamm.html#cb1567-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1567-7"><a href="7.5-mod-07-gamm.html#cb1567-7" aria-hidden="true" tabindex="-1"></a><span class="co"># fit models</span></span>
+<span id="cb1567-8"><a href="7.5-mod-07-gamm.html#cb1567-8" aria-hidden="true" tabindex="-1"></a>mod01 <span class="ot">&lt;-</span> <span class="fu">gamm</span>(tp<span class="sc">~</span><span class="fu">s</span>(lat, <span class="at">by=</span>spp), <span class="at">data=</span>dat,</span>
+<span id="cb1567-9"><a href="7.5-mod-07-gamm.html#cb1567-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">random=</span><span class="fu">list</span>(<span class="at">ocean=</span><span class="sc">~</span><span class="dv">1</span>), <span class="at">family=</span><span class="fu">gaussian</span>(<span class="at">link=</span><span class="st">&quot;log&quot;</span>))</span></code></pre></div>
+<pre><code>## 
+##  Maximum number of PQL iterations:  20</code></pre>
+<pre><code>## iteration 1</code></pre>
+<pre><code>## iteration 2</code></pre>
+<pre><code>## iteration 3</code></pre>
+<pre><code>## iteration 4</code></pre>
+<div class="sourceCode" id="cb1573"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1573-1"><a href="7.5-mod-07-gamm.html#cb1573-1" aria-hidden="true" tabindex="-1"></a>mod02 <span class="ot">&lt;-</span> <span class="fu">gamm</span>(tp<span class="sc">~</span><span class="fu">s</span>(long, <span class="at">by=</span>spp), <span class="at">data=</span>dat,</span>
+<span id="cb1573-2"><a href="7.5-mod-07-gamm.html#cb1573-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">random=</span><span class="fu">list</span>(<span class="at">ocean=</span><span class="sc">~</span><span class="dv">1</span>), <span class="at">family=</span><span class="fu">gaussian</span>(<span class="at">link=</span><span class="st">&quot;log&quot;</span>))</span></code></pre></div>
+<pre><code>## 
+##  Maximum number of PQL iterations:  20</code></pre>
+<pre><code>## iteration 1</code></pre>
+<pre><code>## iteration 2</code></pre>
+<pre><code>## iteration 3</code></pre>
+<pre><code>## iteration 4</code></pre>
+<pre><code>## iteration 5</code></pre>
+<div class="sourceCode" id="cb1580"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1580-1"><a href="7.5-mod-07-gamm.html#cb1580-1" aria-hidden="true" tabindex="-1"></a>mod03 <span class="ot">&lt;-</span> <span class="fu">gamm</span>(tp<span class="sc">~</span><span class="fu">s</span>(fork, <span class="at">by=</span>spp), <span class="at">data=</span>dat,</span>
+<span id="cb1580-2"><a href="7.5-mod-07-gamm.html#cb1580-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">random=</span><span class="fu">list</span>(<span class="at">ocean=</span><span class="sc">~</span><span class="dv">1</span>), <span class="at">family=</span><span class="fu">gaussian</span>(<span class="at">link=</span><span class="st">&quot;log&quot;</span>))</span></code></pre></div>
+<pre><code>## 
+##  Maximum number of PQL iterations:  20</code></pre>
+<pre><code>## iteration 1</code></pre>
+<pre><code>## iteration 2</code></pre>
+<pre><code>## iteration 3</code></pre>
+<pre><code>## iteration 4</code></pre>
+<p>Outputs from <code>gamm()</code> are very complicated and intimidating, even to experts. The most important part of the output is in the <code>$gam</code> component.</p>
+<div class="sourceCode" id="cb1586"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1586-1"><a href="7.5-mod-07-gamm.html#cb1586-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod01<span class="sc">$</span>gam, <span class="at">cor=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## 
+## Family: gaussian 
+## Link function: log 
+## 
+## Formula:
+## tp ~ s(lat, by = spp)
+## 
+## Parametric coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  1.64874    0.01467   112.4   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Approximate significance of smooth terms:
+##                               edf Ref.df      F p-value    
+## s(lat):sppThunnus alalunga  7.257  7.257 122.11  &lt;2e-16 ***
+## s(lat):sppThunnus albacares 8.743  8.743  27.61  &lt;2e-16 ***
+## s(lat):sppThunnus obesus    8.661  8.661  20.05  &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## R-sq.(adj) =  0.365   
+##   Scale est. = 0.68458   n = 3177</code></pre>
+<p>The output contains only one parametric component, the estimated intercept. The overall or mean intercept was estimated as 1.648 <span class="math inline">\(\pm\)</span> 0.015, and was statistically significant. The “approximate signicance” of smooth terms is presented in a table separate from the parametric components. The “approximate” part of the name is very important: take estimates of <em>P</em>-values, <em>R</em><sup>2</sup>, and other such measures from GAMMs with a grain of salt. Even the help page for <code>summary.gam()</code> states that the <em>P</em>-value presented are likely to be too small.</p>
+<p>If you have a factor with &gt;2 levels, you can print an ANOVA for the level-specific smoothers:</p>
+<div class="sourceCode" id="cb1588"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1588-1"><a href="7.5-mod-07-gamm.html#cb1588-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod01<span class="sc">$</span>gam)</span></code></pre></div>
+<pre><code>## 
+## Family: gaussian 
+## Link function: log 
+## 
+## Formula:
+## tp ~ s(lat, by = spp)
+## 
+## Approximate significance of smooth terms:
+##                               edf Ref.df      F p-value
+## s(lat):sppThunnus alalunga  7.257  7.257 122.11  &lt;2e-16
+## s(lat):sppThunnus albacares 8.743  8.743  27.61  &lt;2e-16
+## s(lat):sppThunnus obesus    8.661  8.661  20.05  &lt;2e-16</code></pre>
+<p>You can see the estimated smoothers using <code>plot()</code> on the <code>$gam</code> output.</p>
+<div class="sourceCode" id="cb1590"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1590-1"><a href="7.5-mod-07-gamm.html#cb1590-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)) <span class="co"># 1x3 panels, because 3 smoothers</span></span>
+<span id="cb1590-2"><a href="7.5-mod-07-gamm.html#cb1590-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod01<span class="sc">$</span>gam)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-711-1.png" width="864" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb1591"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1591-1"><a href="7.5-mod-07-gamm.html#cb1591-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod02<span class="sc">$</span>gam)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-711-2.png" width="864" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb1592"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1592-1"><a href="7.5-mod-07-gamm.html#cb1592-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod03<span class="sc">$</span>gam)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-711-3.png" width="864" style="display: block; margin: auto;" /></p>
+<p>Some of the smoothers for the predictor variables have quite different shapes for each species! The original study authors fit a separate model for each species and continuous predictor combination. But, with this many observations <code>(nrow(dat))</code>, we might be able to fit a single model that includes all predictors.</p>
+<div class="sourceCode" id="cb1593"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1593-1"><a href="7.5-mod-07-gamm.html#cb1593-1" aria-hidden="true" tabindex="-1"></a><span class="co"># can we fit all the predictors in one model?</span></span>
+<span id="cb1593-2"><a href="7.5-mod-07-gamm.html#cb1593-2" aria-hidden="true" tabindex="-1"></a>mod04 <span class="ot">&lt;-</span> <span class="fu">gamm</span>(tp<span class="sc">~</span><span class="fu">s</span>(lat, <span class="at">by=</span>spp)<span class="sc">+</span><span class="fu">s</span>(long, <span class="at">by=</span>spp)<span class="sc">+</span><span class="fu">s</span>(fork, <span class="at">by=</span>spp),</span>
+<span id="cb1593-3"><a href="7.5-mod-07-gamm.html#cb1593-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data=</span>dat,</span>
+<span id="cb1593-4"><a href="7.5-mod-07-gamm.html#cb1593-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">random=</span><span class="fu">list</span>(<span class="at">ocean=</span><span class="sc">~</span><span class="dv">1</span>),</span>
+<span id="cb1593-5"><a href="7.5-mod-07-gamm.html#cb1593-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">family=</span><span class="fu">gaussian</span>(<span class="at">link=</span><span class="st">&quot;log&quot;</span>))</span></code></pre></div>
+<pre><code>## 
+##  Maximum number of PQL iterations:  20</code></pre>
+<pre><code>## iteration 1</code></pre>
+<pre><code>## iteration 2</code></pre>
+<pre><code>## iteration 3</code></pre>
+<pre><code>## iteration 4</code></pre>
+<div class="sourceCode" id="cb1599"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1599-1"><a href="7.5-mod-07-gamm.html#cb1599-1" aria-hidden="true" tabindex="-1"></a><span class="co"># yes!</span></span>
+<span id="cb1599-2"><a href="7.5-mod-07-gamm.html#cb1599-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod04<span class="sc">$</span>gam)</span></code></pre></div>
+<pre><code>## 
+## Family: gaussian 
+## Link function: log 
+## 
+## Formula:
+## tp ~ s(lat, by = spp) + s(long, by = spp) + s(fork, by = spp)
+## 
+## Parametric coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   1.8114     0.1406   12.88   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Approximate significance of smooth terms:
+##                                edf Ref.df      F  p-value    
+## s(lat):sppThunnus alalunga   6.581  6.581 66.471  &lt; 2e-16 ***
+## s(lat):sppThunnus albacares  8.518  8.518 20.780  &lt; 2e-16 ***
+## s(lat):sppThunnus obesus     8.848  8.848 32.363  &lt; 2e-16 ***
+## s(long):sppThunnus alalunga  8.100  8.100 40.762  &lt; 2e-16 ***
+## s(long):sppThunnus albacares 8.020  8.020 23.551  &lt; 2e-16 ***
+## s(long):sppThunnus obesus    8.010  8.010 52.744  &lt; 2e-16 ***
+## s(fork):sppThunnus alalunga  3.660  3.660  8.713 1.64e-05 ***
+## s(fork):sppThunnus albacares 6.447  6.447 14.814  &lt; 2e-16 ***
+## s(fork):sppThunnus obesus    7.625  7.625  4.212 4.67e-05 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## R-sq.(adj) =  -0.0545   
+##   Scale est. = 0.48822   n = 3168</code></pre>
+<p>Examine the smoothers:</p>
+<div class="sourceCode" id="cb1601"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1601-1"><a href="7.5-mod-07-gamm.html#cb1601-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3 predictors * 3 species = 9 panels</span></span>
+<span id="cb1601-2"><a href="7.5-mod-07-gamm.html#cb1601-2" aria-hidden="true" tabindex="-1"></a><span class="co"># note use of mfcol to fill by column,</span></span>
+<span id="cb1601-3"><a href="7.5-mod-07-gamm.html#cb1601-3" aria-hidden="true" tabindex="-1"></a><span class="co"># so species are rows and predictors are columns</span></span>
+<span id="cb1601-4"><a href="7.5-mod-07-gamm.html#cb1601-4" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfcol=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>))</span>
+<span id="cb1601-5"><a href="7.5-mod-07-gamm.html#cb1601-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod04<span class="sc">$</span>gam)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-713-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>The plots produced by plotting a <code>$gam</code> output show the effect of each smoother, not the actual predicted <em>y</em> value. The predicted value for an observation is obtained by adding the intercept to the effect of each smoother (this is what the “additive” in “additive model” means). For your manuscript, you probably want to show model predictions on the original data scale. The method below should work for most situations.</p>
+<p>In the past, we’ve predicted response variables with single continuous predictor variables. For this example, we have 3 continuous predictors. The usual strategy a situation with &gt;1 continuous predictor is to present model predictions for each predictor with the other predictors held at their median. This makes the bookkeeping a little complicated, but the final graph is well worth the effort.</p>
+<div class="sourceCode" id="cb1602"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1602-1"><a href="7.5-mod-07-gamm.html#cb1602-1" aria-hidden="true" tabindex="-1"></a><span class="co"># number of x values for prediction</span></span>
+<span id="cb1602-2"><a href="7.5-mod-07-gamm.html#cb1602-2" aria-hidden="true" tabindex="-1"></a>pn <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb1602-3"><a href="7.5-mod-07-gamm.html#cb1602-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1602-4"><a href="7.5-mod-07-gamm.html#cb1602-4" aria-hidden="true" tabindex="-1"></a><span class="co"># sequence of each x value acros its domain</span></span>
+<span id="cb1602-5"><a href="7.5-mod-07-gamm.html#cb1602-5" aria-hidden="true" tabindex="-1"></a>px1 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(dat<span class="sc">$</span>lat), <span class="fu">max</span>(dat<span class="sc">$</span>lat), <span class="at">length=</span>pn)</span>
+<span id="cb1602-6"><a href="7.5-mod-07-gamm.html#cb1602-6" aria-hidden="true" tabindex="-1"></a>px2 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(dat<span class="sc">$</span>long), <span class="fu">max</span>(dat<span class="sc">$</span>long), <span class="at">length=</span>pn)</span>
+<span id="cb1602-7"><a href="7.5-mod-07-gamm.html#cb1602-7" aria-hidden="true" tabindex="-1"></a>px3 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(dat<span class="sc">$</span>fork, <span class="at">na.rm=</span><span class="cn">TRUE</span>),</span>
+<span id="cb1602-8"><a href="7.5-mod-07-gamm.html#cb1602-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">max</span>(dat<span class="sc">$</span>fork, <span class="at">na.rm=</span><span class="cn">TRUE</span>), <span class="at">length=</span>pn)</span>
+<span id="cb1602-9"><a href="7.5-mod-07-gamm.html#cb1602-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1602-10"><a href="7.5-mod-07-gamm.html#cb1602-10" aria-hidden="true" tabindex="-1"></a><span class="co"># data frame of all factors and an index for row number (z)</span></span>
+<span id="cb1602-11"><a href="7.5-mod-07-gamm.html#cb1602-11" aria-hidden="true" tabindex="-1"></a>dx <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">ocean=</span><span class="cn">NA</span>, <span class="at">spp=</span>spps, <span class="at">z=</span><span class="dv">1</span><span class="sc">:</span>pn)</span>
+<span id="cb1602-12"><a href="7.5-mod-07-gamm.html#cb1602-12" aria-hidden="true" tabindex="-1"></a>dx <span class="ot">&lt;-</span> dx[<span class="fu">order</span>(dx<span class="sc">$</span>ocean, dx<span class="sc">$</span>spp, dx<span class="sc">$</span>z),]</span>
+<span id="cb1602-13"><a href="7.5-mod-07-gamm.html#cb1602-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1602-14"><a href="7.5-mod-07-gamm.html#cb1602-14" aria-hidden="true" tabindex="-1"></a><span class="co"># add median of each predictor to dx</span></span>
+<span id="cb1602-15"><a href="7.5-mod-07-gamm.html#cb1602-15" aria-hidden="true" tabindex="-1"></a>dx<span class="sc">$</span>lat <span class="ot">&lt;-</span> <span class="fu">median</span>(dat<span class="sc">$</span>lat)</span>
+<span id="cb1602-16"><a href="7.5-mod-07-gamm.html#cb1602-16" aria-hidden="true" tabindex="-1"></a>dx<span class="sc">$</span>long <span class="ot">&lt;-</span> <span class="fu">median</span>(dat<span class="sc">$</span>long)</span>
+<span id="cb1602-17"><a href="7.5-mod-07-gamm.html#cb1602-17" aria-hidden="true" tabindex="-1"></a>dx<span class="sc">$</span>fork <span class="ot">&lt;-</span> <span class="fu">median</span>(dat<span class="sc">$</span>fork, <span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1602-18"><a href="7.5-mod-07-gamm.html#cb1602-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1602-19"><a href="7.5-mod-07-gamm.html#cb1602-19" aria-hidden="true" tabindex="-1"></a><span class="co"># need separate data frame of predictions for</span></span>
+<span id="cb1602-20"><a href="7.5-mod-07-gamm.html#cb1602-20" aria-hidden="true" tabindex="-1"></a><span class="co"># each predictor</span></span>
+<span id="cb1602-21"><a href="7.5-mod-07-gamm.html#cb1602-21" aria-hidden="true" tabindex="-1"></a>dx1 <span class="ot">&lt;-</span> dx</span>
+<span id="cb1602-22"><a href="7.5-mod-07-gamm.html#cb1602-22" aria-hidden="true" tabindex="-1"></a>dx2 <span class="ot">&lt;-</span> dx</span>
+<span id="cb1602-23"><a href="7.5-mod-07-gamm.html#cb1602-23" aria-hidden="true" tabindex="-1"></a>dx3 <span class="ot">&lt;-</span> dx</span>
+<span id="cb1602-24"><a href="7.5-mod-07-gamm.html#cb1602-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1602-25"><a href="7.5-mod-07-gamm.html#cb1602-25" aria-hidden="true" tabindex="-1"></a><span class="co"># in each prediction data frame, assign ONE of</span></span>
+<span id="cb1602-26"><a href="7.5-mod-07-gamm.html#cb1602-26" aria-hidden="true" tabindex="-1"></a><span class="co"># the predictors its sequence of values, leaving</span></span>
+<span id="cb1602-27"><a href="7.5-mod-07-gamm.html#cb1602-27" aria-hidden="true" tabindex="-1"></a><span class="co"># other predictors at their median.</span></span>
+<span id="cb1602-28"><a href="7.5-mod-07-gamm.html#cb1602-28" aria-hidden="true" tabindex="-1"></a><span class="do">## works because of recycling rule:</span></span>
+<span id="cb1602-29"><a href="7.5-mod-07-gamm.html#cb1602-29" aria-hidden="true" tabindex="-1"></a>dx1<span class="sc">$</span>lat <span class="ot">&lt;-</span> px1</span>
+<span id="cb1602-30"><a href="7.5-mod-07-gamm.html#cb1602-30" aria-hidden="true" tabindex="-1"></a>dx2<span class="sc">$</span>long <span class="ot">&lt;-</span> px2</span>
+<span id="cb1602-31"><a href="7.5-mod-07-gamm.html#cb1602-31" aria-hidden="true" tabindex="-1"></a>dx3<span class="sc">$</span>fork <span class="ot">&lt;-</span> px3</span>
+<span id="cb1602-32"><a href="7.5-mod-07-gamm.html#cb1602-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1602-33"><a href="7.5-mod-07-gamm.html#cb1602-33" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate predictions</span></span>
+<span id="cb1602-34"><a href="7.5-mod-07-gamm.html#cb1602-34" aria-hidden="true" tabindex="-1"></a>pred1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod04<span class="sc">$</span>gam, <span class="at">newdata=</span><span class="fu">data.frame</span>(dx1),</span>
+<span id="cb1602-35"><a href="7.5-mod-07-gamm.html#cb1602-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">type=</span><span class="st">&quot;link&quot;</span>, <span class="at">se.fit=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1602-36"><a href="7.5-mod-07-gamm.html#cb1602-36" aria-hidden="true" tabindex="-1"></a>pred2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod04<span class="sc">$</span>gam, <span class="at">newdata=</span><span class="fu">data.frame</span>(dx2),</span>
+<span id="cb1602-37"><a href="7.5-mod-07-gamm.html#cb1602-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">type=</span><span class="st">&quot;link&quot;</span>, <span class="at">se.fit=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1602-38"><a href="7.5-mod-07-gamm.html#cb1602-38" aria-hidden="true" tabindex="-1"></a>pred3 <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod04<span class="sc">$</span>gam, <span class="at">newdata=</span><span class="fu">data.frame</span>(dx3), </span>
+<span id="cb1602-39"><a href="7.5-mod-07-gamm.html#cb1602-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">type=</span><span class="st">&quot;link&quot;</span>, <span class="at">se.fit=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1602-40"><a href="7.5-mod-07-gamm.html#cb1602-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1602-41"><a href="7.5-mod-07-gamm.html#cb1602-41" aria-hidden="true" tabindex="-1"></a><span class="co"># add predictions and SE to data frames</span></span>
+<span id="cb1602-42"><a href="7.5-mod-07-gamm.html#cb1602-42" aria-hidden="true" tabindex="-1"></a>dx1<span class="sc">$</span>mu <span class="ot">&lt;-</span> pred1<span class="sc">$</span>fit</span>
+<span id="cb1602-43"><a href="7.5-mod-07-gamm.html#cb1602-43" aria-hidden="true" tabindex="-1"></a>dx2<span class="sc">$</span>mu <span class="ot">&lt;-</span> pred2<span class="sc">$</span>fit</span>
+<span id="cb1602-44"><a href="7.5-mod-07-gamm.html#cb1602-44" aria-hidden="true" tabindex="-1"></a>dx3<span class="sc">$</span>mu <span class="ot">&lt;-</span> pred3<span class="sc">$</span>fit</span>
+<span id="cb1602-45"><a href="7.5-mod-07-gamm.html#cb1602-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1602-46"><a href="7.5-mod-07-gamm.html#cb1602-46" aria-hidden="true" tabindex="-1"></a>dx1<span class="sc">$</span>se <span class="ot">&lt;-</span> pred1<span class="sc">$</span>se.fit</span>
+<span id="cb1602-47"><a href="7.5-mod-07-gamm.html#cb1602-47" aria-hidden="true" tabindex="-1"></a>dx2<span class="sc">$</span>se <span class="ot">&lt;-</span> pred2<span class="sc">$</span>se.fit</span>
+<span id="cb1602-48"><a href="7.5-mod-07-gamm.html#cb1602-48" aria-hidden="true" tabindex="-1"></a>dx3<span class="sc">$</span>se <span class="ot">&lt;-</span> pred3<span class="sc">$</span>se.fit</span>
+<span id="cb1602-49"><a href="7.5-mod-07-gamm.html#cb1602-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1602-50"><a href="7.5-mod-07-gamm.html#cb1602-50" aria-hidden="true" tabindex="-1"></a><span class="co"># normal approximation for 95% CI</span></span>
+<span id="cb1602-51"><a href="7.5-mod-07-gamm.html#cb1602-51" aria-hidden="true" tabindex="-1"></a>dx1<span class="sc">$</span>lo <span class="ot">&lt;-</span> <span class="fu">qlnorm</span>(<span class="fl">0.025</span>, dx1<span class="sc">$</span>mu, dx1<span class="sc">$</span>se)</span>
+<span id="cb1602-52"><a href="7.5-mod-07-gamm.html#cb1602-52" aria-hidden="true" tabindex="-1"></a>dx2<span class="sc">$</span>lo <span class="ot">&lt;-</span> <span class="fu">qlnorm</span>(<span class="fl">0.025</span>, dx2<span class="sc">$</span>mu, dx2<span class="sc">$</span>se)</span>
+<span id="cb1602-53"><a href="7.5-mod-07-gamm.html#cb1602-53" aria-hidden="true" tabindex="-1"></a>dx3<span class="sc">$</span>lo <span class="ot">&lt;-</span> <span class="fu">qlnorm</span>(<span class="fl">0.025</span>, dx3<span class="sc">$</span>mu, dx3<span class="sc">$</span>se)</span>
+<span id="cb1602-54"><a href="7.5-mod-07-gamm.html#cb1602-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1602-55"><a href="7.5-mod-07-gamm.html#cb1602-55" aria-hidden="true" tabindex="-1"></a>dx1<span class="sc">$</span>mn <span class="ot">&lt;-</span> <span class="fu">qlnorm</span>(<span class="fl">0.5</span>, dx1<span class="sc">$</span>mu, dx1<span class="sc">$</span>se)</span>
+<span id="cb1602-56"><a href="7.5-mod-07-gamm.html#cb1602-56" aria-hidden="true" tabindex="-1"></a>dx2<span class="sc">$</span>mn <span class="ot">&lt;-</span> <span class="fu">qlnorm</span>(<span class="fl">0.5</span>, dx2<span class="sc">$</span>mu, dx2<span class="sc">$</span>se)</span>
+<span id="cb1602-57"><a href="7.5-mod-07-gamm.html#cb1602-57" aria-hidden="true" tabindex="-1"></a>dx3<span class="sc">$</span>mn <span class="ot">&lt;-</span> <span class="fu">qlnorm</span>(<span class="fl">0.5</span>, dx3<span class="sc">$</span>mu, dx3<span class="sc">$</span>se)</span>
+<span id="cb1602-58"><a href="7.5-mod-07-gamm.html#cb1602-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1602-59"><a href="7.5-mod-07-gamm.html#cb1602-59" aria-hidden="true" tabindex="-1"></a>dx1<span class="sc">$</span>up <span class="ot">&lt;-</span> <span class="fu">qlnorm</span>(<span class="fl">0.975</span>, dx1<span class="sc">$</span>mu, dx1<span class="sc">$</span>se)</span>
+<span id="cb1602-60"><a href="7.5-mod-07-gamm.html#cb1602-60" aria-hidden="true" tabindex="-1"></a>dx2<span class="sc">$</span>up <span class="ot">&lt;-</span> <span class="fu">qlnorm</span>(<span class="fl">0.975</span>, dx2<span class="sc">$</span>mu, dx2<span class="sc">$</span>se)</span>
+<span id="cb1602-61"><a href="7.5-mod-07-gamm.html#cb1602-61" aria-hidden="true" tabindex="-1"></a>dx3<span class="sc">$</span>up <span class="ot">&lt;-</span> <span class="fu">qlnorm</span>(<span class="fl">0.975</span>, dx3<span class="sc">$</span>mu, dx3<span class="sc">$</span>se)</span>
+<span id="cb1602-62"><a href="7.5-mod-07-gamm.html#cb1602-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1602-63"><a href="7.5-mod-07-gamm.html#cb1602-63" aria-hidden="true" tabindex="-1"></a><span class="co"># add variable &quot;panel&quot; to help organize the plot later</span></span>
+<span id="cb1602-64"><a href="7.5-mod-07-gamm.html#cb1602-64" aria-hidden="true" tabindex="-1"></a>dx1<span class="sc">$</span>panel <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">each=</span>pn)</span>
+<span id="cb1602-65"><a href="7.5-mod-07-gamm.html#cb1602-65" aria-hidden="true" tabindex="-1"></a>dx2<span class="sc">$</span>panel <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">4</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">each=</span>pn)</span>
+<span id="cb1602-66"><a href="7.5-mod-07-gamm.html#cb1602-66" aria-hidden="true" tabindex="-1"></a>dx3<span class="sc">$</span>panel <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">7</span><span class="sc">:</span><span class="dv">9</span>, <span class="at">each=</span>pn)</span>
+<span id="cb1602-67"><a href="7.5-mod-07-gamm.html#cb1602-67" aria-hidden="true" tabindex="-1"></a>dz <span class="ot">&lt;-</span> <span class="fu">rbind</span>(dx1, dx2, dx3)</span>
+<span id="cb1602-68"><a href="7.5-mod-07-gamm.html#cb1602-68" aria-hidden="true" tabindex="-1"></a>dz <span class="ot">&lt;-</span> dz[<span class="fu">order</span>(dz<span class="sc">$</span>panel),]</span></code></pre></div>
+<p>Next we make the plot.</p>
+<div class="sourceCode" id="cb1603"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1603-1"><a href="7.5-mod-07-gamm.html#cb1603-1" aria-hidden="true" tabindex="-1"></a><span class="co"># helps with bookkeeping</span></span>
+<span id="cb1603-2"><a href="7.5-mod-07-gamm.html#cb1603-2" aria-hidden="true" tabindex="-1"></a>pan.df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">panel=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>, </span>
+<span id="cb1603-3"><a href="7.5-mod-07-gamm.html#cb1603-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">con=</span><span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;lat&quot;</span>, <span class="st">&quot;long&quot;</span>, <span class="st">&quot;fork&quot;</span>), <span class="at">each=</span><span class="dv">3</span>),</span>
+<span id="cb1603-4"><a href="7.5-mod-07-gamm.html#cb1603-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">spp=</span><span class="fu">rep</span>(spps, <span class="at">times=</span><span class="dv">3</span>))</span>
+<span id="cb1603-5"><a href="7.5-mod-07-gamm.html#cb1603-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1603-6"><a href="7.5-mod-07-gamm.html#cb1603-6" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="fl">5.1</span>, <span class="fl">5.1</span>, <span class="fl">1.1</span>, <span class="fl">1.1</span>),</span>
+<span id="cb1603-7"><a href="7.5-mod-07-gamm.html#cb1603-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">bty=</span><span class="st">&quot;n&quot;</span>, <span class="at">las=</span><span class="dv">1</span>)</span>
+<span id="cb1603-8"><a href="7.5-mod-07-gamm.html#cb1603-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>){</span>
+<span id="cb1603-9"><a href="7.5-mod-07-gamm.html#cb1603-9" aria-hidden="true" tabindex="-1"></a>    flag <span class="ot">&lt;-</span> <span class="fu">which</span>(dz<span class="sc">$</span>panel <span class="sc">==</span> i)</span>
+<span id="cb1603-10"><a href="7.5-mod-07-gamm.html#cb1603-10" aria-hidden="true" tabindex="-1"></a>    zi <span class="ot">&lt;-</span> dz[flag,]</span>
+<span id="cb1603-11"><a href="7.5-mod-07-gamm.html#cb1603-11" aria-hidden="true" tabindex="-1"></a>    xvar <span class="ot">&lt;-</span> pan.df<span class="sc">$</span>con[i]</span>
+<span id="cb1603-12"><a href="7.5-mod-07-gamm.html#cb1603-12" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> zi[,xvar]</span>
+<span id="cb1603-13"><a href="7.5-mod-07-gamm.html#cb1603-13" aria-hidden="true" tabindex="-1"></a>    sppi <span class="ot">&lt;-</span> pan.df<span class="sc">$</span>spp[i]</span>
+<span id="cb1603-14"><a href="7.5-mod-07-gamm.html#cb1603-14" aria-hidden="true" tabindex="-1"></a>    di <span class="ot">&lt;-</span> dat[<span class="fu">which</span>(dat<span class="sc">$</span>species <span class="sc">==</span> sppi),]</span>
+<span id="cb1603-15"><a href="7.5-mod-07-gamm.html#cb1603-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1603-16"><a href="7.5-mod-07-gamm.html#cb1603-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(xvar <span class="sc">==</span> <span class="st">&quot;lat&quot;</span>){</span>
+<span id="cb1603-17"><a href="7.5-mod-07-gamm.html#cb1603-17" aria-hidden="true" tabindex="-1"></a>        use.xlab <span class="ot">&lt;-</span> <span class="fu">expression</span>(Latitude<span class="sc">~</span>(degree<span class="sc">*</span>N))</span>
+<span id="cb1603-18"><a href="7.5-mod-07-gamm.html#cb1603-18" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1603-19"><a href="7.5-mod-07-gamm.html#cb1603-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(xvar <span class="sc">==</span> <span class="st">&quot;long&quot;</span>){</span>
+<span id="cb1603-20"><a href="7.5-mod-07-gamm.html#cb1603-20" aria-hidden="true" tabindex="-1"></a>        use.xlab <span class="ot">&lt;-</span> <span class="fu">expression</span>(Longitude<span class="sc">~</span>(degree<span class="sc">*</span>E))</span>
+<span id="cb1603-21"><a href="7.5-mod-07-gamm.html#cb1603-21" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1603-22"><a href="7.5-mod-07-gamm.html#cb1603-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(xvar <span class="sc">==</span> <span class="st">&quot;fork&quot;</span>){</span>
+<span id="cb1603-23"><a href="7.5-mod-07-gamm.html#cb1603-23" aria-hidden="true" tabindex="-1"></a>        use.xlab <span class="ot">&lt;-</span> <span class="st">&quot;Fork length (cm)&quot;</span></span>
+<span id="cb1603-24"><a href="7.5-mod-07-gamm.html#cb1603-24" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1603-25"><a href="7.5-mod-07-gamm.html#cb1603-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(di[,xvar], di<span class="sc">$</span>tp, <span class="at">pch=</span><span class="dv">16</span>, <span class="at">col=</span><span class="st">&quot;#00000020&quot;</span>,</span>
+<span id="cb1603-26"><a href="7.5-mod-07-gamm.html#cb1603-26" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">16</span>), <span class="at">xlab=</span>use.xlab,</span>
+<span id="cb1603-27"><a href="7.5-mod-07-gamm.html#cb1603-27" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab=</span><span class="st">&quot;Trophic level (unitless)&quot;</span>)</span>
+<span id="cb1603-28"><a href="7.5-mod-07-gamm.html#cb1603-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">points</span>(x, zi<span class="sc">$</span>mn, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb1603-29"><a href="7.5-mod-07-gamm.html#cb1603-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">points</span>(x, zi<span class="sc">$</span>lo, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">lty=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb1603-30"><a href="7.5-mod-07-gamm.html#cb1603-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">points</span>(x, zi<span class="sc">$</span>up, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">lty=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb1603-31"><a href="7.5-mod-07-gamm.html#cb1603-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">title</span>(<span class="at">main=</span>pan.df<span class="sc">$</span>spp[i], <span class="at">adj=</span><span class="dv">0</span>, <span class="at">font.main=</span><span class="dv">3</span>)</span>
+<span id="cb1603-32"><a href="7.5-mod-07-gamm.html#cb1603-32" aria-hidden="true" tabindex="-1"></a>} </span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-715-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>The fitted smoothers are pretty good for some species and predictors, but not so much for others. Refinement of the analysis should involve revisiting what distribution to use and what random effects structure to include in the model. Fiddling with the options for fitting smoothers (see <code>?s</code>) might help as well.</p>
+
+</div>
+</div>
+<!-- </div> -->
+<h3>Literature Cited</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-bodin2021" class="csl-entry">
+Bodin, N., H. Pethybridge, L. M. Duffy, A. Lorrain, V. Allain, J. M. Logan, F. Ménard, B. Graham, C. A. Choy, C. J. Somes, R. J. Olson, and J. W. Young. 2021. <a href="https://doi.org/10.1002/ecy.3265">Global data set for nitrogen and carbon stable isotopes of tunas</a>. Ecology 102:e03265.
+</div>
+<div id="ref-pethybridge2018" class="csl-entry">
+Pethybridge, H., C. A. Choy, J. M. Logan, V. Allain, A. Lorrain, N. Bodin, C. J. Somes, J. Young, F. Ménard, C. Langlais, L. Duffy, A. J. Hobday, P. Kuhnert, B. Fry, C. Menkes, and R. J. Olson. 2018. <a href="https://doi.org/10.1111/geb.12763">A global meta-analysis of marine predator nitrogen stable isotopes: Relationships between trophic structure and environmental conditions</a>. Global Ecology and Biogeography 27:1043–1055.
+</div>
+<div id="ref-wood2017generalized" class="csl-entry">
+Wood, S. N. 2017. Generalized additive models: An introduction with <span>R</span>. 2nd edition. CRC press.
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="8.5-mod-08-ord.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="9.1-how-to-use-this-guide.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="7.4-mod-07-nlme.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="8-mod-08.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

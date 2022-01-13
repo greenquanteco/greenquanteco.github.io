@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis</title>
+  <title>9.2 What question are you trying to answer? | Applied Biological Data Analysis</title>
   <meta name="description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta property="og:title" content="9.2 What question are you trying to answer? | Applied Biological Data Analysis" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://greenquanteco.github.io/index.html" />
   <meta property="og:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta name="twitter:title" content="9.2 What question are you trying to answer? | Applied Biological Data Analysis" />
   
   <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="twitter:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="8.5-mod-08-ord.html"/>
-<link rel="next" href="9.1-how-to-use-this-guide.html"/>
+<link rel="prev" href="9.1-how-to-use-this-guide.html"/>
+<link rel="next" href="9.3-testing-for-a-difference-in-mean-or-location.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -530,22 +530,38 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="mod-09" class="section level1" number="9">
-<h1><span class="header-section-number">Module 9</span> Planning your analysis (what test?)</h1>
-<p>One of the main questions that biologists have after collecting data is, “What statistical test do I use?” Ignoring the fact that they should have thought about that <strong><em>before collecting data</em></strong>, the answer to that question depends on the answers to two other questions:</p>
+<div id="what-question-are-you-trying-to-answer" class="section level2" number="9.2">
+<h2><span class="header-section-number">9.2</span> What question are you trying to answer?</h2>
+<p>The first thing to nail down is what question you are trying to answer. This does not mean what biological question you are investigating, but the two are related. An example biological question might be:</p>
+<blockquote>
+<p>How do small mammals (rodents) adapt to live in urban environments?</p>
+</blockquote>
+<p>This is a good biological question, but it is not a question that you can answer with statistics. In order to answer the overarching biological question, we usually need to break it down into smaller chunks: hypotheses that can either be true or false, and predictions (patterns in the data) that would be observed if the hypothesis is true and not observed if a hypothesis is false. For the question above, we might have some working hypothesis like:</p>
+<blockquote>
+<p>Rodents living in urban environments shift their diet to take advantage of anthropogenic food sources.</p>
+</blockquote>
+<p>This is closer to a statistical hypothesis, but we’re not quite there yet. What does it mean to “shift their diet”? Compared to what? How do we quantify a “shift”? To make a statistical hypothesis we need to think of specific quantitative or categorical comparisons that would support or contradict the hypothesis. For example, here are a few of the potential predictions implied by the hypothesis above:</p>
+<ul>
+<li>Rodents in urban environments will have a greater proportion of artificial foods in their feces than conspecific rodents in rural or natural environments.</li>
+<li>Rodents in urban environments will consume a smaller number of different kinds of food than rodents in rural environments because of the availability of calorie-dense foods associated with humans.</li>
+<li>Rodents in urban environments will spend less time foraging and make shorter foraging movements than rodents in rural or natural environments.</li>
+</ul>
+<p>These three predictions are statements of the kinds of patterns that we should observe if the hypothesis was true. Critically, they include comparison phrases like <strong>greater than</strong> or <strong>smaller number of</strong> or <strong>less time than</strong>. Those comparisons are the sorts of patterns that a statistical model can actually evaluate. Knowing what kind of pattern you are testing is a key step in planning your data analysis.</p>
+<p>Broadly speaking, statistical hypotheses in biology tend to fall into just a few categories:</p>
 <ol style="list-style-type: decimal">
-<li>What question are you trying to answer?</li>
-<li>What kind of data do you have?</li>
+<li>Testing for a difference in mean or location between groups.</li>
+<li>Testing for a continuous relationship between a response variable (or multiple variables) and one or more predictor variables. Also referred to as “predicting” or “modeling” a continuous variable.</li>
+<li>Classifying observations based on predictor variables.</li>
 </ol>
-<p>After <a href="4-mod-04.html#mod-04">exploring the data</a> and gaining an understanding of the patterns and <a href="4.8-mod-04-prob.html#mod-04-prob">problems</a> in a dataset, it is time to run the main analysis. This guide is designed to help you use what you learned in exploring the data to choose an appropriate analytical strategy.</p>
+<p>These categories are not mutually exclusive. Many questions phrased as one category can be reframed into another. How you frame your question depends on many factors and at some point will involve some discretion on your part. <em>There is often more than one right way analyze a dataset</em>, but the right ways are a vanishingly small subset of the possible ways to analyze your data.</p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="8.5-mod-08-ord.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="9.1-how-to-use-this-guide.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="9.1-how-to-use-this-guide.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="9.3-testing-for-a-difference-in-mean-or-location.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

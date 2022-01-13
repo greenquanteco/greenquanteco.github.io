@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis</title>
+  <title>9.4 Testing for a continuous relationship between two or more variables | Applied Biological Data Analysis</title>
   <meta name="description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta property="og:title" content="9.4 Testing for a continuous relationship between two or more variables | Applied Biological Data Analysis" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://greenquanteco.github.io/index.html" />
   <meta property="og:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta name="twitter:title" content="9.4 Testing for a continuous relationship between two or more variables | Applied Biological Data Analysis" />
   
   <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="twitter:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="8.5-mod-08-ord.html"/>
-<link rel="next" href="9.1-how-to-use-this-guide.html"/>
+<link rel="prev" href="9.3-testing-for-a-difference-in-mean-or-location.html"/>
+<link rel="next" href="9.5-classifying-observations.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -530,22 +530,44 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="mod-09" class="section level1" number="9">
-<h1><span class="header-section-number">Module 9</span> Planning your analysis (what test?)</h1>
-<p>One of the main questions that biologists have after collecting data is, “What statistical test do I use?” Ignoring the fact that they should have thought about that <strong><em>before collecting data</em></strong>, the answer to that question depends on the answers to two other questions:</p>
-<ol style="list-style-type: decimal">
-<li>What question are you trying to answer?</li>
-<li>What kind of data do you have?</li>
-</ol>
-<p>After <a href="4-mod-04.html#mod-04">exploring the data</a> and gaining an understanding of the patterns and <a href="4.8-mod-04-prob.html#mod-04-prob">problems</a> in a dataset, it is time to run the main analysis. This guide is designed to help you use what you learned in exploring the data to choose an appropriate analytical strategy.</p>
+<div id="testing-for-a-continuous-relationship-between-two-or-more-variables" class="section level2" number="9.4">
+<h2><span class="header-section-number">9.4</span> Testing for a continuous relationship between two or more variables</h2>
+<p>Dichotomous key for testing continuous relationships:</p>
+<div class="line-block">1. Need to test whether two variables vary together, not predict actual values: 2<br />
+1<span class="math inline">\(&#39;\)</span>. Need to predict values of response variables: 3<br />
+  2. Both variables normally distributed, suspected relationship linear: use Pearson’s product moment correlation <em>r</em>. R function <code>cor()</code> or <code>cor.test()</code>.<br />
+  2<span class="math inline">\(&#39;\)</span>. One or both variables nonnormal and/or suspected relationship nonlinear: use Spearman’s rank correlation coefficient <span class="math inline">\(\rho\)</span> (“rho”). R function <code>cor.test()</code>.<br />
+3. Suspected relationship linear, or can be made linear by transform: 4<br />
+3<span class="math inline">\(&#39;\)</span>. Suspected relationship nonlinear and cannot be made linear: 5.<br />
+  4. Response variable normally distributed or can be transformed to be normal: use <a href="5.1-mod-05-lm.html#mod-05-lm">linear regression</a> (on transformed scale, if needed). R function <code>lm()</code>.<br />
+  4<span class="math inline">\(&#39;\)</span>. Response variable nonnormal and cannot be transformed to normality: use <a href="5-mod-05.html#mod-05">GLM</a>. R function <code>glm()</code>.<br />
+5. Response variable and residuals normal: use NLS. R function <code>nls()</code>.<br />
+5<span class="math inline">\(&#39;\)</span>. Response variable and residuals nonnormal: try <a href="6.6-alternatives-to-nls.html#mod-06-gam">GAM</a>, GNM, or <a href="6.6-alternatives-to-nls.html#mod-06-cart2">regression trees</a> (in that order). R functions <code>mgcv::gam()</code>, <code>gnm::gnm()</code>, and <code>rpart::rpart()</code>, respectively.</div>
+<div id="additional-considerations-1" class="section level3" number="9.4.1">
+<h3><span class="header-section-number">9.4.1</span> Additional considerations</h3>
+<p>Once you reach a decision from the key above, there are a few more options to consider:</p>
+<ul>
+<li>Is there autocorrelation in your data? If so, you may want to consider including an autocorrelation structure.</li>
+<li>Is there a hierarchical structure to your data, with the higher-level groups representing variance you are not interested in but still need to account for? If so, you may want to consider adding random effects to your model. This creates a <strong>mixed model</strong>:
+<ul>
+<li>Linear models become <a href="7.2-mod-07-lmm.html#mod-07-lmm">linear mixed models (LMM)</a>. R function <code>lme4::lmer()</code>.</li>
+<li>Generalized linear models become <a href="7.3-mod-07-glmm.html#mod-07-glmm">generalized linear mixed models (GLMM)</a>. R function <code>lme4::glmer()</code>.</li>
+<li>Additive models become <a href="7.5-mod-07-gamm.html#mod-07-gamm">generalized additive mixed models (GAMM)</a>. R function <code>mgcv::gamm()</code>.</li>
+<li>NLS models become <a href="">nonlinear mixed models (NLME)</a>. R function <code>nlme::nlme(#mod-07-nlme)</code> or <code>lme4::nlmer()</code>.</li>
+</ul></li>
+<li>Do your data meet most of the assumptions for linear regression, but with heteroscedasticity (non-constant variance in residuals)? You might consider using generalized least squares (GLS) with a different variance structure. R function <code>nlme::gls()</code>.</li>
+<li>Is there severe <a href="4.8-mod-04-prob.html#mod-04-multicol">multicollinearity</a> among your predictor variables? If so, try dropping some of the collinear predictors or try a regularization technique such as ridge or lasso regression. Various R packages.</li>
+<li>Do you not have a clear idea of the form of the relationship between your continuous response variable and the predictors? Or, do you not want to assume a data model and just let the data speak for themselves? Try a machine learning technique like boosted regression trees. R function <code>gbm::gbm()</code>.</li>
+</ul>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="8.5-mod-08-ord.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="9.1-how-to-use-this-guide.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="9.3-testing-for-a-difference-in-mean-or-location.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="9.5-classifying-observations.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis</title>
+  <title>9.3 Testing for a difference in mean or location | Applied Biological Data Analysis</title>
   <meta name="description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta property="og:title" content="9.3 Testing for a difference in mean or location | Applied Biological Data Analysis" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://greenquanteco.github.io/index.html" />
   <meta property="og:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta name="twitter:title" content="9.3 Testing for a difference in mean or location | Applied Biological Data Analysis" />
   
   <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="twitter:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="8.5-mod-08-ord.html"/>
-<link rel="next" href="9.1-how-to-use-this-guide.html"/>
+<link rel="prev" href="9.2-what-question-are-you-trying-to-answer.html"/>
+<link rel="next" href="9.4-testing-for-a-continuous-relationship-between-two-or-more-variables.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -530,22 +530,44 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="mod-09" class="section level1" number="9">
-<h1><span class="header-section-number">Module 9</span> Planning your analysis (what test?)</h1>
-<p>One of the main questions that biologists have after collecting data is, “What statistical test do I use?” Ignoring the fact that they should have thought about that <strong><em>before collecting data</em></strong>, the answer to that question depends on the answers to two other questions:</p>
-<ol style="list-style-type: decimal">
-<li>What question are you trying to answer?</li>
-<li>What kind of data do you have?</li>
-</ol>
-<p>After <a href="4-mod-04.html#mod-04">exploring the data</a> and gaining an understanding of the patterns and <a href="4.8-mod-04-prob.html#mod-04-prob">problems</a> in a dataset, it is time to run the main analysis. This guide is designed to help you use what you learned in exploring the data to choose an appropriate analytical strategy.</p>
+<div id="testing-for-a-difference-in-mean-or-location" class="section level2" number="9.3">
+<h2><span class="header-section-number">9.3</span> Testing for a difference in mean or location</h2>
+<p>Dichotomous key for testing for a difference in mean or location:</p>
+<div class="line-block">1. Single response variable (or, one variable tested at a time): 5<br />
+1<span class="math inline">\(&#39;\)</span>. Multiple response variables tested at once: 2<br />
+  2. Data multivariate normal: 3<br />
+  2<span class="math inline">\(&#39;\)</span>. Data not multivariate normal: 4<br />
+3. All conditions for MANOVA met: try <a href="8.4-mod-08-sims.html#mod-08-manova">MANOVA</a>. R function <code>manova()</code>.<br />
+3<span class="math inline">\(&#39;\)</span>. MANOVA conditions not all met: 4.<br />
+  4. Try permutational <a href="8.4-mod-08-sims.html#mod-08-manova">MANOVA (PERMANOVA)</a> (R function <code>vegan::adonis()</code>) or:<br />
+  4<span class="math inline">\(&#39;\)</span>. Ordinate using NMDS, then try <a href="8.4-mod-08-sims.html#mod-08-mrpp">MRPP</a> in NMDS-space. R functions <code>vegan::metaMDS()</code> followed by <code>vegan::mrpp()</code>.<br />
+5. Comparing between 2 groups (i.e., a single factor with 2 levels): 6<br />
+5<span class="math inline">\(&#39;\)</span>. Comparing between &gt;2 groups: 8<br />
+  6. Data meet assumptions of t-test: use <em>t</em>-test. R function <code>t.test()</code>.<br />
+  6<span class="math inline">\(&#39;\)</span>. Data do not meet assumptions of <em>t</em>-test: 7.<br />
+7. Need to predict values of response variable: use <a href="5-mod-05.html#mod-05">GLM</a>. R function <code>glm()</code>.<br />
+7<span class="math inline">\(&#39;\)</span>. Need only to test for difference in location: use Mann-Whitney test (aka: Wilcoxon rank sum test). R function <code>wilcox.test()</code>.<br />
+  8. Response variables normal, variance homogeneous: use <a href="5.1-mod-05-lm.html#mod-05-anova">ANOVA</a>. R function <code>lm()</code> followed by <code>anova()</code> and/or <code>aov()</code>.<br />
+  8<span class="math inline">\(&#39;\)</span>. Response variables nonnormal OR variance heterogeneous: 9.<br />
+9. Need to predict values of response variable: use <a href="5-mod-05.html#mod-05">GLM</a>. R function <code>glm()</code>.<br />
+9<span class="math inline">\(&#39;\)</span>. Need to test for difference in location only: use Kruskal-Wallis test. R function <code>kruskal.test()</code>.</div>
+<div id="additional-considerations" class="section level3" number="9.3.1">
+<h3><span class="header-section-number">9.3.1</span> Additional considerations</h3>
+<p>Once you reach a decision from the key above, there are a few more options to consider:</p>
+<ul>
+<li>Are there any interactions between your predictor variables? This means that the effects of two predictors are not additive; i.e., the effect of one variable affects the effect of another variable. Most of the methods above can accommodate interactions. You can use R function <code>interaction.plot()</code> to explore potential interactions visually.</li>
+<li>Is there a hierarchical structure to your data, with the higher-level groups representing variation that you are interested in explaining? This is often called “blocking” and needs to be included in your model.</li>
+<li>Is there a hierarchical structure to your data, with the higher-level groups representing variance you are not interested in but still need to account for? If so, you may want to consider adding random effects to your model. This creates a <strong>mixed model</strong> (see <a href="7-mod-07.html#mod-07">Module 7</a>).</li>
+</ul>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="8.5-mod-08-ord.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="9.1-how-to-use-this-guide.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="9.2-what-question-are-you-trying-to-answer.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="9.4-testing-for-a-continuous-relationship-between-two-or-more-variables.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis</title>
+  <title>1.3 Misuses of statistics | Applied Biological Data Analysis</title>
   <meta name="description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta property="og:title" content="1.3 Misuses of statistics | Applied Biological Data Analysis" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://greenquanteco.github.io/index.html" />
   <meta property="og:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta name="twitter:title" content="1.3 Misuses of statistics | Applied Biological Data Analysis" />
   
   <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="twitter:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="8.5-mod-08-ord.html"/>
-<link rel="next" href="9.1-how-to-use-this-guide.html"/>
+<link rel="prev" href="1.2-statistics-in-modern-biology.html"/>
+<link rel="next" href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -530,22 +530,257 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="mod-09" class="section level1" number="9">
-<h1><span class="header-section-number">Module 9</span> Planning your analysis (what test?)</h1>
-<p>One of the main questions that biologists have after collecting data is, “What statistical test do I use?” Ignoring the fact that they should have thought about that <strong><em>before collecting data</em></strong>, the answer to that question depends on the answers to two other questions:</p>
+<div id="misuses-of-statistics" class="section level2" number="1.3">
+<h2><span class="header-section-number">1.3</span> Misuses of statistics</h2>
+<p>There are too many ways to misuse statistics, both intentionally and accidentally, to cover here. In this course we’ll explore a few examples that are closely related to this lesson’s main ideas. In my experience, there are 4 common ways in which biologists misuse statistics (intentionally or not):</p>
 <ol style="list-style-type: decimal">
-<li>What question are you trying to answer?</li>
-<li>What kind of data do you have?</li>
+<li>Proving the trivial</li>
+<li>Inappropriate methods</li>
+<li><em>P</em>-value abuse</li>
+<li>Inadequate sample size</li>
 </ol>
-<p>After <a href="4-mod-04.html#mod-04">exploring the data</a> and gaining an understanding of the patterns and <a href="4.8-mod-04-prob.html#mod-04-prob">problems</a> in a dataset, it is time to run the main analysis. This guide is designed to help you use what you learned in exploring the data to choose an appropriate analytical strategy.</p>
+<p>Let’s examine each in turn.</p>
+<div id="proving-the-trivial-and-meaningless-hypotheses" class="section level3" number="1.3.1">
+<h3><span class="header-section-number">1.3.1</span> “Proving” the trivial and meaningless hypotheses</h3>
+<p>As valuable as statistics are, it can be tempting to use them too much. Sometimes we do this from an abundance of caution–after all, we want to be sure about the conclusions we draw! However, there is such a thing as too cautious. For example, consider the two versions of a statement below from a fictional article about the effects of forestry practices on soil nitrogen fixation in a national forest:</p>
+<p><strong>Version 1:</strong></p>
+<blockquote>
+<p>All trees were removed by clearcutting between 2 and 4 June 2021.</p>
+</blockquote>
+<p><strong>Version 2:</strong></p>
+<blockquote>
+<p>Aboveground woody plant stem count was reduced by 63.1 <span class="math inline">\(\pm\)</span> 3.8 trees ha<sup>-1</sup> days<sup>-1</sup> (95% CI = [61.5, 64.9] trees ha<sup>-1</sup> days<sup>-1</sup>); this effect was statistically significant (<em>t</em> = 77.56, 19 d.f., <em>P</em> &lt; 0.0001).</p>
+</blockquote>
+<p>Both statements convey essentially the same information. There were some trees in the forest, then trees were removed by clear-cutting, then there were no trees.</p>
+<p>The first statement is just fine. The second statement is also fine, in the sense that it is true and because it includes a perfectly legitimate <em>t</em>-test. But, the test reported in the second statement is of a completely trivial question. Of course there were fewer trees after clear-cutting…that’s what clear-cutting means! The additional verbiage adds no real information to the paper because the paper wasn’t about aboveground woody biomass, but rather about soil N fixation. The reviewers (or editors) would be justified in requiring the removal or shortening of the second statement.</p>
+<p>Including unnecessary statistical tests can be tempting in situations where there aren’t many significant test results. For example, if your study produces no significant statistical differences related to your main hypothesis, or a marginal effect that is hard to interpret. Padding the manuscript with additional <em>P</em>-values &lt;0.05 can make the work feel more legitimate and on less shaky ground. Resist this temptation.</p>
+<p>The logic of null hypothesis significance testing (NHST; see below) sometimes requires us to consider, at least statistically, hypotheses that we know to be false. One such example involves simulation: when data are simulated, it is meaningless to test whether or not two simulations with different parameters were “significantly different” because they are <em>known</em> to be different. Consider the example below <span class="citation">(<a href="#ref-green2021" role="doc-biblioref">Green et al. 2021</a>)</span>:</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_02.jpg" /></p>
+<p>In this study, researchers simulated deer populations and the results of surveying those deer using different survey methods. They then used analysis of variance (ANOVA) to compare the mean population estimates resulting from different methods. Their goal was not to determine whether the population estimates were different between different methods. The estimates were known to be different, because the data were simulated in the first place! What they were trying to do was partition the variance; i.e., measure how much of the difference in estimated population size was attributable to survey method <span class="citation">(<a href="#ref-white2014" role="doc-biblioref">White et al. 2014</a>)</span>. If you are conducting a simulation study, remember that the literal null hypothesis of your statistical test is likely meaningless, or at least, known <em>a priori</em> to be false.</p>
+</div>
+<div id="inappropriate-methods" class="section level3" number="1.3.2">
+<h3><span class="header-section-number">1.3.2</span> Inappropriate methods</h3>
+<p>Another very common misuse of statistics is simply using statistics incorrectly. Many of these mistakes can be mitigated by better understanding of the methods. In other words, researchers should read the manual. I also like to call this a “problem between chair and keyboard” error<a href="literature-cited.html#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>.</p>
+<div id="common-mistake-1-mischaracterizing-a-variable" class="section level4" number="1.3.2.1">
+<h4><span class="header-section-number">1.3.2.1</span> Common mistake 1: Mischaracterizing a variable</h4>
+<p>When you perform a statistical test, the variables must have a well-defined type. Some variables are continuous, others are discrete but numerical, and others are categorical. If a variable is treated as the wrong type, it can produce meaningless statistical results. Consider the example below in which the researchers investigated the length of flower petals across 3 species of flower:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="1.3-misuses-of-statistics.html#cb1-1" aria-hidden="true" tabindex="-1"></a>iris<span class="sc">$</span>x <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(iris<span class="sc">$</span>Species)</span>
+<span id="cb1-2"><a href="1.3-misuses-of-statistics.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(Petal.Length<span class="sc">~</span>x, <span class="at">data=</span>iris))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Petal.Length ~ x, data = iris)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -1.303 -0.313 -0.113  0.342  1.342 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -0.33200    0.12060  -2.753  0.00664 ** 
+## x            2.04500    0.05582  36.632  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.5582 on 148 degrees of freedom
+## Multiple R-squared:  0.9007, Adjusted R-squared:    0.9 
+## F-statistic:  1342 on 1 and 148 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-5-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>See the problem? The dependent variable is modeled as a linear function of the species’ identities: literally the numbers 1, 2, and 3. The category labels (species) were treated as numeric values. While the plot shows some clear differences between the species, what if the species had been labeled differently? There is a correct way to analyze these data, but it is not linear regression<a href="literature-cited.html#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>.</p>
+</div>
+<div id="common-mistake-2-overfitting" class="section level4" number="1.3.2.2">
+<h4><span class="header-section-number">1.3.2.2</span> Common mistake 2: Overfitting</h4>
+<p><strong>Overfitting</strong> is when a statistical model is fit with more variables than the data can justify. Generally, a model is overfit when <em>random noise is modeled as if it was part of the deterministic part of the model</em>. Most statistical models have a deterministic part and a stochastic part. The <strong>deterministic part</strong> predicts the “average” or expected value of the response variable as some function of the explanatory variables. It usually takes the form of an equation (or set of equations). The <strong>stochastic part</strong> of the model describes how observations vary from the expected value predicted by the deterministic part. The stochastic part usually includes one of more probability distributions. We’ll discuss common probability distributions in a later module.</p>
+<p>The figure below shows the relationship between the deterministic part and stochastic part of a common statistical model, the linear model.</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_03.jpg" /></p>
+<p>Using computers, it is easy to fit equations to data. In most software it is trivial to add predictor variables to a model until all of the variance is explained (i.e., <em>R</em><sup>2</sup> = 1). However, this is usually not a good idea. There is <em>always</em> random noise in any dataset, and the appropriate strategy is always to model that noise rather than try to explain it deterministically. This is because some of that noise is unique to the specific entities or samples that are being sampled. Modeling the noise that is specific to a particular study as if it was representative of all potential studies makes an analysis too parochial to be generally applicable.</p>
+<p>Consider the example below. In this plot, 12 data points were generated using a linear model (Y ~ X) with normally distributed residuals. Then, various regression models were fit to the data. Each model contained one more term than the last:</p>
+<p><span class="math display">\[\begin{matrix}Linear\ model&amp;Y=\beta_0+\beta_1X\\Quadratic\ model&amp;Y=\beta_0+\beta_1X+\beta_2X^2\\Cubic\ model&amp;Y=\beta_0+\beta_1X+\beta_2X^2+\beta_3X^3\\Quartic\ model&amp;Y=\beta_0+\beta_1X+\beta_2X^2+\beta_3X^3+\beta_4X^4\\Quintic\ model&amp;Y=\beta_0+\beta_1X+\beta_2X^2+\beta_3X^3+\beta_4X^4+\beta_5X^5\\Sextic\ model&amp;Y=\beta_0+\beta_1X+\beta_2X^2+\beta_3X^3+\beta_4X^4+\beta_5X^5+\beta_6X^6\\\end{matrix}\]</span></p>
+<p>In this figure, the model prediction and 95% confidence interval (CI) are shown as a red line and red shaded area. The model residuals are shown as blue lines. The original data are shown as black points.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-7-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>Notice that the as the model includes more terms, the fit improves. This can be seen because the residuals are generally getting smaller and the predicted values are getting closer to the observed values.</p>
+<p>The figure below shows how the fit improved as more terms were added. This figure shows how root mean squared error (RMSE), a measure of model predictive ability, decreases with increasing model complexity.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-8-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>Notice what happens as the curves pass through more and more of the points: for <em>X</em> values other than the input points, the curves vary wildly. What’s going on here is that the higher-order polynomials are forcing the curves through each point, at the expense of reasonableness between the points. In fact, for any dataset with n observations, you can obtain a perfect fit to the points with a polynomial curve of order <em>n</em>. But, such a curve is highly unlikely to be reasonable because it is not likely to be very applicable to other data. In other words, the model includes terms that are fitting random noise, but do not have general applicability.</p>
+<p>A simpler model with fewer terms, and thus greater variance between the data and their predicted values, would likely have more predictive power for new data. Thus, the simpler model might be a better representation of the underlying process. In data science this phenomenon is often called the <strong>bias-variance trade-off</strong> because in general it’s easy to minimize prediction error on the training data (“variance”) but at the cost of decreasing prediction error on new observations (“bias”). This is because some of the variation in the training data is actually random noise and thus fitting the model to explain it is really explaining nothing.</p>
+</div>
+</div>
+<div id="p-hacking-and-data-dredging" class="section level3" number="1.3.3">
+<h3><span class="header-section-number">1.3.3</span> <em>P</em>-hacking and data dredging</h3>
+<p>The third misuse of statistics that we’ll explore here is that of searching for significant <em>P</em>-values, and worrying later whether or not the tests make sense. <strong><em>P</em>-hacking</strong> refers to massaging or adjusting an analysis to produce a <em>P</em>-value &lt;0.05. This can take many forms: post hoc rationalizations for removing certain observations, reframing a question, dropping categories or levels of a factor, and so on. <strong>Data dredging</strong> is a similar kind of practice where a researcher compares many variables or performs many tests, and builds a story out of the tests with <em>P</em> &lt; 0.05. Both of these activities can produce interesting results, but the results might not be very meaningful.</p>
+<p>The problems with <em>P</em>-hacking are legion, but I’ll just point out two.</p>
+<ol style="list-style-type: decimal">
+<li><em>P</em>-hacking allows the researcher to commit scientific misconduct, whether intentionally or not. Your objective should be to find the correct answer, not to minimize a <em>P</em>-value.</li>
+<li><em>P</em>-hacking sets you up to commit what’s called the <strong>Texas Sharpshooter Fallacy</strong>. This name evokes the story of a (Texan) gunman shooting a barn, then drawing targets around the bullet holes to make it look like he hit his targets. Another expression that describes this is, “Hypothesizing after results known,” or HARK.</li>
+</ol>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_07.jpg" style="width:70.0%" /></p>
+<p>Data dredging has all of the same problems as <em>P</em>-hacking, but arrives at them a different way. Whereas a <em>P</em>-hacker adjusts the analysis until the <em>P</em>-value is significant, a data dredger just keeps trying new variables until one of them hits. This approach is perhaps best summarized in the following comic<a href="literature-cited.html#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>, although <span class="citation">Head et al. (<a href="#ref-head2015" role="doc-biblioref">2015</a>)</span> provide a more rigorous treatment.</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_04.png" style="width:70.0%" /></p>
+</div>
+<div id="inadequate-sample-sizes-and-pseudoreplication" class="section level3" number="1.3.4">
+<h3><span class="header-section-number">1.3.4</span> Inadequate sample sizes and pseudoreplication</h3>
+<div id="sample-sizes-and-statistical-power" class="section level4" number="1.3.4.1">
+<h4><span class="header-section-number">1.3.4.1</span> Sample sizes and statistical power</h4>
+<p>Size matters in biology <span class="citation">(<a href="#ref-smith2013" role="doc-biblioref">Smith and Lyons 2013</a>)</span>. Size also matters in statistics <span class="citation">(<a href="#ref-makin2019" role="doc-biblioref">Makin and Xivry 2019</a>)</span>. As we’ll see in the next section, the number of observations in a study can have a large impact on whether or not a pattern is detected in the data. Generally, studies with greater sample sizes can detect smaller effects. Put another way, studies with greater sample sizes are more likely to detect an effect of a given magnitude. On the other hand, studies with smaller sample sizes are less likely to detect an effect. Both of these situations present their own kinds of problems, summarized in the table below.</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_05.jpg" /></p>
+<p>Ideally we should reject the null hypothesis when it is false, and fail to reject it when it is true. However, data always have some element of randomness in them and thus we can never be perfectly sure that the conclusions of a test are correct. Statisticians have thought about this problem a lot and boiled it down to two probabilities: <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>.</p>
+<ul>
+<li><span class="math inline">\(\alpha\)</span> is the <strong>type I error rate</strong>, the probability of rejecting the null hypothesis when it is true.</li>
+<li><span class="math inline">\(\beta\)</span> is the <strong>type II error rate</strong>, the probability of failing to reject the null hypothesis when it is false.</li>
+</ul>
+<p>There is a trade-off between the two error probabilities: decreasing one usually increases the other. By convention, <span class="math inline">\(\alpha\)</span> is usually set to 5% (0.05). <em>P</em>-values are compared to this value <span class="math inline">\(\alpha\)</span>: if <span class="math inline">\(P \ge \alpha\)</span>, then we “fail to reject” the null hypothesis. If <em>P</em> &lt; <span class="math inline">\(\alpha\)</span>, then we reject the null hypothesis with the understanding that <em>P</em> is the probability of a type I error.</p>
+<p>What does all of this have to do with sample size? That probability that a test will correctly reject a false null hypothesis, <span class="math inline">\(1-\beta\)</span>, is known as the <strong>power</strong> of a test. The power of a test tends to increase with larger <span class="math inline">\(\alpha\)</span>, greater sample size, and larger effect size. The R commands below demonstrate this:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="1.3-misuses-of-statistics.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb3-2"><a href="1.3-misuses-of-statistics.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># type II error:</span></span>
+<span id="cb3-3"><a href="1.3-misuses-of-statistics.html#cb3-3" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">5</span>, <span class="dv">2</span>)</span>
+<span id="cb3-4"><a href="1.3-misuses-of-statistics.html#cb3-4" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="fl">5.2</span>, <span class="dv">2</span>)</span>
+<span id="cb3-5"><a href="1.3-misuses-of-statistics.html#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(x1, x2)</span></code></pre></div>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  x1 and x2
+## t = -0.5249, df = 17.872, p-value = 0.6061
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -2.342098  1.406112
+## sample estimates:
+## mean of x mean of y 
+##  5.149251  5.617244</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="1.3-misuses-of-statistics.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># larger sample size:</span></span>
+<span id="cb5-2"><a href="1.3-misuses-of-statistics.html#cb5-2" aria-hidden="true" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">5</span>, <span class="dv">2</span>)</span>
+<span id="cb5-3"><a href="1.3-misuses-of-statistics.html#cb5-3" aria-hidden="true" tabindex="-1"></a>x4 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="fl">5.2</span>, <span class="dv">2</span>) </span>
+<span id="cb5-4"><a href="1.3-misuses-of-statistics.html#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(x3,x4)</span></code></pre></div>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  x3 and x4
+## t = -2.6522, df = 1998, p-value = 0.008059
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.41274937 -0.06182918
+## sample estimates:
+## mean of x mean of y 
+##  5.036722  5.274011</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="1.3-misuses-of-statistics.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># larger effect size:</span></span>
+<span id="cb7-2"><a href="1.3-misuses-of-statistics.html#cb7-2" aria-hidden="true" tabindex="-1"></a>x5 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">5</span>, <span class="dv">2</span>)</span>
+<span id="cb7-3"><a href="1.3-misuses-of-statistics.html#cb7-3" aria-hidden="true" tabindex="-1"></a>x6 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">2</span>)</span>
+<span id="cb7-4"><a href="1.3-misuses-of-statistics.html#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(x5, x6)</span></code></pre></div>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  x5 and x6
+## t = -5.4059, df = 16.404, p-value = 5.348e-05
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -6.524121 -2.853887
+## sample estimates:
+## mean of x mean of y 
+##  5.522159 10.211163</code></pre>
+<p>In practical terms, this means that conducting a test with too few observations can make it more likely that you will fail to detect a pattern that is really there: a type II error. This happens all the time in biology, and it can be devastating to a research program. To reduce the chances that it happens to you, consider these steps:</p>
+<ul>
+<li><strong>Increase your sample size.</strong> When in doubt, increase your sample size.</li>
+<li><strong>Decrease sources of variation</strong> that you can control. Any extraneous variation caused by experimental errors, sloppy technique, improperly trained lab assistants, etc., will reduce the power of your test.</li>
+<li><strong>Conduct a power analysis.</strong> Power analysis is a set of techniques for estimating the probability of detecting an effect given sample size, effect size, and other factors. It works best when you have some pilot data or comparable data from literature. Power analysis is extremely useful for answering questions like, “How many samples should I collect?” or “What is the relative benefit of collecting 10 more samples or 20 more samples?”. Power analyses for simple methods like <em>t</em>-tests or ANOVA are very straightforward; more complex methods may require simulation.</li>
+</ul>
+</div>
+<div id="pseudoreplication" class="section level4" number="1.3.4.2">
+<h4><span class="header-section-number">1.3.4.2</span> Pseudoreplication</h4>
+<p><strong>Psuedoreplication</strong> is a situation where samples are treated as independent when they are not <span class="citation">(<a href="#ref-hurlbert1984" role="doc-biblioref">Hurlbert 1984</a>)</span>. This leads to an analysis where the sample size is artificially inflated, and thus the analysis has greater apparent power than it actually does. Pseudoreplication is essentially the opposite problem as inadequate sample size: rather than having fewer observations than needed to do the analysis, the researcher does the analysis as if they have more observations than they really do. The seminal paper on this topic in ecology is <span class="citation">Hurlbert (<a href="#ref-hurlbert1984" role="doc-biblioref">1984</a>)</span>..</p>
+<p>To understand pseudoreplication, it’s important to keep in mind the difference between an <strong>observation</strong> and a <strong>degree of freedom</strong>. Degrees of freedom can be thought of as <strong>independent pieces of information</strong>. Ideally, each observation contributes information to the dataset and so a dataset contains as many pieces of information as it does observations. In statistics, however, we find that this not possible. Every time we calculate a summary statistic or estimate a model parameter, we use information from the dataset. If we know the data and know a statistic such as the mean, then some of the information must be in the statistic and not the dataset. For example, if you have 10 values and calculate the mean, the mean is considered to be known with 9 degrees of freedom. This is because if you know the mean, 9 of the values are free to vary without taking away your ability to calculate the 10th value given those 9 values and the mean. The R code below illustrates this:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="1.3-misuses-of-statistics.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb9-2"><a href="1.3-misuses-of-statistics.html#cb9-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">10</span>, <span class="at">replace=</span><span class="cn">TRUE</span>)</span>
+<span id="cb9-3"><a href="1.3-misuses-of-statistics.html#cb9-3" aria-hidden="true" tabindex="-1"></a>a</span></code></pre></div>
+<pre><code>##  [1]  3  3 10  2  6  5  4  6  9 10</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="1.3-misuses-of-statistics.html#cb11-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">mean</span>(a)<span class="sc">*</span><span class="fu">length</span>(a))<span class="sc">-</span><span class="fu">sum</span>(a[<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>]) <span class="sc">==</span> a[<span class="dv">10</span>]</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>Psuedoreplication often occurs when researchers consider multiple measurements from the same sampling unit as different observations. For example, if an ecologist measures tree diameters from multiple trees within 20 m of each other. Or, a microbiologist measures cell counts from multiple assays of the same culture tube. In both cases, there is strong reason to suspect that the multiple values are not independent of each other. In fact, it might be more appropriate to take the average of the multiple values and treat them as a single value (a “measure twice, cut once” approach).</p>
+<p>Pseudoreplication can be a serious issue in investigations because most statistical models (e.g., ANOVA) assume that treatments are replicated. This means that each treatment is applied to multiple experimental units (i.e., samples). Applying a treatment or condition to multiple samples allows estimation of variability within a treatment. This variability must be separated from variability between treatments in order for a researcher to be able to infer how much variation is caused by the treatments.</p>
+<p>For example, imagine a drug trial where Drug A and Drug B are each given to one person. This trial cannot distinguish whether Drug A or Drug B is more effective, because there is no way to know whether any difference in outcome between the two subjects is due to the drugs or due to differences between people. But, if Drug A and Drug B were each tried on 100 people, the variability among the 100 people who received Drug A and among the 100 people who receive Drug B could be compared to the variability between people who received Drug A or Drug B. This would allow the researchers to make some inferences about how effective each drug was.</p>
+<p>The best strategy for mitigating pseudoreplication is to <strong>avoid it</strong>. This requires thinking very carefully about your experimental design and about what the experimental units (i.e., samples) really are. Avoiding pseudoreplication often involves some degree of randomization, in order to break any connection between potentially confounding variables.</p>
+<p>If avoiding pseudoreplication is not possible, then you need to <strong>account for it</strong>. One way is to take steps to mitigate confounding variables. For example, you could rearrange plants in a growth chamber each day so that any effects of location within the chamber would be minimized. Another way is to acknowledge pseudoreplication in your analysis. Some methods such as mixed effects models or autocorrelation structures can account for some pseudoreplication (but you need to be very careful about doing this and very explicit about what you did). Finally, you can be open about the limitations of your study and present your findings as preliminary, or as not conclusive. Note that this strategy, while certainly ego-deflating, does not mean that your work is invalid. Openness and honesty are vital parts of the scientific process. What would be invalid would be ignoring any pseudoreplication in your study and overstating the validity of your results.</p>
+<p><span class="citation">Hurlbert (<a href="#ref-hurlbert1984" role="doc-biblioref">1984</a>)</span> defined four kinds of pseudoreplication: simple, temporal, sacrificial, and implicit. The first 3 is shown in the figure below.</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_06.jpg" /></p>
+<div id="simple-pseudoreplication" class="section level5" number="1.3.4.2.1">
+<h5><span class="header-section-number">1.3.4.2.1</span> Simple pseudoreplication</h5>
+<p>Simple pseudoreplication occurs when there is one experimental unit, or replicate, per treatment, regardless of how many samples are taken within each replicate. When this occurs, variability between replicates cannot be separated from variation between treatments.</p>
+<p><strong>Example</strong></p>
+<blockquote>
+<p>Barney is interested in the effects of forest management practices on soil microbes. He visits two forest sites: Site A is burned regularly, and Site B is unmanaged. Barney uses a GIS to randomly identify a 1 ha plot within each site. He then visits each site and takes 20 soil samples from the randomly selected plot. Barney then measures the metabolic profile of each soil microbe sample (<em>n</em> = 40) and compares the 20 samples from the burned plot to the 20 samples from the unburned plot.</p>
+</blockquote>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_08.jpg" /></p>
+<p>The problem here is that Barney might actually only have 2 samples: one from the burned plot, and one from the unburned plot. If the plots are relatively homogenous, then we should expect their microbiota to be similar simply because of their proximity and shared environment. So, the proper experimental unit is the plot, not the soil sample. Barney has collected a dataset with simple pseudoreplication because he confused taking multiple measurements within an experimental unit with taking measurements at multiple experimental units. In other words, his “replicates” are not true replicates. Barney’s thesis advisor tells him to sample more sites and to investigate mixed models and block designs for his analysis.</p>
+</div>
+<div id="temporal-pseudoreplication" class="section level5" number="1.3.4.2.2">
+<h5><span class="header-section-number">1.3.4.2.2</span> Temporal pseudoreplication</h5>
+<p>Temporal pseudoreplication occurs when multiple samples from an experimental unit are taken over time and then treated as statistically independent. Because successive samples from the same experimental unit are likely to be correlated with each other, they cannot be treated as independent.</p>
+<p><strong>Example</strong></p>
+<blockquote>
+<p>Betty is interested in the effects of a new sugar substitute on the growth of gut bacteria. She inoculates 10 plates with <em>E. coli</em> bacteria and gives the new sweetener to 5 of them. She then counts the number of colony forming units (CFU) on each plate at 1, 2, 3, and 4 days after exposure. Betty analyzes her data using a t-test, with 20 exposed samples (5 plates <span class="math inline">\(\times\)</span> 4 sampling occasions) and 20 control samples.</p>
+</blockquote>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_09.jpg" /></p>
+<p>Betty’s problem is like Barney’s problem, but with time instead of space. The subsequent samples from each plate are not independent of each other. For example, the number of CFU in plate A at 2 days was at least partially dependent on the number of CFU in plate A at 1 day. Using consecutive samples from the same plates does not increase the number of samples in a test of the effect of the sweetener. Instead, Betty introduced a new variable, time, into the system that added variation instead of increasing sample size. She could account for the temporal pseudoreplication in her analysis by including time as a covariate or using some sort of autocorrelation structure. If she does not include time in her analysis, however, she’s going to have a bad time.</p>
+</div>
+<div id="sacrificial-pseudoreplication" class="section level5" number="1.3.4.2.3">
+<h5><span class="header-section-number">1.3.4.2.3</span> Sacrificial pseudoreplication</h5>
+<p>Sacrificial pseudoreplication occurs when data for replicates are pooled prior to analysis, or where two or more observations from the same experimental unit are treated as independent replicates. The term “sacrificial” comes from the fact that information about variation among replicates is confounded with variation among samples within replicates, and thus “lost”.</p>
+<p><strong>Example</strong></p>
+<blockquote>
+<p>Fred is studying the onset of estrus in female cotton rats (<em>Sigmodon hispidus</em>) and suspects that it may be driven by exposure to a compound produced by certain grasses in the spring. He places 80 female rats in 40 cages (2 per cage). Rats in 40 cages are fed ordinary rodent chow, while the rates in the other cages are fed chow supplemented with the suspect compound. Rats are checked each day for signs of estrus. Clearly, each treatment (control vs. supplemented) is replicated. How many times? Fred tells his advisor that each treatment is replicated 40 times, because 40 rats received each treatment.</p>
+</blockquote>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_10.jpg" /></p>
+<p>Not so fast. Mammalogists know that estrus can be induced in female rodents by exposure to airborne chemical cues (pheromones) from other females already in estrus. So, if there are two females in one cage and one goes into estrus (no matter the reason), the other animal might go into estrus in response the first animal’s pheromones and not at all in response to its diet. This means that the two animals in each cage cannot be considered statistically independent. So, Fred has at most 20 replicates of each treatment, not 40.</p>
+<p>But it gets worse for Fred. The vivarium is old and cramped and poorly ventilated. All 40 cages are kept on a single shelving unit in a single room, and the air always smells like fouled rodent cages. Are the 40 cages really independent of each other, if chemical signals can waft between cages? So, depending on the ventilation in the room, Fred might have 0 replicates because none of the animals are statistically independent of each other. Fred’s thesis defense does not go well.</p>
+</div>
+<div id="implicit-pseudoreplication" class="section level5" number="1.3.4.2.4">
+<h5><span class="header-section-number">1.3.4.2.4</span> Implicit pseudoreplication</h5>
+<p>The last kind of pseudoreplication, implicit pseudoreplication, occurs when researchers present means and standard errors (SE) (or 95% CI) for observations <em>within</em> experimental units. Doing so implicitly tests for a difference between units, effectively getting a significance test for free without actually performing one! Meaningful means and SE should be calculated <em>between</em> experimental units, not within units. Variability within experimental units should be expressed using standard deviation, not standard error.</p>
+<p><strong>Example</strong></p>
+<blockquote>
+<p>Wilma is studying soil nutrient content in forests under different climate change scenarios. She grows 5 pine tree seedlings in growth chamber A under atmospheric CO<sub>2</sub> (400 ppm) and 5 seedlings in growth chamber B under elevated CO<sub>2</sub> (600 ppm). She then calculates the mean and SE of soil N content from the 5 seedlings in each chamber. In chamber A, soil N concentration was 1.89 <span class="math inline">\(\pm\)</span> 0.34 SE g/kg; in chamber B, N concentration was 3.72 <span class="math inline">\(\pm\)</span> 0.14 g/kg. Because the mean soil N concentration was greater in chamber B, and the means <span class="math inline">\(\pm\)</span> SE did not overlap, she concluded that growing pine seedlings in elevated CO<sub>2</sub> increased soil N concentration.</p>
+</blockquote>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_11.jpg" /></p>
+<p>Not quite. Wilma summarized the uncertainty surrounding soil N measurements, which was a good idea. But, she presented the uncertainty as standard error, not standard deviation. Variation within each chamber should be calculated as SD. The SE would be appropriate for describing uncertainty about the difference in means between chambers. By presenting SE instead of SD, Wilma made it look like there was much less variability within treatments than there really was. As a rule, you should always calculate SD. SE usually comes up as part of the results of a statistical test.</p>
+</div>
+</div>
+<div id="sample-size-and-pseudoreplication-summary" class="section level4" number="1.3.4.3">
+<h4><span class="header-section-number">1.3.4.3</span> Sample size and pseudoreplication summary</h4>
+<p>The problems related to statistical power are not new in biology. <span class="citation">Button et al. (<a href="#ref-button2013" role="doc-biblioref">2013</a>)</span> reviewed some causes and consequences of low power in neuroscience. <span class="citation">Lazic et al. (<a href="#ref-lazic2018" role="doc-biblioref">2018</a>)</span> describe some of the difficulties with defining sample sizes in cell culture and animal studies, and the resulting issue of pseudoreplication. In ecology and environmental biology, <span class="citation">Hurlbert (<a href="#ref-hurlbert1984" role="doc-biblioref">1984</a>)</span> is the seminal reference on sample size and pseudoreplication.</p>
+</div>
+</div>
+</div>
+<h3>Literature Cited</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-button2013" class="csl-entry">
+Button, K. S., J. P. Ioannidis, C. Mokrysz, B. A. Nosek, J. Flint, E. S. Robinson, and M. R. Munafò. 2013. <a href="https://doi.org/10.1038/nrn3475">Power failure: <span class="nocase">w</span>hy small sample size undermines the reliability of neuroscience</a>. Nature <span>R</span>eviews <span>N</span>euroscience 14:365–376.
+</div>
+<div id="ref-green2021" class="csl-entry">
+Green, N. S., M. L. Wildhaber, and J. L. Albers. 2021. Effectiveness of a distance sampling from roads program for white-tailed deer in the <span>N</span>ational <span>C</span>apital <span>R</span>egion parks. Natural Resource Report, National Park Service, Fort Collins, Colorado.
+</div>
+<div id="ref-head2015" class="csl-entry">
+Head, M. L., L. Holman, R. Lanfear, A. T. Kahn, and M. D. Jennions. 2015. <a href="https://doi.org/10.1371/journal.pbio.1002106">The extent and consequences of p-hacking in science</a>. <span>PLoS</span> <span>B</span>iology 13:e1002106.
+</div>
+<div id="ref-hurlbert1984" class="csl-entry">
+Hurlbert, S. H. 1984. <a href="https://doi.org/10.2307/1942661">Pseudoreplication and the design of ecological field experiments</a>. Ecological <span>M</span>onographs 54:187–211.
+</div>
+<div id="ref-lazic2018" class="csl-entry">
+Lazic, S. E., C. J. Clarke-Williams, and M. R. Munafò. 2018. <a href="https://doi.org/10.1371/journal.pbio.2005282">What exactly is ‘<span>N</span>’in cell culture and animal experiments?</a> <span>PLoS</span> <span>B</span>iology 16:e2005282.
+</div>
+<div id="ref-makin2019" class="csl-entry">
+Makin, T. R., and J.-J. O. de Xivry. 2019. <a href="https://doi.org/10.7554/eLife.48175">Science forum: Ten common statistical mistakes to watch out for when writing or reviewing a manuscript</a>. Elife 8:e48175.
+</div>
+<div id="ref-smith2013" class="csl-entry">
+Smith, F. A., and S. K. Lyons. 2013. Animal body size: Linking pattern and process across space, time, and taxonomic group. University of Chicago Press, Chicago.
+</div>
+<div id="ref-white2014" class="csl-entry">
+White, J. W., A. Rassweiler, J. F. Samhouri, A. C. Stier, and C. White. 2014. <a href="https://doi.org/10.1111/j.1600-0706.2013.01073.x">Ecologists should not use statistical significance tests to interpret simulation model results</a>. Oikos 123:385–388.
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="8.5-mod-08-ord.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="9.1-how-to-use-this-guide.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="1.2-statistics-in-modern-biology.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

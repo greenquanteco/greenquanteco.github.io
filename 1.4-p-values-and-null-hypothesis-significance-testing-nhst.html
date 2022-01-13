@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis</title>
+  <title>1.4 P-values and null hypothesis significance testing (NHST) | Applied Biological Data Analysis</title>
   <meta name="description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta property="og:title" content="1.4 P-values and null hypothesis significance testing (NHST) | Applied Biological Data Analysis" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://greenquanteco.github.io/index.html" />
   <meta property="og:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Module 9 Planning your analysis (what test?) | Applied Biological Data Analysis" />
+  <meta name="twitter:title" content="1.4 P-values and null hypothesis significance testing (NHST) | Applied Biological Data Analysis" />
   
   <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="twitter:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="8.5-mod-08-ord.html"/>
-<link rel="next" href="9.1-how-to-use-this-guide.html"/>
+<link rel="prev" href="1.3-misuses-of-statistics.html"/>
+<link rel="next" href="1.5-alternatives-to-nhst.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -530,22 +530,201 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="mod-09" class="section level1" number="9">
-<h1><span class="header-section-number">Module 9</span> Planning your analysis (what test?)</h1>
-<p>One of the main questions that biologists have after collecting data is, “What statistical test do I use?” Ignoring the fact that they should have thought about that <strong><em>before collecting data</em></strong>, the answer to that question depends on the answers to two other questions:</p>
-<ol style="list-style-type: decimal">
-<li>What question are you trying to answer?</li>
-<li>What kind of data do you have?</li>
-</ol>
-<p>After <a href="4-mod-04.html#mod-04">exploring the data</a> and gaining an understanding of the patterns and <a href="4.8-mod-04-prob.html#mod-04-prob">problems</a> in a dataset, it is time to run the main analysis. This guide is designed to help you use what you learned in exploring the data to choose an appropriate analytical strategy.</p>
+<div id="p-values-and-null-hypothesis-significance-testing-nhst" class="section level2" number="1.4">
+<h2><span class="header-section-number">1.4</span> <em>P</em>-values and null hypothesis significance testing (NHST)</h2>
+<div id="definition" class="section level3" number="1.4.1">
+<h3><span class="header-section-number">1.4.1</span> Definition</h3>
+<p>When scientists design experiments, they are testing one or more hypotheses: proposed explanations for a phenomenon. Contrary to population belief, the statistical analysis of experimental results usually does not address the researchers’ hypotheses directly. Instead, statistical analysis of experimental results focuses on comparing experimental results to the results that might have occurred if there was no effect of the factor under investigation. Some terms that you need to understand:</p>
+<ul>
+<li><strong>Hypothesis:</strong> proposed explanation of a phenomenon</li>
+<li><strong>Null hypothesis:</strong> default assumption that some effect (or quantity, or relationship, etc.) is zero and does not affect the experimental results</li>
+<li><strong>Alternative hypothesis:</strong> assumption that the null hypothesis is false</li>
+</ul>
+<p>In (slightly) more concrete terms, if researchers want to test the hypothesis that some factor <em>X</em> has an effect on measurement <em>Y</em>, then they set up an experiment comparing observations of <em>Y</em> across different values of <em>X</em>. They would then have the following set up:</p>
+<ul>
+<li><strong>Null hypothesis:</strong> Factor <em>X</em> does not affect <em>Y</em>.</li>
+<li><strong>Alternative hypothesis:</strong> Factor <em>X</em> does affect <em>Y</em></li>
+</ul>
+<p>Notice that in NHST the alternative hypothesis is the <strong>logical negation</strong> of the null hypothesis, not a statement about another variable altogether (e.g., “Factor <em>Z</em> affects <em>Y</em>”). This is an easy mistake to make and one of the weaknesses of NHST: the word “hypothesis” in the phrase “null hypothesis” is not being used in the sense that scientists usually use it. This unfortunate choice of vocabulary is responsible for generations of confusion among researchers<a href="literature-cited.html#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>.</p>
+<p>In order to test their “alternative hypothesis”, what researchers usually do is test the null hypothesis. Statistical evidence that the null hypothesis can be rejected is then taken as evidence in favor of the alternative hypothesis. The null hypothesis is usually translated to a prediction like one of the following:</p>
+<ul>
+<li>The mean of <em>Y</em> is the same for all levels of <em>X</em>.</li>
+<li>The mean of <em>Y</em> does not differ between observations exposed to <em>X</em> and observations not exposed to <em>X</em>.</li>
+<li>Outcome <em>Y</em> is equally likely to occur when <em>X</em> occurs as it is when <em>X</em> does not occur.</li>
+<li>Rank order of <em>Y</em> values does not differ between levels of <em>X</em>.</li>
+</ul>
+<p>Notice that all these predictions have something in common: <em>Y</em> is independent of <em>X</em>. That’s what the null hypothesis means. To test the predictions of the null hypothesis, we need a way to calculate what the data might have looked like if the null hypothesis was correct. Once we calculate that, we can compare the data to those calculations to see how “unlikely” the actual data were. Data that are sufficiently unlikely under the assumption that the null hypothesis is correct—a “significant difference”—are a kind of evidence that the null hypothesis is false<a href="literature-cited.html#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>.</p>
+<p>This kind of analysis is referred to as <strong>Null Hypothesis Significance Testing (NHST)</strong> and is one of the most important paradigms in modern science. Whether or not this is a good thing is a subject of fierce debate among scientists, statisticians, and philosophers of science. For better or worse, NHST is all but the de facto standard of inference in scientific publishing, so regardless of its merits in your particular case you will need to be able to use it. The purpose of this course module is to encourage you to use it correctly.</p>
+</div>
+<div id="history-and-status-of-p-values" class="section level3" number="1.4.2">
+<h3><span class="header-section-number">1.4.2</span> History and status of <em>P</em>-values</h3>
+<p>The <em>P</em>-value is a statistical statement about the likelihood of observing a pattern in data when the null hypothesis is true. They were first developed in the 1700s, and eventually popularized by the statistician R.A. Fisher in the 1920s. In Fisher’s formulation, the <em>P</em>-value was only meant as a “rule-of-thumb” or <strong>heuristic</strong> for determining whether the null hypothesis could be safely rejected. His original publications did not imply that rejecting the null hypothesis should automatically imply acceptance of the alternative hypothesis, or offer any justification for particular cut-offs or critical values of <em>P</em>. These ideas came later. Fisher suggested a critical <em>P</em>-value of 0.05 for convenience, but did not prescribe its use. In fact, he also suggested using other cut-offs, and even using the <em>P</em>-value itself as a measure of support for a hypothesis. The adoption of 0.05 as a threshold for significance proved popular, and has been taken as a kind of gospel for generations of researchers ever since.</p>
+<p>In my opinion, the ubiquity of <em>P</em>-values on scientific research illustrates <a href="https://en.wikipedia.org/wiki/Goodhart%27s_law">Goodhart’s Law</a>: “When a measure becomes a target, it ceases to be a good measure”. Because the cut-off value of <em>P</em> &lt; 0.05 is so widely used and accepted as a measure of the “truth” of a hypothesis, many researchers will take steps to ensure that their experiments produce <em>P</em>-values &lt; 0.05. This can lead to the practices of <em>P</em>-hacking or data dredging. Or worse, setting up experiments to test meaningless null hypotheses or analyzing data selectively. The attention and effort spent increasing the likelihood of a significant outcome is attention and effort that is not spent on formulating hypotheses, developing theory, or conducting experiments. Thus, intensive focus on <em>P</em>-values can be a real distraction from more important things.</p>
+<p>These criticisms of <em>P</em>-values are neither new nor little known. Criticisms of the uncritical devotion to <em>P</em>-values can be found going back decades in the literature. In ecology, for example, debates about the place of NHST flare up occasionally, as new advances in statistical methods have offered opportunities for a new inferential paradigms.</p>
+<p>Recently, the American Statistical Association (ASA) published a number of papers criticizing the current use of <em>P</em>-values and offering alternatives. <span class="citation">Wasserstein and Lazar (<a href="#ref-wasserstein2016" role="doc-biblioref">2016</a>)</span> provide a good starting point to the series and an overview of the major themes. Some of the proposed alternative or complementary methods have started to make their way into various scientific disciplines. Others have not. By and large, NHST remains the standard method of testing hypotheses with data and will likely remain so for a long time.</p>
+</div>
+<div id="where-p-values-come-from" class="section level3" number="1.4.3">
+<h3><span class="header-section-number">1.4.3</span> Where <em>P</em>-values come from</h3>
+<p>So where do <em>P</em>-values come from, anyway? Remember, <em>P</em>-values are an expression of how likely the observed data would be if the null hypothesis was true. The actual calculation of a <em>P</em>-value involves assumptions about the size of the effect (i.e., difference between the results if the null is true vs. not true), the variability of the outcome (random or otherwise), and the distribution of different summary statistics of the results assuming that the null hypothesis is true. Let’s consider the example of a <em>t</em>-test. A <em>t</em>-test is used to compare means betwen two groups. We will use R to simulate some data and explore a basic <em>t</em>-test.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb13-2"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#cb13-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb13-3"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#cb13-3" aria-hidden="true" tabindex="-1"></a>mu1 <span class="ot">&lt;-</span> <span class="dv">6</span></span>
+<span id="cb13-4"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#cb13-4" aria-hidden="true" tabindex="-1"></a>mu2 <span class="ot">&lt;-</span> <span class="dv">8</span></span>
+<span id="cb13-5"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#cb13-5" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb13-6"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#cb13-6" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, mu1, sigma)</span>
+<span id="cb13-7"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#cb13-7" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, mu2, sigma)</span>
+<span id="cb13-8"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(x1, x2)</span></code></pre></div>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  x1 and x2
+## t = -1.796, df = 17.872, p-value = 0.08941
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -5.2131465  0.4091686
+## sample estimates:
+## mean of x mean of y 
+##  6.223877  8.625866</code></pre>
+<p>The results show us that the means of groups <code>x1</code> and <code>x2</code> are not significantly different (<em>t</em> = -1.796, 17.87 d.f., <em>P</em> = 0.0894). Because P <span class="math inline">\(\ge\)</span> 0.05, we cannot reject the null hypothesis of no difference; i.e., the hypothesis that the means of <code>x1</code> and <code>x2</code> are the same.</p>
+<p>But why? Where do the numbers in the output come from?</p>
+<p>The <em>t</em> value is what’s called a <strong>test statistic</strong>. This is a summary of the quantity of interest–difference in means–that depends on the quantity of interest <em>and</em> additional terms that describe how that summary might vary randomly. In the case of the <em>t</em>-test, the test statistic <em>t</em> is calculated as:</p>
+<p><span class="math display">\[t=\frac{{\bar{X}}_1-{\bar{X}}_2}{\sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}}\]</span></p>
+<p>In this equation:</p>
+<ul>
+<li><span class="math inline">\({\bar{X}}_1\)</span> and <span class="math inline">\({\bar{X}}_2\)</span> are the means of <code>x1</code> and <code>x2</code></li>
+<li><span class="math inline">\(s_1^2\)</span> and <span class="math inline">\(s_2^2\)</span> are the variances in <code>x1</code> and <code>x2</code>. The <strong>variance</strong> is a measure of how spread out values are away from the mean.</li>
+<li><span class="math inline">\(n_1\)</span> and <span class="math inline">\(n_2\)</span> are the number of observations in <code>x1</code> and <code>x2</code></li>
+</ul>
+<p>The numerator is the quantity we are interested in: the difference between the means in group 1 and group 2. The denominator scales the difference according to the sample size and the amount of variation in both groups. Thus, <em>t</em> accounts for the quantity of interest (the pattern), the variability in the pattern, and the number of observations of the pattern.</p>
+<p>In the example above, the <em>t</em> statistic was -1.796. This was the difference in means (-2.402) scaled by the variability in means given the variability in observations. The “significance” of the test comes from the fact that <em>t</em>-statistics themselves follow a pattern called the <strong>Student’s t distribution</strong>. The Student’s <em>t</em> distribution describes how likely different values of <em>t</em> are given a certain sample size. This sample size used is not the total number of observations, but instead a scaled version of sample size called <strong>degrees of freedom (d.f.)</strong>. For the example above with 17.872 d.f., the <em>t</em> distribution looks like this:</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>If there was no difference between the means of <code>x1</code> and <code>x2</code>, then <em>t</em> statistics should cluster around 0 with more extreme values being much less common. Test statistics <span class="math inline">\(\ge\)</span> 4 or <span class="math inline">\(\le\)</span> -4 almost never happen.</p>
+<p>What about our <em>t</em> statistic, -1.796? The figure below shows how the total possible space of <em>t</em> statistics (given 17.872 d.f.) is partitioned. The total area under this curve, called a “probability density plot”, is equals 1. If you think about it, <em>t</em> must take on a value…so the sum of probabilities for all t is 1. The red area shows the probability of a t occurring randomly that is &lt; -1.796. That is, more extreme than the observed <em>t</em>. But “more extreme” can work the other way too: <em>t</em> could randomly be &gt; 1.796 as well. This probability of this possibility is shown by the blue area. The total of the red and blue areas is the total probability of a <em>t</em> value more extreme than the observed <em>t</em>.</p>
+<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_12.jpg" /></p>
+<p>But as we shall see, increasing the sample size can make the same difference appear significant:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb15-2"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#cb15-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb15-3"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#cb15-3" aria-hidden="true" tabindex="-1"></a>mu1 <span class="ot">&lt;-</span> <span class="dv">6</span></span>
+<span id="cb15-4"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#cb15-4" aria-hidden="true" tabindex="-1"></a>mu2 <span class="ot">&lt;-</span> <span class="dv">8</span></span>
+<span id="cb15-5"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#cb15-5" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb15-6"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#cb15-6" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, mu1, sigma)</span>
+<span id="cb15-7"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#cb15-7" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, mu2, sigma)</span>
+<span id="cb15-8"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(x1, x2)</span></code></pre></div>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  x1 and x2
+## t = -15.485, df = 1997.4, p-value &lt; 2.2e-16
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -2.342319 -1.815705
+## sample estimates:
+## mean of x mean of y 
+##  6.048384  8.127396</code></pre>
+<p>We can also achieve significance by reducing the amount of variation (<code>sigma</code>, or <span class="math inline">\(\sigma\)</span>). Here variance within each group is expressed as the residual standard deviation (SD). <strong>Residual</strong> variation is variation not explained by the model (i.e., not related to the difference in means between groups). The SD is the square root of the variance, and is how R expresses the variation in a normal distribution (<code>rnorm()</code>).</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb17-2"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#cb17-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb17-3"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#cb17-3" aria-hidden="true" tabindex="-1"></a>mu1 <span class="ot">&lt;-</span> <span class="dv">6</span></span>
+<span id="cb17-4"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#cb17-4" aria-hidden="true" tabindex="-1"></a>mu2 <span class="ot">&lt;-</span> <span class="dv">8</span></span>
+<span id="cb17-5"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#cb17-5" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="fl">0.001</span></span>
+<span id="cb17-6"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#cb17-6" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, mu1, sigma)</span>
+<span id="cb17-7"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#cb17-7" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, mu2, sigma)</span>
+<span id="cb17-8"><a href="1.4-p-values-and-null-hypothesis-significance-testing-nhst.html#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(x1, x2)</span></code></pre></div>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  x1 and x2
+## t = -4486.7, df = 17.872, p-value &lt; 2.2e-16
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -2.001071 -1.999197
+## sample estimates:
+## mean of x mean of y 
+##  6.000075  8.000209</code></pre>
+<p>So, what the <em>P</em>-value in our <em>t</em>-test tells us depends on not just the actual difference, but how variable that difference is and how many times we measure it (metaphorically speaking).</p>
+<p>The table below summarizes the results of the three simulations we just ran:</p>
+<table>
+<colgroup>
+<col width="16%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="24%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>True difference (<span class="math inline">\({\bar{x}}_1-{\bar{x}}_2\)</span>)</th>
+<th align="right">Residual SD</th>
+<th align="right">Sample size</th>
+<th align="right"><em>P</em></th>
+<th align="center">Significant?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>-2</td>
+<td align="right">3</td>
+<td align="right">20</td>
+<td align="right">0.0894</td>
+<td align="center">No</td>
+</tr>
+<tr class="even">
+<td>-2</td>
+<td align="right">3</td>
+<td align="right">2000</td>
+<td align="right">&lt;0.0001</td>
+<td align="center">Yes</td>
+</tr>
+<tr class="odd">
+<td>-2</td>
+<td align="right">0.001</td>
+<td align="right">20</td>
+<td align="right">&lt;0.0001</td>
+<td align="center">Yes</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="what-p-values-mean-and-do-not-mean" class="section level3" number="1.4.4">
+<h3><span class="header-section-number">1.4.4</span> What <em>P</em>-values mean and do not mean</h3>
+<p>In the simulations above, we know that the true difference was -2 because that is how we programmed the simulations. But the conclusion of the experiments depended on experimental parameters other than the one of interest! For each of the three scenarios above, consider these questions:</p>
+<ul>
+<li>Should the researchers reject the null hypothesis, and conclude that there is a difference between <code>x1</code> and <code>x2</code>?</li>
+<li>Should the researchers accept the null hypothesis, and conclude that there is no difference between <code>x1</code> and <code>x2</code>?</li>
+<li>Should the researchers accept the alternative hypothesis, and conclude that there is a difference between <code>x1</code> and <code>x2</code>?</li>
+</ul>
+<p>The researchers should reject the null hypothesis only in scenarios 2 and 3. In scenario 1, they should not accept the null hypothesis. The correct action is <strong>fail to reject</strong> the null. Accepting the null hypothesis would imply some certainty that the difference was 0. But that is not what the <em>t</em>-test actually says. What the <em>t</em>-test really says is that a difference (measured as <em>t</em>) between -1.796 and 1.796 is likely to occur about 91% (i.e., 1-<em>P</em>) of the time even if the true difference is 0. In other words, if we repeated the experiment, we would get a <span class="math inline">\(|t|&gt;1.796\)</span> over 9 times out of 10!</p>
+<p>One of the most common misconceptions about <em>P</em>-values is that they represent the probability of the null hypothesis being true, or of the alternative hypothesis being false. Neither of these interpretations is correct. Similarly, many people think that 1 minus the <em>P</em>-value represents the probability that the alternative hypothesis is true. This is also incorrect. Remember:</p>
+<p><strong>The <em>P</em>-value is only a statistical summary, and says nothing about whether or not a hypothesis is true.</strong></p>
+<p><strong>The <em>P</em>-value is only a statement about how unlikely the result would be if there was no real effect.</strong></p>
+<p>A <em>P</em>-value is a purely statistical calculation and says nothing about biological importance or the truth of your hypothesis. Interpreting <em>P</em>-values and other statistical outputs is the job of the scientist, not the computer.</p>
+<p><em>P</em>-values and NHST in general is that each test can only ever make binary distinctions:</p>
+<ul>
+<li>Reject or fail to reject the null.</li>
+<li>True difference is 0 or not 0.</li>
+<li>Difference is <span class="math inline">\(\ge\)</span> 3 or not <span class="math inline">\(\ge\)</span> 3.</li>
+<li>And so on.</li>
+</ul>
+<p>In each example, each of the two alternatives is the logical negation of the other. But, <em>rejecting</em> one side of each dichotomy is <em>not the same as accepting</em> the other. By analogy, juries in criminal trials in the US make one of two determinations: guilty or not guilty. A verdict of not guilty includes innocent as a possibility, but does not mean we can conclude the defendant is innocent. Likewise, the <em>P</em>-value might help distinguish “difference in means is different from 0 (<em>P</em> &lt; 0.05)” vs. “difference in means is not different from 0 (<em>P</em> <span class="math inline">\(\ge\)</span> 0.05)”. The latter choice includes a difference in means of 0 as a possibility, but does not actually demonstrate that the value is 0.</p>
+</div>
+<div id="do-you-need-a-p-value" class="section level3" number="1.4.5">
+<h3><span class="header-section-number">1.4.5</span> Do you need a <em>P</em>-value?</h3>
+<p>Now that we have a better handle on what a <em>P</em>-value really is, you might be tempted to ask, “Do I need a <em>P</em>-value?” Yes, you probably do. For better or for worse, <em>P</em>-values and NHST are firmly entrenched in most areas of science, including biology. Despite its shortcomings, the NHST paradigm does offer a powerful way to test and reject proposed explanations. This utility means that NHST and <em>P</em>-values are not going away any time soon. The rest of this module will explore some alternatives to NHST.</p>
+</div>
+</div>
+<h3>Literature Cited</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-wasserstein2016" class="csl-entry">
+Wasserstein, R. L., and N. A. Lazar. 2016. <a href="https://doi.org/10.1080/00031305.2016.1154108">The ASA statement on p-values: Context, process, and purpose</a>. Taylor &amp; Francis.
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="8.5-mod-08-ord.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="9.1-how-to-use-this-guide.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="1.3-misuses-of-statistics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="1.5-alternatives-to-nhst.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
