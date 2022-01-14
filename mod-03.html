@@ -11,7 +11,7 @@
   <meta property="og:title" content="Module 3 Data manipulation with R | Applied Biological Data Analysis" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://greenquanteco.github.io/index.html" />
-  <meta property="og:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
+  <meta property="og:image" content="https://greenquanteco.github.io/index.html/lab_logo_02.jpg" />
   <meta property="og:description" content="Helping biologists to become more informed users of R and statistical methods." />
   
 
@@ -19,12 +19,12 @@
   <meta name="twitter:title" content="Module 3 Data manipulation with R | Applied Biological Data Analysis" />
   
   <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
-  <meta name="twitter:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
+  <meta name="twitter:image" content="https://greenquanteco.github.io/index.html/lab_logo_02.jpg" />
 
 <meta name="author" content="Nick Green, Kennesaw State University" />
 
 
-<meta name="date" content="2022-01-12" />
+<meta name="date" content="2022-01-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -644,7 +644,7 @@ div.csl-indent {
 <p>All data in R have a type: numeric, logical, character, etc. Within a vector, matrix, or array, all values must have the same type or they will be converted to character strings. Each variable in a data frame (the most common R data structure) is essentially a vector. This means that in your input file you should try to have one and only one type of data in each column. Otherwise, R will coerce the values into character strings, which may or may not be a problem. Putting only one type of value into each column will also help get your data into “wide” or “tidy” format (<span class="citation">Wickham (<a href="#ref-wickham2014" role="doc-biblioref">2014</a>)</span>).</p>
 <p>Entering data should also include some measure of <strong>quality assurance and quality control (QA/QC)</strong>. This basically means making sure that your data are entered correctly, and are formatted correctly. Correct entry can be accomplished by direct comparison to original datasheets or lab notebooks. Cross-checking is a valuable tool here: have two people enter the data and compare their files.</p>
 <p>Data formatting requires thinking about what kinds of data are being entered. For numbers, this means entering the correct values and an appropriate number of significant digits. For text values, this may mean spell-checking or settling on a standard set of possible values. The figure below shows some problems that a QA/QC step might fix:</p>
-<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/03_01.jpg" /></p>
+<p><img src="03_01.jpg" width="90%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 </div>
@@ -1238,7 +1238,7 @@ div.csl-indent {
 <span id="cb399-28"><a href="mod-03.html#cb399-28" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(a4)</span>
 <span id="cb399-29"><a href="mod-03.html#cb399-29" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(a5)</span>
 <span id="cb399-30"><a href="mod-03.html#cb399-30" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(a6)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-190-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="applied_biol_data_analysis_20220113_files/figure-html/unnamed-chunk-229-1.png" width="768" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="mod-03.html#cb400-1" aria-hidden="true" tabindex="-1"></a><span class="co"># reset graphical parameters</span></span>
 <span id="cb400-2"><a href="mod-03.html#cb400-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div>
 </div>
@@ -1600,9 +1600,9 @@ div.csl-indent {
 <p>The main function for working with dates <em>and</em> times is <code>strptime()</code>. This function takes in a character vector and a format argument, which tells R how the character vector is formatted. It returns objects of class <code>POSIXlt</code> and <code>POSIXt</code>, which contain date and time information in a standardized way.</p>
 <div class="sourceCode" id="cb498"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb498-1"><a href="mod-03.html#cb498-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;01:15:03&quot;</span>, <span class="st">&quot;14:28:21&quot;</span>)</span>
 <span id="cb498-2"><a href="mod-03.html#cb498-2" aria-hidden="true" tabindex="-1"></a><span class="fu">strptime</span>(a, <span class="at">format=</span><span class="st">&quot;%H:%M:%S&quot;</span>) <span class="co"># includes seconds</span></span></code></pre></div>
-<pre><code>## [1] &quot;2022-01-13 01:15:03 EST&quot; &quot;2022-01-13 14:28:21 EST&quot;</code></pre>
+<pre><code>## [1] &quot;2022-01-14 01:15:03 EST&quot; &quot;2022-01-14 14:28:21 EST&quot;</code></pre>
 <div class="sourceCode" id="cb500"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb500-1"><a href="mod-03.html#cb500-1" aria-hidden="true" tabindex="-1"></a><span class="fu">strptime</span>(a, <span class="at">format=</span><span class="st">&quot;%H:%M&quot;</span>)    <span class="co"># seconds dropped</span></span></code></pre></div>
-<pre><code>## [1] &quot;2022-01-13 01:15:00 EST&quot; &quot;2022-01-13 14:28:00 EST&quot;</code></pre>
+<pre><code>## [1] &quot;2022-01-14 01:15:00 EST&quot; &quot;2022-01-14 14:28:00 EST&quot;</code></pre>
 <p>Notice that the current date was included in the result of <code>strptime()</code> (at least, the date when I rendered this page with R Markdown).</p>
 <p>Time zones should be specified when working with data that contain dates and times. Remember that R will assume the time is in the current user’s time zone. This almost always means the time zone used by the operating system in which R is running. If you did something silly like record data in one time zone and analyze it in another, you have to be careful. For example, I once ran a field study in Indiana where data were recorded in Eastern time. But, the office where I analyzed the data was in Missouri (Central time). R kept converting the time-stamped data to Central time, which interfered with the analysis until I learned how to work with time zones in R.</p>
 <div class="sourceCode" id="cb502"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb502-1"><a href="mod-03.html#cb502-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;2021-07-23 13:21&quot;</span>, <span class="st">&quot;2021-08-01 09:15&quot;</span>)</span>
@@ -1613,7 +1613,7 @@ div.csl-indent {
 <span id="cb504-2"><a href="mod-03.html#cb504-2" aria-hidden="true" tabindex="-1"></a>a2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;13:21&quot;</span>, <span class="st">&quot;09:15&quot;</span>)</span>
 <span id="cb504-3"><a href="mod-03.html#cb504-3" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">strptime</span>(a2, <span class="st">&quot;%H:%M&quot;</span>)</span>
 <span id="cb504-4"><a href="mod-03.html#cb504-4" aria-hidden="true" tabindex="-1"></a>x2</span></code></pre></div>
-<pre><code>## [1] &quot;2022-01-13 13:21:00 EST&quot; &quot;2022-01-13 09:15:00 EST&quot;</code></pre>
+<pre><code>## [1] &quot;2022-01-14 13:21:00 EST&quot; &quot;2022-01-14 09:15:00 EST&quot;</code></pre>
 <p>Time zone names are not always portable across systems. R has a list of built-in time zones that it can handle, and these should work, but be careful and <strong><em>always</em></strong> validate any code that depends on time zones. The list of time zones R can use can be printed to the console with the command <code>OlsonNames()</code>.</p>
 <div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb506-1"><a href="mod-03.html#cb506-1" aria-hidden="true" tabindex="-1"></a><span class="co"># US Central Daylight Time (5 hours behind UTC)</span></span>
 <span id="cb506-2"><a href="mod-03.html#cb506-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;2021-07-23 13:21&quot;</span>, <span class="st">&quot;2021-08-01 09:15&quot;</span>)</span>
@@ -1663,13 +1663,13 @@ div.csl-indent {
 <span id="cb519-12"><a href="mod-03.html#cb519-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb519-13"><a href="mod-03.html#cb519-13" aria-hidden="true" tabindex="-1"></a><span class="do">## calculate time in different units:</span></span>
 <span id="cb519-14"><a href="mod-03.html#cb519-14" aria-hidden="true" tabindex="-1"></a><span class="fu">difftime</span>(y,x, <span class="at">units=</span><span class="st">&quot;days&quot;</span>)</span></code></pre></div>
-<pre><code>## Time difference of 9665.521 days</code></pre>
+<pre><code>## Time difference of 9664.546 days</code></pre>
 <div class="sourceCode" id="cb521"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb521-1"><a href="mod-03.html#cb521-1" aria-hidden="true" tabindex="-1"></a><span class="fu">difftime</span>(y,x, <span class="at">units=</span><span class="st">&quot;hours&quot;</span>)</span></code></pre></div>
-<pre><code>## Time difference of 231972.5 hours</code></pre>
+<pre><code>## Time difference of 231949.1 hours</code></pre>
 <div class="sourceCode" id="cb523"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb523-1"><a href="mod-03.html#cb523-1" aria-hidden="true" tabindex="-1"></a><span class="fu">difftime</span>(y,x, <span class="at">units=</span><span class="st">&quot;mins&quot;</span>)</span></code></pre></div>
-<pre><code>## Time difference of 13918350 mins</code></pre>
+<pre><code>## Time difference of 13916946 mins</code></pre>
 <div class="sourceCode" id="cb525"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb525-1"><a href="mod-03.html#cb525-1" aria-hidden="true" tabindex="-1"></a>y<span class="sc">-</span>x</span></code></pre></div>
-<pre><code>## Time difference of 9665.521 days</code></pre>
+<pre><code>## Time difference of 9664.546 days</code></pre>
 <p>Another application: what is the time difference between Chicago and Honolulu?</p>
 <div class="sourceCode" id="cb527"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb527-1"><a href="mod-03.html#cb527-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;2021-07-23 13:21&quot;</span>)</span>
 <span id="cb527-2"><a href="mod-03.html#cb527-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">strptime</span>(a, <span class="st">&quot;%Y-%m-%d %H:%M&quot;</span>, <span class="at">tz=</span><span class="st">&quot;US/Central&quot;</span>)</span>
@@ -1761,7 +1761,7 @@ div.csl-indent {
 <div class="sourceCode" id="cb568"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb568-1"><a href="mod-03.html#cb568-1" aria-hidden="true" tabindex="-1"></a><span class="co"># using cat() in a loop:</span></span>
 <span id="cb568-2"><a href="mod-03.html#cb568-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>){</span>
 <span id="cb568-3"><a href="mod-03.html#cb568-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">&quot;starting iteration&quot;</span>, i, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb568-4"><a href="mod-03.html#cb568-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>){</span>
+<span id="cb568-4"><a href="mod-03.html#cb568-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>){</span>
 <span id="cb568-5"><a href="mod-03.html#cb568-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, <span class="st">&quot;iteration&quot;</span>, i, <span class="st">&quot;part&quot;</span>, j, <span class="st">&quot;complete!&quot;</span>, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
 <span id="cb568-6"><a href="mod-03.html#cb568-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">flush.console</span>()</span>
 <span id="cb568-7"><a href="mod-03.html#cb568-7" aria-hidden="true" tabindex="-1"></a>    }</span>
@@ -1771,61 +1771,26 @@ div.csl-indent {
 ##   iteration 1 part 1 complete! 
 ##   iteration 1 part 2 complete! 
 ##   iteration 1 part 3 complete! 
-##   iteration 1 part 4 complete! 
-##   iteration 1 part 5 complete! 
-##   iteration 1 part 6 complete! 
-##   iteration 1 part 7 complete! 
-##   iteration 1 part 8 complete! 
-##   iteration 1 part 9 complete! 
-##   iteration 1 part 10 complete! 
 ## iteration 1 complete! 
 ## starting iteration 2 
 ##   iteration 2 part 1 complete! 
 ##   iteration 2 part 2 complete! 
 ##   iteration 2 part 3 complete! 
-##   iteration 2 part 4 complete! 
-##   iteration 2 part 5 complete! 
-##   iteration 2 part 6 complete! 
-##   iteration 2 part 7 complete! 
-##   iteration 2 part 8 complete! 
-##   iteration 2 part 9 complete! 
-##   iteration 2 part 10 complete! 
 ## iteration 2 complete! 
 ## starting iteration 3 
 ##   iteration 3 part 1 complete! 
 ##   iteration 3 part 2 complete! 
 ##   iteration 3 part 3 complete! 
-##   iteration 3 part 4 complete! 
-##   iteration 3 part 5 complete! 
-##   iteration 3 part 6 complete! 
-##   iteration 3 part 7 complete! 
-##   iteration 3 part 8 complete! 
-##   iteration 3 part 9 complete! 
-##   iteration 3 part 10 complete! 
 ## iteration 3 complete! 
 ## starting iteration 4 
 ##   iteration 4 part 1 complete! 
 ##   iteration 4 part 2 complete! 
 ##   iteration 4 part 3 complete! 
-##   iteration 4 part 4 complete! 
-##   iteration 4 part 5 complete! 
-##   iteration 4 part 6 complete! 
-##   iteration 4 part 7 complete! 
-##   iteration 4 part 8 complete! 
-##   iteration 4 part 9 complete! 
-##   iteration 4 part 10 complete! 
 ## iteration 4 complete! 
 ## starting iteration 5 
 ##   iteration 5 part 1 complete! 
 ##   iteration 5 part 2 complete! 
 ##   iteration 5 part 3 complete! 
-##   iteration 5 part 4 complete! 
-##   iteration 5 part 5 complete! 
-##   iteration 5 part 6 complete! 
-##   iteration 5 part 7 complete! 
-##   iteration 5 part 8 complete! 
-##   iteration 5 part 9 complete! 
-##   iteration 5 part 10 complete! 
 ## iteration 5 complete!</code></pre>
 <p>The other printing function, <code>sink()</code>, is specifically for printing outputs into text files. Refer back to the <a href="mod-03.html#mod-03-inout">section on data import/export</a> for an example.</p>
 </div>
@@ -2019,7 +1984,7 @@ div.csl-indent {
 <div id="data-frame-structure" class="section level3" number="3.5.1">
 <h3><span class="header-section-number">3.5.1</span> Data frame structure</h3>
 <p>Data frames and matrices look very similar, but their internal structures are very different. This has huge implications for how you work with and manipulate data frames and matrices. The figure below shows some of the most important differences.</p>
-<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/03_02.jpg" /></p>
+<p><img src="03_02.jpg" width="90%" style="display: block; margin: auto;" /></p>
 <p>All pieces of a matrix are accessed using <a href="mod-03.html#mod-03-brackets">bracket notation</a> (<code>[]</code>). Pieces of a data frame can also be accessed using brackets, but the dollar sign <code>$</code> can be used to access columns.</p>
 <div class="sourceCode" id="cb647"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb647-1"><a href="mod-03.html#cb647-1" aria-hidden="true" tabindex="-1"></a><span class="co"># single variables (columns): $</span></span>
 <span id="cb647-2"><a href="mod-03.html#cb647-2" aria-hidden="true" tabindex="-1"></a>iris<span class="sc">$</span>Petal.Length</span></code></pre></div>
@@ -2298,7 +2263,7 @@ div.csl-indent {
 <h4><span class="header-section-number">3.5.2.4</span> Renaming variables</h4>
 <p>Renaming variables in Excel is easy: just enter the new name into the cell at the top of a column. Things are a little more complicated in R but not much.</p>
 <p>One way is to use the <strong>data frame editor</strong>. Use the <code>edit()</code> function to open the data editor, a spreadsheet-like interface for working with data frames. Then click on the column name and enter the new name (and then press ENTER). You can also edit individual values this way, but I don’t recommend this method for routine use because there is no record in your script of what was done.</p>
-<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/03_03.jpg" /></p>
+<p><img src="03_03.jpg" width="90%" style="display: block; margin: auto;" /></p>
 <p>The better way is to rename the variable using R code. There are a few ways to do this, but they all involve accessing the variable names using function <code>names()</code>.</p>
 <div class="sourceCode" id="cb671"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb671-1"><a href="mod-03.html#cb671-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> iris[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,] <span class="co"># spare copy for demonstration</span></span>
 <span id="cb671-2"><a href="mod-03.html#cb671-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -2620,7 +2585,7 @@ div.csl-indent {
 <div id="mod-03-reshape" class="section level3" number="3.5.4">
 <h3><span class="header-section-number">3.5.4</span> Reshaping data frames</h3>
 <p>In your career you are likely to encounter datasets organized in a variety of formats. Most of these formats fall into one of two categories: <strong>wide</strong> and <strong>long</strong>.</p>
-<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/03_04.jpg" /></p>
+<p><img src="03_04.jpg" width="90%" style="display: block; margin: auto;" /></p>
 <p>In a <strong>long-format dataset</strong>, every value is stored in a separate <strong><em>row</em></strong>. The variable (AKA: feature or attribute), that each value represents is kept in a separate <strong><em>column</em></strong>. Many public or online data sources serve datasets in long format. This is usually because the data are pulled from a database, and it left to the user to reshape the data to fit their needs. Storing data in this manner can sometimes be more efficient from a computational standpoint, but it is usually not convenient for analysis. The reason that long format is inconvenient for analysis is because all of the information about individual samples (i.e, observations) are on different rows of the dataset.</p>
 <p>In a <strong>wide-format dataset</strong>, each row contains <strong>all values</strong> associated with a particular <strong>sample</strong>. This means that each variable gets its own column, and each cell contains a single value. This format is sometimes called <strong>tidy</strong> format by the authors of the <code>tidyverse</code> set of R packages <span class="citation">(<a href="#ref-wickham2014" role="doc-biblioref">Wickham 2014</a>)</span>, but researchers were formatting data this way long before the tidyverse packages or R were developed <span class="citation">(<a href="#ref-broman2018" role="doc-biblioref">Broman and Woo 2018</a>)</span>. As a rule, you should store and manage your data in wide/tidy format. This format makes it easy to take advantage of R’s vectorized nature.</p>
 <p>Base R has some functions for reshaping data, but most sources recommend using the <code>reshape2</code> package or the <code>tidyverse</code>. The examples below demonstrate reshaping a dataset from a typical long format to a more useful wide format. You will need the file <a href="https://greenquanteco.github.io/reshape_example.csv">reshape_example.csv</a> in your R home directory and package <code>reshape2</code>.</p>
@@ -2773,7 +2738,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["_main.pdf"],
+"download": ["applied_biol_data_analysis_20220113.pdf"],
 "search": {
 "engine": "fuse",
 "options": null

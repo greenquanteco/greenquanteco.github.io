@@ -11,7 +11,7 @@
   <meta property="og:title" content="Module 2 Introduction to R | Applied Biological Data Analysis" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://greenquanteco.github.io/index.html" />
-  <meta property="og:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
+  <meta property="og:image" content="https://greenquanteco.github.io/index.html/lab_logo_02.jpg" />
   <meta property="og:description" content="Helping biologists to become more informed users of R and statistical methods." />
   
 
@@ -19,12 +19,12 @@
   <meta name="twitter:title" content="Module 2 Introduction to R | Applied Biological Data Analysis" />
   
   <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
-  <meta name="twitter:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
+  <meta name="twitter:image" content="https://greenquanteco.github.io/index.html/lab_logo_02.jpg" />
 
 <meta name="author" content="Nick Green, Kennesaw State University" />
 
 
-<meta name="date" content="2022-01-12" />
+<meta name="date" content="2022-01-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -611,7 +611,7 @@ div.csl-indent {
 <div id="using-the-base-r-gui" class="section level3" number="2.3.1">
 <h3><span class="header-section-number">2.3.1</span> Using the base R GUI</h3>
 <p>R has a very basic front end, or <strong>graphical user interface (GUI)</strong>. Most users find it easier to write their R code in another program. Some of these programs, such as RStudio, are <strong>integrated development environments (IDE)</strong>. Others are text editors with programming capabilities. We’ll explore the default R GUI first and then meet some editor options. The basic R GUI is shown below.</p>
-<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/02_01.jpg" /></p>
+<p><img src="02_01.jpg" width="90%" style="display: block; margin: auto;" /></p>
 <p>The main window with R is the <strong>R console</strong>. This is the command line interface to R. Some important features of the console are:</p>
 <ol style="list-style-type: decimal">
 <li>Command prompt: The <code>&gt;</code> symbol signifies the beginning of a command. You can enter commands here.</li>
@@ -649,7 +649,7 @@ div.csl-indent {
 <h3><span class="header-section-number">2.3.2</span> Using R in RStudio</h3>
 <p>Although you can type R code directly into the console, or type in script windows within the base R GUI, it is usually easiest to use a separate program for writing code. The two best, in my experience, are RStudio and Notepad++ (see below). <strong>RStudio</strong> is an IDE designed to manage R projects, and has many useful features. Unlike some other options, RStudio has R built in so you can write code and execute it within the same program. RStudio can be used on Windows, Mac, and Linux operating systems. RStudio also has built-in support for utilities like RMarkdown.</p>
 <p>Once you have RStudio installed, open it and you will see a screen like this<a href="literature-cited.html#fn17" class="footnote-ref" id="fnref17"><sup>17</sup></a></p>
-<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/02_02.jpg" /></p>
+<p><img src="02_02.jpg" width="90%" style="display: block; margin: auto;" /></p>
 <p>RStudio has an entire environment for working with R in one window. Each of the panels performs different functions. Starting at the bottom left and going clockwise, the panels are:</p>
 <ul>
 <li>Console: command line interface for R. You can type commands here and execute them by pressing ENTER.</li>
@@ -662,7 +662,7 @@ div.csl-indent {
 <div id="using-r-with-other-programs" class="section level3" number="2.3.3">
 <h3><span class="header-section-number">2.3.3</span> Using R with other programs</h3>
 <p><strong>Notepad++</strong> is an open-source code editor that is <a href="https://notepad-plus-plus.org/downloads/">available on Windows</a> (accessed 2021-12-20). Notepad++ is a more generic source code editor with built-in R support and many programming features. It includes programming support for R as well as other languages used by biologists, such as Python, C++, Visual Basic, and LaTeX. The key disadvantage of Notepad++ is that it does not connect to R, so you must copy and paste your code to an R console. Another disadvantage is that it is only available for Windows. The image below shows a script in Notepad++,</p>
-<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/02_03.jpg" /></p>
+<p><img src="02_03.jpg" width="90%" style="display: block; margin: auto;" /></p>
 <p><strong>emacs</strong> is a GNU program that is an extremely powerful text editor, code editor, and pretty much everything else. With its extension ess or “emacs speaks statistics”, it can also be an R IDE. Be forewarned, getting emacs and ess to work on Windows can be a major pain.</p>
 <p>Other good options include Tinn-R, Jupyter notebooks, and many more. All of these options are subject to irrationally strong personal and organizational preferences. For example, I use Notepad++ almost exclusively in my research for writing and editing R code. I would prefer to use emacs, but it doesn’t play nice with my university PCs. Many people swear by RStudio. Try a few R interfaces and use what works best for you. Or, use the interface that your manager tells you to use.</p>
 <p>Whatever you do, you should not use a word processor (e.g., Microsoft Word) to write and edit R code. The reason that you should not use Word for code editing is because Word documents include lots of invisible formatting that can cause issues in R. Worse, Word autocorrects some characters in counter-productive ways. The most problematic are automatic capitalization (because R is case sensitive) and quotation marks. Word autocorrects <code>""</code> to “” as you type, which makes for nice looking text. However, the curved quotation marks (“”) are not read as valid quotation marks by R. Only “straight quotes” (<code>""</code>) are recognized by R.</p>
@@ -671,7 +671,7 @@ div.csl-indent {
 <div id="mod-02-first" class="section level2" number="2.4">
 <h2><span class="header-section-number">2.4</span> A first R session</h2>
 <p>One of the best ways to get a feel for R is to step through a typical R workflow. We are going to analyze a classic dataset from evolutionary biology that contains data on the body size and antler size of many species of deer (family Cervidae). The data were collected by Stephen Jay Gould <span class="citation">(<a href="#ref-gould1974" role="doc-biblioref">Gould 1974</a>)</span> to investigate the reason for the massive antler size in an extinct mammal, the Irish elk (<em>Megaloceros giganteus</em>), seen below<a href="literature-cited.html#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a>. Gould was interested in whether the massive antlers might have resulted from runaway sexual selection or were simply the result of allometric growth. The Irish elk lived across northern Eurasia during the Pleistocene epoch, until about 7700 years ago. Adults stood around 2.1 m high at the shoulder and males bore antlers that could reach up to 3.65 m (<span class="math inline">\(\approx\)</span> 12 ft) across. Body mass of adult males is estimated to have ranged from 450 to 700 kg (990 to 1540 lb). Irish elk were on average larger than the largest extant cervid, the moose (<em>Alces alces</em>).</p>
-<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/02_04.jpg" /></p>
+<p><img src="02_04.jpg" width="70%" style="display: block; margin: auto;" /></p>
 <div id="import-data" class="section level3" number="2.4.1">
 <h3><span class="header-section-number">2.4.1</span> Import data</h3>
 <p>First, load the data into R. The data are contained in the text file <a href="https://greenquanteco.github.io/elk_data_2021-01-21.csv">elk_data_2021-01-21.csv</a>. Download this file and save it on your computer. If you want to save some time later, save the data file in your <strong>R home directory</strong>. This is the default folder where R and RStudio will look for files. The R home directory depends on your operating system:</p>
@@ -686,14 +686,14 @@ div.csl-indent {
 <div id="method-1-import-in-rstudio-using-fileimport-dataset" class="section level4" number="2.4.1.1">
 <h4><span class="header-section-number">2.4.1.1</span> Method 1: Import in RStudio using File–Import Dataset</h4>
 <p>In RStudio, click on <strong>File–Import Dataset–From Text (base)</strong>.</p>
-<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/02_05.jpg" /></p>
+<p><img src="02_05.jpg" width="90%" style="display: block; margin: auto;" /></p>
 <p>Navigate to the data file just as you would if opening a file in any other program. Click Open.</p>
-<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/02_06.jpg" /></p>
+<p><img src="02_06.jpg" width="90%" style="display: block; margin: auto;" /></p>
 <p>In the dialog box that pops up, change the name of the incoming dataset to “dat”. This is what we will call the dataset when working with it in R. Make sure that the “Strings as factors” box is NOT checked.</p>
-<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/02_07.jpg" /></p>
+<p><img src="02_07.jpg" width="90%" style="display: block; margin: auto;" /></p>
 <p>Click Import. RStudio will import the data for you and save it in the workspace as an object called “dat”. Notice that a command like <code>dat &lt;- read.csv("~/elk_data_2021-01-21.csv")</code> was run in the console. This command is what RStudio used internally to import the data. If you want to know more, look at method 2 below.</p>
 <p>After you click Import, RStudio will import the data and display it for you. The image below shows what that looks like. Notice that RStudio automatically generated the code to import the data and executed it (red arrow); that the dataset is listed in the “Environment” box in the top right (blue arrow), and the dataset is displayed in the top left (green arrow).</p>
-<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/02_09.jpg" /></p>
+<p><img src="02_08.jpg" width="90%" style="display: block; margin: auto;" /></p>
 <p>Once the dataset is imported, you can view it in the console by typing its name and pressing ENTER. Each method above saved the dataset to an object named <code>dat</code>. Obviously, this is short for “data”<a href="literature-cited.html#fn20" class="footnote-ref" id="fnref20"><sup>20</sup></a>. However, we didn’t call our dataset “data” because <code>data()</code> is already the name of an R function and we don’t want to accidentally overwrite that function.</p>
 </div>
 <div id="method-2-import-from-command-line" class="section level4" number="2.4.1.2">
@@ -739,17 +739,17 @@ If the data file is in your home directory (see previous section), the command i
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="mod-02.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dat<span class="sc">$</span>height, dat<span class="sc">$</span>antler,</span>
 <span id="cb45-2"><a href="mod-02.html#cb45-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab=</span><span class="st">&quot;Shoulder height (cm)&quot;</span>,</span>
 <span id="cb45-3"><a href="mod-02.html#cb45-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab=</span><span class="st">&quot;Antler length (cm)&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="applied_biol_data_analysis_20220113_files/figure-html/unnamed-chunk-61-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>We might also be interested in how the data are distributed. This will be important later because the data need to meet particular assumptions for our statistical analysis. The simplest way to view a data distribution is with a histogram, <code>hist()</code>.</p>
 <div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="mod-02.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(dat<span class="sc">$</span>antler, <span class="at">xlab=</span><span class="st">&quot;Antler length (cm)&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="applied_biol_data_analysis_20220113_files/figure-html/unnamed-chunk-62-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>We could also try a <strong>probability density function (PDF)</strong> plot, or plotting the <strong>empirical cumulative distribution function (ECDF)</strong>. Histograms, PDF plots, and ECDF plots are just different ways of <a href="mod-04.html#mod-04-vis">displaying how the data are spread out</a>. In the figure below, we use the function <code>par()</code> to set some graphical parameters (including a 1 row <span class="math inline">\(\times\)</span> 3 column layout using argument <code>mfrow</code>). We also saved the text string “Antler length (cm)” as an object (<code>use.xlab</code>), and then used it in each of the plotting commands so we didn’t have to type the same thing over and over.</p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="mod-02.html#cb47-1" aria-hidden="true" tabindex="-1"></a>use.xlab <span class="ot">&lt;-</span> <span class="st">&quot;Antler length (cm)&quot;</span></span>
 <span id="cb47-2"><a href="mod-02.html#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
 <span id="cb47-3"><a href="mod-02.html#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(dat<span class="sc">$</span>antler, <span class="at">xlab=</span>use.xlab)</span>
 <span id="cb47-4"><a href="mod-02.html#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(dat<span class="sc">$</span>antler, <span class="at">from=</span><span class="dv">0</span>), <span class="at">xlab=</span>use.xlab)</span>
 <span id="cb47-5"><a href="mod-02.html#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">ecdf</span>(dat<span class="sc">$</span>antler), <span class="at">xlab=</span>use.xlab)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-34-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p><img src="applied_biol_data_analysis_20220113_files/figure-html/unnamed-chunk-63-1.png" width="864" style="display: block; margin: auto;" /></p>
 <p>All three plots above show that the antler lengths probably follow a <a href="mod-04.html#mod-04-norm"><strong>normal distribution</strong></a>. Notice how the PDF plot (center) looks like a very smoothed version of the histogram. This is because it basically is. A histogram shows how many observations fall into discrete ranges, or bins. The PDF of a distribution shows how likely every possible value is relative to other values. That is, the PDF is basically the heights of a histogram with bin widths = 0. The rightmost plot, the ECDF, shows what percentage of observations in a distribution are equal to or less than each value (this is the “cumulative” part of ECDF). If we wanted, we could estimate the actual CDF of the distribution. The PDF and CDF are intimately related because the PDF is the derivative of the CDF (or, the CDF is the integral of the PDF). This is why the <em>y</em>-axis values on a PDF plot look so weird: they are the instantaneous rate of change in the CDF at each value.</p>
 <p>Don’t worry if that doesn’t make a lot of sense right now. We will explore data distributions some more <a href="mod-04.html#mod-04-vis">later in the course</a>, both in practical terms and in the language of PDFs and CDFs.</p>
 </div>
@@ -768,7 +768,7 @@ If the data file is in your home directory (see previous section), the command i
 <span id="cb49-2"><a href="mod-02.html#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dat<span class="sc">$</span>logx, dat<span class="sc">$</span>logy,</span>
 <span id="cb49-3"><a href="mod-02.html#cb49-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab=</span><span class="st">&quot;Log Shoulder height (cm)&quot;</span>,</span>
 <span id="cb49-4"><a href="mod-02.html#cb49-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab=</span><span class="st">&quot;Log Antler length (cm)&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="applied_biol_data_analysis_20220113_files/figure-html/unnamed-chunk-65-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>It looks like antler length and shoulder height have a linear relationship on the log scale. That is exactly what we are going to fit, but we need to understand what this represents. The linear model we can fit with the log-transformed data is:</p>
 <p><span class="math display">\[\log{\left(Y\right)=\beta_0+\beta_1\log{\left(X\right)}+\varepsilon}\]</span></p>
 <p>In this equation:</p>
@@ -885,7 +885,7 @@ If the data file is in your home directory (see previous section), the command i
 <span id="cb57-13"><a href="mod-02.html#cb57-13" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(new.x2, hi, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
 <span id="cb57-14"><a href="mod-02.html#cb57-14" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(new.x2, mn, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
 <span id="cb57-15"><a href="mod-02.html#cb57-15" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(dat<span class="sc">$</span>height, dat<span class="sc">$</span>antler, <span class="at">cex=</span><span class="fl">1.3</span>, <span class="at">pch=</span><span class="dv">16</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-42-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="applied_biol_data_analysis_20220113_files/figure-html/unnamed-chunk-71-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>There are some other graphics options we could set, but we’ll save those for later in the course. This figure is clean and spare, with a very high data to ink ratio…just the sort of figure that we want to represent our work <span class="citation">(<a href="#ref-tufte2001visual" role="doc-biblioref">Tufte 2001</a>)</span>.</p>
 <p>Just for fun, let’s label the original object of our investigation, the Irish elk. We can add a text label and a pointer with the commands <code>text()</code> and <code>segments()</code>. This can require some fiddling to get the coordinates just right. First we’ll use function <code>locator()</code> to find some appropriate coordinates. To use <code>locator()</code>, first run that command in the console. Then, click the points on the graph where you want coordinates. Then, right-click and select “Stop”. The coordinates you clicked will be printed to the console.</p>
 <div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="mod-02.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># not run:</span></span>
@@ -903,7 +903,7 @@ If the data file is in your home directory (see previous section), the command i
 <span id="cb59-4"><a href="mod-02.html#cb59-4" aria-hidden="true" tabindex="-1"></a>     <span class="fu">expression</span>(<span class="fu">italic</span>(Megaloceros)), </span>
 <span id="cb59-5"><a href="mod-02.html#cb59-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">adj=</span><span class="dv">1</span>,   <span class="co"># right-aligned at point</span></span>
 <span id="cb59-6"><a href="mod-02.html#cb59-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex=</span><span class="fl">1.3</span>) <span class="co"># text size</span></span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-45-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="applied_biol_data_analysis_20220113_files/figure-html/unnamed-chunk-74-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="save-your-work" class="section level3" number="2.4.6">
 <h3><span class="header-section-number">2.4.6</span> Save your work?</h3>
@@ -956,7 +956,7 @@ If the data file is in your home directory (see previous section), the command i
 <pre><code>## [1] 4</code></pre>
 <pre><code>## [1] 6</code></pre>
 <p>For this course you should be able to copy and paste most commands directly from the page to your R console. You can also copy and paste commands to the script window and run them from there. This is useful for running multiple commands at once, or for writing more complicated programs. The image below shows this method in action:</p>
-<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/02_10.jpg" /></p>
+<p><img src="02_10.jpg" width="90%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="elements-of-r-code" class="section level3" number="2.5.2">
 <h3><span class="header-section-number">2.5.2</span> Elements of R code</h3>
@@ -1195,7 +1195,7 @@ If the data file is in your home directory (see previous section), the command i
 <span id="cb108-2"><a href="mod-02.html#cb108-2" aria-hidden="true" tabindex="-1"></a>b</span></code></pre></div>
 <pre><code>## [1] 4 6</code></pre>
 <p>Brackets work on more complicated objects as well. The figure below shows how brackets work on a matrix, data frame, or array, which have 2, 2, and <span class="math inline">\(\ge\)</span> 3 dimensions, respectively.</p>
-<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/02_11.jpg" /></p>
+<p><img src="02_11.jpg" width="90%" style="display: block; margin: auto;" /></p>
 <p>The examples below select parts of the <code>iris</code> dataset. The <code>iris</code> dataset is a data frame, one of the most important types of objects in R. Unlike the vector <code>a</code> above, <code>iris</code> has two dimensions: <strong>rows</strong> and <strong>columns</strong>. In the brackets, the dimensions are given separated by a comma. You <em>must</em> include the comma which separates the dimensions, even if you don’t supply a value for one of the dimensions. Supplying the wrong number of dimensions will either cause an error (good) or something unexpected (bad). A missing value for rows or columns will select all rows or columns.</p>
 <div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="mod-02.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="co"># first 4 rows, all columns of iris</span></span>
 <span id="cb110-2"><a href="mod-02.html#cb110-2" aria-hidden="true" tabindex="-1"></a>iris[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,]  </span></code></pre></div>
@@ -2281,12 +2281,12 @@ If the data file is in your home directory (see previous section), the command i
 <p>Similarly, <code>month.name</code> and <code>month.abb</code> contain the names of the 12 months and their 3 letter abbreviations, respectively. The latter is very useful for making figure axes.</p>
 <div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="mod-02.html#cb227-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="fu">runif</span>(<span class="dv">12</span>), <span class="at">xaxt=</span><span class="st">&quot;n&quot;</span>, <span class="at">xlab=</span> <span class="st">&quot;Month&quot;</span>)</span>
 <span id="cb227-2"><a href="mod-02.html#cb227-2" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="at">side=</span><span class="dv">1</span>, <span class="at">at=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">labels=</span>month.abb)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-107-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="applied_biol_data_analysis_20220113_files/figure-html/unnamed-chunk-138-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>As an aside, the function <code>substr()</code> extracts parts of character strings (“substring”). One application is getting one letter abbreviations of the months for a figure axis. The example below selects from the month names starting and ending at character 1.</p>
 <div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="mod-02.html#cb228-1" aria-hidden="true" tabindex="-1"></a>use.months <span class="ot">&lt;-</span> <span class="fu">substr</span>(month.name, <span class="dv">1</span>, <span class="dv">1</span>)</span>
 <span id="cb228-2"><a href="mod-02.html#cb228-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="fu">runif</span>(<span class="dv">12</span>), <span class="at">xaxt=</span><span class="st">&quot;n&quot;</span>, <span class="at">xlab=</span> <span class="st">&quot;Month&quot;</span>)</span>
 <span id="cb228-3"><a href="mod-02.html#cb228-3" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="at">side=</span><span class="dv">1</span>, <span class="at">at=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">labels=</span>use.months)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-108-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="applied_biol_data_analysis_20220113_files/figure-html/unnamed-chunk-139-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="numeric-type" class="section level3" number="2.7.2">
 <h3><span class="header-section-number">2.7.2</span> Numeric type</h3>
@@ -2428,7 +2428,7 @@ If the data file is in your home directory (see previous section), the command i
 <h2><span class="header-section-number">2.8</span> Manage R code as scripts (.r files)</h2>
 <p>Over your career you will probably write a lot of code. You will download and run even more code. This page describes how to manage code that you write (scripts) and code that you get from R repositories (packages).</p>
 <p>Often it is easiest to write your R code in separate files, called <strong>scripts</strong>. An R script has the file extension <strong>.r</strong> or <strong>.R</strong>. Scripts can be used as files that store R code (basically plain text files) or as stand-alone R programs. One advantage of keeping your R code in scripts is that you will avoid the formatting issues that arise when writing R code in word processors like Microsoft Word. Another advantage comes from using specialized code editors like Notepad++, RStudio, or others: syntax highlighting. Consider the image below:</p>
-<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/02_12.jpg" /></p>
+<p><img src="02_12.jpg" width="90%" style="display: block; margin: auto;" /></p>
 <p>This shows some typical R code in Notepad++ with comments, a <code>for</code> loop, some functions being called, datasets being subsetted, etc. Notice how code elements are colored differently, so it’s easier to see the different parts. Notice also how matching braces <code>{}</code> are highlighted. This is <strong><em>extremely</em></strong> helpful when programming complex operations.</p>
 <p>The final advantage to working with R scripts that I’ll mention is automation and running from source. R can read and run .r files with the <code>source()</code> command. This can be useful when managing a large set of simulations or analyses: code the individual simulations in a stand-alone script, and then repeatedly call that script from a different script or R instance. This can work as a simple (albeit labor-intensive) way to achieve parallelization.</p>
 </div>
@@ -2466,22 +2466,17 @@ Most packages are stored on The Comprehensive R Archive Network, or <a href="htt
 <span id="cb249-4"><a href="mod-02.html#cb249-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  [7] &quot;package:datasets&quot;  &quot;package:methods&quot;   &quot;Autoloads&quot;        </span></span>
 <span id="cb249-5"><a href="mod-02.html#cb249-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [10] &quot;package:base&quot;</span></span>
 <span id="cb249-6"><a href="mod-02.html#cb249-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
-<span id="cb249-7"><a href="mod-02.html#cb249-7" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb249-8"><a href="mod-02.html#cb249-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Attaching package: &#39;MASS&#39;</span></span>
-<span id="cb249-9"><a href="mod-02.html#cb249-9" aria-hidden="true" tabindex="-1"></a><span class="do">## The following object is masked _by_ &#39;.GlobalEnv&#39;:</span></span>
-<span id="cb249-10"><a href="mod-02.html#cb249-10" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb249-11"><a href="mod-02.html#cb249-11" aria-hidden="true" tabindex="-1"></a><span class="do">##     farms</span></span>
-<span id="cb249-12"><a href="mod-02.html#cb249-12" aria-hidden="true" tabindex="-1"></a><span class="fu">search</span>()</span>
-<span id="cb249-13"><a href="mod-02.html#cb249-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] &quot;.GlobalEnv&quot;        &quot;package:MASS&quot;      &quot;package:bookdown&quot; </span></span>
-<span id="cb249-14"><a href="mod-02.html#cb249-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  [4] &quot;package:stats&quot;     &quot;package:graphics&quot;  &quot;package:grDevices&quot;</span></span>
-<span id="cb249-15"><a href="mod-02.html#cb249-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  [7] &quot;package:utils&quot;     &quot;package:datasets&quot;  &quot;package:methods&quot;  </span></span>
-<span id="cb249-16"><a href="mod-02.html#cb249-16" aria-hidden="true" tabindex="-1"></a><span class="do">## [10] &quot;Autoloads&quot;         &quot;package:base&quot;</span></span>
-<span id="cb249-17"><a href="mod-02.html#cb249-17" aria-hidden="true" tabindex="-1"></a><span class="fu">detach</span>(package<span class="sc">:</span>MASS)</span>
-<span id="cb249-18"><a href="mod-02.html#cb249-18" aria-hidden="true" tabindex="-1"></a><span class="fu">search</span>()</span>
-<span id="cb249-19"><a href="mod-02.html#cb249-19" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] &quot;.GlobalEnv&quot;        &quot;package:bookdown&quot;  &quot;package:stats&quot;    </span></span>
-<span id="cb249-20"><a href="mod-02.html#cb249-20" aria-hidden="true" tabindex="-1"></a><span class="do">##  [4] &quot;package:graphics&quot;  &quot;package:grDevices&quot; &quot;package:utils&quot;    </span></span>
-<span id="cb249-21"><a href="mod-02.html#cb249-21" aria-hidden="true" tabindex="-1"></a><span class="do">##  [7] &quot;package:datasets&quot;  &quot;package:methods&quot;   &quot;Autoloads&quot;        </span></span>
-<span id="cb249-22"><a href="mod-02.html#cb249-22" aria-hidden="true" tabindex="-1"></a><span class="do">## [10] &quot;package:base&quot;</span></span></code></pre></div>
+<span id="cb249-7"><a href="mod-02.html#cb249-7" aria-hidden="true" tabindex="-1"></a><span class="fu">search</span>()</span>
+<span id="cb249-8"><a href="mod-02.html#cb249-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] &quot;.GlobalEnv&quot;        &quot;package:MASS&quot;      &quot;package:bookdown&quot; </span></span>
+<span id="cb249-9"><a href="mod-02.html#cb249-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  [4] &quot;package:stats&quot;     &quot;package:graphics&quot;  &quot;package:grDevices&quot;</span></span>
+<span id="cb249-10"><a href="mod-02.html#cb249-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  [7] &quot;package:utils&quot;     &quot;package:datasets&quot;  &quot;package:methods&quot;  </span></span>
+<span id="cb249-11"><a href="mod-02.html#cb249-11" aria-hidden="true" tabindex="-1"></a><span class="do">## [10] &quot;Autoloads&quot;         &quot;package:base&quot;</span></span>
+<span id="cb249-12"><a href="mod-02.html#cb249-12" aria-hidden="true" tabindex="-1"></a><span class="fu">detach</span>(package<span class="sc">:</span>MASS)</span>
+<span id="cb249-13"><a href="mod-02.html#cb249-13" aria-hidden="true" tabindex="-1"></a><span class="fu">search</span>()</span>
+<span id="cb249-14"><a href="mod-02.html#cb249-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] &quot;.GlobalEnv&quot;        &quot;package:bookdown&quot;  &quot;package:stats&quot;    </span></span>
+<span id="cb249-15"><a href="mod-02.html#cb249-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  [4] &quot;package:graphics&quot;  &quot;package:grDevices&quot; &quot;package:utils&quot;    </span></span>
+<span id="cb249-16"><a href="mod-02.html#cb249-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  [7] &quot;package:datasets&quot;  &quot;package:methods&quot;   &quot;Autoloads&quot;        </span></span>
+<span id="cb249-17"><a href="mod-02.html#cb249-17" aria-hidden="true" tabindex="-1"></a><span class="do">## [10] &quot;package:base&quot;</span></span></code></pre></div>
 <p>There is rarely any need to unload a package from the workspace unless there are naming conflicts. The most common situation is when two attached packages have functions with the same name. In this situation, R will use the most recently loaded package’s function. This phenomenon is called <strong>masking</strong>. When there is a name conflict, you can use the double colon operator <code>::</code> to specify which package’s function you want to use.</p>
 <p>Using <code>::</code> can also access a function without loading the entire package into the workspace. If both packages are already loaded into your workspace, then <code>::</code> will simply select which package’s function to use. Note that a package must be installed on your machine before you can use its functions.</p>
 <p>The example below shows how <code>::</code> can be used to access the <code>rtriangle()</code> and <code>fitdistr()</code> functions without loading their packages.</p>
@@ -2524,48 +2519,13 @@ Most packages are stored on The Comprehensive R Archive Network, or <a href="htt
 <span id="cb250-37"><a href="mod-02.html#cb250-37" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] bookdown_0.24</span></span>
 <span id="cb250-38"><a href="mod-02.html#cb250-38" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb250-39"><a href="mod-02.html#cb250-39" aria-hidden="true" tabindex="-1"></a><span class="do">## loaded via a namespace (and not attached):</span></span>
-<span id="cb250-40"><a href="mod-02.html#cb250-40" aria-hidden="true" tabindex="-1"></a><span class="do">##   [1] minqa_1.2.4          TH.data_1.1-0        colorspace_2.0-2    </span></span>
-<span id="cb250-41"><a href="mod-02.html#cb250-41" aria-hidden="true" tabindex="-1"></a><span class="do">##   [4] ellipsis_0.3.2       class_7.3-19         modeltools_0.2-23   </span></span>
-<span id="cb250-42"><a href="mod-02.html#cb250-42" aria-hidden="true" tabindex="-1"></a><span class="do">##   [7] gld_2.6.2            rstudioapi_0.13      proxy_0.4-26        </span></span>
-<span id="cb250-43"><a href="mod-02.html#cb250-43" aria-hidden="true" tabindex="-1"></a><span class="do">##  [10] listenv_0.8.0        farver_2.1.0         MatrixModels_0.5-0  </span></span>
-<span id="cb250-44"><a href="mod-02.html#cb250-44" aria-hidden="true" tabindex="-1"></a><span class="do">##  [13] lubridate_1.8.0      prodlim_2019.11.13   fansi_0.5.0         </span></span>
-<span id="cb250-45"><a href="mod-02.html#cb250-45" aria-hidden="true" tabindex="-1"></a><span class="do">##  [16] mvtnorm_1.1-3        coin_1.4-2           codetools_0.2-18    </span></span>
-<span id="cb250-46"><a href="mod-02.html#cb250-46" aria-hidden="true" tabindex="-1"></a><span class="do">##  [19] splines_4.1.1        rootSolve_1.8.2.3    libcoin_1.0-9       </span></span>
-<span id="cb250-47"><a href="mod-02.html#cb250-47" aria-hidden="true" tabindex="-1"></a><span class="do">##  [22] knitr_1.36           jsonlite_1.7.2       nloptr_1.2.2.2      </span></span>
-<span id="cb250-48"><a href="mod-02.html#cb250-48" aria-hidden="true" tabindex="-1"></a><span class="do">##  [25] R2jags_0.7-1         pROC_1.18.0          caret_6.0-90        </span></span>
-<span id="cb250-49"><a href="mod-02.html#cb250-49" aria-hidden="true" tabindex="-1"></a><span class="do">##  [28] cluster_2.1.2        rjags_4-12           compiler_4.1.1      </span></span>
-<span id="cb250-50"><a href="mod-02.html#cb250-50" aria-hidden="true" tabindex="-1"></a><span class="do">##  [31] drc_3.0-1            Matrix_1.3-4         fastmap_1.1.0       </span></span>
-<span id="cb250-51"><a href="mod-02.html#cb250-51" aria-hidden="true" tabindex="-1"></a><span class="do">##  [34] cli_3.1.0            htmltools_0.5.2      quantreg_5.86       </span></span>
-<span id="cb250-52"><a href="mod-02.html#cb250-52" aria-hidden="true" tabindex="-1"></a><span class="do">##  [37] tools_4.1.1          lmerTest_3.1-3       coda_0.19-4         </span></span>
-<span id="cb250-53"><a href="mod-02.html#cb250-53" aria-hidden="true" tabindex="-1"></a><span class="do">##  [40] gtable_0.3.0         glue_1.4.2           lmom_2.8            </span></span>
-<span id="cb250-54"><a href="mod-02.html#cb250-54" aria-hidden="true" tabindex="-1"></a><span class="do">##  [43] reshape2_1.4.4       dplyr_1.0.7          Rcpp_1.0.7          </span></span>
-<span id="cb250-55"><a href="mod-02.html#cb250-55" aria-hidden="true" tabindex="-1"></a><span class="do">##  [46] carData_3.0-4        jquerylib_0.1.4      vctrs_0.3.8         </span></span>
-<span id="cb250-56"><a href="mod-02.html#cb250-56" aria-hidden="true" tabindex="-1"></a><span class="do">##  [49] nlme_3.1-152         conquer_1.2.0        iterators_1.0.13    </span></span>
-<span id="cb250-57"><a href="mod-02.html#cb250-57" aria-hidden="true" tabindex="-1"></a><span class="do">##  [52] lmtest_0.9-38        timeDate_3043.102    xfun_0.27           </span></span>
-<span id="cb250-58"><a href="mod-02.html#cb250-58" aria-hidden="true" tabindex="-1"></a><span class="do">##  [55] gower_0.2.2          stringr_1.4.0        globals_0.14.0      </span></span>
-<span id="cb250-59"><a href="mod-02.html#cb250-59" aria-hidden="true" tabindex="-1"></a><span class="do">##  [58] lme4_1.1-27.1        lifecycle_1.0.1      gtools_3.9.2        </span></span>
-<span id="cb250-60"><a href="mod-02.html#cb250-60" aria-hidden="true" tabindex="-1"></a><span class="do">##  [61] future_1.23.0        MASS_7.3-54          zoo_1.8-9           </span></span>
-<span id="cb250-61"><a href="mod-02.html#cb250-61" aria-hidden="true" tabindex="-1"></a><span class="do">##  [64] scales_1.1.1         ipred_0.9-12         parallel_4.1.1      </span></span>
-<span id="cb250-62"><a href="mod-02.html#cb250-62" aria-hidden="true" tabindex="-1"></a><span class="do">##  [67] sandwich_3.0-1       expm_0.999-6         SparseM_1.81        </span></span>
-<span id="cb250-63"><a href="mod-02.html#cb250-63" aria-hidden="true" tabindex="-1"></a><span class="do">##  [70] yaml_2.2.1           Exact_3.0            ggplot2_3.3.5       </span></span>
-<span id="cb250-64"><a href="mod-02.html#cb250-64" aria-hidden="true" tabindex="-1"></a><span class="do">##  [73] rpart_4.1-15         stringi_1.7.5        triangle_0.12       </span></span>
-<span id="cb250-65"><a href="mod-02.html#cb250-65" aria-hidden="true" tabindex="-1"></a><span class="do">##  [76] highr_0.9            foreach_1.5.1        plotrix_3.8-2       </span></span>
-<span id="cb250-66"><a href="mod-02.html#cb250-66" aria-hidden="true" tabindex="-1"></a><span class="do">##  [79] nortest_1.0-4        e1071_1.7-9          permute_0.9-5       </span></span>
-<span id="cb250-67"><a href="mod-02.html#cb250-67" aria-hidden="true" tabindex="-1"></a><span class="do">##  [82] boot_1.3-28          lava_1.6.10          rlang_0.4.12        </span></span>
-<span id="cb250-68"><a href="mod-02.html#cb250-68" aria-hidden="true" tabindex="-1"></a><span class="do">##  [85] pkgconfig_2.0.3      matrixStats_0.61.0   rgl_0.107.14        </span></span>
-<span id="cb250-69"><a href="mod-02.html#cb250-69" aria-hidden="true" tabindex="-1"></a><span class="do">##  [88] evaluate_0.14        lattice_0.20-44      purrr_0.3.4         </span></span>
-<span id="cb250-70"><a href="mod-02.html#cb250-70" aria-hidden="true" tabindex="-1"></a><span class="do">##  [91] htmlwidgets_1.5.4    recipes_0.1.17       labeling_0.4.2      </span></span>
-<span id="cb250-71"><a href="mod-02.html#cb250-71" aria-hidden="true" tabindex="-1"></a><span class="do">##  [94] tidyselect_1.1.1     parallelly_1.28.1    plyr_1.8.6          </span></span>
-<span id="cb250-72"><a href="mod-02.html#cb250-72" aria-hidden="true" tabindex="-1"></a><span class="do">##  [97] magrittr_2.0.1       R6_2.5.1             DescTools_0.99.43   </span></span>
-<span id="cb250-73"><a href="mod-02.html#cb250-73" aria-hidden="true" tabindex="-1"></a><span class="do">## [100] generics_0.1.1       multcompView_0.1-8   multcomp_1.4-17     </span></span>
-<span id="cb250-74"><a href="mod-02.html#cb250-74" aria-hidden="true" tabindex="-1"></a><span class="do">## [103] pillar_1.6.4         withr_2.4.2          mgcv_1.8-36         </span></span>
-<span id="cb250-75"><a href="mod-02.html#cb250-75" aria-hidden="true" tabindex="-1"></a><span class="do">## [106] survival_3.2-11      abind_1.4-5          nnet_7.3-16         </span></span>
-<span id="cb250-76"><a href="mod-02.html#cb250-76" aria-hidden="true" tabindex="-1"></a><span class="do">## [109] tibble_3.1.5         future.apply_1.8.1   crayon_1.4.2        </span></span>
-<span id="cb250-77"><a href="mod-02.html#cb250-77" aria-hidden="true" tabindex="-1"></a><span class="do">## [112] car_3.0-12           rcompanion_2.4.1     utf8_1.2.2          </span></span>
-<span id="cb250-78"><a href="mod-02.html#cb250-78" aria-hidden="true" tabindex="-1"></a><span class="do">## [115] rmarkdown_2.11       grid_4.1.1           data.table_1.14.2   </span></span>
-<span id="cb250-79"><a href="mod-02.html#cb250-79" aria-hidden="true" tabindex="-1"></a><span class="do">## [118] vegan_2.5-7          ModelMetrics_1.2.2.2 digest_0.6.28       </span></span>
-<span id="cb250-80"><a href="mod-02.html#cb250-80" aria-hidden="true" tabindex="-1"></a><span class="do">## [121] numDeriv_2016.8-1.1  tidyr_1.1.4          stats4_4.1.1        </span></span>
-<span id="cb250-81"><a href="mod-02.html#cb250-81" aria-hidden="true" tabindex="-1"></a><span class="do">## [124] munsell_0.5.0        R2WinBUGS_2.1-21</span></span></code></pre></div>
+<span id="cb250-40"><a href="mod-02.html#cb250-40" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] rstudioapi_0.13  knitr_1.36       magrittr_2.0.1   R2jags_0.7-1    </span></span>
+<span id="cb250-41"><a href="mod-02.html#cb250-41" aria-hidden="true" tabindex="-1"></a><span class="do">##  [5] MASS_7.3-54      triangle_0.12    lattice_0.20-44  rlang_0.4.12    </span></span>
+<span id="cb250-42"><a href="mod-02.html#cb250-42" aria-hidden="true" tabindex="-1"></a><span class="do">##  [9] fastmap_1.1.0    stringr_1.4.0    highr_0.9        tools_4.1.1     </span></span>
+<span id="cb250-43"><a href="mod-02.html#cb250-43" aria-hidden="true" tabindex="-1"></a><span class="do">## [13] parallel_4.1.1   grid_4.1.1       xfun_0.27        coda_0.19-4     </span></span>
+<span id="cb250-44"><a href="mod-02.html#cb250-44" aria-hidden="true" tabindex="-1"></a><span class="do">## [17] jquerylib_0.1.4  htmltools_0.5.2  R2WinBUGS_2.1-21 yaml_2.2.1      </span></span>
+<span id="cb250-45"><a href="mod-02.html#cb250-45" aria-hidden="true" tabindex="-1"></a><span class="do">## [21] abind_1.4-5      digest_0.6.28    evaluate_0.14    rmarkdown_2.11  </span></span>
+<span id="cb250-46"><a href="mod-02.html#cb250-46" aria-hidden="true" tabindex="-1"></a><span class="do">## [25] stringi_1.7.5    compiler_4.1.1   rjags_4-12       boot_1.3-28</span></span></code></pre></div>
 </div>
 <div id="package-dependencies" class="section level3" number="2.9.6">
 <h3><span class="header-section-number">2.9.6</span> Package dependencies</h3>
@@ -2652,20 +2612,20 @@ Most packages are stored on The Comprehensive R Archive Network, or <a href="htt
 <h3><span class="header-section-number">2.10.1</span> Documentation (help) files</h3>
 <p>Documentation for each function, or help files, come included with the base R installation. You can access them from within R by using the <code>?</code> command. <code>?functionname</code> will open the documentation file for function <code>functionname</code>. <code>?</code> will search all currently attached packages. The command below opens the page for the mean function. Notice that this file is stored on your local machine, so no internet access is required.</p>
 <div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="mod-02.html#cb257-1" aria-hidden="true" tabindex="-1"></a>?mean</span></code></pre></div>
-<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/02_13.jpg" /></p>
+<p><img src="02_13.jpg" width="70%" style="display: block; margin: auto;" /></p>
 <p>Some functions belong to a family of related functions that share a common documentation page. For example, all of the functions related to the normal distribution share a common page:</p>
 <div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="mod-02.html#cb258-1" aria-hidden="true" tabindex="-1"></a>?dnorm</span>
 <span id="cb258-2"><a href="mod-02.html#cb258-2" aria-hidden="true" tabindex="-1"></a>?pnorm</span>
 <span id="cb258-3"><a href="mod-02.html#cb258-3" aria-hidden="true" tabindex="-1"></a>?qnorm</span>
 <span id="cb258-4"><a href="mod-02.html#cb258-4" aria-hidden="true" tabindex="-1"></a>?rnorm</span></code></pre></div>
-<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/02_14.jpg" /></p>
+<p><img src="02_14.jpg" width="70%" style="display: block; margin: auto;" /></p>
 <p>You can also search for help on functions in packages that are not attached. Or, you might want to know about a function but don’t know what package it belongs to. Either way, <code>??functionname</code> is a more general search option that will search any package in your library. Compare what happens if search for function <code>fitdistr()</code> using <code>?</code> and <code>??</code> (this function is in package <code>MASS</code>, and so not loaded by default). With <code>??</code>, R searches all installed packages and returns a browser window with every result that might match your search term.</p>
 <div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="mod-02.html#cb259-1" aria-hidden="true" tabindex="-1"></a>?fitdistr</span>
 <span id="cb259-2"><a href="mod-02.html#cb259-2" aria-hidden="true" tabindex="-1"></a><span class="do">## No documentation for ‘fitdistr’ in specified packages and libraries:</span></span>
 <span id="cb259-3"><a href="mod-02.html#cb259-3" aria-hidden="true" tabindex="-1"></a><span class="do">## you could try ‘??fitdistr’</span></span>
 <span id="cb259-4"><a href="mod-02.html#cb259-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb259-5"><a href="mod-02.html#cb259-5" aria-hidden="true" tabindex="-1"></a>??fitdistr</span></code></pre></div>
-<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/02_15.jpg" /></p>
+<p><img src="02_15.jpg" width="70%" style="display: block; margin: auto;" /></p>
 <p>The R documentation pages all tend to follow the same format:</p>
 <ul>
 <li><strong>Description:</strong> brief description of what the function does.</li>
@@ -2685,13 +2645,13 @@ Most packages are stored on The Comprehensive R Archive Network, or <a href="htt
 <p>A <strong>vignette</strong> is a document demonstrating the use of an R package or its functions, with more details and explanation than in the help files. Not all packages offer vignettes. You can see what vignettes are available with the command <code>vignette()</code>. Specific vignettes are accessed by name and package. The examples below show how to get a list of available vignettes, available vignettes by package, and open specific vignettes.</p>
 <div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="mod-02.html#cb260-1" aria-hidden="true" tabindex="-1"></a><span class="co"># list vignettes in all installed packages</span></span>
 <span id="cb260-2"><a href="mod-02.html#cb260-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vignette</span>()</span></code></pre></div>
-<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/02_16.jpg" /></p>
+<p><img src="02_17.jpg" width="90%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="mod-02.html#cb261-1" aria-hidden="true" tabindex="-1"></a><span class="co"># list vignettes in package vegan</span></span>
 <span id="cb261-2"><a href="mod-02.html#cb261-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vignette</span>(<span class="at">package=</span><span class="st">&quot;vegan&quot;</span>)</span></code></pre></div>
-<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/02_17.jpg" /></p>
+<p><img src="02_17.jpg" width="90%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="mod-02.html#cb262-1" aria-hidden="true" tabindex="-1"></a><span class="co"># open vignette &quot;intro-vegan&quot; in local PDF reader</span></span>
 <span id="cb262-2"><a href="mod-02.html#cb262-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vignette</span>(<span class="st">&quot;intro-vegan&quot;</span>, <span class="at">package=</span><span class="st">&quot;vegan&quot;</span>)</span></code></pre></div>
-<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/02_18.jpg" /></p>
+<p><img src="02_18.jpg" width="90%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="official-r-project-resources" class="section level3" number="2.10.3">
 <h3><span class="header-section-number">2.10.3</span> Official R Project resources</h3>
@@ -2824,7 +2784,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["_main.pdf"],
+"download": ["applied_biol_data_analysis_20220113.pdf"],
 "search": {
 "engine": "fuse",
 "options": null

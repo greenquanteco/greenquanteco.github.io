@@ -11,7 +11,7 @@
   <meta property="og:title" content="Module 1 Statistics in modern biology | Applied Biological Data Analysis" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://greenquanteco.github.io/index.html" />
-  <meta property="og:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
+  <meta property="og:image" content="https://greenquanteco.github.io/index.html/lab_logo_02.jpg" />
   <meta property="og:description" content="Helping biologists to become more informed users of R and statistical methods." />
   
 
@@ -19,12 +19,12 @@
   <meta name="twitter:title" content="Module 1 Statistics in modern biology | Applied Biological Data Analysis" />
   
   <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
-  <meta name="twitter:image" content="https://greenquanteco.github.io/index.html/C:/Users/ngreen62/OneDrive - Kennesaw State University/ksu/website/lab_logo_02.jpg" />
+  <meta name="twitter:image" content="https://greenquanteco.github.io/index.html/lab_logo_02.jpg" />
 
 <meta name="author" content="Nick Green, Kennesaw State University" />
 
 
-<meta name="date" content="2022-01-12" />
+<meta name="date" content="2022-01-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -550,8 +550,7 @@ div.csl-indent {
 <li>Conclusions</li>
 </ol>
 <p>The reality is a little more complicated. A more realistic representation might be something like this <span class="citation">(<a href="#ref-voit2019" role="doc-biblioref">Voit 2019</a>)</span>:</p>
-<p><img src="01_01.jpg" width="90%" /></p>
-<p>TESTING 7</p>
+<p><img src="01_01.jpg" width="70%" style="display: block; margin: auto;" /></p>
 <p>This model includes the key decision point <em>Test results support the hypothesis</em>. If this is the case, new insight has been gained which can be shared with the world and which should provoke new questions. If the test results do not support the hypothesis, then there is more work to do before any conclusions can be drawn. Namely, one hypothesis may have been eliminated, so an experiment must be devised to test another candidate explanation.</p>
 <p>This course is about that decision process: determining whether biological data support a hypothesis or not. Every step before and after that decision point depends on your subject matter expertise as a biologist. The logic of the decision process itself, however, is in the realm of statistics. Being a biologist requires being able to use the tools of statistics to determine whether data support or refute a hypothesis. Even if you do not end up working as a biologist, a career in any knowledge field (scientific or otherwise) will be greatly enhanced by this ability.</p>
 <p>Many biology majors, including myself as an undergraduate, seem to have a phobia of statistics and mathematics. That’s perfectly understandable. In some ways, biology and mathematics use very different mindsets. Biologists tend to revel in the gory details (literally) of anatomy, taxonomy, biochemistry, ecology, behavior, and genetics. These details are often taxon and even situation-specific. Mathematicians, on the other hand, spend a lot of effort trying to abstract those details away and discover general underlying patterns. But, as we will see this semester, as biologists we can benefit a lot from trying to express our ideas in terms of mathematics. Specifically, in the language of statistics, which is the discipline of applied mathematics that is concerned with measuring and interpreting data. The modern discipline of statistics was developed in large part to help answer the kinds of questions that scientists ask<a href="literature-cited.html#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. In other words, to help make the critical decision about whether test results support a hypothesis or not.</p>
@@ -564,11 +563,11 @@ div.csl-indent {
 <ul>
 <li><strong>Experiment 1</strong>: 40 turtles are raised in the lab: 20 exposed to low levels of atrazine, and 20 not exposed to atrazine. Turtle eggs were incubated at 25 <span class="math inline">\(^\circ\)</span>C, a temperature known to produce only male hatchlings. They then counted the number of male and female hatchlings.</li>
 </ul>
-<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_19.jpg" /></p>
+<p><img src="01_19.jpg" width="70%" style="display: block; margin: auto;" /></p>
 <ul>
 <li><strong>Experiment 2:</strong> 30 ponds are surveyed for turtle nests. The number of nests at each pond and eggs in each nest are counted. Surrounding land use and other environmental variables are also recorded.</li>
 </ul>
-<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_20.jpg" /></p>
+<p><img src="01_20.jpg" width="70%" style="display: block; margin: auto;" /></p>
 <p>In experiment 1, at the incubation temperature of 25 <span class="math inline">\(^\circ\)</span>C, all embryos should have developed into male hatchlings. The actual results were:</p>
 <table>
 <thead>
@@ -593,7 +592,7 @@ div.csl-indent {
 </table>
 <p>The researchers performed a <span class="math inline">\(\chi^2\)</span> test and found that the proportion of hatchlings that were male did not differ significantly between the control and exposed treatments (<span class="math inline">\(\chi^2\)</span>=0.526, 1 d.f., <em>P</em> = 0.4682). From this they concluded that atrazine does not interfere substantially with male turtle development<a href="literature-cited.html#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>.</p>
 <p>In the experiment 2, researchers found that ponds near farms tended to have fewer turtle nests. Their data are shown graphically below. The researchers compared the mean number of nests in the farm vs. non-farm ponds and found that, on average, ponds surrounded by farms tended to have about 2.86 fewer nests (95% confidence interval of difference = [1.46, 4.38]). A <em>t</em>-test found that this difference was statistically significant (<em>t</em> = 4.1737, 27.253 d.f., <em>P</em> = 0.0002). When the researchers compared the number of eggs per nest, they found no difference in mean eggs per nest between pond types (<em>t</em> = 0, 27.253 d.f., <em>P</em> &gt; 0.9999).</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-2-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="applied_biol_data_analysis_20220113_files/figure-html/unnamed-chunk-6-1.png" width="768" style="display: block; margin: auto;" /></p>
 <p>So, what can the researchers conclude? From experiment 2, they can conclude that something about being surrounded by farms appears to reduce the number of turtle nests in the ponds, but does not affect the number of eggs per nest. From experiment 1, they can also conclude that atrazine by itself does not appear to affect development of male turtles.</p>
 <p>Notice that in the investigation described above, the researchers did not obtain a definitive answer to their question from any single test. Instead, they used their working hypothesis (proposed explanation) to deduce several predictions of results they should have observed if their hypothesis was correct. Here is the thought process more explicitly:</p>
 <ul>
@@ -661,7 +660,7 @@ div.csl-indent {
 <p>The first statement is just fine. The second statement is also fine, in the sense that it is true and because it includes a perfectly legitimate <em>t</em>-test. But, the test reported in the second statement is of a completely trivial question. Of course there were fewer trees after clear-cutting…that’s what clear-cutting means! The additional verbiage adds no real information to the paper because the paper wasn’t about aboveground woody biomass, but rather about soil N fixation. The reviewers (or editors) would be justified in requiring the removal or shortening of the second statement.</p>
 <p>Including unnecessary statistical tests can be tempting in situations where there aren’t many significant test results. For example, if your study produces no significant statistical differences related to your main hypothesis, or a marginal effect that is hard to interpret. Padding the manuscript with additional <em>P</em>-values &lt;0.05 can make the work feel more legitimate and on less shaky ground. Resist this temptation.</p>
 <p>The logic of null hypothesis significance testing (NHST; see below) sometimes requires us to consider, at least statistically, hypotheses that we know to be false. One such example involves simulation: when data are simulated, it is meaningless to test whether or not two simulations with different parameters were “significantly different” because they are <em>known</em> to be different. Consider the example below <span class="citation">(<a href="#ref-green2021" role="doc-biblioref">Green et al. 2021</a>)</span>:</p>
-<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_02.jpg" /></p>
+<p><img src="01_02.jpg" width="70%" style="display: block; margin: auto;" /></p>
 <p>In this study, researchers simulated deer populations and the results of surveying those deer using different survey methods. They then used analysis of variance (ANOVA) to compare the mean population estimates resulting from different methods. Their goal was not to determine whether the population estimates were different between different methods. The estimates were known to be different, because the data were simulated in the first place! What they were trying to do was partition the variance; i.e., measure how much of the difference in estimated population size was attributable to survey method <span class="citation">(<a href="#ref-white2014" role="doc-biblioref">White et al. 2014</a>)</span>. If you are conducting a simulation study, remember that the literal null hypothesis of your statistical test is likely meaningless, or at least, known <em>a priori</em> to be false.</p>
 </div>
 <div id="inappropriate-methods" class="section level3" number="1.3.2">
@@ -690,22 +689,22 @@ div.csl-indent {
 ## Residual standard error: 0.5582 on 148 degrees of freedom
 ## Multiple R-squared:  0.9007, Adjusted R-squared:    0.9 
 ## F-statistic:  1342 on 1 and 148 DF,  p-value: &lt; 2.2e-16</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-4-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="applied_biol_data_analysis_20220113_files/figure-html/unnamed-chunk-9-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>See the problem? The dependent variable is modeled as a linear function of the species’ identities: literally the numbers 1, 2, and 3. The category labels (species) were treated as numeric values. While the plot shows some clear differences between the species, what if the species had been labeled differently? There is a correct way to analyze these data, but it is not linear regression<a href="literature-cited.html#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>.</p>
 </div>
 <div id="common-mistake-2-overfitting" class="section level4" number="1.3.2.2">
 <h4><span class="header-section-number">1.3.2.2</span> Common mistake 2: Overfitting</h4>
 <p><strong>Overfitting</strong> is when a statistical model is fit with more variables than the data can justify. Generally, a model is overfit when <em>random noise is modeled as if it was part of the deterministic part of the model</em>. Most statistical models have a deterministic part and a stochastic part. The <strong>deterministic part</strong> predicts the “average” or expected value of the response variable as some function of the explanatory variables. It usually takes the form of an equation (or set of equations). The <strong>stochastic part</strong> of the model describes how observations vary from the expected value predicted by the deterministic part. The stochastic part usually includes one of more probability distributions. We’ll discuss common probability distributions in a later module.</p>
 <p>The figure below shows the relationship between the deterministic part and stochastic part of a common statistical model, the linear model.</p>
-<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_03.jpg" /></p>
+<p><img src="01_03.jpg" width="90%" style="display: block; margin: auto;" /></p>
 <p>Using computers, it is easy to fit equations to data. In most software it is trivial to add predictor variables to a model until all of the variance is explained (i.e., <em>R</em><sup>2</sup> = 1). However, this is usually not a good idea. There is <em>always</em> random noise in any dataset, and the appropriate strategy is always to model that noise rather than try to explain it deterministically. This is because some of that noise is unique to the specific entities or samples that are being sampled. Modeling the noise that is specific to a particular study as if it was representative of all potential studies makes an analysis too parochial to be generally applicable.</p>
 <p>Consider the example below. In this plot, 12 data points were generated using a linear model (Y ~ X) with normally distributed residuals. Then, various regression models were fit to the data. Each model contained one more term than the last:</p>
 <p><span class="math display">\[\begin{matrix}Linear\ model&amp;Y=\beta_0+\beta_1X\\Quadratic\ model&amp;Y=\beta_0+\beta_1X+\beta_2X^2\\Cubic\ model&amp;Y=\beta_0+\beta_1X+\beta_2X^2+\beta_3X^3\\Quartic\ model&amp;Y=\beta_0+\beta_1X+\beta_2X^2+\beta_3X^3+\beta_4X^4\\Quintic\ model&amp;Y=\beta_0+\beta_1X+\beta_2X^2+\beta_3X^3+\beta_4X^4+\beta_5X^5\\Sextic\ model&amp;Y=\beta_0+\beta_1X+\beta_2X^2+\beta_3X^3+\beta_4X^4+\beta_5X^5+\beta_6X^6\\\end{matrix}\]</span></p>
 <p>In this figure, the model prediction and 95% confidence interval (CI) are shown as a red line and red shaded area. The model residuals are shown as blue lines. The original data are shown as black points.</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-6-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p><img src="applied_biol_data_analysis_20220113_files/figure-html/unnamed-chunk-12-1.png" width="864" style="display: block; margin: auto;" /></p>
 <p>Notice that the as the model includes more terms, the fit improves. This can be seen because the residuals are generally getting smaller and the predicted values are getting closer to the observed values.</p>
 <p>The figure below shows how the fit improved as more terms were added. This figure shows how root mean squared error (RMSE), a measure of model predictive ability, decreases with increasing model complexity.</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-7-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="applied_biol_data_analysis_20220113_files/figure-html/unnamed-chunk-13-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>Notice what happens as the curves pass through more and more of the points: for <em>X</em> values other than the input points, the curves vary wildly. What’s going on here is that the higher-order polynomials are forcing the curves through each point, at the expense of reasonableness between the points. In fact, for any dataset with n observations, you can obtain a perfect fit to the points with a polynomial curve of order <em>n</em>. But, such a curve is highly unlikely to be reasonable because it is not likely to be very applicable to other data. In other words, the model includes terms that are fitting random noise, but do not have general applicability.</p>
 <p>A simpler model with fewer terms, and thus greater variance between the data and their predicted values, would likely have more predictive power for new data. Thus, the simpler model might be a better representation of the underlying process. In data science this phenomenon is often called the <strong>bias-variance trade-off</strong> because in general it’s easy to minimize prediction error on the training data (“variance”) but at the cost of decreasing prediction error on new observations (“bias”). This is because some of the variation in the training data is actually random noise and thus fitting the model to explain it is really explaining nothing.</p>
 </div>
@@ -718,16 +717,16 @@ div.csl-indent {
 <li><em>P</em>-hacking allows the researcher to commit scientific misconduct, whether intentionally or not. Your objective should be to find the correct answer, not to minimize a <em>P</em>-value.</li>
 <li><em>P</em>-hacking sets you up to commit what’s called the <strong>Texas Sharpshooter Fallacy</strong>. This name evokes the story of a (Texan) gunman shooting a barn, then drawing targets around the bullet holes to make it look like he hit his targets. Another expression that describes this is, “Hypothesizing after results known,” or HARK.</li>
 </ol>
-<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_07.jpg" style="width:70.0%" /></p>
+<p><img src="01_07.jpg" width="70%" style="display: block; margin: auto;" /></p>
 <p>Data dredging has all of the same problems as <em>P</em>-hacking, but arrives at them a different way. Whereas a <em>P</em>-hacker adjusts the analysis until the <em>P</em>-value is significant, a data dredger just keeps trying new variables until one of them hits. This approach is perhaps best summarized in the following comic<a href="literature-cited.html#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>, although <span class="citation">Head et al. (<a href="#ref-head2015" role="doc-biblioref">2015</a>)</span> provide a more rigorous treatment.</p>
-<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_04.png" style="width:70.0%" /></p>
+<p><img src="01_04.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="inadequate-sample-sizes-and-pseudoreplication" class="section level3" number="1.3.4">
 <h3><span class="header-section-number">1.3.4</span> Inadequate sample sizes and pseudoreplication</h3>
 <div id="sample-sizes-and-statistical-power" class="section level4" number="1.3.4.1">
 <h4><span class="header-section-number">1.3.4.1</span> Sample sizes and statistical power</h4>
 <p>Size matters in biology <span class="citation">(<a href="#ref-smith2013" role="doc-biblioref">Smith and Lyons 2013</a>)</span>. Size also matters in statistics <span class="citation">(<a href="#ref-makin2019" role="doc-biblioref">Makin and Xivry 2019</a>)</span>. As we’ll see in the next section, the number of observations in a study can have a large impact on whether or not a pattern is detected in the data. Generally, studies with greater sample sizes can detect smaller effects. Put another way, studies with greater sample sizes are more likely to detect an effect of a given magnitude. On the other hand, studies with smaller sample sizes are less likely to detect an effect. Both of these situations present their own kinds of problems, summarized in the table below.</p>
-<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_05.jpg" /></p>
+<p><img src="01_05.jpg" width="90%" style="display: block; margin: auto;" /></p>
 <p>Ideally we should reject the null hypothesis when it is false, and fail to reject it when it is true. However, data always have some element of randomness in them and thus we can never be perfectly sure that the conclusions of a test are correct. Statisticians have thought about this problem a lot and boiled it down to two probabilities: <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>.</p>
 <ul>
 <li><span class="math inline">\(\alpha\)</span> is the <strong>type I error rate</strong>, the probability of rejecting the null hypothesis when it is true.</li>
@@ -804,7 +803,7 @@ div.csl-indent {
 <p>The best strategy for mitigating pseudoreplication is to <strong>avoid it</strong>. This requires thinking very carefully about your experimental design and about what the experimental units (i.e., samples) really are. Avoiding pseudoreplication often involves some degree of randomization, in order to break any connection between potentially confounding variables.</p>
 <p>If avoiding pseudoreplication is not possible, then you need to <strong>account for it</strong>. One way is to take steps to mitigate confounding variables. For example, you could rearrange plants in a growth chamber each day so that any effects of location within the chamber would be minimized. Another way is to acknowledge pseudoreplication in your analysis. Some methods such as mixed effects models or autocorrelation structures can account for some pseudoreplication (but you need to be very careful about doing this and very explicit about what you did). Finally, you can be open about the limitations of your study and present your findings as preliminary, or as not conclusive. Note that this strategy, while certainly ego-deflating, does not mean that your work is invalid. Openness and honesty are vital parts of the scientific process. What would be invalid would be ignoring any pseudoreplication in your study and overstating the validity of your results.</p>
 <p><span class="citation">Hurlbert (<a href="#ref-hurlbert1984" role="doc-biblioref">1984</a>)</span> defined four kinds of pseudoreplication: simple, temporal, sacrificial, and implicit. The first 3 is shown in the figure below.</p>
-<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_06.jpg" /></p>
+<p><img src="01_06.jpg" width="80%" style="display: block; margin: auto;" /></p>
 <div id="simple-pseudoreplication" class="section level5" number="1.3.4.2.1">
 <h5><span class="header-section-number">1.3.4.2.1</span> Simple pseudoreplication</h5>
 <p>Simple pseudoreplication occurs when there is one experimental unit, or replicate, per treatment, regardless of how many samples are taken within each replicate. When this occurs, variability between replicates cannot be separated from variation between treatments.</p>
@@ -812,7 +811,7 @@ div.csl-indent {
 <blockquote>
 <p>Barney is interested in the effects of forest management practices on soil microbes. He visits two forest sites: Site A is burned regularly, and Site B is unmanaged. Barney uses a GIS to randomly identify a 1 ha plot within each site. He then visits each site and takes 20 soil samples from the randomly selected plot. Barney then measures the metabolic profile of each soil microbe sample (<em>n</em> = 40) and compares the 20 samples from the burned plot to the 20 samples from the unburned plot.</p>
 </blockquote>
-<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_08.jpg" /></p>
+<p><img src="01_08.jpg" width="90%" style="display: block; margin: auto;" /></p>
 <p>The problem here is that Barney might actually only have 2 samples: one from the burned plot, and one from the unburned plot. If the plots are relatively homogenous, then we should expect their microbiota to be similar simply because of their proximity and shared environment. So, the proper experimental unit is the plot, not the soil sample. Barney has collected a dataset with simple pseudoreplication because he confused taking multiple measurements within an experimental unit with taking measurements at multiple experimental units. In other words, his “replicates” are not true replicates. Barney’s thesis advisor tells him to sample more sites and to investigate mixed models and block designs for his analysis.</p>
 </div>
 <div id="temporal-pseudoreplication" class="section level5" number="1.3.4.2.2">
@@ -822,7 +821,7 @@ div.csl-indent {
 <blockquote>
 <p>Betty is interested in the effects of a new sugar substitute on the growth of gut bacteria. She inoculates 10 plates with <em>E. coli</em> bacteria and gives the new sweetener to 5 of them. She then counts the number of colony forming units (CFU) on each plate at 1, 2, 3, and 4 days after exposure. Betty analyzes her data using a t-test, with 20 exposed samples (5 plates <span class="math inline">\(\times\)</span> 4 sampling occasions) and 20 control samples.</p>
 </blockquote>
-<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_09.jpg" /></p>
+<p><img src="01_09.jpg" width="90%" style="display: block; margin: auto;" /></p>
 <p>Betty’s problem is like Barney’s problem, but with time instead of space. The subsequent samples from each plate are not independent of each other. For example, the number of CFU in plate A at 2 days was at least partially dependent on the number of CFU in plate A at 1 day. Using consecutive samples from the same plates does not increase the number of samples in a test of the effect of the sweetener. Instead, Betty introduced a new variable, time, into the system that added variation instead of increasing sample size. She could account for the temporal pseudoreplication in her analysis by including time as a covariate or using some sort of autocorrelation structure. If she does not include time in her analysis, however, she’s going to have a bad time.</p>
 </div>
 <div id="sacrificial-pseudoreplication" class="section level5" number="1.3.4.2.3">
@@ -832,7 +831,7 @@ div.csl-indent {
 <blockquote>
 <p>Fred is studying the onset of estrus in female cotton rats (<em>Sigmodon hispidus</em>) and suspects that it may be driven by exposure to a compound produced by certain grasses in the spring. He places 80 female rats in 40 cages (2 per cage). Rats in 40 cages are fed ordinary rodent chow, while the rates in the other cages are fed chow supplemented with the suspect compound. Rats are checked each day for signs of estrus. Clearly, each treatment (control vs. supplemented) is replicated. How many times? Fred tells his advisor that each treatment is replicated 40 times, because 40 rats received each treatment.</p>
 </blockquote>
-<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_10.jpg" /></p>
+<p><img src="01_10.jpg" width="90%" style="display: block; margin: auto;" /></p>
 <p>Not so fast. Mammalogists know that estrus can be induced in female rodents by exposure to airborne chemical cues (pheromones) from other females already in estrus. So, if there are two females in one cage and one goes into estrus (no matter the reason), the other animal might go into estrus in response the first animal’s pheromones and not at all in response to its diet. This means that the two animals in each cage cannot be considered statistically independent. So, Fred has at most 20 replicates of each treatment, not 40.</p>
 <p>But it gets worse for Fred. The vivarium is old and cramped and poorly ventilated. All 40 cages are kept on a single shelving unit in a single room, and the air always smells like fouled rodent cages. Are the 40 cages really independent of each other, if chemical signals can waft between cages? So, depending on the ventilation in the room, Fred might have 0 replicates because none of the animals are statistically independent of each other. Fred’s thesis defense does not go well.</p>
 </div>
@@ -843,7 +842,7 @@ div.csl-indent {
 <blockquote>
 <p>Wilma is studying soil nutrient content in forests under different climate change scenarios. She grows 5 pine tree seedlings in growth chamber A under atmospheric CO<sub>2</sub> (400 ppm) and 5 seedlings in growth chamber B under elevated CO<sub>2</sub> (600 ppm). She then calculates the mean and SE of soil N content from the 5 seedlings in each chamber. In chamber A, soil N concentration was 1.89 <span class="math inline">\(\pm\)</span> 0.34 SE g/kg; in chamber B, N concentration was 3.72 <span class="math inline">\(\pm\)</span> 0.14 g/kg. Because the mean soil N concentration was greater in chamber B, and the means <span class="math inline">\(\pm\)</span> SE did not overlap, she concluded that growing pine seedlings in elevated CO<sub>2</sub> increased soil N concentration.</p>
 </blockquote>
-<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_11.jpg" /></p>
+<p><img src="01_11.jpg" width="90%" style="display: block; margin: auto;" /></p>
 <p>Not quite. Wilma summarized the uncertainty surrounding soil N measurements, which was a good idea. But, she presented the uncertainty as standard error, not standard deviation. Variation within each chamber should be calculated as SD. The SE would be appropriate for describing uncertainty about the difference in means between chambers. By presenting SE instead of SD, Wilma made it look like there was much less variability within treatments than there really was. As a rule, you should always calculate SD. SE usually comes up as part of the results of a statistical test.</p>
 </div>
 </div>
@@ -920,10 +919,10 @@ div.csl-indent {
 </ul>
 <p>The numerator is the quantity we are interested in: the difference between the means in group 1 and group 2. The denominator scales the difference according to the sample size and the amount of variation in both groups. Thus, <em>t</em> accounts for the quantity of interest (the pattern), the variability in the pattern, and the number of observations of the pattern.</p>
 <p>In the example above, the <em>t</em> statistic was -1.796. This was the difference in means (-2.402) scaled by the variability in means given the variability in observations. The “significance” of the test comes from the fact that <em>t</em>-statistics themselves follow a pattern called the <strong>Student’s t distribution</strong>. The Student’s <em>t</em> distribution describes how likely different values of <em>t</em> are given a certain sample size. This sample size used is not the total number of observations, but instead a scaled version of sample size called <strong>degrees of freedom (d.f.)</strong>. For the example above with 17.872 d.f., the <em>t</em> distribution looks like this:</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="applied_biol_data_analysis_20220113_files/figure-html/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>If there was no difference between the means of <code>x1</code> and <code>x2</code>, then <em>t</em> statistics should cluster around 0 with more extreme values being much less common. Test statistics <span class="math inline">\(\ge\)</span> 4 or <span class="math inline">\(\le\)</span> -4 almost never happen.</p>
 <p>What about our <em>t</em> statistic, -1.796? The figure below shows how the total possible space of <em>t</em> statistics (given 17.872 d.f.) is partitioned. The total area under this curve, called a “probability density plot”, is equals 1. If you think about it, <em>t</em> must take on a value…so the sum of probabilities for all t is 1. The red area shows the probability of a t occurring randomly that is &lt; -1.796. That is, more extreme than the observed <em>t</em>. But “more extreme” can work the other way too: <em>t</em> could randomly be &gt; 1.796 as well. This probability of this possibility is shown by the blue area. The total of the red and blue areas is the total probability of a <em>t</em> value more extreme than the observed <em>t</em>.</p>
-<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_12.jpg" /></p>
+<p><img src="01_12.jpg" width="90%" style="display: block; margin: auto;" /></p>
 <p>But as we shall see, increasing the sample size can make the same difference appear significant:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="mod-01.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
 <span id="cb15-2"><a href="mod-01.html#cb15-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
@@ -1060,7 +1059,7 @@ div.csl-indent {
 <div id="example-bayesian-analysissimple" class="section level4" number="1.5.1.1">
 <h4><span class="header-section-number">1.5.1.1</span> Example Bayesian analysis–simple</h4>
 <p>Imagine you go to the doctor and get tested for a rare condition, <a href="https://medlineplus.gov/genetics/condition/niemann-pick-disease/">Niemann-Pick disease</a>. Your doctor tells you that this disease affects about 1 in 250000 people. Unfortunately, you test positive. But, the doctor tells you not to worry because the test only 99% reliable. Why is the doctor so sanguine, and what is the probability that you have Niemann-Pick disease<a href="literature-cited.html#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a>?</p>
-<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_17.png" /></p>
+<p><img src="01_17.png" width="50%" style="display: block; margin: auto;" /></p>
 <p>The probability of having this disease can be estimated using Bayes’ theorem. First, use what you know to assemble the terms:</p>
 <ul>
 <li>The overall incidence is 1 in 250000 people, or 0.0004%. So, the prior probability <span class="math inline">\(P\left(H\right)\)</span> is 0.000004.</li>
@@ -1093,9 +1092,9 @@ div.csl-indent {
 <span id="cb19-13"><a href="mod-01.html#cb19-13" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb19-14"><a href="mod-01.html#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="co"># example usage:</span></span>
 <span id="cb19-15"><a href="mod-01.html#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="fu">test.bt</span>(<span class="at">peh=</span><span class="fl">0.9</span>, <span class="at">ph=</span><span class="dv">10</span><span class="sc">^</span><span class="fu">seq</span>(<span class="sc">-</span><span class="dv">6</span>, <span class="sc">-</span><span class="fl">0.0001</span>, <span class="at">length=</span><span class="dv">100</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p><img src="applied_biol_data_analysis_20220113_files/figure-html/unnamed-chunk-30-1.png" width="480" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="mod-01.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test.bt</span>(<span class="at">peh=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">9</span><span class="sc">/</span><span class="dv">10</span>, <span class="at">ph=</span><span class="fl">0.25</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-14-2.png" width="672" /></p>
+<p><img src="applied_biol_data_analysis_20220113_files/figure-html/unnamed-chunk-30-2.png" width="480" style="display: block; margin: auto;" /></p>
 <p>Let’s change the numbers a bit to get a more visual understanding of how this rule is working. Imagine another scenario:</p>
 <p>About 24% of US adults are nearsighted<a href="literature-cited.html#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a>. As of 2019, about 6% of US adults worked in education<a href="literature-cited.html#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a>. If someone is nearsighted, what is the probability that they work in education?</p>
 <p>First, assemble the terms:</p>
@@ -1107,11 +1106,11 @@ div.csl-indent {
 <p>We can then calculate <span class="math inline">\(P\left(H|E\right)\)</span> as:</p>
 <p><span class="math display">\[P\left(educator|nearsighted\right)=\frac{P\left(H\right)P\left(E|H\right)}{P\left(H\right)P\left(E|H\right)+\left(1-P\left(H\right)\right)\left(P\left(E\right)\left(1-P\left(H\right)\right)\right)}=0.064\]</span></p>
 <p>This might make sense if we draw the probabilities in rectangle with area = 1. The probability of the hypothesis being true given the evidence collected is the ratio of the probability that the evidence is observed and the hypothesis is true—<span class="math inline">\(P\left(E|H\right)\)</span>—and the total probability that the evidence is observed at all<a href="literature-cited.html#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a></p>
-<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_13.jpg" /></p>
+<p><img src="01_13.jpg" width="90%" style="display: block; margin: auto;" /></p>
 <p>And the critical calculation:</p>
-<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_14.jpg" /></p>
+<p><img src="01_14.jpg" width="90%" style="display: block; margin: auto;" /></p>
 <p>This example was kind of trivial, but what about if the probability of observing the evidence is not the same in each group? What if educators were 10<span class="math inline">\(\times\)</span> as likely to be nearsighted as other workers? Then the rectangle and calculation would look like this:</p>
-<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_15.jpg" /></p>
+<p><img src="01_15.jpg" width="90%" style="display: block; margin: auto;" /></p>
 <p>In the second example, the probability that someone is an educational worker given that they are nearsighted is about 38.9%…quite a step up from the first number! This latter example shows the power of the evidence when the evidence is strong. Even though the probability of the posterior seems quite low relative to the space of all possibilities, a Bayesian would evaluate that probability in light of the evidence. The evidence restricts the range of possibilities to the cases where the evidence was actually observed (the darker sections of the rectangles). In the Bayesian framework, the probability associated with the lighter sectors, <span class="math inline">\(P\left(\lnot E|H\right)\)</span> and <span class="math inline">\(P\left(\lnot E|\lnot H\right)\)</span>, <em>don’t matter because they weren’t observed</em>.</p>
 <p>This latter point is one of the key points of difference between a traditional frequentist analysis (i.e., NHST) and a Bayesian analysis. In a frequentist analysis, the evidence is viewed as coming from a random distribution conditional on some true set of model parameters (i.e., on <em>H</em>). In Bayesian inference, the evidence is taken as given, and the model parameters conditional on the the data.</p>
 </div>
@@ -1342,7 +1341,7 @@ div.csl-indent {
 <li>Error propagation is very easy under Bayesian inference (especially MCMC).</li>
 <li>The researcher prefers the philosophy of Bayesian inference.</li>
 </ol>
-<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_16.png" style="width:50.0%" /></p>
+<p><img src="01_16.png" width="50%" style="display: block; margin: auto;" /></p>
 <p>Bayesian methods are largely beyond the scope of this course, but we will use MCMC in JAGS from time to time to fit complicated models where maximum likelihood doesn’t work so well.</p>
 </div>
 </div>
@@ -1442,7 +1441,7 @@ div.csl-indent {
 <div id="machine-learning" class="section level3" number="1.5.3">
 <h3><span class="header-section-number">1.5.3</span> Machine learning</h3>
 <p>The last alternative to NHST that we’ll explore in this class is machine learning (ML). ML is a huge and rapidly growing field of methods for extracting patterns from complex datasets. Many of these methods bear little resemblance to traditional statistics<a href="literature-cited.html#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a>.</p>
-<p><img src="C:/Users/ngreen62/OneDrive%20-%20Kennesaw%20State%20University/biol%206490/_stat/fig/01_18.png" style="width:60.0%" /></p>
+<p><img src="01_18.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>There are too many ML algorithms out there to even begin to cover here, but they all have the same underlying philosophy: ML builds a model on a sample of the data, called the “training data”, and refines or improves the model based on its ability to predict additional “test data” that were not used in the model building process.</p>
 <p>This strategy has some considerable advantages over traditional frequentist and Bayesian statistics. In those paradigms, researchers must specify a data model ahead of time and then test how well the data support that model. Specifying a data model makes many assumptions about the distribution of the response variable, the shape of the relationship between the variables (e.g., linear vs. curved vs. stepped), the relationships between predictors, and so on. ML usually makes no such assumptions. Instead, the model is treated as a “black box” that takes in input and spits out predictions. Researchers using ML methods typically don’t worry about or even try to interpret the inner workings of the black box. Those inner workings are often nonsensical to humans anyway. Instead, users of ML report and interpret the predictions of their models and different measures of predictive accuracy.</p>
 <p>The disadvantages of ML compared to traditional statistics are also considerable. By not specifying a data model, researchers must assume that their training data are representative of the process they are trying to model. There’s an old saying in statistics and modeling: “Garbage in, garbage out.” If training data are not appropriate, or if there really is no relationship between the predictor variables and the response variable, there is no guarantee that a ML algorithm won’t find one anyway (this is similar to how traditional statistics sometimes get false positives). It’s still up to the researcher to interpret the patterns that the ML method detects and think long and hard about whether those patterns are reasonable.</p>
@@ -1572,7 +1571,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["_main.pdf"],
+"download": ["applied_biol_data_analysis_20220113.pdf"],
 "search": {
 "engine": "fuse",
 "options": null
