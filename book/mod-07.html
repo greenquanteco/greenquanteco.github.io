@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Module 7 Common statistical problems | Applied Biological Data Analysis: Statistics and R for Biologists</title>
+  <meta name="description" content="Helping biologists to become more informed users of R and statistical methods." />
+  <meta name="generator" content="bookdown 0.28 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Module 7 Common statistical problems | Applied Biological Data Analysis: Statistics and R for Biologists" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://greenquanteco.github.io/book/lab_logo_02.jpg" />
+  <meta property="og:description" content="Helping biologists to become more informed users of R and statistical methods." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Module 7 Common statistical problems | Applied Biological Data Analysis: Statistics and R for Biologists" />
+  
+  <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
+  <meta name="twitter:image" content="https://greenquanteco.github.io/book/lab_logo_02.jpg" />
+
+<meta name="author" content="Nick Green, Kennesaw State University" />
+
+
+<meta name="date" content="2022-08-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="fav.ico" type="image/x-icon" />
+<link rel="prev" href="mod-06.html"/>
+<link rel="next" href="mod-08.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Applied biological data analysis</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#license-and-permissions"><i class="fa fa-check"></i>License and permissions</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-description"><i class="fa fa-check"></i>Course description</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-objectives"><i class="fa fa-check"></i>Course objectives</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-requirements"><i class="fa fa-check"></i>Course requirements</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#recommended-reading"><i class="fa fa-check"></i>Recommended reading</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-organization"><i class="fa fa-check"></i>Course organization</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#about-the-author"><i class="fa fa-check"></i>About the author</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="mod-01.html"><a href="mod-01.html"><i class="fa fa-check"></i><b>1</b> Statistics in modern biology</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="mod-01.html"><a href="mod-01.html#overview"><i class="fa fa-check"></i><b>1.1</b> Overview</a></li>
+<li class="chapter" data-level="1.2" data-path="mod-01.html"><a href="mod-01.html#statistics-in-modern-biology"><i class="fa fa-check"></i><b>1.2</b> Statistics in modern biology</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="mod-01.html"><a href="mod-01.html#the-scientific-method"><i class="fa fa-check"></i><b>1.2.1</b> The scientific method</a></li>
+<li class="chapter" data-level="1.2.2" data-path="mod-01.html"><a href="mod-01.html#example-data-analysis"><i class="fa fa-check"></i><b>1.2.2</b> Example data analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="mod-01.html"><a href="mod-01.html#misuses-of-statistics"><i class="fa fa-check"></i><b>1.3</b> Misuses of statistics</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="mod-01.html"><a href="mod-01.html#proving-the-trivial-and-meaningless-hypotheses"><i class="fa fa-check"></i><b>1.3.1</b> “Proving” the trivial and meaningless hypotheses</a></li>
+<li class="chapter" data-level="1.3.2" data-path="mod-01.html"><a href="mod-01.html#inappropriate-methods"><i class="fa fa-check"></i><b>1.3.2</b> Inappropriate methods</a></li>
+<li class="chapter" data-level="1.3.3" data-path="mod-01.html"><a href="mod-01.html#p-hacking-and-data-dredging"><i class="fa fa-check"></i><b>1.3.3</b> <em>P</em>-hacking and data dredging</a></li>
+<li class="chapter" data-level="1.3.4" data-path="mod-01.html"><a href="mod-01.html#inadequate-sample-sizes-and-pseudoreplication"><i class="fa fa-check"></i><b>1.3.4</b> Inadequate sample sizes and pseudoreplication</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="mod-01.html"><a href="mod-01.html#mod-01-nhst"><i class="fa fa-check"></i><b>1.4</b> <em>P</em>-values and null hypothesis significance testing (NHST)</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="mod-01.html"><a href="mod-01.html#definition"><i class="fa fa-check"></i><b>1.4.1</b> Definition</a></li>
+<li class="chapter" data-level="1.4.2" data-path="mod-01.html"><a href="mod-01.html#history-and-status-of-p-values"><i class="fa fa-check"></i><b>1.4.2</b> History and status of <em>P</em>-values</a></li>
+<li class="chapter" data-level="1.4.3" data-path="mod-01.html"><a href="mod-01.html#where-p-values-come-from"><i class="fa fa-check"></i><b>1.4.3</b> Where <em>P</em>-values come from</a></li>
+<li class="chapter" data-level="1.4.4" data-path="mod-01.html"><a href="mod-01.html#what-p-values-mean-and-do-not-mean"><i class="fa fa-check"></i><b>1.4.4</b> What <em>P</em>-values mean and do not mean</a></li>
+<li class="chapter" data-level="1.4.5" data-path="mod-01.html"><a href="mod-01.html#do-you-need-a-p-value"><i class="fa fa-check"></i><b>1.4.5</b> Do you need a <em>P</em>-value?</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="mod-01.html"><a href="mod-01.html#alternatives-to-nhst"><i class="fa fa-check"></i><b>1.5</b> Alternatives to NHST</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="mod-01.html"><a href="mod-01.html#bayesian-inference"><i class="fa fa-check"></i><b>1.5.1</b> Bayesian inference</a></li>
+<li class="chapter" data-level="1.5.2" data-path="mod-01.html"><a href="mod-01.html#information-theoretic-methods"><i class="fa fa-check"></i><b>1.5.2</b> Information-theoretic methods</a></li>
+<li class="chapter" data-level="1.5.3" data-path="mod-01.html"><a href="mod-01.html#machine-learning"><i class="fa fa-check"></i><b>1.5.3</b> Machine learning</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="mod-02.html"><a href="mod-02.html"><i class="fa fa-check"></i><b>2</b> Introduction to R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="mod-02.html"><a href="mod-02.html#getting-started-with-r"><i class="fa fa-check"></i><b>2.1</b> Getting started with R</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="mod-02.html"><a href="mod-02.html#what-is-r"><i class="fa fa-check"></i><b>2.1.1</b> What is R?</a></li>
+<li class="chapter" data-level="2.1.2" data-path="mod-02.html"><a href="mod-02.html#advantages-of-r"><i class="fa fa-check"></i><b>2.1.2</b> Advantages of R</a></li>
+<li class="chapter" data-level="2.1.3" data-path="mod-02.html"><a href="mod-02.html#disadvantages-of-r"><i class="fa fa-check"></i><b>2.1.3</b> Disadvantages of R</a></li>
+<li class="chapter" data-level="2.1.4" data-path="mod-02.html"><a href="mod-02.html#base-r-and-vs.-tidyverse"><i class="fa fa-check"></i><b>2.1.4</b> Base R and (vs.?) <code>tidyverse</code></a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="mod-02.html"><a href="mod-02.html#download-and-install-r-and-rstudio"><i class="fa fa-check"></i><b>2.2</b> Download and install R (and RStudio)</a></li>
+<li class="chapter" data-level="2.3" data-path="mod-02.html"><a href="mod-02.html#using-r"><i class="fa fa-check"></i><b>2.3</b> Using R</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="mod-02.html"><a href="mod-02.html#using-the-base-r-gui"><i class="fa fa-check"></i><b>2.3.1</b> Using the base R GUI</a></li>
+<li class="chapter" data-level="2.3.2" data-path="mod-02.html"><a href="mod-02.html#using-r-in-rstudio"><i class="fa fa-check"></i><b>2.3.2</b> Using R in RStudio</a></li>
+<li class="chapter" data-level="2.3.3" data-path="mod-02.html"><a href="mod-02.html#using-r-with-other-programs"><i class="fa fa-check"></i><b>2.3.3</b> Using R with other programs</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="mod-02.html"><a href="mod-02.html#mod-02-first"><i class="fa fa-check"></i><b>2.4</b> A first R session</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="mod-02.html"><a href="mod-02.html#import-data"><i class="fa fa-check"></i><b>2.4.1</b> Import data</a></li>
+<li class="chapter" data-level="2.4.2" data-path="mod-02.html"><a href="mod-02.html#explore-and-visualize-data"><i class="fa fa-check"></i><b>2.4.2</b> Explore and visualize data</a></li>
+<li class="chapter" data-level="2.4.3" data-path="mod-02.html"><a href="mod-02.html#transform-data"><i class="fa fa-check"></i><b>2.4.3</b> Transform data</a></li>
+<li class="chapter" data-level="2.4.4" data-path="mod-02.html"><a href="mod-02.html#analyze-data"><i class="fa fa-check"></i><b>2.4.4</b> Analyze data</a></li>
+<li class="chapter" data-level="2.4.5" data-path="mod-02.html"><a href="mod-02.html#write-out-results"><i class="fa fa-check"></i><b>2.4.5</b> Write out results</a></li>
+<li class="chapter" data-level="2.4.6" data-path="mod-02.html"><a href="mod-02.html#save-your-work"><i class="fa fa-check"></i><b>2.4.6</b> Save your work?</a></li>
+<li class="chapter" data-level="2.4.7" data-path="mod-02.html"><a href="mod-02.html#whats-next"><i class="fa fa-check"></i><b>2.4.7</b> What’s next?</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="mod-02.html"><a href="mod-02.html#write-and-execute-commands-in-the-r-console"><i class="fa fa-check"></i><b>2.5</b> Write and execute commands in the R console</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="mod-02.html"><a href="mod-02.html#r-commandsbasics"><i class="fa fa-check"></i><b>2.5.1</b> R commands–basics</a></li>
+<li class="chapter" data-level="2.5.2" data-path="mod-02.html"><a href="mod-02.html#elements-of-r-code"><i class="fa fa-check"></i><b>2.5.2</b> Elements of R code</a></li>
+<li class="chapter" data-level="2.5.3" data-path="mod-02.html"><a href="mod-02.html#the-r-workspace"><i class="fa fa-check"></i><b>2.5.3</b> The R workspace</a></li>
+<li class="chapter" data-level="2.5.4" data-path="mod-02.html"><a href="mod-02.html#r-code-basics-assignment-and-operators"><i class="fa fa-check"></i><b>2.5.4</b> R code basics: assignment and operators</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="mod-02.html"><a href="mod-02.html#mod-02-struct"><i class="fa fa-check"></i><b>2.6</b> Basic R data structures</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="mod-02.html"><a href="mod-02.html#vectors"><i class="fa fa-check"></i><b>2.6.1</b> Vectors</a></li>
+<li class="chapter" data-level="2.6.2" data-path="mod-02.html"><a href="mod-02.html#data-frames"><i class="fa fa-check"></i><b>2.6.2</b> Data frames</a></li>
+<li class="chapter" data-level="2.6.3" data-path="mod-02.html"><a href="mod-02.html#matrices-and-arrays"><i class="fa fa-check"></i><b>2.6.3</b> Matrices and arrays</a></li>
+<li class="chapter" data-level="2.6.4" data-path="mod-02.html"><a href="mod-02.html#lists"><i class="fa fa-check"></i><b>2.6.4</b> Lists</a></li>
+<li class="chapter" data-level="2.6.5" data-path="mod-02.html"><a href="mod-02.html#s4-objects"><i class="fa fa-check"></i><b>2.6.5</b> S4 objects</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="mod-02.html"><a href="mod-02.html#r-data-types"><i class="fa fa-check"></i><b>2.7</b> R data types</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="mod-02.html"><a href="mod-02.html#character-type"><i class="fa fa-check"></i><b>2.7.1</b> Character type</a></li>
+<li class="chapter" data-level="2.7.2" data-path="mod-02.html"><a href="mod-02.html#numeric-type"><i class="fa fa-check"></i><b>2.7.2</b> Numeric type</a></li>
+<li class="chapter" data-level="2.7.3" data-path="mod-02.html"><a href="mod-02.html#integer-type"><i class="fa fa-check"></i><b>2.7.3</b> Integer type</a></li>
+<li class="chapter" data-level="2.7.4" data-path="mod-02.html"><a href="mod-02.html#logical-type"><i class="fa fa-check"></i><b>2.7.4</b> Logical type</a></li>
+<li class="chapter" data-level="2.7.5" data-path="mod-02.html"><a href="mod-02.html#special-values"><i class="fa fa-check"></i><b>2.7.5</b> Special values</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="mod-02.html"><a href="mod-02.html#manage-r-code-as-scripts-.r-files"><i class="fa fa-check"></i><b>2.8</b> Manage R code as scripts (.r files)</a></li>
+<li class="chapter" data-level="2.9" data-path="mod-02.html"><a href="mod-02.html#manage-and-use-r-packages"><i class="fa fa-check"></i><b>2.9</b> Manage and use R packages</a>
+<ul>
+<li class="chapter" data-level="2.9.1" data-path="mod-02.html"><a href="mod-02.html#your-r-library"><i class="fa fa-check"></i><b>2.9.1</b> Your R library</a></li>
+<li class="chapter" data-level="2.9.2" data-path="mod-02.html"><a href="mod-02.html#installing-packages-using-the-r-gui"><i class="fa fa-check"></i><b>2.9.2</b> Installing packages using the R GUI</a></li>
+<li class="chapter" data-level="2.9.3" data-path="mod-02.html"><a href="mod-02.html#installing-packages-in-rstudio"><i class="fa fa-check"></i><b>2.9.3</b> Installing packages in RStudio</a></li>
+<li class="chapter" data-level="2.9.4" data-path="mod-02.html"><a href="mod-02.html#installing-packages-using-the-r-console"><i class="fa fa-check"></i><b>2.9.4</b> Installing packages using the R console</a></li>
+<li class="chapter" data-level="2.9.5" data-path="mod-02.html"><a href="mod-02.html#working-with-packages-in-r"><i class="fa fa-check"></i><b>2.9.5</b> Working with packages in R</a></li>
+<li class="chapter" data-level="2.9.6" data-path="mod-02.html"><a href="mod-02.html#package-dependencies"><i class="fa fa-check"></i><b>2.9.6</b> Package dependencies</a></li>
+<li class="chapter" data-level="2.9.7" data-path="mod-02.html"><a href="mod-02.html#citing-packages"><i class="fa fa-check"></i><b>2.9.7</b> Citing packages</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="mod-02.html"><a href="mod-02.html#r-documentation"><i class="fa fa-check"></i><b>2.10</b> R documentation</a>
+<ul>
+<li class="chapter" data-level="2.10.1" data-path="mod-02.html"><a href="mod-02.html#documentation-help-files"><i class="fa fa-check"></i><b>2.10.1</b> Documentation (help) files</a></li>
+<li class="chapter" data-level="2.10.2" data-path="mod-02.html"><a href="mod-02.html#r-vignettes"><i class="fa fa-check"></i><b>2.10.2</b> R vignettes</a></li>
+<li class="chapter" data-level="2.10.3" data-path="mod-02.html"><a href="mod-02.html#official-r-project-resources"><i class="fa fa-check"></i><b>2.10.3</b> Official R Project resources</a></li>
+<li class="chapter" data-level="2.10.4" data-path="mod-02.html"><a href="mod-02.html#unofficial-online-resources"><i class="fa fa-check"></i><b>2.10.4</b> Unofficial online resources</a></li>
+<li class="chapter" data-level="2.10.5" data-path="mod-02.html"><a href="mod-02.html#r-books"><i class="fa fa-check"></i><b>2.10.5</b> R books</a></li>
+<li class="chapter" data-level="2.10.6" data-path="mod-02.html"><a href="mod-02.html#two-reminders"><i class="fa fa-check"></i><b>2.10.6</b> Two reminders</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="mod-03.html"><a href="mod-03.html"><i class="fa fa-check"></i><b>3</b> Data manipulation with R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="mod-03.html"><a href="mod-03.html#mod-03-inout"><i class="fa fa-check"></i><b>3.1</b> Data import and export</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="mod-03.html"><a href="mod-03.html#importing-data-preliminaries"><i class="fa fa-check"></i><b>3.1.1</b> Importing data: preliminaries</a></li>
+<li class="chapter" data-level="3.1.2" data-path="mod-03.html"><a href="mod-03.html#importing-data-from-text-files-with-read.csv-and-read.table"><i class="fa fa-check"></i><b>3.1.2</b> Importing data from text files with <code>read.csv()</code> and <code>read.table()</code></a></li>
+<li class="chapter" data-level="3.1.3" data-path="mod-03.html"><a href="mod-03.html#importing-data-from-saved-workspaces"><i class="fa fa-check"></i><b>3.1.3</b> Importing data from saved workspaces</a></li>
+<li class="chapter" data-level="3.1.4" data-path="mod-03.html"><a href="mod-03.html#importing-data-special-cases"><i class="fa fa-check"></i><b>3.1.4</b> Importing data: special cases:</a></li>
+<li class="chapter" data-level="3.1.5" data-path="mod-03.html"><a href="mod-03.html#export-data-from-r"><i class="fa fa-check"></i><b>3.1.5</b> Export data from R</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="mod-03.html"><a href="mod-03.html#making-values-in-r"><i class="fa fa-check"></i><b>3.2</b> Making values in R</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="mod-03.html"><a href="mod-03.html#producing-arbitrary-values-with-c"><i class="fa fa-check"></i><b>3.2.1</b> Producing arbitrary values with <code>c()</code></a></li>
+<li class="chapter" data-level="3.2.2" data-path="mod-03.html"><a href="mod-03.html#generating-regular-values"><i class="fa fa-check"></i><b>3.2.2</b> Generating regular values</a></li>
+<li class="chapter" data-level="3.2.3" data-path="mod-03.html"><a href="mod-03.html#generating-random-values"><i class="fa fa-check"></i><b>3.2.3</b> Generating random values</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="mod-03.html"><a href="mod-03.html#selecting-data-with"><i class="fa fa-check"></i><b>3.3</b> Selecting data with <code>[]</code></a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="mod-03.html"><a href="mod-03.html#mod-03-brackets"><i class="fa fa-check"></i><b>3.3.1</b> Basics of brackets</a></li>
+<li class="chapter" data-level="3.3.2" data-path="mod-03.html"><a href="mod-03.html#extracting-and-selecting-data-with-logical-tests"><i class="fa fa-check"></i><b>3.3.2</b> Extracting and selecting data with logical tests</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="mod-03.html"><a href="mod-03.html#managing-dates-and-characters"><i class="fa fa-check"></i><b>3.4</b> Managing dates and characters</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="mod-03.html"><a href="mod-03.html#temporal-data-and-dates"><i class="fa fa-check"></i><b>3.4.1</b> Temporal data and dates</a></li>
+<li class="chapter" data-level="3.4.2" data-path="mod-03.html"><a href="mod-03.html#character-data-text"><i class="fa fa-check"></i><b>3.4.2</b> Character data (text)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="mod-03.html"><a href="mod-03.html#mod-03-dataframe"><i class="fa fa-check"></i><b>3.5</b> Data frame management</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="mod-03.html"><a href="mod-03.html#data-frame-structure"><i class="fa fa-check"></i><b>3.5.1</b> Data frame structure</a></li>
+<li class="chapter" data-level="3.5.2" data-path="mod-03.html"><a href="mod-03.html#common-data-frame-operations"><i class="fa fa-check"></i><b>3.5.2</b> Common data frame operations</a></li>
+<li class="chapter" data-level="3.5.3" data-path="mod-03.html"><a href="mod-03.html#other-data-frame-operations"><i class="fa fa-check"></i><b>3.5.3</b> Other data frame operations</a></li>
+<li class="chapter" data-level="3.5.4" data-path="mod-03.html"><a href="mod-03.html#mod-03-reshape"><i class="fa fa-check"></i><b>3.5.4</b> Reshaping data frames</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="mod-04.html"><a href="mod-04.html"><i class="fa fa-check"></i><b>4</b> Exploratory data analysis 1: Data description and summarization</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="mod-04.html"><a href="mod-04.html#descriptive-and-summary-statistics"><i class="fa fa-check"></i><b>4.1</b> Descriptive and summary statistics</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="mod-04.html"><a href="mod-04.html#basic-summary-statistics"><i class="fa fa-check"></i><b>4.1.1</b> Basic summary statistics</a></li>
+<li class="chapter" data-level="4.1.2" data-path="mod-04.html"><a href="mod-04.html#mod-04-agg"><i class="fa fa-check"></i><b>4.1.2</b> Summarizing by groups (AKA: pivot tables)</a></li>
+<li class="chapter" data-level="4.1.3" data-path="mod-04.html"><a href="mod-04.html#summarizing-data-with-the-apply-family"><i class="fa fa-check"></i><b>4.1.3</b> Summarizing data with the <code>apply()</code> family</a></li>
+<li class="chapter" data-level="4.1.4" data-path="mod-04.html"><a href="mod-04.html#mod-04-tab"><i class="fa fa-check"></i><b>4.1.4</b> Tabulation (frequency tables)</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="mod-04.html"><a href="mod-04.html#mod-04-vis"><i class="fa fa-check"></i><b>4.2</b> Visualizing single variables</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="mod-04.html"><a href="mod-04.html#boxplots-aka-box-and-whisker-plots"><i class="fa fa-check"></i><b>4.2.1</b> Boxplots (aka: box-and-whisker plots)</a></li>
+<li class="chapter" data-level="4.2.2" data-path="mod-04.html"><a href="mod-04.html#histograms"><i class="fa fa-check"></i><b>4.2.2</b> Histograms</a></li>
+<li class="chapter" data-level="4.2.3" data-path="mod-04.html"><a href="mod-04.html#mod04-pdfplots"><i class="fa fa-check"></i><b>4.2.3</b> Kernel density plots</a></li>
+<li class="chapter" data-level="4.2.4" data-path="mod-04.html"><a href="mod-04.html#empirical-cumulative-density-function-ecdf-plots"><i class="fa fa-check"></i><b>4.2.4</b> Empirical cumulative density function (ECDF) plots</a></li>
+<li class="chapter" data-level="4.2.5" data-path="mod-04.html"><a href="mod-04.html#quantile-quantile-qq-plots"><i class="fa fa-check"></i><b>4.2.5</b> Quantile-quantile (QQ) plots</a></li>
+<li class="chapter" data-level="4.2.6" data-path="mod-04.html"><a href="mod-04.html#how-should-i-plot-my-data"><i class="fa fa-check"></i><b>4.2.6</b> How should I plot my data?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="mod-05.html"><a href="mod-05.html"><i class="fa fa-check"></i><b>5</b> Exploratory data analysis 2: Probability distributions for biology</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="mod-05.html"><a href="mod-05.html#mod-05-dists1"><i class="fa fa-check"></i><b>5.1</b> Statistical distributions</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="mod-05.html"><a href="mod-05.html#probability-distributions-in-r"><i class="fa fa-check"></i><b>5.1.1</b> Probability distributions in R</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="mod-05.html"><a href="mod-05.html#mod-05-discrete"><i class="fa fa-check"></i><b>5.2</b> Discrete distributions</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="mod-05.html"><a href="mod-05.html#bernoulli-distribution"><i class="fa fa-check"></i><b>5.2.1</b> Bernoulli distribution</a></li>
+<li class="chapter" data-level="5.2.2" data-path="mod-05.html"><a href="mod-05.html#binomial-distribution"><i class="fa fa-check"></i><b>5.2.2</b> Binomial distribution</a></li>
+<li class="chapter" data-level="5.2.3" data-path="mod-05.html"><a href="mod-05.html#poisson-distribution"><i class="fa fa-check"></i><b>5.2.3</b> Poisson distribution</a></li>
+<li class="chapter" data-level="5.2.4" data-path="mod-05.html"><a href="mod-05.html#negative-binomial-distribution"><i class="fa fa-check"></i><b>5.2.4</b> Negative binomial distribution</a></li>
+<li class="chapter" data-level="5.2.5" data-path="mod-05.html"><a href="mod-05.html#geometric-distribution"><i class="fa fa-check"></i><b>5.2.5</b> Geometric distribution</a></li>
+<li class="chapter" data-level="5.2.6" data-path="mod-05.html"><a href="mod-05.html#beta-binomial-distribution"><i class="fa fa-check"></i><b>5.2.6</b> Beta-binomial distribution</a></li>
+<li class="chapter" data-level="5.2.7" data-path="mod-05.html"><a href="mod-05.html#multinomial-distribution"><i class="fa fa-check"></i><b>5.2.7</b> Multinomial distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="mod-05.html"><a href="mod-05.html#mod-05-condists"><i class="fa fa-check"></i><b>5.3</b> Continuous distributions</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="mod-05.html"><a href="mod-05.html#uniform-distribution"><i class="fa fa-check"></i><b>5.3.1</b> Uniform distribution</a></li>
+<li class="chapter" data-level="5.3.2" data-path="mod-05.html"><a href="mod-05.html#mod-05-norm"><i class="fa fa-check"></i><b>5.3.2</b> Normal distribution</a></li>
+<li class="chapter" data-level="5.3.3" data-path="mod-05.html"><a href="mod-05.html#lognormal-distribution"><i class="fa fa-check"></i><b>5.3.3</b> Lognormal distribution</a></li>
+<li class="chapter" data-level="5.3.4" data-path="mod-05.html"><a href="mod-05.html#gamma-distribution"><i class="fa fa-check"></i><b>5.3.4</b> Gamma distribution</a></li>
+<li class="chapter" data-level="5.3.5" data-path="mod-05.html"><a href="mod-05.html#beta-distribution"><i class="fa fa-check"></i><b>5.3.5</b> Beta distribution</a></li>
+<li class="chapter" data-level="5.3.6" data-path="mod-05.html"><a href="mod-05.html#dirichlet-distribution"><i class="fa fa-check"></i><b>5.3.6</b> Dirichlet distribution</a></li>
+<li class="chapter" data-level="5.3.7" data-path="mod-05.html"><a href="mod-05.html#exponential-distribution"><i class="fa fa-check"></i><b>5.3.7</b> Exponential distribution</a></li>
+<li class="chapter" data-level="5.3.8" data-path="mod-05.html"><a href="mod-05.html#triangular-distribution"><i class="fa fa-check"></i><b>5.3.8</b> Triangular distribution</a></li>
+<li class="chapter" data-level="5.3.9" data-path="mod-05.html"><a href="mod-05.html#distributions-summary"><i class="fa fa-check"></i><b>5.3.9</b> Distributions summary</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="mod-05.html"><a href="mod-05.html#mod-05-dists2"><i class="fa fa-check"></i><b>5.4</b> Fitting and testing distributions</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="mod-05.html"><a href="mod-05.html#estimating-distributional-parameters"><i class="fa fa-check"></i><b>5.4.1</b> Estimating distributional parameters</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="mod-05.html"><a href="mod-05.html#graphical-methods-for-examining-distributions"><i class="fa fa-check"></i><b>5.5</b> Graphical methods for examining distributions</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="mod-05.html"><a href="mod-05.html#comparing-distributions-with-pdf-or-pmf-plots"><i class="fa fa-check"></i><b>5.5.1</b> Comparing distributions with PDF or PMF plots</a></li>
+<li class="chapter" data-level="5.5.2" data-path="mod-05.html"><a href="mod-05.html#comparing-distributions-using-cdf-and-ecdf"><i class="fa fa-check"></i><b>5.5.2</b> Comparing distributions using CDF and ECDF</a></li>
+<li class="chapter" data-level="5.5.3" data-path="mod-05.html"><a href="mod-05.html#comparing-distributions-using-qq-plots"><i class="fa fa-check"></i><b>5.5.3</b> Comparing distributions using QQ plots</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="mod-05.html"><a href="mod-05.html#formal-tests-for-distributions"><i class="fa fa-check"></i><b>5.6</b> Formal tests for distributions</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="mod-05.html"><a href="mod-05.html#tests-for-normality"><i class="fa fa-check"></i><b>5.6.1</b> Tests for normality</a></li>
+<li class="chapter" data-level="5.6.2" data-path="mod-05.html"><a href="mod-05.html#kolmogorov-smirnov-tests"><i class="fa fa-check"></i><b>5.6.2</b> Kolmogorov-Smirnov tests</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="mod-05.html"><a href="mod-05.html#mod-05-trans"><i class="fa fa-check"></i><b>5.7</b> Data transformations</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="mod-05.html"><a href="mod-05.html#why-transform"><i class="fa fa-check"></i><b>5.7.1</b> Why transform?</a></li>
+<li class="chapter" data-level="5.7.2" data-path="mod-05.html"><a href="mod-05.html#transforms-vs.-link-functions"><i class="fa fa-check"></i><b>5.7.2</b> Transforms vs. link functions</a></li>
+<li class="chapter" data-level="5.7.3" data-path="mod-05.html"><a href="mod-05.html#common-transformations"><i class="fa fa-check"></i><b>5.7.3</b> Common transformations</a></li>
+<li class="chapter" data-level="5.7.4" data-path="mod-05.html"><a href="mod-05.html#uncommon-transformations"><i class="fa fa-check"></i><b>5.7.4</b> Uncommon transformations</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="mod-06.html"><a href="mod-06.html"><i class="fa fa-check"></i><b>6</b> Exploratory data analysis 3: Multivariate data exploration</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="mod-06.html"><a href="mod-06.html#scatterplots-for-2-continuous-variables"><i class="fa fa-check"></i><b>6.1</b> Scatterplots for 2 continuous variables</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="mod-06.html"><a href="mod-06.html#r-plotting-basics"><i class="fa fa-check"></i><b>6.1.1</b> R plotting basics</a></li>
+<li class="chapter" data-level="6.1.2" data-path="mod-06.html"><a href="mod-06.html#graphical-parameters-and-advanced-plots-with-par"><i class="fa fa-check"></i><b>6.1.2</b> Graphical parameters and advanced plots with <code>par()</code></a></li>
+<li class="chapter" data-level="6.1.3" data-path="mod-06.html"><a href="mod-06.html#really-advanced-plotting"><i class="fa fa-check"></i><b>6.1.3</b> Really advanced plotting</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="mod-06.html"><a href="mod-06.html#mod-06-smat"><i class="fa fa-check"></i><b>6.2</b> Scatterplot matrices for many variables</a></li>
+<li class="chapter" data-level="6.3" data-path="mod-06.html"><a href="mod-06.html#lattice-plots-for-hierarchical-data"><i class="fa fa-check"></i><b>6.3</b> Lattice plots for hierarchical data</a></li>
+<li class="chapter" data-level="6.4" data-path="mod-06.html"><a href="mod-06.html#continuous-variables-by-group"><i class="fa fa-check"></i><b>6.4</b> Continuous variables by group</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="mod-06.html"><a href="mod-06.html#boxplots"><i class="fa fa-check"></i><b>6.4.1</b> Boxplots</a></li>
+<li class="chapter" data-level="6.4.2" data-path="mod-06.html"><a href="mod-06.html#barplots"><i class="fa fa-check"></i><b>6.4.2</b> Barplots</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="mod-06.html"><a href="mod-06.html#ordination-brief-introduction"><i class="fa fa-check"></i><b>6.5</b> Ordination (brief introduction)</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="mod-06.html"><a href="mod-06.html#principal-components-analysis-pca"><i class="fa fa-check"></i><b>6.5.1</b> Principal components analysis (PCA)</a></li>
+<li class="chapter" data-level="6.5.2" data-path="mod-06.html"><a href="mod-06.html#nonmetric-multidimensional-scaling-nmds"><i class="fa fa-check"></i><b>6.5.2</b> Nonmetric multidimensional scaling (NMDS)</a></li>
+<li class="chapter" data-level="6.5.3" data-path="mod-06.html"><a href="mod-06.html#plotting-ordinations"><i class="fa fa-check"></i><b>6.5.3</b> Plotting ordinations</a></li>
+<li class="chapter" data-level="6.5.4" data-path="mod-06.html"><a href="mod-06.html#ordination-wrap-up-for-now"><i class="fa fa-check"></i><b>6.5.4</b> Ordination wrap-up (for now)</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="mod-06.html"><a href="mod-06.html#principles-for-good-data-graphics"><i class="fa fa-check"></i><b>6.6</b> Principles for good data graphics</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="mod-06.html"><a href="mod-06.html#maximize-the-dataink-ratio"><i class="fa fa-check"></i><b>6.6.1</b> Maximize the data:ink ratio</a></li>
+<li class="chapter" data-level="6.6.2" data-path="mod-06.html"><a href="mod-06.html#use-labels-not-symbols"><i class="fa fa-check"></i><b>6.6.2</b> Use labels, not symbols</a></li>
+<li class="chapter" data-level="6.6.3" data-path="mod-06.html"><a href="mod-06.html#be-consistent"><i class="fa fa-check"></i><b>6.6.3</b> Be consistent</a></li>
+<li class="chapter" data-level="6.6.4" data-path="mod-06.html"><a href="mod-06.html#consider-legibility"><i class="fa fa-check"></i><b>6.6.4</b> Consider legibility</a></li>
+<li class="chapter" data-level="6.6.5" data-path="mod-06.html"><a href="mod-06.html#set-yourself-up-for-success"><i class="fa fa-check"></i><b>6.6.5</b> Set yourself up for success</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="mod-07.html"><a href="mod-07.html"><i class="fa fa-check"></i><b>7</b> Common statistical problems</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="mod-07.html"><a href="mod-07.html#outliers-and-erroneous-values"><i class="fa fa-check"></i><b>7.1</b> Outliers and erroneous values</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="mod-07.html"><a href="mod-07.html#detecting-outliers"><i class="fa fa-check"></i><b>7.1.1</b> Detecting outliers</a></li>
+<li class="chapter" data-level="7.1.2" data-path="mod-07.html"><a href="mod-07.html#dealing-with-outliers"><i class="fa fa-check"></i><b>7.1.2</b> Dealing with outliers</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="mod-07.html"><a href="mod-07.html#autocorrelation"><i class="fa fa-check"></i><b>7.2</b> Autocorrelation</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="mod-07.html"><a href="mod-07.html#graphical-methods-to-identify-autocorrelation"><i class="fa fa-check"></i><b>7.2.1</b> Graphical methods to identify autocorrelation</a></li>
+<li class="chapter" data-level="7.2.2" data-path="mod-07.html"><a href="mod-07.html#mantel-tests-for-autocorrelation"><i class="fa fa-check"></i><b>7.2.2</b> Mantel tests for autocorrelation</a></li>
+<li class="chapter" data-level="7.2.3" data-path="mod-07.html"><a href="mod-07.html#dealing-with-autocorrelation"><i class="fa fa-check"></i><b>7.2.3</b> Dealing with autocorrelation</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="mod-07.html"><a href="mod-07.html#mod-07-multicol"><i class="fa fa-check"></i><b>7.3</b> Collinearity</a></li>
+<li class="chapter" data-level="7.4" data-path="mod-07.html"><a href="mod-07.html#missing-data"><i class="fa fa-check"></i><b>7.4</b> Missing data</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="mod-07.html"><a href="mod-07.html#option-1-ignore-missing-data"><i class="fa fa-check"></i><b>7.4.1</b> Option 1: Ignore missing data</a></li>
+<li class="chapter" data-level="7.4.2" data-path="mod-07.html"><a href="mod-07.html#option-2-interpolate-or-impute-missing-data"><i class="fa fa-check"></i><b>7.4.2</b> Option 2: Interpolate or impute missing data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="mod-08.html"><a href="mod-08.html"><i class="fa fa-check"></i><b>8</b> Planning your analysis (what test?)</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="mod-08.html"><a href="mod-08.html#how-to-use-this-guide"><i class="fa fa-check"></i><b>8.1</b> How to use this guide</a></li>
+<li class="chapter" data-level="8.2" data-path="mod-08.html"><a href="mod-08.html#what-question-are-you-trying-to-answer"><i class="fa fa-check"></i><b>8.2</b> What question are you trying to answer?</a></li>
+<li class="chapter" data-level="8.3" data-path="mod-08.html"><a href="mod-08.html#testing-for-a-difference-in-mean-or-location"><i class="fa fa-check"></i><b>8.3</b> Testing for a difference in mean or location</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="mod-08.html"><a href="mod-08.html#additional-considerations"><i class="fa fa-check"></i><b>8.3.1</b> Additional considerations</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="mod-08.html"><a href="mod-08.html#testing-for-a-continuous-relationship-between-two-or-more-variables"><i class="fa fa-check"></i><b>8.4</b> Testing for a continuous relationship between two or more variables</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="mod-08.html"><a href="mod-08.html#additional-considerations-1"><i class="fa fa-check"></i><b>8.4.1</b> Additional considerations</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="mod-08.html"><a href="mod-08.html#independence-between-categories"><i class="fa fa-check"></i><b>8.5</b> Independence between categories</a></li>
+<li class="chapter" data-level="8.6" data-path="mod-08.html"><a href="mod-08.html#classifying-observations"><i class="fa fa-check"></i><b>8.6</b> Classifying observations</a></li>
+<li class="chapter" data-level="8.7" data-path="mod-08.html"><a href="mod-08.html#conclusions"><i class="fa fa-check"></i><b>8.7</b> Conclusions</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="mod-09.html"><a href="mod-09.html"><i class="fa fa-check"></i><b>9</b> Generalized linear models (GLM)</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="mod-09.html"><a href="mod-09.html#mod-09-lm"><i class="fa fa-check"></i><b>9.1</b> Prelude with linear models</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="mod-09.html"><a href="mod-09.html#assumptions-of-linear-models"><i class="fa fa-check"></i><b>9.1.1</b> Assumptions of linear models</a></li>
+<li class="chapter" data-level="9.1.2" data-path="mod-09.html"><a href="mod-09.html#linear-regression-in-r"><i class="fa fa-check"></i><b>9.1.2</b> Linear regression in R</a></li>
+<li class="chapter" data-level="9.1.3" data-path="mod-09.html"><a href="mod-09.html#multiple-linear-regression"><i class="fa fa-check"></i><b>9.1.3</b> Multiple linear regression</a></li>
+<li class="chapter" data-level="9.1.4" data-path="mod-09.html"><a href="mod-09.html#mod-09-anova"><i class="fa fa-check"></i><b>9.1.4</b> ANOVA and ANCOVA with <code>lm()</code></a></li>
+<li class="chapter" data-level="9.1.5" data-path="mod-09.html"><a href="mod-09.html#variations-on-linear-models"><i class="fa fa-check"></i><b>9.1.5</b> Variations on linear models</a></li>
+<li class="chapter" data-level="9.1.6" data-path="mod-09.html"><a href="mod-09.html#example-linear-regression-workflow"><i class="fa fa-check"></i><b>9.1.6</b> Example linear regression workflow</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="mod-09.html"><a href="mod-09.html#mod-09-basic"><i class="fa fa-check"></i><b>9.2</b> GLM basics</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="mod-09.html"><a href="mod-09.html#example-glms"><i class="fa fa-check"></i><b>9.2.1</b> Example GLMS</a></li>
+<li class="chapter" data-level="9.2.2" data-path="mod-09.html"><a href="mod-09.html#glm-families"><i class="fa fa-check"></i><b>9.2.2</b> GLM families</a></li>
+<li class="chapter" data-level="9.2.3" data-path="mod-09.html"><a href="mod-09.html#glm-link-functions"><i class="fa fa-check"></i><b>9.2.3</b> GLM link functions</a></li>
+<li class="chapter" data-level="9.2.4" data-path="mod-09.html"><a href="mod-09.html#deviance-and-other-glm-diagnostics"><i class="fa fa-check"></i><b>9.2.4</b> Deviance and other GLM diagnostics</a></li>
+<li class="chapter" data-level="9.2.5" data-path="mod-09.html"><a href="mod-09.html#to-pseudo-r2-or-not-to-pseudo-r2"><i class="fa fa-check"></i><b>9.2.5</b> To pseudo-<em>R</em><sup>2</sup> or not to pseudo-<em>R</em><sup>2</sup>?</a></li>
+<li class="chapter" data-level="9.2.6" data-path="mod-09.html"><a href="mod-09.html#common-glms"><i class="fa fa-check"></i><b>9.2.6</b> Common GLMs</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="mod-09.html"><a href="mod-09.html#mod-09-loglin"><i class="fa fa-check"></i><b>9.3</b> Log-linear models</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="mod-09.html"><a href="mod-09.html#mod-09-loglin-examp"><i class="fa fa-check"></i><b>9.3.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="9.3.2" data-path="mod-09.html"><a href="mod-09.html#example-with-real-data"><i class="fa fa-check"></i><b>9.3.2</b> Example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="mod-09.html"><a href="mod-09.html#mod-09-poisson"><i class="fa fa-check"></i><b>9.4</b> Poisson GLM for counts</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="mod-09.html"><a href="mod-09.html#example-with-simulated-data"><i class="fa fa-check"></i><b>9.4.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="9.4.2" data-path="mod-09.html"><a href="mod-09.html#example-with-real-data-1"><i class="fa fa-check"></i><b>9.4.2</b> Example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="mod-09.html"><a href="mod-09.html#mod-09-quasi"><i class="fa fa-check"></i><b>9.5</b> Quasi-Poisson and negative binomial GLM</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="mod-09.html"><a href="mod-09.html#example-with-simulated-data-1"><i class="fa fa-check"></i><b>9.5.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="9.5.2" data-path="mod-09.html"><a href="mod-09.html#example-with-real-data-2"><i class="fa fa-check"></i><b>9.5.2</b> Example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="mod-09.html"><a href="mod-09.html#mod-09-logistic"><i class="fa fa-check"></i><b>9.6</b> Logistic regression for binary outcomes</a>
+<ul>
+<li class="chapter" data-level="9.6.1" data-path="mod-09.html"><a href="mod-09.html#example-with-simulated-data-2"><i class="fa fa-check"></i><b>9.6.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="9.6.2" data-path="mod-09.html"><a href="mod-09.html#example-with-real-data-3"><i class="fa fa-check"></i><b>9.6.2</b> Example with real data</a></li>
+<li class="chapter" data-level="9.6.3" data-path="mod-09.html"><a href="mod-09.html#mod-09-auc"><i class="fa fa-check"></i><b>9.6.3</b> Logistic GLM diagnostics: AUC and ROC</a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="mod-09.html"><a href="mod-09.html#mod-09-binom"><i class="fa fa-check"></i><b>9.7</b> Binomial GLM for proportional data</a>
+<ul>
+<li class="chapter" data-level="9.7.1" data-path="mod-09.html"><a href="mod-09.html#binomial-glm"><i class="fa fa-check"></i><b>9.7.1</b> Binomial GLM</a></li>
+<li class="chapter" data-level="9.7.2" data-path="mod-09.html"><a href="mod-09.html#example-with-simulated-data-3"><i class="fa fa-check"></i><b>9.7.2</b> Example with simulated data</a></li>
+</ul></li>
+<li class="chapter" data-level="9.8" data-path="mod-09.html"><a href="mod-09.html#mod-09-gamma"><i class="fa fa-check"></i><b>9.8</b> Gamma models for overdispersed data</a>
+<ul>
+<li class="chapter" data-level="9.8.1" data-path="mod-09.html"><a href="mod-09.html#example-with-simulated-data-4"><i class="fa fa-check"></i><b>9.8.1</b> Example with simulated data</a></li>
+</ul></li>
+<li class="chapter" data-level="9.9" data-path="mod-09.html"><a href="mod-09.html#mod-09-beyond"><i class="fa fa-check"></i><b>9.9</b> Beyond GLM: Overview of GAM and GEE</a>
+<ul>
+<li class="chapter" data-level="9.9.1" data-path="mod-09.html"><a href="mod-09.html#mod-09-gam"><i class="fa fa-check"></i><b>9.9.1</b> Generalized additive models (GAM)</a></li>
+<li class="chapter" data-level="9.9.2" data-path="mod-09.html"><a href="mod-09.html#mod-09-gee"><i class="fa fa-check"></i><b>9.9.2</b> Generalized estimating equations (GEE)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="mod-09.html"><a href="mod-09.html#mod-10"><i class="fa fa-check"></i><b>10</b> Nonlinear models</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="mod-10.html"><a href="mod-10.html"><i class="fa fa-check"></i><b>10.1</b> Background</a></li>
+<li class="chapter" data-level="10.2" data-path="mod-10.html"><a href="mod-10.html#mod-10-intro"><i class="fa fa-check"></i><b>10.2</b> Nonlinear least squares (NLS)</a></li>
+<li class="chapter" data-level="10.3" data-path="mod-10.html"><a href="mod-10.html#mod-10-micmen"><i class="fa fa-check"></i><b>10.3</b> Michaelis-Menten curves</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="mod-10.html"><a href="mod-10.html#mod-10-micmen-sim"><i class="fa fa-check"></i><b>10.3.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="10.3.2" data-path="mod-10.html"><a href="mod-10.html#example-with-real-data-4"><i class="fa fa-check"></i><b>10.3.2</b> Example with real data</a></li>
+<li class="chapter" data-level="10.3.3" data-path="mod-10.html"><a href="mod-10.html#alternative-strategies-for-the-analysis"><i class="fa fa-check"></i><b>10.3.3</b> Alternative strategies for the analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="mod-10.html"><a href="mod-10.html#mod-10-grow"><i class="fa fa-check"></i><b>10.4</b> Biological growth curves</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="mod-10.html"><a href="mod-10.html#gompertz-and-von-bertalanffy-curves"><i class="fa fa-check"></i><b>10.4.1</b> Gompertz and von Bertalanffy curves</a></li>
+<li class="chapter" data-level="10.4.2" data-path="mod-10.html"><a href="mod-10.html#example-with-real-data-5"><i class="fa fa-check"></i><b>10.4.2</b> Example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="mod-10.html"><a href="mod-10.html#dose-response-curves"><i class="fa fa-check"></i><b>10.5</b> Dose response curves</a></li>
+<li class="chapter" data-level="10.6" data-path="mod-10.html"><a href="mod-10.html#alternatives-to-nls"><i class="fa fa-check"></i><b>10.6</b> Alternatives to NLS</a>
+<ul>
+<li class="chapter" data-level="10.6.1" data-path="mod-10.html"><a href="mod-10.html#generalized-nonlinear-models"><i class="fa fa-check"></i><b>10.6.1</b> Generalized nonlinear models</a></li>
+<li class="chapter" data-level="10.6.2" data-path="mod-10.html"><a href="mod-10.html#quantile-regression"><i class="fa fa-check"></i><b>10.6.2</b> Quantile regression</a></li>
+<li class="chapter" data-level="10.6.3" data-path="mod-10.html"><a href="mod-10.html#mod-10-gam"><i class="fa fa-check"></i><b>10.6.3</b> Generalized additive models (GAM)</a></li>
+<li class="chapter" data-level="10.6.4" data-path="mod-10.html"><a href="mod-10.html#classification-and-regression-trees-cart"><i class="fa fa-check"></i><b>10.6.4</b> Classification and regression trees (CART)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="mod-11.html"><a href="mod-11.html"><i class="fa fa-check"></i><b>11</b> Mixed models</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="mod-11.html"><a href="mod-11.html#prelude-glm"><i class="fa fa-check"></i><b>11.1</b> Prelude (GLM)</a></li>
+<li class="chapter" data-level="11.2" data-path="mod-11.html"><a href="mod-11.html#mod-11-lmm"><i class="fa fa-check"></i><b>11.2</b> Linear mixed models (LMM)</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="mod-11.html"><a href="mod-11.html#formal-definition-and-example"><i class="fa fa-check"></i><b>11.2.1</b> Formal definition and example</a></li>
+<li class="chapter" data-level="11.2.2" data-path="mod-11.html"><a href="mod-11.html#example-with-simulated-data-5"><i class="fa fa-check"></i><b>11.2.2</b> Example with simulated data</a></li>
+<li class="chapter" data-level="11.2.3" data-path="mod-11.html"><a href="mod-11.html#p-values-in-lmm"><i class="fa fa-check"></i><b>11.2.3</b> <em>P</em>-values in LMM</a></li>
+<li class="chapter" data-level="11.2.4" data-path="mod-11.html"><a href="mod-11.html#specifying-random-effects"><i class="fa fa-check"></i><b>11.2.4</b> Specifying random effects</a></li>
+<li class="chapter" data-level="11.2.5" data-path="mod-11.html"><a href="mod-11.html#lmm-example-with-real-data"><i class="fa fa-check"></i><b>11.2.5</b> LMM example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="mod-11.html"><a href="mod-11.html#mod-11-glmm"><i class="fa fa-check"></i><b>11.3</b> Generalized linear mixed models (GLMM)</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="mod-11.html"><a href="mod-11.html#definition-1"><i class="fa fa-check"></i><b>11.3.1</b> Definition</a></li>
+<li class="chapter" data-level="11.3.2" data-path="mod-11.html"><a href="mod-11.html#glmm-on-simulated-data"><i class="fa fa-check"></i><b>11.3.2</b> GLMM on simulated data</a></li>
+<li class="chapter" data-level="11.3.3" data-path="mod-11.html"><a href="mod-11.html#glmm-on-real-data"><i class="fa fa-check"></i><b>11.3.3</b> GLMM on real data</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="mod-11.html"><a href="mod-11.html#mod-11-nlme"><i class="fa fa-check"></i><b>11.4</b> Nonlinear mixed models (NLME)</a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="mod-11.html"><a href="mod-11.html#definition-and-background"><i class="fa fa-check"></i><b>11.4.1</b> Definition and background</a></li>
+<li class="chapter" data-level="11.4.2" data-path="mod-11.html"><a href="mod-11.html#nlme-on-simulated-data"><i class="fa fa-check"></i><b>11.4.2</b> NLME on simulated data</a></li>
+<li class="chapter" data-level="11.4.3" data-path="mod-11.html"><a href="mod-11.html#nlme-on-real-data"><i class="fa fa-check"></i><b>11.4.3</b> NLME on real data</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="mod-11.html"><a href="mod-11.html#mod-11-gamm"><i class="fa fa-check"></i><b>11.5</b> (Generalized) additive mixed models (AMM/GAMM)</a>
+<ul>
+<li class="chapter" data-level="11.5.1" data-path="mod-11.html"><a href="mod-11.html#example-gamm-with-real-data"><i class="fa fa-check"></i><b>11.5.1</b> Example GAMM with real data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="mod-12.html"><a href="mod-12.html"><i class="fa fa-check"></i><b>12</b> Multivariate data analysis</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="mod-12.html"><a href="mod-12.html#multivariate-data"><i class="fa fa-check"></i><b>12.1</b> Multivariate data</a>
+<ul>
+<li class="chapter" data-level="12.1.1" data-path="mod-12.html"><a href="mod-12.html#univariate-vs.-multivariate-data"><i class="fa fa-check"></i><b>12.1.1</b> Univariate vs. multivariate data</a></li>
+<li class="chapter" data-level="12.1.2" data-path="mod-12.html"><a href="mod-12.html#components-of-multivariate-data"><i class="fa fa-check"></i><b>12.1.2</b> Components of multivariate data</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="mod-12.html"><a href="mod-12.html#mod-08-dist"><i class="fa fa-check"></i><b>12.2</b> Distance metrics: biological (dis)similarity</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="mod-12.html"><a href="mod-12.html#euclidean-distance"><i class="fa fa-check"></i><b>12.2.1</b> Euclidean distance</a></li>
+<li class="chapter" data-level="12.2.2" data-path="mod-12.html"><a href="mod-12.html#bray-curtis-and-other-distance-metrics"><i class="fa fa-check"></i><b>12.2.2</b> Bray-Curtis and other distance metrics</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="mod-12.html"><a href="mod-12.html#clustering"><i class="fa fa-check"></i><b>12.3</b> Clustering</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="mod-12.html"><a href="mod-12.html#k-means-clustering"><i class="fa fa-check"></i><b>12.3.1</b> <em>K</em>-means clustering</a></li>
+<li class="chapter" data-level="12.3.2" data-path="mod-12.html"><a href="mod-12.html#hierarchical-agglomerative-clustering"><i class="fa fa-check"></i><b>12.3.2</b> Hierarchical agglomerative clustering</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="mod-12.html"><a href="mod-12.html#mod-08-sims"><i class="fa fa-check"></i><b>12.4</b> Analyzing dissimilarity</a>
+<ul>
+<li class="chapter" data-level="12.4.1" data-path="mod-12.html"><a href="mod-12.html#mantel-tests-distance-vs.-distance"><i class="fa fa-check"></i><b>12.4.1</b> Mantel tests: distance vs. distance</a></li>
+<li class="chapter" data-level="12.4.2" data-path="mod-12.html"><a href="mod-12.html#comparing-dissimilarity-between-groups"><i class="fa fa-check"></i><b>12.4.2</b> Comparing dissimilarity between groups</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="mod-12.html"><a href="mod-12.html#mod-08-ord"><i class="fa fa-check"></i><b>12.5</b> Ordination</a>
+<ul>
+<li class="chapter" data-level="12.5.1" data-path="mod-12.html"><a href="mod-12.html#principal-components-analysis-pca-1"><i class="fa fa-check"></i><b>12.5.1</b> Principal components analysis (PCA)</a></li>
+<li class="chapter" data-level="12.5.2" data-path="mod-12.html"><a href="mod-12.html#nmds-and-other-ordination-methods"><i class="fa fa-check"></i><b>12.5.2</b> NMDS and other ordination methods</a></li>
+<li class="chapter" data-level="12.5.3" data-path="mod-12.html"><a href="mod-12.html#other-ordination-techniques"><i class="fa fa-check"></i><b>12.5.3</b> Other ordination techniques</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="literature-cited.html"><a href="literature-cited.html"><i class="fa fa-check"></i>Literature Cited</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Applied Biological Data Analysis: Statistics and R for Biologists</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="mod-07" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">Module 7</span> Common statistical problems<a href="mod-07.html#mod-07" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Many statistical methods assume that data follow certain distributions, and we have already explored methods for making sure your data follow those distributions. Other problems are not so easy to diagnose or fix. This section will introduce you to some methods for dealing with more subtle data problems. Note that none of these issues have one-size-fits-all solutions. Dealing with these issues will require understanding your study system and thinking through the consequences of potential solutions.</p>
+<div id="outliers-and-erroneous-values" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Outliers and erroneous values<a href="mod-07.html#outliers-and-erroneous-values" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Outliers are values that much larger or smaller than other values in the data set. While these values are theoretically possible in any distribution, they are by their nature extremely unlikely. Outliers can cause problems with many statistical tests because they are often given undue weight. This is because deviations from the mean are often squared.</p>
+<p>There are two problems with outliers: how to detect them, and what to do with them.</p>
+<div id="detecting-outliers" class="section level3 hasAnchor" number="7.1.1">
+<h3><span class="header-section-number">7.1.1</span> Detecting outliers<a href="mod-07.html#detecting-outliers" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>There are several definitions of outlier. Some researchers have suggested simple measures such as <em>Z</em>-scores to detect outliers. <em>Z</em>-scores measure how many standard deviations (SD) an observation is away from the mean. The <em>Z</em>-score of an observation <span class="math inline">\(x_i\)</span> (observation <em>i</em> of variable <em>x</em>) is calculated as:</p>
+<p><span class="math display">\[Z\left(x_i\right)=\frac{x_i-\bar{x}}{\sigma\left(x\right)}\]</span></p>
+<p>where <span class="math inline">\(\bar{x}\)</span> is the mean of <em>x</em> and <span class="math inline">\(\sigma\left(x\right)\)</span> is the SD of <em>x</em>. For example, <em>Z</em>-scores of -2.3 and +4.1 indicate observations 2.3 SD below and 4.1 SD above the mean, respectively. <em>Z</em>-scores are also referred to as <strong>sigmas</strong>, referring to the symbol for SD. E.g., a 4<span class="math inline">\(\sigma\)</span> observation is 4 SD away from the mean. Various <span class="math inline">\(\sigma\)</span> levels have been used to detect outliers, in which researchers discard any observation 2<span class="math inline">\(\sigma\)</span>, 3<span class="math inline">\(\sigma\)</span>, etc., away from the mean. This threshold varies by discipline so follow the conventions in your field.</p>
+<p>The figure below shows <em>Z</em>-scores relative to the standard normal distribution (<span class="math inline">\(\mu\)</span> = 0, SD = 1). About 68% of observations are expected to have a <em>Z</em>-score between -1 and 1–i.e., deviate by <span class="math inline">\(\le\)</span> 1 <span class="math inline">\(\sigma\)</span>. About 95% of observations should be <span class="math inline">\(\le\)</span> 2 <span class="math inline">\(\sigma\)</span>, and over 99% of observations should be <span class="math inline">\(\le\)</span> 3 <span class="math inline">\(\sigma\)</span>. The greater the magnitude of a value’s <em>Z</em>-score, the less likely it is. Values with &gt; 3 or 4 <span class="math inline">\(\sigma\)</span> should almost never occur. Thus, observations with large-magnitude <em>Z</em>-scores may turn out to be outliers.</p>
+<p><img src="applied_biol_data_analysis_20220816_files/figure-html/unnamed-chunk-468-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>It must be noted that a large magnitude <em>Z</em>-score does <strong><em>not</em></strong> prove that an observation is an outlier. Like <em>p</em>-values, <em>Z</em>-scores are just a heuristic for making decisions. Don’t just delete any observation <span class="math inline">\(|Z|\ge\)</span> 3; examine those observations to see if they are legitmate and don’t take any action without a good biological reason.</p>
+</div>
+<div id="dealing-with-outliers" class="section level3 hasAnchor" number="7.1.2">
+<h3><span class="header-section-number">7.1.2</span> Dealing with outliers<a href="mod-07.html#dealing-with-outliers" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The easiest way to deal with outliers is simply to delete them. This can be fine if you have a lot of data–many 1000s or even millions of records. I’ve worked with several statisticians who routinely delete observations with response variables in the top and bottom 5 percentiles. This may not always be an appropriate strategy in biology. For one thing, outliers can occur for completely legitimate reasons and deleting them would be discarding important information about the study system.</p>
+<p><strong><em>Never</em> delete an observation based solely on its magnitude.</strong></p>
+<p>Data should only be deleted when there is a biological or experimental reason. These might include experimental errors, inappropriate sampling, extraordinary field conditions, etc. Furthermore, you should always document when observations were deleted and why, and disclose that information in your write up and to reviewers. The possibility of including supplemental information or documents with manuscripts leaves little excuse not to be transparent about what observations you deleted and why.</p>
+<p>Another way to deal with outliers is to <a href="mod-05.html#mod-05-trans">transform the data</a>. Variance-stabilizing transformations, such as the log-transform, often have the side-effect of reducing outliers in the data.</p>
+<p>The third method for dealing with outliers is <strong>censoring</strong>. Censoring data in statistics means analyzing data as either the measured value or the interval in which the value falls. For example, if a mouse is weighed with a scale that goes up to 60 g, and maxes out the scale, we record the mouse as weighing <span class="math inline">\(\ge\)</span> 60 g. Statistical methods for censored data have been developed but are outside the scope of this course. One popular form of censoring is called <strong>Winsorizing</strong>, where values below the 5th percentile are set to the 5th percentile and values above the 95th percentile are set to the 95th percentile. Censoring is common practice in fields involving certain types of instrumentation. For example, many spectrophotometers (e.g., microplate readers) record <strong>optical density (OD)</strong> as the amount of light passing through a specimen as a measurement of concentration. Most machines have a lower limit to the OD that they can detect. Observations below this minimum OD might be censored to 0, or to some pre-determined fraction of the minimum detectable OD.</p>
+<p>Similar to censoring, outlying data can be removed by <strong>truncation</strong>. Truncation in statistics means ignoring values outside of a certain range. As with deletion, you must be very explicit about what criteria were used to truncate the data.</p>
+<p><strong>Weighting</strong> is a strategy where observations can be given greater or lesser weight to adjust how much influence they have. This strategy can become very complicated and involve a lot of arbitrary decisions. So, a simpler strategy such as truncation or transformation might be more appropriate.</p>
+<p>Finally, researchers can use analysis strategies that are less sensitive to outliers. For example, <strong>robust statistics</strong> use absolute deviations rather than squared deviations. This gives outliers much less influence than under conventional methods based on sums of squared errors. <strong>Nonparametric methods</strong>, particularly those based on rank order, can also be less sensitive to outliers.</p>
+<p>Whatever strategy you choose to deal with your outliers, you need to be aware of how much your decision affected the outcome. It is a good idea to analyze your data both with and without suspected outliers to measure how much influence they really have. If the analysis returns the same results with and without the outliers, leave them in.</p>
+</div>
+</div>
+<div id="autocorrelation" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Autocorrelation<a href="mod-07.html#autocorrelation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Autocorrelation describes a phenomenon where set of values is correlated with itself, with the strength of that correlation determined by the distance between observations. In biology, the “distance” that defines autocorrelation is often spatial, temporal, or phylogenetic.</p>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Autocorrelation type</th>
+<th>Distance measure</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Spatial</td>
+<td>Space (e.g., km)</td>
+<td>Samples from sites that are close together in space are more similar to each other than they are to sites that are farther away, just because they are closer to each other.</td>
+</tr>
+<tr class="even">
+<td>Temporal</td>
+<td>Time (e.g., days)</td>
+<td>Observations taken closer together in time are more similar to each other than they are to observations separated by more time.</td>
+</tr>
+<tr class="odd">
+<td>Phylogenetic</td>
+<td>Relatedness</td>
+<td>Taxa that share a more recent common ancestor (i.e., are more closely related) are more similar to each other than they are to taxa that are less closely related to each other.</td>
+</tr>
+</tbody>
+</table>
+<p>The main consequence of autocorrelation is similar to the problems associated with pseudoreplication: because observations are not independent, the statistically relevant number of observations (degrees of freedom) is smaller than the nominal number of observations. This means that the power of the test is inflated. A related idea is that the residuals of a statistical model can be autocorrelated. In that case, the model violates the assumption of independent residuals shared by most statistical methods. Autocorrelation can be controlled for if you have some idea of its source and nature.</p>
+<div id="graphical-methods-to-identify-autocorrelation" class="section level3 hasAnchor" number="7.2.1">
+<h3><span class="header-section-number">7.2.1</span> Graphical methods to identify autocorrelation<a href="mod-07.html#graphical-methods-to-identify-autocorrelation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>One way to explore potential autocorrelation is to construct a variogram. A variogram plots the squared differences between samples against their distance (temporal, spatial, etc.). A semivariogram uses half of that variance. An example semivariogram is below.</p>
+<p>This figure shows some important quantities on the semivariogram:</p>
+<p><img src="07_01.jpg" width="90%" style="display: block; margin: auto;" /></p>
+<ul>
+<li><strong>Nugget</strong>: The variance or semivariance at 0 distance. I.e., the y-intercept. Variation at zero distance represents other sources of error, such as sampling error, demographic stochasticity, etc.</li>
+<li><strong>Sill</strong>: The variance or semivariance at which the curve gets close to its maximum or asymptotic value.</li>
+<li><strong>Range</strong>: The distance at which the variance or semivariance reaches the sill.</li>
+</ul>
+<p>Semivariograms should always increase, at least initially, because closer observations should be similar to each other simply as a matter of proximity. Samples separated by distances less than the range are autocorrelated. Semivariograms sometimes reach a peak and then start decreasing, or varying up and down. The initial peak is usually interpreted as the sill, and the distance when the curve reaches the sill is considered the range. The importance and interpreation of the semivariogram is something that you, as a biologist, have to figure out.</p>
+</div>
+<div id="mantel-tests-for-autocorrelation" class="section level3 hasAnchor" number="7.2.2">
+<h3><span class="header-section-number">7.2.2</span> Mantel tests for autocorrelation<a href="mod-07.html#mantel-tests-for-autocorrelation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Spatial autocorrelation</strong> is a particular problem for ecologists and environmental biologists. The <a href="mod-12.html#mod-08-sims"><strong>Mantel test</strong></a> can be used to measure spatial autocorrelation as the correlation between distance in space and distance in terms of the measured variables. The Mantel test can be thought of as a multivariate generalization of linear correlation that measures correlation between two matrices. Whereas linear correlation measures how variation in one variable is related to variation in another variable, the Mantel test measures how variation in one matrix (i.e., set of variables) is related to variation in another matrix.</p>
+<p>The application to spatial autocorrelation is obvious. The spatial distance matrix can be calculated from coordinates such as latitude or longitude<a href="#fn57" class="footnote-ref" id="fnref57"><sup>57</sup></a>, and compared to the biological distance matrix. When other types of autocorrelation are of interest, you can calculate a distance matrix based on time or on phylogenetic relatedness, or whatever else might be driving the autocorrelation.</p>
+<p><img src="07_02.jpg" width="100%" style="display: block; margin: auto;" /></p>
+<p>The <a href="mod-12.html#mod-08-sims">Mantel test</a> works by first calculating two <strong>distance matrices</strong>, which define the <a href="mod-12.html#mod-08-dist">“distances” or “dissimilarities” between each sample</a>. One distance matrix relates to spatial, temporal, or phylogenetic distance. The other relates to dissimilarity in terms of the measured variables. The dissimilarity metric incorporates information about how much any pair of observations differ in terms of every variable represented in the matrix. The Mantel correlation coefficient <em>r</em> is the linear correlation coefficient (like Pearson’s <em>r</em>) between the two distance matrices. It answers the question, “How is variation in this set of variables related to distance in space (or time, or phylogeny)?”.</p>
+<p>The example below illustrates another use for the Mantel test: measuring association between two sets of variables taken from the same sample units. In this example, dissimilarity in terms of species composition is related to dissimilarity in soil chemical characteristics.</p>
+<div class="sourceCode" id="cb1159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1159-1"><a href="mod-07.html#cb1159-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegan)</span></code></pre></div>
+<pre><code>## Loading required package: permute</code></pre>
+<pre><code>## Loading required package: lattice</code></pre>
+<pre><code>## This is vegan 2.6-2</code></pre>
+<div class="sourceCode" id="cb1163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1163-1"><a href="mod-07.html#cb1163-1" aria-hidden="true" tabindex="-1"></a><span class="co"># biological data</span></span>
+<span id="cb1163-2"><a href="mod-07.html#cb1163-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(varespec)</span>
+<span id="cb1163-3"><a href="mod-07.html#cb1163-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1163-4"><a href="mod-07.html#cb1163-4" aria-hidden="true" tabindex="-1"></a><span class="co"># soil chemistry data</span></span>
+<span id="cb1163-5"><a href="mod-07.html#cb1163-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(varechem)</span>
+<span id="cb1163-6"><a href="mod-07.html#cb1163-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1163-7"><a href="mod-07.html#cb1163-7" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> varechem</span>
+<span id="cb1163-8"><a href="mod-07.html#cb1163-8" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> varespec</span>
+<span id="cb1163-9"><a href="mod-07.html#cb1163-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1163-10"><a href="mod-07.html#cb1163-10" aria-hidden="true" tabindex="-1"></a>dy <span class="ot">&lt;-</span> <span class="fu">vegdist</span>(varespec) <span class="co"># Bray-Curtis metric</span></span>
+<span id="cb1163-11"><a href="mod-07.html#cb1163-11" aria-hidden="true" tabindex="-1"></a>dx <span class="ot">&lt;-</span> <span class="fu">vegdist</span>(<span class="fu">scale</span>(varechem), <span class="st">&quot;euclid&quot;</span>) <span class="co"># Euclidean metric</span></span>
+<span id="cb1163-12"><a href="mod-07.html#cb1163-12" aria-hidden="true" tabindex="-1"></a><span class="fu">mantel</span>(dx, dy)</span></code></pre></div>
+<pre><code>## 
+## Mantel statistic based on Pearson&#39;s product-moment correlation 
+## 
+## Call:
+## mantel(xdis = dx, ydis = dy) 
+## 
+## Mantel statistic r: 0.3047 
+##       Significance: 0.002 
+## 
+## Upper quantiles of permutations (null model):
+##   90%   95% 97.5%   99% 
+## 0.130 0.152 0.170 0.195 
+## Permutation: free
+## Number of permutations: 999</code></pre>
+<div class="sourceCode" id="cb1165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1165-1"><a href="mod-07.html#cb1165-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="fl">5.1</span>, <span class="fl">5.1</span>, <span class="fl">1.1</span>, <span class="fl">1.1</span>),</span>
+<span id="cb1165-2"><a href="mod-07.html#cb1165-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">bty=</span><span class="st">&quot;n&quot;</span>, <span class="at">lend=</span><span class="dv">1</span>, <span class="at">las=</span><span class="dv">1</span>, <span class="at">cex.axis=</span><span class="fl">1.3</span>, <span class="at">cex.lab=</span><span class="fl">1.3</span>)</span>
+<span id="cb1165-3"><a href="mod-07.html#cb1165-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dx, dy, <span class="at">xlab=</span><span class="st">&quot;Chemical dissimilarity&quot;</span>,</span>
+<span id="cb1165-4"><a href="mod-07.html#cb1165-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">&quot;Vegetation dissimilarity&quot;</span>,</span>
+<span id="cb1165-5"><a href="mod-07.html#cb1165-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>))</span>
+<span id="cb1165-6"><a href="mod-07.html#cb1165-6" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">0</span>, <span class="fl">0.05</span>, </span>
+<span id="cb1165-7"><a href="mod-07.html#cb1165-7" aria-hidden="true" tabindex="-1"></a>     <span class="fu">expression</span>(Mantel<span class="sc">~</span><span class="fu">italic</span>(r)<span class="sc">==</span><span class="fl">0.305</span>),</span>
+<span id="cb1165-8"><a href="mod-07.html#cb1165-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">adj=</span><span class="dv">0</span>, <span class="at">cex=</span><span class="fl">1.5</span>)</span>
+<span id="cb1165-9"><a href="mod-07.html#cb1165-9" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">5.38</span>, <span class="fl">0.2</span>, </span>
+<span id="cb1165-10"><a href="mod-07.html#cb1165-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Each point represents </span><span class="sc">\n</span><span class="st"> a pair of observations&quot;</span>,</span>
+<span id="cb1165-11"><a href="mod-07.html#cb1165-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex=</span><span class="fl">1.3</span>, <span class="at">adj=</span><span class="dv">0</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="applied_biol_data_analysis_20220816_files/figure-html/unnamed-chunk-471-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>The figure above shows the result visually. The Mantel <em>r</em> statistic describes the sign and magnitude of the correlation between dissimilarity in terms of chemistry (<em>x</em>-axis) and dissimilarity in terms of the plant community (<em>y</em>-axis). It is interpreted just like Pearson’s <em>r</em>. In the plot it is important to realize that each point represents a <em>pair</em> of observations, plotted by the dissimilarities between them. The correct interpretation of this plot is that samples with similar soil chemistry tend to also have similar plant communities. Alternatively, you could say that the larger the difference in soil chemistry, the larger the difference in plant communities (or something like that).</p>
+</div>
+<div id="dealing-with-autocorrelation" class="section level3 hasAnchor" number="7.2.3">
+<h3><span class="header-section-number">7.2.3</span> Dealing with autocorrelation<a href="mod-07.html#dealing-with-autocorrelation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Autocorrelation may or may not be a problem in your dataset. As pointed out by <span class="citation">Kuehn and Dormann (<a href="#ref-kuehn2012" role="doc-biblioref">2012</a>)</span>, there is a difference between autocorrelation in a response variable and autocorrelation in the residuals of a statistical model. Autocorrelation in a response variable can be managed by inclusion of appropriate predictor variables (which may themselves be autocorrelated or correlated; see next section). This works because if autocorrelated values can be predicted by a predictor variable, then the autocorrelation is controlled for, by definition.</p>
+<p>Autocorrelation in residuals, however, represents a pattern in the data that is not accounted for. There are methods for accounting for autocorrelated residuals such as conditional autoregressive models (CAR) <span class="citation">(<a href="#ref-gelfand2003" role="doc-biblioref">Gelfand and Vounatsou 2003</a>)</span>, generalized or ordinary least squares models (GLS or OLS), classification and regression trees or CART <span class="citation">(<a href="#ref-mccune2002analysis" role="doc-biblioref">McCune et al. 2002</a>)</span>, and mixed models <span class="citation">(<a href="#ref-bolker2009" role="doc-biblioref">Bolker et al. 2009</a>)</span>. None of these solutions is appropriate for every situation.</p>
+</div>
+</div>
+<div id="mod-07-multicol" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> Collinearity<a href="mod-07.html#mod-07-multicol" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Sometimes we face the problem of having predictor variables that are not only related to the response variable, but also related to each other. This phenomenon is called <strong>collinearity</strong>. In large datasets the problem becomes <strong>multicollinearity</strong>, when many variables are related to each other. Including collinear predictor variables in an analysis can severely bias the parameter estimates of that analysis (e.g., regression coefficients) and as a result make the results misleading or not generalizable. The effects of collinear predictor variables are by definition confounded with each other, meaning that the effects cannot be separated <span class="citation">(<a href="#ref-dormann2013" role="doc-biblioref">Dormann et al. 2013</a>)</span>.</p>
+<p>The most straightforward way of detecting collinearity is with scatterplot matrices and correlation coefficients (see <a href="#mod-04-smat">here</a>). This is a technique to visualize how many variables in a dataset relate to each other simultaneously. As shown in the linked section, replacing the upper triangle of boxes with the correlation coefficients can help detect potentially problematic pairs of variables. The figure below shows an example from the <code>crabs</code> dataset in package <code>MASS</code>. In this dataset, all of the variables are highly correlated with each other.</p>
+<p><img src="applied_biol_data_analysis_20220816_files/figure-html/unnamed-chunk-472-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>If you have many variables, then a figure like the one above can be hard to read or interpret. One solution might be to create a table of correlation coefficients between every pair of variables. The base function <code>cor()</code> can do this, but a better-formatted table takes a little more work.</p>
+<div class="sourceCode" id="cb1166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1166-1"><a href="mod-07.html#cb1166-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(crabs, <span class="at">package=</span><span class="st">&quot;MASS&quot;</span>)</span>
+<span id="cb1166-2"><a href="mod-07.html#cb1166-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> crabs</span>
+<span id="cb1166-3"><a href="mod-07.html#cb1166-3" aria-hidden="true" tabindex="-1"></a>dat.cols <span class="ot">&lt;-</span> <span class="dv">4</span><span class="sc">:</span><span class="dv">8</span></span>
+<span id="cb1166-4"><a href="mod-07.html#cb1166-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(x[,dat.cols])</span></code></pre></div>
+<pre><code>##           FL        RW        CL        CW        BD
+## FL 1.0000000 0.9069876 0.9788418 0.9649558 0.9876272
+## RW 0.9069876 1.0000000 0.8927430 0.9004021 0.8892054
+## CL 0.9788418 0.8927430 1.0000000 0.9950225 0.9832038
+## CW 0.9649558 0.9004021 0.9950225 1.0000000 0.9678117
+## BD 0.9876272 0.8892054 0.9832038 0.9678117 1.0000000</code></pre>
+<div class="sourceCode" id="cb1168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1168-1"><a href="mod-07.html#cb1168-1" aria-hidden="true" tabindex="-1"></a><span class="co"># better table:</span></span>
+<span id="cb1168-2"><a href="mod-07.html#cb1168-2" aria-hidden="true" tabindex="-1"></a>vars <span class="ot">&lt;-</span> <span class="fu">names</span>(x)[dat.cols]</span>
+<span id="cb1168-3"><a href="mod-07.html#cb1168-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1168-4"><a href="mod-07.html#cb1168-4" aria-hidden="true" tabindex="-1"></a><span class="co"># generate every unique pair of two variables by name:</span></span>
+<span id="cb1168-5"><a href="mod-07.html#cb1168-5" aria-hidden="true" tabindex="-1"></a>cx <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">t</span>(<span class="fu">combn</span>(vars, <span class="dv">2</span>)))</span>
+<span id="cb1168-6"><a href="mod-07.html#cb1168-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1168-7"><a href="mod-07.html#cb1168-7" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate correlation coefficients for each pair:</span></span>
+<span id="cb1168-8"><a href="mod-07.html#cb1168-8" aria-hidden="true" tabindex="-1"></a>cx<span class="sc">$</span>r <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb1168-9"><a href="mod-07.html#cb1168-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(cx)){</span>
+<span id="cb1168-10"><a href="mod-07.html#cb1168-10" aria-hidden="true" tabindex="-1"></a>    cx<span class="sc">$</span>r[i] <span class="ot">&lt;-</span> <span class="fu">cor</span>(x[,cx<span class="sc">$</span>X1[i]], x[,cx<span class="sc">$</span>X2[i]])</span>
+<span id="cb1168-11"><a href="mod-07.html#cb1168-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1168-12"><a href="mod-07.html#cb1168-12" aria-hidden="true" tabindex="-1"></a>cx</span></code></pre></div>
+<pre><code>##    X1 X2         r
+## 1  FL RW 0.9069876
+## 2  FL CL 0.9788418
+## 3  FL CW 0.9649558
+## 4  FL BD 0.9876272
+## 5  RW CL 0.8927430
+## 6  RW CW 0.9004021
+## 7  RW BD 0.8892054
+## 8  CL CW 0.9950225
+## 9  CL BD 0.9832038
+## 10 CW BD 0.9678117</code></pre>
+<p>The resulting table can then be sorted or filtered by <code>r</code> to identify pairs of variables that are correlated with each other.</p>
+<div class="sourceCode" id="cb1170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1170-1"><a href="mod-07.html#cb1170-1" aria-hidden="true" tabindex="-1"></a><span class="co"># not run:</span></span>
+<span id="cb1170-2"><a href="mod-07.html#cb1170-2" aria-hidden="true" tabindex="-1"></a><span class="co"># filter to |r| &gt; 0.7</span></span>
+<span id="cb1170-3"><a href="mod-07.html#cb1170-3" aria-hidden="true" tabindex="-1"></a>cx[<span class="fu">which</span>(<span class="fu">abs</span>(cx<span class="sc">$</span>r) <span class="sc">&gt;</span> <span class="fl">0.7</span>),]</span></code></pre></div>
+<p><span class="citation">Dormann et al. (<a href="#ref-dormann2013" role="doc-biblioref">2013</a>)</span> suggest to use a cutoff of <span class="math inline">\(|r|\)</span> in between 0.5 and 0.7 to identify collinear pairs of variables. When a pair of variables are identified as collinear, the easiest solution is to simply run the analysis without one of them. This is because the variables are redundant, and any conclusions made using one would also be obtained using the other.</p>
+</div>
+<div id="missing-data" class="section level2 hasAnchor" number="7.4">
+<h2><span class="header-section-number">7.4</span> Missing data<a href="mod-07.html#missing-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The last target of exploratory data analysis that we will explore is <strong>missing data</strong>. Data can be missing for many reasons. Equipment failures, human error, natural disasters, and other causes can cause values in your dataset to go missing or otherwise be invalid. How to handle the missing data is up to you as a biologist: <em>there is no one-size-fits-all statistical solution</em>. The two basic ways to deal with missing data are to (1) not deal with it and (2) estimate the missing values.</p>
+<div id="option-1-ignore-missing-data" class="section level3 hasAnchor" number="7.4.1">
+<h3><span class="header-section-number">7.4.1</span> Option 1: Ignore missing data<a href="mod-07.html#option-1-ignore-missing-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The easiest solution is simply to ignore missing data. Consider <a href="https://greenquanteco.github.io/missing_data_example.csv">this dataset</a>, which contains morphological data on 63 species of bats <span class="citation">(<a href="#ref-hutcheon2002" role="doc-biblioref">Hutcheon et al. 2002</a>)</span>. This dataset is modified from <a href="mod-10.html#mod-10-cart1">an example in the unit on nonlinear models</a>. Notice that in this version the brain masses (<code>brw</code>) are missing for 3 species of bats.</p>
+<div class="sourceCode" id="cb1171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1171-1"><a href="mod-07.html#cb1171-1" aria-hidden="true" tabindex="-1"></a>in.name <span class="ot">&lt;-</span> <span class="st">&quot;missing_data_example.csv&quot;</span></span>
+<span id="cb1171-2"><a href="mod-07.html#cb1171-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(in.name, <span class="at">header=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p>Because there are a lot of data, one option for analyzing this dataset would be to simply ignore the missing observations. For example, if someone was interested in the relationship between body size (variable <code>bow</code>) and brain mass, they could just fit a model and R would (for most methods) automatically ignore missing values. Note that in this example both variables are log-transformed to ensure normality and positivity.</p>
+<div class="sourceCode" id="cb1172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1172-1"><a href="mod-07.html#cb1172-1" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>logbw <span class="ot">&lt;-</span> <span class="fu">log</span>(dat<span class="sc">$</span>bow)</span>
+<span id="cb1172-2"><a href="mod-07.html#cb1172-2" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>logbr <span class="ot">&lt;-</span> <span class="fu">log</span>(dat<span class="sc">$</span>brw)</span>
+<span id="cb1172-3"><a href="mod-07.html#cb1172-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1172-4"><a href="mod-07.html#cb1172-4" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(logbr<span class="sc">~</span>logbw, <span class="at">data=</span>dat)</span>
+<span id="cb1172-5"><a href="mod-07.html#cb1172-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = logbr ~ logbw, data = dat)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.82879 -0.16408  0.05009  0.19548  0.35881 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  3.96599    0.09476   41.85   &lt;2e-16 ***
+## logbw        0.75322    0.02881   26.14   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.2616 on 58 degrees of freedom
+##   (3 observations deleted due to missingness)
+## Multiple R-squared:  0.9218, Adjusted R-squared:  0.9204 
+## F-statistic: 683.4 on 1 and 58 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>The parameter estimates of intercept = 3.9659 and slope = 0.7532 are very close to the values obtained using the full dataset of 3.9685 and 0.7516. In this case, ignoring the missing data worked just fine.</p>
+</div>
+<div id="option-2-interpolate-or-impute-missing-data" class="section level3 hasAnchor" number="7.4.2">
+<h3><span class="header-section-number">7.4.2</span> Option 2: Interpolate or impute missing data<a href="mod-07.html#option-2-interpolate-or-impute-missing-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>If you need to replace the missing data, then the best option is to <strong>interpolate</strong> or <strong>impute</strong> them. How exactly to do this depends on the question being asked. If there is a clear relationship between the variable with missing values and another variable, then you can use that relationship to estimate the missing values. You can also use <strong>multiple imputation</strong> to estimate the missing values using information from several related variables at once. The example below illustrates simple interpolation (aka: single imputation) to replace the missing brain weights using known body masses.</p>
+<div class="sourceCode" id="cb1174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1174-1"><a href="mod-07.html#cb1174-1" aria-hidden="true" tabindex="-1"></a><span class="co"># flag missing observations</span></span>
+<span id="cb1174-2"><a href="mod-07.html#cb1174-2" aria-hidden="true" tabindex="-1"></a>flag <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">is.na</span>(dat<span class="sc">$</span>brw))</span>
+<span id="cb1174-3"><a href="mod-07.html#cb1174-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1174-4"><a href="mod-07.html#cb1174-4" aria-hidden="true" tabindex="-1"></a><span class="co"># log transform (if not done already)</span></span>
+<span id="cb1174-5"><a href="mod-07.html#cb1174-5" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>logbw <span class="ot">&lt;-</span> <span class="fu">log</span>(dat<span class="sc">$</span>bow)</span>
+<span id="cb1174-6"><a href="mod-07.html#cb1174-6" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>logbr <span class="ot">&lt;-</span> <span class="fu">log</span>(dat<span class="sc">$</span>brw)</span>
+<span id="cb1174-7"><a href="mod-07.html#cb1174-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1174-8"><a href="mod-07.html#cb1174-8" aria-hidden="true" tabindex="-1"></a><span class="co"># fit model</span></span>
+<span id="cb1174-9"><a href="mod-07.html#cb1174-9" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(logbr<span class="sc">~</span>logbw, <span class="at">data=</span>dat)</span>
+<span id="cb1174-10"><a href="mod-07.html#cb1174-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1174-11"><a href="mod-07.html#cb1174-11" aria-hidden="true" tabindex="-1"></a><span class="co"># predict missing logbr at logbw</span></span>
+<span id="cb1174-12"><a href="mod-07.html#cb1174-12" aria-hidden="true" tabindex="-1"></a>px <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">logbw=</span>dat<span class="sc">$</span>logbw[flag])</span>
+<span id="cb1174-13"><a href="mod-07.html#cb1174-13" aria-hidden="true" tabindex="-1"></a>pr <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod1, <span class="at">newdata=</span><span class="fu">data.frame</span>(px))</span>
+<span id="cb1174-14"><a href="mod-07.html#cb1174-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1174-15"><a href="mod-07.html#cb1174-15" aria-hidden="true" tabindex="-1"></a><span class="co"># insert predicted values</span></span>
+<span id="cb1174-16"><a href="mod-07.html#cb1174-16" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>logbr[flag] <span class="ot">&lt;-</span> pr</span>
+<span id="cb1174-17"><a href="mod-07.html#cb1174-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1174-18"><a href="mod-07.html#cb1174-18" aria-hidden="true" tabindex="-1"></a><span class="co"># back-transform to original scale</span></span>
+<span id="cb1174-19"><a href="mod-07.html#cb1174-19" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>brw[flag] <span class="ot">&lt;-</span> <span class="fu">exp</span>(dat<span class="sc">$</span>logbr[flag])</span></code></pre></div>
+<p>The interpolated values are similar to the true values, but with quite a bit of error. The term for this is “correct to an order of magnitude”.</p>
+<div class="sourceCode" id="cb1175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1175-1"><a href="mod-07.html#cb1175-1" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>brw[flag]</span></code></pre></div>
+<pre><code>## [1]  729.7784  507.7160 2138.6809</code></pre>
+<div class="sourceCode" id="cb1177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1177-1"><a href="mod-07.html#cb1177-1" aria-hidden="true" tabindex="-1"></a>true.vals <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">597</span>, <span class="dv">543</span>, <span class="dv">2070</span>)</span>
+<span id="cb1177-2"><a href="mod-07.html#cb1177-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1177-3"><a href="mod-07.html#cb1177-3" aria-hidden="true" tabindex="-1"></a><span class="co"># percentage bias in interpolated values:</span></span>
+<span id="cb1177-4"><a href="mod-07.html#cb1177-4" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span> <span class="sc">*</span> (dat<span class="sc">$</span>brw[flag]<span class="sc">-</span>true.vals) <span class="sc">/</span> true.vals</span></code></pre></div>
+<pre><code>## [1] 22.240932 -6.497972  3.317919</code></pre>
+<p>Interpolation can be improved by predicting the missing values using additional variables. Multiple imputation, like any statistical model, can suffer from the effects of multicollinearity in the “predictors”, so be mindful that you don’t obtain–and use–biased estimates of your missing values. <span class="citation">Penone et al. (<a href="#ref-penone2014" role="doc-biblioref">2014</a>)</span> reviewed some strategies for imputing missing data in the context of life history traits, but the approaches could be applied to other areas of biology.</p>
+
+</div>
+</div>
+</div>
+<h3>Literature Cited<a href="literature-cited.html#literature-cited" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-bolker2009" class="csl-entry">
+Bolker, B. M., M. E. Brooks, C. J. Clark, S. W. Geange, J. R. Poulsen, M. H. H. Stevens, and J.-S. S. White. 2009. <a href="https://doi.org/10.1016/j.tree.2008.10.008">Generalized linear mixed models: A practical guide for ecology and evolution</a>. Trends in Ecology &amp; Evolution 24:127–135.
+</div>
+<div id="ref-dormann2013" class="csl-entry">
+Dormann, C. F., J. Elith, S. Bacher, C. Buchmann, G. Carl, G. Carré, J. R. G. Marquéz, B. Gruber, B. Lafourcade, P. J. Leitão, T. Münkemüller, C. McClean, P. E. Osborne, B. Reineking, B. Schröder, A. K. Skidmore, D. Zurell, and S. Lautenbach. 2013. <a href="https://doi.org/10.1111/j.1600-0587.2012.07348.x">Collinearity: A review of methods to deal with it and a simulation study evaluating their performance</a>. Ecography 36:27–46.
+</div>
+<div id="ref-gelfand2003" class="csl-entry">
+Gelfand, A. E., and P. Vounatsou. 2003. <a href="https://doi.org/10.1093/biostatistics/4.1.11">Proper multivariate conditional autoregressive models for spatial data analysis</a>. Biostatistics 4:11–15.
+</div>
+<div id="ref-hutcheon2002" class="csl-entry">
+Hutcheon, J. M., J. A. W. Kirsch, and T. G. Jr. 2002. <a href="https://doi.org/10.1159/000065938">A comparative analysis of brain size in relation to foraging ecology and phylogeny in the <span>C</span>hiroptera</a>. Brain, behavior and evolution 60:165–180.
+</div>
+<div id="ref-kuehn2012" class="csl-entry">
+Kuehn, I., and C. F. Dormann. 2012. <a href="https://doi.org/10.1111/j.1365-2699.2012.02707.x">Less than eight (and a half) misconceptions of spatial analysis</a>. Journal of Biogeography 39:995–998.
+</div>
+<div id="ref-mccune2002analysis" class="csl-entry">
+McCune, B., J. B. Grace, and D. L. Urban. 2002. Analysis of ecological communities. MjM software design Gleneden Beach, Oregon, USA.
+</div>
+<div id="ref-penone2014" class="csl-entry">
+Penone, C., A. D. Davidson, K. T. Shoemaker, M. Di Marco, C. Rondinini, T. M. Brooks, B. E. Young, C. H. Graham, and G. C. Costa. 2014. <a href="https://doi.org/10.1111/2041-210X.12232">Imputation of missing data in life-history trait datasets: Which approach performs the best?</a> Methods in Ecology and Evolution 5:961–970.
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="57">
+<li id="fn57"><p>When calculating a distance matrix using geographic coordinates, be sure to account for the curvature of the Earth. Often using unprojected latitude and longitude will produce a misleading distance matrix, because latitude and longitude are not equivalent.<a href="mod-07.html#fnref57" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="mod-06.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="mod-08.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/07-problems.rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["applied_biol_data_analysis_20220816.pdf", "applied_biol_data_analysis_20220816.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
