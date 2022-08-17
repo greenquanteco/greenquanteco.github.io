@@ -186,10 +186,11 @@ div.csl-indent {
 <li class="chapter" data-level="1.4" data-path="mod-01.html"><a href="mod-01.html#mod-01-nhst"><i class="fa fa-check"></i><b>1.4</b> <em>P</em>-values and null hypothesis significance testing (NHST)</a>
 <ul>
 <li class="chapter" data-level="1.4.1" data-path="mod-01.html"><a href="mod-01.html#definition"><i class="fa fa-check"></i><b>1.4.1</b> Definition</a></li>
-<li class="chapter" data-level="1.4.2" data-path="mod-01.html"><a href="mod-01.html#history-and-status-of-p-values"><i class="fa fa-check"></i><b>1.4.2</b> History and status of <em>P</em>-values</a></li>
-<li class="chapter" data-level="1.4.3" data-path="mod-01.html"><a href="mod-01.html#where-p-values-come-from"><i class="fa fa-check"></i><b>1.4.3</b> Where <em>P</em>-values come from</a></li>
-<li class="chapter" data-level="1.4.4" data-path="mod-01.html"><a href="mod-01.html#what-p-values-mean-and-do-not-mean"><i class="fa fa-check"></i><b>1.4.4</b> What <em>P</em>-values mean and do not mean</a></li>
-<li class="chapter" data-level="1.4.5" data-path="mod-01.html"><a href="mod-01.html#do-you-need-a-p-value"><i class="fa fa-check"></i><b>1.4.5</b> Do you need a <em>P</em>-value?</a></li>
+<li class="chapter" data-level="1.4.2" data-path="mod-01.html"><a href="mod-01.html#aside-another-way-to-frame-null-hypotheses"><i class="fa fa-check"></i><b>1.4.2</b> Aside: Another way to frame null hypotheses</a></li>
+<li class="chapter" data-level="1.4.3" data-path="mod-01.html"><a href="mod-01.html#history-and-status-of-p-values"><i class="fa fa-check"></i><b>1.4.3</b> History and status of <em>P</em>-values</a></li>
+<li class="chapter" data-level="1.4.4" data-path="mod-01.html"><a href="mod-01.html#where-p-values-come-from"><i class="fa fa-check"></i><b>1.4.4</b> Where <em>P</em>-values come from</a></li>
+<li class="chapter" data-level="1.4.5" data-path="mod-01.html"><a href="mod-01.html#what-p-values-mean-and-do-not-mean"><i class="fa fa-check"></i><b>1.4.5</b> What <em>P</em>-values mean and do not mean</a></li>
+<li class="chapter" data-level="1.4.6" data-path="mod-01.html"><a href="mod-01.html#do-you-need-a-p-value"><i class="fa fa-check"></i><b>1.4.6</b> Do you need a <em>P</em>-value?</a></li>
 </ul></li>
 <li class="chapter" data-level="1.5" data-path="mod-01.html"><a href="mod-01.html#alternatives-to-nhst"><i class="fa fa-check"></i><b>1.5</b> Alternatives to NHST</a>
 <ul>
@@ -237,7 +238,7 @@ div.csl-indent {
 <li class="chapter" data-level="2.6.2" data-path="mod-02.html"><a href="mod-02.html#data-frames"><i class="fa fa-check"></i><b>2.6.2</b> Data frames</a></li>
 <li class="chapter" data-level="2.6.3" data-path="mod-02.html"><a href="mod-02.html#matrices-and-arrays"><i class="fa fa-check"></i><b>2.6.3</b> Matrices and arrays</a></li>
 <li class="chapter" data-level="2.6.4" data-path="mod-02.html"><a href="mod-02.html#lists"><i class="fa fa-check"></i><b>2.6.4</b> Lists</a></li>
-<li class="chapter" data-level="2.6.5" data-path="mod-02.html"><a href="mod-02.html#s4-objects"><i class="fa fa-check"></i><b>2.6.5</b> S4 objects</a></li>
+<li class="chapter" data-level="2.6.5" data-path="mod-02.html"><a href="mod-02.html#s3-s4-and-other-paradigms"><i class="fa fa-check"></i><b>2.6.5</b> S3, S4, and other paradigms</a></li>
 </ul></li>
 <li class="chapter" data-level="2.7" data-path="mod-02.html"><a href="mod-02.html#r-data-types"><i class="fa fa-check"></i><b>2.7</b> R data types</a>
 <ul>
@@ -304,21 +305,22 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="4" data-path="mod-04.html"><a href="mod-04.html"><i class="fa fa-check"></i><b>4</b> Exploratory data analysis 1: Data description and summarization</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="mod-04.html"><a href="mod-04.html#descriptive-and-summary-statistics"><i class="fa fa-check"></i><b>4.1</b> Descriptive and summary statistics</a>
+<li class="chapter" data-level="4.1" data-path="mod-04.html"><a href="mod-04.html#motivation"><i class="fa fa-check"></i><b>4.1</b> Motivation</a></li>
+<li class="chapter" data-level="4.2" data-path="mod-04.html"><a href="mod-04.html#descriptive-and-summary-statistics"><i class="fa fa-check"></i><b>4.2</b> Descriptive and summary statistics</a>
 <ul>
-<li class="chapter" data-level="4.1.1" data-path="mod-04.html"><a href="mod-04.html#basic-summary-statistics"><i class="fa fa-check"></i><b>4.1.1</b> Basic summary statistics</a></li>
-<li class="chapter" data-level="4.1.2" data-path="mod-04.html"><a href="mod-04.html#mod-04-agg"><i class="fa fa-check"></i><b>4.1.2</b> Summarizing by groups (AKA: pivot tables)</a></li>
-<li class="chapter" data-level="4.1.3" data-path="mod-04.html"><a href="mod-04.html#summarizing-data-with-the-apply-family"><i class="fa fa-check"></i><b>4.1.3</b> Summarizing data with the <code>apply()</code> family</a></li>
-<li class="chapter" data-level="4.1.4" data-path="mod-04.html"><a href="mod-04.html#mod-04-tab"><i class="fa fa-check"></i><b>4.1.4</b> Tabulation (frequency tables)</a></li>
+<li class="chapter" data-level="4.2.1" data-path="mod-04.html"><a href="mod-04.html#basic-summary-statistics"><i class="fa fa-check"></i><b>4.2.1</b> Basic summary statistics</a></li>
+<li class="chapter" data-level="4.2.2" data-path="mod-04.html"><a href="mod-04.html#mod-04-agg"><i class="fa fa-check"></i><b>4.2.2</b> Summarizing by groups (AKA: pivot tables)</a></li>
+<li class="chapter" data-level="4.2.3" data-path="mod-04.html"><a href="mod-04.html#summarizing-data-with-the-apply-family"><i class="fa fa-check"></i><b>4.2.3</b> Summarizing data with the <code>apply()</code> family</a></li>
+<li class="chapter" data-level="4.2.4" data-path="mod-04.html"><a href="mod-04.html#mod-04-tab"><i class="fa fa-check"></i><b>4.2.4</b> Tabulation (frequency tables)</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="mod-04.html"><a href="mod-04.html#mod-04-vis"><i class="fa fa-check"></i><b>4.2</b> Visualizing single variables</a>
+<li class="chapter" data-level="4.3" data-path="mod-04.html"><a href="mod-04.html#mod-04-vis"><i class="fa fa-check"></i><b>4.3</b> Visualizing single variables</a>
 <ul>
-<li class="chapter" data-level="4.2.1" data-path="mod-04.html"><a href="mod-04.html#boxplots-aka-box-and-whisker-plots"><i class="fa fa-check"></i><b>4.2.1</b> Boxplots (aka: box-and-whisker plots)</a></li>
-<li class="chapter" data-level="4.2.2" data-path="mod-04.html"><a href="mod-04.html#histograms"><i class="fa fa-check"></i><b>4.2.2</b> Histograms</a></li>
-<li class="chapter" data-level="4.2.3" data-path="mod-04.html"><a href="mod-04.html#mod04-pdfplots"><i class="fa fa-check"></i><b>4.2.3</b> Kernel density plots</a></li>
-<li class="chapter" data-level="4.2.4" data-path="mod-04.html"><a href="mod-04.html#empirical-cumulative-density-function-ecdf-plots"><i class="fa fa-check"></i><b>4.2.4</b> Empirical cumulative density function (ECDF) plots</a></li>
-<li class="chapter" data-level="4.2.5" data-path="mod-04.html"><a href="mod-04.html#quantile-quantile-qq-plots"><i class="fa fa-check"></i><b>4.2.5</b> Quantile-quantile (QQ) plots</a></li>
-<li class="chapter" data-level="4.2.6" data-path="mod-04.html"><a href="mod-04.html#how-should-i-plot-my-data"><i class="fa fa-check"></i><b>4.2.6</b> How should I plot my data?</a></li>
+<li class="chapter" data-level="4.3.1" data-path="mod-04.html"><a href="mod-04.html#boxplots-aka-box-and-whisker-plots"><i class="fa fa-check"></i><b>4.3.1</b> Boxplots (aka: box-and-whisker plots)</a></li>
+<li class="chapter" data-level="4.3.2" data-path="mod-04.html"><a href="mod-04.html#histograms"><i class="fa fa-check"></i><b>4.3.2</b> Histograms</a></li>
+<li class="chapter" data-level="4.3.3" data-path="mod-04.html"><a href="mod-04.html#mod04-pdfplots"><i class="fa fa-check"></i><b>4.3.3</b> Kernel density plots</a></li>
+<li class="chapter" data-level="4.3.4" data-path="mod-04.html"><a href="mod-04.html#empirical-cumulative-density-function-ecdf-plots"><i class="fa fa-check"></i><b>4.3.4</b> Empirical cumulative density function (ECDF) plots</a></li>
+<li class="chapter" data-level="4.3.5" data-path="mod-04.html"><a href="mod-04.html#quantile-quantile-qq-plots"><i class="fa fa-check"></i><b>4.3.5</b> Quantile-quantile (QQ) plots</a></li>
+<li class="chapter" data-level="4.3.6" data-path="mod-04.html"><a href="mod-04.html#how-should-i-plot-my-data"><i class="fa fa-check"></i><b>4.3.6</b> How should I plot my data?</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="mod-05.html"><a href="mod-05.html"><i class="fa fa-check"></i><b>5</b> Exploratory data analysis 2: Probability distributions for biology</a>
@@ -396,7 +398,7 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="6.6" data-path="mod-06.html"><a href="mod-06.html#principles-for-good-data-graphics"><i class="fa fa-check"></i><b>6.6</b> Principles for good data graphics</a>
 <ul>
-<li class="chapter" data-level="6.6.1" data-path="mod-06.html"><a href="mod-06.html#maximize-the-dataink-ratio"><i class="fa fa-check"></i><b>6.6.1</b> Maximize the data:ink ratio</a></li>
+<li class="chapter" data-level="6.6.1" data-path="mod-06.html"><a href="mod-06.html#maximize-the-data-to-ink-ratio"><i class="fa fa-check"></i><b>6.6.1</b> Maximize the data-to-ink ratio</a></li>
 <li class="chapter" data-level="6.6.2" data-path="mod-06.html"><a href="mod-06.html#use-labels-not-symbols"><i class="fa fa-check"></i><b>6.6.2</b> Use labels, not symbols</a></li>
 <li class="chapter" data-level="6.6.3" data-path="mod-06.html"><a href="mod-06.html#be-consistent"><i class="fa fa-check"></i><b>6.6.3</b> Be consistent</a></li>
 <li class="chapter" data-level="6.6.4" data-path="mod-06.html"><a href="mod-06.html#consider-legibility"><i class="fa fa-check"></i><b>6.6.4</b> Consider legibility</a></li>
@@ -554,7 +556,7 @@ div.csl-indent {
 <li class="chapter" data-level="12.1.1" data-path="mod-12.html"><a href="mod-12.html#univariate-vs.-multivariate-data"><i class="fa fa-check"></i><b>12.1.1</b> Univariate vs. multivariate data</a></li>
 <li class="chapter" data-level="12.1.2" data-path="mod-12.html"><a href="mod-12.html#components-of-multivariate-data"><i class="fa fa-check"></i><b>12.1.2</b> Components of multivariate data</a></li>
 </ul></li>
-<li class="chapter" data-level="12.2" data-path="mod-12.html"><a href="mod-12.html#mod-08-dist"><i class="fa fa-check"></i><b>12.2</b> Distance metrics: biological (dis)similarity</a>
+<li class="chapter" data-level="12.2" data-path="mod-12.html"><a href="mod-12.html#mod-12-dist"><i class="fa fa-check"></i><b>12.2</b> Distance metrics: biological (dis)similarity</a>
 <ul>
 <li class="chapter" data-level="12.2.1" data-path="mod-12.html"><a href="mod-12.html#euclidean-distance"><i class="fa fa-check"></i><b>12.2.1</b> Euclidean distance</a></li>
 <li class="chapter" data-level="12.2.2" data-path="mod-12.html"><a href="mod-12.html#bray-curtis-and-other-distance-metrics"><i class="fa fa-check"></i><b>12.2.2</b> Bray-Curtis and other distance metrics</a></li>
@@ -564,12 +566,12 @@ div.csl-indent {
 <li class="chapter" data-level="12.3.1" data-path="mod-12.html"><a href="mod-12.html#k-means-clustering"><i class="fa fa-check"></i><b>12.3.1</b> <em>K</em>-means clustering</a></li>
 <li class="chapter" data-level="12.3.2" data-path="mod-12.html"><a href="mod-12.html#hierarchical-agglomerative-clustering"><i class="fa fa-check"></i><b>12.3.2</b> Hierarchical agglomerative clustering</a></li>
 </ul></li>
-<li class="chapter" data-level="12.4" data-path="mod-12.html"><a href="mod-12.html#mod-08-sims"><i class="fa fa-check"></i><b>12.4</b> Analyzing dissimilarity</a>
+<li class="chapter" data-level="12.4" data-path="mod-12.html"><a href="mod-12.html#mod-12-sims"><i class="fa fa-check"></i><b>12.4</b> Analyzing dissimilarity</a>
 <ul>
 <li class="chapter" data-level="12.4.1" data-path="mod-12.html"><a href="mod-12.html#mantel-tests-distance-vs.-distance"><i class="fa fa-check"></i><b>12.4.1</b> Mantel tests: distance vs. distance</a></li>
 <li class="chapter" data-level="12.4.2" data-path="mod-12.html"><a href="mod-12.html#comparing-dissimilarity-between-groups"><i class="fa fa-check"></i><b>12.4.2</b> Comparing dissimilarity between groups</a></li>
 </ul></li>
-<li class="chapter" data-level="12.5" data-path="mod-12.html"><a href="mod-12.html#mod-08-ord"><i class="fa fa-check"></i><b>12.5</b> Ordination</a>
+<li class="chapter" data-level="12.5" data-path="mod-12.html"><a href="mod-12.html#mod-12-ord"><i class="fa fa-check"></i><b>12.5</b> Ordination</a>
 <ul>
 <li class="chapter" data-level="12.5.1" data-path="mod-12.html"><a href="mod-12.html#principal-components-analysis-pca-1"><i class="fa fa-check"></i><b>12.5.1</b> Principal components analysis (PCA)</a></li>
 <li class="chapter" data-level="12.5.2" data-path="mod-12.html"><a href="mod-12.html#nmds-and-other-ordination-methods"><i class="fa fa-check"></i><b>12.5.2</b> NMDS and other ordination methods</a></li>
@@ -607,7 +609,7 @@ div.csl-indent {
 <p>After <a href="mod-04.html#mod-04">exploring the data</a>, <a href="mod-05.html#mod-05">checking data distributions</a> and gaining an understanding of the <a href="mod-06.html#mod-06">patterns</a> and <a href="mod-07.html#mod-07">problems</a> in a dataset, it is time to run the main analysis. This guide is designed to help you use what you learned in exploring the data to choose an appropriate analytical strategy.</p>
 <div id="how-to-use-this-guide" class="section level2 hasAnchor" number="8.1">
 <h2><span class="header-section-number">8.1</span> How to use this guide<a href="mod-08.html#how-to-use-this-guide" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The sections below list some common analytical strategies that you might use for some common types of biological questions, and guides you through the selection process. This document is meant to serve as a primer and rough guide; it is not meant to be exhaustive. This document is also very much a work in progress. Not every situation is covered, and there might be issues in your dataset that make the recommendations below problematic. Each section is structured as a dichotomous key, because biologists love dichotomous keys. At each step, choose the option that best applies to your data. If you don’t know the answer to a question or which option to choose, you may need to go back and do some more exploratory data analysis. R functions are provided for most methods.</p>
+<p>The sections below list some common analytical strategies that you might use for some common types of biological questions, and guides you through the selection process. This document is meant to serve as a primer and rough guide; it is not meant to be exhaustive. This document is also very much a work in progress. Not every situation is covered, and there might be issues in your dataset that make the recommendations below problematic. Each section is structured as a dichotomous key, because biologists love dichotomous keys. At each step, choose the option that best applies to your situation If you don’t know the answer to a question or which option to choose, you may need to go back and do some more exploratory data analysis. R functions are provided for most methods.</p>
 </div>
 <div id="what-question-are-you-trying-to-answer" class="section level2 hasAnchor" number="8.2">
 <h2><span class="header-section-number">8.2</span> What question are you trying to answer?<a href="mod-08.html#what-question-are-you-trying-to-answer" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -619,13 +621,19 @@ div.csl-indent {
 <blockquote>
 <p>Rodents living in urban environments shift their diet to take advantage of anthropogenic food sources.</p>
 </blockquote>
-<p>This is closer to a statistical hypothesis, but we’re not quite there yet. What does it mean to “shift their diet”? Compared to what? How do we quantify a “shift”? To make a statistical hypothesis we need to think of <em>specific quantitative or categorical comparisons that would support or contradict the hypothesis</em>. For example, here are a few of the potential predictions implied by the hypothesis above:</p>
+<p>This is a good scientific hypothesis, because it is <strong>falsifiable</strong>. For this or any other hypothesis we need to be able to define:</p>
+<ol style="list-style-type: decimal">
+<li>What would we observe if the hypothesis is not true?</li>
+<li>What would we observe if the hypothesis is true?</li>
+</ol>
+<p>For this statement, these are relatively straightforward. We are are closer to a statistical hypothesis, but we’re not quite there yet. What does it mean to “shift their diet”? Compared to what? How do we quantify a “shift”?</p>
+<p>To make a statistical hypothesis we need to think of <em>specific quantitative or categorical comparisons that would support or contradict the hypothesis</em>. For example, here are a few of the potential predictions implied by the hypothesis above:</p>
 <ul>
 <li>Rodents in urban environments will have a greater proportion of artificial foods in their feces than conspecific rodents in rural or natural environments.</li>
 <li>Rodents in urban environments will consume a smaller number of different kinds of food than rodents in rural environments because of the availability of calorie-dense foods associated with humans.</li>
 <li>Rodents in urban environments will spend less time foraging and make shorter foraging movements than rodents in rural or natural environments.</li>
 </ul>
-<p>These three predictions are statements of the kinds of patterns that we should observe if the hypothesis was true. Critically, they include comparison phrases like <strong>greater than</strong> or <strong>smaller number of</strong> or <strong>less time than</strong>. Those comparisons are the sorts of patterns that a statistical model can actually evaluate. Knowing what kind of pattern you are testing is a key step in planning your data analysis.</p>
+<p>These three predictions are statements of the kinds of patterns that we should observe if the hypothesis was true. We can also define their logical negation: what would we observe if the hypothesis was not true? Critically, these predictions include comparison phrases like <strong>greater than</strong> or <strong>smaller number of</strong> or <strong>less time than</strong>. Those comparisons are the sorts of patterns that a statistical model can actually evaluate. Knowing what kind of pattern you are testing is a key step in planning your data analysis.</p>
 <p>Broadly speaking, statistical hypotheses in biology tend to fall into just a few categories:</p>
 <ol style="list-style-type: decimal">
 <li>Testing for a difference in mean or location between groups.</li>
@@ -640,29 +648,37 @@ div.csl-indent {
 <p>Dichotomous key for testing for a difference in mean or location:</p>
 <div class="line-block">1. Single response variable (or, one variable tested at a time): 5<br />
 1<span class="math inline">\(&#39;\)</span>. Multiple response variables tested at once: 2<br />
+<br />
   2. Data multivariate normal: 3<br />
   2<span class="math inline">\(&#39;\)</span>. Data not multivariate normal: 4<br />
-3. All conditions for MANOVA met: try <a href="mod-12.html#mod-08-manova">MANOVA</a>. R function <code>manova()</code>.<br />
+<br />
+3. All conditions for MANOVA met: try <a href="mod-12.html#mod-12-manova">MANOVA</a>. R function <code>manova()</code>.<br />
 3<span class="math inline">\(&#39;\)</span>. MANOVA conditions not all met: 4.<br />
-  4. Try permutational <a href="mod-12.html#mod-08-manova">MANOVA (PERMANOVA)</a> (R function <code>vegan::adonis()</code>) or:<br />
-  4<span class="math inline">\(&#39;\)</span>. Ordinate using NMDS, then try <a href="mod-12.html#mod-08-mrpp">MRPP</a> in NMDS-space. R functions <code>vegan::metaMDS()</code> followed by <code>vegan::mrpp()</code>.<br />
+<br />
+  4. Try <a href="mod-12.html#mod-12-manova">permutational MANOVA (PERMANOVA)</a> (R function <code>vegan::adonis()</code>) or:<br />
+  4<span class="math inline">\(&#39;\)</span>. Ordinate using NMDS, then try <a href="mod-12.html#mod-12-mrpp">MRPP</a> in NMDS-space. R functions <code>vegan::metaMDS()</code> followed by <code>vegan::mrpp()</code>.<br />
+<br />
 5. Comparing between 2 groups (i.e., a single factor with 2 levels): 6<br />
 5<span class="math inline">\(&#39;\)</span>. Comparing between &gt;2 groups: 8<br />
-  6. Data meet assumptions of t-test: use <em>t</em>-test. R function <code>t.test()</code>.<br />
+<br />
+  6. Data meet assumptions of <em>t</em>-test: use <em>t</em>-test. R function <code>t.test()</code>.<br />
   6<span class="math inline">\(&#39;\)</span>. Data do not meet assumptions of <em>t</em>-test: 7.<br />
-7. Need to predict values of response variable: use <a href="mod-05.html#mod-05">GLM</a>. R function <code>glm()</code>.<br />
+<br />
+7. Need to predict values of response variable: use <a href="mod-09.html#mod-09">GLM</a>. R function <code>glm()</code>.<br />
 7<span class="math inline">\(&#39;\)</span>. Need only to test for difference in location: use Mann-Whitney test (aka: Wilcoxon rank sum test). R function <code>wilcox.test()</code>.<br />
-  8. Response variables normal, variance homogeneous: use <a href="#mod-05-anova">ANOVA</a>. R function <code>lm()</code> followed by <code>anova()</code> and/or <code>aov()</code>.<br />
+<br />
+  8. Response variables normal, variance homogeneous: use <a href="mod-09.html#mod-09-anova">ANOVA</a>. R function <code>lm()</code> followed by <code>anova()</code> and/or <code>aov()</code>.<br />
   8<span class="math inline">\(&#39;\)</span>. Response variables nonnormal OR variance heterogeneous: 9.<br />
-9. Need to predict values of response variable: use <a href="mod-05.html#mod-05">GLM</a>. R function <code>glm()</code>.<br />
+<br />
+9. Need to predict values of response variable: use <a href="mod-09.html#mod-09">GLM</a>. R function <code>glm()</code>.<br />
 9<span class="math inline">\(&#39;\)</span>. Need to test for difference in location only: use Kruskal-Wallis test. R function <code>kruskal.test()</code>.</div>
 <div id="additional-considerations" class="section level3 hasAnchor" number="8.3.1">
 <h3><span class="header-section-number">8.3.1</span> Additional considerations<a href="mod-08.html#additional-considerations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Once you reach a decision from the key above, there are a few more options to consider:</p>
 <ul>
 <li>Are there any interactions between your predictor variables? This means that the effects of two predictors are not additive; i.e., the effect of one variable affects the effect of another variable. Most of the methods above can accommodate interactions. You can use R function <code>interaction.plot()</code> to explore potential interactions visually.</li>
-<li>Is there a hierarchical structure to your data, with the higher-level groups representing variation that you are interested in explaining? This is often called “blocking” and needs to be included in your model.</li>
-<li>Is there a hierarchical structure to your data, with the higher-level groups representing variance you are not interested in but still need to account for? If so, you may want to consider adding random effects to your model. This creates a <strong>mixed model</strong> (see <a href="mod-07.html#mod-07">Module 7</a>).</li>
+<li>Is there a hierarchical structure to your data, with the higher-level groups representing variation that you are interested in explaining? This is often called “blocking” and needs to be included in your model. Usually the blocking factor can be included as a predictor in the model.</li>
+<li>Is there a hierarchical structure to your data, with the higher-level groups representing variance you are not interested in but still need to account for? If so, you may want to consider adding random effects to your model. This creates a <strong>mixed model</strong> (see <a href="mod-11.html#mod-11">Module 11</a>).</li>
 </ul>
 </div>
 </div>
@@ -671,13 +687,17 @@ div.csl-indent {
 <p>Dichotomous key for testing continuous relationships:</p>
 <div class="line-block">1. Need to test whether two variables vary together, not predict actual values: 2<br />
 1<span class="math inline">\(&#39;\)</span>. Need to predict values of response variables: 3<br />
-  2. Both variables normally distributed, suspected relationship linear: use Pearson’s product moment correlation <em>r</em>. R function <code>cor()</code> or <code>cor.test()</code>.<br />
-  2<span class="math inline">\(&#39;\)</span>. One or both variables nonnormal and/or suspected relationship nonlinear: use Spearman’s rank correlation coefficient <span class="math inline">\(\rho\)</span> (“rho”). R function <code>cor.test()</code>.<br />
+<br />
+  2. Both variables normally distributed, suspected relationship linear: use Pearson’s product moment correlation <em>r</em>. R functions <code>cor()</code> or <code>cor.test()</code>.<br />
+  2<span class="math inline">\(&#39;\)</span>. One or both variables nonnormal and/or suspected relationship nonlinear: use Spearman’s rank correlation coefficient <span class="math inline">\(\rho\)</span> (“rho”). R functions <code>cor()</code> or <code>cor.test()</code>.<br />
+<br />
 3. Suspected relationship linear, or can be made linear by transform: 4<br />
 3<span class="math inline">\(&#39;\)</span>. Suspected relationship nonlinear and cannot be made linear: 5.<br />
-  4. Response variable normally distributed or can be transformed to be normal: use <a href="#mod-05-lm">linear regression</a> (on transformed scale, if needed). R function <code>lm()</code>.<br />
-  4<span class="math inline">\(&#39;\)</span>. Response variable nonnormal and cannot be transformed to normality: use <a href="mod-05.html#mod-05">GLM</a>. R function <code>glm()</code>.<br />
-5. Response variable and residuals normal: use NLS. R function <code>nls()</code>.<br />
+<br />
+  4. Response variable normally distributed or can be transformed to be normal: use <a href="mod-09.html#mod-09-lm">linear regression</a> (on transformed scale, if needed). R function <code>lm()</code>.<br />
+  4<span class="math inline">\(&#39;\)</span>. Response variable nonnormal and cannot be transformed to normality: use <a href="mod-09.html#mod-09">GLM</a>. R function <code>glm()</code>.<br />
+<br />
+5. Response variable and residuals normal: use <a href="mod-09.html#mod-10">nonlinear models</a>. R function <code>nls()</code>.<br />
 5<span class="math inline">\(&#39;\)</span>. Response variable and residuals nonnormal: try <a href="mod-10.html#mod-10-gam">GAM</a>, GNM, or <a href="mod-10.html#mod-10-cart2">regression trees</a> (in that order). R functions <code>mgcv::gam()</code>, <code>gnm::gnm()</code>, and <code>rpart::rpart()</code>, respectively.</div>
 <div id="additional-considerations-1" class="section level3 hasAnchor" number="8.4.1">
 <h3><span class="header-section-number">8.4.1</span> Additional considerations<a href="mod-08.html#additional-considerations-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -686,13 +706,13 @@ div.csl-indent {
 <li>Is there autocorrelation in your data? If so, you may want to consider including an autocorrelation structure.</li>
 <li>Is there a hierarchical structure to your data, with the higher-level groups representing variance you are not interested in but still need to account for? If so, you may want to consider adding random effects to your model. This creates a <strong>mixed model</strong>:
 <ul>
-<li>Linear models become <a href="#mod-07-lmm">linear mixed models (LMM)</a>. R function <code>lme4::lmer()</code>.</li>
-<li>Generalized linear models become <a href="#mod-07-glmm">generalized linear mixed models (GLMM)</a>. R function <code>lme4::glmer()</code>.</li>
-<li>Additive models become <a href="#mod-07-gamm">generalized additive mixed models (GAMM)</a>. R function <code>mgcv::gamm()</code>.</li>
-<li>NLS models become <a href="">nonlinear mixed models (NLME)</a>. R function <code>nlme::nlme(#mod-07-nlme)</code> or <code>lme4::nlmer()</code>.</li>
+<li>Linear models become <a href="mod-11.html#mod-11-lmm">linear mixed models (LMM)</a>. R function <code>lme4::lmer()</code>.</li>
+<li>Generalized linear models become <a href="mod-11.html#mod-11-glmm">generalized linear mixed models (GLMM)</a>. R function <code>lme4::glmer()</code>.</li>
+<li>Additive models become <a href="mod-11.html#mod-11-gamm">generalized additive mixed models (GAMM)</a>. R function <code>mgcv::gamm()</code>.</li>
+<li>NLS models become <a href="#mod-07-nlme">nonlinear mixed models (NLME)</a>. R function <code>nlme::nlme()</code> or <code>lme4::nlmer()</code>.</li>
 </ul></li>
 <li>Do your data meet most of the assumptions for linear regression, but with heteroscedasticity (non-constant variance in residuals)? You might consider using generalized least squares (GLS) with a different variance structure. R function <code>nlme::gls()</code>.</li>
-<li>Is there severe <a href="#mod-04-multicol">multicollinearity</a> among your predictor variables? If so, try dropping some of the collinear predictors or try a regularization technique such as ridge or lasso regression. Various R packages.</li>
+<li>Is there severe <a href="#mod-06-multicol">multicollinearity</a> among your predictor variables? If so, try dropping some of the collinear predictors or try a regularization technique such as ridge or lasso regression. Various R packages.</li>
 <li>Do you not have a clear idea of the form of the relationship between your continuous response variable and the predictors? Or, do you not want to assume a data model and just let the data speak for themselves? Try a machine learning technique like boosted regression trees. R function <code>gbm::gbm()</code>.</li>
 </ul>
 </div>
@@ -706,8 +726,10 @@ div.csl-indent {
 <p>Dichotomous key for classification problems:</p>
 <div class="line-block">1. Outcome binary: 2<br />
 1<span class="math inline">\(&#39;\)</span>. Outcome not binary (&gt;2 options): 3.<br />
-  2. Logistic regression works: use <a href="#mod-05-logistic">logistic regression</a>. R function <code>glm()</code>.<br />
+<br />
+  2. Logistic regression works: use <a href="mod-09.html#mod-09-logistic">logistic regression</a>. R function <code>glm()</code>.<br />
   2<span class="math inline">\(&#39;\)</span>. Logistic regression doesn’t work: use <a href="mod-10.html#mod-10-cart1">classification trees</a>. R function <code>rpart::rpart()</code>.<br />
+<br />
 3. Try multinomial logistic regression. Several R packages, including <code>nnet</code> and <code>mlogit</code>.<br />
 3<span class="math inline">\(&#39;\)</span>. Try <a href="mod-10.html#mod-10-cart1">classification trees</a>. R function <code>rpart::rpart()</code>.</div>
 </div>

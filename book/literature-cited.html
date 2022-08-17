@@ -186,10 +186,11 @@ div.csl-indent {
 <li class="chapter" data-level="1.4" data-path="mod-01.html"><a href="mod-01.html#mod-01-nhst"><i class="fa fa-check"></i><b>1.4</b> <em>P</em>-values and null hypothesis significance testing (NHST)</a>
 <ul>
 <li class="chapter" data-level="1.4.1" data-path="mod-01.html"><a href="mod-01.html#definition"><i class="fa fa-check"></i><b>1.4.1</b> Definition</a></li>
-<li class="chapter" data-level="1.4.2" data-path="mod-01.html"><a href="mod-01.html#history-and-status-of-p-values"><i class="fa fa-check"></i><b>1.4.2</b> History and status of <em>P</em>-values</a></li>
-<li class="chapter" data-level="1.4.3" data-path="mod-01.html"><a href="mod-01.html#where-p-values-come-from"><i class="fa fa-check"></i><b>1.4.3</b> Where <em>P</em>-values come from</a></li>
-<li class="chapter" data-level="1.4.4" data-path="mod-01.html"><a href="mod-01.html#what-p-values-mean-and-do-not-mean"><i class="fa fa-check"></i><b>1.4.4</b> What <em>P</em>-values mean and do not mean</a></li>
-<li class="chapter" data-level="1.4.5" data-path="mod-01.html"><a href="mod-01.html#do-you-need-a-p-value"><i class="fa fa-check"></i><b>1.4.5</b> Do you need a <em>P</em>-value?</a></li>
+<li class="chapter" data-level="1.4.2" data-path="mod-01.html"><a href="mod-01.html#aside-another-way-to-frame-null-hypotheses"><i class="fa fa-check"></i><b>1.4.2</b> Aside: Another way to frame null hypotheses</a></li>
+<li class="chapter" data-level="1.4.3" data-path="mod-01.html"><a href="mod-01.html#history-and-status-of-p-values"><i class="fa fa-check"></i><b>1.4.3</b> History and status of <em>P</em>-values</a></li>
+<li class="chapter" data-level="1.4.4" data-path="mod-01.html"><a href="mod-01.html#where-p-values-come-from"><i class="fa fa-check"></i><b>1.4.4</b> Where <em>P</em>-values come from</a></li>
+<li class="chapter" data-level="1.4.5" data-path="mod-01.html"><a href="mod-01.html#what-p-values-mean-and-do-not-mean"><i class="fa fa-check"></i><b>1.4.5</b> What <em>P</em>-values mean and do not mean</a></li>
+<li class="chapter" data-level="1.4.6" data-path="mod-01.html"><a href="mod-01.html#do-you-need-a-p-value"><i class="fa fa-check"></i><b>1.4.6</b> Do you need a <em>P</em>-value?</a></li>
 </ul></li>
 <li class="chapter" data-level="1.5" data-path="mod-01.html"><a href="mod-01.html#alternatives-to-nhst"><i class="fa fa-check"></i><b>1.5</b> Alternatives to NHST</a>
 <ul>
@@ -237,7 +238,7 @@ div.csl-indent {
 <li class="chapter" data-level="2.6.2" data-path="mod-02.html"><a href="mod-02.html#data-frames"><i class="fa fa-check"></i><b>2.6.2</b> Data frames</a></li>
 <li class="chapter" data-level="2.6.3" data-path="mod-02.html"><a href="mod-02.html#matrices-and-arrays"><i class="fa fa-check"></i><b>2.6.3</b> Matrices and arrays</a></li>
 <li class="chapter" data-level="2.6.4" data-path="mod-02.html"><a href="mod-02.html#lists"><i class="fa fa-check"></i><b>2.6.4</b> Lists</a></li>
-<li class="chapter" data-level="2.6.5" data-path="mod-02.html"><a href="mod-02.html#s4-objects"><i class="fa fa-check"></i><b>2.6.5</b> S4 objects</a></li>
+<li class="chapter" data-level="2.6.5" data-path="mod-02.html"><a href="mod-02.html#s3-s4-and-other-paradigms"><i class="fa fa-check"></i><b>2.6.5</b> S3, S4, and other paradigms</a></li>
 </ul></li>
 <li class="chapter" data-level="2.7" data-path="mod-02.html"><a href="mod-02.html#r-data-types"><i class="fa fa-check"></i><b>2.7</b> R data types</a>
 <ul>
@@ -304,21 +305,22 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="4" data-path="mod-04.html"><a href="mod-04.html"><i class="fa fa-check"></i><b>4</b> Exploratory data analysis 1: Data description and summarization</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="mod-04.html"><a href="mod-04.html#descriptive-and-summary-statistics"><i class="fa fa-check"></i><b>4.1</b> Descriptive and summary statistics</a>
+<li class="chapter" data-level="4.1" data-path="mod-04.html"><a href="mod-04.html#motivation"><i class="fa fa-check"></i><b>4.1</b> Motivation</a></li>
+<li class="chapter" data-level="4.2" data-path="mod-04.html"><a href="mod-04.html#descriptive-and-summary-statistics"><i class="fa fa-check"></i><b>4.2</b> Descriptive and summary statistics</a>
 <ul>
-<li class="chapter" data-level="4.1.1" data-path="mod-04.html"><a href="mod-04.html#basic-summary-statistics"><i class="fa fa-check"></i><b>4.1.1</b> Basic summary statistics</a></li>
-<li class="chapter" data-level="4.1.2" data-path="mod-04.html"><a href="mod-04.html#mod-04-agg"><i class="fa fa-check"></i><b>4.1.2</b> Summarizing by groups (AKA: pivot tables)</a></li>
-<li class="chapter" data-level="4.1.3" data-path="mod-04.html"><a href="mod-04.html#summarizing-data-with-the-apply-family"><i class="fa fa-check"></i><b>4.1.3</b> Summarizing data with the <code>apply()</code> family</a></li>
-<li class="chapter" data-level="4.1.4" data-path="mod-04.html"><a href="mod-04.html#mod-04-tab"><i class="fa fa-check"></i><b>4.1.4</b> Tabulation (frequency tables)</a></li>
+<li class="chapter" data-level="4.2.1" data-path="mod-04.html"><a href="mod-04.html#basic-summary-statistics"><i class="fa fa-check"></i><b>4.2.1</b> Basic summary statistics</a></li>
+<li class="chapter" data-level="4.2.2" data-path="mod-04.html"><a href="mod-04.html#mod-04-agg"><i class="fa fa-check"></i><b>4.2.2</b> Summarizing by groups (AKA: pivot tables)</a></li>
+<li class="chapter" data-level="4.2.3" data-path="mod-04.html"><a href="mod-04.html#summarizing-data-with-the-apply-family"><i class="fa fa-check"></i><b>4.2.3</b> Summarizing data with the <code>apply()</code> family</a></li>
+<li class="chapter" data-level="4.2.4" data-path="mod-04.html"><a href="mod-04.html#mod-04-tab"><i class="fa fa-check"></i><b>4.2.4</b> Tabulation (frequency tables)</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="mod-04.html"><a href="mod-04.html#mod-04-vis"><i class="fa fa-check"></i><b>4.2</b> Visualizing single variables</a>
+<li class="chapter" data-level="4.3" data-path="mod-04.html"><a href="mod-04.html#mod-04-vis"><i class="fa fa-check"></i><b>4.3</b> Visualizing single variables</a>
 <ul>
-<li class="chapter" data-level="4.2.1" data-path="mod-04.html"><a href="mod-04.html#boxplots-aka-box-and-whisker-plots"><i class="fa fa-check"></i><b>4.2.1</b> Boxplots (aka: box-and-whisker plots)</a></li>
-<li class="chapter" data-level="4.2.2" data-path="mod-04.html"><a href="mod-04.html#histograms"><i class="fa fa-check"></i><b>4.2.2</b> Histograms</a></li>
-<li class="chapter" data-level="4.2.3" data-path="mod-04.html"><a href="mod-04.html#mod04-pdfplots"><i class="fa fa-check"></i><b>4.2.3</b> Kernel density plots</a></li>
-<li class="chapter" data-level="4.2.4" data-path="mod-04.html"><a href="mod-04.html#empirical-cumulative-density-function-ecdf-plots"><i class="fa fa-check"></i><b>4.2.4</b> Empirical cumulative density function (ECDF) plots</a></li>
-<li class="chapter" data-level="4.2.5" data-path="mod-04.html"><a href="mod-04.html#quantile-quantile-qq-plots"><i class="fa fa-check"></i><b>4.2.5</b> Quantile-quantile (QQ) plots</a></li>
-<li class="chapter" data-level="4.2.6" data-path="mod-04.html"><a href="mod-04.html#how-should-i-plot-my-data"><i class="fa fa-check"></i><b>4.2.6</b> How should I plot my data?</a></li>
+<li class="chapter" data-level="4.3.1" data-path="mod-04.html"><a href="mod-04.html#boxplots-aka-box-and-whisker-plots"><i class="fa fa-check"></i><b>4.3.1</b> Boxplots (aka: box-and-whisker plots)</a></li>
+<li class="chapter" data-level="4.3.2" data-path="mod-04.html"><a href="mod-04.html#histograms"><i class="fa fa-check"></i><b>4.3.2</b> Histograms</a></li>
+<li class="chapter" data-level="4.3.3" data-path="mod-04.html"><a href="mod-04.html#mod04-pdfplots"><i class="fa fa-check"></i><b>4.3.3</b> Kernel density plots</a></li>
+<li class="chapter" data-level="4.3.4" data-path="mod-04.html"><a href="mod-04.html#empirical-cumulative-density-function-ecdf-plots"><i class="fa fa-check"></i><b>4.3.4</b> Empirical cumulative density function (ECDF) plots</a></li>
+<li class="chapter" data-level="4.3.5" data-path="mod-04.html"><a href="mod-04.html#quantile-quantile-qq-plots"><i class="fa fa-check"></i><b>4.3.5</b> Quantile-quantile (QQ) plots</a></li>
+<li class="chapter" data-level="4.3.6" data-path="mod-04.html"><a href="mod-04.html#how-should-i-plot-my-data"><i class="fa fa-check"></i><b>4.3.6</b> How should I plot my data?</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="mod-05.html"><a href="mod-05.html"><i class="fa fa-check"></i><b>5</b> Exploratory data analysis 2: Probability distributions for biology</a>
@@ -396,7 +398,7 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="6.6" data-path="mod-06.html"><a href="mod-06.html#principles-for-good-data-graphics"><i class="fa fa-check"></i><b>6.6</b> Principles for good data graphics</a>
 <ul>
-<li class="chapter" data-level="6.6.1" data-path="mod-06.html"><a href="mod-06.html#maximize-the-dataink-ratio"><i class="fa fa-check"></i><b>6.6.1</b> Maximize the data:ink ratio</a></li>
+<li class="chapter" data-level="6.6.1" data-path="mod-06.html"><a href="mod-06.html#maximize-the-data-to-ink-ratio"><i class="fa fa-check"></i><b>6.6.1</b> Maximize the data-to-ink ratio</a></li>
 <li class="chapter" data-level="6.6.2" data-path="mod-06.html"><a href="mod-06.html#use-labels-not-symbols"><i class="fa fa-check"></i><b>6.6.2</b> Use labels, not symbols</a></li>
 <li class="chapter" data-level="6.6.3" data-path="mod-06.html"><a href="mod-06.html#be-consistent"><i class="fa fa-check"></i><b>6.6.3</b> Be consistent</a></li>
 <li class="chapter" data-level="6.6.4" data-path="mod-06.html"><a href="mod-06.html#consider-legibility"><i class="fa fa-check"></i><b>6.6.4</b> Consider legibility</a></li>
@@ -554,7 +556,7 @@ div.csl-indent {
 <li class="chapter" data-level="12.1.1" data-path="mod-12.html"><a href="mod-12.html#univariate-vs.-multivariate-data"><i class="fa fa-check"></i><b>12.1.1</b> Univariate vs. multivariate data</a></li>
 <li class="chapter" data-level="12.1.2" data-path="mod-12.html"><a href="mod-12.html#components-of-multivariate-data"><i class="fa fa-check"></i><b>12.1.2</b> Components of multivariate data</a></li>
 </ul></li>
-<li class="chapter" data-level="12.2" data-path="mod-12.html"><a href="mod-12.html#mod-08-dist"><i class="fa fa-check"></i><b>12.2</b> Distance metrics: biological (dis)similarity</a>
+<li class="chapter" data-level="12.2" data-path="mod-12.html"><a href="mod-12.html#mod-12-dist"><i class="fa fa-check"></i><b>12.2</b> Distance metrics: biological (dis)similarity</a>
 <ul>
 <li class="chapter" data-level="12.2.1" data-path="mod-12.html"><a href="mod-12.html#euclidean-distance"><i class="fa fa-check"></i><b>12.2.1</b> Euclidean distance</a></li>
 <li class="chapter" data-level="12.2.2" data-path="mod-12.html"><a href="mod-12.html#bray-curtis-and-other-distance-metrics"><i class="fa fa-check"></i><b>12.2.2</b> Bray-Curtis and other distance metrics</a></li>
@@ -564,12 +566,12 @@ div.csl-indent {
 <li class="chapter" data-level="12.3.1" data-path="mod-12.html"><a href="mod-12.html#k-means-clustering"><i class="fa fa-check"></i><b>12.3.1</b> <em>K</em>-means clustering</a></li>
 <li class="chapter" data-level="12.3.2" data-path="mod-12.html"><a href="mod-12.html#hierarchical-agglomerative-clustering"><i class="fa fa-check"></i><b>12.3.2</b> Hierarchical agglomerative clustering</a></li>
 </ul></li>
-<li class="chapter" data-level="12.4" data-path="mod-12.html"><a href="mod-12.html#mod-08-sims"><i class="fa fa-check"></i><b>12.4</b> Analyzing dissimilarity</a>
+<li class="chapter" data-level="12.4" data-path="mod-12.html"><a href="mod-12.html#mod-12-sims"><i class="fa fa-check"></i><b>12.4</b> Analyzing dissimilarity</a>
 <ul>
 <li class="chapter" data-level="12.4.1" data-path="mod-12.html"><a href="mod-12.html#mantel-tests-distance-vs.-distance"><i class="fa fa-check"></i><b>12.4.1</b> Mantel tests: distance vs. distance</a></li>
 <li class="chapter" data-level="12.4.2" data-path="mod-12.html"><a href="mod-12.html#comparing-dissimilarity-between-groups"><i class="fa fa-check"></i><b>12.4.2</b> Comparing dissimilarity between groups</a></li>
 </ul></li>
-<li class="chapter" data-level="12.5" data-path="mod-12.html"><a href="mod-12.html#mod-08-ord"><i class="fa fa-check"></i><b>12.5</b> Ordination</a>
+<li class="chapter" data-level="12.5" data-path="mod-12.html"><a href="mod-12.html#mod-12-ord"><i class="fa fa-check"></i><b>12.5</b> Ordination</a>
 <ul>
 <li class="chapter" data-level="12.5.1" data-path="mod-12.html"><a href="mod-12.html#principal-components-analysis-pca-1"><i class="fa fa-check"></i><b>12.5.1</b> Principal components analysis (PCA)</a></li>
 <li class="chapter" data-level="12.5.2" data-path="mod-12.html"><a href="mod-12.html#nmds-and-other-ordination-methods"><i class="fa fa-check"></i><b>12.5.2</b> NMDS and other ordination methods</a></li>
@@ -671,7 +673,7 @@ De’ath, G. 2007. <a href="https://doi.org/10.1890/0012-9658(2007)88[243:btfema
 De’ath, G., and K. E. Fabricius. 2000. <a href="https://doi.org/10.1890/0012-9658(2000)081[3178:CARTAP]2.0.CO;2">Classification and regression trees: A powerful yet simple technique for ecological data analysis</a>. Ecology 81:3178–3192.
 </div>
 <div class="csl-entry">
-De Solla, S. R., P. A. Martin, K. J. Fernie, B. J. Park, and G. Mayne. 2006. <a href="https://doi.org/10.1897/05-165R.1">Effects of environmentally relevant concentrations of atrazine on gonadal development of snapping turtles (chelydra serpentina)</a>. Environmental Toxicology and Chemistry: An International Journal 25:520–526.
+De Solla, S. R., P. A. Martin, K. J. Fernie, B. J. Park, and G. Mayne. 2006. <a href="https://doi.org/10.1897/05-165R.1">Effects of environmentally relevant concentrations of atrazine on gonadal development of snapping turtles (<em><span>C</span>helydra serpentina</em>)</a>. Environmental Toxicology and Chemistry: An International Journal 25:520–526.
 </div>
 <div class="csl-entry">
 Dormann, C. F., J. Elith, S. Bacher, C. Buchmann, G. Carl, G. Carré, J. R. G. Marquéz, B. Gruber, B. Lafourcade, P. J. Leitão, T. Münkemüller, C. McClean, P. E. Osborne, B. Reineking, B. Schröder, A. K. Skidmore, D. Zurell, and S. Lautenbach. 2013. <a href="https://doi.org/10.1111/j.1600-0587.2012.07348.x">Collinearity: A review of methods to deal with it and a simulation study evaluating their performance</a>. Ecography 36:27–46.
@@ -903,6 +905,41 @@ Zuur, A., E. N. Ieno, and E. Meesters. 2009b. A beginner’s guide to <span>R</s
 </div>
 </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
