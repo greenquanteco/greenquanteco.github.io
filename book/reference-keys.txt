@@ -25,7 +25,7 @@ where-p-values-come-from
 what-p-values-mean-and-do-not-mean
 do-you-need-a-p-value
 alternatives-to-nhst
-bayesian-inference
+mod-01-bayes
 example-bayesian-analysissimple
 example-bayesian-analysisnot-so-simple
 why-go-bayesian
@@ -51,7 +51,7 @@ method-2-import-from-command-line
 explore-and-visualize-data
 transform-data
 analyze-data
-write-out-results
+mod-01-elkfig
 save-your-work
 whats-next
 write-and-execute-commands-in-the-r-console
@@ -285,10 +285,11 @@ plotting-ordinations
 ordination-wrap-up-for-now
 principles-for-good-data-graphics
 maximize-the-data-to-ink-ratio
+show-variability
 use-labels-not-symbols
 be-consistent
-consider-legibility
 set-yourself-up-for-success
+consider-legibility
 mod-07
 outliers-and-erroneous-values
 detecting-outliers
