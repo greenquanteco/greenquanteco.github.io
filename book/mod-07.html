@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Module 7 Common statistical problems | Applied Biological Data Analysis: Statistics and R for Biologists</title>
   <meta name="description" content="Helping biologists to become more informed users of R and statistical methods." />
-  <meta name="generator" content="bookdown 0.28 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Module 7 Common statistical problems | Applied Biological Data Analysis: Statistics and R for Biologists" />
   <meta property="og:type" content="book" />
@@ -20,10 +20,10 @@
   <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="twitter:image" content="https://greenquanteco.github.io/book/lab_logo_02.jpg" />
 
-<meta name="author" content="Nick Green, Kennesaw State University" />
+<meta name="author" content="Dr. Nick Green, Kennesaw State University" />
 
 
-<meta name="date" content="2022-08-16" />
+<meta name="date" content="2024-08-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -56,7 +56,7 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -120,10 +120,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </style>
 
 <style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -160,6 +165,7 @@ div.csl-indent {
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
 <ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#work-in-progress-warning"><i class="fa fa-check"></i>Work in progress warning!</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#license-and-permissions"><i class="fa fa-check"></i>License and permissions</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-description"><i class="fa fa-check"></i>Course description</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-objectives"><i class="fa fa-check"></i>Course objectives</a></li>
@@ -332,10 +338,10 @@ div.csl-indent {
 <li class="chapter" data-level="5.2" data-path="mod-05.html"><a href="mod-05.html#mod-05-discrete"><i class="fa fa-check"></i><b>5.2</b> Discrete distributions</a>
 <ul>
 <li class="chapter" data-level="5.2.1" data-path="mod-05.html"><a href="mod-05.html#bernoulli-distribution"><i class="fa fa-check"></i><b>5.2.1</b> Bernoulli distribution</a></li>
-<li class="chapter" data-level="5.2.2" data-path="mod-05.html"><a href="mod-05.html#binomial-distribution"><i class="fa fa-check"></i><b>5.2.2</b> Binomial distribution</a></li>
+<li class="chapter" data-level="5.2.2" data-path="mod-05.html"><a href="mod-05.html#mod-05-binom"><i class="fa fa-check"></i><b>5.2.2</b> Binomial distribution</a></li>
 <li class="chapter" data-level="5.2.3" data-path="mod-05.html"><a href="mod-05.html#poisson-distribution"><i class="fa fa-check"></i><b>5.2.3</b> Poisson distribution</a></li>
-<li class="chapter" data-level="5.2.4" data-path="mod-05.html"><a href="mod-05.html#negative-binomial-distribution"><i class="fa fa-check"></i><b>5.2.4</b> Negative binomial distribution</a></li>
-<li class="chapter" data-level="5.2.5" data-path="mod-05.html"><a href="mod-05.html#geometric-distribution"><i class="fa fa-check"></i><b>5.2.5</b> Geometric distribution</a></li>
+<li class="chapter" data-level="5.2.4" data-path="mod-05.html"><a href="mod-05.html#mod-05-negbin"><i class="fa fa-check"></i><b>5.2.4</b> Negative binomial distribution</a></li>
+<li class="chapter" data-level="5.2.5" data-path="mod-05.html"><a href="mod-05.html#mod-05-geom"><i class="fa fa-check"></i><b>5.2.5</b> Geometric distribution</a></li>
 <li class="chapter" data-level="5.2.6" data-path="mod-05.html"><a href="mod-05.html#beta-binomial-distribution"><i class="fa fa-check"></i><b>5.2.6</b> Beta-binomial distribution</a></li>
 <li class="chapter" data-level="5.2.7" data-path="mod-05.html"><a href="mod-05.html#multinomial-distribution"><i class="fa fa-check"></i><b>5.2.7</b> Multinomial distribution</a></li>
 </ul></li>
@@ -344,10 +350,10 @@ div.csl-indent {
 <li class="chapter" data-level="5.3.1" data-path="mod-05.html"><a href="mod-05.html#uniform-distribution"><i class="fa fa-check"></i><b>5.3.1</b> Uniform distribution</a></li>
 <li class="chapter" data-level="5.3.2" data-path="mod-05.html"><a href="mod-05.html#mod-05-norm"><i class="fa fa-check"></i><b>5.3.2</b> Normal distribution</a></li>
 <li class="chapter" data-level="5.3.3" data-path="mod-05.html"><a href="mod-05.html#lognormal-distribution"><i class="fa fa-check"></i><b>5.3.3</b> Lognormal distribution</a></li>
-<li class="chapter" data-level="5.3.4" data-path="mod-05.html"><a href="mod-05.html#gamma-distribution"><i class="fa fa-check"></i><b>5.3.4</b> Gamma distribution</a></li>
+<li class="chapter" data-level="5.3.4" data-path="mod-05.html"><a href="mod-05.html#mod-05-gamma"><i class="fa fa-check"></i><b>5.3.4</b> Gamma distribution</a></li>
 <li class="chapter" data-level="5.3.5" data-path="mod-05.html"><a href="mod-05.html#beta-distribution"><i class="fa fa-check"></i><b>5.3.5</b> Beta distribution</a></li>
 <li class="chapter" data-level="5.3.6" data-path="mod-05.html"><a href="mod-05.html#dirichlet-distribution"><i class="fa fa-check"></i><b>5.3.6</b> Dirichlet distribution</a></li>
-<li class="chapter" data-level="5.3.7" data-path="mod-05.html"><a href="mod-05.html#exponential-distribution"><i class="fa fa-check"></i><b>5.3.7</b> Exponential distribution</a></li>
+<li class="chapter" data-level="5.3.7" data-path="mod-05.html"><a href="mod-05.html#mod-05-expo"><i class="fa fa-check"></i><b>5.3.7</b> Exponential distribution</a></li>
 <li class="chapter" data-level="5.3.8" data-path="mod-05.html"><a href="mod-05.html#triangular-distribution"><i class="fa fa-check"></i><b>5.3.8</b> Triangular distribution</a></li>
 <li class="chapter" data-level="5.3.9" data-path="mod-05.html"><a href="mod-05.html#distributions-summary"><i class="fa fa-check"></i><b>5.3.9</b> Distributions summary</a></li>
 </ul></li>
@@ -442,141 +448,171 @@ div.csl-indent {
 <li class="chapter" data-level="8.6" data-path="mod-08.html"><a href="mod-08.html#classifying-observations"><i class="fa fa-check"></i><b>8.6</b> Classifying observations</a></li>
 <li class="chapter" data-level="8.7" data-path="mod-08.html"><a href="mod-08.html#conclusions"><i class="fa fa-check"></i><b>8.7</b> Conclusions</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="mod-09.html"><a href="mod-09.html"><i class="fa fa-check"></i><b>9</b> Generalized linear models (GLM)</a>
+<li class="chapter" data-level="9" data-path="mod-09.html"><a href="mod-09.html"><i class="fa fa-check"></i><b>9</b> Basic statistics with R</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="mod-09.html"><a href="mod-09.html#mod-09-lm"><i class="fa fa-check"></i><b>9.1</b> Prelude with linear models</a>
+<li class="chapter" data-level="9.1" data-path="mod-09.html"><a href="mod-09.html#mod-09-datasets"><i class="fa fa-check"></i><b>9.1</b> Datasets and variables</a></li>
+<li class="chapter" data-level="9.2" data-path="mod-09.html"><a href="mod-09.html#mod-09-frequentist"><i class="fa fa-check"></i><b>9.2</b> Frequentist statistics</a>
 <ul>
-<li class="chapter" data-level="9.1.1" data-path="mod-09.html"><a href="mod-09.html#assumptions-of-linear-models"><i class="fa fa-check"></i><b>9.1.1</b> Assumptions of linear models</a></li>
-<li class="chapter" data-level="9.1.2" data-path="mod-09.html"><a href="mod-09.html#linear-regression-in-r"><i class="fa fa-check"></i><b>9.1.2</b> Linear regression in R</a></li>
-<li class="chapter" data-level="9.1.3" data-path="mod-09.html"><a href="mod-09.html#multiple-linear-regression"><i class="fa fa-check"></i><b>9.1.3</b> Multiple linear regression</a></li>
-<li class="chapter" data-level="9.1.4" data-path="mod-09.html"><a href="mod-09.html#mod-09-anova"><i class="fa fa-check"></i><b>9.1.4</b> ANOVA and ANCOVA with <code>lm()</code></a></li>
-<li class="chapter" data-level="9.1.5" data-path="mod-09.html"><a href="mod-09.html#variations-on-linear-models"><i class="fa fa-check"></i><b>9.1.5</b> Variations on linear models</a></li>
-<li class="chapter" data-level="9.1.6" data-path="mod-09.html"><a href="mod-09.html#example-linear-regression-workflow"><i class="fa fa-check"></i><b>9.1.6</b> Example linear regression workflow</a></li>
+<li class="chapter" data-level="9.2.1" data-path="mod-09.html"><a href="mod-09.html#mod-09-pvalues"><i class="fa fa-check"></i><b>9.2.1</b> <em>P</em>-values and NHST</a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="mod-09.html"><a href="mod-09.html#mod-09-basic"><i class="fa fa-check"></i><b>9.2</b> GLM basics</a>
+<li class="chapter" data-level="9.3" data-path="mod-09.html"><a href="mod-09.html#mod-09-whattest"><i class="fa fa-check"></i><b>9.3</b> What kind of test do you need?</a></li>
+<li class="chapter" data-level="9.4" data-path="mod-09.html"><a href="mod-09.html#mod-09-tests-for-loc"><i class="fa fa-check"></i><b>9.4</b> Tests for differences in mean or location</a>
 <ul>
-<li class="chapter" data-level="9.2.1" data-path="mod-09.html"><a href="mod-09.html#example-glms"><i class="fa fa-check"></i><b>9.2.1</b> Example GLMS</a></li>
-<li class="chapter" data-level="9.2.2" data-path="mod-09.html"><a href="mod-09.html#glm-families"><i class="fa fa-check"></i><b>9.2.2</b> GLM families</a></li>
-<li class="chapter" data-level="9.2.3" data-path="mod-09.html"><a href="mod-09.html#glm-link-functions"><i class="fa fa-check"></i><b>9.2.3</b> GLM link functions</a></li>
-<li class="chapter" data-level="9.2.4" data-path="mod-09.html"><a href="mod-09.html#deviance-and-other-glm-diagnostics"><i class="fa fa-check"></i><b>9.2.4</b> Deviance and other GLM diagnostics</a></li>
-<li class="chapter" data-level="9.2.5" data-path="mod-09.html"><a href="mod-09.html#to-pseudo-r2-or-not-to-pseudo-r2"><i class="fa fa-check"></i><b>9.2.5</b> To pseudo-<em>R</em><sup>2</sup> or not to pseudo-<em>R</em><sup>2</sup>?</a></li>
-<li class="chapter" data-level="9.2.6" data-path="mod-09.html"><a href="mod-09.html#common-glms"><i class="fa fa-check"></i><b>9.2.6</b> Common GLMs</a></li>
+<li class="chapter" data-level="9.4.1" data-path="mod-09.html"><a href="mod-09.html#tests-for-1-group"><i class="fa fa-check"></i><b>9.4.1</b> Tests for 1 group</a></li>
+<li class="chapter" data-level="9.4.2" data-path="mod-09.html"><a href="mod-09.html#tests-comparing-two-groups"><i class="fa fa-check"></i><b>9.4.2</b> Tests comparing two groups</a></li>
+<li class="chapter" data-level="9.4.3" data-path="mod-09.html"><a href="mod-09.html#aside-whats-with-all-these-t-tests"><i class="fa fa-check"></i><b>9.4.3</b> Aside: what’s with all these <em>t</em>-tests?</a></li>
+<li class="chapter" data-level="9.4.4" data-path="mod-09.html"><a href="mod-09.html#comparing-3-or-more-groups"><i class="fa fa-check"></i><b>9.4.4</b> Comparing 3 or more groups</a></li>
+<li class="chapter" data-level="9.4.5" data-path="mod-09.html"><a href="mod-09.html#polynomial-patterns-in-grouped-data"><i class="fa fa-check"></i><b>9.4.5</b> Polynomial patterns in grouped data</a></li>
 </ul></li>
-<li class="chapter" data-level="9.3" data-path="mod-09.html"><a href="mod-09.html#mod-09-loglin"><i class="fa fa-check"></i><b>9.3</b> Log-linear models</a>
+<li class="chapter" data-level="9.5" data-path="mod-09.html"><a href="mod-09.html#tests-for-patterns-in-continuous-data"><i class="fa fa-check"></i><b>9.5</b> Tests for patterns in continuous data</a>
 <ul>
-<li class="chapter" data-level="9.3.1" data-path="mod-09.html"><a href="mod-09.html#mod-09-loglin-examp"><i class="fa fa-check"></i><b>9.3.1</b> Example with simulated data</a></li>
-<li class="chapter" data-level="9.3.2" data-path="mod-09.html"><a href="mod-09.html#example-with-real-data"><i class="fa fa-check"></i><b>9.3.2</b> Example with real data</a></li>
+<li class="chapter" data-level="9.5.1" data-path="mod-09.html"><a href="mod-09.html#mod-09-correlation"><i class="fa fa-check"></i><b>9.5.1</b> Correlation</a></li>
+<li class="chapter" data-level="9.5.2" data-path="mod-09.html"><a href="mod-09.html#mod-09-linear-mods"><i class="fa fa-check"></i><b>9.5.2</b> Linear models</a></li>
+<li class="chapter" data-level="9.5.3" data-path="mod-09.html"><a href="mod-09.html#linear-models-wrap-up-for-now"><i class="fa fa-check"></i><b>9.5.3</b> Linear models wrap-up (for now)</a></li>
 </ul></li>
-<li class="chapter" data-level="9.4" data-path="mod-09.html"><a href="mod-09.html#mod-09-poisson"><i class="fa fa-check"></i><b>9.4</b> Poisson GLM for counts</a>
+<li class="chapter" data-level="9.6" data-path="mod-09.html"><a href="mod-09.html#mod-09-contingency"><i class="fa fa-check"></i><b>9.6</b> Tests for proportions and contingency</a>
 <ul>
-<li class="chapter" data-level="9.4.1" data-path="mod-09.html"><a href="mod-09.html#example-with-simulated-data"><i class="fa fa-check"></i><b>9.4.1</b> Example with simulated data</a></li>
-<li class="chapter" data-level="9.4.2" data-path="mod-09.html"><a href="mod-09.html#example-with-real-data-1"><i class="fa fa-check"></i><b>9.4.2</b> Example with real data</a></li>
+<li class="chapter" data-level="9.6.1" data-path="mod-09.html"><a href="mod-09.html#mod-09-ctables"><i class="fa fa-check"></i><b>9.6.1</b> Contingency tables</a></li>
+<li class="chapter" data-level="9.6.2" data-path="mod-09.html"><a href="mod-09.html#tests-on-contingency-tables"><i class="fa fa-check"></i><b>9.6.2</b> Tests on contingency tables</a></li>
+<li class="chapter" data-level="9.6.3" data-path="mod-09.html"><a href="mod-09.html#mod-09-oddsratios"><i class="fa fa-check"></i><b>9.6.3</b> Contingency tests and odds ratios</a></li>
 </ul></li>
-<li class="chapter" data-level="9.5" data-path="mod-09.html"><a href="mod-09.html#mod-09-quasi"><i class="fa fa-check"></i><b>9.5</b> Quasi-Poisson and negative binomial GLM</a>
-<ul>
-<li class="chapter" data-level="9.5.1" data-path="mod-09.html"><a href="mod-09.html#example-with-simulated-data-1"><i class="fa fa-check"></i><b>9.5.1</b> Example with simulated data</a></li>
-<li class="chapter" data-level="9.5.2" data-path="mod-09.html"><a href="mod-09.html#example-with-real-data-2"><i class="fa fa-check"></i><b>9.5.2</b> Example with real data</a></li>
+<li class="chapter" data-level="9.7" data-path="mod-09.html"><a href="mod-09.html#mod-09-classification"><i class="fa fa-check"></i><b>9.7</b> Classification</a></li>
 </ul></li>
-<li class="chapter" data-level="9.6" data-path="mod-09.html"><a href="mod-09.html#mod-09-logistic"><i class="fa fa-check"></i><b>9.6</b> Logistic regression for binary outcomes</a>
+<li class="chapter" data-level="10" data-path="mod-10.html"><a href="mod-10.html"><i class="fa fa-check"></i><b>10</b> Generalized linear models (GLM)</a>
 <ul>
-<li class="chapter" data-level="9.6.1" data-path="mod-09.html"><a href="mod-09.html#example-with-simulated-data-2"><i class="fa fa-check"></i><b>9.6.1</b> Example with simulated data</a></li>
-<li class="chapter" data-level="9.6.2" data-path="mod-09.html"><a href="mod-09.html#example-with-real-data-3"><i class="fa fa-check"></i><b>9.6.2</b> Example with real data</a></li>
-<li class="chapter" data-level="9.6.3" data-path="mod-09.html"><a href="mod-09.html#mod-09-auc"><i class="fa fa-check"></i><b>9.6.3</b> Logistic GLM diagnostics: AUC and ROC</a></li>
+<li class="chapter" data-level="10.1" data-path="mod-10.html"><a href="mod-10.html#mod-10-lm"><i class="fa fa-check"></i><b>10.1</b> Prelude with linear models</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="mod-10.html"><a href="mod-10.html#assumptions-of-linear-models"><i class="fa fa-check"></i><b>10.1.1</b> Assumptions of linear models</a></li>
+<li class="chapter" data-level="10.1.2" data-path="mod-10.html"><a href="mod-10.html#linear-regression-in-r"><i class="fa fa-check"></i><b>10.1.2</b> Linear regression in R</a></li>
+<li class="chapter" data-level="10.1.3" data-path="mod-10.html"><a href="mod-10.html#multiple-linear-regression"><i class="fa fa-check"></i><b>10.1.3</b> Multiple linear regression</a></li>
+<li class="chapter" data-level="10.1.4" data-path="mod-10.html"><a href="mod-10.html#mod-10-anova"><i class="fa fa-check"></i><b>10.1.4</b> ANOVA and ANCOVA with <code>lm()</code></a></li>
+<li class="chapter" data-level="10.1.5" data-path="mod-10.html"><a href="mod-10.html#variations-on-linear-models"><i class="fa fa-check"></i><b>10.1.5</b> Variations on linear models</a></li>
+<li class="chapter" data-level="10.1.6" data-path="mod-10.html"><a href="mod-10.html#example-linear-regression-workflow"><i class="fa fa-check"></i><b>10.1.6</b> Example linear regression workflow</a></li>
 </ul></li>
-<li class="chapter" data-level="9.7" data-path="mod-09.html"><a href="mod-09.html#mod-09-binom"><i class="fa fa-check"></i><b>9.7</b> Binomial GLM for proportional data</a>
+<li class="chapter" data-level="10.2" data-path="mod-10.html"><a href="mod-10.html#mod-10-basic"><i class="fa fa-check"></i><b>10.2</b> GLM basics</a>
 <ul>
-<li class="chapter" data-level="9.7.1" data-path="mod-09.html"><a href="mod-09.html#binomial-glm"><i class="fa fa-check"></i><b>9.7.1</b> Binomial GLM</a></li>
-<li class="chapter" data-level="9.7.2" data-path="mod-09.html"><a href="mod-09.html#example-with-simulated-data-3"><i class="fa fa-check"></i><b>9.7.2</b> Example with simulated data</a></li>
+<li class="chapter" data-level="10.2.1" data-path="mod-10.html"><a href="mod-10.html#example-glms"><i class="fa fa-check"></i><b>10.2.1</b> Example GLMS</a></li>
+<li class="chapter" data-level="10.2.2" data-path="mod-10.html"><a href="mod-10.html#glm-families"><i class="fa fa-check"></i><b>10.2.2</b> GLM families</a></li>
+<li class="chapter" data-level="10.2.3" data-path="mod-10.html"><a href="mod-10.html#glm-link-functions"><i class="fa fa-check"></i><b>10.2.3</b> GLM link functions</a></li>
+<li class="chapter" data-level="10.2.4" data-path="mod-10.html"><a href="mod-10.html#deviance-and-other-glm-diagnostics"><i class="fa fa-check"></i><b>10.2.4</b> Deviance and other GLM diagnostics</a></li>
+<li class="chapter" data-level="10.2.5" data-path="mod-10.html"><a href="mod-10.html#to-pseudo-r2-or-not-to-pseudo-r2"><i class="fa fa-check"></i><b>10.2.5</b> To pseudo-<em>R</em><sup>2</sup> or not to pseudo-<em>R</em><sup>2</sup>?</a></li>
+<li class="chapter" data-level="10.2.6" data-path="mod-10.html"><a href="mod-10.html#common-glms"><i class="fa fa-check"></i><b>10.2.6</b> Common GLMs</a></li>
 </ul></li>
-<li class="chapter" data-level="9.8" data-path="mod-09.html"><a href="mod-09.html#mod-09-gamma"><i class="fa fa-check"></i><b>9.8</b> Gamma models for overdispersed data</a>
+<li class="chapter" data-level="10.3" data-path="mod-10.html"><a href="mod-10.html#mod-10-loglin"><i class="fa fa-check"></i><b>10.3</b> Log-linear models</a>
 <ul>
-<li class="chapter" data-level="9.8.1" data-path="mod-09.html"><a href="mod-09.html#example-with-simulated-data-4"><i class="fa fa-check"></i><b>9.8.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="10.3.1" data-path="mod-10.html"><a href="mod-10.html#mod-10-loglin-examp"><i class="fa fa-check"></i><b>10.3.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="10.3.2" data-path="mod-10.html"><a href="mod-10.html#example-with-real-data"><i class="fa fa-check"></i><b>10.3.2</b> Example with real data</a></li>
 </ul></li>
-<li class="chapter" data-level="9.9" data-path="mod-09.html"><a href="mod-09.html#mod-09-beyond"><i class="fa fa-check"></i><b>9.9</b> Beyond GLM: Overview of GAM and GEE</a>
+<li class="chapter" data-level="10.4" data-path="mod-10.html"><a href="mod-10.html#mod-10-poisson"><i class="fa fa-check"></i><b>10.4</b> Poisson GLM for counts</a>
 <ul>
-<li class="chapter" data-level="9.9.1" data-path="mod-09.html"><a href="mod-09.html#mod-09-gam"><i class="fa fa-check"></i><b>9.9.1</b> Generalized additive models (GAM)</a></li>
-<li class="chapter" data-level="9.9.2" data-path="mod-09.html"><a href="mod-09.html#mod-09-gee"><i class="fa fa-check"></i><b>9.9.2</b> Generalized estimating equations (GEE)</a></li>
+<li class="chapter" data-level="10.4.1" data-path="mod-10.html"><a href="mod-10.html#example-with-simulated-data"><i class="fa fa-check"></i><b>10.4.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="10.4.2" data-path="mod-10.html"><a href="mod-10.html#example-with-real-data-1"><i class="fa fa-check"></i><b>10.4.2</b> Example with real data</a></li>
 </ul></li>
+<li class="chapter" data-level="10.5" data-path="mod-10.html"><a href="mod-10.html#mod-10-quasi"><i class="fa fa-check"></i><b>10.5</b> Quasi-Poisson and negative binomial GLM</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="mod-10.html"><a href="mod-10.html#example-with-simulated-data-1"><i class="fa fa-check"></i><b>10.5.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="10.5.2" data-path="mod-10.html"><a href="mod-10.html#example-with-real-data-2"><i class="fa fa-check"></i><b>10.5.2</b> Example with real data</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="mod-10.html"><a href="mod-10.html"><i class="fa fa-check"></i><b>10</b> Nonlinear models</a>
+<li class="chapter" data-level="10.6" data-path="mod-10.html"><a href="mod-10.html#mod-10-logistic"><i class="fa fa-check"></i><b>10.6</b> Logistic regression for binary outcomes</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="mod-10.html"><a href="mod-10.html#background"><i class="fa fa-check"></i><b>10.1</b> Background</a></li>
-<li class="chapter" data-level="10.2" data-path="mod-10.html"><a href="mod-10.html#mod-10-intro"><i class="fa fa-check"></i><b>10.2</b> Nonlinear least squares (NLS)</a></li>
-<li class="chapter" data-level="10.3" data-path="mod-10.html"><a href="mod-10.html#mod-10-micmen"><i class="fa fa-check"></i><b>10.3</b> Michaelis-Menten curves</a>
-<ul>
-<li class="chapter" data-level="10.3.1" data-path="mod-10.html"><a href="mod-10.html#mod-10-micmen-sim"><i class="fa fa-check"></i><b>10.3.1</b> Example with simulated data</a></li>
-<li class="chapter" data-level="10.3.2" data-path="mod-10.html"><a href="mod-10.html#example-with-real-data-4"><i class="fa fa-check"></i><b>10.3.2</b> Example with real data</a></li>
-<li class="chapter" data-level="10.3.3" data-path="mod-10.html"><a href="mod-10.html#alternative-strategies-for-the-analysis"><i class="fa fa-check"></i><b>10.3.3</b> Alternative strategies for the analysis</a></li>
+<li class="chapter" data-level="10.6.1" data-path="mod-10.html"><a href="mod-10.html#example-with-simulated-data-2"><i class="fa fa-check"></i><b>10.6.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="10.6.2" data-path="mod-10.html"><a href="mod-10.html#example-with-real-data-3"><i class="fa fa-check"></i><b>10.6.2</b> Example with real data</a></li>
+<li class="chapter" data-level="10.6.3" data-path="mod-10.html"><a href="mod-10.html#mod-10-auc"><i class="fa fa-check"></i><b>10.6.3</b> Logistic GLM diagnostics: AUC and ROC</a></li>
 </ul></li>
-<li class="chapter" data-level="10.4" data-path="mod-10.html"><a href="mod-10.html#mod-10-grow"><i class="fa fa-check"></i><b>10.4</b> Biological growth curves</a>
+<li class="chapter" data-level="10.7" data-path="mod-10.html"><a href="mod-10.html#mod-10-binom"><i class="fa fa-check"></i><b>10.7</b> Binomial GLM for proportional data</a>
 <ul>
-<li class="chapter" data-level="10.4.1" data-path="mod-10.html"><a href="mod-10.html#gompertz-and-von-bertalanffy-curves"><i class="fa fa-check"></i><b>10.4.1</b> Gompertz and von Bertalanffy curves</a></li>
-<li class="chapter" data-level="10.4.2" data-path="mod-10.html"><a href="mod-10.html#example-with-real-data-5"><i class="fa fa-check"></i><b>10.4.2</b> Example with real data</a></li>
+<li class="chapter" data-level="10.7.1" data-path="mod-10.html"><a href="mod-10.html#binomial-glm"><i class="fa fa-check"></i><b>10.7.1</b> Binomial GLM</a></li>
+<li class="chapter" data-level="10.7.2" data-path="mod-10.html"><a href="mod-10.html#example-with-simulated-data-3"><i class="fa fa-check"></i><b>10.7.2</b> Example with simulated data</a></li>
 </ul></li>
-<li class="chapter" data-level="10.5" data-path="mod-10.html"><a href="mod-10.html#dose-response-curves"><i class="fa fa-check"></i><b>10.5</b> Dose response curves</a></li>
-<li class="chapter" data-level="10.6" data-path="mod-10.html"><a href="mod-10.html#alternatives-to-nls"><i class="fa fa-check"></i><b>10.6</b> Alternatives to NLS</a>
+<li class="chapter" data-level="10.8" data-path="mod-10.html"><a href="mod-10.html#mod-10-gamma"><i class="fa fa-check"></i><b>10.8</b> Gamma models for overdispersed data</a>
 <ul>
-<li class="chapter" data-level="10.6.1" data-path="mod-10.html"><a href="mod-10.html#generalized-nonlinear-models"><i class="fa fa-check"></i><b>10.6.1</b> Generalized nonlinear models</a></li>
-<li class="chapter" data-level="10.6.2" data-path="mod-10.html"><a href="mod-10.html#quantile-regression"><i class="fa fa-check"></i><b>10.6.2</b> Quantile regression</a></li>
-<li class="chapter" data-level="10.6.3" data-path="mod-10.html"><a href="mod-10.html#mod-10-gam"><i class="fa fa-check"></i><b>10.6.3</b> Generalized additive models (GAM)</a></li>
-<li class="chapter" data-level="10.6.4" data-path="mod-10.html"><a href="mod-10.html#classification-and-regression-trees-cart"><i class="fa fa-check"></i><b>10.6.4</b> Classification and regression trees (CART)</a></li>
+<li class="chapter" data-level="10.8.1" data-path="mod-10.html"><a href="mod-10.html#example-with-simulated-data-4"><i class="fa fa-check"></i><b>10.8.1</b> Example with simulated data</a></li>
 </ul></li>
-</ul></li>
-<li class="chapter" data-level="11" data-path="mod-11.html"><a href="mod-11.html"><i class="fa fa-check"></i><b>11</b> Mixed models</a>
+<li class="chapter" data-level="10.9" data-path="mod-10.html"><a href="mod-10.html#mod-10-beyond"><i class="fa fa-check"></i><b>10.9</b> Beyond GLM: Overview of GAM and GEE</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="mod-11.html"><a href="mod-11.html#prelude-glm"><i class="fa fa-check"></i><b>11.1</b> Prelude (GLM)</a></li>
-<li class="chapter" data-level="11.2" data-path="mod-11.html"><a href="mod-11.html#mod-11-lmm"><i class="fa fa-check"></i><b>11.2</b> Linear mixed models (LMM)</a>
-<ul>
-<li class="chapter" data-level="11.2.1" data-path="mod-11.html"><a href="mod-11.html#formal-definition-and-example"><i class="fa fa-check"></i><b>11.2.1</b> Formal definition and example</a></li>
-<li class="chapter" data-level="11.2.2" data-path="mod-11.html"><a href="mod-11.html#example-with-simulated-data-5"><i class="fa fa-check"></i><b>11.2.2</b> Example with simulated data</a></li>
-<li class="chapter" data-level="11.2.3" data-path="mod-11.html"><a href="mod-11.html#p-values-in-lmm"><i class="fa fa-check"></i><b>11.2.3</b> <em>P</em>-values in LMM</a></li>
-<li class="chapter" data-level="11.2.4" data-path="mod-11.html"><a href="mod-11.html#specifying-random-effects"><i class="fa fa-check"></i><b>11.2.4</b> Specifying random effects</a></li>
-<li class="chapter" data-level="11.2.5" data-path="mod-11.html"><a href="mod-11.html#lmm-example-with-real-data"><i class="fa fa-check"></i><b>11.2.5</b> LMM example with real data</a></li>
-</ul></li>
-<li class="chapter" data-level="11.3" data-path="mod-11.html"><a href="mod-11.html#mod-11-glmm"><i class="fa fa-check"></i><b>11.3</b> Generalized linear mixed models (GLMM)</a>
-<ul>
-<li class="chapter" data-level="11.3.1" data-path="mod-11.html"><a href="mod-11.html#definition-1"><i class="fa fa-check"></i><b>11.3.1</b> Definition</a></li>
-<li class="chapter" data-level="11.3.2" data-path="mod-11.html"><a href="mod-11.html#glmm-on-simulated-data"><i class="fa fa-check"></i><b>11.3.2</b> GLMM on simulated data</a></li>
-<li class="chapter" data-level="11.3.3" data-path="mod-11.html"><a href="mod-11.html#glmm-on-real-data"><i class="fa fa-check"></i><b>11.3.3</b> GLMM on real data</a></li>
-</ul></li>
-<li class="chapter" data-level="11.4" data-path="mod-11.html"><a href="mod-11.html#mod-11-nlme"><i class="fa fa-check"></i><b>11.4</b> Nonlinear mixed models (NLME)</a>
-<ul>
-<li class="chapter" data-level="11.4.1" data-path="mod-11.html"><a href="mod-11.html#definition-and-background"><i class="fa fa-check"></i><b>11.4.1</b> Definition and background</a></li>
-<li class="chapter" data-level="11.4.2" data-path="mod-11.html"><a href="mod-11.html#nlme-on-simulated-data"><i class="fa fa-check"></i><b>11.4.2</b> NLME on simulated data</a></li>
-<li class="chapter" data-level="11.4.3" data-path="mod-11.html"><a href="mod-11.html#nlme-on-real-data"><i class="fa fa-check"></i><b>11.4.3</b> NLME on real data</a></li>
-</ul></li>
-<li class="chapter" data-level="11.5" data-path="mod-11.html"><a href="mod-11.html#mod-11-gamm"><i class="fa fa-check"></i><b>11.5</b> (Generalized) additive mixed models (AMM/GAMM)</a>
-<ul>
-<li class="chapter" data-level="11.5.1" data-path="mod-11.html"><a href="mod-11.html#example-gamm-with-real-data"><i class="fa fa-check"></i><b>11.5.1</b> Example GAMM with real data</a></li>
+<li class="chapter" data-level="10.9.1" data-path="mod-10.html"><a href="mod-10.html#mod-10-gam"><i class="fa fa-check"></i><b>10.9.1</b> Generalized additive models (GAM)</a></li>
+<li class="chapter" data-level="10.9.2" data-path="mod-10.html"><a href="mod-10.html#mod-10-gee"><i class="fa fa-check"></i><b>10.9.2</b> Generalized estimating equations (GEE)</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="mod-12.html"><a href="mod-12.html"><i class="fa fa-check"></i><b>12</b> Multivariate data analysis</a>
+<li class="chapter" data-level="11" data-path="mod-11.html"><a href="mod-11.html"><i class="fa fa-check"></i><b>11</b> Nonlinear models</a>
 <ul>
-<li class="chapter" data-level="12.1" data-path="mod-12.html"><a href="mod-12.html#multivariate-data"><i class="fa fa-check"></i><b>12.1</b> Multivariate data</a>
+<li class="chapter" data-level="11.1" data-path="mod-11.html"><a href="mod-11.html#background"><i class="fa fa-check"></i><b>11.1</b> Background</a></li>
+<li class="chapter" data-level="11.2" data-path="mod-11.html"><a href="mod-11.html#mod-11-intro"><i class="fa fa-check"></i><b>11.2</b> Nonlinear least squares (NLS)</a></li>
+<li class="chapter" data-level="11.3" data-path="mod-11.html"><a href="mod-11.html#mod-11-micmen"><i class="fa fa-check"></i><b>11.3</b> Michaelis-Menten curves</a>
 <ul>
-<li class="chapter" data-level="12.1.1" data-path="mod-12.html"><a href="mod-12.html#univariate-vs.-multivariate-data"><i class="fa fa-check"></i><b>12.1.1</b> Univariate vs. multivariate data</a></li>
-<li class="chapter" data-level="12.1.2" data-path="mod-12.html"><a href="mod-12.html#components-of-multivariate-data"><i class="fa fa-check"></i><b>12.1.2</b> Components of multivariate data</a></li>
+<li class="chapter" data-level="11.3.1" data-path="mod-11.html"><a href="mod-11.html#mod-11-micmen-sim"><i class="fa fa-check"></i><b>11.3.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="11.3.2" data-path="mod-11.html"><a href="mod-11.html#example-with-real-data-4"><i class="fa fa-check"></i><b>11.3.2</b> Example with real data</a></li>
+<li class="chapter" data-level="11.3.3" data-path="mod-11.html"><a href="mod-11.html#alternative-strategies-for-the-analysis"><i class="fa fa-check"></i><b>11.3.3</b> Alternative strategies for the analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="12.2" data-path="mod-12.html"><a href="mod-12.html#mod-12-dist"><i class="fa fa-check"></i><b>12.2</b> Distance metrics: biological (dis)similarity</a>
+<li class="chapter" data-level="11.4" data-path="mod-11.html"><a href="mod-11.html#mod-11-grow"><i class="fa fa-check"></i><b>11.4</b> Biological growth curves</a>
 <ul>
-<li class="chapter" data-level="12.2.1" data-path="mod-12.html"><a href="mod-12.html#euclidean-distance"><i class="fa fa-check"></i><b>12.2.1</b> Euclidean distance</a></li>
-<li class="chapter" data-level="12.2.2" data-path="mod-12.html"><a href="mod-12.html#bray-curtis-and-other-distance-metrics"><i class="fa fa-check"></i><b>12.2.2</b> Bray-Curtis and other distance metrics</a></li>
+<li class="chapter" data-level="11.4.1" data-path="mod-11.html"><a href="mod-11.html#gompertz-and-von-bertalanffy-curves"><i class="fa fa-check"></i><b>11.4.1</b> Gompertz and von Bertalanffy curves</a></li>
+<li class="chapter" data-level="11.4.2" data-path="mod-11.html"><a href="mod-11.html#example-with-real-data-5"><i class="fa fa-check"></i><b>11.4.2</b> Example with real data</a></li>
 </ul></li>
-<li class="chapter" data-level="12.3" data-path="mod-12.html"><a href="mod-12.html#clustering"><i class="fa fa-check"></i><b>12.3</b> Clustering</a>
+<li class="chapter" data-level="11.5" data-path="mod-11.html"><a href="mod-11.html#dose-response-curves"><i class="fa fa-check"></i><b>11.5</b> Dose response curves</a></li>
+<li class="chapter" data-level="11.6" data-path="mod-11.html"><a href="mod-11.html#alternatives-to-nls"><i class="fa fa-check"></i><b>11.6</b> Alternatives to NLS</a>
 <ul>
-<li class="chapter" data-level="12.3.1" data-path="mod-12.html"><a href="mod-12.html#k-means-clustering"><i class="fa fa-check"></i><b>12.3.1</b> <em>K</em>-means clustering</a></li>
-<li class="chapter" data-level="12.3.2" data-path="mod-12.html"><a href="mod-12.html#hierarchical-agglomerative-clustering"><i class="fa fa-check"></i><b>12.3.2</b> Hierarchical agglomerative clustering</a></li>
+<li class="chapter" data-level="11.6.1" data-path="mod-11.html"><a href="mod-11.html#generalized-nonlinear-models"><i class="fa fa-check"></i><b>11.6.1</b> Generalized nonlinear models</a></li>
+<li class="chapter" data-level="11.6.2" data-path="mod-11.html"><a href="mod-11.html#quantile-regression"><i class="fa fa-check"></i><b>11.6.2</b> Quantile regression</a></li>
+<li class="chapter" data-level="11.6.3" data-path="mod-11.html"><a href="mod-11.html#mod-11-gam"><i class="fa fa-check"></i><b>11.6.3</b> Generalized additive models (GAM)</a></li>
+<li class="chapter" data-level="11.6.4" data-path="mod-11.html"><a href="mod-11.html#classification-and-regression-trees-cart"><i class="fa fa-check"></i><b>11.6.4</b> Classification and regression trees (CART)</a></li>
 </ul></li>
-<li class="chapter" data-level="12.4" data-path="mod-12.html"><a href="mod-12.html#mod-12-sims"><i class="fa fa-check"></i><b>12.4</b> Analyzing dissimilarity</a>
-<ul>
-<li class="chapter" data-level="12.4.1" data-path="mod-12.html"><a href="mod-12.html#mantel-tests-distance-vs.-distance"><i class="fa fa-check"></i><b>12.4.1</b> Mantel tests: distance vs. distance</a></li>
-<li class="chapter" data-level="12.4.2" data-path="mod-12.html"><a href="mod-12.html#comparing-dissimilarity-between-groups"><i class="fa fa-check"></i><b>12.4.2</b> Comparing dissimilarity between groups</a></li>
 </ul></li>
-<li class="chapter" data-level="12.5" data-path="mod-12.html"><a href="mod-12.html#mod-12-ord"><i class="fa fa-check"></i><b>12.5</b> Ordination</a>
+<li class="chapter" data-level="12" data-path="mod-12.html"><a href="mod-12.html"><i class="fa fa-check"></i><b>12</b> Mixed models</a>
 <ul>
-<li class="chapter" data-level="12.5.1" data-path="mod-12.html"><a href="mod-12.html#principal-components-analysis-pca-1"><i class="fa fa-check"></i><b>12.5.1</b> Principal components analysis (PCA)</a></li>
-<li class="chapter" data-level="12.5.2" data-path="mod-12.html"><a href="mod-12.html#nmds-and-other-ordination-methods"><i class="fa fa-check"></i><b>12.5.2</b> NMDS and other ordination methods</a></li>
-<li class="chapter" data-level="12.5.3" data-path="mod-12.html"><a href="mod-12.html#other-ordination-techniques"><i class="fa fa-check"></i><b>12.5.3</b> Other ordination techniques</a></li>
+<li class="chapter" data-level="12.1" data-path="mod-12.html"><a href="mod-12.html#prelude-glm"><i class="fa fa-check"></i><b>12.1</b> Prelude (GLM)</a></li>
+<li class="chapter" data-level="12.2" data-path="mod-12.html"><a href="mod-12.html#mod-12-lmm"><i class="fa fa-check"></i><b>12.2</b> Linear mixed models (LMM)</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="mod-12.html"><a href="mod-12.html#formal-definition-and-example"><i class="fa fa-check"></i><b>12.2.1</b> Formal definition and example</a></li>
+<li class="chapter" data-level="12.2.2" data-path="mod-12.html"><a href="mod-12.html#example-with-simulated-data-5"><i class="fa fa-check"></i><b>12.2.2</b> Example with simulated data</a></li>
+<li class="chapter" data-level="12.2.3" data-path="mod-12.html"><a href="mod-12.html#p-values-in-lmm"><i class="fa fa-check"></i><b>12.2.3</b> <em>P</em>-values in LMM</a></li>
+<li class="chapter" data-level="12.2.4" data-path="mod-12.html"><a href="mod-12.html#specifying-random-effects"><i class="fa fa-check"></i><b>12.2.4</b> Specifying random effects</a></li>
+<li class="chapter" data-level="12.2.5" data-path="mod-12.html"><a href="mod-12.html#lmm-example-with-real-data"><i class="fa fa-check"></i><b>12.2.5</b> LMM example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="mod-12.html"><a href="mod-12.html#mod-12-glmm"><i class="fa fa-check"></i><b>12.3</b> Generalized linear mixed models (GLMM)</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="mod-12.html"><a href="mod-12.html#definition-1"><i class="fa fa-check"></i><b>12.3.1</b> Definition</a></li>
+<li class="chapter" data-level="12.3.2" data-path="mod-12.html"><a href="mod-12.html#glmm-on-simulated-data"><i class="fa fa-check"></i><b>12.3.2</b> GLMM on simulated data</a></li>
+<li class="chapter" data-level="12.3.3" data-path="mod-12.html"><a href="mod-12.html#glmm-on-real-data"><i class="fa fa-check"></i><b>12.3.3</b> GLMM on real data</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="mod-12.html"><a href="mod-12.html#mod-12-nlme"><i class="fa fa-check"></i><b>12.4</b> Nonlinear mixed models (NLME)</a>
+<ul>
+<li class="chapter" data-level="12.4.1" data-path="mod-12.html"><a href="mod-12.html#definition-and-background"><i class="fa fa-check"></i><b>12.4.1</b> Definition and background</a></li>
+<li class="chapter" data-level="12.4.2" data-path="mod-12.html"><a href="mod-12.html#nlme-on-simulated-data"><i class="fa fa-check"></i><b>12.4.2</b> NLME on simulated data</a></li>
+<li class="chapter" data-level="12.4.3" data-path="mod-12.html"><a href="mod-12.html#nlme-on-real-data"><i class="fa fa-check"></i><b>12.4.3</b> NLME on real data</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="mod-12.html"><a href="mod-12.html#mod-12-gamm"><i class="fa fa-check"></i><b>12.5</b> (Generalized) additive mixed models (AMM/GAMM)</a>
+<ul>
+<li class="chapter" data-level="12.5.1" data-path="mod-12.html"><a href="mod-12.html#example-gamm-with-real-data"><i class="fa fa-check"></i><b>12.5.1</b> Example GAMM with real data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="mod-13.html"><a href="mod-13.html"><i class="fa fa-check"></i><b>13</b> Multivariate data analysis</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="mod-13.html"><a href="mod-13.html#multivariate-data"><i class="fa fa-check"></i><b>13.1</b> Multivariate data</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="mod-13.html"><a href="mod-13.html#univariate-vs.-multivariate-data"><i class="fa fa-check"></i><b>13.1.1</b> Univariate vs. multivariate data</a></li>
+<li class="chapter" data-level="13.1.2" data-path="mod-13.html"><a href="mod-13.html#components-of-multivariate-data"><i class="fa fa-check"></i><b>13.1.2</b> Components of multivariate data</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="mod-13.html"><a href="mod-13.html#mod-13-dist"><i class="fa fa-check"></i><b>13.2</b> Distance metrics: biological (dis)similarity</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="mod-13.html"><a href="mod-13.html#euclidean-distance"><i class="fa fa-check"></i><b>13.2.1</b> Euclidean distance</a></li>
+<li class="chapter" data-level="13.2.2" data-path="mod-13.html"><a href="mod-13.html#bray-curtis-and-other-distance-metrics"><i class="fa fa-check"></i><b>13.2.2</b> Bray-Curtis and other distance metrics</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="mod-13.html"><a href="mod-13.html#clustering"><i class="fa fa-check"></i><b>13.3</b> Clustering</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="mod-13.html"><a href="mod-13.html#k-means-clustering"><i class="fa fa-check"></i><b>13.3.1</b> <em>K</em>-means clustering</a></li>
+<li class="chapter" data-level="13.3.2" data-path="mod-13.html"><a href="mod-13.html#hierarchical-agglomerative-clustering"><i class="fa fa-check"></i><b>13.3.2</b> Hierarchical agglomerative clustering</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="mod-13.html"><a href="mod-13.html#mod-13-sims"><i class="fa fa-check"></i><b>13.4</b> Analyzing dissimilarity</a>
+<ul>
+<li class="chapter" data-level="13.4.1" data-path="mod-13.html"><a href="mod-13.html#mantel-tests-distance-vs.-distance"><i class="fa fa-check"></i><b>13.4.1</b> Mantel tests: distance vs. distance</a></li>
+<li class="chapter" data-level="13.4.2" data-path="mod-13.html"><a href="mod-13.html#comparing-dissimilarity-between-groups"><i class="fa fa-check"></i><b>13.4.2</b> Comparing dissimilarity between groups</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="mod-13.html"><a href="mod-13.html#mod-13-ord"><i class="fa fa-check"></i><b>13.5</b> Ordination</a>
+<ul>
+<li class="chapter" data-level="13.5.1" data-path="mod-13.html"><a href="mod-13.html#mod-13-pca"><i class="fa fa-check"></i><b>13.5.1</b> Principal components analysis (PCA)</a></li>
+<li class="chapter" data-level="13.5.2" data-path="mod-13.html"><a href="mod-13.html#nmds-and-other-ordination-methods"><i class="fa fa-check"></i><b>13.5.2</b> NMDS and other ordination methods</a></li>
+<li class="chapter" data-level="13.5.3" data-path="mod-13.html"><a href="mod-13.html#other-ordination-techniques"><i class="fa fa-check"></i><b>13.5.3</b> Other ordination techniques</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="literature-cited.html"><a href="literature-cited.html"><i class="fa fa-check"></i>Literature Cited</a></li>
@@ -613,13 +649,13 @@ div.csl-indent {
 <p><span class="math display">\[Z\left(x_i\right)=\frac{x_i-\bar{x}}{\sigma\left(x\right)}\]</span></p>
 <p>where <span class="math inline">\(\bar{x}\)</span> is the mean of <em>x</em> and <span class="math inline">\(\sigma\left(x\right)\)</span> is the SD of <em>x</em>. For example, <em>Z</em>-scores of -2.3 and +4.1 indicate observations 2.3 SD below and 4.1 SD above the mean, respectively. <em>Z</em>-scores are also referred to as <strong>sigmas</strong>, referring to the symbol for SD. E.g., a 4<span class="math inline">\(\sigma\)</span> observation is 4 SD away from the mean. Various <span class="math inline">\(\sigma\)</span> levels have been used to detect outliers, in which researchers discard any observation 2<span class="math inline">\(\sigma\)</span>, 3<span class="math inline">\(\sigma\)</span>, etc., away from the mean. This threshold varies by discipline, so follow the conventions in your field.</p>
 <p>The figure below shows <em>Z</em>-scores relative to the standard normal distribution (<span class="math inline">\(\mu\)</span> = 0, SD = 1). About 68% of observations are expected to have a <em>Z</em>-score between -1 and 1–i.e., deviate by <span class="math inline">\(\le\)</span> 1 <span class="math inline">\(\sigma\)</span>. About 95% of observations should be <span class="math inline">\(\le\)</span> 2 <span class="math inline">\(\sigma\)</span>, and over 99% of observations should be <span class="math inline">\(\le\)</span> 3 <span class="math inline">\(\sigma\)</span>. The greater the magnitude of a value’s <em>Z</em>-score, the less likely it is. Values with &gt; 3 or 4 <span class="math inline">\(\sigma\)</span> should almost never occur. Thus, observations with large-magnitude <em>Z</em>-scores may turn out to be outliers.</p>
-<p><img src="applied_biol_data_analysis_20220816_files/figure-html/unnamed-chunk-483-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="applied_biol_data_analysis_20220816_files/figure-html/unnamed-chunk-508-1.png" width="768" style="display: block; margin: auto;" /></p>
 <p>It must be noted that a large magnitude <em>Z</em>-score does <strong><em>not</em></strong> prove that an observation is an outlier. Like <em>p</em>-values, <em>Z</em>-scores are just a heuristic for making decisions. Don’t just delete any observation <span class="math inline">\(|Z|\ge\)</span> 3; examine those observations to see if they are legitmate and don’t take any action without a good biological reason.</p>
 </div>
 <div id="dealing-with-outliers" class="section level3 hasAnchor" number="7.1.2">
 <h3><span class="header-section-number">7.1.2</span> Dealing with outliers<a href="mod-07.html#dealing-with-outliers" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The easiest way to deal with outliers is simply to delete them. This can be fine if you have a lot of data–many 1000s or even millions of records. I’ve worked with several statisticians who routinely delete observations with response variables in the top and bottom 5 percentiles. This may not always be an appropriate strategy in biology. For one thing, outliers can occur for completely legitimate reasons and deleting them would be discarding important information about the study system.</p>
-<p><strong><em>Never</em> delete an observation based solely on its magnitude.</strong></p>
+<p><strong><em>Never</em></strong> <strong>delete an observation based solely on its magnitude.</strong></p>
 <p>Data should only be deleted when there is a biological or experimental reason. These might include experimental errors, inappropriate sampling, extraordinary field conditions, etc. Furthermore, you should always document when observations were deleted and why, and disclose that information in your write up and to reviewers. The possibility of including supplemental information or documents with manuscripts leaves little excuse not to be transparent about what observations you deleted and why.</p>
 <p>Another way to deal with outliers is to <a href="mod-05.html#mod-05-trans">transform the data</a>. Variance-stabilizing transformations, such as the log-transform, often have the side-effect of reducing outliers in the data.</p>
 <p>The third method for dealing with outliers is <strong>censoring</strong>. Censoring data in statistics means analyzing data as either the measured value or the interval in which the value falls. For example, if a mouse is weighed with a scale that goes up to 60 g, and maxes out the scale, we record the mouse as weighing <span class="math inline">\(\ge\)</span> 60 g. Statistical methods for censored data have been developed but are outside the scope of this course. One popular form of censoring is called <strong>Winsorizing</strong>, where values below the 5th percentile are set to the 5th percentile and values above the 95th percentile are set to the 95th percentile. Censoring is common practice in fields involving certain types of instrumentation. For example, many spectrophotometers (e.g., microplate readers) record optical density (OD) as the amount of light passing through a specimen as a measurement of concentration. Most machines have a lower limit to the OD that they can detect. Observations below this minimum OD might be censored to 0, or to some pre-determined fraction of the minimum detectable OD.</p>
@@ -634,9 +670,9 @@ div.csl-indent {
 <p>Autocorrelation describes a phenomenon where set of values is correlated with itself, with the strength of that correlation determined by the distance between observations. In biology, the “distance” that defines autocorrelation is often spatial, temporal, or phylogenetic.</p>
 <table>
 <colgroup>
-<col width="33%" />
-<col width="33%" />
-<col width="33%" />
+<col width="15%" />
+<col width="15%" />
+<col width="69%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -678,91 +714,93 @@ div.csl-indent {
 </div>
 <div id="mantel-tests-for-autocorrelation" class="section level3 hasAnchor" number="7.2.2">
 <h3><span class="header-section-number">7.2.2</span> Mantel tests for autocorrelation<a href="mod-07.html#mantel-tests-for-autocorrelation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><strong>Spatial autocorrelation</strong> is a particular problem for ecologists and environmental biologists. The <a href="mod-12.html#mod-12-sims"><strong>Mantel test</strong></a> can be used to measure spatial autocorrelation as the correlation between distance in space and distance in terms of the measured variables. The Mantel test can be thought of as a multivariate generalization of linear correlation that measures correlation between two matrices. Whereas linear correlation measures how variation in one variable is related to variation in another variable, the Mantel test measures how variation in one matrix (i.e., set of variables) is related to variation in another matrix.</p>
-<p>The application to spatial autocorrelation is obvious. The spatial distance matrix can be calculated from coordinates such as latitude or longitude<a href="#fn62" class="footnote-ref" id="fnref62"><sup>62</sup></a>, and compared to the biological distance matrix. When other types of autocorrelation are of interest, you can calculate a distance matrix based on time or on phylogenetic relatedness, or whatever else might be driving the autocorrelation.</p>
+<p><strong>Spatial autocorrelation</strong> is a particular problem for ecologists and environmental biologists. The <a href="mod-13.html#mod-13-sims"><strong>Mantel test</strong></a> can be used to measure spatial autocorrelation as the correlation between distance in space and distance in terms of the measured variables. The Mantel test can be thought of as a multivariate generalization of linear correlation that measures correlation between two matrices. Whereas linear correlation measures how variation in one variable is related to variation in another variable, the Mantel test measures how variation in one matrix (i.e., set of variables) is related to variation in another matrix.</p>
+<p>The application to spatial autocorrelation is obvious. The spatial distance matrix can be calculated from coordinates such as latitude or longitude<a href="#fn63" class="footnote-ref" id="fnref63"><sup>63</sup></a>, and compared to the biological distance matrix. When other types of autocorrelation are of interest, you can calculate a distance matrix based on time or on phylogenetic relatedness, or whatever else might be driving the autocorrelation.</p>
 <p><img src="07_02.jpg" width="100%" style="display: block; margin: auto;" /></p>
-<p>The <a href="mod-12.html#mod-12-sims">Mantel test</a> works by first calculating two <strong>distance matrices</strong>, which define the <a href="mod-12.html#mod-12-dist">“distances” or “dissimilarities” between each sample</a>. One distance matrix relates to spatial, temporal, or phylogenetic distance. The other relates to dissimilarity in terms of the measured variables. The dissimilarity metric incorporates information about how much any pair of observations differ in terms of every variable represented in the matrix. The Mantel correlation coefficient <em>r</em> is the linear correlation coefficient (like Pearson’s <em>r</em>) between the two distance matrices. It answers the question, “How is variation in this set of variables related to distance in space (or time, or phylogeny, etc.)?”.</p>
+<p>The <a href="mod-13.html#mod-13-sims">Mantel test</a> works by first calculating two <strong>distance matrices</strong>, which define the <a href="mod-13.html#mod-13-dist">“distances” or “dissimilarities” between each sample</a>. One distance matrix relates to spatial, temporal, or phylogenetic distance. The other relates to dissimilarity in terms of the measured variables. The dissimilarity metric incorporates information about how much any pair of observations differ in terms of every variable represented in the matrix. The Mantel correlation coefficient <em>r</em> is the linear correlation coefficient (like Pearson’s <em>r</em>) between the two distance matrices. It answers the question, “How is variation in this set of variables related to distance in space (or time, or phylogeny, etc.)?”.</p>
 <p>The example below illustrates another use for the Mantel test: measuring association between two sets of variables taken from the same sample units. In this example, dissimilarity in terms of species composition is related to dissimilarity in soil chemical characteristics.</p>
-<div class="sourceCode" id="cb815"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb815-1"><a href="mod-07.html#cb815-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegan)</span>
-<span id="cb815-2"><a href="mod-07.html#cb815-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Loading required package: permute</span></span>
-<span id="cb815-3"><a href="mod-07.html#cb815-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Loading required package: lattice</span></span>
-<span id="cb815-4"><a href="mod-07.html#cb815-4" aria-hidden="true" tabindex="-1"></a><span class="do">## This is vegan 2.6-2</span></span>
-<span id="cb815-5"><a href="mod-07.html#cb815-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb815-6"><a href="mod-07.html#cb815-6" aria-hidden="true" tabindex="-1"></a><span class="co"># biological data</span></span>
-<span id="cb815-7"><a href="mod-07.html#cb815-7" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(varespec)</span>
-<span id="cb815-8"><a href="mod-07.html#cb815-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb815-9"><a href="mod-07.html#cb815-9" aria-hidden="true" tabindex="-1"></a><span class="co"># soil chemistry data</span></span>
-<span id="cb815-10"><a href="mod-07.html#cb815-10" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(varechem)</span>
-<span id="cb815-11"><a href="mod-07.html#cb815-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb815-12"><a href="mod-07.html#cb815-12" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> varechem</span>
-<span id="cb815-13"><a href="mod-07.html#cb815-13" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> varespec</span>
-<span id="cb815-14"><a href="mod-07.html#cb815-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb815-15"><a href="mod-07.html#cb815-15" aria-hidden="true" tabindex="-1"></a>dy <span class="ot">&lt;-</span> <span class="fu">vegdist</span>(varespec) <span class="co"># Bray-Curtis metric</span></span>
-<span id="cb815-16"><a href="mod-07.html#cb815-16" aria-hidden="true" tabindex="-1"></a>dx <span class="ot">&lt;-</span> <span class="fu">vegdist</span>(<span class="fu">scale</span>(varechem), <span class="st">&quot;euclid&quot;</span>) <span class="co"># Euclidean metric</span></span>
-<span id="cb815-17"><a href="mod-07.html#cb815-17" aria-hidden="true" tabindex="-1"></a><span class="fu">mantel</span>(dx, dy)</span>
-<span id="cb815-18"><a href="mod-07.html#cb815-18" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb815-19"><a href="mod-07.html#cb815-19" aria-hidden="true" tabindex="-1"></a><span class="do">## Mantel statistic based on Pearson&#39;s product-moment correlation </span></span>
-<span id="cb815-20"><a href="mod-07.html#cb815-20" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb815-21"><a href="mod-07.html#cb815-21" aria-hidden="true" tabindex="-1"></a><span class="do">## Call:</span></span>
-<span id="cb815-22"><a href="mod-07.html#cb815-22" aria-hidden="true" tabindex="-1"></a><span class="do">## mantel(xdis = dx, ydis = dy) </span></span>
-<span id="cb815-23"><a href="mod-07.html#cb815-23" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb815-24"><a href="mod-07.html#cb815-24" aria-hidden="true" tabindex="-1"></a><span class="do">## Mantel statistic r: 0.3047 </span></span>
-<span id="cb815-25"><a href="mod-07.html#cb815-25" aria-hidden="true" tabindex="-1"></a><span class="do">##       Significance: 0.002 </span></span>
-<span id="cb815-26"><a href="mod-07.html#cb815-26" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb815-27"><a href="mod-07.html#cb815-27" aria-hidden="true" tabindex="-1"></a><span class="do">## Upper quantiles of permutations (null model):</span></span>
-<span id="cb815-28"><a href="mod-07.html#cb815-28" aria-hidden="true" tabindex="-1"></a><span class="do">##   90%   95% 97.5%   99% </span></span>
-<span id="cb815-29"><a href="mod-07.html#cb815-29" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.126 0.153 0.176 0.213 </span></span>
-<span id="cb815-30"><a href="mod-07.html#cb815-30" aria-hidden="true" tabindex="-1"></a><span class="do">## Permutation: free</span></span>
-<span id="cb815-31"><a href="mod-07.html#cb815-31" aria-hidden="true" tabindex="-1"></a><span class="do">## Number of permutations: 999</span></span>
-<span id="cb815-32"><a href="mod-07.html#cb815-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb815-33"><a href="mod-07.html#cb815-33" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="fl">5.1</span>, <span class="fl">5.1</span>, <span class="fl">1.1</span>, <span class="fl">1.1</span>),</span>
-<span id="cb815-34"><a href="mod-07.html#cb815-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">bty=</span><span class="st">&quot;n&quot;</span>, <span class="at">lend=</span><span class="dv">1</span>, <span class="at">las=</span><span class="dv">1</span>, <span class="at">cex.axis=</span><span class="fl">1.3</span>, <span class="at">cex.lab=</span><span class="fl">1.3</span>)</span>
-<span id="cb815-35"><a href="mod-07.html#cb815-35" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dx, dy, <span class="at">xlab=</span><span class="st">&quot;Chemical dissimilarity&quot;</span>,</span>
-<span id="cb815-36"><a href="mod-07.html#cb815-36" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">&quot;Vegetation dissimilarity&quot;</span>,</span>
-<span id="cb815-37"><a href="mod-07.html#cb815-37" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>))</span>
-<span id="cb815-38"><a href="mod-07.html#cb815-38" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">0</span>, <span class="fl">0.05</span>, </span>
-<span id="cb815-39"><a href="mod-07.html#cb815-39" aria-hidden="true" tabindex="-1"></a>     <span class="fu">expression</span>(Mantel<span class="sc">~</span><span class="fu">italic</span>(r)<span class="sc">==</span><span class="fl">0.305</span>),</span>
-<span id="cb815-40"><a href="mod-07.html#cb815-40" aria-hidden="true" tabindex="-1"></a>     <span class="at">adj=</span><span class="dv">0</span>, <span class="at">cex=</span><span class="fl">1.5</span>)</span>
-<span id="cb815-41"><a href="mod-07.html#cb815-41" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">5.38</span>, <span class="fl">0.2</span>, </span>
-<span id="cb815-42"><a href="mod-07.html#cb815-42" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Each point represents </span><span class="sc">\n</span><span class="st"> a pair of observations&quot;</span>,</span>
-<span id="cb815-43"><a href="mod-07.html#cb815-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex=</span><span class="fl">1.3</span>, <span class="at">adj=</span><span class="dv">0</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="applied_biol_data_analysis_20220816_files/figure-html/unnamed-chunk-486-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb875"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb875-1"><a href="mod-07.html#cb875-1" tabindex="-1"></a><span class="fu">library</span>(vegan)</span>
+<span id="cb875-2"><a href="mod-07.html#cb875-2" tabindex="-1"></a><span class="do">## Warning: package &#39;vegan&#39; was built under R version 4.3.3</span></span>
+<span id="cb875-3"><a href="mod-07.html#cb875-3" tabindex="-1"></a><span class="do">## Loading required package: permute</span></span>
+<span id="cb875-4"><a href="mod-07.html#cb875-4" tabindex="-1"></a><span class="do">## Warning: package &#39;permute&#39; was built under R version 4.3.3</span></span>
+<span id="cb875-5"><a href="mod-07.html#cb875-5" tabindex="-1"></a><span class="do">## Loading required package: lattice</span></span>
+<span id="cb875-6"><a href="mod-07.html#cb875-6" tabindex="-1"></a><span class="do">## This is vegan 2.6-6.1</span></span>
+<span id="cb875-7"><a href="mod-07.html#cb875-7" tabindex="-1"></a></span>
+<span id="cb875-8"><a href="mod-07.html#cb875-8" tabindex="-1"></a><span class="co"># biological data</span></span>
+<span id="cb875-9"><a href="mod-07.html#cb875-9" tabindex="-1"></a><span class="fu">data</span>(varespec)</span>
+<span id="cb875-10"><a href="mod-07.html#cb875-10" tabindex="-1"></a></span>
+<span id="cb875-11"><a href="mod-07.html#cb875-11" tabindex="-1"></a><span class="co"># soil chemistry data</span></span>
+<span id="cb875-12"><a href="mod-07.html#cb875-12" tabindex="-1"></a><span class="fu">data</span>(varechem)</span>
+<span id="cb875-13"><a href="mod-07.html#cb875-13" tabindex="-1"></a></span>
+<span id="cb875-14"><a href="mod-07.html#cb875-14" tabindex="-1"></a>x <span class="ot">&lt;-</span> varechem</span>
+<span id="cb875-15"><a href="mod-07.html#cb875-15" tabindex="-1"></a>y <span class="ot">&lt;-</span> varespec</span>
+<span id="cb875-16"><a href="mod-07.html#cb875-16" tabindex="-1"></a></span>
+<span id="cb875-17"><a href="mod-07.html#cb875-17" tabindex="-1"></a>dy <span class="ot">&lt;-</span> <span class="fu">vegdist</span>(varespec) <span class="co"># Bray-Curtis metric</span></span>
+<span id="cb875-18"><a href="mod-07.html#cb875-18" tabindex="-1"></a>dx <span class="ot">&lt;-</span> <span class="fu">vegdist</span>(<span class="fu">scale</span>(varechem), <span class="st">&quot;euclid&quot;</span>) <span class="co"># Euclidean metric</span></span>
+<span id="cb875-19"><a href="mod-07.html#cb875-19" tabindex="-1"></a><span class="fu">mantel</span>(dx, dy)</span>
+<span id="cb875-20"><a href="mod-07.html#cb875-20" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb875-21"><a href="mod-07.html#cb875-21" tabindex="-1"></a><span class="do">## Mantel statistic based on Pearson&#39;s product-moment correlation </span></span>
+<span id="cb875-22"><a href="mod-07.html#cb875-22" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb875-23"><a href="mod-07.html#cb875-23" tabindex="-1"></a><span class="do">## Call:</span></span>
+<span id="cb875-24"><a href="mod-07.html#cb875-24" tabindex="-1"></a><span class="do">## mantel(xdis = dx, ydis = dy) </span></span>
+<span id="cb875-25"><a href="mod-07.html#cb875-25" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb875-26"><a href="mod-07.html#cb875-26" tabindex="-1"></a><span class="do">## Mantel statistic r: 0.3047 </span></span>
+<span id="cb875-27"><a href="mod-07.html#cb875-27" tabindex="-1"></a><span class="do">##       Significance: 0.002 </span></span>
+<span id="cb875-28"><a href="mod-07.html#cb875-28" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb875-29"><a href="mod-07.html#cb875-29" tabindex="-1"></a><span class="do">## Upper quantiles of permutations (null model):</span></span>
+<span id="cb875-30"><a href="mod-07.html#cb875-30" tabindex="-1"></a><span class="do">##   90%   95% 97.5%   99% </span></span>
+<span id="cb875-31"><a href="mod-07.html#cb875-31" tabindex="-1"></a><span class="do">## 0.126 0.153 0.176 0.213 </span></span>
+<span id="cb875-32"><a href="mod-07.html#cb875-32" tabindex="-1"></a><span class="do">## Permutation: free</span></span>
+<span id="cb875-33"><a href="mod-07.html#cb875-33" tabindex="-1"></a><span class="do">## Number of permutations: 999</span></span>
+<span id="cb875-34"><a href="mod-07.html#cb875-34" tabindex="-1"></a></span>
+<span id="cb875-35"><a href="mod-07.html#cb875-35" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="fl">5.1</span>, <span class="fl">5.1</span>, <span class="fl">1.1</span>, <span class="fl">1.1</span>),</span>
+<span id="cb875-36"><a href="mod-07.html#cb875-36" tabindex="-1"></a>    <span class="at">bty=</span><span class="st">&quot;n&quot;</span>, <span class="at">lend=</span><span class="dv">1</span>, <span class="at">las=</span><span class="dv">1</span>, <span class="at">cex.axis=</span><span class="fl">1.3</span>, <span class="at">cex.lab=</span><span class="fl">1.3</span>)</span>
+<span id="cb875-37"><a href="mod-07.html#cb875-37" tabindex="-1"></a><span class="fu">plot</span>(dx, dy, <span class="at">xlab=</span><span class="st">&quot;Chemical dissimilarity&quot;</span>,</span>
+<span id="cb875-38"><a href="mod-07.html#cb875-38" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">&quot;Vegetation dissimilarity&quot;</span>,</span>
+<span id="cb875-39"><a href="mod-07.html#cb875-39" tabindex="-1"></a>     <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>))</span>
+<span id="cb875-40"><a href="mod-07.html#cb875-40" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">0</span>, <span class="fl">0.05</span>, </span>
+<span id="cb875-41"><a href="mod-07.html#cb875-41" tabindex="-1"></a>     <span class="fu">expression</span>(Mantel<span class="sc">~</span><span class="fu">italic</span>(r)<span class="sc">==</span><span class="fl">0.305</span>),</span>
+<span id="cb875-42"><a href="mod-07.html#cb875-42" tabindex="-1"></a>     <span class="at">adj=</span><span class="dv">0</span>, <span class="at">cex=</span><span class="fl">1.5</span>)</span>
+<span id="cb875-43"><a href="mod-07.html#cb875-43" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">5.38</span>, <span class="fl">0.2</span>, </span>
+<span id="cb875-44"><a href="mod-07.html#cb875-44" tabindex="-1"></a>    <span class="st">&quot;Each point represents </span><span class="sc">\n</span><span class="st"> a pair of observations&quot;</span>,</span>
+<span id="cb875-45"><a href="mod-07.html#cb875-45" tabindex="-1"></a>    <span class="at">cex=</span><span class="fl">1.3</span>, <span class="at">adj=</span><span class="dv">0</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="applied_biol_data_analysis_20220816_files/figure-html/unnamed-chunk-511-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>The figure above shows the result visually. The Mantel <em>r</em> statistic describes the sign and magnitude of the correlation between dissimilarity in terms of chemistry (<em>x</em>-axis) and dissimilarity in terms of the plant community (<em>y</em>-axis). It is interpreted just like Pearson’s <em>r</em>. In the plot it is important to realize that each point represents a <em>pair</em> of observations, plotted by the dissimilarities between them. The correct interpretation of this plot is that samples with similar soil chemistry tend to also have similar plant communities. Alternatively, you could say that the larger the difference in soil chemistry, the larger the difference in plant communities (or something like that).</p>
 </div>
 <div id="dealing-with-autocorrelation" class="section level3 hasAnchor" number="7.2.3">
 <h3><span class="header-section-number">7.2.3</span> Dealing with autocorrelation<a href="mod-07.html#dealing-with-autocorrelation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Autocorrelation may or may not be a problem in your dataset. As pointed out by <span class="citation">Kuehn and Dormann (<a href="#ref-kuehn2012" role="doc-biblioref">2012</a>)</span>, there is a difference between autocorrelation in a response variable and autocorrelation in the residuals of a statistical model. Autocorrelation in a response variable can be managed by inclusion of appropriate predictor variables (which may themselves be autocorrelated or correlated; see next section). This works because if autocorrelated values can be predicted by a predictor variable, then the autocorrelation is controlled for, by definition.</p>
-<p>Autocorrelation in residuals, however, represents a pattern in the data that is not accounted for. There are methods for accounting for autocorrelated residuals such as conditional autoregressive models (CAR) <span class="citation">(<a href="#ref-gelfand2003" role="doc-biblioref">Gelfand and Vounatsou 2003</a>)</span>, generalized or ordinary least squares models (GLS or OLS), classification and regression trees or CART <span class="citation">(<a href="#ref-mccune2002analysis" role="doc-biblioref">McCune et al. 2002</a>)</span>, and mixed models <span class="citation">(<a href="#ref-bolker2009" role="doc-biblioref">Bolker et al. 2009</a>)</span>. None of these solutions is appropriate for every situation.</p>
+<p>Autocorrelation may or may not be a problem in your dataset. As pointed out by <span class="citation">Kuehn and Dormann (<a href="#ref-kuehn2012">2012</a>)</span>, there is a difference between autocorrelation in a response variable and autocorrelation in the residuals of a statistical model. Autocorrelation in a response variable can be managed by inclusion of appropriate predictor variables (which may themselves be autocorrelated or correlated; see <a href="mod-07.html#mod-07-multicol">next section</a>). This works because if autocorrelated values can be predicted by a predictor variable, then the autocorrelation is controlled for, by definition.</p>
+<p>Autocorrelation in residuals, however, represents a pattern in the data that is not accounted for. There are methods for accounting for autocorrelated residuals such as conditional autoregressive models (CAR) <span class="citation">(<a href="#ref-gelfand2003">Gelfand and Vounatsou 2003</a>)</span>, generalized or ordinary least squares models (GLS or OLS), classification and regression trees or CART <span class="citation">(<a href="#ref-mccune2002analysis">McCune et al. 2002</a>)</span>, and mixed models <span class="citation">(<a href="#ref-bolker2009">Bolker et al. 2009</a>)</span>. None of these solutions is appropriate for every situation.</p>
 </div>
 </div>
 <div id="mod-07-multicol" class="section level2 hasAnchor" number="7.3">
 <h2><span class="header-section-number">7.3</span> Collinearity<a href="mod-07.html#mod-07-multicol" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Sometimes we face the problem of having predictor variables that are not only related to the response variable, but also related to each other. This phenomenon is called <strong>collinearity</strong>. In large datasets the problem becomes <strong>multicollinearity</strong>, when many variables are related to each other. Including collinear predictor variables in an analysis can severely bias the parameter estimates of that analysis (e.g., regression coefficients) and as a result make the results misleading or not generalizable. The effects of collinear predictor variables are by definition confounded with each other, meaning that the effects cannot be separated <span class="citation">(<a href="#ref-dormann2013" role="doc-biblioref">Dormann et al. 2013</a>)</span>.</p>
+<p>Sometimes we face the problem of having predictor variables that are not only related to the response variable, but also related to each other. This phenomenon is called <strong>collinearity</strong>. In large datasets the problem becomes <strong>multicollinearity</strong>, when many variables are related to each other. Including collinear predictor variables in an analysis can severely bias the parameter estimates of that analysis (e.g., regression coefficients) and as a result make the results misleading or not generalizable. The effects of collinear predictor variables are by definition confounded with each other, meaning that the effects cannot be separated <span class="citation">(<a href="#ref-dormann2013">Dormann et al. 2013</a>)</span>.</p>
 <p>The most straightforward way of detecting collinearity is with scatterplot matrices and correlation coefficients (see <a href="mod-06.html#mod-06-smat">here</a>). This is a technique to visualize how many variables in a dataset relate to each other simultaneously. As shown in the linked section, replacing the upper triangle of boxes with the correlation coefficients can help detect potentially problematic pairs of variables. The figure below shows an example from the <code>crabs</code> dataset in package <code>MASS</code>. In this dataset, all of the variables are highly correlated with each other.</p>
-<p><img src="applied_biol_data_analysis_20220816_files/figure-html/unnamed-chunk-487-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="applied_biol_data_analysis_20220816_files/figure-html/unnamed-chunk-512-1.png" width="768" style="display: block; margin: auto;" /></p>
 <p>If you have many variables, then a figure like the one above can be hard to read or interpret. One solution might be to create a table of correlation coefficients between every pair of variables. The base function <code>cor()</code> can do this, but a better-formatted table takes a little more work.</p>
-<div class="sourceCode" id="cb816"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb816-1"><a href="mod-07.html#cb816-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(crabs, <span class="at">package=</span><span class="st">&quot;MASS&quot;</span>)</span>
-<span id="cb816-2"><a href="mod-07.html#cb816-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> crabs</span>
-<span id="cb816-3"><a href="mod-07.html#cb816-3" aria-hidden="true" tabindex="-1"></a>dat.cols <span class="ot">&lt;-</span> <span class="dv">4</span><span class="sc">:</span><span class="dv">8</span></span>
-<span id="cb816-4"><a href="mod-07.html#cb816-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(x[,dat.cols])</span></code></pre></div>
+<div class="sourceCode" id="cb876"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb876-1"><a href="mod-07.html#cb876-1" tabindex="-1"></a><span class="fu">data</span>(crabs, <span class="at">package=</span><span class="st">&quot;MASS&quot;</span>)</span>
+<span id="cb876-2"><a href="mod-07.html#cb876-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> crabs</span>
+<span id="cb876-3"><a href="mod-07.html#cb876-3" tabindex="-1"></a>dat.cols <span class="ot">&lt;-</span> <span class="dv">4</span><span class="sc">:</span><span class="dv">8</span></span>
+<span id="cb876-4"><a href="mod-07.html#cb876-4" tabindex="-1"></a><span class="fu">cor</span>(x[,dat.cols])</span></code></pre></div>
 <pre><code>##           FL        RW        CL        CW        BD
 ## FL 1.0000000 0.9069876 0.9788418 0.9649558 0.9876272
 ## RW 0.9069876 1.0000000 0.8927430 0.9004021 0.8892054
 ## CL 0.9788418 0.8927430 1.0000000 0.9950225 0.9832038
 ## CW 0.9649558 0.9004021 0.9950225 1.0000000 0.9678117
 ## BD 0.9876272 0.8892054 0.9832038 0.9678117 1.0000000</code></pre>
-<div class="sourceCode" id="cb818"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb818-1"><a href="mod-07.html#cb818-1" aria-hidden="true" tabindex="-1"></a><span class="co"># better table:</span></span>
-<span id="cb818-2"><a href="mod-07.html#cb818-2" aria-hidden="true" tabindex="-1"></a>vars <span class="ot">&lt;-</span> <span class="fu">names</span>(x)[dat.cols]</span>
-<span id="cb818-3"><a href="mod-07.html#cb818-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb818-4"><a href="mod-07.html#cb818-4" aria-hidden="true" tabindex="-1"></a><span class="co"># generate every unique pair of two variables by name:</span></span>
-<span id="cb818-5"><a href="mod-07.html#cb818-5" aria-hidden="true" tabindex="-1"></a>cx <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">t</span>(<span class="fu">combn</span>(vars, <span class="dv">2</span>)))</span>
-<span id="cb818-6"><a href="mod-07.html#cb818-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb818-7"><a href="mod-07.html#cb818-7" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate correlation coefficients for each pair:</span></span>
-<span id="cb818-8"><a href="mod-07.html#cb818-8" aria-hidden="true" tabindex="-1"></a>cx<span class="sc">$</span>r <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb818-9"><a href="mod-07.html#cb818-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(cx)){</span>
-<span id="cb818-10"><a href="mod-07.html#cb818-10" aria-hidden="true" tabindex="-1"></a>    cx<span class="sc">$</span>r[i] <span class="ot">&lt;-</span> <span class="fu">cor</span>(x[,cx<span class="sc">$</span>X1[i]], x[,cx<span class="sc">$</span>X2[i]])</span>
-<span id="cb818-11"><a href="mod-07.html#cb818-11" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb818-12"><a href="mod-07.html#cb818-12" aria-hidden="true" tabindex="-1"></a>cx</span></code></pre></div>
+<div class="sourceCode" id="cb878"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb878-1"><a href="mod-07.html#cb878-1" tabindex="-1"></a><span class="co"># better table:</span></span>
+<span id="cb878-2"><a href="mod-07.html#cb878-2" tabindex="-1"></a>vars <span class="ot">&lt;-</span> <span class="fu">names</span>(x)[dat.cols]</span>
+<span id="cb878-3"><a href="mod-07.html#cb878-3" tabindex="-1"></a></span>
+<span id="cb878-4"><a href="mod-07.html#cb878-4" tabindex="-1"></a><span class="co"># generate every unique pair of two variables by name:</span></span>
+<span id="cb878-5"><a href="mod-07.html#cb878-5" tabindex="-1"></a>cx <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">t</span>(<span class="fu">combn</span>(vars, <span class="dv">2</span>)))</span>
+<span id="cb878-6"><a href="mod-07.html#cb878-6" tabindex="-1"></a></span>
+<span id="cb878-7"><a href="mod-07.html#cb878-7" tabindex="-1"></a><span class="co"># calculate correlation coefficients for each pair:</span></span>
+<span id="cb878-8"><a href="mod-07.html#cb878-8" tabindex="-1"></a>cx<span class="sc">$</span>r <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb878-9"><a href="mod-07.html#cb878-9" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(cx)){</span>
+<span id="cb878-10"><a href="mod-07.html#cb878-10" tabindex="-1"></a>    cx<span class="sc">$</span>r[i] <span class="ot">&lt;-</span> <span class="fu">cor</span>(x[,cx<span class="sc">$</span>X1[i]], x[,cx<span class="sc">$</span>X2[i]])</span>
+<span id="cb878-11"><a href="mod-07.html#cb878-11" tabindex="-1"></a>}</span>
+<span id="cb878-12"><a href="mod-07.html#cb878-12" tabindex="-1"></a>cx</span></code></pre></div>
 <pre><code>##    X1 X2         r
 ## 1  FL RW 0.9069876
 ## 2  FL CL 0.9788418
@@ -775,25 +813,25 @@ div.csl-indent {
 ## 9  CL BD 0.9832038
 ## 10 CW BD 0.9678117</code></pre>
 <p>The resulting table can then be sorted or filtered by <code>r</code> to identify pairs of variables that are correlated with each other.</p>
-<div class="sourceCode" id="cb820"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb820-1"><a href="mod-07.html#cb820-1" aria-hidden="true" tabindex="-1"></a><span class="co"># not run:</span></span>
-<span id="cb820-2"><a href="mod-07.html#cb820-2" aria-hidden="true" tabindex="-1"></a><span class="co"># filter to |r| &gt; 0.7</span></span>
-<span id="cb820-3"><a href="mod-07.html#cb820-3" aria-hidden="true" tabindex="-1"></a>cx[<span class="fu">which</span>(<span class="fu">abs</span>(cx<span class="sc">$</span>r) <span class="sc">&gt;</span> <span class="fl">0.7</span>),]</span></code></pre></div>
-<p><span class="citation">Dormann et al. (<a href="#ref-dormann2013" role="doc-biblioref">2013</a>)</span> suggest to use a cutoff of <span class="math inline">\(|r|\)</span> in between 0.5 and 0.7 to identify collinear pairs of variables. When a pair of variables are identified as collinear, the easiest solution is to simply run the analysis without one of them. This is because the variables are redundant, and any conclusions made using one would also be obtained using the other.</p>
+<div class="sourceCode" id="cb880"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb880-1"><a href="mod-07.html#cb880-1" tabindex="-1"></a><span class="co"># not run:</span></span>
+<span id="cb880-2"><a href="mod-07.html#cb880-2" tabindex="-1"></a><span class="co"># filter to |r| &gt; 0.7</span></span>
+<span id="cb880-3"><a href="mod-07.html#cb880-3" tabindex="-1"></a>cx[<span class="fu">which</span>(<span class="fu">abs</span>(cx<span class="sc">$</span>r) <span class="sc">&gt;</span> <span class="fl">0.7</span>),]</span></code></pre></div>
+<p><span class="citation">Dormann et al. (<a href="#ref-dormann2013">2013</a>)</span> suggest to use a cutoff of <span class="math inline">\(|r|\)</span> in between 0.5 and 0.7 to identify collinear pairs of variables. When a pair of variables are identified as collinear, the easiest solution is to simply run the analysis without one of them. This is because the variables are redundant, and any conclusions made using one would also be obtained using the other.</p>
 </div>
 <div id="missing-data" class="section level2 hasAnchor" number="7.4">
 <h2><span class="header-section-number">7.4</span> Missing data<a href="mod-07.html#missing-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The last target of exploratory data analysis that we will explore is <strong>missing data</strong>. Data can be missing for many reasons. Equipment failures, human error, natural disasters, and other causes can cause values in your dataset to go missing or otherwise be invalid. How to handle the missing data is up to you as a biologist: <em>there is no one-size-fits-all statistical solution</em>. The two basic ways to deal with missing data are to (1) not deal with it and (2) estimate the missing values.</p>
 <div id="option-1-ignore-missing-data" class="section level3 hasAnchor" number="7.4.1">
 <h3><span class="header-section-number">7.4.1</span> Option 1: Ignore missing data<a href="mod-07.html#option-1-ignore-missing-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The easiest solution is simply to ignore missing data. Consider <a href="https://greenquanteco.github.io/missing_data_example.csv">this dataset</a>, which contains morphological data on 63 species of bats <span class="citation">(<a href="#ref-hutcheon2002" role="doc-biblioref">Hutcheon et al. 2002</a>)</span>. This dataset is modified from <a href="mod-10.html#mod-10-cart1">an example in the unit on nonlinear models</a>. Notice that in this version the brain masses (<code>brw</code>) are missing for 3 species of bats.</p>
-<div class="sourceCode" id="cb821"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb821-1"><a href="mod-07.html#cb821-1" aria-hidden="true" tabindex="-1"></a>in.name <span class="ot">&lt;-</span> <span class="st">&quot;missing_data_example.csv&quot;</span></span>
-<span id="cb821-2"><a href="mod-07.html#cb821-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(in.name, <span class="at">header=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p>The easiest solution is simply to ignore missing data. Consider <a href="https://greenquanteco.github.io/missing_data_example.csv">this dataset</a>, which contains morphological data on 63 species of bats <span class="citation">(<a href="#ref-hutcheon2002">Hutcheon et al. 2002</a>)</span>. This dataset is modified from <a href="mod-11.html#mod-11-cart1">an example in the unit on nonlinear models</a>. Notice that in this version the brain masses (<code>brw</code>) are missing for 3 species of bats.</p>
+<div class="sourceCode" id="cb881"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb881-1"><a href="mod-07.html#cb881-1" tabindex="-1"></a>in.name <span class="ot">&lt;-</span> <span class="st">&quot;missing_data_example.csv&quot;</span></span>
+<span id="cb881-2"><a href="mod-07.html#cb881-2" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(in.name, <span class="at">header=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <p>Because there are a lot of data, one option for analyzing this dataset would be to simply ignore the missing observations. For example, if someone was interested in the relationship between body size (variable <code>bow</code>) and brain mass, they could just fit a model and R would (for most methods) automatically ignore missing values. Note that in this example both variables are log-transformed to ensure normality and positivity.</p>
-<div class="sourceCode" id="cb822"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb822-1"><a href="mod-07.html#cb822-1" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>logbw <span class="ot">&lt;-</span> <span class="fu">log</span>(dat<span class="sc">$</span>bow)</span>
-<span id="cb822-2"><a href="mod-07.html#cb822-2" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>logbr <span class="ot">&lt;-</span> <span class="fu">log</span>(dat<span class="sc">$</span>brw)</span>
-<span id="cb822-3"><a href="mod-07.html#cb822-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb822-4"><a href="mod-07.html#cb822-4" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(logbr<span class="sc">~</span>logbw, <span class="at">data=</span>dat)</span>
-<span id="cb822-5"><a href="mod-07.html#cb822-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code></pre></div>
+<div class="sourceCode" id="cb882"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb882-1"><a href="mod-07.html#cb882-1" tabindex="-1"></a>dat<span class="sc">$</span>logbw <span class="ot">&lt;-</span> <span class="fu">log</span>(dat<span class="sc">$</span>bow)</span>
+<span id="cb882-2"><a href="mod-07.html#cb882-2" tabindex="-1"></a>dat<span class="sc">$</span>logbr <span class="ot">&lt;-</span> <span class="fu">log</span>(dat<span class="sc">$</span>brw)</span>
+<span id="cb882-3"><a href="mod-07.html#cb882-3" tabindex="-1"></a></span>
+<span id="cb882-4"><a href="mod-07.html#cb882-4" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(logbr<span class="sc">~</span>logbw, <span class="at">data=</span>dat)</span>
+<span id="cb882-5"><a href="mod-07.html#cb882-5" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = logbr ~ logbw, data = dat)
@@ -818,40 +856,40 @@ div.csl-indent {
 <div id="option-2-interpolate-or-impute-missing-data" class="section level3 hasAnchor" number="7.4.2">
 <h3><span class="header-section-number">7.4.2</span> Option 2: Interpolate or impute missing data<a href="mod-07.html#option-2-interpolate-or-impute-missing-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>If you need to replace the missing data, then the best option is to <strong>interpolate</strong> or <strong>impute</strong> them. How exactly to do this depends on the question being asked. If there is a clear relationship between the variable with missing values and another variable, then you can use that relationship to estimate the missing values. You can also use <strong>multiple imputation</strong> to estimate the missing values using information from several related variables at once. The example below illustrates simple interpolation (aka: single imputation) to replace the missing brain weights using known body masses.</p>
-<div class="sourceCode" id="cb824"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb824-1"><a href="mod-07.html#cb824-1" aria-hidden="true" tabindex="-1"></a><span class="co"># flag missing observations</span></span>
-<span id="cb824-2"><a href="mod-07.html#cb824-2" aria-hidden="true" tabindex="-1"></a>flag <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">is.na</span>(dat<span class="sc">$</span>brw))</span>
-<span id="cb824-3"><a href="mod-07.html#cb824-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb824-4"><a href="mod-07.html#cb824-4" aria-hidden="true" tabindex="-1"></a><span class="co"># log transform (if not done already)</span></span>
-<span id="cb824-5"><a href="mod-07.html#cb824-5" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>logbw <span class="ot">&lt;-</span> <span class="fu">log</span>(dat<span class="sc">$</span>bow)</span>
-<span id="cb824-6"><a href="mod-07.html#cb824-6" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>logbr <span class="ot">&lt;-</span> <span class="fu">log</span>(dat<span class="sc">$</span>brw)</span>
-<span id="cb824-7"><a href="mod-07.html#cb824-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb824-8"><a href="mod-07.html#cb824-8" aria-hidden="true" tabindex="-1"></a><span class="co"># fit model</span></span>
-<span id="cb824-9"><a href="mod-07.html#cb824-9" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(logbr<span class="sc">~</span>logbw, <span class="at">data=</span>dat)</span>
-<span id="cb824-10"><a href="mod-07.html#cb824-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb824-11"><a href="mod-07.html#cb824-11" aria-hidden="true" tabindex="-1"></a><span class="co"># predict missing logbr at logbw</span></span>
-<span id="cb824-12"><a href="mod-07.html#cb824-12" aria-hidden="true" tabindex="-1"></a>px <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">logbw=</span>dat<span class="sc">$</span>logbw[flag])</span>
-<span id="cb824-13"><a href="mod-07.html#cb824-13" aria-hidden="true" tabindex="-1"></a>pr <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod1, <span class="at">newdata=</span><span class="fu">data.frame</span>(px))</span>
-<span id="cb824-14"><a href="mod-07.html#cb824-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb824-15"><a href="mod-07.html#cb824-15" aria-hidden="true" tabindex="-1"></a><span class="co"># insert predicted values</span></span>
-<span id="cb824-16"><a href="mod-07.html#cb824-16" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>logbr[flag] <span class="ot">&lt;-</span> pr</span>
-<span id="cb824-17"><a href="mod-07.html#cb824-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb824-18"><a href="mod-07.html#cb824-18" aria-hidden="true" tabindex="-1"></a><span class="co"># back-transform to original scale</span></span>
-<span id="cb824-19"><a href="mod-07.html#cb824-19" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>brw[flag] <span class="ot">&lt;-</span> <span class="fu">exp</span>(dat<span class="sc">$</span>logbr[flag])</span></code></pre></div>
+<div class="sourceCode" id="cb884"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb884-1"><a href="mod-07.html#cb884-1" tabindex="-1"></a><span class="co"># flag missing observations</span></span>
+<span id="cb884-2"><a href="mod-07.html#cb884-2" tabindex="-1"></a>flag <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">is.na</span>(dat<span class="sc">$</span>brw))</span>
+<span id="cb884-3"><a href="mod-07.html#cb884-3" tabindex="-1"></a></span>
+<span id="cb884-4"><a href="mod-07.html#cb884-4" tabindex="-1"></a><span class="co"># log transform (if not done already)</span></span>
+<span id="cb884-5"><a href="mod-07.html#cb884-5" tabindex="-1"></a>dat<span class="sc">$</span>logbw <span class="ot">&lt;-</span> <span class="fu">log</span>(dat<span class="sc">$</span>bow)</span>
+<span id="cb884-6"><a href="mod-07.html#cb884-6" tabindex="-1"></a>dat<span class="sc">$</span>logbr <span class="ot">&lt;-</span> <span class="fu">log</span>(dat<span class="sc">$</span>brw)</span>
+<span id="cb884-7"><a href="mod-07.html#cb884-7" tabindex="-1"></a></span>
+<span id="cb884-8"><a href="mod-07.html#cb884-8" tabindex="-1"></a><span class="co"># fit model</span></span>
+<span id="cb884-9"><a href="mod-07.html#cb884-9" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(logbr<span class="sc">~</span>logbw, <span class="at">data=</span>dat)</span>
+<span id="cb884-10"><a href="mod-07.html#cb884-10" tabindex="-1"></a></span>
+<span id="cb884-11"><a href="mod-07.html#cb884-11" tabindex="-1"></a><span class="co"># predict missing logbr at logbw</span></span>
+<span id="cb884-12"><a href="mod-07.html#cb884-12" tabindex="-1"></a>px <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">logbw=</span>dat<span class="sc">$</span>logbw[flag])</span>
+<span id="cb884-13"><a href="mod-07.html#cb884-13" tabindex="-1"></a>pr <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod1, <span class="at">newdata=</span><span class="fu">data.frame</span>(px))</span>
+<span id="cb884-14"><a href="mod-07.html#cb884-14" tabindex="-1"></a></span>
+<span id="cb884-15"><a href="mod-07.html#cb884-15" tabindex="-1"></a><span class="co"># insert predicted values</span></span>
+<span id="cb884-16"><a href="mod-07.html#cb884-16" tabindex="-1"></a>dat<span class="sc">$</span>logbr[flag] <span class="ot">&lt;-</span> pr</span>
+<span id="cb884-17"><a href="mod-07.html#cb884-17" tabindex="-1"></a></span>
+<span id="cb884-18"><a href="mod-07.html#cb884-18" tabindex="-1"></a><span class="co"># back-transform to original scale</span></span>
+<span id="cb884-19"><a href="mod-07.html#cb884-19" tabindex="-1"></a>dat<span class="sc">$</span>brw[flag] <span class="ot">&lt;-</span> <span class="fu">exp</span>(dat<span class="sc">$</span>logbr[flag])</span></code></pre></div>
 <p>The interpolated values are similar to the true values, but with quite a bit of error. The term for this is “correct to an order of magnitude”.</p>
-<div class="sourceCode" id="cb825"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb825-1"><a href="mod-07.html#cb825-1" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>brw[flag]</span></code></pre></div>
+<div class="sourceCode" id="cb885"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb885-1"><a href="mod-07.html#cb885-1" tabindex="-1"></a>dat<span class="sc">$</span>brw[flag]</span></code></pre></div>
 <pre><code>## [1]  729.7784  507.7160 2138.6809</code></pre>
-<div class="sourceCode" id="cb827"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb827-1"><a href="mod-07.html#cb827-1" aria-hidden="true" tabindex="-1"></a>true.vals <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">597</span>, <span class="dv">543</span>, <span class="dv">2070</span>)</span>
-<span id="cb827-2"><a href="mod-07.html#cb827-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb827-3"><a href="mod-07.html#cb827-3" aria-hidden="true" tabindex="-1"></a><span class="co"># percentage bias in interpolated values:</span></span>
-<span id="cb827-4"><a href="mod-07.html#cb827-4" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span> <span class="sc">*</span> (dat<span class="sc">$</span>brw[flag]<span class="sc">-</span>true.vals) <span class="sc">/</span> true.vals</span></code></pre></div>
+<div class="sourceCode" id="cb887"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb887-1"><a href="mod-07.html#cb887-1" tabindex="-1"></a>true.vals <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">597</span>, <span class="dv">543</span>, <span class="dv">2070</span>)</span>
+<span id="cb887-2"><a href="mod-07.html#cb887-2" tabindex="-1"></a></span>
+<span id="cb887-3"><a href="mod-07.html#cb887-3" tabindex="-1"></a><span class="co"># percentage bias in interpolated values:</span></span>
+<span id="cb887-4"><a href="mod-07.html#cb887-4" tabindex="-1"></a><span class="dv">100</span> <span class="sc">*</span> (dat<span class="sc">$</span>brw[flag]<span class="sc">-</span>true.vals) <span class="sc">/</span> true.vals</span></code></pre></div>
 <pre><code>## [1] 22.240932 -6.497972  3.317919</code></pre>
-<p>Interpolation can be improved by predicting the missing values using additional variables. Multiple imputation, like any statistical model, can suffer from the effects of multicollinearity in the “predictors”, so be mindful that you don’t obtain–and use–biased estimates of your missing values. <span class="citation">Penone et al. (<a href="#ref-penone2014" role="doc-biblioref">2014</a>)</span> reviewed some strategies for imputing missing data in the context of life history traits, but the approaches could be applied to other areas of biology.</p>
+<p>Interpolation can be improved by predicting the missing values using additional variables. Multiple imputation, like any statistical model, can suffer from the effects of multicollinearity in the “predictors”, so be mindful that you don’t obtain–and use–biased estimates of your missing values. <span class="citation">Penone et al. (<a href="#ref-penone2014">2014</a>)</span> reviewed some strategies for imputing missing data in the context of life history traits, but the approaches could be applied to other areas of biology.</p>
 
 </div>
 </div>
 </div>
 <h3>Literature Cited<a href="literature-cited.html#literature-cited" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
 <div id="ref-bolker2009" class="csl-entry">
 Bolker, B. M., M. E. Brooks, C. J. Clark, S. W. Geange, J. R. Poulsen, M. H. H. Stevens, and J.-S. S. White. 2009. <a href="https://doi.org/10.1016/j.tree.2008.10.008">Generalized linear mixed models: A practical guide for ecology and evolution</a>. Trends in Ecology &amp; Evolution 24:127–135.
 </div>
@@ -876,8 +914,8 @@ Penone, C., A. D. Davidson, K. T. Shoemaker, M. Di Marco, C. Rondinini, T. M. Br
 </div>
 <div class="footnotes">
 <hr />
-<ol start="62">
-<li id="fn62"><p>When calculating a distance matrix using geographic coordinates, be sure to account for the curvature of the Earth. Often using unprojected latitude and longitude will produce a misleading distance matrix, because latitude and longitude are not equivalent.<a href="mod-07.html#fnref62" class="footnote-back">↩︎</a></p></li>
+<ol start="63">
+<li id="fn63"><p>When calculating a distance matrix using geographic coordinates, be sure to account for the curvature of the Earth. Often using unprojected latitude and longitude will produce a misleading distance matrix, because latitude and longitude are not equivalent.<a href="mod-07.html#fnref63" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

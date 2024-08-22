@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Applied Biological Data Analysis: Statistics and R for Biologists</title>
   <meta name="description" content="Helping biologists to become more informed users of R and statistical methods." />
-  <meta name="generator" content="bookdown 0.28 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Applied Biological Data Analysis: Statistics and R for Biologists" />
   <meta property="og:type" content="book" />
@@ -20,10 +20,10 @@
   <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="twitter:image" content="https://greenquanteco.github.io/book/lab_logo_02.jpg" />
 
-<meta name="author" content="Nick Green, Kennesaw State University" />
+<meta name="author" content="Dr. Nick Green, Kennesaw State University" />
 
 
-<meta name="date" content="2022-08-16" />
+<meta name="date" content="2024-08-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -56,7 +56,7 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -120,10 +120,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </style>
 
 <style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -160,6 +165,7 @@ div.csl-indent {
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
 <ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#work-in-progress-warning"><i class="fa fa-check"></i>Work in progress warning!</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#license-and-permissions"><i class="fa fa-check"></i>License and permissions</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-description"><i class="fa fa-check"></i>Course description</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-objectives"><i class="fa fa-check"></i>Course objectives</a></li>
@@ -332,10 +338,10 @@ div.csl-indent {
 <li class="chapter" data-level="5.2" data-path="mod-05.html"><a href="mod-05.html#mod-05-discrete"><i class="fa fa-check"></i><b>5.2</b> Discrete distributions</a>
 <ul>
 <li class="chapter" data-level="5.2.1" data-path="mod-05.html"><a href="mod-05.html#bernoulli-distribution"><i class="fa fa-check"></i><b>5.2.1</b> Bernoulli distribution</a></li>
-<li class="chapter" data-level="5.2.2" data-path="mod-05.html"><a href="mod-05.html#binomial-distribution"><i class="fa fa-check"></i><b>5.2.2</b> Binomial distribution</a></li>
+<li class="chapter" data-level="5.2.2" data-path="mod-05.html"><a href="mod-05.html#mod-05-binom"><i class="fa fa-check"></i><b>5.2.2</b> Binomial distribution</a></li>
 <li class="chapter" data-level="5.2.3" data-path="mod-05.html"><a href="mod-05.html#poisson-distribution"><i class="fa fa-check"></i><b>5.2.3</b> Poisson distribution</a></li>
-<li class="chapter" data-level="5.2.4" data-path="mod-05.html"><a href="mod-05.html#negative-binomial-distribution"><i class="fa fa-check"></i><b>5.2.4</b> Negative binomial distribution</a></li>
-<li class="chapter" data-level="5.2.5" data-path="mod-05.html"><a href="mod-05.html#geometric-distribution"><i class="fa fa-check"></i><b>5.2.5</b> Geometric distribution</a></li>
+<li class="chapter" data-level="5.2.4" data-path="mod-05.html"><a href="mod-05.html#mod-05-negbin"><i class="fa fa-check"></i><b>5.2.4</b> Negative binomial distribution</a></li>
+<li class="chapter" data-level="5.2.5" data-path="mod-05.html"><a href="mod-05.html#mod-05-geom"><i class="fa fa-check"></i><b>5.2.5</b> Geometric distribution</a></li>
 <li class="chapter" data-level="5.2.6" data-path="mod-05.html"><a href="mod-05.html#beta-binomial-distribution"><i class="fa fa-check"></i><b>5.2.6</b> Beta-binomial distribution</a></li>
 <li class="chapter" data-level="5.2.7" data-path="mod-05.html"><a href="mod-05.html#multinomial-distribution"><i class="fa fa-check"></i><b>5.2.7</b> Multinomial distribution</a></li>
 </ul></li>
@@ -344,10 +350,10 @@ div.csl-indent {
 <li class="chapter" data-level="5.3.1" data-path="mod-05.html"><a href="mod-05.html#uniform-distribution"><i class="fa fa-check"></i><b>5.3.1</b> Uniform distribution</a></li>
 <li class="chapter" data-level="5.3.2" data-path="mod-05.html"><a href="mod-05.html#mod-05-norm"><i class="fa fa-check"></i><b>5.3.2</b> Normal distribution</a></li>
 <li class="chapter" data-level="5.3.3" data-path="mod-05.html"><a href="mod-05.html#lognormal-distribution"><i class="fa fa-check"></i><b>5.3.3</b> Lognormal distribution</a></li>
-<li class="chapter" data-level="5.3.4" data-path="mod-05.html"><a href="mod-05.html#gamma-distribution"><i class="fa fa-check"></i><b>5.3.4</b> Gamma distribution</a></li>
+<li class="chapter" data-level="5.3.4" data-path="mod-05.html"><a href="mod-05.html#mod-05-gamma"><i class="fa fa-check"></i><b>5.3.4</b> Gamma distribution</a></li>
 <li class="chapter" data-level="5.3.5" data-path="mod-05.html"><a href="mod-05.html#beta-distribution"><i class="fa fa-check"></i><b>5.3.5</b> Beta distribution</a></li>
 <li class="chapter" data-level="5.3.6" data-path="mod-05.html"><a href="mod-05.html#dirichlet-distribution"><i class="fa fa-check"></i><b>5.3.6</b> Dirichlet distribution</a></li>
-<li class="chapter" data-level="5.3.7" data-path="mod-05.html"><a href="mod-05.html#exponential-distribution"><i class="fa fa-check"></i><b>5.3.7</b> Exponential distribution</a></li>
+<li class="chapter" data-level="5.3.7" data-path="mod-05.html"><a href="mod-05.html#mod-05-expo"><i class="fa fa-check"></i><b>5.3.7</b> Exponential distribution</a></li>
 <li class="chapter" data-level="5.3.8" data-path="mod-05.html"><a href="mod-05.html#triangular-distribution"><i class="fa fa-check"></i><b>5.3.8</b> Triangular distribution</a></li>
 <li class="chapter" data-level="5.3.9" data-path="mod-05.html"><a href="mod-05.html#distributions-summary"><i class="fa fa-check"></i><b>5.3.9</b> Distributions summary</a></li>
 </ul></li>
@@ -442,141 +448,171 @@ div.csl-indent {
 <li class="chapter" data-level="8.6" data-path="mod-08.html"><a href="mod-08.html#classifying-observations"><i class="fa fa-check"></i><b>8.6</b> Classifying observations</a></li>
 <li class="chapter" data-level="8.7" data-path="mod-08.html"><a href="mod-08.html#conclusions"><i class="fa fa-check"></i><b>8.7</b> Conclusions</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="mod-09.html"><a href="mod-09.html"><i class="fa fa-check"></i><b>9</b> Generalized linear models (GLM)</a>
+<li class="chapter" data-level="9" data-path="mod-09.html"><a href="mod-09.html"><i class="fa fa-check"></i><b>9</b> Basic statistics with R</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="mod-09.html"><a href="mod-09.html#mod-09-lm"><i class="fa fa-check"></i><b>9.1</b> Prelude with linear models</a>
+<li class="chapter" data-level="9.1" data-path="mod-09.html"><a href="mod-09.html#mod-09-datasets"><i class="fa fa-check"></i><b>9.1</b> Datasets and variables</a></li>
+<li class="chapter" data-level="9.2" data-path="mod-09.html"><a href="mod-09.html#mod-09-frequentist"><i class="fa fa-check"></i><b>9.2</b> Frequentist statistics</a>
 <ul>
-<li class="chapter" data-level="9.1.1" data-path="mod-09.html"><a href="mod-09.html#assumptions-of-linear-models"><i class="fa fa-check"></i><b>9.1.1</b> Assumptions of linear models</a></li>
-<li class="chapter" data-level="9.1.2" data-path="mod-09.html"><a href="mod-09.html#linear-regression-in-r"><i class="fa fa-check"></i><b>9.1.2</b> Linear regression in R</a></li>
-<li class="chapter" data-level="9.1.3" data-path="mod-09.html"><a href="mod-09.html#multiple-linear-regression"><i class="fa fa-check"></i><b>9.1.3</b> Multiple linear regression</a></li>
-<li class="chapter" data-level="9.1.4" data-path="mod-09.html"><a href="mod-09.html#mod-09-anova"><i class="fa fa-check"></i><b>9.1.4</b> ANOVA and ANCOVA with <code>lm()</code></a></li>
-<li class="chapter" data-level="9.1.5" data-path="mod-09.html"><a href="mod-09.html#variations-on-linear-models"><i class="fa fa-check"></i><b>9.1.5</b> Variations on linear models</a></li>
-<li class="chapter" data-level="9.1.6" data-path="mod-09.html"><a href="mod-09.html#example-linear-regression-workflow"><i class="fa fa-check"></i><b>9.1.6</b> Example linear regression workflow</a></li>
+<li class="chapter" data-level="9.2.1" data-path="mod-09.html"><a href="mod-09.html#mod-09-pvalues"><i class="fa fa-check"></i><b>9.2.1</b> <em>P</em>-values and NHST</a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="mod-09.html"><a href="mod-09.html#mod-09-basic"><i class="fa fa-check"></i><b>9.2</b> GLM basics</a>
+<li class="chapter" data-level="9.3" data-path="mod-09.html"><a href="mod-09.html#mod-09-whattest"><i class="fa fa-check"></i><b>9.3</b> What kind of test do you need?</a></li>
+<li class="chapter" data-level="9.4" data-path="mod-09.html"><a href="mod-09.html#mod-09-tests-for-loc"><i class="fa fa-check"></i><b>9.4</b> Tests for differences in mean or location</a>
 <ul>
-<li class="chapter" data-level="9.2.1" data-path="mod-09.html"><a href="mod-09.html#example-glms"><i class="fa fa-check"></i><b>9.2.1</b> Example GLMS</a></li>
-<li class="chapter" data-level="9.2.2" data-path="mod-09.html"><a href="mod-09.html#glm-families"><i class="fa fa-check"></i><b>9.2.2</b> GLM families</a></li>
-<li class="chapter" data-level="9.2.3" data-path="mod-09.html"><a href="mod-09.html#glm-link-functions"><i class="fa fa-check"></i><b>9.2.3</b> GLM link functions</a></li>
-<li class="chapter" data-level="9.2.4" data-path="mod-09.html"><a href="mod-09.html#deviance-and-other-glm-diagnostics"><i class="fa fa-check"></i><b>9.2.4</b> Deviance and other GLM diagnostics</a></li>
-<li class="chapter" data-level="9.2.5" data-path="mod-09.html"><a href="mod-09.html#to-pseudo-r2-or-not-to-pseudo-r2"><i class="fa fa-check"></i><b>9.2.5</b> To pseudo-<em>R</em><sup>2</sup> or not to pseudo-<em>R</em><sup>2</sup>?</a></li>
-<li class="chapter" data-level="9.2.6" data-path="mod-09.html"><a href="mod-09.html#common-glms"><i class="fa fa-check"></i><b>9.2.6</b> Common GLMs</a></li>
+<li class="chapter" data-level="9.4.1" data-path="mod-09.html"><a href="mod-09.html#tests-for-1-group"><i class="fa fa-check"></i><b>9.4.1</b> Tests for 1 group</a></li>
+<li class="chapter" data-level="9.4.2" data-path="mod-09.html"><a href="mod-09.html#tests-comparing-two-groups"><i class="fa fa-check"></i><b>9.4.2</b> Tests comparing two groups</a></li>
+<li class="chapter" data-level="9.4.3" data-path="mod-09.html"><a href="mod-09.html#aside-whats-with-all-these-t-tests"><i class="fa fa-check"></i><b>9.4.3</b> Aside: what’s with all these <em>t</em>-tests?</a></li>
+<li class="chapter" data-level="9.4.4" data-path="mod-09.html"><a href="mod-09.html#comparing-3-or-more-groups"><i class="fa fa-check"></i><b>9.4.4</b> Comparing 3 or more groups</a></li>
+<li class="chapter" data-level="9.4.5" data-path="mod-09.html"><a href="mod-09.html#polynomial-patterns-in-grouped-data"><i class="fa fa-check"></i><b>9.4.5</b> Polynomial patterns in grouped data</a></li>
 </ul></li>
-<li class="chapter" data-level="9.3" data-path="mod-09.html"><a href="mod-09.html#mod-09-loglin"><i class="fa fa-check"></i><b>9.3</b> Log-linear models</a>
+<li class="chapter" data-level="9.5" data-path="mod-09.html"><a href="mod-09.html#tests-for-patterns-in-continuous-data"><i class="fa fa-check"></i><b>9.5</b> Tests for patterns in continuous data</a>
 <ul>
-<li class="chapter" data-level="9.3.1" data-path="mod-09.html"><a href="mod-09.html#mod-09-loglin-examp"><i class="fa fa-check"></i><b>9.3.1</b> Example with simulated data</a></li>
-<li class="chapter" data-level="9.3.2" data-path="mod-09.html"><a href="mod-09.html#example-with-real-data"><i class="fa fa-check"></i><b>9.3.2</b> Example with real data</a></li>
+<li class="chapter" data-level="9.5.1" data-path="mod-09.html"><a href="mod-09.html#mod-09-correlation"><i class="fa fa-check"></i><b>9.5.1</b> Correlation</a></li>
+<li class="chapter" data-level="9.5.2" data-path="mod-09.html"><a href="mod-09.html#mod-09-linear-mods"><i class="fa fa-check"></i><b>9.5.2</b> Linear models</a></li>
+<li class="chapter" data-level="9.5.3" data-path="mod-09.html"><a href="mod-09.html#linear-models-wrap-up-for-now"><i class="fa fa-check"></i><b>9.5.3</b> Linear models wrap-up (for now)</a></li>
 </ul></li>
-<li class="chapter" data-level="9.4" data-path="mod-09.html"><a href="mod-09.html#mod-09-poisson"><i class="fa fa-check"></i><b>9.4</b> Poisson GLM for counts</a>
+<li class="chapter" data-level="9.6" data-path="mod-09.html"><a href="mod-09.html#mod-09-contingency"><i class="fa fa-check"></i><b>9.6</b> Tests for proportions and contingency</a>
 <ul>
-<li class="chapter" data-level="9.4.1" data-path="mod-09.html"><a href="mod-09.html#example-with-simulated-data"><i class="fa fa-check"></i><b>9.4.1</b> Example with simulated data</a></li>
-<li class="chapter" data-level="9.4.2" data-path="mod-09.html"><a href="mod-09.html#example-with-real-data-1"><i class="fa fa-check"></i><b>9.4.2</b> Example with real data</a></li>
+<li class="chapter" data-level="9.6.1" data-path="mod-09.html"><a href="mod-09.html#mod-09-ctables"><i class="fa fa-check"></i><b>9.6.1</b> Contingency tables</a></li>
+<li class="chapter" data-level="9.6.2" data-path="mod-09.html"><a href="mod-09.html#tests-on-contingency-tables"><i class="fa fa-check"></i><b>9.6.2</b> Tests on contingency tables</a></li>
+<li class="chapter" data-level="9.6.3" data-path="mod-09.html"><a href="mod-09.html#mod-09-oddsratios"><i class="fa fa-check"></i><b>9.6.3</b> Contingency tests and odds ratios</a></li>
 </ul></li>
-<li class="chapter" data-level="9.5" data-path="mod-09.html"><a href="mod-09.html#mod-09-quasi"><i class="fa fa-check"></i><b>9.5</b> Quasi-Poisson and negative binomial GLM</a>
-<ul>
-<li class="chapter" data-level="9.5.1" data-path="mod-09.html"><a href="mod-09.html#example-with-simulated-data-1"><i class="fa fa-check"></i><b>9.5.1</b> Example with simulated data</a></li>
-<li class="chapter" data-level="9.5.2" data-path="mod-09.html"><a href="mod-09.html#example-with-real-data-2"><i class="fa fa-check"></i><b>9.5.2</b> Example with real data</a></li>
+<li class="chapter" data-level="9.7" data-path="mod-09.html"><a href="mod-09.html#mod-09-classification"><i class="fa fa-check"></i><b>9.7</b> Classification</a></li>
 </ul></li>
-<li class="chapter" data-level="9.6" data-path="mod-09.html"><a href="mod-09.html#mod-09-logistic"><i class="fa fa-check"></i><b>9.6</b> Logistic regression for binary outcomes</a>
+<li class="chapter" data-level="10" data-path="mod-10.html"><a href="mod-10.html"><i class="fa fa-check"></i><b>10</b> Generalized linear models (GLM)</a>
 <ul>
-<li class="chapter" data-level="9.6.1" data-path="mod-09.html"><a href="mod-09.html#example-with-simulated-data-2"><i class="fa fa-check"></i><b>9.6.1</b> Example with simulated data</a></li>
-<li class="chapter" data-level="9.6.2" data-path="mod-09.html"><a href="mod-09.html#example-with-real-data-3"><i class="fa fa-check"></i><b>9.6.2</b> Example with real data</a></li>
-<li class="chapter" data-level="9.6.3" data-path="mod-09.html"><a href="mod-09.html#mod-09-auc"><i class="fa fa-check"></i><b>9.6.3</b> Logistic GLM diagnostics: AUC and ROC</a></li>
+<li class="chapter" data-level="10.1" data-path="mod-10.html"><a href="mod-10.html#mod-10-lm"><i class="fa fa-check"></i><b>10.1</b> Prelude with linear models</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="mod-10.html"><a href="mod-10.html#assumptions-of-linear-models"><i class="fa fa-check"></i><b>10.1.1</b> Assumptions of linear models</a></li>
+<li class="chapter" data-level="10.1.2" data-path="mod-10.html"><a href="mod-10.html#linear-regression-in-r"><i class="fa fa-check"></i><b>10.1.2</b> Linear regression in R</a></li>
+<li class="chapter" data-level="10.1.3" data-path="mod-10.html"><a href="mod-10.html#multiple-linear-regression"><i class="fa fa-check"></i><b>10.1.3</b> Multiple linear regression</a></li>
+<li class="chapter" data-level="10.1.4" data-path="mod-10.html"><a href="mod-10.html#mod-10-anova"><i class="fa fa-check"></i><b>10.1.4</b> ANOVA and ANCOVA with <code>lm()</code></a></li>
+<li class="chapter" data-level="10.1.5" data-path="mod-10.html"><a href="mod-10.html#variations-on-linear-models"><i class="fa fa-check"></i><b>10.1.5</b> Variations on linear models</a></li>
+<li class="chapter" data-level="10.1.6" data-path="mod-10.html"><a href="mod-10.html#example-linear-regression-workflow"><i class="fa fa-check"></i><b>10.1.6</b> Example linear regression workflow</a></li>
 </ul></li>
-<li class="chapter" data-level="9.7" data-path="mod-09.html"><a href="mod-09.html#mod-09-binom"><i class="fa fa-check"></i><b>9.7</b> Binomial GLM for proportional data</a>
+<li class="chapter" data-level="10.2" data-path="mod-10.html"><a href="mod-10.html#mod-10-basic"><i class="fa fa-check"></i><b>10.2</b> GLM basics</a>
 <ul>
-<li class="chapter" data-level="9.7.1" data-path="mod-09.html"><a href="mod-09.html#binomial-glm"><i class="fa fa-check"></i><b>9.7.1</b> Binomial GLM</a></li>
-<li class="chapter" data-level="9.7.2" data-path="mod-09.html"><a href="mod-09.html#example-with-simulated-data-3"><i class="fa fa-check"></i><b>9.7.2</b> Example with simulated data</a></li>
+<li class="chapter" data-level="10.2.1" data-path="mod-10.html"><a href="mod-10.html#example-glms"><i class="fa fa-check"></i><b>10.2.1</b> Example GLMS</a></li>
+<li class="chapter" data-level="10.2.2" data-path="mod-10.html"><a href="mod-10.html#glm-families"><i class="fa fa-check"></i><b>10.2.2</b> GLM families</a></li>
+<li class="chapter" data-level="10.2.3" data-path="mod-10.html"><a href="mod-10.html#glm-link-functions"><i class="fa fa-check"></i><b>10.2.3</b> GLM link functions</a></li>
+<li class="chapter" data-level="10.2.4" data-path="mod-10.html"><a href="mod-10.html#deviance-and-other-glm-diagnostics"><i class="fa fa-check"></i><b>10.2.4</b> Deviance and other GLM diagnostics</a></li>
+<li class="chapter" data-level="10.2.5" data-path="mod-10.html"><a href="mod-10.html#to-pseudo-r2-or-not-to-pseudo-r2"><i class="fa fa-check"></i><b>10.2.5</b> To pseudo-<em>R</em><sup>2</sup> or not to pseudo-<em>R</em><sup>2</sup>?</a></li>
+<li class="chapter" data-level="10.2.6" data-path="mod-10.html"><a href="mod-10.html#common-glms"><i class="fa fa-check"></i><b>10.2.6</b> Common GLMs</a></li>
 </ul></li>
-<li class="chapter" data-level="9.8" data-path="mod-09.html"><a href="mod-09.html#mod-09-gamma"><i class="fa fa-check"></i><b>9.8</b> Gamma models for overdispersed data</a>
+<li class="chapter" data-level="10.3" data-path="mod-10.html"><a href="mod-10.html#mod-10-loglin"><i class="fa fa-check"></i><b>10.3</b> Log-linear models</a>
 <ul>
-<li class="chapter" data-level="9.8.1" data-path="mod-09.html"><a href="mod-09.html#example-with-simulated-data-4"><i class="fa fa-check"></i><b>9.8.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="10.3.1" data-path="mod-10.html"><a href="mod-10.html#mod-10-loglin-examp"><i class="fa fa-check"></i><b>10.3.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="10.3.2" data-path="mod-10.html"><a href="mod-10.html#example-with-real-data"><i class="fa fa-check"></i><b>10.3.2</b> Example with real data</a></li>
 </ul></li>
-<li class="chapter" data-level="9.9" data-path="mod-09.html"><a href="mod-09.html#mod-09-beyond"><i class="fa fa-check"></i><b>9.9</b> Beyond GLM: Overview of GAM and GEE</a>
+<li class="chapter" data-level="10.4" data-path="mod-10.html"><a href="mod-10.html#mod-10-poisson"><i class="fa fa-check"></i><b>10.4</b> Poisson GLM for counts</a>
 <ul>
-<li class="chapter" data-level="9.9.1" data-path="mod-09.html"><a href="mod-09.html#mod-09-gam"><i class="fa fa-check"></i><b>9.9.1</b> Generalized additive models (GAM)</a></li>
-<li class="chapter" data-level="9.9.2" data-path="mod-09.html"><a href="mod-09.html#mod-09-gee"><i class="fa fa-check"></i><b>9.9.2</b> Generalized estimating equations (GEE)</a></li>
+<li class="chapter" data-level="10.4.1" data-path="mod-10.html"><a href="mod-10.html#example-with-simulated-data"><i class="fa fa-check"></i><b>10.4.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="10.4.2" data-path="mod-10.html"><a href="mod-10.html#example-with-real-data-1"><i class="fa fa-check"></i><b>10.4.2</b> Example with real data</a></li>
 </ul></li>
+<li class="chapter" data-level="10.5" data-path="mod-10.html"><a href="mod-10.html#mod-10-quasi"><i class="fa fa-check"></i><b>10.5</b> Quasi-Poisson and negative binomial GLM</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="mod-10.html"><a href="mod-10.html#example-with-simulated-data-1"><i class="fa fa-check"></i><b>10.5.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="10.5.2" data-path="mod-10.html"><a href="mod-10.html#example-with-real-data-2"><i class="fa fa-check"></i><b>10.5.2</b> Example with real data</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="mod-10.html"><a href="mod-10.html"><i class="fa fa-check"></i><b>10</b> Nonlinear models</a>
+<li class="chapter" data-level="10.6" data-path="mod-10.html"><a href="mod-10.html#mod-10-logistic"><i class="fa fa-check"></i><b>10.6</b> Logistic regression for binary outcomes</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="mod-10.html"><a href="mod-10.html#background"><i class="fa fa-check"></i><b>10.1</b> Background</a></li>
-<li class="chapter" data-level="10.2" data-path="mod-10.html"><a href="mod-10.html#mod-10-intro"><i class="fa fa-check"></i><b>10.2</b> Nonlinear least squares (NLS)</a></li>
-<li class="chapter" data-level="10.3" data-path="mod-10.html"><a href="mod-10.html#mod-10-micmen"><i class="fa fa-check"></i><b>10.3</b> Michaelis-Menten curves</a>
-<ul>
-<li class="chapter" data-level="10.3.1" data-path="mod-10.html"><a href="mod-10.html#mod-10-micmen-sim"><i class="fa fa-check"></i><b>10.3.1</b> Example with simulated data</a></li>
-<li class="chapter" data-level="10.3.2" data-path="mod-10.html"><a href="mod-10.html#example-with-real-data-4"><i class="fa fa-check"></i><b>10.3.2</b> Example with real data</a></li>
-<li class="chapter" data-level="10.3.3" data-path="mod-10.html"><a href="mod-10.html#alternative-strategies-for-the-analysis"><i class="fa fa-check"></i><b>10.3.3</b> Alternative strategies for the analysis</a></li>
+<li class="chapter" data-level="10.6.1" data-path="mod-10.html"><a href="mod-10.html#example-with-simulated-data-2"><i class="fa fa-check"></i><b>10.6.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="10.6.2" data-path="mod-10.html"><a href="mod-10.html#example-with-real-data-3"><i class="fa fa-check"></i><b>10.6.2</b> Example with real data</a></li>
+<li class="chapter" data-level="10.6.3" data-path="mod-10.html"><a href="mod-10.html#mod-10-auc"><i class="fa fa-check"></i><b>10.6.3</b> Logistic GLM diagnostics: AUC and ROC</a></li>
 </ul></li>
-<li class="chapter" data-level="10.4" data-path="mod-10.html"><a href="mod-10.html#mod-10-grow"><i class="fa fa-check"></i><b>10.4</b> Biological growth curves</a>
+<li class="chapter" data-level="10.7" data-path="mod-10.html"><a href="mod-10.html#mod-10-binom"><i class="fa fa-check"></i><b>10.7</b> Binomial GLM for proportional data</a>
 <ul>
-<li class="chapter" data-level="10.4.1" data-path="mod-10.html"><a href="mod-10.html#gompertz-and-von-bertalanffy-curves"><i class="fa fa-check"></i><b>10.4.1</b> Gompertz and von Bertalanffy curves</a></li>
-<li class="chapter" data-level="10.4.2" data-path="mod-10.html"><a href="mod-10.html#example-with-real-data-5"><i class="fa fa-check"></i><b>10.4.2</b> Example with real data</a></li>
+<li class="chapter" data-level="10.7.1" data-path="mod-10.html"><a href="mod-10.html#binomial-glm"><i class="fa fa-check"></i><b>10.7.1</b> Binomial GLM</a></li>
+<li class="chapter" data-level="10.7.2" data-path="mod-10.html"><a href="mod-10.html#example-with-simulated-data-3"><i class="fa fa-check"></i><b>10.7.2</b> Example with simulated data</a></li>
 </ul></li>
-<li class="chapter" data-level="10.5" data-path="mod-10.html"><a href="mod-10.html#dose-response-curves"><i class="fa fa-check"></i><b>10.5</b> Dose response curves</a></li>
-<li class="chapter" data-level="10.6" data-path="mod-10.html"><a href="mod-10.html#alternatives-to-nls"><i class="fa fa-check"></i><b>10.6</b> Alternatives to NLS</a>
+<li class="chapter" data-level="10.8" data-path="mod-10.html"><a href="mod-10.html#mod-10-gamma"><i class="fa fa-check"></i><b>10.8</b> Gamma models for overdispersed data</a>
 <ul>
-<li class="chapter" data-level="10.6.1" data-path="mod-10.html"><a href="mod-10.html#generalized-nonlinear-models"><i class="fa fa-check"></i><b>10.6.1</b> Generalized nonlinear models</a></li>
-<li class="chapter" data-level="10.6.2" data-path="mod-10.html"><a href="mod-10.html#quantile-regression"><i class="fa fa-check"></i><b>10.6.2</b> Quantile regression</a></li>
-<li class="chapter" data-level="10.6.3" data-path="mod-10.html"><a href="mod-10.html#mod-10-gam"><i class="fa fa-check"></i><b>10.6.3</b> Generalized additive models (GAM)</a></li>
-<li class="chapter" data-level="10.6.4" data-path="mod-10.html"><a href="mod-10.html#classification-and-regression-trees-cart"><i class="fa fa-check"></i><b>10.6.4</b> Classification and regression trees (CART)</a></li>
+<li class="chapter" data-level="10.8.1" data-path="mod-10.html"><a href="mod-10.html#example-with-simulated-data-4"><i class="fa fa-check"></i><b>10.8.1</b> Example with simulated data</a></li>
 </ul></li>
-</ul></li>
-<li class="chapter" data-level="11" data-path="mod-11.html"><a href="mod-11.html"><i class="fa fa-check"></i><b>11</b> Mixed models</a>
+<li class="chapter" data-level="10.9" data-path="mod-10.html"><a href="mod-10.html#mod-10-beyond"><i class="fa fa-check"></i><b>10.9</b> Beyond GLM: Overview of GAM and GEE</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="mod-11.html"><a href="mod-11.html#prelude-glm"><i class="fa fa-check"></i><b>11.1</b> Prelude (GLM)</a></li>
-<li class="chapter" data-level="11.2" data-path="mod-11.html"><a href="mod-11.html#mod-11-lmm"><i class="fa fa-check"></i><b>11.2</b> Linear mixed models (LMM)</a>
-<ul>
-<li class="chapter" data-level="11.2.1" data-path="mod-11.html"><a href="mod-11.html#formal-definition-and-example"><i class="fa fa-check"></i><b>11.2.1</b> Formal definition and example</a></li>
-<li class="chapter" data-level="11.2.2" data-path="mod-11.html"><a href="mod-11.html#example-with-simulated-data-5"><i class="fa fa-check"></i><b>11.2.2</b> Example with simulated data</a></li>
-<li class="chapter" data-level="11.2.3" data-path="mod-11.html"><a href="mod-11.html#p-values-in-lmm"><i class="fa fa-check"></i><b>11.2.3</b> <em>P</em>-values in LMM</a></li>
-<li class="chapter" data-level="11.2.4" data-path="mod-11.html"><a href="mod-11.html#specifying-random-effects"><i class="fa fa-check"></i><b>11.2.4</b> Specifying random effects</a></li>
-<li class="chapter" data-level="11.2.5" data-path="mod-11.html"><a href="mod-11.html#lmm-example-with-real-data"><i class="fa fa-check"></i><b>11.2.5</b> LMM example with real data</a></li>
-</ul></li>
-<li class="chapter" data-level="11.3" data-path="mod-11.html"><a href="mod-11.html#mod-11-glmm"><i class="fa fa-check"></i><b>11.3</b> Generalized linear mixed models (GLMM)</a>
-<ul>
-<li class="chapter" data-level="11.3.1" data-path="mod-11.html"><a href="mod-11.html#definition-1"><i class="fa fa-check"></i><b>11.3.1</b> Definition</a></li>
-<li class="chapter" data-level="11.3.2" data-path="mod-11.html"><a href="mod-11.html#glmm-on-simulated-data"><i class="fa fa-check"></i><b>11.3.2</b> GLMM on simulated data</a></li>
-<li class="chapter" data-level="11.3.3" data-path="mod-11.html"><a href="mod-11.html#glmm-on-real-data"><i class="fa fa-check"></i><b>11.3.3</b> GLMM on real data</a></li>
-</ul></li>
-<li class="chapter" data-level="11.4" data-path="mod-11.html"><a href="mod-11.html#mod-11-nlme"><i class="fa fa-check"></i><b>11.4</b> Nonlinear mixed models (NLME)</a>
-<ul>
-<li class="chapter" data-level="11.4.1" data-path="mod-11.html"><a href="mod-11.html#definition-and-background"><i class="fa fa-check"></i><b>11.4.1</b> Definition and background</a></li>
-<li class="chapter" data-level="11.4.2" data-path="mod-11.html"><a href="mod-11.html#nlme-on-simulated-data"><i class="fa fa-check"></i><b>11.4.2</b> NLME on simulated data</a></li>
-<li class="chapter" data-level="11.4.3" data-path="mod-11.html"><a href="mod-11.html#nlme-on-real-data"><i class="fa fa-check"></i><b>11.4.3</b> NLME on real data</a></li>
-</ul></li>
-<li class="chapter" data-level="11.5" data-path="mod-11.html"><a href="mod-11.html#mod-11-gamm"><i class="fa fa-check"></i><b>11.5</b> (Generalized) additive mixed models (AMM/GAMM)</a>
-<ul>
-<li class="chapter" data-level="11.5.1" data-path="mod-11.html"><a href="mod-11.html#example-gamm-with-real-data"><i class="fa fa-check"></i><b>11.5.1</b> Example GAMM with real data</a></li>
+<li class="chapter" data-level="10.9.1" data-path="mod-10.html"><a href="mod-10.html#mod-10-gam"><i class="fa fa-check"></i><b>10.9.1</b> Generalized additive models (GAM)</a></li>
+<li class="chapter" data-level="10.9.2" data-path="mod-10.html"><a href="mod-10.html#mod-10-gee"><i class="fa fa-check"></i><b>10.9.2</b> Generalized estimating equations (GEE)</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="mod-12.html"><a href="mod-12.html"><i class="fa fa-check"></i><b>12</b> Multivariate data analysis</a>
+<li class="chapter" data-level="11" data-path="mod-11.html"><a href="mod-11.html"><i class="fa fa-check"></i><b>11</b> Nonlinear models</a>
 <ul>
-<li class="chapter" data-level="12.1" data-path="mod-12.html"><a href="mod-12.html#multivariate-data"><i class="fa fa-check"></i><b>12.1</b> Multivariate data</a>
+<li class="chapter" data-level="11.1" data-path="mod-11.html"><a href="mod-11.html#background"><i class="fa fa-check"></i><b>11.1</b> Background</a></li>
+<li class="chapter" data-level="11.2" data-path="mod-11.html"><a href="mod-11.html#mod-11-intro"><i class="fa fa-check"></i><b>11.2</b> Nonlinear least squares (NLS)</a></li>
+<li class="chapter" data-level="11.3" data-path="mod-11.html"><a href="mod-11.html#mod-11-micmen"><i class="fa fa-check"></i><b>11.3</b> Michaelis-Menten curves</a>
 <ul>
-<li class="chapter" data-level="12.1.1" data-path="mod-12.html"><a href="mod-12.html#univariate-vs.-multivariate-data"><i class="fa fa-check"></i><b>12.1.1</b> Univariate vs. multivariate data</a></li>
-<li class="chapter" data-level="12.1.2" data-path="mod-12.html"><a href="mod-12.html#components-of-multivariate-data"><i class="fa fa-check"></i><b>12.1.2</b> Components of multivariate data</a></li>
+<li class="chapter" data-level="11.3.1" data-path="mod-11.html"><a href="mod-11.html#mod-11-micmen-sim"><i class="fa fa-check"></i><b>11.3.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="11.3.2" data-path="mod-11.html"><a href="mod-11.html#example-with-real-data-4"><i class="fa fa-check"></i><b>11.3.2</b> Example with real data</a></li>
+<li class="chapter" data-level="11.3.3" data-path="mod-11.html"><a href="mod-11.html#alternative-strategies-for-the-analysis"><i class="fa fa-check"></i><b>11.3.3</b> Alternative strategies for the analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="12.2" data-path="mod-12.html"><a href="mod-12.html#mod-12-dist"><i class="fa fa-check"></i><b>12.2</b> Distance metrics: biological (dis)similarity</a>
+<li class="chapter" data-level="11.4" data-path="mod-11.html"><a href="mod-11.html#mod-11-grow"><i class="fa fa-check"></i><b>11.4</b> Biological growth curves</a>
 <ul>
-<li class="chapter" data-level="12.2.1" data-path="mod-12.html"><a href="mod-12.html#euclidean-distance"><i class="fa fa-check"></i><b>12.2.1</b> Euclidean distance</a></li>
-<li class="chapter" data-level="12.2.2" data-path="mod-12.html"><a href="mod-12.html#bray-curtis-and-other-distance-metrics"><i class="fa fa-check"></i><b>12.2.2</b> Bray-Curtis and other distance metrics</a></li>
+<li class="chapter" data-level="11.4.1" data-path="mod-11.html"><a href="mod-11.html#gompertz-and-von-bertalanffy-curves"><i class="fa fa-check"></i><b>11.4.1</b> Gompertz and von Bertalanffy curves</a></li>
+<li class="chapter" data-level="11.4.2" data-path="mod-11.html"><a href="mod-11.html#example-with-real-data-5"><i class="fa fa-check"></i><b>11.4.2</b> Example with real data</a></li>
 </ul></li>
-<li class="chapter" data-level="12.3" data-path="mod-12.html"><a href="mod-12.html#clustering"><i class="fa fa-check"></i><b>12.3</b> Clustering</a>
+<li class="chapter" data-level="11.5" data-path="mod-11.html"><a href="mod-11.html#dose-response-curves"><i class="fa fa-check"></i><b>11.5</b> Dose response curves</a></li>
+<li class="chapter" data-level="11.6" data-path="mod-11.html"><a href="mod-11.html#alternatives-to-nls"><i class="fa fa-check"></i><b>11.6</b> Alternatives to NLS</a>
 <ul>
-<li class="chapter" data-level="12.3.1" data-path="mod-12.html"><a href="mod-12.html#k-means-clustering"><i class="fa fa-check"></i><b>12.3.1</b> <em>K</em>-means clustering</a></li>
-<li class="chapter" data-level="12.3.2" data-path="mod-12.html"><a href="mod-12.html#hierarchical-agglomerative-clustering"><i class="fa fa-check"></i><b>12.3.2</b> Hierarchical agglomerative clustering</a></li>
+<li class="chapter" data-level="11.6.1" data-path="mod-11.html"><a href="mod-11.html#generalized-nonlinear-models"><i class="fa fa-check"></i><b>11.6.1</b> Generalized nonlinear models</a></li>
+<li class="chapter" data-level="11.6.2" data-path="mod-11.html"><a href="mod-11.html#quantile-regression"><i class="fa fa-check"></i><b>11.6.2</b> Quantile regression</a></li>
+<li class="chapter" data-level="11.6.3" data-path="mod-11.html"><a href="mod-11.html#mod-11-gam"><i class="fa fa-check"></i><b>11.6.3</b> Generalized additive models (GAM)</a></li>
+<li class="chapter" data-level="11.6.4" data-path="mod-11.html"><a href="mod-11.html#classification-and-regression-trees-cart"><i class="fa fa-check"></i><b>11.6.4</b> Classification and regression trees (CART)</a></li>
 </ul></li>
-<li class="chapter" data-level="12.4" data-path="mod-12.html"><a href="mod-12.html#mod-12-sims"><i class="fa fa-check"></i><b>12.4</b> Analyzing dissimilarity</a>
-<ul>
-<li class="chapter" data-level="12.4.1" data-path="mod-12.html"><a href="mod-12.html#mantel-tests-distance-vs.-distance"><i class="fa fa-check"></i><b>12.4.1</b> Mantel tests: distance vs. distance</a></li>
-<li class="chapter" data-level="12.4.2" data-path="mod-12.html"><a href="mod-12.html#comparing-dissimilarity-between-groups"><i class="fa fa-check"></i><b>12.4.2</b> Comparing dissimilarity between groups</a></li>
 </ul></li>
-<li class="chapter" data-level="12.5" data-path="mod-12.html"><a href="mod-12.html#mod-12-ord"><i class="fa fa-check"></i><b>12.5</b> Ordination</a>
+<li class="chapter" data-level="12" data-path="mod-12.html"><a href="mod-12.html"><i class="fa fa-check"></i><b>12</b> Mixed models</a>
 <ul>
-<li class="chapter" data-level="12.5.1" data-path="mod-12.html"><a href="mod-12.html#principal-components-analysis-pca-1"><i class="fa fa-check"></i><b>12.5.1</b> Principal components analysis (PCA)</a></li>
-<li class="chapter" data-level="12.5.2" data-path="mod-12.html"><a href="mod-12.html#nmds-and-other-ordination-methods"><i class="fa fa-check"></i><b>12.5.2</b> NMDS and other ordination methods</a></li>
-<li class="chapter" data-level="12.5.3" data-path="mod-12.html"><a href="mod-12.html#other-ordination-techniques"><i class="fa fa-check"></i><b>12.5.3</b> Other ordination techniques</a></li>
+<li class="chapter" data-level="12.1" data-path="mod-12.html"><a href="mod-12.html#prelude-glm"><i class="fa fa-check"></i><b>12.1</b> Prelude (GLM)</a></li>
+<li class="chapter" data-level="12.2" data-path="mod-12.html"><a href="mod-12.html#mod-12-lmm"><i class="fa fa-check"></i><b>12.2</b> Linear mixed models (LMM)</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="mod-12.html"><a href="mod-12.html#formal-definition-and-example"><i class="fa fa-check"></i><b>12.2.1</b> Formal definition and example</a></li>
+<li class="chapter" data-level="12.2.2" data-path="mod-12.html"><a href="mod-12.html#example-with-simulated-data-5"><i class="fa fa-check"></i><b>12.2.2</b> Example with simulated data</a></li>
+<li class="chapter" data-level="12.2.3" data-path="mod-12.html"><a href="mod-12.html#p-values-in-lmm"><i class="fa fa-check"></i><b>12.2.3</b> <em>P</em>-values in LMM</a></li>
+<li class="chapter" data-level="12.2.4" data-path="mod-12.html"><a href="mod-12.html#specifying-random-effects"><i class="fa fa-check"></i><b>12.2.4</b> Specifying random effects</a></li>
+<li class="chapter" data-level="12.2.5" data-path="mod-12.html"><a href="mod-12.html#lmm-example-with-real-data"><i class="fa fa-check"></i><b>12.2.5</b> LMM example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="mod-12.html"><a href="mod-12.html#mod-12-glmm"><i class="fa fa-check"></i><b>12.3</b> Generalized linear mixed models (GLMM)</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="mod-12.html"><a href="mod-12.html#definition-1"><i class="fa fa-check"></i><b>12.3.1</b> Definition</a></li>
+<li class="chapter" data-level="12.3.2" data-path="mod-12.html"><a href="mod-12.html#glmm-on-simulated-data"><i class="fa fa-check"></i><b>12.3.2</b> GLMM on simulated data</a></li>
+<li class="chapter" data-level="12.3.3" data-path="mod-12.html"><a href="mod-12.html#glmm-on-real-data"><i class="fa fa-check"></i><b>12.3.3</b> GLMM on real data</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="mod-12.html"><a href="mod-12.html#mod-12-nlme"><i class="fa fa-check"></i><b>12.4</b> Nonlinear mixed models (NLME)</a>
+<ul>
+<li class="chapter" data-level="12.4.1" data-path="mod-12.html"><a href="mod-12.html#definition-and-background"><i class="fa fa-check"></i><b>12.4.1</b> Definition and background</a></li>
+<li class="chapter" data-level="12.4.2" data-path="mod-12.html"><a href="mod-12.html#nlme-on-simulated-data"><i class="fa fa-check"></i><b>12.4.2</b> NLME on simulated data</a></li>
+<li class="chapter" data-level="12.4.3" data-path="mod-12.html"><a href="mod-12.html#nlme-on-real-data"><i class="fa fa-check"></i><b>12.4.3</b> NLME on real data</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="mod-12.html"><a href="mod-12.html#mod-12-gamm"><i class="fa fa-check"></i><b>12.5</b> (Generalized) additive mixed models (AMM/GAMM)</a>
+<ul>
+<li class="chapter" data-level="12.5.1" data-path="mod-12.html"><a href="mod-12.html#example-gamm-with-real-data"><i class="fa fa-check"></i><b>12.5.1</b> Example GAMM with real data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="mod-13.html"><a href="mod-13.html"><i class="fa fa-check"></i><b>13</b> Multivariate data analysis</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="mod-13.html"><a href="mod-13.html#multivariate-data"><i class="fa fa-check"></i><b>13.1</b> Multivariate data</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="mod-13.html"><a href="mod-13.html#univariate-vs.-multivariate-data"><i class="fa fa-check"></i><b>13.1.1</b> Univariate vs. multivariate data</a></li>
+<li class="chapter" data-level="13.1.2" data-path="mod-13.html"><a href="mod-13.html#components-of-multivariate-data"><i class="fa fa-check"></i><b>13.1.2</b> Components of multivariate data</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="mod-13.html"><a href="mod-13.html#mod-13-dist"><i class="fa fa-check"></i><b>13.2</b> Distance metrics: biological (dis)similarity</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="mod-13.html"><a href="mod-13.html#euclidean-distance"><i class="fa fa-check"></i><b>13.2.1</b> Euclidean distance</a></li>
+<li class="chapter" data-level="13.2.2" data-path="mod-13.html"><a href="mod-13.html#bray-curtis-and-other-distance-metrics"><i class="fa fa-check"></i><b>13.2.2</b> Bray-Curtis and other distance metrics</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="mod-13.html"><a href="mod-13.html#clustering"><i class="fa fa-check"></i><b>13.3</b> Clustering</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="mod-13.html"><a href="mod-13.html#k-means-clustering"><i class="fa fa-check"></i><b>13.3.1</b> <em>K</em>-means clustering</a></li>
+<li class="chapter" data-level="13.3.2" data-path="mod-13.html"><a href="mod-13.html#hierarchical-agglomerative-clustering"><i class="fa fa-check"></i><b>13.3.2</b> Hierarchical agglomerative clustering</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="mod-13.html"><a href="mod-13.html#mod-13-sims"><i class="fa fa-check"></i><b>13.4</b> Analyzing dissimilarity</a>
+<ul>
+<li class="chapter" data-level="13.4.1" data-path="mod-13.html"><a href="mod-13.html#mantel-tests-distance-vs.-distance"><i class="fa fa-check"></i><b>13.4.1</b> Mantel tests: distance vs. distance</a></li>
+<li class="chapter" data-level="13.4.2" data-path="mod-13.html"><a href="mod-13.html#comparing-dissimilarity-between-groups"><i class="fa fa-check"></i><b>13.4.2</b> Comparing dissimilarity between groups</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="mod-13.html"><a href="mod-13.html#mod-13-ord"><i class="fa fa-check"></i><b>13.5</b> Ordination</a>
+<ul>
+<li class="chapter" data-level="13.5.1" data-path="mod-13.html"><a href="mod-13.html#mod-13-pca"><i class="fa fa-check"></i><b>13.5.1</b> Principal components analysis (PCA)</a></li>
+<li class="chapter" data-level="13.5.2" data-path="mod-13.html"><a href="mod-13.html#nmds-and-other-ordination-methods"><i class="fa fa-check"></i><b>13.5.2</b> NMDS and other ordination methods</a></li>
+<li class="chapter" data-level="13.5.3" data-path="mod-13.html"><a href="mod-13.html#other-ordination-techniques"><i class="fa fa-check"></i><b>13.5.3</b> Other ordination techniques</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="literature-cited.html"><a href="literature-cited.html"><i class="fa fa-check"></i>Literature Cited</a></li>
@@ -602,14 +638,18 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="header">
 <h1 class="title">Applied Biological Data Analysis: Statistics and R for Biologists</h1>
-<h2 class="subtitle"><em>Fall 2022 Course Notes</em></h2>
-<p class="author"><em>Nick Green, Kennesaw State University</em></p>
-<p class="date"><em>August 16, 2022</em></p>
+<h2 class="subtitle"><em>Fall 2024 Course Notes</em></h2>
+<p class="author"><em>Dr. Nick Green, Kennesaw State University</em></p>
+<p class="date"><em>August 20, 2024</em></p>
 </div>
 <div id="preface" class="section level1 unnumbered hasAnchor">
 <h1>Preface<a href="index.html#preface" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>This website accompanies a course I have developed at Kennesaw State University: <strong>Applied Biological Data Analysis</strong>. The course is currently a “special topics” (i.e., seminar), but will hopefully someday evolve into a regular course. The target audience is biologists of any level–but mainly graduate students and advanced undergraduates–who need to analyze data for their research projects. If you find the material here helpful, please let me know! Likewise, if you have comments for improvement, I’d love to hear from you: send all comments to <a href="mailto:ngreen62@kennesaw.edu">ngreen62@kennesaw.edu</a>!</p>
-<p>The Fall 2022 course syllabus can be <a href="https://greenquanteco.github.io/book/202203%20biol%20x490%20syllabus%202022-08-16.pdf">downloaded here</a>.</p>
+<p>This website accompanies a course I have developed at Kennesaw State University: <strong>Applied Biological Data Analysis</strong>. The course is currently a “special topics” (BIOL 6490), but will next year (Fall 2025) become a regular course as BIOL 7410. The target audience is biologists of any level–but mainly graduate students and advanced undergraduates–who need to analyze data for their research projects. If you find the material here helpful, please let me know! Likewise, if you have comments for improvement, I’d love to hear from you: send all comments to <a href="mailto:ngreen62@kennesaw.edu">ngreen62@kennesaw.edu</a>!</p>
+<p>The Fall 2024 course syllabus can be <a href="https://greenquanteco.github.io/book/202403_biol_6490_syllabus.pdf">downloaded here</a>.</p>
+<div id="work-in-progress-warning" class="section level2 unnumbered hasAnchor">
+<h2>Work in progress warning!<a href="index.html#work-in-progress-warning" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>I am actively updating this site throughout the Fall 2024 semester. This means that many cross-references may be broken, pictures missing, etc. Please be patient with me as I get things back into working order. I decided to do things this way–push updates as I make them–rather than update the site all at once so that (1) my current students have the site as a resources; and (2) people who have bookmarked the site previously don’t lose their place.</p>
+</div>
 <div id="license-and-permissions" class="section level2 unnumbered hasAnchor">
 <h2>License and permissions<a href="index.html#license-and-permissions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>This work and its content is released under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0</a> license. This means that you are allowed to share the material and adapt it for your purposes, under the following conditions:</p>
@@ -638,7 +678,7 @@ div.csl-indent {
 <h2>Course requirements<a href="index.html#course-requirements" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li>Access to a computer or laptop capable of running <a href="https://cran.r-project.org/bin/windows/base/">R</a> version 4.0 or above. This site was rendered using R version 4.2.1 and the most recent version of any package mentioned (as of August 16, 2022).</li>
-<li>Having a recent version of <a href="https://www.rstudio.com/products/rstudio/">RStudio</a> is helpful but not essential.</li>
+<li>Having a recent version of <a href="https://posit.co/products/open-source/rstudio/">RStudio</a> is helpful but not essential.</li>
 <li>A 64-bit system is highly recommended for speed and stability.</li>
 <li>A separate program in which to write and edit code.
 <ul>
@@ -653,18 +693,18 @@ div.csl-indent {
 <h2>Recommended reading<a href="index.html#recommended-reading" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>This course has no required textbook. If you want a textbook, then I recommend one of the following:</p>
 <ul>
-<li><p><em>Ecological models and data in R</em> by Ben Bolker <span class="citation">(<a href="#ref-bolker2008ecological" role="doc-biblioref">Bolker 2008</a>)</span>. This is a general statistics textbook for biologists. The applications and examples are focused on ecology, but the statistical exposition is relevant to any area of biology.</p></li>
-<li><p><em>Introductory statistics with R</em> by Peter Dalgaard <span class="citation">(<a href="#ref-dalgaard2002" role="doc-biblioref">Dalgaard 2002</a>)</span>. This is a general statistics textbook and introduction to R programming.</p></li>
-<li><p><em>A beginner’s guide to R</em> by Alain Zuur and others <span class="citation">(<a href="#ref-zuur2009" role="doc-biblioref">Zuur et al. 2009b</a>)</span>. This book introduces R in a different way than <span class="citation">Dalgaard (<a href="#ref-dalgaard2002" role="doc-biblioref">2002</a>)</span>.</p></li>
-<li><p><em>An introduction to statistical learning: with applications in R</em> by Gareth James and others <span class="citation">(<a href="#ref-james2013" role="doc-biblioref">James et al. 2013</a>)</span>. This is a more advanced statistics book that also introduces machine learning. The second edition is available for <a href="https://www.statlearning.com/">free online</a>.</p></li>
+<li><p><em>Ecological models and data in R</em> by Ben Bolker <span class="citation">(<a href="#ref-bolker2008ecological">Bolker 2008</a>)</span>. This is a general statistics textbook for biologists. The applications and examples are focused on ecology, but the statistical exposition is relevant to any area of biology.</p></li>
+<li><p><em>Introductory statistics with R</em> by Peter Dalgaard <span class="citation">(<a href="#ref-dalgaard2002">Dalgaard 2002</a>)</span>. This is a general statistics textbook and introduction to R programming.</p></li>
+<li><p><em>A beginner’s guide to R</em> by Alain Zuur and others <span class="citation">(<a href="#ref-zuur2009">Zuur et al. 2009b</a>)</span>. This book introduces R in a different way than <span class="citation">Dalgaard (<a href="#ref-dalgaard2002">2002</a>)</span>.</p></li>
+<li><p><em>An introduction to statistical learning: with applications in R</em> by Gareth James and others <span class="citation">(<a href="#ref-james2013">James et al. 2013</a>)</span>. This is a more advanced statistics book that also introduces machine learning. The second edition is available for <a href="https://www.statlearning.com/">free online</a>.</p></li>
 </ul>
 <p>Parts of the course also lean heavily on some more specialized textbooks:</p>
 <ul>
-<li><p><em>Analysing ecological data</em> <span class="citation">(<a href="#ref-zuur2007analysing" role="doc-biblioref">Zuur et al. 2007</a>)</span> and <em>Mixed effects models and extensions in ecology with R</em> <span class="citation">(<a href="#ref-zuur2009mixed" role="doc-biblioref">Zuur et al. 2009a</a>)</span> by Alain Zuur and others. These are advanced textbooks aimed at ecologists which introduce GLMs, mixed models, and other topics we will explore in this course.</p></li>
-<li><p><em>Analysis of ecological communities</em> by Bruce McCune and James Grace <span class="citation">(<a href="#ref-mccune2002analysis" role="doc-biblioref">McCune et al. 2002</a>)</span> and <em>Numerical ecology</em> by Pierre and Louis Legendre <span class="citation">(<a href="#ref-legendre2012numerical" role="doc-biblioref">Legendre and Legendre 2012</a>)</span> are introductions to ordination and other multivariate methods. <span class="citation">McCune et al. (<a href="#ref-mccune2002analysis" role="doc-biblioref">2002</a>)</span> is a gentler introduction but depends on <a href="https://www.wildblueberrymedia.net/pcord">proprietary software</a>. <span class="citation">Legendre and Legendre (<a href="#ref-legendre2012numerical" role="doc-biblioref">2012</a>)</span> is a little more technical (but still relatively easy to understand) and uses R throughout.</p></li>
-<li><p><em>An introduction to WinBUGS for ecologists</em> by Marc Kéry <span class="citation">(<a href="#ref-kery2010" role="doc-biblioref">Kéry 2010</a>)</span>. This book introduces Bayesian inference using the free program WinBUGS, which can be accessed from R<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</p></li>
+<li><p><em>Analysing ecological data</em> <span class="citation">(<a href="#ref-zuur2007analysing">Zuur et al. 2007</a>)</span> and <em>Mixed effects models and extensions in ecology with R</em> <span class="citation">(<a href="#ref-zuur2009mixed">Zuur et al. 2009a</a>)</span> by Alain Zuur and others. These are advanced textbooks aimed at ecologists which introduce GLMs, mixed models, and other topics we will explore in this course.</p></li>
+<li><p><em>Analysis of ecological communities</em> by Bruce McCune and James Grace <span class="citation">(<a href="#ref-mccune2002analysis">McCune et al. 2002</a>)</span> and <em>Numerical ecology</em> by Pierre and Louis Legendre <span class="citation">(<a href="#ref-legendre2012numerical">Legendre and Legendre 2012</a>)</span> are introductions to ordination and other multivariate methods. <span class="citation">McCune et al. (<a href="#ref-mccune2002analysis">2002</a>)</span> is a gentler introduction but depends on <a href="https://www.wildblueberrymedia.net/pcord">proprietary software</a>. <span class="citation">Legendre and Legendre (<a href="#ref-legendre2012numerical">2012</a>)</span> is a little more technical (but still relatively easy to understand) and uses R throughout.</p></li>
+<li><p><em>An introduction to WinBUGS for ecologists</em> by Marc Kéry <span class="citation">(<a href="#ref-kery2010">Kéry 2010</a>)</span>. This book introduces Bayesian inference using the free program WinBUGS, which can be accessed from R<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</p></li>
 </ul>
-<p>If you want a PDF version of this website, please be patient. For some reason (as of August 17 2022) I can’t get RStudio to recognize the various <span class="math inline">\(\LaTeX\)</span> packages on my machine, and won’t render a PDF. I’ll put a PDF version here once I can get it to exist.</p>
+<p>If you want a PDF version of this website, please be patient. For some reason (as of August 20 2024) I can’t get RStudio to recognize the various <span class="math inline">\(\LaTeX\)</span> packages on my machine, and won’t render a PDF. I’ll put a PDF version here once I can get it to exist.</p>
 </div>
 <div id="course-organization" class="section level2 unnumbered hasAnchor">
 <h2>Course organization<a href="index.html#course-organization" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -675,22 +715,24 @@ div.csl-indent {
 <p>Modules 4, 5, and 6 are a survey of exploratory data analysis techniques for biologists. <a href="mod-04.html#mod-04">Module 4</a> explores ways to describe, summarize, and display single variables. <a href="mod-05.html#mod-05">Module 5</a> dives into probability distributions and how to find the right distribution for your data. <a href="mod-06.html#mod-06">Module 6</a> presents methods for exploring relations between variables and introduces statistical graphics.</p>
 <p><a href="mod-07.html#mod-07">Module 7</a> covers common statistical problems in biology. These are problems in addition to those discussed in Module 1, that usually only become apparent <em>after</em> data are collected.</p>
 <p><a href="mod-08.html#mod-08">Module 8</a> is a guide to selecting statistics for your research. This module contains dichotomous keys to help you decide what statistical methods are most appropriate for the question you are trying to analyze.</p>
-<p><a href="mod-09.html#mod-09">Module 9</a> introduces generalized linear models (GLM), an extremely general and powerful framework for analyzing biological data. This module presents worked examples of some of the most common GLMs in biology.</p>
-<p><a href="mod-10.html#mod-10">Module 10</a> explores nonlinear models for relationships that don’t follow a straight line. These models include biological growth curves and dose response curves.</p>
-<p><a href="mod-11.html#mod-11">Module 11</a> introduces mixed models, which extend GLM and other models to include random effects. Mixed models allow biologists to account for variability from unknown sources.</p>
-<p><a href="mod-12.html#mod-12">Module 12</a> explores methods for multivariate data analysis, including distance measures and ordination.</p>
+<p><a href="mod-09.html#mod-09">Module 9</a> is a review of introductory statistics, such as you might encounter in an undergraduate biostatistics course. This module covers the basics of null hypothesis significance testing, and three classes of tests: tests comparing groups (<em>t</em>-tests, ANOVA, Wilcoxon tests), tests for continuous patterns (regression, ANCOVA, correlations), and tests for contingency (Fisher’s exact test, <span class="math inline">\(\chi^2\)</span> tests, and <em>G</em> tests). This module also does a deep dive into <strong>linear models</strong> and their fundamental importance for understanding more advanced methods.</p>
+<p><a href="mod-10.html#mod-10">Module 10</a> introduces generalized linear models (GLM), an extremely general and powerful framework for analyzing biological data. This module presents worked examples of some of the most common GLMs in biology.</p>
+<p><a href="mod-11.html#mod-11">Module 11</a> explores nonlinear models for relationships that don’t follow a straight line. These models include biological growth curves and dose response curves.</p>
+<p><a href="mod-12.html#mod-12">Module 12</a> introduces mixed models, which extend GLM and other models to include random effects. Mixed models allow biologists to account for variability from unknown sources.</p>
+<p><a href="mod-13.html#mod-13">Module 13</a> explores methods for multivariate data analysis, including distance measures and ordination. <strong>Major update coming September 2024!</strong></p>
 </div>
 <div id="about-the-author" class="section level2 unnumbered hasAnchor">
 <h2>About the author<a href="index.html#about-the-author" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><img src="squirrel%20pic.jpg" width="40%" style="display: block; margin: auto;" /></p>
 <p>I’m a <a href="https://facultyweb.kennesaw.edu/ngreen62/index.php">quantitative ecologist at Kennesaw State University</a> who studies human impacts on animal populations. Since earning my PhD at Baylor University in 2012, I’ve been fortunate to have worked in a variety of government and industry roles. Those experiences have shaped my perspective on biology and education. In my courses and advising I do my best to impress upon students the variety of biological experiences and perspectives that different domains bring to the table…and the value that they all bring. Most of my <a href="https://facultyweb.kennesaw.edu/ngreen62/research.php">current research</a> focuses on understanding human impacts on animal communities and how animal populations adapt to rapidly changing environments.</p>
 <p><img src="lab_logo_02.jpg" width="40%" style="display: block; margin: auto;" /></p>
-<p>Why am I making this guide? I have been using R since about 2008, when I was a graduate student trying to make a multi-panel plot for a manuscript. I had seen R mentioned in publications and thought that using R would be more effective than kludging something together with Excel and Powerpoint. Needless to say, jumping straight to making plots with the <code>lattice</code> package was not the easiest way to learn R. The final result was a little clunky <span class="citation">(<a href="#ref-kirchner2011" role="doc-biblioref">Kirchner et al. 2011</a>)</span> but I was really proud of it. Eventually I took some courses and did a lot of self-teaching, and am finally pretty decent at R. I have used R in my work pretty much continuously since 2008 for everything from Bayesian data analysis <span class="citation">(e.g., <a href="#ref-green2020" role="doc-biblioref">Green et al. 2020</a>)</span> to simulation modeling <span class="citation">(e.g., <a href="#ref-green2019" role="doc-biblioref">Green et al. 2019</a>)</span>.</p>
+<p>Why am I making this guide? I have been using R since about 2008, when I was a graduate student trying to make a multi-panel plot for a manuscript. I had seen R mentioned in publications and thought that using R would be more effective than kludging something together with Excel and Powerpoint. Needless to say, jumping straight to making plots with the <code>lattice</code> package was not the easiest way to learn R. The final result was a little clunky <span class="citation">(<a href="#ref-kirchner2011">Kirchner et al. 2011</a>)</span> but I was really proud of it. Eventually I took some courses and did a lot of self-teaching, and am finally pretty decent at R. I have used R in my work pretty much continuously since 2008 for everything from Bayesian data analysis <span class="citation">(e.g., <a href="#ref-green2020">Green et al. 2020</a>)</span> to simulation modeling <span class="citation">(e.g., <a href="#ref-green2019">Green et al. 2019</a>)</span>.</p>
 <p>This guide is meant to be a primer for self-starting with R. In many sections the text is a bit lengthy, but that is because I wanted to provide explanations that might save someone some of the trouble I had getting started. R documentation is notoriously terse and compact–this is great for professionals who need a reminder, but not so much for newcomers who are still trying to learn. This guide also evolved out of course notes, and will continue to evolve based on feedback from students. If you have any feedback or suggestions for improvement, please <a href="mailto:ngreen62@kennesaw.edu">send me a message</a>!</p>
 
 </div>
 </div>
 <h3>Literature Cited<a href="literature-cited.html#literature-cited" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
 <div id="ref-bolker2008ecological" class="csl-entry">
 Bolker, B. M. 2008. Ecological models and data in <span>R</span>. Princeton University Press, Princeton, New Jersey, USA.
 </div>

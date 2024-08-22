@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Module 8 Planning your analysis (what test?) | Applied Biological Data Analysis: Statistics and R for Biologists</title>
   <meta name="description" content="Helping biologists to become more informed users of R and statistical methods." />
-  <meta name="generator" content="bookdown 0.28 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Module 8 Planning your analysis (what test?) | Applied Biological Data Analysis: Statistics and R for Biologists" />
   <meta property="og:type" content="book" />
@@ -20,10 +20,10 @@
   <meta name="twitter:description" content="Helping biologists to become more informed users of R and statistical methods." />
   <meta name="twitter:image" content="https://greenquanteco.github.io/book/lab_logo_02.jpg" />
 
-<meta name="author" content="Nick Green, Kennesaw State University" />
+<meta name="author" content="Dr. Nick Green, Kennesaw State University" />
 
 
-<meta name="date" content="2022-08-16" />
+<meta name="date" content="2024-08-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -56,7 +56,7 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -120,10 +120,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </style>
 
 <style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -160,6 +165,7 @@ div.csl-indent {
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
 <ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#work-in-progress-warning"><i class="fa fa-check"></i>Work in progress warning!</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#license-and-permissions"><i class="fa fa-check"></i>License and permissions</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-description"><i class="fa fa-check"></i>Course description</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-objectives"><i class="fa fa-check"></i>Course objectives</a></li>
@@ -332,10 +338,10 @@ div.csl-indent {
 <li class="chapter" data-level="5.2" data-path="mod-05.html"><a href="mod-05.html#mod-05-discrete"><i class="fa fa-check"></i><b>5.2</b> Discrete distributions</a>
 <ul>
 <li class="chapter" data-level="5.2.1" data-path="mod-05.html"><a href="mod-05.html#bernoulli-distribution"><i class="fa fa-check"></i><b>5.2.1</b> Bernoulli distribution</a></li>
-<li class="chapter" data-level="5.2.2" data-path="mod-05.html"><a href="mod-05.html#binomial-distribution"><i class="fa fa-check"></i><b>5.2.2</b> Binomial distribution</a></li>
+<li class="chapter" data-level="5.2.2" data-path="mod-05.html"><a href="mod-05.html#mod-05-binom"><i class="fa fa-check"></i><b>5.2.2</b> Binomial distribution</a></li>
 <li class="chapter" data-level="5.2.3" data-path="mod-05.html"><a href="mod-05.html#poisson-distribution"><i class="fa fa-check"></i><b>5.2.3</b> Poisson distribution</a></li>
-<li class="chapter" data-level="5.2.4" data-path="mod-05.html"><a href="mod-05.html#negative-binomial-distribution"><i class="fa fa-check"></i><b>5.2.4</b> Negative binomial distribution</a></li>
-<li class="chapter" data-level="5.2.5" data-path="mod-05.html"><a href="mod-05.html#geometric-distribution"><i class="fa fa-check"></i><b>5.2.5</b> Geometric distribution</a></li>
+<li class="chapter" data-level="5.2.4" data-path="mod-05.html"><a href="mod-05.html#mod-05-negbin"><i class="fa fa-check"></i><b>5.2.4</b> Negative binomial distribution</a></li>
+<li class="chapter" data-level="5.2.5" data-path="mod-05.html"><a href="mod-05.html#mod-05-geom"><i class="fa fa-check"></i><b>5.2.5</b> Geometric distribution</a></li>
 <li class="chapter" data-level="5.2.6" data-path="mod-05.html"><a href="mod-05.html#beta-binomial-distribution"><i class="fa fa-check"></i><b>5.2.6</b> Beta-binomial distribution</a></li>
 <li class="chapter" data-level="5.2.7" data-path="mod-05.html"><a href="mod-05.html#multinomial-distribution"><i class="fa fa-check"></i><b>5.2.7</b> Multinomial distribution</a></li>
 </ul></li>
@@ -344,10 +350,10 @@ div.csl-indent {
 <li class="chapter" data-level="5.3.1" data-path="mod-05.html"><a href="mod-05.html#uniform-distribution"><i class="fa fa-check"></i><b>5.3.1</b> Uniform distribution</a></li>
 <li class="chapter" data-level="5.3.2" data-path="mod-05.html"><a href="mod-05.html#mod-05-norm"><i class="fa fa-check"></i><b>5.3.2</b> Normal distribution</a></li>
 <li class="chapter" data-level="5.3.3" data-path="mod-05.html"><a href="mod-05.html#lognormal-distribution"><i class="fa fa-check"></i><b>5.3.3</b> Lognormal distribution</a></li>
-<li class="chapter" data-level="5.3.4" data-path="mod-05.html"><a href="mod-05.html#gamma-distribution"><i class="fa fa-check"></i><b>5.3.4</b> Gamma distribution</a></li>
+<li class="chapter" data-level="5.3.4" data-path="mod-05.html"><a href="mod-05.html#mod-05-gamma"><i class="fa fa-check"></i><b>5.3.4</b> Gamma distribution</a></li>
 <li class="chapter" data-level="5.3.5" data-path="mod-05.html"><a href="mod-05.html#beta-distribution"><i class="fa fa-check"></i><b>5.3.5</b> Beta distribution</a></li>
 <li class="chapter" data-level="5.3.6" data-path="mod-05.html"><a href="mod-05.html#dirichlet-distribution"><i class="fa fa-check"></i><b>5.3.6</b> Dirichlet distribution</a></li>
-<li class="chapter" data-level="5.3.7" data-path="mod-05.html"><a href="mod-05.html#exponential-distribution"><i class="fa fa-check"></i><b>5.3.7</b> Exponential distribution</a></li>
+<li class="chapter" data-level="5.3.7" data-path="mod-05.html"><a href="mod-05.html#mod-05-expo"><i class="fa fa-check"></i><b>5.3.7</b> Exponential distribution</a></li>
 <li class="chapter" data-level="5.3.8" data-path="mod-05.html"><a href="mod-05.html#triangular-distribution"><i class="fa fa-check"></i><b>5.3.8</b> Triangular distribution</a></li>
 <li class="chapter" data-level="5.3.9" data-path="mod-05.html"><a href="mod-05.html#distributions-summary"><i class="fa fa-check"></i><b>5.3.9</b> Distributions summary</a></li>
 </ul></li>
@@ -442,141 +448,171 @@ div.csl-indent {
 <li class="chapter" data-level="8.6" data-path="mod-08.html"><a href="mod-08.html#classifying-observations"><i class="fa fa-check"></i><b>8.6</b> Classifying observations</a></li>
 <li class="chapter" data-level="8.7" data-path="mod-08.html"><a href="mod-08.html#conclusions"><i class="fa fa-check"></i><b>8.7</b> Conclusions</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="mod-09.html"><a href="mod-09.html"><i class="fa fa-check"></i><b>9</b> Generalized linear models (GLM)</a>
+<li class="chapter" data-level="9" data-path="mod-09.html"><a href="mod-09.html"><i class="fa fa-check"></i><b>9</b> Basic statistics with R</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="mod-09.html"><a href="mod-09.html#mod-09-lm"><i class="fa fa-check"></i><b>9.1</b> Prelude with linear models</a>
+<li class="chapter" data-level="9.1" data-path="mod-09.html"><a href="mod-09.html#mod-09-datasets"><i class="fa fa-check"></i><b>9.1</b> Datasets and variables</a></li>
+<li class="chapter" data-level="9.2" data-path="mod-09.html"><a href="mod-09.html#mod-09-frequentist"><i class="fa fa-check"></i><b>9.2</b> Frequentist statistics</a>
 <ul>
-<li class="chapter" data-level="9.1.1" data-path="mod-09.html"><a href="mod-09.html#assumptions-of-linear-models"><i class="fa fa-check"></i><b>9.1.1</b> Assumptions of linear models</a></li>
-<li class="chapter" data-level="9.1.2" data-path="mod-09.html"><a href="mod-09.html#linear-regression-in-r"><i class="fa fa-check"></i><b>9.1.2</b> Linear regression in R</a></li>
-<li class="chapter" data-level="9.1.3" data-path="mod-09.html"><a href="mod-09.html#multiple-linear-regression"><i class="fa fa-check"></i><b>9.1.3</b> Multiple linear regression</a></li>
-<li class="chapter" data-level="9.1.4" data-path="mod-09.html"><a href="mod-09.html#mod-09-anova"><i class="fa fa-check"></i><b>9.1.4</b> ANOVA and ANCOVA with <code>lm()</code></a></li>
-<li class="chapter" data-level="9.1.5" data-path="mod-09.html"><a href="mod-09.html#variations-on-linear-models"><i class="fa fa-check"></i><b>9.1.5</b> Variations on linear models</a></li>
-<li class="chapter" data-level="9.1.6" data-path="mod-09.html"><a href="mod-09.html#example-linear-regression-workflow"><i class="fa fa-check"></i><b>9.1.6</b> Example linear regression workflow</a></li>
+<li class="chapter" data-level="9.2.1" data-path="mod-09.html"><a href="mod-09.html#mod-09-pvalues"><i class="fa fa-check"></i><b>9.2.1</b> <em>P</em>-values and NHST</a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="mod-09.html"><a href="mod-09.html#mod-09-basic"><i class="fa fa-check"></i><b>9.2</b> GLM basics</a>
+<li class="chapter" data-level="9.3" data-path="mod-09.html"><a href="mod-09.html#mod-09-whattest"><i class="fa fa-check"></i><b>9.3</b> What kind of test do you need?</a></li>
+<li class="chapter" data-level="9.4" data-path="mod-09.html"><a href="mod-09.html#mod-09-tests-for-loc"><i class="fa fa-check"></i><b>9.4</b> Tests for differences in mean or location</a>
 <ul>
-<li class="chapter" data-level="9.2.1" data-path="mod-09.html"><a href="mod-09.html#example-glms"><i class="fa fa-check"></i><b>9.2.1</b> Example GLMS</a></li>
-<li class="chapter" data-level="9.2.2" data-path="mod-09.html"><a href="mod-09.html#glm-families"><i class="fa fa-check"></i><b>9.2.2</b> GLM families</a></li>
-<li class="chapter" data-level="9.2.3" data-path="mod-09.html"><a href="mod-09.html#glm-link-functions"><i class="fa fa-check"></i><b>9.2.3</b> GLM link functions</a></li>
-<li class="chapter" data-level="9.2.4" data-path="mod-09.html"><a href="mod-09.html#deviance-and-other-glm-diagnostics"><i class="fa fa-check"></i><b>9.2.4</b> Deviance and other GLM diagnostics</a></li>
-<li class="chapter" data-level="9.2.5" data-path="mod-09.html"><a href="mod-09.html#to-pseudo-r2-or-not-to-pseudo-r2"><i class="fa fa-check"></i><b>9.2.5</b> To pseudo-<em>R</em><sup>2</sup> or not to pseudo-<em>R</em><sup>2</sup>?</a></li>
-<li class="chapter" data-level="9.2.6" data-path="mod-09.html"><a href="mod-09.html#common-glms"><i class="fa fa-check"></i><b>9.2.6</b> Common GLMs</a></li>
+<li class="chapter" data-level="9.4.1" data-path="mod-09.html"><a href="mod-09.html#tests-for-1-group"><i class="fa fa-check"></i><b>9.4.1</b> Tests for 1 group</a></li>
+<li class="chapter" data-level="9.4.2" data-path="mod-09.html"><a href="mod-09.html#tests-comparing-two-groups"><i class="fa fa-check"></i><b>9.4.2</b> Tests comparing two groups</a></li>
+<li class="chapter" data-level="9.4.3" data-path="mod-09.html"><a href="mod-09.html#aside-whats-with-all-these-t-tests"><i class="fa fa-check"></i><b>9.4.3</b> Aside: what’s with all these <em>t</em>-tests?</a></li>
+<li class="chapter" data-level="9.4.4" data-path="mod-09.html"><a href="mod-09.html#comparing-3-or-more-groups"><i class="fa fa-check"></i><b>9.4.4</b> Comparing 3 or more groups</a></li>
+<li class="chapter" data-level="9.4.5" data-path="mod-09.html"><a href="mod-09.html#polynomial-patterns-in-grouped-data"><i class="fa fa-check"></i><b>9.4.5</b> Polynomial patterns in grouped data</a></li>
 </ul></li>
-<li class="chapter" data-level="9.3" data-path="mod-09.html"><a href="mod-09.html#mod-09-loglin"><i class="fa fa-check"></i><b>9.3</b> Log-linear models</a>
+<li class="chapter" data-level="9.5" data-path="mod-09.html"><a href="mod-09.html#tests-for-patterns-in-continuous-data"><i class="fa fa-check"></i><b>9.5</b> Tests for patterns in continuous data</a>
 <ul>
-<li class="chapter" data-level="9.3.1" data-path="mod-09.html"><a href="mod-09.html#mod-09-loglin-examp"><i class="fa fa-check"></i><b>9.3.1</b> Example with simulated data</a></li>
-<li class="chapter" data-level="9.3.2" data-path="mod-09.html"><a href="mod-09.html#example-with-real-data"><i class="fa fa-check"></i><b>9.3.2</b> Example with real data</a></li>
+<li class="chapter" data-level="9.5.1" data-path="mod-09.html"><a href="mod-09.html#mod-09-correlation"><i class="fa fa-check"></i><b>9.5.1</b> Correlation</a></li>
+<li class="chapter" data-level="9.5.2" data-path="mod-09.html"><a href="mod-09.html#mod-09-linear-mods"><i class="fa fa-check"></i><b>9.5.2</b> Linear models</a></li>
+<li class="chapter" data-level="9.5.3" data-path="mod-09.html"><a href="mod-09.html#linear-models-wrap-up-for-now"><i class="fa fa-check"></i><b>9.5.3</b> Linear models wrap-up (for now)</a></li>
 </ul></li>
-<li class="chapter" data-level="9.4" data-path="mod-09.html"><a href="mod-09.html#mod-09-poisson"><i class="fa fa-check"></i><b>9.4</b> Poisson GLM for counts</a>
+<li class="chapter" data-level="9.6" data-path="mod-09.html"><a href="mod-09.html#mod-09-contingency"><i class="fa fa-check"></i><b>9.6</b> Tests for proportions and contingency</a>
 <ul>
-<li class="chapter" data-level="9.4.1" data-path="mod-09.html"><a href="mod-09.html#example-with-simulated-data"><i class="fa fa-check"></i><b>9.4.1</b> Example with simulated data</a></li>
-<li class="chapter" data-level="9.4.2" data-path="mod-09.html"><a href="mod-09.html#example-with-real-data-1"><i class="fa fa-check"></i><b>9.4.2</b> Example with real data</a></li>
+<li class="chapter" data-level="9.6.1" data-path="mod-09.html"><a href="mod-09.html#mod-09-ctables"><i class="fa fa-check"></i><b>9.6.1</b> Contingency tables</a></li>
+<li class="chapter" data-level="9.6.2" data-path="mod-09.html"><a href="mod-09.html#tests-on-contingency-tables"><i class="fa fa-check"></i><b>9.6.2</b> Tests on contingency tables</a></li>
+<li class="chapter" data-level="9.6.3" data-path="mod-09.html"><a href="mod-09.html#mod-09-oddsratios"><i class="fa fa-check"></i><b>9.6.3</b> Contingency tests and odds ratios</a></li>
 </ul></li>
-<li class="chapter" data-level="9.5" data-path="mod-09.html"><a href="mod-09.html#mod-09-quasi"><i class="fa fa-check"></i><b>9.5</b> Quasi-Poisson and negative binomial GLM</a>
-<ul>
-<li class="chapter" data-level="9.5.1" data-path="mod-09.html"><a href="mod-09.html#example-with-simulated-data-1"><i class="fa fa-check"></i><b>9.5.1</b> Example with simulated data</a></li>
-<li class="chapter" data-level="9.5.2" data-path="mod-09.html"><a href="mod-09.html#example-with-real-data-2"><i class="fa fa-check"></i><b>9.5.2</b> Example with real data</a></li>
+<li class="chapter" data-level="9.7" data-path="mod-09.html"><a href="mod-09.html#mod-09-classification"><i class="fa fa-check"></i><b>9.7</b> Classification</a></li>
 </ul></li>
-<li class="chapter" data-level="9.6" data-path="mod-09.html"><a href="mod-09.html#mod-09-logistic"><i class="fa fa-check"></i><b>9.6</b> Logistic regression for binary outcomes</a>
+<li class="chapter" data-level="10" data-path="mod-10.html"><a href="mod-10.html"><i class="fa fa-check"></i><b>10</b> Generalized linear models (GLM)</a>
 <ul>
-<li class="chapter" data-level="9.6.1" data-path="mod-09.html"><a href="mod-09.html#example-with-simulated-data-2"><i class="fa fa-check"></i><b>9.6.1</b> Example with simulated data</a></li>
-<li class="chapter" data-level="9.6.2" data-path="mod-09.html"><a href="mod-09.html#example-with-real-data-3"><i class="fa fa-check"></i><b>9.6.2</b> Example with real data</a></li>
-<li class="chapter" data-level="9.6.3" data-path="mod-09.html"><a href="mod-09.html#mod-09-auc"><i class="fa fa-check"></i><b>9.6.3</b> Logistic GLM diagnostics: AUC and ROC</a></li>
+<li class="chapter" data-level="10.1" data-path="mod-10.html"><a href="mod-10.html#mod-10-lm"><i class="fa fa-check"></i><b>10.1</b> Prelude with linear models</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="mod-10.html"><a href="mod-10.html#assumptions-of-linear-models"><i class="fa fa-check"></i><b>10.1.1</b> Assumptions of linear models</a></li>
+<li class="chapter" data-level="10.1.2" data-path="mod-10.html"><a href="mod-10.html#linear-regression-in-r"><i class="fa fa-check"></i><b>10.1.2</b> Linear regression in R</a></li>
+<li class="chapter" data-level="10.1.3" data-path="mod-10.html"><a href="mod-10.html#multiple-linear-regression"><i class="fa fa-check"></i><b>10.1.3</b> Multiple linear regression</a></li>
+<li class="chapter" data-level="10.1.4" data-path="mod-10.html"><a href="mod-10.html#mod-10-anova"><i class="fa fa-check"></i><b>10.1.4</b> ANOVA and ANCOVA with <code>lm()</code></a></li>
+<li class="chapter" data-level="10.1.5" data-path="mod-10.html"><a href="mod-10.html#variations-on-linear-models"><i class="fa fa-check"></i><b>10.1.5</b> Variations on linear models</a></li>
+<li class="chapter" data-level="10.1.6" data-path="mod-10.html"><a href="mod-10.html#example-linear-regression-workflow"><i class="fa fa-check"></i><b>10.1.6</b> Example linear regression workflow</a></li>
 </ul></li>
-<li class="chapter" data-level="9.7" data-path="mod-09.html"><a href="mod-09.html#mod-09-binom"><i class="fa fa-check"></i><b>9.7</b> Binomial GLM for proportional data</a>
+<li class="chapter" data-level="10.2" data-path="mod-10.html"><a href="mod-10.html#mod-10-basic"><i class="fa fa-check"></i><b>10.2</b> GLM basics</a>
 <ul>
-<li class="chapter" data-level="9.7.1" data-path="mod-09.html"><a href="mod-09.html#binomial-glm"><i class="fa fa-check"></i><b>9.7.1</b> Binomial GLM</a></li>
-<li class="chapter" data-level="9.7.2" data-path="mod-09.html"><a href="mod-09.html#example-with-simulated-data-3"><i class="fa fa-check"></i><b>9.7.2</b> Example with simulated data</a></li>
+<li class="chapter" data-level="10.2.1" data-path="mod-10.html"><a href="mod-10.html#example-glms"><i class="fa fa-check"></i><b>10.2.1</b> Example GLMS</a></li>
+<li class="chapter" data-level="10.2.2" data-path="mod-10.html"><a href="mod-10.html#glm-families"><i class="fa fa-check"></i><b>10.2.2</b> GLM families</a></li>
+<li class="chapter" data-level="10.2.3" data-path="mod-10.html"><a href="mod-10.html#glm-link-functions"><i class="fa fa-check"></i><b>10.2.3</b> GLM link functions</a></li>
+<li class="chapter" data-level="10.2.4" data-path="mod-10.html"><a href="mod-10.html#deviance-and-other-glm-diagnostics"><i class="fa fa-check"></i><b>10.2.4</b> Deviance and other GLM diagnostics</a></li>
+<li class="chapter" data-level="10.2.5" data-path="mod-10.html"><a href="mod-10.html#to-pseudo-r2-or-not-to-pseudo-r2"><i class="fa fa-check"></i><b>10.2.5</b> To pseudo-<em>R</em><sup>2</sup> or not to pseudo-<em>R</em><sup>2</sup>?</a></li>
+<li class="chapter" data-level="10.2.6" data-path="mod-10.html"><a href="mod-10.html#common-glms"><i class="fa fa-check"></i><b>10.2.6</b> Common GLMs</a></li>
 </ul></li>
-<li class="chapter" data-level="9.8" data-path="mod-09.html"><a href="mod-09.html#mod-09-gamma"><i class="fa fa-check"></i><b>9.8</b> Gamma models for overdispersed data</a>
+<li class="chapter" data-level="10.3" data-path="mod-10.html"><a href="mod-10.html#mod-10-loglin"><i class="fa fa-check"></i><b>10.3</b> Log-linear models</a>
 <ul>
-<li class="chapter" data-level="9.8.1" data-path="mod-09.html"><a href="mod-09.html#example-with-simulated-data-4"><i class="fa fa-check"></i><b>9.8.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="10.3.1" data-path="mod-10.html"><a href="mod-10.html#mod-10-loglin-examp"><i class="fa fa-check"></i><b>10.3.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="10.3.2" data-path="mod-10.html"><a href="mod-10.html#example-with-real-data"><i class="fa fa-check"></i><b>10.3.2</b> Example with real data</a></li>
 </ul></li>
-<li class="chapter" data-level="9.9" data-path="mod-09.html"><a href="mod-09.html#mod-09-beyond"><i class="fa fa-check"></i><b>9.9</b> Beyond GLM: Overview of GAM and GEE</a>
+<li class="chapter" data-level="10.4" data-path="mod-10.html"><a href="mod-10.html#mod-10-poisson"><i class="fa fa-check"></i><b>10.4</b> Poisson GLM for counts</a>
 <ul>
-<li class="chapter" data-level="9.9.1" data-path="mod-09.html"><a href="mod-09.html#mod-09-gam"><i class="fa fa-check"></i><b>9.9.1</b> Generalized additive models (GAM)</a></li>
-<li class="chapter" data-level="9.9.2" data-path="mod-09.html"><a href="mod-09.html#mod-09-gee"><i class="fa fa-check"></i><b>9.9.2</b> Generalized estimating equations (GEE)</a></li>
+<li class="chapter" data-level="10.4.1" data-path="mod-10.html"><a href="mod-10.html#example-with-simulated-data"><i class="fa fa-check"></i><b>10.4.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="10.4.2" data-path="mod-10.html"><a href="mod-10.html#example-with-real-data-1"><i class="fa fa-check"></i><b>10.4.2</b> Example with real data</a></li>
 </ul></li>
+<li class="chapter" data-level="10.5" data-path="mod-10.html"><a href="mod-10.html#mod-10-quasi"><i class="fa fa-check"></i><b>10.5</b> Quasi-Poisson and negative binomial GLM</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="mod-10.html"><a href="mod-10.html#example-with-simulated-data-1"><i class="fa fa-check"></i><b>10.5.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="10.5.2" data-path="mod-10.html"><a href="mod-10.html#example-with-real-data-2"><i class="fa fa-check"></i><b>10.5.2</b> Example with real data</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="mod-10.html"><a href="mod-10.html"><i class="fa fa-check"></i><b>10</b> Nonlinear models</a>
+<li class="chapter" data-level="10.6" data-path="mod-10.html"><a href="mod-10.html#mod-10-logistic"><i class="fa fa-check"></i><b>10.6</b> Logistic regression for binary outcomes</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="mod-10.html"><a href="mod-10.html#background"><i class="fa fa-check"></i><b>10.1</b> Background</a></li>
-<li class="chapter" data-level="10.2" data-path="mod-10.html"><a href="mod-10.html#mod-10-intro"><i class="fa fa-check"></i><b>10.2</b> Nonlinear least squares (NLS)</a></li>
-<li class="chapter" data-level="10.3" data-path="mod-10.html"><a href="mod-10.html#mod-10-micmen"><i class="fa fa-check"></i><b>10.3</b> Michaelis-Menten curves</a>
-<ul>
-<li class="chapter" data-level="10.3.1" data-path="mod-10.html"><a href="mod-10.html#mod-10-micmen-sim"><i class="fa fa-check"></i><b>10.3.1</b> Example with simulated data</a></li>
-<li class="chapter" data-level="10.3.2" data-path="mod-10.html"><a href="mod-10.html#example-with-real-data-4"><i class="fa fa-check"></i><b>10.3.2</b> Example with real data</a></li>
-<li class="chapter" data-level="10.3.3" data-path="mod-10.html"><a href="mod-10.html#alternative-strategies-for-the-analysis"><i class="fa fa-check"></i><b>10.3.3</b> Alternative strategies for the analysis</a></li>
+<li class="chapter" data-level="10.6.1" data-path="mod-10.html"><a href="mod-10.html#example-with-simulated-data-2"><i class="fa fa-check"></i><b>10.6.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="10.6.2" data-path="mod-10.html"><a href="mod-10.html#example-with-real-data-3"><i class="fa fa-check"></i><b>10.6.2</b> Example with real data</a></li>
+<li class="chapter" data-level="10.6.3" data-path="mod-10.html"><a href="mod-10.html#mod-10-auc"><i class="fa fa-check"></i><b>10.6.3</b> Logistic GLM diagnostics: AUC and ROC</a></li>
 </ul></li>
-<li class="chapter" data-level="10.4" data-path="mod-10.html"><a href="mod-10.html#mod-10-grow"><i class="fa fa-check"></i><b>10.4</b> Biological growth curves</a>
+<li class="chapter" data-level="10.7" data-path="mod-10.html"><a href="mod-10.html#mod-10-binom"><i class="fa fa-check"></i><b>10.7</b> Binomial GLM for proportional data</a>
 <ul>
-<li class="chapter" data-level="10.4.1" data-path="mod-10.html"><a href="mod-10.html#gompertz-and-von-bertalanffy-curves"><i class="fa fa-check"></i><b>10.4.1</b> Gompertz and von Bertalanffy curves</a></li>
-<li class="chapter" data-level="10.4.2" data-path="mod-10.html"><a href="mod-10.html#example-with-real-data-5"><i class="fa fa-check"></i><b>10.4.2</b> Example with real data</a></li>
+<li class="chapter" data-level="10.7.1" data-path="mod-10.html"><a href="mod-10.html#binomial-glm"><i class="fa fa-check"></i><b>10.7.1</b> Binomial GLM</a></li>
+<li class="chapter" data-level="10.7.2" data-path="mod-10.html"><a href="mod-10.html#example-with-simulated-data-3"><i class="fa fa-check"></i><b>10.7.2</b> Example with simulated data</a></li>
 </ul></li>
-<li class="chapter" data-level="10.5" data-path="mod-10.html"><a href="mod-10.html#dose-response-curves"><i class="fa fa-check"></i><b>10.5</b> Dose response curves</a></li>
-<li class="chapter" data-level="10.6" data-path="mod-10.html"><a href="mod-10.html#alternatives-to-nls"><i class="fa fa-check"></i><b>10.6</b> Alternatives to NLS</a>
+<li class="chapter" data-level="10.8" data-path="mod-10.html"><a href="mod-10.html#mod-10-gamma"><i class="fa fa-check"></i><b>10.8</b> Gamma models for overdispersed data</a>
 <ul>
-<li class="chapter" data-level="10.6.1" data-path="mod-10.html"><a href="mod-10.html#generalized-nonlinear-models"><i class="fa fa-check"></i><b>10.6.1</b> Generalized nonlinear models</a></li>
-<li class="chapter" data-level="10.6.2" data-path="mod-10.html"><a href="mod-10.html#quantile-regression"><i class="fa fa-check"></i><b>10.6.2</b> Quantile regression</a></li>
-<li class="chapter" data-level="10.6.3" data-path="mod-10.html"><a href="mod-10.html#mod-10-gam"><i class="fa fa-check"></i><b>10.6.3</b> Generalized additive models (GAM)</a></li>
-<li class="chapter" data-level="10.6.4" data-path="mod-10.html"><a href="mod-10.html#classification-and-regression-trees-cart"><i class="fa fa-check"></i><b>10.6.4</b> Classification and regression trees (CART)</a></li>
+<li class="chapter" data-level="10.8.1" data-path="mod-10.html"><a href="mod-10.html#example-with-simulated-data-4"><i class="fa fa-check"></i><b>10.8.1</b> Example with simulated data</a></li>
 </ul></li>
-</ul></li>
-<li class="chapter" data-level="11" data-path="mod-11.html"><a href="mod-11.html"><i class="fa fa-check"></i><b>11</b> Mixed models</a>
+<li class="chapter" data-level="10.9" data-path="mod-10.html"><a href="mod-10.html#mod-10-beyond"><i class="fa fa-check"></i><b>10.9</b> Beyond GLM: Overview of GAM and GEE</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="mod-11.html"><a href="mod-11.html#prelude-glm"><i class="fa fa-check"></i><b>11.1</b> Prelude (GLM)</a></li>
-<li class="chapter" data-level="11.2" data-path="mod-11.html"><a href="mod-11.html#mod-11-lmm"><i class="fa fa-check"></i><b>11.2</b> Linear mixed models (LMM)</a>
-<ul>
-<li class="chapter" data-level="11.2.1" data-path="mod-11.html"><a href="mod-11.html#formal-definition-and-example"><i class="fa fa-check"></i><b>11.2.1</b> Formal definition and example</a></li>
-<li class="chapter" data-level="11.2.2" data-path="mod-11.html"><a href="mod-11.html#example-with-simulated-data-5"><i class="fa fa-check"></i><b>11.2.2</b> Example with simulated data</a></li>
-<li class="chapter" data-level="11.2.3" data-path="mod-11.html"><a href="mod-11.html#p-values-in-lmm"><i class="fa fa-check"></i><b>11.2.3</b> <em>P</em>-values in LMM</a></li>
-<li class="chapter" data-level="11.2.4" data-path="mod-11.html"><a href="mod-11.html#specifying-random-effects"><i class="fa fa-check"></i><b>11.2.4</b> Specifying random effects</a></li>
-<li class="chapter" data-level="11.2.5" data-path="mod-11.html"><a href="mod-11.html#lmm-example-with-real-data"><i class="fa fa-check"></i><b>11.2.5</b> LMM example with real data</a></li>
-</ul></li>
-<li class="chapter" data-level="11.3" data-path="mod-11.html"><a href="mod-11.html#mod-11-glmm"><i class="fa fa-check"></i><b>11.3</b> Generalized linear mixed models (GLMM)</a>
-<ul>
-<li class="chapter" data-level="11.3.1" data-path="mod-11.html"><a href="mod-11.html#definition-1"><i class="fa fa-check"></i><b>11.3.1</b> Definition</a></li>
-<li class="chapter" data-level="11.3.2" data-path="mod-11.html"><a href="mod-11.html#glmm-on-simulated-data"><i class="fa fa-check"></i><b>11.3.2</b> GLMM on simulated data</a></li>
-<li class="chapter" data-level="11.3.3" data-path="mod-11.html"><a href="mod-11.html#glmm-on-real-data"><i class="fa fa-check"></i><b>11.3.3</b> GLMM on real data</a></li>
-</ul></li>
-<li class="chapter" data-level="11.4" data-path="mod-11.html"><a href="mod-11.html#mod-11-nlme"><i class="fa fa-check"></i><b>11.4</b> Nonlinear mixed models (NLME)</a>
-<ul>
-<li class="chapter" data-level="11.4.1" data-path="mod-11.html"><a href="mod-11.html#definition-and-background"><i class="fa fa-check"></i><b>11.4.1</b> Definition and background</a></li>
-<li class="chapter" data-level="11.4.2" data-path="mod-11.html"><a href="mod-11.html#nlme-on-simulated-data"><i class="fa fa-check"></i><b>11.4.2</b> NLME on simulated data</a></li>
-<li class="chapter" data-level="11.4.3" data-path="mod-11.html"><a href="mod-11.html#nlme-on-real-data"><i class="fa fa-check"></i><b>11.4.3</b> NLME on real data</a></li>
-</ul></li>
-<li class="chapter" data-level="11.5" data-path="mod-11.html"><a href="mod-11.html#mod-11-gamm"><i class="fa fa-check"></i><b>11.5</b> (Generalized) additive mixed models (AMM/GAMM)</a>
-<ul>
-<li class="chapter" data-level="11.5.1" data-path="mod-11.html"><a href="mod-11.html#example-gamm-with-real-data"><i class="fa fa-check"></i><b>11.5.1</b> Example GAMM with real data</a></li>
+<li class="chapter" data-level="10.9.1" data-path="mod-10.html"><a href="mod-10.html#mod-10-gam"><i class="fa fa-check"></i><b>10.9.1</b> Generalized additive models (GAM)</a></li>
+<li class="chapter" data-level="10.9.2" data-path="mod-10.html"><a href="mod-10.html#mod-10-gee"><i class="fa fa-check"></i><b>10.9.2</b> Generalized estimating equations (GEE)</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="mod-12.html"><a href="mod-12.html"><i class="fa fa-check"></i><b>12</b> Multivariate data analysis</a>
+<li class="chapter" data-level="11" data-path="mod-11.html"><a href="mod-11.html"><i class="fa fa-check"></i><b>11</b> Nonlinear models</a>
 <ul>
-<li class="chapter" data-level="12.1" data-path="mod-12.html"><a href="mod-12.html#multivariate-data"><i class="fa fa-check"></i><b>12.1</b> Multivariate data</a>
+<li class="chapter" data-level="11.1" data-path="mod-11.html"><a href="mod-11.html#background"><i class="fa fa-check"></i><b>11.1</b> Background</a></li>
+<li class="chapter" data-level="11.2" data-path="mod-11.html"><a href="mod-11.html#mod-11-intro"><i class="fa fa-check"></i><b>11.2</b> Nonlinear least squares (NLS)</a></li>
+<li class="chapter" data-level="11.3" data-path="mod-11.html"><a href="mod-11.html#mod-11-micmen"><i class="fa fa-check"></i><b>11.3</b> Michaelis-Menten curves</a>
 <ul>
-<li class="chapter" data-level="12.1.1" data-path="mod-12.html"><a href="mod-12.html#univariate-vs.-multivariate-data"><i class="fa fa-check"></i><b>12.1.1</b> Univariate vs. multivariate data</a></li>
-<li class="chapter" data-level="12.1.2" data-path="mod-12.html"><a href="mod-12.html#components-of-multivariate-data"><i class="fa fa-check"></i><b>12.1.2</b> Components of multivariate data</a></li>
+<li class="chapter" data-level="11.3.1" data-path="mod-11.html"><a href="mod-11.html#mod-11-micmen-sim"><i class="fa fa-check"></i><b>11.3.1</b> Example with simulated data</a></li>
+<li class="chapter" data-level="11.3.2" data-path="mod-11.html"><a href="mod-11.html#example-with-real-data-4"><i class="fa fa-check"></i><b>11.3.2</b> Example with real data</a></li>
+<li class="chapter" data-level="11.3.3" data-path="mod-11.html"><a href="mod-11.html#alternative-strategies-for-the-analysis"><i class="fa fa-check"></i><b>11.3.3</b> Alternative strategies for the analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="12.2" data-path="mod-12.html"><a href="mod-12.html#mod-12-dist"><i class="fa fa-check"></i><b>12.2</b> Distance metrics: biological (dis)similarity</a>
+<li class="chapter" data-level="11.4" data-path="mod-11.html"><a href="mod-11.html#mod-11-grow"><i class="fa fa-check"></i><b>11.4</b> Biological growth curves</a>
 <ul>
-<li class="chapter" data-level="12.2.1" data-path="mod-12.html"><a href="mod-12.html#euclidean-distance"><i class="fa fa-check"></i><b>12.2.1</b> Euclidean distance</a></li>
-<li class="chapter" data-level="12.2.2" data-path="mod-12.html"><a href="mod-12.html#bray-curtis-and-other-distance-metrics"><i class="fa fa-check"></i><b>12.2.2</b> Bray-Curtis and other distance metrics</a></li>
+<li class="chapter" data-level="11.4.1" data-path="mod-11.html"><a href="mod-11.html#gompertz-and-von-bertalanffy-curves"><i class="fa fa-check"></i><b>11.4.1</b> Gompertz and von Bertalanffy curves</a></li>
+<li class="chapter" data-level="11.4.2" data-path="mod-11.html"><a href="mod-11.html#example-with-real-data-5"><i class="fa fa-check"></i><b>11.4.2</b> Example with real data</a></li>
 </ul></li>
-<li class="chapter" data-level="12.3" data-path="mod-12.html"><a href="mod-12.html#clustering"><i class="fa fa-check"></i><b>12.3</b> Clustering</a>
+<li class="chapter" data-level="11.5" data-path="mod-11.html"><a href="mod-11.html#dose-response-curves"><i class="fa fa-check"></i><b>11.5</b> Dose response curves</a></li>
+<li class="chapter" data-level="11.6" data-path="mod-11.html"><a href="mod-11.html#alternatives-to-nls"><i class="fa fa-check"></i><b>11.6</b> Alternatives to NLS</a>
 <ul>
-<li class="chapter" data-level="12.3.1" data-path="mod-12.html"><a href="mod-12.html#k-means-clustering"><i class="fa fa-check"></i><b>12.3.1</b> <em>K</em>-means clustering</a></li>
-<li class="chapter" data-level="12.3.2" data-path="mod-12.html"><a href="mod-12.html#hierarchical-agglomerative-clustering"><i class="fa fa-check"></i><b>12.3.2</b> Hierarchical agglomerative clustering</a></li>
+<li class="chapter" data-level="11.6.1" data-path="mod-11.html"><a href="mod-11.html#generalized-nonlinear-models"><i class="fa fa-check"></i><b>11.6.1</b> Generalized nonlinear models</a></li>
+<li class="chapter" data-level="11.6.2" data-path="mod-11.html"><a href="mod-11.html#quantile-regression"><i class="fa fa-check"></i><b>11.6.2</b> Quantile regression</a></li>
+<li class="chapter" data-level="11.6.3" data-path="mod-11.html"><a href="mod-11.html#mod-11-gam"><i class="fa fa-check"></i><b>11.6.3</b> Generalized additive models (GAM)</a></li>
+<li class="chapter" data-level="11.6.4" data-path="mod-11.html"><a href="mod-11.html#classification-and-regression-trees-cart"><i class="fa fa-check"></i><b>11.6.4</b> Classification and regression trees (CART)</a></li>
 </ul></li>
-<li class="chapter" data-level="12.4" data-path="mod-12.html"><a href="mod-12.html#mod-12-sims"><i class="fa fa-check"></i><b>12.4</b> Analyzing dissimilarity</a>
-<ul>
-<li class="chapter" data-level="12.4.1" data-path="mod-12.html"><a href="mod-12.html#mantel-tests-distance-vs.-distance"><i class="fa fa-check"></i><b>12.4.1</b> Mantel tests: distance vs. distance</a></li>
-<li class="chapter" data-level="12.4.2" data-path="mod-12.html"><a href="mod-12.html#comparing-dissimilarity-between-groups"><i class="fa fa-check"></i><b>12.4.2</b> Comparing dissimilarity between groups</a></li>
 </ul></li>
-<li class="chapter" data-level="12.5" data-path="mod-12.html"><a href="mod-12.html#mod-12-ord"><i class="fa fa-check"></i><b>12.5</b> Ordination</a>
+<li class="chapter" data-level="12" data-path="mod-12.html"><a href="mod-12.html"><i class="fa fa-check"></i><b>12</b> Mixed models</a>
 <ul>
-<li class="chapter" data-level="12.5.1" data-path="mod-12.html"><a href="mod-12.html#principal-components-analysis-pca-1"><i class="fa fa-check"></i><b>12.5.1</b> Principal components analysis (PCA)</a></li>
-<li class="chapter" data-level="12.5.2" data-path="mod-12.html"><a href="mod-12.html#nmds-and-other-ordination-methods"><i class="fa fa-check"></i><b>12.5.2</b> NMDS and other ordination methods</a></li>
-<li class="chapter" data-level="12.5.3" data-path="mod-12.html"><a href="mod-12.html#other-ordination-techniques"><i class="fa fa-check"></i><b>12.5.3</b> Other ordination techniques</a></li>
+<li class="chapter" data-level="12.1" data-path="mod-12.html"><a href="mod-12.html#prelude-glm"><i class="fa fa-check"></i><b>12.1</b> Prelude (GLM)</a></li>
+<li class="chapter" data-level="12.2" data-path="mod-12.html"><a href="mod-12.html#mod-12-lmm"><i class="fa fa-check"></i><b>12.2</b> Linear mixed models (LMM)</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="mod-12.html"><a href="mod-12.html#formal-definition-and-example"><i class="fa fa-check"></i><b>12.2.1</b> Formal definition and example</a></li>
+<li class="chapter" data-level="12.2.2" data-path="mod-12.html"><a href="mod-12.html#example-with-simulated-data-5"><i class="fa fa-check"></i><b>12.2.2</b> Example with simulated data</a></li>
+<li class="chapter" data-level="12.2.3" data-path="mod-12.html"><a href="mod-12.html#p-values-in-lmm"><i class="fa fa-check"></i><b>12.2.3</b> <em>P</em>-values in LMM</a></li>
+<li class="chapter" data-level="12.2.4" data-path="mod-12.html"><a href="mod-12.html#specifying-random-effects"><i class="fa fa-check"></i><b>12.2.4</b> Specifying random effects</a></li>
+<li class="chapter" data-level="12.2.5" data-path="mod-12.html"><a href="mod-12.html#lmm-example-with-real-data"><i class="fa fa-check"></i><b>12.2.5</b> LMM example with real data</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="mod-12.html"><a href="mod-12.html#mod-12-glmm"><i class="fa fa-check"></i><b>12.3</b> Generalized linear mixed models (GLMM)</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="mod-12.html"><a href="mod-12.html#definition-1"><i class="fa fa-check"></i><b>12.3.1</b> Definition</a></li>
+<li class="chapter" data-level="12.3.2" data-path="mod-12.html"><a href="mod-12.html#glmm-on-simulated-data"><i class="fa fa-check"></i><b>12.3.2</b> GLMM on simulated data</a></li>
+<li class="chapter" data-level="12.3.3" data-path="mod-12.html"><a href="mod-12.html#glmm-on-real-data"><i class="fa fa-check"></i><b>12.3.3</b> GLMM on real data</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="mod-12.html"><a href="mod-12.html#mod-12-nlme"><i class="fa fa-check"></i><b>12.4</b> Nonlinear mixed models (NLME)</a>
+<ul>
+<li class="chapter" data-level="12.4.1" data-path="mod-12.html"><a href="mod-12.html#definition-and-background"><i class="fa fa-check"></i><b>12.4.1</b> Definition and background</a></li>
+<li class="chapter" data-level="12.4.2" data-path="mod-12.html"><a href="mod-12.html#nlme-on-simulated-data"><i class="fa fa-check"></i><b>12.4.2</b> NLME on simulated data</a></li>
+<li class="chapter" data-level="12.4.3" data-path="mod-12.html"><a href="mod-12.html#nlme-on-real-data"><i class="fa fa-check"></i><b>12.4.3</b> NLME on real data</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="mod-12.html"><a href="mod-12.html#mod-12-gamm"><i class="fa fa-check"></i><b>12.5</b> (Generalized) additive mixed models (AMM/GAMM)</a>
+<ul>
+<li class="chapter" data-level="12.5.1" data-path="mod-12.html"><a href="mod-12.html#example-gamm-with-real-data"><i class="fa fa-check"></i><b>12.5.1</b> Example GAMM with real data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="mod-13.html"><a href="mod-13.html"><i class="fa fa-check"></i><b>13</b> Multivariate data analysis</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="mod-13.html"><a href="mod-13.html#multivariate-data"><i class="fa fa-check"></i><b>13.1</b> Multivariate data</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="mod-13.html"><a href="mod-13.html#univariate-vs.-multivariate-data"><i class="fa fa-check"></i><b>13.1.1</b> Univariate vs. multivariate data</a></li>
+<li class="chapter" data-level="13.1.2" data-path="mod-13.html"><a href="mod-13.html#components-of-multivariate-data"><i class="fa fa-check"></i><b>13.1.2</b> Components of multivariate data</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="mod-13.html"><a href="mod-13.html#mod-13-dist"><i class="fa fa-check"></i><b>13.2</b> Distance metrics: biological (dis)similarity</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="mod-13.html"><a href="mod-13.html#euclidean-distance"><i class="fa fa-check"></i><b>13.2.1</b> Euclidean distance</a></li>
+<li class="chapter" data-level="13.2.2" data-path="mod-13.html"><a href="mod-13.html#bray-curtis-and-other-distance-metrics"><i class="fa fa-check"></i><b>13.2.2</b> Bray-Curtis and other distance metrics</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="mod-13.html"><a href="mod-13.html#clustering"><i class="fa fa-check"></i><b>13.3</b> Clustering</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="mod-13.html"><a href="mod-13.html#k-means-clustering"><i class="fa fa-check"></i><b>13.3.1</b> <em>K</em>-means clustering</a></li>
+<li class="chapter" data-level="13.3.2" data-path="mod-13.html"><a href="mod-13.html#hierarchical-agglomerative-clustering"><i class="fa fa-check"></i><b>13.3.2</b> Hierarchical agglomerative clustering</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="mod-13.html"><a href="mod-13.html#mod-13-sims"><i class="fa fa-check"></i><b>13.4</b> Analyzing dissimilarity</a>
+<ul>
+<li class="chapter" data-level="13.4.1" data-path="mod-13.html"><a href="mod-13.html#mantel-tests-distance-vs.-distance"><i class="fa fa-check"></i><b>13.4.1</b> Mantel tests: distance vs. distance</a></li>
+<li class="chapter" data-level="13.4.2" data-path="mod-13.html"><a href="mod-13.html#comparing-dissimilarity-between-groups"><i class="fa fa-check"></i><b>13.4.2</b> Comparing dissimilarity between groups</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="mod-13.html"><a href="mod-13.html#mod-13-ord"><i class="fa fa-check"></i><b>13.5</b> Ordination</a>
+<ul>
+<li class="chapter" data-level="13.5.1" data-path="mod-13.html"><a href="mod-13.html#mod-13-pca"><i class="fa fa-check"></i><b>13.5.1</b> Principal components analysis (PCA)</a></li>
+<li class="chapter" data-level="13.5.2" data-path="mod-13.html"><a href="mod-13.html#nmds-and-other-ordination-methods"><i class="fa fa-check"></i><b>13.5.2</b> NMDS and other ordination methods</a></li>
+<li class="chapter" data-level="13.5.3" data-path="mod-13.html"><a href="mod-13.html#other-ordination-techniques"><i class="fa fa-check"></i><b>13.5.3</b> Other ordination techniques</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="literature-cited.html"><a href="literature-cited.html"><i class="fa fa-check"></i>Literature Cited</a></li>
@@ -653,33 +689,33 @@ div.csl-indent {
   2. Data multivariate normal: 3<br />
   2<span class="math inline">\(&#39;\)</span>. Data not multivariate normal: 4<br />
 <br />
-3. All conditions for MANOVA met: try <a href="mod-12.html#mod-12-manova">MANOVA</a>. R function <code>manova()</code>.<br />
+3. All conditions for MANOVA met: try <a href="mod-13.html#mod-13-manova">MANOVA</a>. R function <code>manova()</code>.<br />
 3<span class="math inline">\(&#39;\)</span>. MANOVA conditions not all met: 4.<br />
 <br />
-  4. Try <a href="mod-12.html#mod-12-manova">permutational MANOVA (PERMANOVA)</a> (R function <code>vegan::adonis()</code>) or:<br />
-  4<span class="math inline">\(&#39;\)</span>. Ordinate using NMDS, then try <a href="mod-12.html#mod-12-mrpp">MRPP</a> in NMDS-space. R functions <code>vegan::metaMDS()</code> followed by <code>vegan::mrpp()</code>.<br />
+  4. Try <a href="mod-13.html#mod-13-manova">permutational MANOVA (PERMANOVA)</a> (R function <code>vegan::adonis()</code>) or:<br />
+  4<span class="math inline">\(&#39;\)</span>. Ordinate using NMDS, then try <a href="mod-13.html#mod-13-mrpp">MRPP</a> in NMDS-space. R functions <code>vegan::metaMDS()</code> followed by <code>vegan::mrpp()</code>.<br />
 <br />
 5. Comparing between 2 groups (i.e., a single factor with 2 levels): 6<br />
 5<span class="math inline">\(&#39;\)</span>. Comparing between &gt;2 groups: 8<br />
 <br />
-  6. Data meet assumptions of <em>t</em>-test: use <em>t</em>-test. R function <code>t.test()</code>.<br />
+  6. Data meet assumptions of <em>t</em>-test: use a <a href="mod-09.html#mod-09-2samp-2tail-ttest"><em>t</em>-test</a>. R function <code>t.test()</code>.<br />
   6<span class="math inline">\(&#39;\)</span>. Data do not meet assumptions of <em>t</em>-test: 7.<br />
 <br />
-7. Need to predict values of response variable: use <a href="mod-09.html#mod-09">GLM</a>. R function <code>glm()</code>.<br />
-7<span class="math inline">\(&#39;\)</span>. Need only to test for difference in location: use Mann-Whitney test (aka: Wilcoxon rank sum test). R function <code>wilcox.test()</code>.<br />
+7. Need to predict values of response variable: use <a href="mod-10.html#mod-10">GLM</a>. R function <code>glm()</code>.<br />
+7<span class="math inline">\(&#39;\)</span>. Need only to test for difference in location: use Mann-Whitney test (aka: <a href="mod-09.html#mod-09-wilcoxon">Wilcoxon rank sum</a> test). R function <code>wilcox.test()</code>.<br />
 <br />
   8. Response variables normal, variance homogeneous: use <a href="mod-09.html#mod-09-anova">ANOVA</a>. R function <code>lm()</code> followed by <code>anova()</code> and/or <code>aov()</code>.<br />
   8<span class="math inline">\(&#39;\)</span>. Response variables nonnormal OR variance heterogeneous: 9.<br />
 <br />
-9. Need to predict values of response variable: use <a href="mod-09.html#mod-09">GLM</a>. R function <code>glm()</code>.<br />
-9<span class="math inline">\(&#39;\)</span>. Need to test for difference in location only: use Kruskal-Wallis test. R function <code>kruskal.test()</code>.</div>
+9. Need to predict values of response variable: use <a href="mod-10.html#mod-10">GLM</a>. R function <code>glm()</code>.<br />
+9<span class="math inline">\(&#39;\)</span>. Need to test for difference in location only: use <a href="mod-09.html#mod-09-kwtest">Kruskal-Wallis test</a>. R function <code>kruskal.test()</code>.</div>
 <div id="additional-considerations" class="section level3 hasAnchor" number="8.3.1">
 <h3><span class="header-section-number">8.3.1</span> Additional considerations<a href="mod-08.html#additional-considerations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Once you reach a decision from the key above, there are a few more options to consider:</p>
 <ul>
-<li>Are there any interactions between your predictor variables? This means that the effects of two predictors are not additive; i.e., the effect of one variable affects the effect of another variable. Most of the methods above can accommodate interactions. You can use R function <code>interaction.plot()</code> to explore potential interactions visually.</li>
+<li>Are there any <a href="mod-09.html#mod-09-ancova">interactions</a> between your predictor variables? This means that the effects of two predictors are not additive; i.e., the effect of one variable affects the effect of another variable. Most of the methods above can accommodate interactions. You can use R function <code>interaction.plot()</code> to explore potential interactions visually.</li>
 <li>Is there a hierarchical structure to your data, with the higher-level groups representing variation that you are interested in explaining? This is often called “blocking” and needs to be included in your model. Usually the blocking factor can be included as a predictor in the model.</li>
-<li>Is there a hierarchical structure to your data, with the higher-level groups representing variance you are not interested in but still need to account for? If so, you may want to consider adding random effects to your model. This creates a <strong>mixed model</strong> (see <a href="mod-11.html#mod-11">Module 11</a>).</li>
+<li>Is there a hierarchical structure to your data, with the higher-level groups representing variance you are not interested in but still need to account for? If so, you may want to consider adding random effects to your model. This creates a <strong>mixed model</strong> (see <a href="mod-12.html#mod-12">Module 12</a>).</li>
 </ul>
 </div>
 </div>
@@ -689,17 +725,17 @@ div.csl-indent {
 <div class="line-block">1. Need to test whether two variables vary together, not predict actual values: 2<br />
 1<span class="math inline">\(&#39;\)</span>. Need to predict values of response variables: 3<br />
 <br />
-  2. Both variables normally distributed, suspected relationship linear: use Pearson’s product moment correlation <em>r</em>. R functions <code>cor()</code> or <code>cor.test()</code>.<br />
-  2<span class="math inline">\(&#39;\)</span>. One or both variables nonnormal and/or suspected relationship nonlinear: use Spearman’s rank correlation coefficient <span class="math inline">\(\rho\)</span> (“rho”). R functions <code>cor()</code> or <code>cor.test()</code>.<br />
+  2. Both variables normally distributed, suspected relationship linear: use <a href="mod-09.html#mod-09-linear-correl">Pearson’s product moment correlation <em>r</em></a>. R functions <code>cor()</code> or <code>cor.test()</code>.<br />
+  2<span class="math inline">\(&#39;\)</span>. One or both variables nonnormal and/or suspected relationship nonlinear: use <a href="mod-09.html#mod-09-nonlinear">Spearman’s rank correlation coefficient</a> <span class="math inline">\(\rho\)</span> (“rho”). R functions <code>cor()</code> or <code>cor.test()</code>.<br />
 <br />
-3. Suspected relationship linear, or can be made linear by transform: 4<br />
+3. Suspected relationship <a href="mod-09.html#mod-09-whatis-linear">linear</a>, or can be made linear by transform: 4<br />
 3<span class="math inline">\(&#39;\)</span>. Suspected relationship nonlinear and cannot be made linear: 5.<br />
 <br />
-  4. Response variable normally distributed or can be transformed to be normal: use <a href="mod-09.html#mod-09-lm">linear regression</a> (on transformed scale, if needed). R function <code>lm()</code>.<br />
-  4<span class="math inline">\(&#39;\)</span>. Response variable nonnormal and cannot be transformed to normality: use <a href="mod-09.html#mod-09">GLM</a>. R function <code>glm()</code>.<br />
+  4. Response variable normally distributed or can be transformed to be normal: use <a href="mod-09.html#mod-09-lin-reg">linear regression</a> or <a href="mod-09.html#mod-09-mult-reg">multiple linear regression</a> (on transformed scale, if needed). R function <code>lm()</code>.<br />
+  4<span class="math inline">\(&#39;\)</span>. Response variable nonnormal and cannot be transformed to normality: use <a href="mod-10.html#mod-10">GLM</a>. R function <code>glm()</code>.<br />
 <br />
-5. Response variable and residuals normal: use <a href="mod-10.html#mod-10">nonlinear models</a>. R function <code>nls()</code>.<br />
-5<span class="math inline">\(&#39;\)</span>. Response variable and residuals nonnormal: try <a href="mod-10.html#mod-10-gam">GAM</a>, GNM, or <a href="mod-10.html#mod-10-cart2">regression trees</a> (in that order). R functions <code>mgcv::gam()</code>, <code>gnm::gnm()</code>, and <code>rpart::rpart()</code>, respectively.</div>
+5. Response variable and residuals normal: use <a href="mod-11.html#mod-11">nonlinear models</a>. R function <code>nls()</code>.<br />
+5<span class="math inline">\(&#39;\)</span>. Response variable and residuals nonnormal: try <a href="mod-11.html#mod-11-gam">GAM</a>, GNM, or <a href="mod-11.html#mod-11-cart2">regression trees</a> (in that order). R functions <code>mgcv::gam()</code>, <code>gnm::gnm()</code>, and <code>rpart::rpart()</code>, respectively.</div>
 <div id="additional-considerations-1" class="section level3 hasAnchor" number="8.4.1">
 <h3><span class="header-section-number">8.4.1</span> Additional considerations<a href="mod-08.html#additional-considerations-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Once you reach a decision from the key above, there are a few more options to consider:</p>
@@ -707,10 +743,10 @@ div.csl-indent {
 <li>Is there autocorrelation in your data? If so, you may want to consider including an autocorrelation structure.</li>
 <li>Is there a hierarchical structure to your data, with the higher-level groups representing variance you are not interested in but still need to account for? If so, you may want to consider adding random effects to your model. This creates a <strong>mixed model</strong>:
 <ul>
-<li>Linear models become <a href="mod-11.html#mod-11-lmm">linear mixed models (LMM)</a>. R function <code>lme4::lmer()</code>.</li>
-<li>Generalized linear models become <a href="mod-11.html#mod-11-glmm">generalized linear mixed models (GLMM)</a>. R function <code>lme4::glmer()</code>.</li>
-<li>Additive models become <a href="mod-11.html#mod-11-gamm">generalized additive mixed models (GAMM)</a>. R function <code>mgcv::gamm()</code>.</li>
-<li>NLS models become <a href="#mod-07-nlme">nonlinear mixed models (NLME)</a>. R function <code>nlme::nlme()</code> or <code>lme4::nlmer()</code>.</li>
+<li>Linear models become <a href="mod-12.html#mod-12-lmm">linear mixed models (LMM)</a>. R function <code>lme4::lmer()</code>.</li>
+<li>Generalized linear models become <a href="mod-12.html#mod-12-glmm">generalized linear mixed models (GLMM)</a>. R function <code>lme4::glmer()</code>.</li>
+<li>Additive models become <a href="mod-12.html#mod-12-gamm">generalized additive mixed models (GAMM)</a>. R function <code>mgcv::gamm()</code>.</li>
+<li>NLS models become <a href="mod-12.html#mod-12-nlme">nonlinear mixed models (NLME)</a>. R function <code>nlme::nlme()</code> or <code>lme4::nlmer()</code>.</li>
 </ul></li>
 <li>Do your data meet most of the assumptions for linear regression, but with heteroscedasticity (non-constant variance in residuals)? You might consider using generalized least squares (GLS) with a different variance structure. R function <code>nlme::gls()</code>.</li>
 <li>Is there severe <a href="#mod-06-multicol">multicollinearity</a> among your predictor variables? If so, try dropping some of the collinear predictors or try a regularization technique such as ridge or lasso regression. Various R packages.</li>
@@ -728,11 +764,11 @@ div.csl-indent {
 <div class="line-block">1. Outcome binary: 2<br />
 1<span class="math inline">\(&#39;\)</span>. Outcome not binary (&gt;2 options): 3.<br />
 <br />
-  2. Logistic regression works: use <a href="mod-09.html#mod-09-logistic">logistic regression</a>. R function <code>glm()</code>.<br />
-  2<span class="math inline">\(&#39;\)</span>. Logistic regression doesn’t work: use <a href="mod-10.html#mod-10-cart1">classification trees</a>. R function <code>rpart::rpart()</code>.<br />
+  2. Logistic regression works: use <a href="mod-10.html#mod-10-logistic">logistic regression</a>. R function <code>glm()</code>.<br />
+  2<span class="math inline">\(&#39;\)</span>. Logistic regression doesn’t work: use <a href="mod-11.html#mod-11-cart1">classification trees</a>. R function <code>rpart::rpart()</code>.<br />
 <br />
 3. Try multinomial logistic regression. Several R packages, including <code>nnet</code> and <code>mlogit</code>.<br />
-3<span class="math inline">\(&#39;\)</span>. Try <a href="mod-10.html#mod-10-cart1">classification trees</a>. R function <code>rpart::rpart()</code>.</div>
+3<span class="math inline">\(&#39;\)</span>. Try <a href="mod-11.html#mod-11-cart1">classification trees</a>. R function <code>rpart::rpart()</code>.</div>
 </div>
 <div id="conclusions" class="section level2 hasAnchor" number="8.7">
 <h2><span class="header-section-number">8.7</span> Conclusions<a href="mod-08.html#conclusions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
