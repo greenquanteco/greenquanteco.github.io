@@ -332,7 +332,9 @@ comparing-3-or-more-groups
 mod-09-anova
 way-2-way-and-more-ways-anova
 mod-09-kwtest
-polynomial-patterns-in-grouped-data
+ordered-factors-and-polynomial-patterns-in-grouped-data
+ordering-factors
+ordered-factors
 tests-for-patterns-in-continuous-data
 mod-09-correlation
 mod-09-linear-correl

@@ -462,7 +462,7 @@ div.csl-indent {
 <li class="chapter" data-level="9.4.2" data-path="mod-09.html"><a href="mod-09.html#tests-comparing-two-groups"><i class="fa fa-check"></i><b>9.4.2</b> Tests comparing two groups</a></li>
 <li class="chapter" data-level="9.4.3" data-path="mod-09.html"><a href="mod-09.html#aside-whats-with-all-these-t-tests"><i class="fa fa-check"></i><b>9.4.3</b> Aside: what’s with all these <em>t</em>-tests?</a></li>
 <li class="chapter" data-level="9.4.4" data-path="mod-09.html"><a href="mod-09.html#comparing-3-or-more-groups"><i class="fa fa-check"></i><b>9.4.4</b> Comparing 3 or more groups</a></li>
-<li class="chapter" data-level="9.4.5" data-path="mod-09.html"><a href="mod-09.html#polynomial-patterns-in-grouped-data"><i class="fa fa-check"></i><b>9.4.5</b> Polynomial patterns in grouped data</a></li>
+<li class="chapter" data-level="9.4.5" data-path="mod-09.html"><a href="mod-09.html#ordered-factors-and-polynomial-patterns-in-grouped-data"><i class="fa fa-check"></i><b>9.4.5</b> Ordered factors and polynomial patterns in grouped data</a></li>
 </ul></li>
 <li class="chapter" data-level="9.5" data-path="mod-09.html"><a href="mod-09.html#tests-for-patterns-in-continuous-data"><i class="fa fa-check"></i><b>9.5</b> Tests for patterns in continuous data</a>
 <ul>
@@ -1785,11 +1785,11 @@ div.csl-indent {
 <span id="cb398-3"><a href="mod-03.html#cb398-3" tabindex="-1"></a></span>
 <span id="cb398-4"><a href="mod-03.html#cb398-4" tabindex="-1"></a><span class="co"># time with seconds</span></span>
 <span id="cb398-5"><a href="mod-03.html#cb398-5" tabindex="-1"></a><span class="fu">strptime</span>(a, <span class="at">format=</span><span class="st">&quot;%H:%M:%S&quot;</span>)</span>
-<span id="cb398-6"><a href="mod-03.html#cb398-6" tabindex="-1"></a><span class="do">## [1] &quot;2024-08-22 01:15:03 EDT&quot; &quot;2024-08-22 14:28:21 EDT&quot;</span></span>
+<span id="cb398-6"><a href="mod-03.html#cb398-6" tabindex="-1"></a><span class="do">## [1] &quot;2024-08-23 01:15:03 EDT&quot; &quot;2024-08-23 14:28:21 EDT&quot;</span></span>
 <span id="cb398-7"><a href="mod-03.html#cb398-7" tabindex="-1"></a></span>
 <span id="cb398-8"><a href="mod-03.html#cb398-8" tabindex="-1"></a><span class="co"># time with seconds dropped</span></span>
 <span id="cb398-9"><a href="mod-03.html#cb398-9" tabindex="-1"></a><span class="fu">strptime</span>(a, <span class="at">format=</span><span class="st">&quot;%H:%M&quot;</span>)    <span class="co"># seconds dropped</span></span>
-<span id="cb398-10"><a href="mod-03.html#cb398-10" tabindex="-1"></a><span class="do">## [1] &quot;2024-08-22 01:15:00 EDT&quot; &quot;2024-08-22 14:28:00 EDT&quot;</span></span></code></pre></div>
+<span id="cb398-10"><a href="mod-03.html#cb398-10" tabindex="-1"></a><span class="do">## [1] &quot;2024-08-23 01:15:00 EDT&quot; &quot;2024-08-23 14:28:00 EDT&quot;</span></span></code></pre></div>
 <p>Notice that the current date was included in the result of <code>strptime()</code> (at least, the date when I rendered this page with R Markdown).</p>
 <p>Time zones should be specified when working with data that contain dates and times. Remember that R will assume the time is in the current user’s time zone. This almost always means the time zone used by the operating system in which R is running. If you did something silly like record data in one time zone and analyze it in another, you have to be careful. For example, I once ran a field study in Indiana where data were recorded in Eastern time. But, the office where I analyzed the data was in Missouri (Central time). R kept converting the time-stamped data to Central time, which interfered with the analysis until I learned how to work with time zones in R. To make things worse, data were recorded in the summer (Eastern daylight time) but analyzed in both early fall (Central daylight time) and late fall (Central standard time).</p>
 <div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="mod-03.html#cb399-1" tabindex="-1"></a><span class="co"># make some date-times and convert to date-time class</span></span>
@@ -1802,7 +1802,7 @@ div.csl-indent {
 <span id="cb399-8"><a href="mod-03.html#cb399-8" tabindex="-1"></a>a2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;13:21&quot;</span>, <span class="st">&quot;09:15&quot;</span>)</span>
 <span id="cb399-9"><a href="mod-03.html#cb399-9" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">strptime</span>(a2, <span class="st">&quot;%H:%M&quot;</span>)</span>
 <span id="cb399-10"><a href="mod-03.html#cb399-10" tabindex="-1"></a>x2</span>
-<span id="cb399-11"><a href="mod-03.html#cb399-11" tabindex="-1"></a><span class="do">## [1] &quot;2024-08-22 13:21:00 EDT&quot; &quot;2024-08-22 09:15:00 EDT&quot;</span></span></code></pre></div>
+<span id="cb399-11"><a href="mod-03.html#cb399-11" tabindex="-1"></a><span class="do">## [1] &quot;2024-08-23 13:21:00 EDT&quot; &quot;2024-08-23 09:15:00 EDT&quot;</span></span></code></pre></div>
 <p>Time zone names are not always portable across systems. R has a list of built-in time zones that it can handle, and these should work, but be careful and <strong><em>always</em></strong> validate any code that depends on time zones. The list of time zones R can use can be printed to the console with the command <code>OlsonNames()</code>.</p>
 <div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="mod-03.html#cb400-1" tabindex="-1"></a><span class="co"># US Central Daylight Time (5 hours behind UTC)</span></span>
 <span id="cb400-2"><a href="mod-03.html#cb400-2" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;2021-07-23 13:21&quot;</span>, <span class="st">&quot;2021-08-01 09:15&quot;</span>)</span>
@@ -1861,13 +1861,13 @@ div.csl-indent {
 <span id="cb405-12"><a href="mod-03.html#cb405-12" tabindex="-1"></a></span>
 <span id="cb405-13"><a href="mod-03.html#cb405-13" tabindex="-1"></a><span class="do">## calculate time in different units:</span></span>
 <span id="cb405-14"><a href="mod-03.html#cb405-14" tabindex="-1"></a><span class="fu">difftime</span>(y,x, <span class="at">units=</span><span class="st">&quot;days&quot;</span>)</span>
-<span id="cb405-15"><a href="mod-03.html#cb405-15" tabindex="-1"></a><span class="do">## Time difference of 8713.31 days</span></span>
+<span id="cb405-15"><a href="mod-03.html#cb405-15" tabindex="-1"></a><span class="do">## Time difference of 8712.451 days</span></span>
 <span id="cb405-16"><a href="mod-03.html#cb405-16" tabindex="-1"></a><span class="fu">difftime</span>(y,x, <span class="at">units=</span><span class="st">&quot;hours&quot;</span>)</span>
-<span id="cb405-17"><a href="mod-03.html#cb405-17" tabindex="-1"></a><span class="do">## Time difference of 209119.4 hours</span></span>
+<span id="cb405-17"><a href="mod-03.html#cb405-17" tabindex="-1"></a><span class="do">## Time difference of 209098.8 hours</span></span>
 <span id="cb405-18"><a href="mod-03.html#cb405-18" tabindex="-1"></a><span class="fu">difftime</span>(y,x, <span class="at">units=</span><span class="st">&quot;mins&quot;</span>)</span>
-<span id="cb405-19"><a href="mod-03.html#cb405-19" tabindex="-1"></a><span class="do">## Time difference of 12547166 mins</span></span>
+<span id="cb405-19"><a href="mod-03.html#cb405-19" tabindex="-1"></a><span class="do">## Time difference of 12545930 mins</span></span>
 <span id="cb405-20"><a href="mod-03.html#cb405-20" tabindex="-1"></a>y<span class="sc">-</span>x</span>
-<span id="cb405-21"><a href="mod-03.html#cb405-21" tabindex="-1"></a><span class="do">## Time difference of 8713.31 days</span></span></code></pre></div>
+<span id="cb405-21"><a href="mod-03.html#cb405-21" tabindex="-1"></a><span class="do">## Time difference of 8712.451 days</span></span></code></pre></div>
 <p>Another application: what is the time difference between Chicago and Honolulu?</p>
 <div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="mod-03.html#cb406-1" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;2021-07-23 13:21&quot;</span>)</span>
 <span id="cb406-2"><a href="mod-03.html#cb406-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">strptime</span>(a, <span class="st">&quot;%Y-%m-%d %H:%M&quot;</span>, <span class="at">tz=</span><span class="st">&quot;US/Central&quot;</span>)</span>

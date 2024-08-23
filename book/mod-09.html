@@ -462,7 +462,7 @@ div.csl-indent {
 <li class="chapter" data-level="9.4.2" data-path="mod-09.html"><a href="mod-09.html#tests-comparing-two-groups"><i class="fa fa-check"></i><b>9.4.2</b> Tests comparing two groups</a></li>
 <li class="chapter" data-level="9.4.3" data-path="mod-09.html"><a href="mod-09.html#aside-whats-with-all-these-t-tests"><i class="fa fa-check"></i><b>9.4.3</b> Aside: what’s with all these <em>t</em>-tests?</a></li>
 <li class="chapter" data-level="9.4.4" data-path="mod-09.html"><a href="mod-09.html#comparing-3-or-more-groups"><i class="fa fa-check"></i><b>9.4.4</b> Comparing 3 or more groups</a></li>
-<li class="chapter" data-level="9.4.5" data-path="mod-09.html"><a href="mod-09.html#polynomial-patterns-in-grouped-data"><i class="fa fa-check"></i><b>9.4.5</b> Polynomial patterns in grouped data</a></li>
+<li class="chapter" data-level="9.4.5" data-path="mod-09.html"><a href="mod-09.html#ordered-factors-and-polynomial-patterns-in-grouped-data"><i class="fa fa-check"></i><b>9.4.5</b> Ordered factors and polynomial patterns in grouped data</a></li>
 </ul></li>
 <li class="chapter" data-level="9.5" data-path="mod-09.html"><a href="mod-09.html#tests-for-patterns-in-continuous-data"><i class="fa fa-check"></i><b>9.5</b> Tests for patterns in continuous data</a>
 <ul>
@@ -707,11 +707,11 @@ variable and at least 1 predictor variable. Understanding the nature of
 your response variable and predictor variable(s) is key to choosing an
 appropriate analysis.</p>
 <p>Variables can be either <strong>categorical</strong> or <strong>numeric</strong>:</p>
-<table style="width:71%;">
+<table style="width:54%;">
 <colgroup>
-<col width="23%" />
-<col width="23%" />
-<col width="23%" />
+<col width="18%" />
+<col width="18%" />
+<col width="18%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -722,28 +722,40 @@ appropriate analysis.</p>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Categorical</td>
-<td>Defines group
-membership;
-can be coded
-as numbers
-(integers),
+<td>C
+ategorical</td>
+<td>Defines
+group
+m
+embership;
+can be
+coded as
+numbers
+(
+integers),
 dummy
-variables, or
-text</td>
-<td><p>“Control” vs.
-” treated”</p>
-<p>“group 1” vs.
-“group 2”</p>
-<p>“herbivore”
+variables,
+or text</td>
+<td><p>“Control”
+vs. ”
+treated”</p>
+<p>“group 1”
+vs. “group
+2”</p>
+<p>”
+herbivore”
 vs.
-“carnivore”</p></td>
+”
+carnivore”</p></td>
 </tr>
 <tr class="even">
 <td>Numeric</td>
-<td>Numbers (don’t
-overthink it!)</td>
-<td>1, 2, <span class="math inline">\(\pi\)</span>,
+<td>Numbers
+(don’t
+overthink
+it!)</td>
+<td>1, 2,
+<span class="math inline">\(\pi\)</span>,
 3.33, etc.</td>
 </tr>
 </tbody>
@@ -754,48 +766,63 @@ For example, the factor “treatment” might have two levels, “control” and
 “exposed”. Or, the factor “diet” might have 3 levels: “herbivore”,
 “omnivore”, and “carnivore”.</p>
 <p>Numeric variables can be <strong>continuous</strong> or <strong>discrete</strong>:</p>
-<table style="width:67%;">
+<table style="width:50%;">
 <colgroup>
-<col width="22%" />
-<col width="22%" />
-<col width="22%" />
+<col width="16%" />
+<col width="16%" />
+<col width="16%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th>Type</th>
-<th>Definition</th>
+<th>D
+efinition</th>
 <th>Examples</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Continuous</td>
-<td>Can take on
-any real
-value within
-its domain,
-limited only
-by the
-precision of
-measurement</td>
+<td>C
+ontinuous</td>
+<td>Can take
+on any
+real
+value
+within
+its
+domain,
+limited
+only by
+the
+precision
+of m
+e
+asurement</td>
 <td>1.11, 3,
-4.82, <span class="math inline">\(\pi\)</span>,
-9.999, etc.</td>
+4.82,
+<span class="math inline">\(\pi\)</span>,
+9.999,
+etc.</td>
 </tr>
 <tr class="even">
 <td>Discrete</td>
-<td>Can take on
-only integer
-values. Often
-restricted to
-be
-non-negative
-(<span class="math inline">\(\geq0\)</span>) or
-even strictly
+<td>Can take
+on only
+integer
+values.
+Often
+r
+estricted
+to be n o
+n
+-negative
+(<span class="math inline">\(\geq0\)</span>)
+or even
+strictly
 positive
 (&gt;0).</td>
-<td>1, 2, 16, 42,
-etc.</td>
+<td>1, 2, 16,
+42, etc.</td>
 </tr>
 </tbody>
 </table>
@@ -804,166 +831,32 @@ they have a particular domain and set of possible values. Most of these
 should probably not be modeled (i.e., treated as the response variable)
 using the basic statistical methods in this module. We’ll explore models
 in Module 10 for these variables.</p>
-<table style="width:46%;">
-<colgroup>
-<col width="15%" />
-<col width="15%" />
-<col width="15%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Type</th>
-<th>Domain</th>
-<th>How to
-model</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Counts</td>
-<td><h2 id="n-o-n" class="hasAnchor">N o n<a href="mod-09.html#n-o-n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>negative
-integers
-(i.e.,
-0, 1, 2,
-3, etc.)</p></td>
-<td>GLM or
-GLMM</td>
-</tr>
-<tr class="even">
-<td>P r
-o
-portions</td>
-<td>The
-closed
-interval
-[0, 1],
-or
-possibly
-the open
-interval
-(0, 1),
-d
-epending
-on
-context.</td>
-<td>GLM or
-GLMM;
-maybe $
-i^{2}$
-test or
-other
-test for
-i n d
-e
-pendence</td>
-</tr>
-<tr class="odd">
-<td>M e a s
-u
-rements,
-mass,
-volume,
-etc.</td>
-<td>Positive
-real
-numbers.
-These
-values
-cannot
-be n e g
-a t i v
-e
-…think
-about
-why.</td>
-<td><h2 id="l-o-g" class="hasAnchor">L o g<a href="mod-09.html#l-o-g" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>t
-ransform
-before
-a
-nalysis,
-or use
-GLM/GLMM
-with log
-link
-f
-unction.</p></td>
-</tr>
-<tr class="even">
-<td>Censored
-or
-t
-runcated
-data</td>
-<td>Have a w
-e l
-l
--defined
-lower or
-upper
-limit,
-usually
-related
-to
-limits
-of
-d
-etection
-or q u a
-n t
-i
-fication</td>
-<td>Special
-methods
-(e.g.,
-Tobit
-models)
-beyond
-the
-scope of
-this
-course.</td>
-</tr>
-<tr class="odd">
-<td>Binomial
-or m u
-l
-tinomial
-outcomes</td>
-<td>Outcome
-is one
-of a set
-of
-possible
-outcomes
-(e.g., 0
-or 1; a,
-b, or c;
-etc.).
-Although
-coded as
-a
-number,
-these
-cannot
-be
-treated
-as
-numbers.</td>
-<td>GLM or
-GLMM;
-CART;
-other
-methods
-beyond
-the
-scope of
-this
-course.</td>
-</tr>
-</tbody>
-</table>
+<p><strong>Type of data:</strong> counts</p>
+<p><strong>Domain:</strong></p>
+<p><strong>How to model:</strong></p>
+<p><strong>Type of data:</strong> counts</p>
+<p><strong>Domain:</strong> non-negative integers</p>
+<p><strong>How to model:</strong> GLM or GLMM</p>
+<p><strong>Type of data:</strong> proportions</p>
+<p><strong>Domain:</strong> The closed interval [0,1], or possibly the open interval (0,
+1) depending on the context.</p>
+<p><strong>How to model:</strong> GLM or GLMM; maybe a <span class="math inline">\(\chi^2\)</span> tests or other test for
+independence.</p>
+<p><strong>Type of data:</strong> measurements (mass, length, volume, etc.)</p>
+<p><strong>Domain:</strong> Positive real numbers. These values cannot be negative!</p>
+<p><strong>How to model:</strong> Log-transform before analysis, or use GLM(M) with a
+log link function.</p>
+<p><strong>Type of data:</strong> Censored or truncated data.</p>
+<p><strong>Domain:</strong> Usually real numbers with a well-defined upper or lower
+limit, usually related to limits of detection or measurement.</p>
+<p><strong>How to model:</strong> Special methods such as tobit models (beyond the scope
+of this course…for now).</p>
+<p><strong>Type of data:</strong> Binomial or multinomial outcomes.</p>
+<p><strong>Domain:</strong> Outcome is one of a set of possibel outcomes (e.g., 0 or 1;
+a, b, or c, etc.). Although usually coded as numbers, these cannot be
+treated as numbers.</p>
+<p><strong>How to model:</strong> GLM or GLMM; CART, maybe other methods outside the
+scope of this course.</p>
 </div>
 <div id="mod-09-frequentist" class="section level2 hasAnchor" number="9.2">
 <h2><span class="header-section-number">9.2</span> Frequentist statistics<a href="mod-09.html#mod-09-frequentist" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -1253,25 +1146,25 @@ statistics</strong>, and why simple calculations from data are referred to as
 <thead>
 <tr class="header">
 <th>Parameter</th>
-<th>Sample</th>
-<th>Population</th>
+<th align="center">Sample</th>
+<th align="center">Population</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>Mean</td>
-<td><span class="math inline">\(\bar{x}\)</span></td>
-<td><span class="math inline">\(\mu\)</span></td>
+<td align="center"><span class="math inline">\(\bar{x}\)</span></td>
+<td align="center"><span class="math inline">\(\mu\)</span></td>
 </tr>
 <tr class="even">
 <td>Variance</td>
-<td><span class="math inline">\(s^{2}\)</span></td>
-<td><span class="math inline">\(\sigma^{2}\)</span></td>
+<td align="center"><span class="math inline">\(s^{2}\)</span></td>
+<td align="center"><span class="math inline">\(\sigma^{2}\)</span></td>
 </tr>
 <tr class="odd">
 <td>Standard deviation</td>
-<td><span class="math inline">\(s\)</span></td>
-<td><span class="math inline">\(\sigma\)</span></td>
+<td align="center"><span class="math inline">\(s\)</span></td>
+<td align="center"><span class="math inline">\(\sigma\)</span></td>
 </tr>
 </tbody>
 </table>
@@ -1285,112 +1178,12 @@ sense.</p>
 underlying population mean (<span class="math inline">\(\mu\)</span>) of a set of values is not equal to
 some value of interest…either at most some value, or at least some
 value.</p>
-<table style="width:33%;">
-<colgroup>
-<col width="11%" />
-<col width="11%" />
-<col width="11%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td>Q u e
-s
-tion:</td>
-<td>Is
-the
-mean
-value
-less
-than
-some
-value
-$
-$?</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Null
-hy p
-o t
-h
-esis:</td>
-<td>True
-mean
-is $
-e
-q
-$
-or
-true
-mean
-is $
-e
-q
-$</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Al t
-e r
-n
-ative
-hy p
-o t
-h
-esis:</td>
-<td>True
-mean
-is
-$
-&gt;$
-or
-true
-mean
-is
-$
-&lt;$</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>E
-x
-ample
-use
-case:</td>
-<td>Fred
-needs
-to
-check
-w
-h
-ether
-the
-|
-mean
-m e a
-s u
-r
-ement
-error
-a
-cross
-|
-his
-12 t
-e c h
-n
-i
-cians
-is
-less
-than
-0.5
-mm.
-|</td>
-<td></td>
-</tr>
-</tbody>
-</table>
+<p><strong>Question:</strong> Is the mean value less than OR greater than some value
+<span class="math inline">\(x\)</span>?</p>
+<p><strong>Null hypothesis:</strong> True mean is <span class="math inline">\(=x\)</span>.</p>
+<p><strong>Alternative hypothesis:</strong> True mean is <span class="math inline">\(&lt;x\)</span> or true mean is <span class="math inline">\(&gt;x\)</span>.</p>
+<p><strong>Example use case:</strong>Fred needs to check whether the mean measurement
+error across his 12 technicians is less than 0.5 mm.</p>
 <p>Here is an example where we simulate some data in R and run a one-tailed
 one-sample <em>t</em>-test.</p>
 <div class="sourceCode" id="cb889"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb889-1"><a href="mod-09.html#cb889-1" tabindex="-1"></a><span class="co"># simulate some values with nominal mean 5 and sd 3</span></span>
@@ -1449,56 +1242,13 @@ about <span class="math inline">\(5.4\pm2.9\)</span> (verify with <code>mean(a);
 <p>In a two-tailed test, we are interested in whether the underlying
 population mean of a set of values is <strong>equal</strong> to some value of
 interest.</p>
-<table style="width:39%;">
-<colgroup>
-<col width="19%" />
-<col width="19%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td>Question:</td>
-<td>Is the
-underlying
-true mean
-equal to,
-or
-different
-from, some
-value
-<span class="math inline">\(\mu\)</span>?</td>
-</tr>
-<tr class="even">
-<td>Null
-hypothesis:</td>
-<td>True mean =
-<span class="math inline">\(\mu\)</span></td>
-</tr>
-<tr class="odd">
-<td>Alternative
-hypothesis:</td>
-<td>True mean
-<span class="math inline">\(\neq\mu\)</span></td>
-</tr>
-<tr class="even">
-<td>Example use
-case</td>
-<td>Wilma needs
-to test
-whether the
-mean pH of
-her
-prepared
-stock
-solution is
-equal to,
-or
-different
-from, the
-target pH
-of 7.7.</td>
-</tr>
-</tbody>
-</table>
+<p><strong>Question:</strong> Is the underlying true mean equal to, or different from,
+some value <span class="math inline">\(\mu\)</span>?</p>
+<p><strong>Null hypothesis:</strong> True mean <span class="math inline">\(=\mu\)</span>.</p>
+<p><strong>Alternative hypothesis:</strong> True mean <span class="math inline">\(\neq\mu\)</span></p>
+<p><strong>Example use case:</strong> Wilma needs to test whether the mean pH of her
+prepared stock solution is equal to, or different from, the target pH of
+7.7.</p>
 <p>Here is an example where we simulate some data and conduct a one-sample,
 two-tailed <em>t</em>-test.</p>
 <div class="sourceCode" id="cb895"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb895-1"><a href="mod-09.html#cb895-1" tabindex="-1"></a><span class="co"># simulate data</span></span>
@@ -1559,68 +1309,14 @@ modern software uses a modified version called the <strong>Welch <em>t</em>-test
 (or sometimes the “<strong>Welch-Satterthwaite <em>t</em>-test</strong>”, but this is not
 quite correct). The newer version is better at accounting for
 non-normality and unequal variances.</p>
-<table style="width:42%;">
-<colgroup>
-<col width="20%" />
-<col width="20%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td>Question</td>
-<td>Do two
-groups have
-the same
-underlying
-population
-mean?</td>
-</tr>
-<tr class="even">
-<td>Null h
-ypothesis:</td>
-<td>The true
-difference
-in means =
-0.</td>
-</tr>
-<tr class="odd">
-<td>A lternative
-h ypothesis:</td>
-<td>The true
-difference
-in means
-<span class="math inline">\(\neq0\)</span>.</td>
-</tr>
-<tr class="even">
-<td>As
-sumptions:</td>
-<td>Same as for
-all linear
-models.</td>
-</tr>
-<tr class="odd">
-<td>Example use
-case:</td>
-<td>Barney needs
-to test
-whether
-tomato
-plants
-treated with
-a new
-pesticide
-have a
-different
-yield (g
-tomato /
-plant) than
-plants in
-the
-untreated
-control
-group.</td>
-</tr>
-</tbody>
-</table>
+<p><strong>Question:</strong> Do two groups have the same underlying population mean?</p>
+<p><strong>Null hypothesis:</strong> The true difference in means = 0. I.e.,
+<span class="math inline">\(\mu_1=\mu_2\)</span>.</p>
+<p><strong>Alternative hypothesis:</strong> True difference in means is <span class="math inline">\(\neq0\)</span>. I.e.,
+<span class="math inline">\(\mu_1\neq\mu_2\)</span>.</p>
+<p><strong>Example use case:</strong> Barney needs to test whether tomato plants treated
+with a new pesticide have a different yield (g tomato / plant) than
+plants in the untreated control group.</p>
 <p>Below is an example where we simulate some data and run a two-sample,
 two-tailed test to compare the means of two groups.</p>
 <div class="sourceCode" id="cb899"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb899-1"><a href="mod-09.html#cb899-1" tabindex="-1"></a><span class="co"># simulate data</span></span>
@@ -1659,41 +1355,15 @@ means an additive model; while <code>a * b</code> specifies an interaction. For 
 <em>t</em>-test, there can be only 1 predictor. If you want to test &gt;1
 predictor at a time, you need to use ANOVA instead.</p>
 <p>Here are some common formula examples:</p>
-<table style="width:62%;">
-<colgroup>
-<col width="23%" />
-<col width="38%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Formula</th>
-<th>Meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>y ~ x</code></td>
-<td><code>y</code> is a function of <code>x</code></td>
-</tr>
-<tr class="even">
-<td><code>y ~ x1 + x2</code></td>
-<td><code>y</code> is a function of both
-<code>x1</code> and <code>x2</code>, and the
-effects of <code>x1</code> and <code>x2</code>
-are independent of each
-other.</td>
-</tr>
-<tr class="odd">
-<td><code>y ~ x1 * x2</code></td>
-<td><code>y</code> is a function of both
-<code>x1</code> and <code>x2</code>, and the
-effects of <code>x1</code> and <code>x2</code>
-are not independent of
-each other (i.e., <code>x1</code>
-and <code>x2</code> “interact”)</td>
-</tr>
-</tbody>
-</table>
+<p><strong>Formula:</strong> <code>y ~ x</code></p>
+<p><strong>Meaning:</strong> <code>y</code> is a function of <code>x</code>.</p>
+<p><strong>Formula:</strong> <code>y ~ x1 + x2</code></p>
+<p><strong>Meaning:</strong> <code>y</code> is a function of <code>x1</code> and <code>x2</code>, and the effects of <code>x1</code>
+and <code>x2</code> are orthogonal (i.e., independent of each other).</p>
+<p><strong>Formula:</strong> <code>y ~ x1 * x2</code></p>
+<p><strong>Meaning:</strong> <code>y</code> is a function of <code>x1</code> and <code>x2</code>, and the effects of <code>x1</code>
+and <code>x2</code> <strong>interact</strong>. This means that one variable alters the effect of
+another variable.</p>
 <p>The formula interface is used in several contexts in R, including
 plotting, modeling, and aggregating.</p>
 <div class="sourceCode" id="cb901"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb901-1"><a href="mod-09.html#cb901-1" tabindex="-1"></a><span class="co"># pull some data from example dataset iris</span></span>
@@ -1719,6 +1389,15 @@ statistically significant difference between the mean petal length of
 </div>
 <div id="mod-09-2samp-1tail" class="section level4 hasAnchor" number="9.4.2.2">
 <h4><span class="header-section-number">9.4.2.2</span> 2-sample, 1-tailed <em>t</em>-test<a href="mod-09.html#mod-09-2samp-1tail" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Question:</strong> Is the true difference in means between 2 groups greater
+than, or less than, some target value <span class="math inline">\(\mu\)</span>?</p>
+<p><strong>Null hypothesis:</strong> The true difference in means between 2 groups is
+<span class="math inline">\(\mu\)</span>. I.e., <span class="math inline">\(\mu_1-\mu_2=\mu\)</span>.</p>
+<p><strong>Alternative hypothesis:</strong> The true difference in means between 2
+groups is either greater than <span class="math inline">\(&gt;\mu\)</span> or <span class="math inline">\(&lt;\mu\)</span>. I.e., either
+<span class="math inline">\(\mu_1-\mu_2&gt;\mu\)</span> or <span class="math inline">\(\mu_1-\mu_2&lt;\mu\)</span>.</p>
+<p><strong>Example use case:</strong> Betty needs to compare two stock solutions and
+check that their pH differs by no more than 0.2.</p>
 <p>The 2-sample, 1-tailed <em>t</em>-test that can be used in several ways:</p>
 <ol style="list-style-type: decimal">
 <li>Test whether the mean in one group is greater or less than the mean
@@ -1814,46 +1493,13 @@ hypothesis being that the difference is “greater” than your benchmark.</p>
 </div>
 <div id="mod-09-paired-ttest" class="section level4 hasAnchor" number="9.4.2.3">
 <h4><span class="header-section-number">9.4.2.3</span> Paired <em>t</em>-test<a href="mod-09.html#mod-09-paired-ttest" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<table style="width:57%;">
-<colgroup>
-<col width="23%" />
-<col width="33%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td>Question:</td>
-<td>Is the mean of the
-differences of paired
-observations = 0, or
-different from 0?</td>
-</tr>
-<tr class="even">
-<td>Null
-hypothesis:</td>
-<td>Mean of pairwise
-differences = 0.</td>
-</tr>
-<tr class="odd">
-<td>Alternative
-hypothesis:</td>
-<td>Mean of pairwise
-differences <span class="math inline">\(\neq0\)</span>.</td>
-</tr>
-<tr class="even">
-<td>Example use
-case:</td>
-<td>Betty needs to test
-for a mean change in
-the body mass of
-individual mice
-before and after a
-feeding trial. Each
-mouse is weighed both
-before and after the
-trial.</td>
-</tr>
-</tbody>
-</table>
+<p><strong>Question:</strong> Is the mean of the differences of paired observations = 0,
+or different from 0?</p>
+<p><strong>Null hypothesis:</strong> Mean of pairwise differences = 0.</p>
+<p><strong>Alternative hypothesis:</strong> Mean of pairwise differences <span class="math inline">\(\neq0\)</span>.</p>
+<p><strong>Example use case:</strong> Pebbles needs to test for a mean change in the
+body mass of individual mice before and after a feeding trial. Each
+mouse is weighed both before and after the trial.</p>
 <p>Many biological experiments involved <strong>paired samples</strong>, where a single
 unit or entity was measured twice. For example, a single mouse might be
 weighed before and after a feeding trial. In a <strong>paired <em>t</em>-test</strong>, we
@@ -1862,35 +1508,9 @@ different than the test for differences in means evaluated in a
 two-sample test. Consequently, a paired <em>t</em>-test is tantamount to a
 one-sample test on the pairwise differences. Compare the null hypotheses
 tested by the two-sample <em>t</em>-test and paired <em>t</em>-test below:</p>
-<table style="width:68%;">
-<colgroup>
-<col width="40%" />
-<col width="27%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Two-sample <em>t</em>-test</th>
-<th>Paired <em>t</em>-test</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>$ $<br />
-fr ac{<br />
-s u m<br />
-*
-{
-i=1}^{n_1}x*{1,i}}{n_1}=
-ac {u m<br />
-* { i =
-1
-}^{n_2}x*{2,i}}{n_2}$$</td>
-<td>$
-$
-=0$$</td>
-</tr>
-</tbody>
-</table>
+<p><strong>Two-sample <em>t</em>-test:</strong>
+<span class="math inline">\(\frac{\sum_{i=1}^{n_1}x_{1,i}}{n_1}=\frac{\sum_{i=1}^{n_2}x_{2,i}}{n_2}\)</span></p>
+<p><strong>Paired <em>t</em>-test:</strong> <span class="math inline">\(\frac{\sum_{i=1}^{n}{x_{1,i}-x_{2,i}}}{n}=0\)</span></p>
 <p>Let’s simulate some data, conduct a paired <em>t</em>-test, and convince
 ourselves that the paired <em>t</em>-test is equivalent to a one-sample test on
 pairwise differences.</p>
@@ -1976,79 +1596,17 @@ means is at most 0.5 in either direction.</p>
 </div>
 <div id="mod-09-wilcoxon" class="section level4 hasAnchor" number="9.4.2.5">
 <h4><span class="header-section-number">9.4.2.5</span> Wilcoxon rank sum test (aka: Mann-Whitney <em>U</em> test)<a href="mod-09.html#mod-09-wilcoxon" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<table style="width:42%;">
-<colgroup>
-<col width="20%" />
-<col width="20%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td>Question:</td>
-<td>Are values
-in one group
-consistently
-greater than
-or less than
-those in
-another
-group? OR:
-Is the
-median rank
-in one group
-different
-from that in
-another
-group?</td>
-</tr>
-<tr class="even">
-<td>Null
-hypothesis:</td>
-<td>For randomly
-selected
-values X and
-Y from two
-groups,
-p(X&gt;Y) =
-p(Y&gt;X).</td>
-</tr>
-<tr class="odd">
-<td>Alternative
-hypothesis:</td>
-<td>For randomly
-selected
-values X and
-Y from two
-groups,
-p(X&gt;Y)
-<span class="math inline">\(\neq\)</span>
-p(Y&gt;X).</td>
-</tr>
-<tr class="even">
-<td>Example use
-case:</td>
-<td>Homer is
-interested
-in whether
-plots where
-invasive
-plants have
-been removed
-have more
-squirrels
-than plots
-where
-invasive
-plants are
-not removed,
-but does not
-want to
-model the
-actual
-number of
-squirrels.</td>
-</tr>
-</tbody>
-</table>
+<p><strong>Question:</strong> Are values in one group consistently greater than or less
+than those in another group? OR: Is the median rank in one group
+different from that in another group?</p>
+<p><strong>Null hypothesis:</strong> For randomly selected values <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> from two
+groups, <span class="math inline">\(p\left(x&gt;y\right)=p\left(y&gt;x\right)\)</span>.</p>
+<p><strong>Alternative hypothesis:</strong> For randomly selected values X and Y from
+two groups, <span class="math inline">\(p\left(x&gt;y\right)\neq p\left(y&gt;x\right)\)</span>.</p>
+<p><strong>Example use case:</strong> Homer is interested in whether plots where
+invasive plants have been removed have more squirrels than plots where
+invasive plants are not removed, but does not want to model the actual
+number of squirrels.</p>
 <p>The <strong>Mann-Whitney <em>U</em> test</strong>, also known as the <strong>Wilcoxon test</strong>, is a
 nonparametric alternative to the two-sample <em>t</em>-test. <strong>Nonparametric</strong>
 means that the test does not make restrictive assumptions about the
@@ -2121,10 +1679,10 @@ development in modern statistics. This is because its test statistic,
 interest–a difference between a group mean, and either another group
 mean and a target value–and scales it by sample size and uncertainty.
 Thus, there is a <em>t</em>-test for many situations. A summary is below:</p>
-<table style="width:62%;">
+<table style="width:57%;">
 <colgroup>
 <col width="23%" />
-<col width="38%" />
+<col width="33%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -2137,11 +1695,13 @@ Thus, there is a <em>t</em>-test for many situations. A summary is below:</p>
 <td>One-sample
 <em>t</em>-test,
 one-tailed</td>
-<td>Tests whether population
-mean of a single set of
-values is less than, or
-greater than, a specified
-values <span class="math inline">\(\mu_{0}\)</span>. Only
+<td>Tests whether
+population mean of a
+single set of values
+is less than, or
+greater than, a
+specified values
+<span class="math inline">\(\mu_{0}\)</span>. Only
 appropriate when
 differences in one
 direction only are of
@@ -2151,21 +1711,25 @@ interest.</td>
 <td>One-sample
 <em>t</em>-test,
 two-tailed</td>
-<td>Tests whether population
-mean is equal to some
-specified value <span class="math inline">\(\mu_{0}\)</span>
-(null hypothesis) or not
-(alternative hypothesis).</td>
+<td>Tests whether
+population mean is
+equal to some
+specified value
+<span class="math inline">\(\mu_{0}\)</span> (null
+hypothesis) or not
+(alternative
+hypothesis).</td>
 </tr>
 <tr class="odd">
 <td>Two-sample
 <em>t</em>-test,
 one-tailed</td>
-<td>Tests whether population
-mean of a one group
-(<span class="math inline">\(\mu_{1}\)</span>) is less than,
-or greater than, the mean
-of another group
+<td>Tests whether
+population mean of a
+one group (<span class="math inline">\(\mu_{1}\)</span>)
+is less than, or
+greater than, the
+mean of another group
 (<span class="math inline">\(\mu_{2}\)</span>). Only
 appropriate when
 differences in one
@@ -2176,32 +1740,37 @@ interest.</td>
 <td>Two-sample
 <em>t</em>-test,
 two-tailed</td>
-<td>Tests whether the means
-in two groups (<span class="math inline">\(\mu_{1}\)</span>
-and <span class="math inline">\(\mu_{2}\)</span>) are equal.
-Can also be thought of
-testing whether
-difference in means is
-equal to 0. Both equal
-variance (original) and
+<td>Tests whether the
+means in two groups
+(<span class="math inline">\(\mu_{1}\)</span> and
+<span class="math inline">\(\mu_{2}\)</span>) are equal.
+Can also be thought
+of testing whether
+difference in means
+is equal to 0. Both
+equal variance
+(original) and
 unequal variance
 (Welch-Satterthwaite)
-versions exist…biologists
-should use the unequal
-variance version. This is
-what R does by default.</td>
+versions
+exist…biologists
+should use the
+unequal variance
+version. This is what
+R does by default.</td>
 </tr>
 <tr class="odd">
 <td>Paired
 <em>t</em>-test,
 one-tailed</td>
-<td>Tests whether the mean of
-differences between
-paired samples is less
-than, or greater than,
-some specified mean
-difference <span class="math inline">\(D_{0}\)</span>. Only
-appropriate when
+<td>Tests whether the
+mean of differences
+between paired
+samples is less than,
+or greater than, some
+specified mean
+difference <span class="math inline">\(D_{0}\)</span>.
+Only appropriate when
 differences in one
 direction only are of
 interest.</td>
@@ -2210,10 +1779,11 @@ interest.</td>
 <td>Paired
 <em>t</em>-test,
 one-tailed</td>
-<td>Tests whether the mean of
-differences between
-paired samples is equal
-to 0.</td>
+<td>Tests whether the
+mean of differences
+between paired
+samples is equal to
+0.</td>
 </tr>
 </tbody>
 </table>
@@ -2226,10 +1796,10 @@ observations compared to each other).</p>
 two-tailed test, or two-sided test, an extreme test statistic could fall
 in either the right or the left tail of the distribution. The figure
 below shows the range of <em>t</em> values which would be declared significant
-for each kind of test.</p>
-<pre><code>## [1] -2.228139  2.228139</code></pre>
+for each kind of test. Notice that for a one-tailed test, the
+significance region extends closer to the center, because its area must
+be equal to the same <span class="math inline">\(\alpha\)</span> as a two-tailed test.</p>
 <p><img src="applied_biol_data_analysis_20220816_files/figure-html/unnamed-chunk-537-1.png" width="768" style="display: block; margin: auto;" /></p>
-<p>In a</p>
 <p>The <em>t</em>-test is usually one of the first methods taught because its use
 cases are simple, and its test statistic is pretty easy to understand.
 Consider the original <em>t</em> statistic introduced to the English statistics
@@ -2269,44 +1839,13 @@ heteroscedastic data.</p>
 <h3><span class="header-section-number">9.4.4</span> Comparing 3 or more groups<a href="mod-09.html#comparing-3-or-more-groups" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="mod-09-anova" class="section level4 hasAnchor" number="9.4.4.1">
 <h4><span class="header-section-number">9.4.4.1</span> Analysis of variance (ANOVA)<a href="mod-09.html#mod-09-anova" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<table style="width:57%;">
-<colgroup>
-<col width="23%" />
-<col width="33%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td>Question:</td>
-<td>Do the means differ
-between groups (with
-number of groups
-<span class="math inline">\(\geq2\)</span>).</td>
-</tr>
-<tr class="even">
-<td>Null
-hypothesis:</td>
-<td>All group means are
-equal.</td>
-</tr>
-<tr class="odd">
-<td>Alternative
-hypothesis:</td>
-<td>At least one group
-mean is different
-from the others.</td>
-</tr>
-<tr class="even">
-<td>Example use
-case:</td>
-<td>Marge needs to test
-whether cucumber mass
-is greater in plants
-grown in potting mix,
-sandy soil, or clayey
-soil.</td>
-</tr>
-</tbody>
-</table>
+<p><strong>Question:</strong> Do the means differ between groups (with number of groups
+<span class="math inline">\(\geq2\)</span>.</p>
+<p><strong>Null hypothesis:</strong> All group means are equal.</p>
+<p><strong>Alternative hypothesis:</strong> At least one group mean is different from
+the others.</p>
+<p><strong>Example use case:</strong> Marge needs to test whether cucumber mass is
+greater in plants grown in potting mix, sandy soil, or clayey soil.</p>
 <p><strong>Analysis of variance (ANOVA)</strong> is a special case of the linear model.
 When people say “ANOVA” they usually mean the specific linear model that
 compares the means of 3 or more groups. In this way it can be thought of
@@ -2354,12 +1893,12 @@ which assesses whether <u><strong><em>any</em></strong></u> of the group means d
 from each other. Then, a <strong>post-hoc test</strong> is performed to check
 <u><strong><em>which</em></strong></u> groups differ from each other. The code below
 illustrates this process in R using the built-in <code>iris</code> dataset.</p>
-<div class="sourceCode" id="cb928"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb928-1"><a href="mod-09.html#cb928-1" tabindex="-1"></a><span class="co"># fit the linear model, which is what</span></span>
-<span id="cb928-2"><a href="mod-09.html#cb928-2" tabindex="-1"></a><span class="co"># ANOVA really is.</span></span>
-<span id="cb928-3"><a href="mod-09.html#cb928-3" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Petal.Length<span class="sc">~</span>Species, <span class="at">data=</span>iris)</span>
-<span id="cb928-4"><a href="mod-09.html#cb928-4" tabindex="-1"></a></span>
-<span id="cb928-5"><a href="mod-09.html#cb928-5" tabindex="-1"></a><span class="co"># omnibus test:</span></span>
-<span id="cb928-6"><a href="mod-09.html#cb928-6" tabindex="-1"></a><span class="fu">anova</span>(mod1)</span></code></pre></div>
+<div class="sourceCode" id="cb927"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb927-1"><a href="mod-09.html#cb927-1" tabindex="-1"></a><span class="co"># fit the linear model, which is what</span></span>
+<span id="cb927-2"><a href="mod-09.html#cb927-2" tabindex="-1"></a><span class="co"># ANOVA really is.</span></span>
+<span id="cb927-3"><a href="mod-09.html#cb927-3" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Petal.Length<span class="sc">~</span>Species, <span class="at">data=</span>iris)</span>
+<span id="cb927-4"><a href="mod-09.html#cb927-4" tabindex="-1"></a></span>
+<span id="cb927-5"><a href="mod-09.html#cb927-5" tabindex="-1"></a><span class="co"># omnibus test:</span></span>
+<span id="cb927-6"><a href="mod-09.html#cb927-6" tabindex="-1"></a><span class="fu">anova</span>(mod1)</span></code></pre></div>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: Petal.Length
@@ -2384,7 +1923,7 @@ the means of at least one pair of species differ. To find out which pair
 or pairs, we need to use a post-hoc test. My favorite is the Tukey’s
 honest significant difference (HSD) test because it automatically
 adjusts for multiple comparisons.</p>
-<div class="sourceCode" id="cb930"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb930-1"><a href="mod-09.html#cb930-1" tabindex="-1"></a><span class="fu">TukeyHSD</span>(<span class="fu">aov</span>(mod1))</span></code></pre></div>
+<div class="sourceCode" id="cb929"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb929-1"><a href="mod-09.html#cb929-1" tabindex="-1"></a><span class="fu">TukeyHSD</span>(<span class="fu">aov</span>(mod1))</span></code></pre></div>
 <pre><code>##   Tukey multiple comparisons of means
 ##     95% family-wise confidence level
 ## 
@@ -2424,16 +1963,16 @@ sometimes interpreted. For example, you can code a 2-way interaction
 3-way and above interactions can be very difficult to interpret.</p>
 <p>The example above (crossref) showed a 1-way ANOVA. Let’s add another
 factor to <code>iris</code> and try a 2-way ANOVA.</p>
-<div class="sourceCode" id="cb932"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb932-1"><a href="mod-09.html#cb932-1" tabindex="-1"></a><span class="co"># spare copy of data frame</span></span>
-<span id="cb932-2"><a href="mod-09.html#cb932-2" tabindex="-1"></a>dx <span class="ot">&lt;-</span> iris</span>
-<span id="cb932-3"><a href="mod-09.html#cb932-3" tabindex="-1"></a></span>
-<span id="cb932-4"><a href="mod-09.html#cb932-4" tabindex="-1"></a><span class="co"># add color variable with no effect</span></span>
-<span id="cb932-5"><a href="mod-09.html#cb932-5" tabindex="-1"></a><span class="co"># repeats purple white purple white...for entire data frame</span></span>
-<span id="cb932-6"><a href="mod-09.html#cb932-6" tabindex="-1"></a>dx<span class="sc">$</span>Color <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;purple&quot;</span>, <span class="st">&quot;white&quot;</span>)</span>
-<span id="cb932-7"><a href="mod-09.html#cb932-7" tabindex="-1"></a></span>
-<span id="cb932-8"><a href="mod-09.html#cb932-8" tabindex="-1"></a><span class="co"># 2-way ANOVA for effects of Species and Color</span></span>
-<span id="cb932-9"><a href="mod-09.html#cb932-9" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Petal.Length<span class="sc">~</span>Species<span class="sc">+</span>Color, <span class="at">data=</span>dx)</span>
-<span id="cb932-10"><a href="mod-09.html#cb932-10" tabindex="-1"></a><span class="fu">anova</span>(mod2)</span></code></pre></div>
+<div class="sourceCode" id="cb931"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb931-1"><a href="mod-09.html#cb931-1" tabindex="-1"></a><span class="co"># spare copy of data frame</span></span>
+<span id="cb931-2"><a href="mod-09.html#cb931-2" tabindex="-1"></a>dx <span class="ot">&lt;-</span> iris</span>
+<span id="cb931-3"><a href="mod-09.html#cb931-3" tabindex="-1"></a></span>
+<span id="cb931-4"><a href="mod-09.html#cb931-4" tabindex="-1"></a><span class="co"># add color variable with no effect</span></span>
+<span id="cb931-5"><a href="mod-09.html#cb931-5" tabindex="-1"></a><span class="co"># repeats purple white purple white...for entire data frame</span></span>
+<span id="cb931-6"><a href="mod-09.html#cb931-6" tabindex="-1"></a>dx<span class="sc">$</span>Color <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;purple&quot;</span>, <span class="st">&quot;white&quot;</span>)</span>
+<span id="cb931-7"><a href="mod-09.html#cb931-7" tabindex="-1"></a></span>
+<span id="cb931-8"><a href="mod-09.html#cb931-8" tabindex="-1"></a><span class="co"># 2-way ANOVA for effects of Species and Color</span></span>
+<span id="cb931-9"><a href="mod-09.html#cb931-9" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Petal.Length<span class="sc">~</span>Species<span class="sc">+</span>Color, <span class="at">data=</span>dx)</span>
+<span id="cb931-10"><a href="mod-09.html#cb931-10" tabindex="-1"></a><span class="fu">anova</span>(mod2)</span></code></pre></div>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: Petal.Length
@@ -2447,40 +1986,40 @@ factor to <code>iris</code> and try a 2-way ANOVA.</p>
 length. It is often worth checking for an interaction, whether you
 suspect one from a biological perspective or not. The quickest way is
 with an <strong>interaction plot</strong>.</p>
-<div class="sourceCode" id="cb934"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb934-1"><a href="mod-09.html#cb934-1" tabindex="-1"></a><span class="fu">interaction.plot</span>(dx<span class="sc">$</span>Color, dx<span class="sc">$</span>Species, dx<span class="sc">$</span>Petal.Length)</span></code></pre></div>
+<div class="sourceCode" id="cb933"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb933-1"><a href="mod-09.html#cb933-1" tabindex="-1"></a><span class="fu">interaction.plot</span>(dx<span class="sc">$</span>Color, dx<span class="sc">$</span>Species, dx<span class="sc">$</span>Petal.Length)</span></code></pre></div>
 <p><img src="applied_biol_data_analysis_20220816_files/figure-html/unnamed-chunk-541-1.png" width="672" /></p>
 <p>Because the lines are essentially parallel, this plot shows no evidence
 of interaction between color and species.</p>
 <p>Let’s add another factor to dx, which does interact with species.</p>
-<div class="sourceCode" id="cb935"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb935-1"><a href="mod-09.html#cb935-1" tabindex="-1"></a><span class="co"># order by petal length within species</span></span>
-<span id="cb935-2"><a href="mod-09.html#cb935-2" tabindex="-1"></a>dx <span class="ot">&lt;-</span> dx[<span class="fu">order</span>(dx<span class="sc">$</span>Species, dx<span class="sc">$</span>Petal.Length),]</span>
-<span id="cb935-3"><a href="mod-09.html#cb935-3" tabindex="-1"></a>dx<span class="sc">$</span>rank.wi.spp <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">50</span></span>
-<span id="cb935-4"><a href="mod-09.html#cb935-4" tabindex="-1"></a></span>
-<span id="cb935-5"><a href="mod-09.html#cb935-5" tabindex="-1"></a><span class="co"># for each species, make 25 smallest petalled plants</span></span>
-<span id="cb935-6"><a href="mod-09.html#cb935-6" tabindex="-1"></a><span class="co"># in no fertilizer group, and 25 largest plants in </span></span>
-<span id="cb935-7"><a href="mod-09.html#cb935-7" tabindex="-1"></a><span class="co"># fertilized group</span></span>
-<span id="cb935-8"><a href="mod-09.html#cb935-8" tabindex="-1"></a>dx<span class="sc">$</span>Fertilizer <span class="ot">&lt;-</span> <span class="st">&quot;no&quot;</span></span>
-<span id="cb935-9"><a href="mod-09.html#cb935-9" tabindex="-1"></a>dx<span class="sc">$</span>Fertilizer[<span class="fu">which</span>(dx<span class="sc">$</span>rank.wi.spp <span class="sc">&gt;=</span><span class="dv">26</span>)] <span class="ot">&lt;-</span> <span class="st">&quot;yes&quot;</span></span>
-<span id="cb935-10"><a href="mod-09.html#cb935-10" tabindex="-1"></a></span>
-<span id="cb935-11"><a href="mod-09.html#cb935-11" tabindex="-1"></a><span class="co"># reverse that pattern for one species</span></span>
-<span id="cb935-12"><a href="mod-09.html#cb935-12" tabindex="-1"></a>flag <span class="ot">&lt;-</span> <span class="fu">which</span>(dx<span class="sc">$</span>Species <span class="sc">==</span> <span class="st">&quot;virginica&quot;</span> <span class="sc">&amp;</span></span>
-<span id="cb935-13"><a href="mod-09.html#cb935-13" tabindex="-1"></a>    dx<span class="sc">$</span>rank.wi.spp <span class="sc">&lt;=</span> <span class="dv">25</span>)</span>
-<span id="cb935-14"><a href="mod-09.html#cb935-14" tabindex="-1"></a>dx<span class="sc">$</span>Fertilizer[flag] <span class="ot">&lt;-</span> <span class="st">&quot;yes&quot;</span></span>
-<span id="cb935-15"><a href="mod-09.html#cb935-15" tabindex="-1"></a></span>
-<span id="cb935-16"><a href="mod-09.html#cb935-16" tabindex="-1"></a>flag <span class="ot">&lt;-</span> <span class="fu">which</span>(dx<span class="sc">$</span>Species <span class="sc">==</span> <span class="st">&quot;virginica&quot;</span> <span class="sc">&amp;</span></span>
-<span id="cb935-17"><a href="mod-09.html#cb935-17" tabindex="-1"></a>    dx<span class="sc">$</span>rank.wi.spp <span class="sc">&gt;=</span> <span class="dv">26</span>)</span>
-<span id="cb935-18"><a href="mod-09.html#cb935-18" tabindex="-1"></a>dx<span class="sc">$</span>Fertilizer[flag] <span class="ot">&lt;-</span> <span class="st">&quot;no&quot;</span></span>
-<span id="cb935-19"><a href="mod-09.html#cb935-19" tabindex="-1"></a></span>
-<span id="cb935-20"><a href="mod-09.html#cb935-20" tabindex="-1"></a><span class="co"># check for an interaction graphically</span></span>
-<span id="cb935-21"><a href="mod-09.html#cb935-21" tabindex="-1"></a><span class="fu">interaction.plot</span>(dx<span class="sc">$</span>Fertilizer, dx<span class="sc">$</span>Species, dx<span class="sc">$</span>Petal.Length)</span></code></pre></div>
+<div class="sourceCode" id="cb934"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb934-1"><a href="mod-09.html#cb934-1" tabindex="-1"></a><span class="co"># order by petal length within species</span></span>
+<span id="cb934-2"><a href="mod-09.html#cb934-2" tabindex="-1"></a>dx <span class="ot">&lt;-</span> dx[<span class="fu">order</span>(dx<span class="sc">$</span>Species, dx<span class="sc">$</span>Petal.Length),]</span>
+<span id="cb934-3"><a href="mod-09.html#cb934-3" tabindex="-1"></a>dx<span class="sc">$</span>rank.wi.spp <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">50</span></span>
+<span id="cb934-4"><a href="mod-09.html#cb934-4" tabindex="-1"></a></span>
+<span id="cb934-5"><a href="mod-09.html#cb934-5" tabindex="-1"></a><span class="co"># for each species, make 25 smallest petalled plants</span></span>
+<span id="cb934-6"><a href="mod-09.html#cb934-6" tabindex="-1"></a><span class="co"># in no fertilizer group, and 25 largest plants in </span></span>
+<span id="cb934-7"><a href="mod-09.html#cb934-7" tabindex="-1"></a><span class="co"># fertilized group</span></span>
+<span id="cb934-8"><a href="mod-09.html#cb934-8" tabindex="-1"></a>dx<span class="sc">$</span>Fertilizer <span class="ot">&lt;-</span> <span class="st">&quot;no&quot;</span></span>
+<span id="cb934-9"><a href="mod-09.html#cb934-9" tabindex="-1"></a>dx<span class="sc">$</span>Fertilizer[<span class="fu">which</span>(dx<span class="sc">$</span>rank.wi.spp <span class="sc">&gt;=</span><span class="dv">26</span>)] <span class="ot">&lt;-</span> <span class="st">&quot;yes&quot;</span></span>
+<span id="cb934-10"><a href="mod-09.html#cb934-10" tabindex="-1"></a></span>
+<span id="cb934-11"><a href="mod-09.html#cb934-11" tabindex="-1"></a><span class="co"># reverse that pattern for one species</span></span>
+<span id="cb934-12"><a href="mod-09.html#cb934-12" tabindex="-1"></a>flag <span class="ot">&lt;-</span> <span class="fu">which</span>(dx<span class="sc">$</span>Species <span class="sc">==</span> <span class="st">&quot;virginica&quot;</span> <span class="sc">&amp;</span></span>
+<span id="cb934-13"><a href="mod-09.html#cb934-13" tabindex="-1"></a>    dx<span class="sc">$</span>rank.wi.spp <span class="sc">&lt;=</span> <span class="dv">25</span>)</span>
+<span id="cb934-14"><a href="mod-09.html#cb934-14" tabindex="-1"></a>dx<span class="sc">$</span>Fertilizer[flag] <span class="ot">&lt;-</span> <span class="st">&quot;yes&quot;</span></span>
+<span id="cb934-15"><a href="mod-09.html#cb934-15" tabindex="-1"></a></span>
+<span id="cb934-16"><a href="mod-09.html#cb934-16" tabindex="-1"></a>flag <span class="ot">&lt;-</span> <span class="fu">which</span>(dx<span class="sc">$</span>Species <span class="sc">==</span> <span class="st">&quot;virginica&quot;</span> <span class="sc">&amp;</span></span>
+<span id="cb934-17"><a href="mod-09.html#cb934-17" tabindex="-1"></a>    dx<span class="sc">$</span>rank.wi.spp <span class="sc">&gt;=</span> <span class="dv">26</span>)</span>
+<span id="cb934-18"><a href="mod-09.html#cb934-18" tabindex="-1"></a>dx<span class="sc">$</span>Fertilizer[flag] <span class="ot">&lt;-</span> <span class="st">&quot;no&quot;</span></span>
+<span id="cb934-19"><a href="mod-09.html#cb934-19" tabindex="-1"></a></span>
+<span id="cb934-20"><a href="mod-09.html#cb934-20" tabindex="-1"></a><span class="co"># check for an interaction graphically</span></span>
+<span id="cb934-21"><a href="mod-09.html#cb934-21" tabindex="-1"></a><span class="fu">interaction.plot</span>(dx<span class="sc">$</span>Fertilizer, dx<span class="sc">$</span>Species, dx<span class="sc">$</span>Petal.Length)</span></code></pre></div>
 <p><img src="applied_biol_data_analysis_20220816_files/figure-html/unnamed-chunk-542-1.png" width="672" /></p>
 <p>In this plot, the line for one species, <code>virginica</code>, is decidedly not
 parallel to the others. An intersection, or opposite sign slope, in an
 interaction plot suggests that an interaction may be present. So, we
 should test for the interaction. In the R formula system, an interaction
 between two variables is specified with <code>*</code> instead of <code>+</code>.</p>
-<div class="sourceCode" id="cb936"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb936-1"><a href="mod-09.html#cb936-1" tabindex="-1"></a>mod3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Petal.Length <span class="sc">~</span> Species <span class="sc">*</span> Fertilizer, <span class="at">data=</span>dx)</span>
-<span id="cb936-2"><a href="mod-09.html#cb936-2" tabindex="-1"></a><span class="fu">anova</span>(mod3)</span></code></pre></div>
+<div class="sourceCode" id="cb935"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb935-1"><a href="mod-09.html#cb935-1" tabindex="-1"></a>mod3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Petal.Length <span class="sc">~</span> Species <span class="sc">*</span> Fertilizer, <span class="at">data=</span>dx)</span>
+<span id="cb935-2"><a href="mod-09.html#cb935-2" tabindex="-1"></a><span class="fu">anova</span>(mod3)</span></code></pre></div>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: Petal.Length
@@ -2501,7 +2040,7 @@ itself is not a significant factor, it <strong><em>is</em></strong> a significan
 when the effect of species is considered too.</p>
 <p>To interpret the interaction, we need to examine the coefficients of the
 model:</p>
-<div class="sourceCode" id="cb938"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb938-1"><a href="mod-09.html#cb938-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">summary</span>(mod3)<span class="sc">$</span>coefficients,<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb937"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb937-1"><a href="mod-09.html#cb937-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">summary</span>(mod3)<span class="sc">$</span>coefficients,<span class="dv">3</span>)</span></code></pre></div>
 <pre><code>##                                 Estimate Std. Error t value Pr(&gt;|t|)
 ## (Intercept)                        1.332      0.052  25.755    0.000
 ## Speciesversicolor                  2.552      0.073  34.892    0.000
@@ -2510,56 +2049,18 @@ model:</p>
 ## Speciesversicolor:Fertilizeryes    0.492      0.103   4.757    0.000
 ## Speciesvirginica:Fertilizeryes    -1.140      0.103 -11.021    0.000</code></pre>
 <p>Here is how to find the group-level effects:</p>
-<table style="width:58%;">
-<colgroup>
-<col width="19%" />
-<col width="19%" />
-<col width="19%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Species</th>
-<th>F ertilizer</th>
-<th>Mean</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>setosa</td>
-<td>no</td>
-<td><code>1.332</code></td>
-</tr>
-<tr class="even">
-<td>v ersicolor</td>
-<td>no</td>
-<td><code>1  .3 3 2 +  2. 5 52 = 3.884</code></td>
-</tr>
-<tr class="odd">
-<td>virginica</td>
-<td>no</td>
-<td><code>1  .3 3 2 +  4. 6 60 = 5.992</code></td>
-</tr>
-<tr class="even">
-<td>setosa</td>
-<td>yes</td>
-<td><code>1  .3 3 2 +  0. 2 60 = 1.592</code></td>
-</tr>
-<tr class="odd">
-<td>v ersicolor</td>
-<td>yes</td>
-<td><code>(1 .  33 2  + 2. 5 52)    + (0 . 2 60  + 0.4 9 2) = 4.636</code></td>
-</tr>
-<tr class="even">
-<td>virginica</td>
-<td>yes</td>
-<td><code>(1 .  33 2  + 4. 6 60)    + (0 . 2 60  - 1.1 4 0) = 5.112</code></td>
-</tr>
-</tbody>
-</table>
+<p><strong>Species = setosa, fertilizer = no:</strong> <code>1.332</code></p>
+<p><strong>Species = versicolor, fertilizer = no:</strong> <code>1.332 + 2.552</code> = <code>3.884</code></p>
+<p><strong>Species = virginica, fertilizer = no:</strong> <code>1.332 + 4.660</code> = <code>5.992</code></p>
+<p><strong>Species = setosa, fertilizer = yes:</strong> <code>1.332 + 0.260</code> = <code>1.592</code></p>
+<p><strong>Species = versicolor, fertilizer = yes:</strong>
+<code>(1.332 + 2.552) + (0.260 + 0.492)</code> = <code>4.636</code></p>
+<p><strong>Species = virginica, fertilizer = yes:</strong>
+<code>(1.332 + 4.660) + (0.260 - 1.140)</code> = <code>5.112</code></p>
 <p>The figure below shows what the interaction is really doing.</p>
-<div class="sourceCode" id="cb940"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb940-1"><a href="mod-09.html#cb940-1" tabindex="-1"></a><span class="fu">boxplot</span>(Petal.Length <span class="sc">~</span> Fertilizer<span class="sc">*</span>Species, <span class="at">data=</span>dx,</span>
-<span id="cb940-2"><a href="mod-09.html#cb940-2" tabindex="-1"></a>    <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;grey70&quot;</span>, <span class="st">&quot;red&quot;</span>))</span></code></pre></div>
-<p><img src="applied_biol_data_analysis_20220816_files/figure-html/unnamed-chunk-545-1.png" width="768" /></p>
+<div class="sourceCode" id="cb939"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb939-1"><a href="mod-09.html#cb939-1" tabindex="-1"></a><span class="fu">boxplot</span>(Petal.Length <span class="sc">~</span> Fertilizer<span class="sc">*</span>Species, <span class="at">data=</span>dx,</span>
+<span id="cb939-2"><a href="mod-09.html#cb939-2" tabindex="-1"></a>    <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;grey70&quot;</span>, <span class="st">&quot;red&quot;</span>))</span></code></pre></div>
+<p><img src="applied_biol_data_analysis_20220816_files/figure-html/unnamed-chunk-545-1.png" width="864" /></p>
 <p>This figure shows that in species <code>setosa</code> and <code>versicolor</code>, the effect
 of fertilizer on petal length is positive. However, the reverse is true
 for <code>virginica</code>.</p>
@@ -2567,79 +2068,44 @@ for <code>virginica</code>.</p>
 remember that <code>+</code> codes an additive effect (no interaction), while <code>*</code>
 codes an interaction (one variable affects the effect of another
 variable). Here are some additional examples:</p>
-<div class="sourceCode" id="cb941"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb941-1"><a href="mod-09.html#cb941-1" tabindex="-1"></a><span class="co"># 3-way ANOVA with no interactions</span></span>
-<span id="cb941-2"><a href="mod-09.html#cb941-2" tabindex="-1"></a>mod5 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Petal.Length <span class="sc">~</span> Fertilizer <span class="sc">+</span> Species <span class="sc">+</span> Color, <span class="at">data=</span>dx)</span>
-<span id="cb941-3"><a href="mod-09.html#cb941-3" tabindex="-1"></a></span>
-<span id="cb941-4"><a href="mod-09.html#cb941-4" tabindex="-1"></a><span class="co"># 3-way ANOVA with 1 2-way interaction:</span></span>
-<span id="cb941-5"><a href="mod-09.html#cb941-5" tabindex="-1"></a>mod6 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Petal.Length <span class="sc">~</span> Fertilizer <span class="sc">*</span> Species <span class="sc">+</span> Color, <span class="at">data=</span>dx)</span>
-<span id="cb941-6"><a href="mod-09.html#cb941-6" tabindex="-1"></a></span>
-<span id="cb941-7"><a href="mod-09.html#cb941-7" tabindex="-1"></a><span class="co"># 3-way ANOVA with 2 2-way interactions:</span></span>
-<span id="cb941-8"><a href="mod-09.html#cb941-8" tabindex="-1"></a>mod7 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Petal.Length <span class="sc">~</span> Fertilizer <span class="sc">*</span> Species <span class="sc">+</span> </span>
-<span id="cb941-9"><a href="mod-09.html#cb941-9" tabindex="-1"></a>    Color <span class="sc">*</span> Species, <span class="at">data=</span>dx)</span>
-<span id="cb941-10"><a href="mod-09.html#cb941-10" tabindex="-1"></a></span>
-<span id="cb941-11"><a href="mod-09.html#cb941-11" tabindex="-1"></a><span class="co"># 3-way ANOVA with a 3-way interaction (hard to make sense of):</span></span>
-<span id="cb941-12"><a href="mod-09.html#cb941-12" tabindex="-1"></a>mod8 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Petal.Length <span class="sc">~</span> Fertilizer <span class="sc">*</span> Species <span class="sc">*</span> Color, <span class="at">data=</span>dx)</span></code></pre></div>
+<div class="sourceCode" id="cb940"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb940-1"><a href="mod-09.html#cb940-1" tabindex="-1"></a><span class="co"># 3-way ANOVA with no interactions</span></span>
+<span id="cb940-2"><a href="mod-09.html#cb940-2" tabindex="-1"></a>mod5 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Petal.Length <span class="sc">~</span> Fertilizer <span class="sc">+</span> Species <span class="sc">+</span> Color, <span class="at">data=</span>dx)</span>
+<span id="cb940-3"><a href="mod-09.html#cb940-3" tabindex="-1"></a></span>
+<span id="cb940-4"><a href="mod-09.html#cb940-4" tabindex="-1"></a><span class="co"># 3-way ANOVA with 1 2-way interaction:</span></span>
+<span id="cb940-5"><a href="mod-09.html#cb940-5" tabindex="-1"></a>mod6 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Petal.Length <span class="sc">~</span> Fertilizer <span class="sc">*</span> Species <span class="sc">+</span> Color, <span class="at">data=</span>dx)</span>
+<span id="cb940-6"><a href="mod-09.html#cb940-6" tabindex="-1"></a></span>
+<span id="cb940-7"><a href="mod-09.html#cb940-7" tabindex="-1"></a><span class="co"># 3-way ANOVA with 2 2-way interactions:</span></span>
+<span id="cb940-8"><a href="mod-09.html#cb940-8" tabindex="-1"></a>mod7 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Petal.Length <span class="sc">~</span> Fertilizer <span class="sc">*</span> Species <span class="sc">+</span> </span>
+<span id="cb940-9"><a href="mod-09.html#cb940-9" tabindex="-1"></a>    Color <span class="sc">*</span> Species, <span class="at">data=</span>dx)</span>
+<span id="cb940-10"><a href="mod-09.html#cb940-10" tabindex="-1"></a></span>
+<span id="cb940-11"><a href="mod-09.html#cb940-11" tabindex="-1"></a><span class="co"># 3-way ANOVA with a 3-way interaction (hard to make sense of):</span></span>
+<span id="cb940-12"><a href="mod-09.html#cb940-12" tabindex="-1"></a>mod8 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Petal.Length <span class="sc">~</span> Fertilizer <span class="sc">*</span> Species <span class="sc">*</span> Color, <span class="at">data=</span>dx)</span></code></pre></div>
 </div>
 <div id="mod-09-kwtest" class="section level4 hasAnchor" number="9.4.4.3">
 <h4><span class="header-section-number">9.4.4.3</span> Kruskal-Wallis test<a href="mod-09.html#mod-09-kwtest" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<table style="width:62%;">
-<colgroup>
-<col width="23%" />
-<col width="38%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td>Question:</td>
-<td>Are values in one or more
-groups consistently
-greater or less than
-values in another group?
-(# of groups <span class="math inline">\(\geq3\)</span>;
-extends Wilcoxon test to
-more groups)</td>
-</tr>
-<tr class="even">
-<td>Null
-hypothesis:</td>
-<td>For randomly selected
-values X and Y from two
-| groups, <span class="math inline">\(p(X&gt;Y)\)</span> =
-<span class="math inline">\(p(Y&gt;X)\)</span>. |</td>
-</tr>
-<tr class="odd">
-<td>Alternative
-hypothesis:</td>
-<td>For randomly selected
-values X and Y from two
-| groups, $p(X&gt;Y)
-p(Y&gt;X)$.</td>
-</tr>
-<tr class="even">
-<td>Example use
-case:</td>
-<td>Bart is studying whether
-tomato yields tend to be
-greater in plants treated
-with no pesticide,
-pesticide A, or pesticide
-B. He is not interested
-in predicting the actual
-tomato yield.</td>
-</tr>
-</tbody>
-</table>
-<p>Because ANOVA is a linear model, the data must meet the assumptions of
-the linear model (crossref). If the data do not meet the assumptions, or
-cannot be transformed to do so, then a nonparametric alternative to
-ANOVA is needed. That alternative is the <strong>Kruskal-Wallis test</strong>. Some
-texts refer to this as a “nonparametric ANOVA”, but this is not correct.
-Like the Wilcoxon test, the Kruskal-Wallis test is based on ranks of the
-data. A significant Kruskal-Wallis test indicates that values in at
-least one group are consistently greater than values in at least one
-other group. As with ANOVA, a post-hoc test is needed to determine which
-groups differ significantly from each other.</p>
+<p><strong>Question:</strong> Are values in one or more groups consistently greater or
+less than values in another group? (# of groups <span class="math inline">\(\geq3\)</span>); extends
+Wilcoxon test to more groups)</p>
+<p><strong>Null hypothesis:</strong> For randomly selected values <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> from any 2
+groups, <span class="math inline">\(p\left(x&gt;y\right)=p\left(y&gt;x\right)\)</span>.</p>
+<p><strong>Alternative hypothesis:</strong> For randomly selected values <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>
+from any 2 groups, <span class="math inline">\(p\left(x&gt;y\right)\neq p\left(y&gt;x\right)\)</span></p>
+<p><strong>Example use case:</strong> Bart is studying whether tomato yields tend to be
+greater in plants treated with no pesticide, pesticide A, or pesticide
+B. He is not interested in predicting the actual tomato yield.</p>
+<p>Because ANOVA is a linear model, the data used in ANOVA must meet the
+<a href="mod-09.html#mod-09-linear-assume">assumptions of the linear model</a>. If the data do
+not meet the assumptions, or cannot be transformed to do so, then a
+nonparametric alternative to ANOVA is needed. That alternative is the
+<strong>Kruskal-Wallis test</strong>. Some texts refer to this as a “nonparametric
+ANOVA”, but this is not correct because at no point is variance of any
+actually partitioned. Like the Wilcoxon test, the Kruskal-Wallis test is
+based on ranks of the data. A significant Kruskal-Wallis test indicates
+that values in at least one group are consistently greater than values
+in at least one other group. As with ANOVA, a post-hoc test is needed to
+determine which groups differ significantly from each other.</p>
 <p><strong>Example Kruskal-Wallis test in R</strong></p>
-<div class="sourceCode" id="cb942"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb942-1"><a href="mod-09.html#cb942-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(Petal.Length<span class="sc">~</span>Species, <span class="at">data=</span>iris)</span></code></pre></div>
+<div class="sourceCode" id="cb941"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb941-1"><a href="mod-09.html#cb941-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(Petal.Length<span class="sc">~</span>Species, <span class="at">data=</span>iris)</span></code></pre></div>
 <pre><code>## 
 ##  Kruskal-Wallis rank sum test
 ## 
@@ -2651,9 +2117,9 @@ omnibus ANOVA test. If we want to know which groups differ, we need a
 post-hoc test. There are 2 good options: Dunn’s test, and a series of
 pairwise Wilcoxon tests.</p>
 <p><strong>Kruskal-Wallis post-hoc option 1: Dunn’s test</strong></p>
-<div class="sourceCode" id="cb944"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb944-1"><a href="mod-09.html#cb944-1" tabindex="-1"></a><span class="fu">library</span>(dunn.test)</span></code></pre></div>
+<div class="sourceCode" id="cb943"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb943-1"><a href="mod-09.html#cb943-1" tabindex="-1"></a><span class="fu">library</span>(dunn.test)</span></code></pre></div>
 <pre><code>## Warning: package &#39;dunn.test&#39; was built under R version 4.3.3</code></pre>
-<div class="sourceCode" id="cb946"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb946-1"><a href="mod-09.html#cb946-1" tabindex="-1"></a><span class="fu">dunn.test</span>(iris<span class="sc">$</span>Petal.Length, iris<span class="sc">$</span>Species, <span class="at">method=</span><span class="st">&quot;bonferroni&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb945"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb945-1"><a href="mod-09.html#cb945-1" tabindex="-1"></a><span class="fu">dunn.test</span>(iris<span class="sc">$</span>Petal.Length, iris<span class="sc">$</span>Species, <span class="at">method=</span><span class="st">&quot;bonferroni&quot;</span>)</span></code></pre></div>
 <pre><code>##   Kruskal-Wallis rank sum test
 ## 
 ## data: x and group
@@ -2679,23 +2145,23 @@ differed from each other in terms of the rank order of petal lengths.</p>
 <p>I’m not aware of an “off-the-shelf” solution for conducting post-hoc
 pairwise Wilcoxon tests, but fortunately it’s pretty straightforward to
 do in a <code>for()</code> loop:</p>
-<div class="sourceCode" id="cb948"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb948-1"><a href="mod-09.html#cb948-1" tabindex="-1"></a>x.levs <span class="ot">&lt;-</span> <span class="fu">levels</span>(iris<span class="sc">$</span>Species)</span>
-<span id="cb948-2"><a href="mod-09.html#cb948-2" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">t</span>(<span class="fu">combn</span>(x.levs, <span class="dv">2</span>)))</span>
-<span id="cb948-3"><a href="mod-09.html#cb948-3" tabindex="-1"></a>res<span class="sc">$</span>diff <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb948-4"><a href="mod-09.html#cb948-4" tabindex="-1"></a>res<span class="sc">$</span>lwr <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb948-5"><a href="mod-09.html#cb948-5" tabindex="-1"></a>res<span class="sc">$</span>upr <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb948-6"><a href="mod-09.html#cb948-6" tabindex="-1"></a>res<span class="sc">$</span>p <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb948-7"><a href="mod-09.html#cb948-7" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(res)){</span>
-<span id="cb948-8"><a href="mod-09.html#cb948-8" tabindex="-1"></a>    x1 <span class="ot">&lt;-</span> iris<span class="sc">$</span>Petal.Length[<span class="fu">which</span>(iris<span class="sc">$</span>Species <span class="sc">==</span> res<span class="sc">$</span>X2[i])]</span>
-<span id="cb948-9"><a href="mod-09.html#cb948-9" tabindex="-1"></a>    x2 <span class="ot">&lt;-</span> iris<span class="sc">$</span>Petal.Length[<span class="fu">which</span>(iris<span class="sc">$</span>Species <span class="sc">==</span> res<span class="sc">$</span>X1[i])]</span>
-<span id="cb948-10"><a href="mod-09.html#cb948-10" tabindex="-1"></a>    wtest <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(x1,x2,<span class="at">conf.int=</span><span class="cn">TRUE</span>)</span>
-<span id="cb948-11"><a href="mod-09.html#cb948-11" tabindex="-1"></a>    res<span class="sc">$</span>diff[i] <span class="ot">&lt;-</span> wtest<span class="sc">$</span>estimate</span>
-<span id="cb948-12"><a href="mod-09.html#cb948-12" tabindex="-1"></a>    res<span class="sc">$</span>lwr[i] <span class="ot">&lt;-</span> wtest<span class="sc">$</span>conf.int[<span class="dv">1</span>]</span>
-<span id="cb948-13"><a href="mod-09.html#cb948-13" tabindex="-1"></a>    res<span class="sc">$</span>upr[i] <span class="ot">&lt;-</span> wtest<span class="sc">$</span>conf.int[<span class="dv">2</span>]</span>
-<span id="cb948-14"><a href="mod-09.html#cb948-14" tabindex="-1"></a>    res<span class="sc">$</span>p[i] <span class="ot">&lt;-</span> wtest<span class="sc">$</span>p.value</span>
-<span id="cb948-15"><a href="mod-09.html#cb948-15" tabindex="-1"></a>}<span class="co">#i</span></span>
-<span id="cb948-16"><a href="mod-09.html#cb948-16" tabindex="-1"></a><span class="co"># mimics a TukeyHSD result:</span></span>
-<span id="cb948-17"><a href="mod-09.html#cb948-17" tabindex="-1"></a>res</span></code></pre></div>
+<div class="sourceCode" id="cb947"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb947-1"><a href="mod-09.html#cb947-1" tabindex="-1"></a>x.levs <span class="ot">&lt;-</span> <span class="fu">levels</span>(iris<span class="sc">$</span>Species)</span>
+<span id="cb947-2"><a href="mod-09.html#cb947-2" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">t</span>(<span class="fu">combn</span>(x.levs, <span class="dv">2</span>)))</span>
+<span id="cb947-3"><a href="mod-09.html#cb947-3" tabindex="-1"></a>res<span class="sc">$</span>diff <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb947-4"><a href="mod-09.html#cb947-4" tabindex="-1"></a>res<span class="sc">$</span>lwr <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb947-5"><a href="mod-09.html#cb947-5" tabindex="-1"></a>res<span class="sc">$</span>upr <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb947-6"><a href="mod-09.html#cb947-6" tabindex="-1"></a>res<span class="sc">$</span>p <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb947-7"><a href="mod-09.html#cb947-7" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(res)){</span>
+<span id="cb947-8"><a href="mod-09.html#cb947-8" tabindex="-1"></a>    x1 <span class="ot">&lt;-</span> iris<span class="sc">$</span>Petal.Length[<span class="fu">which</span>(iris<span class="sc">$</span>Species <span class="sc">==</span> res<span class="sc">$</span>X2[i])]</span>
+<span id="cb947-9"><a href="mod-09.html#cb947-9" tabindex="-1"></a>    x2 <span class="ot">&lt;-</span> iris<span class="sc">$</span>Petal.Length[<span class="fu">which</span>(iris<span class="sc">$</span>Species <span class="sc">==</span> res<span class="sc">$</span>X1[i])]</span>
+<span id="cb947-10"><a href="mod-09.html#cb947-10" tabindex="-1"></a>    wtest <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(x1,x2,<span class="at">conf.int=</span><span class="cn">TRUE</span>)</span>
+<span id="cb947-11"><a href="mod-09.html#cb947-11" tabindex="-1"></a>    res<span class="sc">$</span>diff[i] <span class="ot">&lt;-</span> wtest<span class="sc">$</span>estimate</span>
+<span id="cb947-12"><a href="mod-09.html#cb947-12" tabindex="-1"></a>    res<span class="sc">$</span>lwr[i] <span class="ot">&lt;-</span> wtest<span class="sc">$</span>conf.int[<span class="dv">1</span>]</span>
+<span id="cb947-13"><a href="mod-09.html#cb947-13" tabindex="-1"></a>    res<span class="sc">$</span>upr[i] <span class="ot">&lt;-</span> wtest<span class="sc">$</span>conf.int[<span class="dv">2</span>]</span>
+<span id="cb947-14"><a href="mod-09.html#cb947-14" tabindex="-1"></a>    res<span class="sc">$</span>p[i] <span class="ot">&lt;-</span> wtest<span class="sc">$</span>p.value</span>
+<span id="cb947-15"><a href="mod-09.html#cb947-15" tabindex="-1"></a>}<span class="co">#i</span></span>
+<span id="cb947-16"><a href="mod-09.html#cb947-16" tabindex="-1"></a><span class="co"># mimics a TukeyHSD result:</span></span>
+<span id="cb947-17"><a href="mod-09.html#cb947-17" tabindex="-1"></a>res</span></code></pre></div>
 <pre><code>##           X1         X2     diff      lwr      upr            p
 ## 1     setosa versicolor 2.899993 2.699949 2.999986 5.651012e-18
 ## 2     setosa  virginica 4.099992 3.899975 4.200058 5.665214e-18
@@ -2711,9 +2177,115 @@ they should be—but it works well enough for enough people that it’s
 worth considering.</p>
 </div>
 </div>
-<div id="polynomial-patterns-in-grouped-data" class="section level3 hasAnchor" number="9.4.5">
-<h3><span class="header-section-number">9.4.5</span> Polynomial patterns in grouped data<a href="mod-09.html#polynomial-patterns-in-grouped-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Section on polynomial contrasts in linear models coming soon!</p>
+<div id="ordered-factors-and-polynomial-patterns-in-grouped-data" class="section level3 hasAnchor" number="9.4.5">
+<h3><span class="header-section-number">9.4.5</span> Ordered factors and polynomial patterns in grouped data<a href="mod-09.html#ordered-factors-and-polynomial-patterns-in-grouped-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="ordering-factors" class="section level4 hasAnchor" number="9.4.5.1">
+<h4><span class="header-section-number">9.4.5.1</span> Ordering factors<a href="mod-09.html#ordering-factors" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>We saw <a href="mod-09.html#mod-09-anova">above</a> how ANOVA test for differences in means between groups; i.e., between <strong>levels</strong> of a <strong>factor</strong>. In the examples we used, the levels of the factors were just group identities (“species A”, “species B”, and so on; or “herbivore” vs. “carnivore” vs. “omnivore”). These group identities have no inherent ordering to them, and your biological conclusions should be the same no matter which group comes “first” (or, leftmost on the plot, or whatever). R will, by default, sort factor levels automatically, and that’s okay. This is why, in the ANOVA examples above, species <code>setosa</code> was treated as the baseline and labeled as the <code>(Intercept)</code>.</p>
+<p>We can reorder the levels of a factor to force R to treat the right level as the baseline. For example, consider a dataset with 1 factor, with levels <code>control</code>, <code>chemical A</code>, and <code>chemical B</code>. R would treat <code>chemical a</code> as the baseline, because it is first alphabetically. You can override this by setting <code>control</code> as the first level:</p>
+<div class="sourceCode" id="cb949"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb949-1"><a href="mod-09.html#cb949-1" tabindex="-1"></a><span class="co"># spare copy</span></span>
+<span id="cb949-2"><a href="mod-09.html#cb949-2" tabindex="-1"></a>iris2 <span class="ot">&lt;-</span> iris</span>
+<span id="cb949-3"><a href="mod-09.html#cb949-3" tabindex="-1"></a></span>
+<span id="cb949-4"><a href="mod-09.html#cb949-4" tabindex="-1"></a><span class="co"># assign new factor</span></span>
+<span id="cb949-5"><a href="mod-09.html#cb949-5" tabindex="-1"></a>iris2<span class="sc">$</span>chemical.expose <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;control&quot;</span>, <span class="st">&quot;chemicala&quot;</span>, <span class="st">&quot;chemicalb&quot;</span>)</span>
+<span id="cb949-6"><a href="mod-09.html#cb949-6" tabindex="-1"></a></span>
+<span id="cb949-7"><a href="mod-09.html#cb949-7" tabindex="-1"></a><span class="co"># fit model</span></span>
+<span id="cb949-8"><a href="mod-09.html#cb949-8" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Petal.Length<span class="sc">~</span>chemical.expose, <span class="at">data=</span>iris2)</span>
+<span id="cb949-9"><a href="mod-09.html#cb949-9" tabindex="-1"></a></span>
+<span id="cb949-10"><a href="mod-09.html#cb949-10" tabindex="-1"></a><span class="co"># view coefficients...note that &quot;control&quot; is not the baseline!</span></span>
+<span id="cb949-11"><a href="mod-09.html#cb949-11" tabindex="-1"></a><span class="fu">summary</span>(mod1)<span class="sc">$</span>coefficients</span></code></pre></div>
+<pre><code>##                          Estimate Std. Error     t value     Pr(&gt;|t|)
+## (Intercept)                 3.732  0.2512478 14.85385995 4.634369e-31
+## chemical.exposechemicalb    0.094  0.3553181  0.26455169 7.917254e-01
+## chemical.exposecontrol     -0.016  0.3553181 -0.04503008 9.641444e-01</code></pre>
+<p>The output uses the alphabetically first <code>chemicala</code> as the baseline, which is not as convenient.</p>
+<div class="sourceCode" id="cb951"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb951-1"><a href="mod-09.html#cb951-1" tabindex="-1"></a><span class="co"># reorder factor</span></span>
+<span id="cb951-2"><a href="mod-09.html#cb951-2" tabindex="-1"></a>iris2<span class="sc">$</span>chemical.expose <span class="ot">&lt;-</span> <span class="fu">factor</span>(iris2<span class="sc">$</span>chemical.expose,</span>
+<span id="cb951-3"><a href="mod-09.html#cb951-3" tabindex="-1"></a>                                <span class="at">levels=</span><span class="fu">c</span>(<span class="st">&quot;control&quot;</span>, <span class="st">&quot;chemicala&quot;</span>, <span class="st">&quot;chemicalb&quot;</span>))</span>
+<span id="cb951-4"><a href="mod-09.html#cb951-4" tabindex="-1"></a></span>
+<span id="cb951-5"><a href="mod-09.html#cb951-5" tabindex="-1"></a><span class="co"># fit model</span></span>
+<span id="cb951-6"><a href="mod-09.html#cb951-6" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Petal.Length<span class="sc">~</span>chemical.expose, <span class="at">data=</span>iris2)</span>
+<span id="cb951-7"><a href="mod-09.html#cb951-7" tabindex="-1"></a></span>
+<span id="cb951-8"><a href="mod-09.html#cb951-8" tabindex="-1"></a><span class="co"># view coefficients...note that &quot;control&quot; is not the baseline!</span></span>
+<span id="cb951-9"><a href="mod-09.html#cb951-9" tabindex="-1"></a><span class="fu">summary</span>(mod2)<span class="sc">$</span>coefficients</span></code></pre></div>
+<pre><code>##                          Estimate Std. Error     t value     Pr(&gt;|t|)
+## (Intercept)                 3.716  0.2512478 14.79017781 6.777276e-31
+## chemical.exposechemicala    0.016  0.3553181  0.04503008 9.641444e-01
+## chemical.exposechemicalb    0.110  0.3553181  0.30958177 7.573174e-01</code></pre>
+</div>
+<div id="ordered-factors" class="section level4 hasAnchor" number="9.4.5.2">
+<h4><span class="header-section-number">9.4.5.2</span> Ordered factors<a href="mod-09.html#ordered-factors" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Some factors have an inherent ordering to their levels. For example, in a toxicology trial you might have “none”, “low”, “medium”, and “high” as exposure levels. Or, you could have have “larva”, “pupa”, and “adult” as levels in a life history model. When analyzing these factors, we should take into account not only the differences between the groups, but the fact that the groups are in some kind of order. Consider the boxplots below:</p>
+<div class="sourceCode" id="cb953"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb953-1"><a href="mod-09.html#cb953-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">52</span>)</span>
+<span id="cb953-2"><a href="mod-09.html#cb953-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">12</span></span>
+<span id="cb953-3"><a href="mod-09.html#cb953-3" tabindex="-1"></a>dx1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb953-4"><a href="mod-09.html#cb953-4" tabindex="-1"></a>  <span class="at">stage=</span><span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Instar 2&quot;</span>, <span class="st">&quot;Instar 5&quot;</span>, <span class="st">&quot;Instar 9&quot;</span>), <span class="at">each=</span>n),</span>
+<span id="cb953-5"><a href="mod-09.html#cb953-5" tabindex="-1"></a>  <span class="at">wing=</span><span class="fu">c</span>(<span class="fu">rnorm</span>(n, <span class="dv">4</span>, <span class="dv">1</span>), <span class="fu">rnorm</span>(n, <span class="dv">8</span>, <span class="dv">1</span>), <span class="fu">rnorm</span>(n, <span class="dv">12</span>, <span class="dv">1</span>)))</span>
+<span id="cb953-6"><a href="mod-09.html#cb953-6" tabindex="-1"></a></span>
+<span id="cb953-7"><a href="mod-09.html#cb953-7" tabindex="-1"></a>dx2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x=</span><span class="fu">runif</span>(<span class="dv">150</span>, <span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>))</span>
+<span id="cb953-8"><a href="mod-09.html#cb953-8" tabindex="-1"></a>dx2<span class="sc">$</span>y <span class="ot">&lt;-</span> <span class="dv">9</span> <span class="sc">-</span> (<span class="fl">1.42</span><span class="sc">*</span>dx2<span class="sc">$</span>x<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">150</span>, <span class="dv">0</span>, <span class="dv">4</span>)</span>
+<span id="cb953-9"><a href="mod-09.html#cb953-9" tabindex="-1"></a>dx2<span class="sc">$</span>x <span class="ot">&lt;-</span> <span class="fu">round</span>(dx2<span class="sc">$</span>x, <span class="dv">0</span>)</span>
+<span id="cb953-10"><a href="mod-09.html#cb953-10" tabindex="-1"></a></span>
+<span id="cb953-11"><a href="mod-09.html#cb953-11" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="fl">5.1</span>, <span class="fl">5.1</span>, <span class="fl">1.1</span>, <span class="fl">1.1</span>), <span class="at">lend=</span><span class="dv">1</span>, <span class="at">las=</span><span class="dv">1</span>,</span>
+<span id="cb953-12"><a href="mod-09.html#cb953-12" tabindex="-1"></a>    <span class="at">bty=</span><span class="st">&quot;n&quot;</span>, <span class="at">cex.axis=</span><span class="fl">1.2</span>, <span class="at">cex.lab=</span><span class="fl">1.3</span>)</span>
+<span id="cb953-13"><a href="mod-09.html#cb953-13" tabindex="-1"></a><span class="fu">boxplot</span>(wing<span class="sc">~</span>stage, <span class="at">data=</span>dx1, <span class="at">xaxt=</span><span class="st">&quot;n&quot;</span>,</span>
+<span id="cb953-14"><a href="mod-09.html#cb953-14" tabindex="-1"></a>  <span class="at">xlab=</span><span class="st">&quot;Development stage&quot;</span>,</span>
+<span id="cb953-15"><a href="mod-09.html#cb953-15" tabindex="-1"></a>  <span class="at">ylab=</span><span class="st">&quot;Wing length (mm)&quot;</span>)</span>
+<span id="cb953-16"><a href="mod-09.html#cb953-16" tabindex="-1"></a><span class="fu">axis</span>(<span class="at">side=</span><span class="dv">1</span>, <span class="at">at=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">labels=</span><span class="fu">unique</span>(dx1<span class="sc">$</span>stage))</span>
+<span id="cb953-17"><a href="mod-09.html#cb953-17" tabindex="-1"></a></span>
+<span id="cb953-18"><a href="mod-09.html#cb953-18" tabindex="-1"></a><span class="fu">boxplot</span>(y<span class="sc">~</span>x, <span class="at">data=</span>dx2, <span class="at">ylab=</span><span class="st">&quot;Growth (residual)&quot;</span>,</span>
+<span id="cb953-19"><a href="mod-09.html#cb953-19" tabindex="-1"></a>  <span class="at">xlab=</span><span class="st">&quot;Distance bin&quot;</span>)</span></code></pre></div>
+<p><img src="applied_biol_data_analysis_20220816_files/figure-html/unnamed-chunk-552-1.png" width="768" /></p>
+<p>In the left plot, we see that wing length increases roughly linearly from the 2nd through the 9th instar stage. In the right plot, we see that residuals of plant growth tend to be greatest in the distance bins close to 0, and negative in bins farther from 0. In fact, it kind of looks like a parabola (i.e., a quadratic function).</p>
+<p>We could just naively test for differences between groups, but that wouldn’t tell us the whole story. If we tell R that the factors are ordered, we can request <strong>polynomial contrasts</strong> to test for these patterns we think we see in the boxplots. These would be a linear pattern in the left figure, and a quadratic pattern in the right figure. With an <strong>ordered factor</strong>, R will automatically test for polynomial patterns between groups. R will test for polynomials of order up to <span class="math inline">\(n-1\)</span>, where <span class="math inline">\(n\)</span> is the number of groups. So, if there are 3 groups, R will test polynomial patterns of order 1 (linear) and 2 (quadratic).</p>
+<div class="sourceCode" id="cb954"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb954-1"><a href="mod-09.html#cb954-1" tabindex="-1"></a><span class="co"># for the left plot:</span></span>
+<span id="cb954-2"><a href="mod-09.html#cb954-2" tabindex="-1"></a>dx1<span class="sc">$</span>stage <span class="ot">&lt;-</span> <span class="fu">factor</span>(dx1<span class="sc">$</span>stage, <span class="at">ordered=</span><span class="cn">TRUE</span>)</span>
+<span id="cb954-3"><a href="mod-09.html#cb954-3" tabindex="-1"></a></span>
+<span id="cb954-4"><a href="mod-09.html#cb954-4" tabindex="-1"></a><span class="co"># not run, but look at bottom to see how dx1$stage is treated</span></span>
+<span id="cb954-5"><a href="mod-09.html#cb954-5" tabindex="-1"></a><span class="co"># dx1$stage</span></span>
+<span id="cb954-6"><a href="mod-09.html#cb954-6" tabindex="-1"></a></span>
+<span id="cb954-7"><a href="mod-09.html#cb954-7" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(wing<span class="sc">~</span>stage, <span class="at">data=</span>dx1))<span class="sc">$</span>coefficients</span></code></pre></div>
+<pre><code>##               Estimate Std. Error   t value     Pr(&gt;|t|)
+## (Intercept)  8.0068921  0.1544031 51.857078 3.321267e-33
+## stage.L      5.7424515  0.2674340 21.472409 5.775273e-21
+## stage.Q     -0.2734039  0.2674340 -1.022323 3.140644e-01</code></pre>
+<p>Here is the test for the right plot:</p>
+<div class="sourceCode" id="cb956"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb956-1"><a href="mod-09.html#cb956-1" tabindex="-1"></a><span class="co"># for the right plot:</span></span>
+<span id="cb956-2"><a href="mod-09.html#cb956-2" tabindex="-1"></a>dx2<span class="sc">$</span>x <span class="ot">&lt;-</span> <span class="fu">factor</span>(dx2<span class="sc">$</span>x, <span class="at">ordered=</span><span class="cn">TRUE</span>)</span>
+<span id="cb956-3"><a href="mod-09.html#cb956-3" tabindex="-1"></a></span>
+<span id="cb956-4"><a href="mod-09.html#cb956-4" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y<span class="sc">~</span>x, <span class="at">data=</span>dx2))<span class="sc">$</span>coefficients</span></code></pre></div>
+<pre><code>##               Estimate Std. Error    t value     Pr(&gt;|t|)
+## (Intercept)  3.7120832  0.3664558 10.1296885 1.632377e-18
+## x.L         -2.3515982  1.1193212 -2.1009145 3.740319e-02
+## x.Q         -9.0399262  1.0901508 -8.2923629 7.412107e-14
+## x.C         -0.7680379  0.9997669 -0.7682170 4.436250e-01
+## x^4          1.6784822  0.8863823  1.8936325 6.029373e-02
+## x^5         -0.6478629  0.8638215 -0.7499963 4.544891e-01
+## x^6         -0.3048916  0.8169887 -0.3731895 7.095601e-01</code></pre>
+<p>Just because R will test for up to <span class="math inline">\(n-1\)</span> contrasts, doesn’t mean that you want them. For example, you might only want test for a linear trend in wing length in <code>dx1</code> above. You can do this by manually setting the number of contrasts for a factor, from the set of polynomial contrasts of proper size.</p>
+<div class="sourceCode" id="cb958"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb958-1"><a href="mod-09.html#cb958-1" tabindex="-1"></a><span class="co"># for the wings in dx1:</span></span>
+<span id="cb958-2"><a href="mod-09.html#cb958-2" tabindex="-1"></a><span class="do">## how.many=1 --&gt; linear contrast only</span></span>
+<span id="cb958-3"><a href="mod-09.html#cb958-3" tabindex="-1"></a><span class="do">## contr.poly(3) is polynomial contrast matrix with 3 levels</span></span>
+<span id="cb958-4"><a href="mod-09.html#cb958-4" tabindex="-1"></a><span class="fu">contrasts</span>(dx1<span class="sc">$</span>stage, <span class="at">how.many=</span><span class="dv">1</span>) <span class="ot">&lt;-</span> <span class="fu">contr.poly</span>(<span class="dv">3</span>)</span>
+<span id="cb958-5"><a href="mod-09.html#cb958-5" tabindex="-1"></a></span>
+<span id="cb958-6"><a href="mod-09.html#cb958-6" tabindex="-1"></a><span class="co"># rerun the test:</span></span>
+<span id="cb958-7"><a href="mod-09.html#cb958-7" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(wing<span class="sc">~</span>stage, <span class="at">data=</span>dx1))<span class="sc">$</span>coefficients</span></code></pre></div>
+<pre><code>##             Estimate Std. Error  t value     Pr(&gt;|t|)
+## (Intercept) 8.006892  0.1545055 51.82268 6.083708e-34
+## stage.L     5.742451  0.2676115 21.45817 2.413280e-21</code></pre>
+<p>And here is the same procedure for the growth residuals in <code>dx2</code>:</p>
+<div class="sourceCode" id="cb960"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb960-1"><a href="mod-09.html#cb960-1" tabindex="-1"></a><span class="co"># for the growth residuals in dx2:</span></span>
+<span id="cb960-2"><a href="mod-09.html#cb960-2" tabindex="-1"></a><span class="do">## how.many=2 --&gt; up to quadratic pattern only</span></span>
+<span id="cb960-3"><a href="mod-09.html#cb960-3" tabindex="-1"></a><span class="do">## contr.poly(7) is polynomial contrast matrix with 7 levels</span></span>
+<span id="cb960-4"><a href="mod-09.html#cb960-4" tabindex="-1"></a><span class="fu">contrasts</span>(dx2<span class="sc">$</span>x, <span class="at">how.many=</span><span class="dv">2</span>) <span class="ot">&lt;-</span> <span class="fu">contr.poly</span>(<span class="dv">7</span>)</span>
+<span id="cb960-5"><a href="mod-09.html#cb960-5" tabindex="-1"></a></span>
+<span id="cb960-6"><a href="mod-09.html#cb960-6" tabindex="-1"></a><span class="co"># rerun the test:</span></span>
+<span id="cb960-7"><a href="mod-09.html#cb960-7" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y<span class="sc">~</span>x, <span class="at">data=</span>dx2))<span class="sc">$</span>coefficients</span></code></pre></div>
+<pre><code>##              Estimate Std. Error   t value     Pr(&gt;|t|)
+## (Intercept)  3.619456  0.3624434  9.986264 3.020970e-18
+## x.L         -2.009843  1.0507597 -1.912752 5.772443e-02
+## x.Q         -9.629178  1.0527928 -9.146318 4.496049e-16</code></pre>
+</div>
 </div>
 </div>
 <div id="tests-for-patterns-in-continuous-data" class="section level2 hasAnchor" number="9.5">
@@ -2768,43 +2340,16 @@ variable gets smaller.</p></li>
 strength or consistency. Small values close to 0 indicate a weak or
 inconsistent correlation; values closer to -1 or 1 indicate a strong or
 consistent correlation.</p>
-<p><img src="applied_biol_data_analysis_20220816_files/figure-html/unnamed-chunk-550-1.png" width="672" /></p>
+<p><img src="applied_biol_data_analysis_20220816_files/figure-html/unnamed-chunk-557-1.png" width="672" /></p>
 <div id="mod-09-linear-correl" class="section level4 hasAnchor" number="9.5.1.1">
 <h4><span class="header-section-number">9.5.1.1</span> Linear correlation (Pearson’s <em>r</em>)<a href="mod-09.html#mod-09-linear-correl" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<table style="width:67%;">
-<colgroup>
-<col width="23%" />
-<col width="43%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td>Question:</td>
-<td>As values in one set change,
-do values in another set
-change at a constant rate?</td>
-</tr>
-<tr class="even">
-<td>Null
-hypothesis:</td>
-<td>N/A (descriptive statistic)</td>
-</tr>
-<tr class="odd">
-<td>Alternative
-hypothesis:</td>
-<td>N/A (descriptive statistic)</td>
-</tr>
-<tr class="even">
-<td>Example use
-case:</td>
-<td>Lisa is studying whether the
-size of a mammal’s cecum is
-related to the proportion of
-plant material in its diet,
-and suspects that the
-relationship is linear.</td>
-</tr>
-</tbody>
-</table>
+<p><strong>Question:</strong> As values in one set change, do values in another set
+change at a constant rate?</p>
+<p><strong>Null hypothesis:</strong> N/A (descriptive statistic)</p>
+<p><strong>Alternative hypothesis:</strong> N/A (descriptive statistic)</p>
+<p><strong>Example use case:</strong> Lisa is studying whether the size of a mammal’s
+cecum is related to the proportion of plant material in its diet, and
+suspects that the relationship is linear.</p>
 <p>The most common correlation coefficient is probably <strong>Pearson’s product
 moment coefficient</strong>, or <strong>Pearson’s <em>r</em></strong>. This describes the strength
 and direction of a <strong>linear correlation</strong> between two variables. It can
@@ -2822,14 +2367,14 @@ means of <em>x</em> and <em>y</em>; and <em>s<sub>x</sub></em> and <em>s<sub>y</
 relationship between <em>x</em> and <em>y</em> gets larger, regardless of sign; and
 that increasing variance decreases <em>r</em>.</p>
 <p><strong>Example linear correlations in R:</strong></p>
-<div class="sourceCode" id="cb950"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb950-1"><a href="mod-09.html#cb950-1" tabindex="-1"></a><span class="co"># correlation between two variables</span></span>
-<span id="cb950-2"><a href="mod-09.html#cb950-2" tabindex="-1"></a><span class="do">## just the coefficient:</span></span>
-<span id="cb950-3"><a href="mod-09.html#cb950-3" tabindex="-1"></a><span class="fu">cor</span>(iris<span class="sc">$</span>Petal.Length, iris<span class="sc">$</span>Petal.Width)</span></code></pre></div>
+<div class="sourceCode" id="cb962"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb962-1"><a href="mod-09.html#cb962-1" tabindex="-1"></a><span class="co"># correlation between two variables</span></span>
+<span id="cb962-2"><a href="mod-09.html#cb962-2" tabindex="-1"></a><span class="do">## just the coefficient:</span></span>
+<span id="cb962-3"><a href="mod-09.html#cb962-3" tabindex="-1"></a><span class="fu">cor</span>(iris<span class="sc">$</span>Petal.Length, iris<span class="sc">$</span>Petal.Width)</span></code></pre></div>
 <pre><code>## [1] 0.9628654</code></pre>
 <p>You can also request a significance test on the coefficient.</p>
-<div class="sourceCode" id="cb952"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb952-1"><a href="mod-09.html#cb952-1" tabindex="-1"></a><span class="do">## significance test on the coefficient</span></span>
-<span id="cb952-2"><a href="mod-09.html#cb952-2" tabindex="-1"></a><span class="do">## i.e., is the coefficient diff. from 0?</span></span>
-<span id="cb952-3"><a href="mod-09.html#cb952-3" tabindex="-1"></a><span class="fu">cor.test</span>(iris<span class="sc">$</span>Petal.Length, iris<span class="sc">$</span>Petal.Width)</span></code></pre></div>
+<div class="sourceCode" id="cb964"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb964-1"><a href="mod-09.html#cb964-1" tabindex="-1"></a><span class="do">## significance test on the coefficient</span></span>
+<span id="cb964-2"><a href="mod-09.html#cb964-2" tabindex="-1"></a><span class="do">## i.e., is the coefficient diff. from 0?</span></span>
+<span id="cb964-3"><a href="mod-09.html#cb964-3" tabindex="-1"></a><span class="fu">cor.test</span>(iris<span class="sc">$</span>Petal.Length, iris<span class="sc">$</span>Petal.Width)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
@@ -2843,9 +2388,9 @@ that increasing variance decreases <em>r</em>.</p>
 ## 0.9628654</code></pre>
 <p>You can also get correlations between a set of variables. I.e., a
 correlation matrix.</p>
-<div class="sourceCode" id="cb954"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb954-1"><a href="mod-09.html#cb954-1" tabindex="-1"></a><span class="co"># correlations between several variables at once:</span></span>
-<span id="cb954-2"><a href="mod-09.html#cb954-2" tabindex="-1"></a><span class="co"># i.e., a correlation matrix</span></span>
-<span id="cb954-3"><a href="mod-09.html#cb954-3" tabindex="-1"></a><span class="fu">cor</span>(iris[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb966"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb966-1"><a href="mod-09.html#cb966-1" tabindex="-1"></a><span class="co"># correlations between several variables at once:</span></span>
+<span id="cb966-2"><a href="mod-09.html#cb966-2" tabindex="-1"></a><span class="co"># i.e., a correlation matrix</span></span>
+<span id="cb966-3"><a href="mod-09.html#cb966-3" tabindex="-1"></a><span class="fu">cor</span>(iris[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>])</span></code></pre></div>
 <pre><code>##              Sepal.Length Sepal.Width Petal.Length Petal.Width
 ## Sepal.Length    1.0000000  -0.1175698    0.8717538   0.8179411
 ## Sepal.Width    -0.1175698   1.0000000   -0.4284401  -0.3661259
@@ -2855,25 +2400,25 @@ correlation matrix.</p>
 correlations between many pairs of variables at once. This is because
 <code>cor.test()</code> only works with one pair at a time. Fortunately, it’s not
 hard to do in a loop:</p>
-<div class="sourceCode" id="cb956"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb956-1"><a href="mod-09.html#cb956-1" tabindex="-1"></a><span class="co"># data frame we need</span></span>
-<span id="cb956-2"><a href="mod-09.html#cb956-2" tabindex="-1"></a>dx <span class="ot">&lt;-</span> iris[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span>
-<span id="cb956-3"><a href="mod-09.html#cb956-3" tabindex="-1"></a></span>
-<span id="cb956-4"><a href="mod-09.html#cb956-4" tabindex="-1"></a><span class="co"># set up data frame to hold results</span></span>
-<span id="cb956-5"><a href="mod-09.html#cb956-5" tabindex="-1"></a>cor.df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">t</span>(<span class="fu">combn</span>(<span class="fu">names</span>(dx), <span class="dv">2</span>)))</span>
-<span id="cb956-6"><a href="mod-09.html#cb956-6" tabindex="-1"></a>cor.df<span class="sc">$</span>r <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb956-7"><a href="mod-09.html#cb956-7" tabindex="-1"></a>cor.df<span class="sc">$</span>p <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb956-8"><a href="mod-09.html#cb956-8" tabindex="-1"></a></span>
-<span id="cb956-9"><a href="mod-09.html#cb956-9" tabindex="-1"></a><span class="co"># find the r and p values in a loop</span></span>
-<span id="cb956-10"><a href="mod-09.html#cb956-10" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(cor.df)){</span>
-<span id="cb956-11"><a href="mod-09.html#cb956-11" tabindex="-1"></a>  <span class="co"># test once per iteration  </span></span>
-<span id="cb956-12"><a href="mod-09.html#cb956-12" tabindex="-1"></a>  curr <span class="ot">&lt;-</span> <span class="fu">cor.test</span>(dx[,cor.df<span class="sc">$</span>V1[i]], dx[,cor.df<span class="sc">$</span>V2[i]])</span>
-<span id="cb956-13"><a href="mod-09.html#cb956-13" tabindex="-1"></a>  <span class="co"># pull out values we need from correlation test result</span></span>
-<span id="cb956-14"><a href="mod-09.html#cb956-14" tabindex="-1"></a>  cor.df<span class="sc">$</span>r[i] <span class="ot">&lt;-</span> curr<span class="sc">$</span>estimate</span>
-<span id="cb956-15"><a href="mod-09.html#cb956-15" tabindex="-1"></a>  cor.df<span class="sc">$</span>p[i] <span class="ot">&lt;-</span> curr<span class="sc">$</span>p.value</span>
-<span id="cb956-16"><a href="mod-09.html#cb956-16" tabindex="-1"></a>}<span class="co">#close i loop</span></span>
-<span id="cb956-17"><a href="mod-09.html#cb956-17" tabindex="-1"></a></span>
-<span id="cb956-18"><a href="mod-09.html#cb956-18" tabindex="-1"></a><span class="co"># print result</span></span>
-<span id="cb956-19"><a href="mod-09.html#cb956-19" tabindex="-1"></a>cor.df</span></code></pre></div>
+<div class="sourceCode" id="cb968"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb968-1"><a href="mod-09.html#cb968-1" tabindex="-1"></a><span class="co"># data frame we need</span></span>
+<span id="cb968-2"><a href="mod-09.html#cb968-2" tabindex="-1"></a>dx <span class="ot">&lt;-</span> iris[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span>
+<span id="cb968-3"><a href="mod-09.html#cb968-3" tabindex="-1"></a></span>
+<span id="cb968-4"><a href="mod-09.html#cb968-4" tabindex="-1"></a><span class="co"># set up data frame to hold results</span></span>
+<span id="cb968-5"><a href="mod-09.html#cb968-5" tabindex="-1"></a>cor.df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">t</span>(<span class="fu">combn</span>(<span class="fu">names</span>(dx), <span class="dv">2</span>)))</span>
+<span id="cb968-6"><a href="mod-09.html#cb968-6" tabindex="-1"></a>cor.df<span class="sc">$</span>r <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb968-7"><a href="mod-09.html#cb968-7" tabindex="-1"></a>cor.df<span class="sc">$</span>p <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb968-8"><a href="mod-09.html#cb968-8" tabindex="-1"></a></span>
+<span id="cb968-9"><a href="mod-09.html#cb968-9" tabindex="-1"></a><span class="co"># find the r and p values in a loop</span></span>
+<span id="cb968-10"><a href="mod-09.html#cb968-10" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(cor.df)){</span>
+<span id="cb968-11"><a href="mod-09.html#cb968-11" tabindex="-1"></a>  <span class="co"># test once per iteration  </span></span>
+<span id="cb968-12"><a href="mod-09.html#cb968-12" tabindex="-1"></a>  curr <span class="ot">&lt;-</span> <span class="fu">cor.test</span>(dx[,cor.df<span class="sc">$</span>V1[i]], dx[,cor.df<span class="sc">$</span>V2[i]])</span>
+<span id="cb968-13"><a href="mod-09.html#cb968-13" tabindex="-1"></a>  <span class="co"># pull out values we need from correlation test result</span></span>
+<span id="cb968-14"><a href="mod-09.html#cb968-14" tabindex="-1"></a>  cor.df<span class="sc">$</span>r[i] <span class="ot">&lt;-</span> curr<span class="sc">$</span>estimate</span>
+<span id="cb968-15"><a href="mod-09.html#cb968-15" tabindex="-1"></a>  cor.df<span class="sc">$</span>p[i] <span class="ot">&lt;-</span> curr<span class="sc">$</span>p.value</span>
+<span id="cb968-16"><a href="mod-09.html#cb968-16" tabindex="-1"></a>}<span class="co">#close i loop</span></span>
+<span id="cb968-17"><a href="mod-09.html#cb968-17" tabindex="-1"></a></span>
+<span id="cb968-18"><a href="mod-09.html#cb968-18" tabindex="-1"></a><span class="co"># print result</span></span>
+<span id="cb968-19"><a href="mod-09.html#cb968-19" tabindex="-1"></a>cor.df</span></code></pre></div>
 <pre><code>##             V1           V2          r            p
 ## 1 Sepal.Length  Sepal.Width -0.1175698 1.518983e-01
 ## 2 Sepal.Length Petal.Length  0.8717538 1.038667e-47
@@ -2886,42 +2431,13 @@ significantly correlated except sepal width and sepal length.</p>
 </div>
 <div id="mod-09-nonlinear" class="section level4 hasAnchor" number="9.5.1.2">
 <h4><span class="header-section-number">9.5.1.2</span> Nonlinear (rank) correlation (Spearman’s <span class="math inline">\(\rho\)</span>)<a href="mod-09.html#mod-09-nonlinear" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<table style="width:67%;">
-<colgroup>
-<col width="23%" />
-<col width="43%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td>Question:</td>
-<td>As values in one set change,
-do values in another set
-change consistently in one
-direction or another?</td>
-</tr>
-<tr class="even">
-<td>Null
-hypothesis:</td>
-<td>N/A (descriptive statistic)</td>
-</tr>
-<tr class="odd">
-<td>Alternative
-hypothesis:</td>
-<td>N/A (descriptive statistic)</td>
-</tr>
-<tr class="even">
-<td>Example use
-case:</td>
-<td>Maggie is studying whether
-the size of a mammal’s cecum
-is related to the proportion
-of plant material in its
-diet, and is not interested
-in the shape of the
-relationship.</td>
-</tr>
-</tbody>
-</table>
+<p><strong>Question:</strong> As values in one set change, do values in another set
+change consistently in one direction or another?</p>
+<p><strong>Null hypothesis:</strong> N/A (descriptive statistic)</p>
+<p><strong>Alternative hypothesis:</strong> N/A (descriptive statistic)</p>
+<p><strong>Example use case:</strong> Maggie is studying whether the size of a mammal’s
+cecum is related to the proportion of plant material in its diet, and is
+not interested in the shape of the relationship.</p>
 <p>Processes and relationships in biology are not always linear. Consider
 the right figure below. There is clearly a relationship between the <em>Y</em>
 and the <em>X</em> variable, but the relationship is probably not linear. In
@@ -2930,7 +2446,7 @@ using Pearson’s <em>r</em> to say that there is a linear correlation would not
 be appropriate. However, we could say that as <em>X</em> increases, <em>Y</em> also
 tends to increase. Such a relationship is called <strong>monotonic</strong>: the
 <strong>sign</strong> of the slope is always the same, even if its magnitude changes.</p>
-<p><img src="applied_biol_data_analysis_20220816_files/figure-html/unnamed-chunk-555-1.png" width="672" /></p>
+<p><img src="applied_biol_data_analysis_20220816_files/figure-html/unnamed-chunk-562-1.png" width="672" /></p>
 <p>However, if you rank-transform the data, the relationship turns into
 something more linear. A “rank-transform” assigns the smallest value
 value “0”, the second smallest value to “1”, and so on.
@@ -2938,10 +2454,10 @@ Rank-transforming these data lets us calculate a nonparametric,
 nonlinear correlation. The nonparametric equivalent of Pearson’s <em>r</em> is
 Spearman’s <span class="math inline">\(\rho\)</span> (“rho”). It can be obtained using code similar to what
 was done for linear correlation.</p>
-<div class="sourceCode" id="cb958"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb958-1"><a href="mod-09.html#cb958-1" tabindex="-1"></a><span class="fu">cor</span>(iris<span class="sc">$</span>Petal.Length, iris<span class="sc">$</span>Sepal.Width, <span class="at">method=</span><span class="st">&quot;spearman&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb970"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb970-1"><a href="mod-09.html#cb970-1" tabindex="-1"></a><span class="fu">cor</span>(iris<span class="sc">$</span>Petal.Length, iris<span class="sc">$</span>Sepal.Width, <span class="at">method=</span><span class="st">&quot;spearman&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] -0.3096351</code></pre>
-<div class="sourceCode" id="cb960"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb960-1"><a href="mod-09.html#cb960-1" tabindex="-1"></a><span class="co"># can also get a significance test for rho</span></span>
-<span id="cb960-2"><a href="mod-09.html#cb960-2" tabindex="-1"></a><span class="fu">cor.test</span>(iris<span class="sc">$</span>Petal.Length, iris<span class="sc">$</span>Sepal.Width, <span class="at">method=</span><span class="st">&quot;spearman&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb972"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb972-1"><a href="mod-09.html#cb972-1" tabindex="-1"></a><span class="co"># can also get a significance test for rho</span></span>
+<span id="cb972-2"><a href="mod-09.html#cb972-2" tabindex="-1"></a><span class="fu">cor.test</span>(iris<span class="sc">$</span>Petal.Length, iris<span class="sc">$</span>Sepal.Width, <span class="at">method=</span><span class="st">&quot;spearman&quot;</span>)</span></code></pre></div>
 <pre><code>## Warning in cor.test.default(iris$Petal.Length, iris$Sepal.Width, method =
 ## &quot;spearman&quot;): Cannot compute exact p-value with ties</code></pre>
 <pre><code>## 
@@ -3010,22 +2526,34 @@ it’s because I am…it’s really important!</p>
 <p>Linear models also include those where <em>y</em>, <em>x</em>, or both have been
 transformed by some function.</p>
 <p><strong>Function</strong>: <span class="math inline">\(y=\beta_0+\beta_1x\)</span></p>
-<p><strong>Why it’s linear:</strong> Rate of change <span class="math inline">\(dy/dx\)</span> is a scalar (<span class="math inline">\(\beta_1\)</span>).</p>
+<ul>
+<li><strong>Why it’s linear:</strong> Rate of change <span class="math inline">\(dy/dx\)</span> is a scalar (<span class="math inline">\(\beta_1\)</span>).</li>
+</ul>
 <p><strong>Function:</strong> <span class="math inline">\(y=\beta_0+\beta_1x+\beta_2x^2\)</span></p>
-<p><strong>Why it’s linear:</strong> Although the rate of change <span class="math inline">\(dy/dx\)</span> of a polynomial
-is a function of <span class="math inline">\(x\)</span> and not a scalar, the rate of change with respect
-to any <span class="math inline">\(x\)</span> term is a scalar (e.g., <span class="math inline">\(dy/\left(dx^2\right)=\beta_2\)</span>).</p>
+<ul>
+<li><strong>Why it’s linear:</strong> Although the rate of change <span class="math inline">\(dy/dx\)</span> of a
+polynomial is a function of <span class="math inline">\(x\)</span> and not a scalar, the rate of change
+with respect to any <span class="math inline">\(x\)</span> term is a scalar (e.g.,
+<span class="math inline">\(dy/\left(dx^2\right)=\beta_2\)</span>).</li>
+</ul>
 <p><strong>Function:</strong> <span class="math inline">\(y=ae^{bx}\)</span></p>
-<p><strong>Why it’s linear:</strong> This is an exponential model. While the function
-itself is nonlinear because <span class="math inline">\(dy/dx\)</span> is a function of <span class="math inline">\(x\)</span>, the function
-can be made linear by log-transforming both sides.</p>
+<ul>
+<li><strong>Why it’s linear:</strong> This is an exponential model. While the
+function itself is nonlinear because <span class="math inline">\(dy/dx\)</span> is a function of <span class="math inline">\(x\)</span>,
+the function can be made linear by log-transforming both sides.</li>
+</ul>
 <p><strong>Function:</strong> <span class="math inline">\(log\left(y\right)=\beta_0+\beta_1x\)</span></p>
-<p><strong>Why it’s linear:</strong> This is a log-linear model. This is what you get if
-you log-transform the exponential model above.</p>
+<ul>
+<li><strong>Why it’s linear:</strong> This is a log-linear model. This is what you
+get if you log-transform the exponential model above.</li>
+</ul>
 <p><strong>Function:</strong> <span class="math inline">\(y=ax^b\)</span></p>
-<p><strong>Why it’s linear:</strong> This is a <strong>power law</strong>, because <span class="math inline">\(x\)</span> is raised to a
-power. If both sides are log-transformed, then the relationship becomes
-linear: <span class="math inline">\(\log\left(y\right)=\log\left(a\right)+b\log\left(x\right)\)</span></p>
+<ul>
+<li><strong>Why it’s linear:</strong> This is a <strong>power law</strong>, because <span class="math inline">\(x\)</span> is raised
+to a power. If both sides are log-transformed, then the relationship
+becomes linear:
+<span class="math inline">\(\log\left(y\right)=\log\left(a\right)+b\log\left(x\right)\)</span></li>
+</ul>
 <p>This notion of linearity is what makes many analyses with <strong>factors</strong>
 (categories or grouping variables) as predictors “linear”. For example,
 the <em>t</em>-test is a linear model, but it doesn’t really describe a line on
@@ -3209,9 +2737,9 @@ then <em>y</em> increases by <span class="math inline">\(\beta_1\)</span>.</p></
 <li><p><span class="math inline">\(\varepsilon\)</span> is a random error term that describes residual
 variation not explained by the model (“epsilon”).</p></li>
 </ul>
-<p>For reasons that will become more clear in <a href="mod-10.html#mod-10">Module
-10</a>, some people prefer to write this in an
-<strong>observation-wise</strong>, <strong>state-space</strong> notation.</p>
+<p>For reasons that will become more clear in <a href="mod-10.html#mod-10">Module 10</a>, some
+people prefer to write this in an <strong>observation-wise</strong>, <strong>state-space</strong>
+notation.</p>
 <p>This format makes it clear that each <em>y</em> value, <span class="math inline">\(y_i\)</span>, has its own
 expected value <span class="math inline">\(\eta_i\)</span> (“eta sub i”), dependent on the value of <em>x</em> for
 observation <em>i,</em> <span class="math inline">\(x_i\)</span>. This relates to a key assumption of the linear
@@ -3227,9 +2755,9 @@ like the GLM.</p>
 saw above, because both linear regression and ANOVA are linear models.
 The formula and syntax are the same, with the only difference being that
 the predictor variable is a continuous variable rather than a factor.</p>
-<div class="sourceCode" id="cb964"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb964-1"><a href="mod-09.html#cb964-1" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Petal.Length<span class="sc">~</span>Petal.Width, <span class="at">data=</span>iris)</span>
-<span id="cb964-2"><a href="mod-09.html#cb964-2" tabindex="-1"></a><span class="co"># access parameter coefficients and other info</span></span>
-<span id="cb964-3"><a href="mod-09.html#cb964-3" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code></pre></div>
+<div class="sourceCode" id="cb976"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb976-1"><a href="mod-09.html#cb976-1" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Petal.Length<span class="sc">~</span>Petal.Width, <span class="at">data=</span>iris)</span>
+<span id="cb976-2"><a href="mod-09.html#cb976-2" tabindex="-1"></a><span class="co"># access parameter coefficients and other info</span></span>
+<span id="cb976-3"><a href="mod-09.html#cb976-3" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Petal.Length ~ Petal.Width, data = iris)
@@ -3248,8 +2776,8 @@ the predictor variable is a continuous variable rather than a factor.</p>
 ## Residual standard error: 0.4782 on 148 degrees of freedom
 ## Multiple R-squared:  0.9271, Adjusted R-squared:  0.9266 
 ## F-statistic:  1882 on 1 and 148 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb966"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb966-1"><a href="mod-09.html#cb966-1" tabindex="-1"></a><span class="co"># perform an anova on the model</span></span>
-<span id="cb966-2"><a href="mod-09.html#cb966-2" tabindex="-1"></a><span class="fu">anova</span>(mod1)</span></code></pre></div>
+<div class="sourceCode" id="cb978"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb978-1"><a href="mod-09.html#cb978-1" tabindex="-1"></a><span class="co"># perform an anova on the model</span></span>
+<span id="cb978-2"><a href="mod-09.html#cb978-2" tabindex="-1"></a><span class="fu">anova</span>(mod1)</span></code></pre></div>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: Petal.Length
@@ -3274,8 +2802,8 @@ for <em>t</em> calculated from a <em>t</em>-distribution (much as in a <em>t</em
 where there are &gt;1 continuous predictors. Just as with ANOVA (see
 crossref), additional predictor variables are added to the model formula
 using <code>+</code>.</p>
-<div class="sourceCode" id="cb968"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb968-1"><a href="mod-09.html#cb968-1" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Petal.Length<span class="sc">~</span>Petal.Width <span class="sc">+</span> Sepal.Width, <span class="at">data=</span>iris)</span>
-<span id="cb968-2"><a href="mod-09.html#cb968-2" tabindex="-1"></a><span class="fu">summary</span>(mod2)</span></code></pre></div>
+<div class="sourceCode" id="cb980"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb980-1"><a href="mod-09.html#cb980-1" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Petal.Length<span class="sc">~</span>Petal.Width <span class="sc">+</span> Sepal.Width, <span class="at">data=</span>iris)</span>
+<span id="cb980-2"><a href="mod-09.html#cb980-2" tabindex="-1"></a><span class="fu">summary</span>(mod2)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Petal.Length ~ Petal.Width + Sepal.Width, data = iris)
@@ -3309,24 +2837,24 @@ associated with each predictor. Compare the 2 models below. The first is
 the same as <code>mod1</code> above. The second includes sepal length as a second
 predictor, which is highly correlated with the first predictor petal
 width.</p>
-<div class="sourceCode" id="cb970"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb970-1"><a href="mod-09.html#cb970-1" tabindex="-1"></a><span class="co"># model coefficients</span></span>
-<span id="cb970-2"><a href="mod-09.html#cb970-2" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(Petal.Length<span class="sc">~</span>Petal.Width, <span class="at">data=</span>iris))</span></code></pre></div>
+<div class="sourceCode" id="cb982"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb982-1"><a href="mod-09.html#cb982-1" tabindex="-1"></a><span class="co"># model coefficients</span></span>
+<span id="cb982-2"><a href="mod-09.html#cb982-2" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(Petal.Length<span class="sc">~</span>Petal.Width, <span class="at">data=</span>iris))</span></code></pre></div>
 <pre><code>## (Intercept) Petal.Width 
 ##    1.083558    2.229940</code></pre>
-<div class="sourceCode" id="cb972"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb972-1"><a href="mod-09.html#cb972-1" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(Petal.Length<span class="sc">~</span>Petal.Width<span class="sc">+</span>Sepal.Length, <span class="at">data=</span>iris))</span></code></pre></div>
+<div class="sourceCode" id="cb984"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb984-1"><a href="mod-09.html#cb984-1" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(Petal.Length<span class="sc">~</span>Petal.Width<span class="sc">+</span>Sepal.Length, <span class="at">data=</span>iris))</span></code></pre></div>
 <pre><code>##  (Intercept)  Petal.Width Sepal.Length 
 ##   -1.5071384    1.7481029    0.5422556</code></pre>
-<div class="sourceCode" id="cb974"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb974-1"><a href="mod-09.html#cb974-1" tabindex="-1"></a><span class="co"># model R^2</span></span>
-<span id="cb974-2"><a href="mod-09.html#cb974-2" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(Petal.Length<span class="sc">~</span>Petal.Width, <span class="at">data=</span>iris))<span class="sc">$</span>adj.r.squared</span></code></pre></div>
+<div class="sourceCode" id="cb986"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb986-1"><a href="mod-09.html#cb986-1" tabindex="-1"></a><span class="co"># model R^2</span></span>
+<span id="cb986-2"><a href="mod-09.html#cb986-2" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(Petal.Length<span class="sc">~</span>Petal.Width, <span class="at">data=</span>iris))<span class="sc">$</span>adj.r.squared</span></code></pre></div>
 <pre><code>## [1] 0.9266173</code></pre>
-<div class="sourceCode" id="cb976"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb976-1"><a href="mod-09.html#cb976-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(Petal.Length<span class="sc">~</span>Petal.Width<span class="sc">+</span>Sepal.Length,</span>
-<span id="cb976-2"><a href="mod-09.html#cb976-2" tabindex="-1"></a>    <span class="at">data=</span>iris))<span class="sc">$</span>adj.r.squared</span></code></pre></div>
+<div class="sourceCode" id="cb988"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb988-1"><a href="mod-09.html#cb988-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(Petal.Length<span class="sc">~</span>Petal.Width<span class="sc">+</span>Sepal.Length,</span>
+<span id="cb988-2"><a href="mod-09.html#cb988-2" tabindex="-1"></a>    <span class="at">data=</span>iris))<span class="sc">$</span>adj.r.squared</span></code></pre></div>
 <pre><code>## [1] 0.9478233</code></pre>
 <p>Notice that while adding sepal length improved the model fit, it also
 changed the estimated slope for petal width from 2.23 to 1.75, a shift
 of over 20%! Even worse, the effect of sepal length by itself affected
 by the inclusion of petal width:</p>
-<div class="sourceCode" id="cb978"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb978-1"><a href="mod-09.html#cb978-1" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(Petal.Length<span class="sc">~</span>Sepal.Length, <span class="at">data=</span>iris))</span></code></pre></div>
+<div class="sourceCode" id="cb990"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb990-1"><a href="mod-09.html#cb990-1" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(Petal.Length<span class="sc">~</span>Sepal.Length, <span class="at">data=</span>iris))</span></code></pre></div>
 <pre><code>##  (Intercept) Sepal.Length 
 ##    -7.101443     1.858433</code></pre>
 <p>Adding the collinear predictor petal width to the model above changes
@@ -3340,9 +2868,9 @@ problem.</p>
 totally uncorrelated variable <code>x5</code> is added to the model. The
 coefficient of petal width in this model is essentially the same as in
 the model with petal width as the sole predictor.</p>
-<div class="sourceCode" id="cb980"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb980-1"><a href="mod-09.html#cb980-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb980-2"><a href="mod-09.html#cb980-2" tabindex="-1"></a>iris<span class="sc">$</span>x5 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="fu">nrow</span>(iris))</span>
-<span id="cb980-3"><a href="mod-09.html#cb980-3" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(Petal.Length<span class="sc">~</span>Petal.Width<span class="sc">+</span>x5, <span class="at">data=</span>iris))</span></code></pre></div>
+<div class="sourceCode" id="cb992"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb992-1"><a href="mod-09.html#cb992-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb992-2"><a href="mod-09.html#cb992-2" tabindex="-1"></a>iris<span class="sc">$</span>x5 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="fu">nrow</span>(iris))</span>
+<span id="cb992-3"><a href="mod-09.html#cb992-3" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(Petal.Length<span class="sc">~</span>Petal.Width<span class="sc">+</span>x5, <span class="at">data=</span>iris))</span></code></pre></div>
 <pre><code>## (Intercept) Petal.Width          x5 
 ##  1.08471526  2.22874451 -0.01137603</code></pre>
 </div>
@@ -3386,12 +2914,12 @@ ANOVA!</p></li>
 a lengthy feeding trial in 60 guinea pigs. The variables are tooth
 length in mm (<code>len</code>), vitamin C dose in mg/day (<code>dose</code>), and vitamin C
 delivery method (<code>supp</code>).</p>
-<div class="sourceCode" id="cb982"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb982-1"><a href="mod-09.html#cb982-1" tabindex="-1"></a><span class="co"># name is too long</span></span>
-<span id="cb982-2"><a href="mod-09.html#cb982-2" tabindex="-1"></a>tg <span class="ot">&lt;-</span> ToothGrowth</span>
-<span id="cb982-3"><a href="mod-09.html#cb982-3" tabindex="-1"></a></span>
-<span id="cb982-4"><a href="mod-09.html#cb982-4" tabindex="-1"></a><span class="co"># fit the ANCOVA with interaction</span></span>
-<span id="cb982-5"><a href="mod-09.html#cb982-5" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(len<span class="sc">~</span>dose<span class="sc">*</span>supp, <span class="at">data=</span>tg)</span>
-<span id="cb982-6"><a href="mod-09.html#cb982-6" tabindex="-1"></a><span class="fu">anova</span>(mod1)</span></code></pre></div>
+<div class="sourceCode" id="cb994"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb994-1"><a href="mod-09.html#cb994-1" tabindex="-1"></a><span class="co"># name is too long</span></span>
+<span id="cb994-2"><a href="mod-09.html#cb994-2" tabindex="-1"></a>tg <span class="ot">&lt;-</span> ToothGrowth</span>
+<span id="cb994-3"><a href="mod-09.html#cb994-3" tabindex="-1"></a></span>
+<span id="cb994-4"><a href="mod-09.html#cb994-4" tabindex="-1"></a><span class="co"># fit the ANCOVA with interaction</span></span>
+<span id="cb994-5"><a href="mod-09.html#cb994-5" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(len<span class="sc">~</span>dose<span class="sc">*</span>supp, <span class="at">data=</span>tg)</span>
+<span id="cb994-6"><a href="mod-09.html#cb994-6" tabindex="-1"></a><span class="fu">anova</span>(mod1)</span></code></pre></div>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: len
@@ -3405,7 +2933,7 @@ delivery method (<code>supp</code>).</p>
 <p>The ANOVA table tells us that dose, supplement, and the interaction of
 dose and supplement are significant predictors of tooth growth, with
 dose having most of the explanatory power.</p>
-<div class="sourceCode" id="cb984"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb984-1"><a href="mod-09.html#cb984-1" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code></pre></div>
+<div class="sourceCode" id="cb996"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb996-1"><a href="mod-09.html#cb996-1" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = len ~ dose * supp, data = tg)
@@ -3502,49 +3030,10 @@ each category within a dataset.</p>
 <h3><span class="header-section-number">9.6.2</span> Tests on contingency tables<a href="mod-09.html#tests-on-contingency-tables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="mod-09-fishers" class="section level4 hasAnchor" number="9.6.2.1">
 <h4><span class="header-section-number">9.6.2.1</span> Fisher’s exact test<a href="mod-09.html#mod-09-fishers" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<table style="width:68%;">
-<colgroup>
-<col width="23%" />
-<col width="44%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td>Question</td>
-<td>Are the proportions of data
-described by two or more
-categorical variables random
-or nonrandom?</td>
-</tr>
-<tr class="even">
-<td>Null
-hypothesis:</td>
-<td>Membership in one of one set
-of categories is independent
-of membership in one of
-another set of categories.</td>
-</tr>
-<tr class="odd">
-<td>Alternative
-hypothesis:</td>
-<td>Membership in one of one set
-of categories is not
-independent of membership in
-one of another set of
-categories.</td>
-</tr>
-<tr class="even">
-<td>Example use
-case:</td>
-<td>Rick is studying if whether a
-fish spawning or not spawning
-is related to whether it
-resides in main channel or
-off-channel habitat, and he
-has dozens of fish in his
-dataset.</td>
-</tr>
-</tbody>
-</table>
+<p><strong>Question:</strong> Are the proportions of data described by two or more categorical variables random or nonrandom?</p>
+<p><strong>Null hypothesis:</strong> Membership in one of one set of categories is independent of membership in one of another set of categories.</p>
+<p><strong>Alternative hypothesis:</strong> Membership in one of one set of categories is not independent of membership in one of another set of categories.</p>
+<p><strong>Example use case:</strong> Rick is studying if whether a fish spawning or not spawning is related to whether it resides in main channel or off-channel habitat, and he has dozens of fish in his dataset.</p>
 <p><strong>Fisher’s exact test</strong> is a test for independence in contingency tables
 that is usually only used when sample sizes are small. This is because
 the <em>P</em>-value calculation involves a numerous factorials, which can
@@ -3553,14 +3042,14 @@ modern programs use an approximation to the true <em>P</em>-value, obviating
 the purpose of an exact test. For any situation where a Fisher’s exact
 test is appropriate, a chi-square (<span class="math inline">\(\chi^2\)</span>) test will usually give the
 same answer, but faster (as long as the sample size is large enough).</p>
-<div class="sourceCode" id="cb986"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb986-1"><a href="mod-09.html#cb986-1" tabindex="-1"></a><span class="co"># make a matrix from the table above</span></span>
-<span id="cb986-2"><a href="mod-09.html#cb986-2" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">17</span>,<span class="dv">6</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">14</span>), <span class="at">byrow=</span><span class="cn">TRUE</span>, <span class="at">nrow=</span><span class="dv">3</span>)</span>
-<span id="cb986-3"><a href="mod-09.html#cb986-3" tabindex="-1"></a>a</span></code></pre></div>
+<div class="sourceCode" id="cb998"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb998-1"><a href="mod-09.html#cb998-1" tabindex="-1"></a><span class="co"># make a matrix from the table above</span></span>
+<span id="cb998-2"><a href="mod-09.html#cb998-2" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">17</span>,<span class="dv">6</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">14</span>), <span class="at">byrow=</span><span class="cn">TRUE</span>, <span class="at">nrow=</span><span class="dv">3</span>)</span>
+<span id="cb998-3"><a href="mod-09.html#cb998-3" tabindex="-1"></a>a</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]   17    6
 ## [2,]    3    4
 ## [3,]    4   14</code></pre>
-<div class="sourceCode" id="cb988"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb988-1"><a href="mod-09.html#cb988-1" tabindex="-1"></a><span class="fu">fisher.test</span>(a)</span></code></pre></div>
+<div class="sourceCode" id="cb1000"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1000-1"><a href="mod-09.html#cb1000-1" tabindex="-1"></a><span class="fu">fisher.test</span>(a)</span></code></pre></div>
 <pre><code>## 
 ##  Fisher&#39;s Exact Test for Count Data
 ## 
@@ -3573,49 +3062,10 @@ to report.</p>
 </div>
 <div id="mod-09-chisq" class="section level4 hasAnchor" number="9.6.2.2">
 <h4><span class="header-section-number">9.6.2.2</span> Chi-squared (<span class="math inline">\(\chi^{2}\)</span>) test<a href="mod-09.html#mod-09-chisq" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<table style="width:68%;">
-<colgroup>
-<col width="23%" />
-<col width="44%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td>Question:</td>
-<td>Are the proportions of data
-described by two or more
-categorical variables random
-or nonrandom?</td>
-</tr>
-<tr class="even">
-<td>Null
-hypothesis:</td>
-<td>Membership in one of one set
-of categories is independent
-of membership in one of
-another set of categories.</td>
-</tr>
-<tr class="odd">
-<td>Alternative
-hypothesis:</td>
-<td>Membership in one of one set
-of categories is not
-independent of membership in
-one of another set of
-categories.</td>
-</tr>
-<tr class="even">
-<td>Example use
-case:</td>
-<td>Morty is studying if whether
-a fish spawning or not
-spawning is related to
-whether it resides in main
-channel or off-channel
-habitat, and he has hundreds
-of fish in his dataset.</td>
-</tr>
-</tbody>
-</table>
+<p><strong>Question:</strong> Are the proportions of data described by two or more categorical variables random or nonrandom?</p>
+<p><strong>Null hypothesis:</strong> Membership in one of one set of categories is independent of membership in one of another set of categories.</p>
+<p><strong>Alternative hypothesis:</strong> Membership in one of one set of categories is not independent of membership in one of another set of categories.</p>
+<p><strong>Example use case:</strong> Morty is studying if whether a fish spawning or not spawning is related to whether it resides in main channel or off-channel habitat, and he has hundreds of fish in his dataset.</p>
 <p>The chi-square (<span class="math inline">\(\chi^2\)</span>) test is a more powerful, flexible, and
 computationally efficient cousin of the Fisher’s exact test. It works by
 comparing the input contingency table to what the contingency table
@@ -3661,11 +3111,11 @@ in the “Treated” group.</p></li>
 <span class="math inline">\(23\times p\left(Untreated\right)=11.5\)</span>.</p></li>
 </ul>
 <p><strong>Example</strong> <span class="math inline">\(\chi^2\)</span> <strong>test in R:</strong></p>
-<div class="sourceCode" id="cb990"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb990-1"><a href="mod-09.html#cb990-1" tabindex="-1"></a><span class="co"># make a matrix from the table above</span></span>
-<span id="cb990-2"><a href="mod-09.html#cb990-2" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">17</span>,<span class="dv">6</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">14</span>), <span class="at">byrow=</span><span class="cn">TRUE</span>, <span class="at">nrow=</span><span class="dv">3</span>)</span>
-<span id="cb990-3"><a href="mod-09.html#cb990-3" tabindex="-1"></a></span>
-<span id="cb990-4"><a href="mod-09.html#cb990-4" tabindex="-1"></a><span class="co"># run the test</span></span>
-<span id="cb990-5"><a href="mod-09.html#cb990-5" tabindex="-1"></a><span class="fu">chisq.test</span>(a)</span></code></pre></div>
+<div class="sourceCode" id="cb1002"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1002-1"><a href="mod-09.html#cb1002-1" tabindex="-1"></a><span class="co"># make a matrix from the table above</span></span>
+<span id="cb1002-2"><a href="mod-09.html#cb1002-2" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">17</span>,<span class="dv">6</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">14</span>), <span class="at">byrow=</span><span class="cn">TRUE</span>, <span class="at">nrow=</span><span class="dv">3</span>)</span>
+<span id="cb1002-3"><a href="mod-09.html#cb1002-3" tabindex="-1"></a></span>
+<span id="cb1002-4"><a href="mod-09.html#cb1002-4" tabindex="-1"></a><span class="co"># run the test</span></span>
+<span id="cb1002-5"><a href="mod-09.html#cb1002-5" tabindex="-1"></a><span class="fu">chisq.test</span>(a)</span></code></pre></div>
 <pre><code>## Warning in chisq.test(a): Chi-squared approximation may be incorrect</code></pre>
 <pre><code>## 
 ##  Pearson&#39;s Chi-squared test
@@ -3675,14 +3125,14 @@ in the “Treated” group.</p></li>
 <p>One advantage of the <span class="math inline">\(\chi^2\)</span> test in R vs. the Fisher’s test is that it
 returns the expected contingency table, for comparision. This can help
 you see which categories are the most over- or underrepresented.</p>
-<div class="sourceCode" id="cb993"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb993-1"><a href="mod-09.html#cb993-1" tabindex="-1"></a>cq1 <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(a)</span></code></pre></div>
+<div class="sourceCode" id="cb1005"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1005-1"><a href="mod-09.html#cb1005-1" tabindex="-1"></a>cq1 <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(a)</span></code></pre></div>
 <pre><code>## Warning in chisq.test(a): Chi-squared approximation may be incorrect</code></pre>
-<div class="sourceCode" id="cb995"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb995-1"><a href="mod-09.html#cb995-1" tabindex="-1"></a>cq1<span class="sc">$</span>observed</span></code></pre></div>
+<div class="sourceCode" id="cb1007"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1007-1"><a href="mod-09.html#cb1007-1" tabindex="-1"></a>cq1<span class="sc">$</span>observed</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]   17    6
 ## [2,]    3    4
 ## [3,]    4   14</code></pre>
-<div class="sourceCode" id="cb997"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb997-1"><a href="mod-09.html#cb997-1" tabindex="-1"></a>cq1<span class="sc">$</span>expected</span></code></pre></div>
+<div class="sourceCode" id="cb1009"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1009-1"><a href="mod-09.html#cb1009-1" tabindex="-1"></a>cq1<span class="sc">$</span>expected</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,] 11.5 11.5
 ## [2,]  3.5  3.5
@@ -3692,49 +3142,10 @@ driven by the relative numbers of “none” and “normal” pollen producers.<
 </div>
 <div id="mod-09-gtest" class="section level4 hasAnchor" number="9.6.2.3">
 <h4><span class="header-section-number">9.6.2.3</span> <em>G</em>-test<a href="mod-09.html#mod-09-gtest" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<table style="width:69%;">
-<colgroup>
-<col width="23%" />
-<col width="45%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td>Question:</td>
-<td>Are the proportions of data
-described by two or more
-categorical variables random
-or nonrandom?</td>
-</tr>
-<tr class="even">
-<td>Null
-hypothesis:</td>
-<td>Membership in one of one set
-of categories is independent
-of membership in one of
-another set of categories.</td>
-</tr>
-<tr class="odd">
-<td>Alternative
-hypothesis:</td>
-<td>Membership in one of one set
-of categories is not
-independent of membership in
-one of another set of
-categories.</td>
-</tr>
-<tr class="even">
-<td>Example use
-case:</td>
-<td>Beth is studying if whether a
-fish spawning or not spawning
-is related to whether it
-resides in main channel or
-off-channel habitat, and she
-has thousands of fish in her
-dataset.</td>
-</tr>
-</tbody>
-</table>
+<p><strong>Question:</strong> Are the proportions of data described by two or more categorical variables random or nonrandom?</p>
+<p><strong>Null hypothesis:</strong> Membership in one of one set of categories is independent of membership in one of another set of categories.</p>
+<p><strong>Alternative hypothesis:</strong> Membership in one of one set of categories is not independent of membership in one of another set of categories.</p>
+<p><strong>Example use case:</strong> Beth is studying if whether a fish spawning or not spawning is related to whether it resides in main channel or off-channel habitat, and she has thousands of fish in her dataset.</p>
 <p>The <em>G</em>-test is another test for independence that can be used in
 situations where the <span class="math inline">\(\chi^2\)</span> test was classically recommended. Its test
 statistic is a bit different:</p>
@@ -3754,16 +3165,16 @@ more computationally efficient than <span class="math inline">\(\chi^2\)</span>,
 decades, the <em>G</em>-test is not available in the base R <code>stats</code> package. It
 is implemented in several add-on packages; the example below shows the
 <code>g.test()</code> function in package <code>AMR</code>.</p>
-<div class="sourceCode" id="cb999"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb999-1"><a href="mod-09.html#cb999-1" tabindex="-1"></a><span class="fu">library</span>(AMR)</span></code></pre></div>
+<div class="sourceCode" id="cb1011"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1011-1"><a href="mod-09.html#cb1011-1" tabindex="-1"></a><span class="fu">library</span>(AMR)</span></code></pre></div>
 <pre><code>## Warning: package &#39;AMR&#39; was built under R version 4.3.3</code></pre>
-<div class="sourceCode" id="cb1001"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1001-1"><a href="mod-09.html#cb1001-1" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">17</span>,<span class="dv">6</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">14</span>), <span class="at">byrow=</span><span class="cn">TRUE</span>, <span class="at">nrow=</span><span class="dv">3</span>)</span>
-<span id="cb1001-2"><a href="mod-09.html#cb1001-2" tabindex="-1"></a></span>
-<span id="cb1001-3"><a href="mod-09.html#cb1001-3" tabindex="-1"></a><span class="co"># bump up sample size from example table</span></span>
-<span id="cb1001-4"><a href="mod-09.html#cb1001-4" tabindex="-1"></a><span class="co"># because G-test is meant for large samples</span></span>
-<span id="cb1001-5"><a href="mod-09.html#cb1001-5" tabindex="-1"></a>a <span class="ot">&lt;-</span> a<span class="sc">*</span><span class="dv">20</span></span>
-<span id="cb1001-6"><a href="mod-09.html#cb1001-6" tabindex="-1"></a></span>
-<span id="cb1001-7"><a href="mod-09.html#cb1001-7" tabindex="-1"></a><span class="co"># run the test:</span></span>
-<span id="cb1001-8"><a href="mod-09.html#cb1001-8" tabindex="-1"></a><span class="fu">g.test</span>(a)</span></code></pre></div>
+<div class="sourceCode" id="cb1013"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1013-1"><a href="mod-09.html#cb1013-1" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">17</span>,<span class="dv">6</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">14</span>), <span class="at">byrow=</span><span class="cn">TRUE</span>, <span class="at">nrow=</span><span class="dv">3</span>)</span>
+<span id="cb1013-2"><a href="mod-09.html#cb1013-2" tabindex="-1"></a></span>
+<span id="cb1013-3"><a href="mod-09.html#cb1013-3" tabindex="-1"></a><span class="co"># bump up sample size from example table</span></span>
+<span id="cb1013-4"><a href="mod-09.html#cb1013-4" tabindex="-1"></a><span class="co"># because G-test is meant for large samples</span></span>
+<span id="cb1013-5"><a href="mod-09.html#cb1013-5" tabindex="-1"></a>a <span class="ot">&lt;-</span> a<span class="sc">*</span><span class="dv">20</span></span>
+<span id="cb1013-6"><a href="mod-09.html#cb1013-6" tabindex="-1"></a></span>
+<span id="cb1013-7"><a href="mod-09.html#cb1013-7" tabindex="-1"></a><span class="co"># run the test:</span></span>
+<span id="cb1013-8"><a href="mod-09.html#cb1013-8" tabindex="-1"></a><span class="fu">g.test</span>(a)</span></code></pre></div>
 <pre><code>## 
 ##  G-test of independence
 ## 
