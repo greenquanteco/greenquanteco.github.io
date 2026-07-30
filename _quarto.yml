@@ -1,0 +1,48 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Nick Green"
+  site-url: "https://greenquanteco.github.io/"
+
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: research.qmd
+        text: Research
+      - href: teaching.qmd
+        text: Teaching
+      - href: publications.qmd
+        text: Publications
+      - href: people.qmd
+        text: Lab
+      - href: news.qmd
+        text: News
+      - href: about.qmd
+        text: About
+
+    right:
+      - icon: github
+        href: https://github.com/greenquanteco
+        aria-label: GitHub profile
+      - icon: envelope
+        href: mailto:ngreen62@kennesaw.edu
+        aria-label: Email Nick Green
+
+  page-footer:
+    left: "© 2026 Nick Green"
+    right:
+      - text: "Kennesaw State University"
+        href: https://facultyweb.kennesaw.edu/ngreen62/index.php
+
+format:
+  html:
+    theme: cosmo
+    css: styles.scss
+    toc: true
+    link-external-newwindow: true
+
+execute:
+  freeze: auto

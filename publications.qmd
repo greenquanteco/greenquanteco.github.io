@@ -1,0 +1,326 @@
+---
+title: "Publications"
+toc: true
+---
+
+This page includes peer-reviewed publications, reports, educational resources, and other scholarly products. Publications are listed in reverse chronological order within each section.
+
+If you'd like a PDF reprint, just [send me an email](mailto:ngreen62@kennesaw.edu)!
+
+[ORCID](https://orcid.org/0000-0002-8538-4191){.btn .btn-outline-primary}
+[Google Scholar](https://scholar.google.com/citations?user=9Bxwqz8AAAAJ&hl=en){.btn .btn-outline-primary}
+[Download CV](files/ngreen_cv_2026-07-30.pdf){.btn .btn-outline-secondary}
+
+## Peer-reviewed journal articles and agency reports
+
+### In press
+
+::: {.publication}
+
+Mullan, F. R.<span class="student-badge">Student author</span>, **Green, N. S.**, Youngsteadt, E., McCluney, K., and Penick, C. In press. Nesting biology shapes climate vulnerability of social bees (*Bombus* spp.). *Journal of Animal Ecology*. <span aria-hidden="true">🔗</span> [DOI](https://doi.org/10.1111/1365-2656.70267)
+
+:::
+
+### 2026
+
+::: {.publication}
+
+Brooks, M.<span class="student-badge">Student author</span>, Bilbrey, A.<span class="student-badge">Student author</span>, Cutway, H. B., **Green, N. S.**, and Bretfeld, M. 2026. Experimental evidence for edge-mediated microclimatic refuge in a southern range-margin population of *Silene regia*. *Ecology and Evolution* **16**(4): e73507. <span aria-hidden="true">🔗</span> [DOI](https://doi.org/10.1002/ece3.73507)
+
+:::
+
+::: {.publication}
+
+Weand, M., and **Green, N. S.** 2026. Legacy effects of English ivy (*Hedera helix* L.) on soils in an urban Piedmont forest. *Restoration Ecology* **34**(4): e70352. <span aria-hidden="true">🔗</span> [DOI](https://doi.org/10.1111/rec.70352)
+
+:::
+
+### 2025
+
+::: {.publication}
+
+Wildhaber, M. L., Albers, J. L., and **Green, N. S.** 2025. Understanding predator–prey–competitor dynamics between Lower Missouri River *Macrhybopsis* and *Scaphirhynchus* using a combined population–bioenergetics model. *Ecological Modelling* **504**: 111097. <span aria-hidden="true">🔗</span> [DOI](https://doi.org/10.1016/j.ecolmodel.2025.111097)
+
+:::
+
+::: {.publication}
+
+Anderson, C.<span class="student-badge">Student author</span>, Weand, M., Alexander, H., Bretfeld, M., and **Green, N. S.** 2025. Variations in stand structure, composition, and fuelbeds drive prescribed-fire behavior during mountain longleaf pine restoration. *Forest Ecology and Management* **575**: 122372. <span aria-hidden="true">🔗</span> [DOI](https://doi.org/10.1016/j.foreco.2024.122372)
+
+:::
+
+### 2024
+
+::: {.publication}
+
+Hooper, M. J., Struckhoff, M. A., Isanhart, J. P., Grabner, K. W., **Green, N. S.**, Kunz, B. K., McDonald, M. V., and West, B. M. 2024. Studies to assess natural resource recovery and evaluate monitoring methods for restored bottomland hardwood forests. *Integrated Environmental Assessment and Management* **20**(6): 1912–1916. <span aria-hidden="true">🔗</span> [DOI](https://doi.org/10.1002/ieam.4996)
+
+:::
+
+::: {.publication}
+
+West, B. M., Wildhaber, M. L., **Green, N. S.**, Isanhart, J. P., McDonald, M. V., and Hooper, M. J. 2024. Survey effort and targeted landbird community metrics at Indiana lowland forest restoration sites. *Integrated Environmental Assessment and Management* **20**(6): 1954–1968. <span aria-hidden="true">🔗</span> [DOI](https://doi.org/10.1002/ieam.4992)
+
+:::
+
+::: {.publication}
+
+Wildhaber, M. L., West, B. M., Bennett, K. R., May, J. H., Albers, J. L., and **Green, N. S.** 2024. Sicklefin chub (*Macrhybopsis meeki*) and sturgeon chub (*M. gelida*) temporal and spatial patterns from extant population monitoring and habitat data spanning 23 years. *Fishes* **9**: 43. <span aria-hidden="true">🔗</span> [DOI](https://doi.org/10.3390/fishes9020043)
+
+:::
+
+### 2023
+
+::: {.publication}
+
+Albers, J. L., Wildhaber, M. L., **Green, N. S.**, Struckhoff, M. A., and Hooper, M. J. 2023. Visitor use and activities detected using trail cameras at forest restoration sites. *Ecological Restoration* **41**: 199–212. <span aria-hidden="true">🔗</span> [DOI](https://doi.org/10.3368/er.41.4.199)
+
+:::
+
+### 2022
+
+::: {.publication}
+
+**Green, N. S.**, Wildhaber, M. L., and Albers, J. L. 2022. Interaction between transect design and animal distribution in distance sampling of deer. *Wildlife Society Bulletin* **46**: e1368. <span aria-hidden="true">🔗</span> [DOI](https://doi.org/10.1002/wsb.1368)
+
+:::
+
+::: {.publication}
+
+**Green, N. S.**, Li, S., Maul, J. D., and Overmyer, J. 2022. Natural and anthropogenic factors and their interactions drive stream community integrity in a North American river basin at a large spatial scale. *Science of the Total Environment* **835**: 155344. <span aria-hidden="true">🔗</span> [DOI](https://doi.org/10.1016/j.scitotenv.2022.155344)
+
+:::
+
+### 2021
+
+::: {.publication}
+
+Preston, T. M., Wildhaber, M. L., **Green, N. S.**, Albers, J. L., and Debenedetto, G. P. 2021. Enumerating white-tailed deer using unmanned aerial vehicles. *Wildlife Society Bulletin* **45**: 97–108. <span aria-hidden="true">🔗</span> [DOI](https://doi.org/10.1002/wsb.1149)
+
+:::
+
+::: {.publication}
+
+**Green, N. S.**, Wildhaber, M. L., and Albers, J. L. 2021. *Effectiveness of a distance sampling from roads program for white-tailed deer in the National Capital Region Parks*. Natural Resource Report NPS/NCR/NRR—2021/2224. U.S. National Park Service, Fort Collins, Colorado. <span aria-hidden="true">📄</span> [Report](https://doi.org/10.36967/nrr-2284469)
+
+:::
+
+### 2020
+
+::: {.publication}
+
+**Green, N. S.**, Wildhaber, M. L., Albers, J. L., Pettit, T. W., and Hooper, M. H. 2020. Efficient mammal biodiversity surveys for ecological restoration monitoring. *Integrated Environmental Assessment and Management* **20**(6): 1969–1981. <span aria-hidden="true">🔗</span> [DOI](https://doi.org/10.1002/ieam.4324)
+
+:::
+
+### 2019
+
+::: {.publication}
+
+Kunz, B. K., Waddle, J. H., and **Green, N. S.** 2019. Amphibian monitoring approaches for restored bottomland hardwood forests. *Integrated Environmental Assessment and Management* **20**(6): 1939–1953. <span aria-hidden="true">🔗</span> [DOI](https://doi.org/10.1002/ieam.4202)
+
+:::
+
+::: {.publication}
+
+Bartell, S. M., Schmolke, A., **Green, N.**, Roy, C., Galic, N., Perkins, D., and Brain, R. 2019. A hybrid individual-based and food web–ecosystem modeling approach for assessing ecological risks to the Topeka shiner (*Notropis topeka*): A case study with atrazine. *Environmental Toxicology and Chemistry* **38**: 2243–2258. <span aria-hidden="true">🔗</span> [DOI](https://doi.org/10.1002/etc.4522)
+
+:::
+
+::: {.publication}
+
+Schmolke, A., Bartell, S., Roy, C., **Green, N.**, Galic, N., and Brain, R. 2019. Species-specific population dynamics and their link to an aquatic food web: A hybrid modeling approach. *Ecological Modelling* **405**: 1–14. <span aria-hidden="true">🔗</span> [DOI](https://doi.org/10.1016/j.ecolmodel.2019.03.024)
+
+:::
+
+### 2018
+
+::: {.publication}
+
+Kunz, B. K., **Green, N. S.**, Albers, J. L., Wildhaber, M. L., and Little, E. E. 2018. Use of real-time dust monitoring and surface condition to evaluate success of unpaved road treatments. *Transportation Research Record* **2672**: 195–204. <span aria-hidden="true">🔗</span> [DOI](https://doi.org/10.1177/0361198118799167)
+
+:::
+
+::: {.publication}
+
+Albers, J. L., Wildhaber, M. L., and **Green, N. S.** 2018. Population viability analyses for three *Macrhybopsis* spp. of the Lower Missouri River. *Journal of Applied Ichthyology* **34**: 1285–1292. <span aria-hidden="true">🔗</span> [DOI](https://doi.org/10.1111/jai.13791)
+
+:::
+
+::: {.publication}
+
+**Green, N. S.**, Wildhaber, M. L., and Albers, J. L. 2018. Potential responses of the Lower Missouri River shovelnose sturgeon (*Scaphirhynchus platorynchus*) population to a commercial fishing ban. *Journal of Applied Ichthyology*: 1–8. <span aria-hidden="true">🔗</span> [DOI](https://doi.org/10.1111/jai.13701)
+
+:::
+
+### 2017
+
+::: {.publication}
+
+Wildhaber, M. L., Albers, J. L., **Green, N. S.**, and Moran, E. H. 2017. A fully stochasticized, age-structured population model for population viability of fish: Lower Missouri River endangered pallid sturgeon example. *Ecological Modelling* **359**: 434–448. <span aria-hidden="true">🔗</span> [DOI](https://doi.org/10.1016/j.ecolmodel.2015.07.019)
+
+:::
+
+### 2016
+
+::: {.publication}
+
+Moran, E. H., Wildhaber, M. L., **Green, N. S.**, and Albers, J. L. 2016. *Visual Basic, Excel-based fish population modeling tool—the pallid sturgeon example*. U.S. Geological Survey Open-File Report 2016–1009. 20 pp. <span aria-hidden="true">📄</span> [Report](https://doi.org/10.3133/ofr20161009)
+
+:::
+
+### 2014
+
+::: {.publication}
+
+**Green, N. S.**, and Wilkins, K. T. 2014. Small mammal habitat associations in a mixed-grass prairie preserve. *Southwestern Naturalist* **59**: 349–355. <span aria-hidden="true">🔗</span> [DOI](https://doi.org/10.1894/TAL-61.1)
+
+:::
+
+### 2012
+
+::: {.publication}
+
+**Green, N. S.**, Early, C. E., Beard, L. K.<span class="student-badge">Student author</span>, and Wilkins, K. T. 2012. Multiple captures of *Reithrodontomys fulvescens* and *Baiomys taylori*: Evidence for short-term co-travelling. *Canadian Journal of Zoology* **90**: 313–319. <span aria-hidden="true">🔗</span> [DOI](https://doi.org/10.1139/z11-137)
+
+:::
+
+### 2011
+
+::: {.publication}
+
+Kirchner, B. N., **Green, N. S.**, Sergeant, D. A.<span class="student-badge">Student author</span>, Mink, J. N., and Wilkins, K. T. 2011. Responses of small mammals and vegetation to a prescribed burn in a tallgrass blackland prairie. *American Midland Naturalist* **166**: 112–125. <span aria-hidden="true">🔗</span> [DOI](https://doi.org/10.1674/0003-0031-166.1.112)
+
+:::
+
+### 2010
+
+::: {.publication}
+
+**Green, N. S.**, and Wilkins, K. T. 2010. Continuing range expansion of the northern pygmy mouse (*Baiomys taylori*) in northeastern Texas. *Southwestern Naturalist* **55**: 288–291. <span aria-hidden="true">🔗</span> [DOI](https://doi.org/10.1894/TAL-05.1)
+
+:::
+
+### 2008
+
+::: {.publication}
+
+**Green, N. S.**, Hazlett, B. A., and Pruett-Jones, S. 2008. Attachment and shell integrity affect the vulnerability of zebra mussels (*Dreissena polymorpha*) to predation. *Journal of Freshwater Ecology* **23**: 91–100. <span aria-hidden="true">🔗</span> [DOI](https://doi.org/10.1080/02705060.2008.9664560)
+
+:::
+
+## Other peer-reviewed products
+
+### 2025
+
+::: {.publication}
+
+Wildhaber, M. L., Albers, J. L., and **Green, N. S.** 2025. Chub whole-body calorimetry, feeding-trial ration, and chironomid weights used to develop inputs for a bioenergetics community model. U.S. Geological Survey data release. <span aria-hidden="true">📦</span> [Data](https://doi.org/10.5066/P9TXWWEH)
+
+:::
+
+::: {.publication}
+
+Wildhaber, M. L., **Green, N. S.**, and Albers, J. L. 2025. Fully stochasticized age-structured population–bioenergetics model ensemble for application to communities, Version 1.0.0. U.S. Geological Survey software release. <span aria-hidden="true">💻</span> [Software](https://doi.org/10.5066/P1XAZ6K9)
+
+:::
+
+::: {.publication}
+
+Wildhaber, M. L., **Green, N. S.**, and Albers, J. L. 2025. Summarized model outputs for a predator–prey–competitor model for *Macrhybopsis* and *Scaphirhynchus* in the Lower Missouri River. U.S. Geological Survey data release. <span aria-hidden="true">📦</span> [Data](https://doi.org/10.5066/P13YPATO)
+
+:::
+
+### 2024
+
+::: {.publication}
+
+Wildhaber, M. L., West, B. M., **Green, N. S.**, Albers, J. L., Bennett, K. R., and May, J. H. 2024. Occupancy-model coefficients and observed co-occurrence simulations for sicklefin chub, sturgeon chub, and associated fishes in the Missouri River. U.S. Geological Survey data release. <span aria-hidden="true">📦</span> [Data](https://doi.org/10.5066/P9AB7UI4)
+
+:::
+
+### 2023
+
+::: {.publication}
+
+Albers, J. L., Wildhaber, M. L., Struckhoff, M. A., Westrich, D. J., **Green, N. S.**, Poulton, B. C., and Hooper, M. J. 2023. *Terrestrial invertebrate diversity and occurrence in restored hardwood forest floodplains, Indiana, United States, June–August 2016*. U.S. Geological Survey Data Report 1168. 7 pp. <span aria-hidden="true">📄</span> [Report](https://doi.org/10.3133/dr1168)
+
+:::
+
+::: {.publication}
+
+Albers, J. L., Wildhaber, M. L., **Green, N. S.**, Struckhoff, M. A., and Hooper, M. J. 2023. Terrestrial invertebrate diversity and occurrence in restored hardwood forest floodplains, Indiana, United States, June–August 2016. U.S. Geological Survey data release. <span aria-hidden="true">📦</span> [Data](https://doi.org/10.5066/P9YZX7G6)
+
+:::
+
+### 2021
+
+::: {.publication}
+
+Albers, J. L., Wildhaber, M. L., **Green, N. S.**, Hinck, J. E., Gatlin, B., and Langston, S. 2021. Breccia-pipe uranium mine bird survey data, Grand Canyon region, 2014–2015. U.S. Geological Survey data release. <span aria-hidden="true">📦</span> [Data](https://doi.org/10.5066/F75D8R5P)
+
+:::
+
+### 2020
+
+::: {.publication}
+
+**Green, N. S.**, Wildhaber, M. L., Albers, J. L., Pettit, T. W., and Hooper, M. H. 2020. Mammalian biodiversity data for four bottomland hardwood restoration sites in northeastern Indiana, USA, May 2015–August 2016. U.S. Geological Survey data release. <span aria-hidden="true">📦</span> [Data](https://doi.org/10.5066/P9RXPYRL)
+
+:::
+
+### 2018
+
+::: {.publication}
+
+**Green, N. S.**, Wildhaber, M. L., and Albers, J. L. 2018. Fish population model R code. U.S. Geological Survey code release. <span aria-hidden="true">💻</span> [Software](https://doi.org/10.5066/P935Y7NO)
+
+:::
+
+## Popular and educational products
+
+### 2026
+
+::: {.publication}
+
+**Green, N. S.** 2026. *Bayesian Inference for Biologists*. Open educational course book. <span aria-hidden="true">📘</span> [Course book](https://greenquanteco.github.io/bayesian-inference-biologists/)
+
+:::
+
+### 2025
+
+::: {.publication}
+
+**Green, N. S.** 2025. A bottlenose dolphin? Or *Tursiops truncatus*? Why biologists give organisms those strange, unpronounceable names. *The Conversation*, U.S. edition. <span aria-hidden="true">📰</span> [Article](https://theconversation.com/a-bottlenose-dolphin-or-tursiops-truncatus-why-biologists-give-organisms-those-strange-unpronounceable-names-252265)
+
+:::
+
+::: {.publication}
+
+**Green, N. S.** 2025. How many types of insects are there in the world? *The Conversation*, U.S. edition. <span aria-hidden="true">📰</span> [Article](https://theconversation.com/how-many-types-of-insects-are-there-in-the-world-247333)
+
+:::
+
+### 2022–present
+
+::: {.publication}
+
+**Green, N. S.** 2022–present. *Applied Biological Data Analysis: Statistics and R for Biologists*. Open educational course book. <span aria-hidden="true">📘</span> [Course book](https://greenquanteco.github.io/appl-biol-data-analysis/)
+
+:::
+
+### 2014
+
+::: {.publication}
+
+Strete, D. L., and **Green, N. S.** 2014. *Fetal Pig Dissection Guide and Mammalian Histology*. Hayden-McNeil, Plymouth, Michigan, USA. ISBN 978-0-7380-6593-9. <span aria-hidden="true">📘</span> Print educational resource.
+
+:::
+
+### 2012
+
+::: {.publication}
+
+**Green, N. S.** 2012. *Effects of habitat affinities and resource needs on edge responses by small mammals*. Ph.D. dissertation, Baylor University, Waco, Texas, USA. <span aria-hidden="true">🎓</span> [Dissertation](http://hdl.handle.net/2104/8546)
+
+:::

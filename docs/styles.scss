@@ -1,0 +1,168 @@
+/*-- scss:defaults --*/
+
+$body-bg: #ffffff;
+$body-color: #212529;
+$link-color: #005ea8;
+
+/*-- scss:rules --*/
+
+main {
+  max-width: 1200px;
+}
+
+.hero-section {
+  padding: 3rem 0 2.5rem 0;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #d9d9d9;
+}
+
+.hero-section h1 {
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  line-height: 1.08;
+  margin-top: 0;
+  margin-bottom: 1.25rem;
+}
+
+.hero-section p {
+  font-size: 1.2rem;
+  max-width: 48rem;
+}
+
+.hero-section .btn {
+  margin-right: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.hero-image {
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  display: block;
+  border-radius: 0.75rem;
+}
+
+.research-card,
+.course-card {
+  height: 100%;
+  padding: 1.5rem;
+  border: 1px solid #d9d9d9;
+  border-radius: 0.75rem;
+  background: #ffffff;
+}
+
+.research-card h3,
+.course-card h3 {
+  margin-top: 0;
+}
+
+.course-card {
+  padding: 1.75rem;
+}
+
+.course-card .btn {
+  margin-top: 0.75rem;
+}
+
+.research-grid,
+.course-grid {
+  row-gap: 1.5rem;
+}
+
+h2 {
+  margin-top: 3rem;
+  margin-bottom: 1.25rem;
+}
+
+a:focus,
+button:focus,
+.btn:focus {
+  outline: 3px solid currentColor;
+  outline-offset: 3px;
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding-top: 1.5rem;
+  }
+
+  .hero-image {
+    margin-top: 1.5rem;
+  }
+}
+
+.person-card {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid #d9d9d9;
+}
+
+.person-photo img {
+  width: 220px;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 0.75rem;
+}
+
+.person-text h3 {
+  margin-top: 0;
+  margin-bottom: 0.35rem;
+}
+
+.person-text p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 650px) {
+  .person-card {
+    grid-template-columns: 1fr;
+  }
+
+  .person-photo img {
+    width: 220px;
+    max-width: 100%;
+    margin-bottom: 1rem;
+  }
+}
+
+/* Publications */
+
+.publication-list {
+  margin-top: 1rem;
+}
+
+.publication {
+  margin-bottom: 1.1rem;
+  padding-left: 2rem;
+  text-indent: -2rem;
+  line-height: 1.55;
+}
+
+.publication p {
+  margin-bottom: 0;
+}
+
+.publication a {
+  white-space: normal;
+}
+
+.student-badge {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  margin-left: 0.4rem;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1;
+  text-indent: 0 !important;
+  color: #ffffff;
+  background-color: #2b7a0b;
+  border-radius: 999px;
+  vertical-align: middle;
+  box-sizing: border-box;
+}
+

@@ -1,0 +1,8 @@
+---
+title: "Lab news"
+page-layout: full
+toc: false
+---
+
+News!
+

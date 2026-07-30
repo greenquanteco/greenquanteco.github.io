@@ -1,0 +1,17 @@
+---
+title: "Research"
+page-layout: full
+toc: false
+---
+
+## Urban wildlife ecology
+
+Placeholder
+
+## Landscape genetics
+
+Placeholder
+
+## Ecological modeling
+
+Placeholder
