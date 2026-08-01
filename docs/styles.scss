@@ -2,7 +2,7 @@
 
 $body-bg: #ffffff;
 $body-color: #212529;
-$link-color: #005ea8;
+$link-color: #196b24;
 
 /*-- scss:rules --*/
 
@@ -149,20 +149,222 @@ button:focus,
   white-space: normal;
 }
 
-.student-badge {
+.badge,
+.student-badge,
+.invited-badge,
+.poster-badge,
+.talk-badge,
+.workshop-badge {
   display: inline-flex;
   align-items: center;
   white-space: nowrap;
   margin-left: 0.4rem;
-  padding: 0.2rem 0.5rem;
+  margin-right: 0.2rem;
+  padding: 0.18rem 0.55rem;
   font-size: 0.72rem;
   font-weight: 600;
   line-height: 1;
-  text-indent: 0 !important;
   color: #ffffff;
-  background-color: #2b7a0b;
   border-radius: 999px;
-  vertical-align: middle;
+  text-indent: 0 !important;
   box-sizing: border-box;
+  vertical-align: middle;
 }
 
+.student-badge  { background-color: #2b7a0b; }
+.invited-badge  { background-color: #005ea8; }
+.poster-badge   { background-color: #6c757d; }
+.talk-badge     { background-color: #7a3db8; }
+.workshop-badge { background-color: #d17c00; }
+
+/* Teaching page */
+
+.teaching-notice {
+  margin-bottom: 2rem;
+  padding: 1rem 1.25rem;
+  border-left: 5px solid #005ea8;
+  background-color: #f3f7fa;
+  border-radius: 0.35rem;
+}
+
+.teaching-notice p:last-child {
+  margin-bottom: 0;
+}
+
+.course-card {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 1.75rem;
+  align-items: start;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border: 1px solid #d9d9d9;
+  border-radius: 0.75rem;
+  background-color: #ffffff;
+}
+
+.course-card-no-image {
+  grid-template-columns: 1fr;
+}
+
+.course-image img {
+  width: 260px;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 0.6rem;
+}
+
+.course-content h3 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+.course-content .btn {
+  margin-top: 0.5rem;
+  margin-right: 0.4rem;
+  margin-bottom: 0.4rem;
+}
+
+@media (max-width: 760px) {
+  .course-card {
+    grid-template-columns: 1fr;
+  }
+
+  .course-image img {
+    width: 100%;
+    max-width: 420px;
+  }
+}
+
+/* Presentations */
+
+.presentation {
+  margin-bottom: 2rem;
+  padding: 1rem 1.5rem;
+  border-left: 5px solid #005ea8;
+  background-color: #f8f9fa;
+  border-radius: 0.5rem;
+}
+
+.presentation h3 {
+  margin-top: 0;
+  margin-bottom: 0.4rem;
+}
+
+.presentation p:last-child {
+  margin-bottom: 0;
+}
+
+.presentation .btn {
+  margin-top: 0.6rem;
+  margin-right: 0.4rem;
+}
+
+/* Research projects */
+
+.research-project {
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+  gap: 2rem;
+  align-items: start;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #d9d9d9;
+}
+
+.research-project-image img {
+  width: 320px;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 0.75rem;
+}
+
+.research-project-text p:first-child {
+  margin-top: 0;
+}
+
+.research-project-text p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 800px) {
+  .research-project {
+    grid-template-columns: 1fr;
+  }
+
+  .research-project-image img {
+    width: 100%;
+    max-width: 520px;
+  }
+}
+
+.lab-logo {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.lab-logo img {
+  width: 320px;
+  max-width: 80%;
+  height: auto;
+}
+
+
+/* Standalone research-page images */
+
+.research-image {
+  margin: 2rem auto;
+  text-align: center;
+}
+
+.research-image img {
+  width: auto;
+  max-width: min(100%, 720px);
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 0.75rem;
+}
+
+.research-image p {
+  margin-bottom: 0;
+}
+
+.career {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #d9d9d9;
+}
+
+.career-image {
+  flex: 0 0 280px;
+}
+
+.career-text {
+  flex: 1;
+}
+
+.career-image img {
+  width: 280px;
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+}
+
+@media (max-width: 800px) {
+  .career {
+    display: block;
+  }
+
+  .career-image img {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto 1rem auto;
+    display: block;
+  }
+}

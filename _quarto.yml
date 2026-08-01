@@ -5,6 +5,8 @@ project:
 website:
   title: "Nick Green"
   site-url: "https://greenquanteco.github.io/"
+  open-graph: true
+  twitter-card: true
 
   navbar:
     left:
@@ -16,6 +18,8 @@ website:
         text: Teaching
       - href: publications.qmd
         text: Publications
+      - href: presentations.qmd
+        text: Presentations
       - href: people.qmd
         text: Lab
       - href: news.qmd
@@ -42,6 +46,7 @@ format:
     theme: cosmo
     css: styles.scss
     toc: true
+    toc-depth: 3
     link-external-newwindow: true
 
 execute:

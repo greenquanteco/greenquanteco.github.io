@@ -9,7 +9,7 @@ toc: true
 
 ::: {.person-photo}
 
-![Sarah Paschal standing in the woods.](images/people_sarah.jpg)
+![Sarah Paschal examining a mouse.](images/people-sarah3.jpg){fig-alt="A person holding a mouse and looking at it."}
 
 :::
 
@@ -72,7 +72,7 @@ Piercy Gierlak joined the lab as an undergraduate in 2024, assisting with variou
 
 **Thesis:** *Morphological Variation of Lingual Glands in Wild American Alligator (*Alligator mississippiensis*) Populations*
 
-Benjamin Angalet earned his MSIB in 2026 with his thesis [Morphological Variation of Lingual Glands in Wild American Alligator (*Alligator mississippiensis*) Populations](https://digitalcommons.kennesaw.edu/masterstheses/96/). He joined the lab as a master’s student in 2024. He graduated from the College of Coastal Georgia with a B.S. in Biology – Coastal Ecology in 2022 and has since held several positions within the science field, including a Jekyll Island Park Ranger, Environmental Scientist, and his current position as Field Research Coordinator here at KSU. His thesis investigated the osmoregulatory capabilities of American alligator populations experiencing varying levels of saltwater exposure at locations throughout southeastern Georgia. You can connect with Ben via [email](mailto:bangalet@kennesaw.edu) and visit his [KSU webpage](https://facultyweb.kennesaw.edu/bangalet/index.php).
+Benjamin Angalet earned his MSIB in 2026 with his thesis [Morphological Variation of Lingual Glands in Wild American Alligator (*Alligator mississippiensis*) Populations](https://digitalcommons.kennesaw.edu/masterstheses/96/). He joined the lab as a master’s student in 2024. He graduated from the College of Coastal Georgia with a B.S. in Biology – Coastal Ecology in 2022 and has since held several positions within the science field, including a Jekyll Island Park Ranger, Environmental Scientist, and his current position as Field Research Coordinator in the KSU College of Science and Mathematics. His thesis investigated the osmoregulatory capabilities of American alligator populations experiencing varying levels of saltwater exposure at locations throughout southeastern Georgia. You can connect with Ben via [email](mailto:bangalet@kennesaw.edu) and visit his [KSU webpage](https://facultyweb.kennesaw.edu/bangalet/index.php).
 :::
 
 :::
@@ -81,7 +81,7 @@ Benjamin Angalet earned his MSIB in 2026 with his thesis [Morphological Variatio
 
 ::: {.person-photo}
 
-![Mayu holding an alligator.](images/people_mayu.jpg)
+![Mayu holding an alligator.](images/people_mayu.jpg){fig-alt="Mayu holding an alligator."}
 
 :::
 
@@ -103,7 +103,7 @@ freshwater fish communities in north Georgia watersheds**. Mayu joined the lab i
 
 ::: {.person-photo}
 
-![Sydney Morton studying a mouse in the woods.](images/people_sydney.jpg)
+![Sydney Morton studying a mouse in the woods.](images/people_sydney.jpg){fig-alt="Sydney Morton holding a mouse."}
 
 :::
 
@@ -124,7 +124,7 @@ Sydney Morton earned her MSIB in 2025 with her thesis [Effects of urbanization o
 
 ::: {.person-photo}
 
-![Bri Casement examining a mouse in the woods.](images/people_bri.jpg)
+![Bri Casement examining a mouse in the woods.](images/people_bri.jpg){fig-alt="Bri holding a mouse."}
 
 :::
 
@@ -147,7 +147,7 @@ You can find Bri's research on Google Scholar and [ORCID](https://orcid.org/0000
 
 ::: {.person-photo}
 
-![Leslie Lopez is an expert at handling chipmunks.](images/people_leslie.jpg)
+![Leslie Lopez is an expert at handling chipmunks.](images/people_leslie.jpg){fig-alt="Leslie holding a chipmunk."}
 
 :::
 

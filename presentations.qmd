@@ -1,6 +1,561 @@
 ---
 title: "Presentations"
-page-layout: full
-toc: false
+toc: true
 ---
 
+Here are presentations given by me or other lab members since 2020. Slides and posters are made available whenever permitted by collaborators, publishers, and funding agencies.
+
+Remember that presentations are often *snapshots* of work in progress or work nearly complete. So, conclusions presented in the slides and posters below may not represent the final conclusions included in theses or manuscripts.
+
+## 2026
+
+### Ecological Society of America Annual Meeting
+
+*Salt Lake City, Utah • 26–31 July 2026*
+
+::: {.presentation}
+
+#### Tracking a moving forest–grassland edge: Experimental evidence for edge-enhanced growth and fecundity in royal catchfly (*Silene regia*) at its southern range limit in Georgia, USA
+
+Bretfeld, M., Bilbrey, A., Brooks, H. B., Cutway, H. B., and **Green, N.**
+
+<!-- Add poster/talk badge when known. -->
+
+<!--
+[Presentation file](files/presentations/2026/esa-royal-catchfly.pdf){.btn .btn-outline-primary}
+-->
+
+:::
+
+::: {.presentation}
+
+#### Effects of urbanization on small mammals across levels of biological organization
+
+**Green, N. S.**, Casement, B., Lopez, L., Morton, S., and Nestor, K.
+
+<!-- Add poster/talk badge when known. -->
+
+[Poster (PDF)](files/pres/2026-esa-green.pdf){.btn .btn-outline-primary}
+
+:::
+
+### Kennesaw State University Symposium of Student Scholars
+
+*Kennesaw, Georgia • 22 April 2026*
+
+::: {.presentation}
+
+#### Morphological variation of lingual glands in wild American alligator (*Alligator mississippiensis*) populations
+
+Angalet, B., Cheeks, C., Holmes, C., Moss, K., Segars, C., and **Green, N.**
+
+<span class="student-badge">Student-led</span>
+
+<!-- Add poster/talk badge when known. -->
+
+[Poster (PDF)](files/pres/2026-ksu-angalet.pdf){.btn .btn-outline-primary}
+
+
+:::
+
+::: {.presentation}
+
+#### Ecosystem productivity and fish community trophic structure across freshwater and marine ecosystems
+
+Budeir, H., and **Green, N.**
+
+<span class="student-badge">Student-led</span>
+
+<!-- Add poster/talk badge when known. -->
+
+[Poster (PDF)](files/pres/2026-ksu-budeir.pdf){.btn .btn-outline-primary}
+
+
+:::
+
+### Association of Southeastern Biologists Annual Meeting
+
+*Mobile, Alabama • 25–28 March 2026*
+
+::: {.presentation}
+
+#### Morphological variation of lingual glands in wild American alligator (*Alligator mississippiensis*) populations
+
+Angalet, B., and **Green, N.**
+
+<span class="student-badge">Student-led</span>
+
+<!-- Add poster/talk badge when known. -->
+
+[Presentation slides (PDF)](files/pres/2026-asb-angalet.pdf){.btn .btn-outline-primary}
+
+
+:::
+
+::: {.presentation}
+
+#### Comparing environmental variables as predictors of mammalian species richness
+
+Gierlak, P., Paschal, S., and **Green, N. S.**
+
+<span class="student-badge">Student-led</span>
+
+<!-- Add poster/talk badge when known. -->
+
+[Poster (PDF)](files/pres/2026-asb-gierlak.pdf){.btn .btn-outline-primary}
+
+
+:::
+
+::: {.presentation}
+
+#### Effects of urbanization on freshwater fish species community structure in the Etowah River watershed
+
+Mizutani, M., and **Green, N. S.**
+
+<span class="student-badge">Student-led</span>
+
+<!-- Add poster/talk badge when known. -->
+
+[Presentation slides (PDF)](files/pres/2026-ksu-mizutani.pdf){.btn .btn-outline-primary}
+
+:::
+
+## 2025
+
+### International Urban Wildlife Conference
+
+*Atlanta, Georgia • 1–5 June 2025*
+
+::: {.presentation}
+
+#### Individual, population, and community responses of small mammals to the Atlanta urban-to-rural gradient
+
+Casement, B., Lopez, L., Nestor, K., Morton, S., and **Green, N. S.**
+
+<span class="student-badge">Student-led</span>
+<span class="invited-badge">Invited</span>
+
+<!-- Add poster/talk badge when known. -->
+
+[Presentation slides (PDF)](files/pres/2025-wildlife-green.pdf){.btn .btn-outline-primary}
+
+
+:::
+
+::: {.presentation}
+
+#### How does urbanization affect the morphology and genetic connectivity of small mammal populations?
+
+Morton, S., Casement, B., and **Green, N. S.**
+
+<span class="student-badge">Student-led</span>
+<span class="invited-badge">Invited</span>
+
+<!-- Add poster/talk badge when known. -->
+
+[Presentation slides (PDF)](files/pres/2025-wildlife-morton.pdf){.btn .btn-outline-primary}
+
+
+:::
+
+### Kennesaw State University Spring Symposium
+
+*Kennesaw, Georgia • 17 April 2025*
+
+::: {.presentation}
+
+#### Assessing the osmoregulatory capabilities of American alligator lingual glands
+
+Angalet, B., and **Green, N. S.**
+
+<span class="student-badge">Student-led</span>
+
+<!-- Add poster/talk badge when known. -->
+
+<!--
+[Presentation file](files/presentations/2025/ksu-alligator-osmoregulation.pdf){.btn .btn-outline-primary}
+-->
+
+:::
+
+::: {.presentation}
+
+#### Modeling potential effects of ocean acidification on shell formation in Pacific oyster (*Crassostrea gigas*)
+
+Gierlak, P., and **Green, N. S.**
+
+<span class="student-badge">Student-led</span>
+
+<!-- Add poster/talk badge when known. -->
+
+[Poster (PDF)](files/pres/2025-ksu-gierlak.pdf){.btn .btn-outline-primary}
+
+
+:::
+
+::: {.presentation}
+
+#### Morphological variation in white-footed mice across an urban-to-rural gradient in Georgia
+
+Hernandez, P., Sartee, X., Hoyt, A., Farrell, A., Perras, E., Morton, S., and **Green, N. S.**
+
+<span class="student-badge">Student-led</span>
+
+<!-- Add poster/talk badge when known. -->
+
+[Poster (PDF)](files/pres/2025-ksu-hernandez.pdf){.btn .btn-outline-primary}
+
+
+:::
+
+::: {.presentation}
+
+#### The effect of land cover and human population density on freshwater fish in the Etowah watershed
+
+Mizutani, M., and **Green, N. S.**
+
+<span class="student-badge">Student-led</span>
+
+<!-- Add poster/talk badge when known. -->
+
+[Poster (PDF)](files/pres/2025-ksu-mizutani.pdf){.btn .btn-outline-primary}
+
+
+:::
+
+::: {.presentation}
+
+#### Colorimetric variation in white-footed mice across an urban-to-rural gradient in Georgia
+
+Sartee, X., Hoyt, A., Farrell, A., Morton, S., and **Green, N. S.**
+
+<span class="student-badge">Student-led</span>
+
+<!-- Add poster/talk badge when known. -->
+
+[Poster (PDF)](files/pres/2025-ksu-sartee.pdf){.btn .btn-outline-primary}
+
+
+:::
+
+### Palmetto Alligator Research and Management Symposium
+
+*Aiken, South Carolina • 27–28 March 2025*
+
+::: {.presentation}
+
+#### Assessing the osmoregulatory capabilities of American alligator lingual glands
+
+Angalet, B., and **Green, N. S.**
+
+<span class="student-badge">Student-led</span>
+
+<!-- Add poster/talk badge when known. -->
+
+<!--
+[Presentation file](files/presentations/2025/palmetto-alligator-osmoregulation.pdf){.btn .btn-outline-primary}
+-->
+
+:::
+
+### Association of Southeastern Biologists Annual Meeting
+
+*Myrtle Beach, South Carolina • 12–15 March 2025*
+
+::: {.presentation}
+
+#### Assessing the osmoregulatory capabilities of American alligator lingual glands
+
+Angalet, B., and **Green, N. S.**
+
+<span class="student-badge">Student-led</span>
+
+<!-- Add poster/talk badge when known. -->
+
+<!--
+[Presentation file](files/presentations/2025/asb-alligator-osmoregulation.pdf){.btn .btn-outline-primary}
+-->
+
+:::
+
+## 2024
+
+### Georgia DNR Nongame Small Mammal Working Group
+
+*The Jones Center at Ichauway, Newton, Georgia • 18 April 2024*
+
+::: {.presentation}
+
+#### Effects of urbanization on small mammals
+
+Casement, B., Lopez, L., and **Green, N. S.**
+
+<span class="student-badge">Student-led</span>
+<span class="invited-badge">Invited</span>
+
+<!-- Add poster/talk badge when known. -->
+
+[Presentation slides (PDF)](files/pres/2024-dnr-casement.pdf){.btn .btn-outline-primary}
+
+
+:::
+
+### Kennesaw State University Symposium of Student Scholars
+
+*Kennesaw, Georgia • 17–19 April 2024*
+
+::: {.presentation}
+
+#### Assessing bat biodiversity in increasingly urban landscapes
+
+Arias, E., and **Green, N. S.**
+
+<span class="student-badge">Student-led</span>
+
+<!-- Add poster/talk badge when known. -->
+
+[Poster (PDF)](files/pres/2024-ksu-arias.pdf){.btn .btn-outline-primary}
+
+
+:::
+
+### Association of Southeastern Biologists Annual Meeting
+
+*Chattanooga, Tennessee • 20–23 March 2024*
+
+::: {.presentation}
+
+#### Patterns and potential mechanisms of phenotypic changes in urban small mammals
+
+Lopez, L., Casement, B., and **Green, N. S.**
+
+<span class="student-badge">Student-led</span>
+
+<!-- Add poster/talk badge when known. -->
+
+[Presentation slides (PDF)](files/pres/2024-asb-lopez.pdf){.btn .btn-outline-primary}
+
+
+:::
+
+::: {.presentation}
+
+#### Spatial and abiotic effects of urbanization on small mammal communities
+
+Casement, B., Lopez, L., and **Green, N. S.**
+
+<span class="student-badge">Student-led</span>
+
+<!-- Add poster/talk badge when known. -->
+
+[Presentation slides (PDF)](files/pres/2024-asb-casement.pdf){.btn .btn-outline-primary}
+
+
+:::
+
+## 2023
+
+### Kennesaw State University Fall Symposium of Student Scholars
+
+*Kennesaw, Georgia • 15–17 November 2023*
+
+::: {.presentation}
+
+#### Patterns and potential mechanisms of phenotypic changes in urban small mammals
+
+Lopez, L., Casement, B., and **Green, N. S.**
+
+<span class="student-badge">Student-led</span>
+
+<!-- Add poster/talk badge when known. -->
+
+<!--
+[Presentation file](files/presentations/2023/ksu-small-mammal-phenotypes.pdf){.btn .btn-outline-primary}
+-->
+
+:::
+
+::: {.presentation}
+
+#### Spatial and abiotic effects of urbanization on small mammal communities
+
+Casement, B., Lopez, L., and **Green, N. S.**
+
+<span class="student-badge">Student-led</span>
+
+<!-- Add poster/talk badge when known. -->
+
+<!--
+[Presentation file](files/presentations/2023/ksu-small-mammal-communities.pdf){.btn .btn-outline-primary}
+-->
+
+:::
+
+### Kennesaw State University Spring Symposium of Student Scholars
+
+*Kennesaw, Georgia • 18–21 April 2023*
+
+::: {.presentation}
+
+#### Temporal patterns in skull morphology in secondarily aquatic tetrapods
+
+Johnson, E., Arias, E., Daniels, T., and **Green, N. S.**
+
+<span class="student-badge">Student-led</span>
+
+<!-- Add poster/talk badge when known. -->
+
+<!--
+[Presentation file](files/presentations/2023/ksu-aquatic-tetrapod-skulls.pdf){.btn .btn-outline-primary}
+-->
+
+:::
+
+::: {.presentation}
+
+#### Environmental drivers of stream invertebrate communities in Georgia, USA
+
+Garcia-Belman, V., Ducre, B., and **Green, N. S.**
+
+<span class="student-badge">Student-led</span>
+
+<!-- Add poster/talk badge when known. -->
+
+<!--
+[Presentation file](files/presentations/2023/ksu-stream-invertebrates.pdf){.btn .btn-outline-primary}
+-->
+
+:::
+
+::: {.presentation}
+
+#### Environmental and biotic drivers of disease presence in Floridian and Puerto Rican coral reefs
+
+Casement, B., and **Green, N.**
+
+<span class="student-badge">Student-led</span>
+
+<!-- Add poster/talk badge when known. -->
+
+<!--
+[Presentation file](files/presentations/2023/ksu-coral-disease.pdf){.btn .btn-outline-primary}
+-->
+
+:::
+
+### Association of Southeastern Biologists Annual Meeting
+
+*Winston-Salem, North Carolina • 23–26 March 2023*
+
+::: {.presentation}
+
+#### Environmental and biotic drivers of disease presence in Floridian and Puerto Rican coral reefs
+
+Casement, B., and **Green, N.**
+
+<span class="student-badge">Student-led</span>
+
+<!-- Add poster/talk badge when known. -->
+
+<!--
+[Presentation file](files/presentations/2023/asb-coral-disease.pdf){.btn .btn-outline-primary}
+-->
+
+:::
+
+## 2022
+
+### Kennesaw State University Honors Capstone Graduation
+
+*Kennesaw, Georgia • 3 May 2022*
+
+::: {.presentation}
+
+#### Drivers of coral diversity and disease occurrence in the Florida Keys
+
+Freiler, M., and **Green, N. S.**
+
+<span class="student-badge">Student-led</span>
+
+<!-- Add poster/talk badge when known. -->
+
+<!--
+[Presentation file](files/presentations/2022/ksu-coral-diversity-disease.pdf){.btn .btn-outline-primary}
+-->
+
+:::
+
+## 2021
+
+### Kennesaw State University STEM UnConference
+
+*Kennesaw, Georgia • 5 March 2021*
+
+::: {.presentation}
+
+#### Exploring the applications of fractional differential equations in ecotoxicological risk assessment
+
+**Green, N.**, and Mashayekhi, S.
+
+<!-- Add invited/poster/talk/workshop badge when known. -->
+
+<!--
+[Presentation file](files/presentations/2021/stem-unconference-fractional-equations.pdf){.btn .btn-outline-primary}
+-->
+
+:::
+
+## 2020
+
+### Kennesaw State University Fall Symposium of Student Scholars
+
+*Kennesaw, Georgia • 3 December 2020*
+
+::: {.presentation}
+
+#### Soil bacteria: Metabolic diversity in a wildlife management area
+
+Krakue, D., Duncan, E., Rajagopalan, R., **Green, N.**, and Jackson, P.
+
+<span class="student-badge">Student-led</span>
+
+<!-- Add poster/talk badge when known. -->
+
+<!--
+[Presentation file](files/presentations/2020/ksu-soil-bacteria.pdf){.btn .btn-outline-primary}
+-->
+
+:::
+
+### SETAC North America 41st Annual Meeting
+
+*Portland, Oregon • 15–19 November 2020*
+
+::: {.presentation}
+
+#### Assessing the risks of pesticides to terrestrial threatened and endangered species: Opportunities to refine risk assessments for listed terrestrial plants
+
+Kern, M., **Green, N.**, Snyder, N., Moore, D., Teed, S., Priest, C., Rathjens, H., Winchell, M., and Blickley, T.
+
+<!-- Add poster/talk badge when known. -->
+
+<!--
+[Presentation file](files/presentations/2020/setac-listed-plants.pdf){.btn .btn-outline-primary}
+-->
+
+:::
+
+::: {.presentation}
+
+#### Assessing the risk of pesticides to terrestrial threatened and endangered species: An overview of the TERESA modeling suite
+
+Moore, D., Teed, R. S., Priest, C., Bergin, R., McCarroll-Butler, C., Rathjens, H., Winchell, M., Kern, M., **Green, N.**, and Blickley, T. M.
+
+<!-- Add poster/talk badge when known. -->
+
+<!--
+[Presentation file](files/presentations/2020/setac-teresa-modeling-suite.pdf){.btn .btn-outline-primary}
+-->
+
+:::

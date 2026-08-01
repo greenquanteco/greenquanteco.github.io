@@ -28,7 +28,7 @@ For up-to-date course information, please see the [KSU Dynamic Schedule](https:/
 A graduate-level course in biological data management, visualization, statistical modeling, and reproducible analysis using R. Topics include linear and generalized linear models, mixed models, multivariate methods, and effective communication of quantitative results.
 
 [Open course book](https://greenquanteco.github.io/appl-biol-data-analysis/){.btn .btn-primary}
-[View syllabus](files/syllabi/biol-7410-syllabus.pdf){.btn .btn-outline-secondary}
+[View syllabus](files/biol-7410-syllabus-fall-2026.pdf){.btn .btn-outline-secondary}
 
 :::
 
@@ -75,7 +75,7 @@ An upper-level laboratory and lecture course examining vertebrate structure, fun
 
 ::: {.course-image}
 
-![Representative image of vertebrate diversity.](images/teaching/vertebrate-zoology.jpg)
+![500 million years of lifestyle inflation.](images/teach-biol-3315k.jpg)
 
 :::
 
@@ -85,7 +85,7 @@ An upper-level laboratory and lecture course examining vertebrate structure, fun
 
 A survey of vertebrate diversity, evolution, ecology, and natural history. The course emphasizes major evolutionary transitions, comparative biology, classification, and identification of regional vertebrates. The lab component of the course is a semester-long course-based undergraduate research experience (CURE).
 
-[View syllabus](files/syllabi/vertebrate-zoology-syllabus.pdf){.btn .btn-outline-secondary}
+[View syllabus](files/biol-3315k-syllabus-fall-2026.pdf){.btn .btn-outline-secondary}
 
 :::
 
@@ -97,10 +97,13 @@ A survey of vertebrate diversity, evolution, ecology, and natural history. The c
 
 ::: {.course-content}
 
-### Graduate research and directed methods
+### Undergraduate research and Directed Methods
 
 I regularly supervise graduate research, thesis projects, independent studies, and directed methods courses in quantitative ecology, population biology, spatial analysis, and reproducible scientific computing.
 
+Many undergraduates who work in the lab also enroll in **BIOL 3110L: Directed Methods**. This is a variable credit hour course where students to gain in-depth skills with a specific set of research methodologies through direct involvement in faculty-led research or scholarship. Reach out by [email](mailto:ngreen62@kennesaw.edu) to discuss taking directed methods.
+
+Students who want to conduct an independent research project within my lab, usually over the course of an entire academic year (Fall and Spring), can enroll in **BIOL 4400: Directed Study**. Reach out to me by [email](mailto:ngreen62@kennesaw.edu) prior to the Fall semester if you are interested in exploring this possibility. Please note that I require potential Directed Study students to have previously taken at least 1 hour of **BIOL 3110L** or have similar demonstrated research experience.
 :::
 
 :::
