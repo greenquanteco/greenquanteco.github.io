@@ -1,6 +1,7 @@
 ---
 title: "About"
 toc: true
+toc-depth: 3
 ---
 
 # Background
@@ -9,17 +10,19 @@ My path to Kennesaw State has been somewhat non-traditional. Since completing my
 
 ## Education
 
-::: {.career}
+### Baylor University
+
+:::: {.career}
 
 ::: {.career-image}
 
 ![Conducting small mammal fieldwork during graduate school.](images/people-nick02.jpg)
 
 :::
+<!-- end career-image -->
 
 ::: {.career-text}
 
-### Baylor University
 
 **Ph.D. Biology** (2012)
 
@@ -30,42 +33,50 @@ My path to Kennesaw State has been somewhat non-traditional. Since completing my
 *Effects of habitat affinities and resource needs on edge responses by small mammals.*
 
 :::
+<!-- end career-text -->
 
-:::
+::::
+<!-- end career -->
 
-::: {.career}
+### University of Louisville
+
+:::: {.career}
 
 ::: {.career-image}
 
 ![Swimming in a lake to collect zebra mussels for my REU project at the University of Michigan Biological Station in 2005.](images/people-nick03.jpg){fig-alt="Nick swimming in a lake with an orange buoy."}
 
 :::
+<!-- end career-image -->
 
 ::: {.career-text}
-
-### University of Louisville
 
 **B.S. Biology** (2006)
 
 My undergraduate experience introduced me to ecological research and ultimately inspired me to pursue graduate school and a career in quantitative ecology.
 
 :::
+<!-- end career-text -->
 
-:::
+::::
+<!-- end career -->
 
 ## Professional Experience
 
-::: {.career}
+### Associate Professor of Biology
+
+:::: {.career}
 
 ::: {.career-image}
 
 ![Official faculty portrait.](images/people-nick04.jpg){fig-alt="Official faculty portrait"}
 
 :::
+<!-- end career-image -->
 
 ::: {.career-text}
 
-### Associate Professor of Biology
+
 **Kennesaw State University**  
 **2025–Present**
 
@@ -76,20 +87,25 @@ Research in quantitative ecology of animal populations.
 - Teaching Comparative Vertebrate Anatomy, Vertebrate Zoology, and Applied Biological Data Analysis.
 
 :::
+<!-- end career-text -->
 
-:::
+::::
+<!-- end career -->
 
-::: {.career}
+### Assistant Professor of Biology
+
+:::: {.career}
 
 ::: {.career-image}
 
 ![Showing students how to handle a chipmunk.](images/people-nick05.jpeg)
 
 :::
+<!-- end career-image -->
 
 ::: {.career-text}
 
-### Assistant Professor of Biology
+
 **Kennesaw State University**  
 **2020–2025**
 
@@ -98,14 +114,18 @@ Established the Green Quantitative Ecology Laboratory and developed an externall
 Courses included Principles of Biology II Laboratory, Invertebrate Zoology, Comparative Vertebrate Anatomy, and Applied Biological Data Analysis.
 
 :::
+<!-- end career-text -->
 
-:::
+::::
+<!-- end career -->
 
-::: {.career}
+### Project Scientist
+
+:::: {.career}
 
 ::: {.career-text}
 
-### Project Scientist
+
 **Waterborne Environmental, Inc.**  
 **2018–2020**
 
@@ -114,34 +134,43 @@ Conducted ecological risk assessments for agricultural chemicals using populatio
 Developed simulation software, analyzed large ecological datasets, and contributed to successful research proposals.
 
 :::
+<!-- end career-text -->
 
-:::
+::::
+<!-- end career -->
 
-::: {.career}
+### Applied Statistician (Senior)
+
+:::: {.career}
 
 ::: {.career-text}
 
-### Applied Statistician (Senior)
+
 **The Climate Corporation**  
 **2017–2018**
 
 Developed statistical models supporting precision agriculture and collaborated with software engineers, statisticians, and agronomists to improve data-driven recommendations for growers.
 
 :::
+<!-- end career-text -->
 
-:::
+::::
+<!-- end career -->
 
-::: {.career}
+### Ecologist
+
+:::: {.career}
 
 ::: {.career-image}
 
 ![Conducting fieldwork as an ecologist at USGS in 2016.](images/people-nick01.jpg)
 
 :::
+<!-- end career-image -->
 
 ::: {.career-text}
 
-### Ecologist
+
 **U.S. Geological Survey**  
 **2013–2017**
 
@@ -150,5 +179,7 @@ Developed statistical models for wildlife populations using Bayesian and frequen
 Designed and taught training courses in statistics and R, supervised field crews, and collaborated on research proposals and publications.
 
 :::
+<!-- end career-text -->
 
-:::
+::::
+<!-- end career -->
