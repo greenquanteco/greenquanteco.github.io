@@ -41,8 +41,7 @@ main {
   border-radius: 0.75rem;
 }
 
-.research-card,
-.course-card {
+.research-card {
   height: 100%;
   padding: 1.5rem;
   border: 1px solid #d9d9d9;
@@ -50,18 +49,11 @@ main {
   background: #ffffff;
 }
 
-.research-card h3,
-.course-card h3 {
+.research-card h3 {
   margin-top: 0;
 }
 
-.course-card {
-  padding: 1.75rem;
-}
 
-.course-card .btn {
-  margin-top: 0.75rem;
-}
 
 .research-grid,
 .course-grid {
@@ -192,10 +184,6 @@ button:focus,
 }
 
 .course-card {
-  display: grid;
-  grid-template-columns: 260px minmax(0, 1fr);
-  gap: 1.75rem;
-  align-items: start;
   margin-bottom: 2rem;
   padding: 1.5rem;
   border: 1px solid #d9d9d9;
@@ -203,8 +191,20 @@ button:focus,
   background-color: #ffffff;
 }
 
-.course-card-no-image {
-  grid-template-columns: 1fr;
+.course-card h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.course-layout {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 1.75rem;
+  align-items: start;
+}
+
+.course-card .btn {
+  margin-top: 0.75rem;
 }
 
 .course-image img {
@@ -215,11 +215,6 @@ button:focus,
   border-radius: 0.6rem;
 }
 
-.course-content h3 {
-  margin-top: 0;
-  margin-bottom: 0.75rem;
-}
-
 .course-content .btn {
   margin-top: 0.5rem;
   margin-right: 0.4rem;
@@ -227,7 +222,7 @@ button:focus,
 }
 
 @media (max-width: 760px) {
-  .course-card {
+  .course-layout {
     grid-template-columns: 1fr;
   }
 
@@ -236,6 +231,7 @@ button:focus,
     max-width: 420px;
   }
 }
+
 
 /* Presentations */
 

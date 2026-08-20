@@ -11,21 +11,21 @@
     "href": "teaching.html#graduate-courses",
     "title": "Teaching",
     "section": "Graduate courses",
-    "text": "Graduate courses\n\n\n\n\n\nBIOL 7410 focuses on applying statistical thinking to real datasets.\n\n\n\n\nBIOL 7410: Applied Biological Data Analysis\nA graduate-level course in biological data management, visualization, statistical modeling, and reproducible analysis using R. Topics include linear and generalized linear models, mixed models, multivariate methods, and effective communication of quantitative results.\nOpen course book View syllabus\n\n\n\n\nBayesian Inference for Biologists\nA directed methods seminar introducing Bayesian reasoning and model fitting in R and JAGS. Topics include priors, likelihoods, posterior distributions, MCMC, hierarchical models, and biological applications.\nOpen course book View syllabus"
+    "text": "Graduate courses\n\nBIOL 7410: Applied Biological Data Analysis\n\n\n\n\n\nBIOL 7410 focuses on applying statistical thinking to real datasets.\n\n\n\n\nA graduate-level course in biological data management, visualization, statistical modeling, and reproducible analysis using R. Topics include linear and generalized linear models, mixed models, multivariate methods, and effective communication of quantitative results.\nOpen course book View syllabus\n\n\n\n\nBIOL 7950: Bayesian Inference for Biologists\n\nA directed methods seminar introducing Bayesian reasoning and model fitting in R and JAGS. Topics include priors, likelihoods, posterior distributions, MCMC, hierarchical models, and biological applications.\nOpen course book View syllabus\n\n\n\nBIOL 6490: Special Topics\n\nSpecial Topics courses are seminars developed ad hoc to meet student needs. Sometimes a new course, like BIOL 7410, will be trial run as a Special Topics several times before making it into the catalog. Other times, I can organize a seminar on subjects students are interested. At some point I’d like to try and develop a seminar on Multivariate analysis for biology, Simulation modeling in biology, or other quantitative topics. I’d also love to try something like a “Foundations of ecology” seminar where we read and dissect classic papers to better understand the history discipline. If you are an MSIB student and have an idea for a seminar, please reach out so we can discuss and see if there is enough interest. This works best if we start the process in early Fall semester because of how the curriculum process works."
   },
   {
     "objectID": "teaching.html#undergraduate-courses",
     "href": "teaching.html#undergraduate-courses",
     "title": "Teaching",
     "section": "Undergraduate courses",
-    "text": "Undergraduate courses\n\n\n\n\n\nBig birds, bones, dinosaurs, evolution, math, and so much more!.\n\n\n\n\nComparative Vertebrate Anatomy\nAn upper-level laboratory and lecture course examining vertebrate structure, function, development, and evolution. Students compare anatomical systems across major vertebrate groups through dissection, specimen study, quantitative analysis, and independent research projects.\nView syllabus\n\n\n\n\n\n\n\n500 million years of lifestyle inflation.\n\n\n\n\nVertebrate Zoology\nA survey of vertebrate diversity, evolution, ecology, and natural history. The course emphasizes major evolutionary transitions, comparative biology, classification, and identification of regional vertebrates. The lab component of the course is a semester-long course-based undergraduate research experience (CURE).\nView syllabus"
+    "text": "Undergraduate courses\n\nBIOL 3315K: Vertebrate Zoology\n\n\n\n\n\n500 million years of lifestyle inflation.\n\n\n\n\nA survey of vertebrate diversity, evolution, ecology, and natural history. The course emphasizes major evolutionary transitions, comparative biology, classification, and identification of regional vertebrates. The lab component of the course is a semester-long course-based undergraduate research experience (CURE).\nView syllabus\n\n\n\n\nBIOL 4350K: Comparative Vertebrate Anatomy\n\n\n\n\n\nBig birds, bones, dinosaurs, evolution, math, and so much more!\n\n\n\n\nAn upper-level laboratory and lecture course examining vertebrate structure, function, development, and evolution. Students compare anatomical systems across major vertebrate groups through dissection, specimen study, quantitative analysis, and independent research projects.\nView syllabus"
   },
   {
     "objectID": "teaching.html#additional-teaching",
     "href": "teaching.html#additional-teaching",
     "title": "Teaching",
     "section": "Additional teaching",
-    "text": "Additional teaching\n\n\nUndergraduate research and Directed Methods\nI regularly supervise graduate research, thesis projects, independent studies, and directed methods courses in quantitative ecology, population biology, spatial analysis, and reproducible scientific computing.\nMany undergraduates who work in the lab also enroll in BIOL 3110L: Directed Methods. This is a variable credit hour course where students to gain in-depth skills with a specific set of research methodologies through direct involvement in faculty-led research or scholarship. Reach out by email to discuss taking directed methods.\nStudents who want to conduct an independent research project within my lab, usually over the course of an entire academic year (Fall and Spring), can enroll in BIOL 4400: Directed Study. Reach out to me by email prior to the Fall semester if you are interested in exploring this possibility. Please note that I require potential Directed Study students to have previously taken at least 1 hour of BIOL 3110L or have similar demonstrated research experience."
+    "text": "Additional teaching\nI regularly supervise graduate research, thesis projects, independent studies, and directed methods courses in quantitative ecology, population biology, spatial analysis, and reproducible scientific computing.\n\nBIOL 3110L: Directed Methods\n\nMany undergraduates who work in the lab also enroll in BIOL 3110L: Directed Methods. This is a variable credit hour course where students gain in-depth skills with a specific set of research methodologies through direct involvement in faculty-led research or scholarship. Reach out by email to discuss taking directed methods.\n\n\n\nBIOL 4400: Directed Study\n\nUndergraduate students who want to conduct an independent research project within my lab, usually over the course of an entire academic year (Fall and Spring), can enroll in BIOL 4400: Directed Study. Reach out to me by email prior to the Fall semester if you are interested in exploring this possibility. Please note that I require potential Directed Study students to have previously taken at least 1 hour of BIOL 3110L or have similar demonstrated research experience."
   },
   {
     "objectID": "publications.html",
@@ -124,6 +124,48 @@
     "title": "About",
     "section": "",
     "text": "Official faculty portrait.\n\n\n\n\n\nKennesaw State University\n2025–Present\nResearch in quantitative ecology of animal populations.\n\nAdvising undergraduate and graduate students.\nStatistical consulting and collaboration.\nTeaching Comparative Vertebrate Anatomy, Vertebrate Zoology, and Applied Biological Data Analysis.\n\n\n\n\n\n\n\n\n\n\n\n\n\nShowing students how to handle a chipmunk.\n\n\n\n\n\nKennesaw State University\n2020–2025\nEstablished the Green Quantitative Ecology Laboratory and developed an externally funded research program in ecology and conservation.\nCourses included Principles of Biology II Laboratory, Invertebrate Zoology, Comparative Vertebrate Anatomy, and Applied Biological Data Analysis.\n\n\n\n\n\n\n\n\n\nWaterborne Environmental, Inc.\n2018–2020\nConducted ecological risk assessments for agricultural chemicals using population models, individual-based simulations, and toxicokinetic–toxicodynamic (TKTD) models.\nDeveloped simulation software, analyzed large ecological datasets, and contributed to successful research proposals.\n\n\n\n\n\n\n\n\n\nThe Climate Corporation\n2017–2018\nDeveloped statistical models supporting precision agriculture and collaborated with software engineers, statisticians, and agronomists to improve data-driven recommendations for growers.\n\n\n\n\n\n\n\n\n\n\n\n\nConducting fieldwork as an ecologist at USGS in 2016.\n\n\n\n\n\nU.S. Geological Survey\n2013–2017\nDeveloped statistical models for wildlife populations using Bayesian and frequentist methods, mark–recapture analyses, distance sampling, and stochastic simulation.\nDesigned and taught training courses in statistics and R, supervised field crews, and collaborated on research proposals and publications."
+  },
+  {
+    "objectID": "contact.html",
+    "href": "contact.html",
+    "title": "Contact",
+    "section": "",
+    "text": "The best way to reach me is by email:\nEmail me"
+  },
+  {
+    "objectID": "contact.html#get-in-touch",
+    "href": "contact.html#get-in-touch",
+    "title": "Contact",
+    "section": "",
+    "text": "The best way to reach me is by email:\nEmail me"
+  },
+  {
+    "objectID": "contact.html#find-me-on-campus",
+    "href": "contact.html#find-me-on-campus",
+    "title": "Contact",
+    "section": "Find me on campus",
+    "text": "Find me on campus\nYou can also find me on campus most weekdays (and some weekends):\nMailing address:\nDr. Nick Green Department of Ecology, Evolution, and Organismal Biology Kennesaw State University\n370 Paulding Ave Kennesaw, Georgia 30144\nMail drop: 1202\nOffice: Science (SC) 331\nLab: Science (SC) 363\nPhone: +1 470-578-6546\nFor directions, parking information, and campus maps, visit the Kennesaw State University website."
+  },
+  {
+    "objectID": "contact.html#professional-profiles",
+    "href": "contact.html#professional-profiles",
+    "title": "Contact",
+    "section": "Professional profiles",
+    "text": "Professional profiles\n\nKennesaw State University faculty profile\nPersonal website\nGoogle Scholar\nORCID\nGitHub"
+  },
+  {
+    "objectID": "contact.html#social-media",
+    "href": "contact.html#social-media",
+    "title": "Contact",
+    "section": "Social media",
+    "text": "Social media\nSometimes I post lab news, announcements, or random thoughts on social media. Any views expressed on social media are exclusively mine and do not represent any employer, past or present.\n\nBluesky\nTwitter"
+  },
+  {
+    "objectID": "contact.html#students-and-potential-students",
+    "href": "contact.html#students-and-potential-students",
+    "title": "Contact",
+    "section": "Students (and potential students)",
+    "text": "Students (and potential students)\n\nCurrent students\nIf you are currently enrolled in one of my courses, please use your KSU email account when contacting me. For course-specific information and materials, refer to D2L Brightspace and the course syllabus.\n\n\nResearch opportunities\nI regularly work with undergraduate and graduate students on research in ecology, evolution, population biology, and quantitative methods.\nUndergraduate students interested in joining the lab, enrolling in BIOL 3110L: Directed Methods, or pursuing an independent research project via BIOL 4400: Directed Study or an Honors Capstone thesis are welcome to contact me.\nProspective graduate students interested in conducting thesis research in my lab are also welcome to get in touch. When emailing about research opportunities, please briefly describe your interests and relevant experience. Please note that the next opening for a masters student will be Fall 2028.\nEmail about research opportunities"
   },
   {
     "objectID": "news.html",

@@ -1,0 +1,64 @@
+---
+title: "Contact"
+toc: true
+---
+
+## Get in touch
+
+The best way to reach me is by email:
+
+[Email me](mailto:ngreen62@kennesaw.edu?subject=Website%20inquiry){.btn .btn-primary}
+
+## Find me on campus
+
+You can also find me on campus most weekdays (and some weekends):
+
+**Mailing address:**
+
+Dr. Nick Green
+Department of Ecology, Evolution, and Organismal Biology
+Kennesaw State University  
+370 Paulding Ave
+Kennesaw, Georgia 30144
+
+**Mail drop:** 1202
+
+**Office:** Science (SC) 331
+
+**Lab:** Science (SC) 363
+
+**Phone:** +1 470-578-6546
+
+For directions, parking information, and campus maps, visit the [Kennesaw State University website](https://www.kennesaw.edu/).
+
+## Professional profiles
+
+- [Kennesaw State University faculty profile](https://facultyweb.kennesaw.edu/ngreen62/)
+- [Personal website](https://greenquanteco.github.io)
+- [Google Scholar](https://scholar.google.com/citations?user=9Bxwqz8AAAAJ&hl=en)
+- [ORCID](https://orcid.org/0000-0002-8538-4191)
+- [GitHub](https://github.com/greenquanteco)
+
+## Social media
+
+Sometimes I post lab news, announcements, or random thoughts on social media. Any views expressed on social media are exclusively mine and do not represent any employer, past or present.
+
+- [Bluesky](https://bsky.app/profile/greenquanteco.bsky.social)
+- [Twitter](https://x.com/GreenQuantEco)
+
+
+## Students (and potential students)
+
+### Current students
+
+If you are currently enrolled in one of my courses, please use your KSU email account when contacting me. For course-specific information and materials, refer to D2L Brightspace and the course syllabus.
+
+### Research opportunities
+
+I regularly work with undergraduate and graduate students on research in ecology, evolution, population biology, and quantitative methods.
+
+Undergraduate students interested in joining the lab, enrolling in **BIOL 3110L: Directed Methods**, or pursuing an independent research project via **BIOL 4400: Directed Study** or an [Honors Capstone thesis](https://campus.kennesaw.edu/colleges-departments/honors/academics/capstones.php) are welcome to contact me.
+
+Prospective graduate students interested in conducting thesis research in my lab are also welcome to get in touch. When emailing about research opportunities, please briefly describe your interests and relevant experience. Please note that the next opening for a masters student will be Fall 2028.
+
+[Email about research opportunities](mailto:ngreen62@kennesaw.edu?subject=Research%20opportunities){.btn .btn-outline-secondary}

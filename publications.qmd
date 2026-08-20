@@ -5,7 +5,7 @@ toc: true
 
 This page includes peer-reviewed publications, reports, educational resources, and other scholarly products. Publications are listed in reverse chronological order within each section.
 
-If you'd like a PDF reprint, just [send me an email](mailto:ngreen62@kennesaw.edu)!
+If you'd like a PDF reprint, just [send me an email](mailto:ngreen62@kennesaw.edu?subject=Reprint%20request)!
 
 [ORCID](https://orcid.org/0000-0002-8538-4191){.btn .btn-outline-primary}
 [Google Scholar](https://scholar.google.com/citations?user=9Bxwqz8AAAAJ&hl=en){.btn .btn-outline-primary}
